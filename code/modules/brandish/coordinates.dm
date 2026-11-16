@@ -23,7 +23,13 @@
 /// ICON_X/Y are screen axes even when a surface uses a rotated icon bank.
 /// Use this for a click offset that will be stored in world pixel_x/y. Offsets
 /// inside upright artwork should instead remain in screen pixel_w/z.
-/proc/camera_click_offset(list/modifiers, facing = NORTH)
+/proc/camera_click_offset(list/modifiers, facing = NORTH, atom/world_origin, client/viewer)
+	// A turf-anchored effect can use the actual map click, including oversized
+	// sprite origins and camera offsets. Sprite-local children omit this pair.
+	if(world_origin && viewer)
+		var/list/vector = viewer.camera_click_vector(modifiers, world_origin)
+		if(vector)
+			return vector
 	if(isnull(LAZYACCESS(modifiers, ICON_X)) || isnull(LAZYACCESS(modifiers, ICON_Y)))
 		return
 	return camera_screen_to_world(text2num(modifiers[ICON_X]) - ICON_SIZE_X / 2, text2num(modifiers[ICON_Y]) - ICON_SIZE_Y / 2, facing)
@@ -61,8 +67,5 @@
 	return vector
 
 /// Combined sprite offset for world-aligned exporters (photos, flattened icons).
-/proc/appearance_pixel_offset(image/appearance, facing = NORTH)
-	var/list/offset = camera_world_to_screen(appearance.pixel_x, appearance.pixel_y, facing)
-	offset[1] += appearance.pixel_w
-	offset[2] += appearance.pixel_z
-	return offset
+/proc/appearance_pixel_offset(image/appearance)
+	return list(appearance.pixel_x + appearance.pixel_w, appearance.pixel_y + appearance.pixel_z)

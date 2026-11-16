@@ -41,7 +41,7 @@
 
 /obj/machinery/atmospherics/pipe/multiz/update_icon()
 	cut_overlays()
-	pipe.icon = GLOB.brandish_assets.icon_for(initial(icon), "surface", dir)
+	pipe.icon = GLOB.brandish_assets.icon_for(initial(icon), BRANDISH_MODE_SURFACE, dir)
 	center.icon = pipe.icon
 	pipe.color = front_node ? front_node.pipe_color : rgb(255, 255, 255)
 	pipe.icon_state = "pipe-[piping_layer]"

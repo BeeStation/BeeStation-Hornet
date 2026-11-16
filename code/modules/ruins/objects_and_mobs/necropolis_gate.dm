@@ -1,6 +1,6 @@
 //The necropolis gate is used to call forth Legion from the Necropolis.
 /obj/structure/necropolis_gate
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "necropolis gate"
 	desc = "A massive stone gateway."
 	icon = 'icons/effects/96x96.dmi'
@@ -85,7 +85,7 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/opacity_blocker
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_blocker"
 	layer = EDGED_TURF_LAYER
@@ -218,7 +218,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		)
 
 /obj/effect/temp_visual/necropolis
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "door_closing"
 	appearance_flags = NONE
@@ -236,7 +236,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	duration = 38
 
 /obj/structure/necropolis_arch
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "necropolis arch"
 	desc = "A massive arch over the necropolis gate, set into a massive tower of stone."
 	icon = 'icons/effects/160x160.dmi'
@@ -264,7 +264,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 //stone tiles for boss arenas
 /obj/structure/stone_tile
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "stone tile"
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "pristine_tile1"

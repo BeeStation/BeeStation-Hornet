@@ -52,6 +52,7 @@
 			to_chat(src, span_warning("You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you."))
 		set_look_direction(LOOKING_DIRECTION_NONE)
 		return FALSE
+	client?.remember_brandish_zlook(src, base)
 	set_mob_eye_to(base)
 	return TRUE
 

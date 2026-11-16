@@ -561,7 +561,9 @@
 	. = dir != newdir
 	dir = newdir
 	APPLY_BRANDISH_ICON(src)
-	world_space_icon?.refresh()
+	// World mode refreshes its projector through APPLY_BRANDISH_ICON above.
+	if(brandish_icon_mode != BRANDISH_MODE_WORLD)
+		world_space_icon?.refresh()
 	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.

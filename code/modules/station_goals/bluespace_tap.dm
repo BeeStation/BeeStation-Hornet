@@ -201,6 +201,7 @@
   * has to be generated for the station goal to count as completed.
   */
 /obj/machinery/power/bluespace_tap
+	brandish_icon_mode = BRANDISH_MODE_WORLD
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward

@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(map_incident_displays)
 
 /obj/machinery/incident_display
 	// A connected two-tile panel: frame, content and emissive art turn together.
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	bound_width = 64
 	name = "delamination incident display"
 	desc = "A signs describe how long it's been since the last delamination incident. Features an advert for SAFETY MOTH."

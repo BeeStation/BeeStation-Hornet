@@ -108,9 +108,9 @@
 		return FALSE
 	var/mob/living/user = buckled_mobs[1]
 	z_flick("[base_icon_state]-u", src)
-	animate(user, pixel_y = pixel_shift_y, time = 0.4 SECONDS, SINE_EASING)
+	animate(user, pixel_z = user.get_screen_base_pixel_z() + pixel_shift_y, time = 0.4 SECONDS, SINE_EASING)
 	playsound(user, 'sound/machines/creak.ogg', 60, TRUE)
-	animate(pixel_y = user.base_pixel_y, time = 0.4 SECONDS, SINE_EASING)
+	animate(pixel_z = user.get_screen_base_pixel_z() + user.has_offset(pixel = PIXEL_Z_OFFSET), time = 0.4 SECONDS, SINE_EASING)
 
 	return TRUE
 

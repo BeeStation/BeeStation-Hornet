@@ -34,8 +34,8 @@
 
 	// The color matrix stores WORLD corners. Rotate the channel basis along
 	// with the map, not the calculated colors, including the additive pass.
-	if(GLOB.brandish_assets.supports(LIGHTING_ICON, "basis"))
-		additive_underlay = image(icon = GLOB.brandish_assets.icon_for(LIGHTING_ICON, "basis", NORTH), icon_state = "", dir = NORTH, layer = FLOAT_LAYER)
+	if(GLOB.brandish_assets.supports(LIGHTING_ICON, BRANDISH_MODE_BASIS))
+		additive_underlay = image(icon = GLOB.brandish_assets.icon_for(LIGHTING_ICON, BRANDISH_MODE_BASIS, NORTH), icon_state = "", dir = NORTH, layer = FLOAT_LAYER)
 	else
 		additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER)
 	additive_underlay.plane = LIGHTING_PLANE_ADDITIVE
@@ -113,7 +113,7 @@
 
 	if(red_corner.applying_additive || green_corner.applying_additive || blue_corner.applying_additive || alpha_corner.applying_additive)
 		affected_turf.underlays -= additive_underlay
-		additive_underlay.icon_state = GLOB.brandish_assets.supports(LIGHTING_ICON, "basis") ? "" : "light"
+		additive_underlay.icon_state = GLOB.brandish_assets.supports(LIGHTING_ICON, BRANDISH_MODE_BASIS) ? "" : "light"
 
 		additive_underlay.color = list(
 			red_corner.add_r, red_corner.add_g, red_corner.add_b, 00,

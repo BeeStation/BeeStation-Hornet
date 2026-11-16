@@ -114,7 +114,7 @@
 		for(var/thing in C.parallax_layers)
 			var/atom/movable/screen/parallax_layer/L = thing
 			L.icon_state = initial(L.icon_state)
-			L.update_o(C.view)
+			L.update_o(C.screen_view())
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if (T > animate_time)
 				animate_time = T
@@ -173,7 +173,7 @@
 
 		if (newstate in icon_states(L.icon))
 			L.icon_state = newstate
-			L.update_o(C.view)
+			L.update_o(C.screen_view())
 
 		L.transform = newtransform
 
@@ -397,16 +397,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_g
 
 /atom/movable/screen/parallax_layer/planet/update_o()
 	return //Shit wont move
-
-/// Reproject cached screen offsets when only the camera heading changes.
-/client/proc/rotate_camera_parallax(old_dir, new_dir)
-	for(var/atom/movable/screen/parallax_layer/layer as anything in parallax_layers)
-		var/list/world_offset = camera_screen_to_world(layer.offset_x, layer.offset_y, old_dir)
-		var/list/screen_offset = camera_world_to_screen(world_offset[1], world_offset[2], new_dir)
-		layer.offset_x = screen_offset[1]
-		layer.offset_y = screen_offset[2]
-		layer.screen_loc = "CENTER-7:[round(layer.offset_x, 1)],CENTER-7:[round(layer.offset_y, 1)]"
-		animate(layer)
-		layer.transform = matrix()
-	if(length(parallax_layers))
-		mob?.hud_used?.set_parallax_movedir(parallax_movedir, TRUE, force = TRUE)

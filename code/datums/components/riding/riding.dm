@@ -144,39 +144,66 @@
 		passindex++
 		update_rider_layer_and_offsets(dir, passindex, buckled_mob)
 
-	var/list/offsets = get_parent_offsets_and_layers()?["[dir]"]
-	var/px = GET_X_OFFSET(offsets)
-	var/py = GET_Y_OFFSET(offsets)
+	var/list/directional_offsets = get_parent_offsets_and_layers()
+	var/list/offsets = directional_offsets?["[dir]"]
+	// Non-living parent tables contain legacy absolute sprite offsets. Remove
+	// the canvas origin already moved to screen axes before splitting height.
+	var/origin_x = isliving(seat) ? 0 : seat.brandish_origin_screen_x
+	var/origin_y = isliving(seat) ? 0 : seat.brandish_origin_screen_y
+	var/px = GET_X_OFFSET(offsets) - origin_x
+	var/py = GET_Y_OFFSET(offsets) - origin_y
+	var/height = get_uniform_offset_height(directional_offsets, origin_y)
+	py -= height
 	var/layer = GET_LAYER(offsets, seat.layer)
 
 	if(isliving(seat))
 		var/mob/living/living_seat = seat
-		living_seat.add_offsets(BEING_RIDDEN_SOURCE, x_add = px, y_add = py, animate = animate)
+		living_seat.add_offsets(BEING_RIDDEN_SOURCE, x_add = px, y_add = py, z_add = height, animate = animate)
 	else
 		seat.pixel_x = px + seat.base_pixel_x
 		seat.pixel_y = py + seat.base_pixel_y
+		seat.pixel_w = seat.get_screen_base_pixel_w()
+		seat.pixel_z = seat.get_screen_base_pixel_z() + height
 	seat.layer = layer
 
 /datum/component/riding/proc/update_rider_layer_and_offsets(dir, passindex, mob/living/rider, animate = FALSE)
 	if(rider.dir != dir)
 		rider.setDir(dir)
 
-	var/list/diroffsets = get_rider_offsets_and_layers(passindex, rider)?["[dir]"]
+	var/list/directional_offsets = get_rider_offsets_and_layers(passindex, rider)
+	var/list/diroffsets = directional_offsets?["[dir]"]
 	var/x_offset = GET_X_OFFSET(diroffsets)
 	var/y_offset = GET_Y_OFFSET(diroffsets)
+	var/height = get_uniform_offset_height(directional_offsets)
+	y_offset -= height
 	var/layer = GET_LAYER(diroffsets, rider.layer)
 
 	// if they are intended to be buckled, offset their existing offset
 	var/atom/movable/seat = parent
 	if(seat.buckle_lying && rider.body_position == LYING_DOWN)
-		y_offset += (-1 * PIXEL_Y_OFFSET_LYING)
+		height += (-1 * PIXEL_Y_OFFSET_LYING)
 
-	rider.add_offsets(RIDING_SOURCE, x_add = x_offset, y_add = y_offset, animate = animate)
+	rider.add_offsets(RIDING_SOURCE, x_add = x_offset, y_add = y_offset, z_add = height, animate = animate)
 	rider.layer = layer
 
 #undef GET_X_OFFSET
 #undef GET_Y_OFFSET
 #undef GET_LAYER
+
+/// A Y value shared by all four physical headings is the seat's height.
+/// Direction-dependent pose/tile placement stays in world x/y. Do not infer a
+/// height from asymmetric tables: those require an explicit per-type review.
+/datum/component/riding/proc/get_uniform_offset_height(list/directional_offsets, origin = 0)
+	var/height
+	for(var/facing in GLOB.cardinals)
+		var/list/offset = directional_offsets?["[facing]"]
+		if(length(offset) < 2 || !isnum(offset[2]))
+			return 0
+		if(isnull(height))
+			height = offset[2]
+		else if(height != offset[2])
+			return 0
+	return (height || 0) - origin
 
 /**
  * Determines where riders get offset while riding
@@ -234,6 +261,8 @@
 	else
 		seat.pixel_x = seat.base_pixel_x
 		seat.pixel_y = seat.base_pixel_y
+		seat.pixel_w = seat.get_screen_base_pixel_w()
+		seat.pixel_z = seat.get_screen_base_pixel_z()
 	seat.layer = initial(seat.layer)
 
 //MOVEMENT

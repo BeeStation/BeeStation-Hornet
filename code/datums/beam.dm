@@ -135,7 +135,7 @@
 	var/DY = (32*target.y+target_py)-(32*origin.y+origin_py)
 	var/N = 0
 	var/length = round(sqrt((DX)**2+(DY)**2)) //hypotenuse of the triangle formed by target and origin's displacement
-	var/project_world = GLOB.brandish_assets.supports(icon, "viewGates")
+	var/project_world = GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_VIEW_GATES)
 	if(project_world)
 		// Every full segment shares the same angle. Project the shared visual,
 		// not its parent: vis_contents is not part of the parent's source icon.
@@ -247,12 +247,14 @@
 	. = ..()
 	if(!projected || !clip_length)
 		return
+	clear_layers()
 	var/index = 0
 	for(var/facing in GLOB.cardinals)
 		var/image/part = layers[++index]
 		part.icon = clipped_gate(gates["[facing]"], "[owner.icon_state]@[last_dir]", clip_length)
 		// icon(file, state) retains all native dirs/frames but names the state "".
 		part.icon_state = ""
+	show_layers()
 
 /datum/world_space_icon/beam/proc/clipped_gate(resource, state, clip_length)
 	var/static/list/clipped_gates = list()

@@ -156,7 +156,7 @@
 	update_perspective()
 
 /obj/structure/railing/perspective/proc/update_perspective()
-	if(!GLOB.brandish_assets.supports(icon, "foreground"))
+	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_FOREGROUND))
 		update_perspective_original()
 		return
 

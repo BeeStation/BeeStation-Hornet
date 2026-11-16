@@ -581,61 +581,17 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		#endif
 
 
-/// Round-local baseline for clients without a camera owning their heading.
-GLOBAL_VAR_INIT(default_client_dir, NORTH)
-
-/// Reject diagonals, zero and arbitrary values before changing any clients.
-/proc/set_default_client_dir(newdir)
-	if(!(newdir in GLOB.cardinals))
-		return FALSE
-	GLOB.default_client_dir = newdir
-	// Include clients still authenticating, not just GLOB.clients.
-	for(var/client/viewer in GLOB.clients_unsafe)
-		viewer.apply_default_client_dir()
-	return TRUE
-
-/client/proc/apply_default_client_dir()
-	// Observe mirrors own the heading just like the watched camera does.
-	if(!brandish_disconnecting && !brandish_camera && !brandish_mirror)
-		setDir(GLOB.default_client_dir)
-
-/client/proc/set_default_client_direction(newdir as text|null)
-	set name = "Set Default Client Direction"
-	set category = "Debug"
-	set desc = "Set the round's default view direction: NORTH (1), SOUTH (2), EAST (4), or WEST (8)."
-	if(!holder || !(holder.rank.rights & (R_ADMIN | R_DEBUG)))
-		return
-	var/list/directions = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
-	if(isnull(newdir) || newdir == "")
-		newdir = input(src, "Choose the default view direction for this round.", "Default client direction", uppertext(dir2text(GLOB.default_client_dir))) as null|anything in directions
-		if(isnull(newdir))
-			return
-	// Input yields; the caller may have lost their rights in the meantime.
-	if(!holder || !(holder.rank.rights & (R_ADMIN | R_DEBUG)))
-		return
-	var/direction = directions[uppertext(trim(newdir))]
-	if(isnull(direction))
-		var/list/numeric_directions = list("1" = NORTH, "2" = SOUTH, "4" = EAST, "8" = WEST)
-		direction = numeric_directions[trim(newdir)]
-	if(!set_default_client_dir(direction))
-		to_chat(src, span_warning("Choose NORTH (1), SOUTH (2), EAST (4), or WEST (8)."))
-		return
-	log_admin("[key_name(src)] set the default client direction to [dir2text(direction)] ([direction]).")
-	message_admins("[key_name_admin(src)] set the default client direction to [dir2text(direction)] ([direction]).")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Default Client Direction")
-
 //Hook, override it to run code when dir changes
 //Like for /atoms, but clients are their own snowflake FUCK
 /client/proc/setDir(newdir)
 	var/old_dir = dir
 	dir = newdir
 	if(old_dir != newdir)
-		if(brandish_camera)
-			brandish_camera.update_offset()
-		else if(camera_state)
-			camera_state.apply()
-		else
-			apply_camera_view(camera_view_for_direction(view, old_dir))
+		if(!brandish_camera)
+			if(camera_state)
+				camera_state.apply()
+			else
+				apply_camera_view(camera_view_for_direction(view, old_dir))
 		if(mob?.observers)
 			mob.sync_brandish_observers()
 		rotate_camera_parallax(old_dir, newdir)
@@ -693,23 +649,6 @@ GLOBAL_VAR_INIT(default_client_dir, NORTH)
 		camera_state.apply()
 		return
 	apply_camera_view(new_size)
-
-/// Apply an already composed view. Camera effects must use change_view/effects.
-/client/proc/apply_camera_view(new_size)
-	if (isnull(new_size))
-		CRASH("change_view called without argument.")
-
-	var/applied_view = camera_view_for_direction(new_size, dir)
-	if(view == applied_view)
-		return
-	view = applied_view
-	SEND_SIGNAL(src, COMSIG_VIEW_SET, applied_view)
-	apply_clickcatcher()
-	mob?.reload_fullscreen()
-	if (isliving(mob))
-		var/mob/living/M = mob
-		M.update_damage_hud()
-	attempt_auto_fit_viewport()
 
 /client/proc/generate_clickcatcher()
 	if(!void)

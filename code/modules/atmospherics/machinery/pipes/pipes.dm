@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	var/image/brandish_pipe_image
 	icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
 	damage_deflection = 12

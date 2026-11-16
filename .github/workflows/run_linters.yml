@@ -78,6 +78,9 @@ jobs:
       - name: Prepare directional icon resources
         run: node tools/brandish-camera/generate-icons.mjs .
 
+      - name: Test directional icon generator
+        run: node --test tools/brandish-camera/generate-icons.test.mjs
+
       - name: Run grep checks
         if: ${{ !cancelled() }}
         background: true

@@ -4,7 +4,7 @@ All the important duct code:
 /code/datums/ductnet.dm
 */
 /obj/machinery/duct
-	brandish_icon_mode = "fixed_surface"
+	brandish_icon_mode = BRANDISH_MODE_FIXED_SURFACE
 	name = "fluid duct"
 	icon = 'icons/obj/plumbing/fluid_ducts.dmi'
 	icon_state = "nduct"
@@ -262,7 +262,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 	APPLY_BRANDISH_ICON(src)
 
 /obj/machinery/duct/apply_brandish_icon()
-	if(brandish_icon_mode != "fixed_surface" || !GLOB.brandish_assets.enabled)
+	if(brandish_icon_mode != BRANDISH_MODE_FIXED_SURFACE || !GLOB.brandish_assets.enabled)
 		return ..()
 	var/image/geometry = GLOB.brandish_assets.fixed_surface_overlay(initial(icon), icon_state)
 	if(!geometry)
@@ -355,7 +355,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 
 ///has a total of 5 layers and doesnt give a shit about color. its also dumb so doesnt autoconnect.
 /obj/machinery/duct/multilayered
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "duct layer-manifold"
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "multiduct"

@@ -1,6 +1,4 @@
 {
-  "schema": 2,
-  "description": "Artwork classes 1 (single-dir upright), 2 (single-dir world geometry), 3 (native directional art). Generation modes implement geometry only; native directional billboards already follow client.dir.",
   "rules": [
     {
       "prefix": "icons/turf/",
@@ -9,7 +7,7 @@
         "smooth",
         "corner"
       ],
-      "directionalSurface": true
+      "directional": true
     },
     {
       "prefix": "icons/obj/",
@@ -33,320 +31,460 @@
       ]
     }
   ],
+  "limits": {
+    "geometry": 256,
+    "surface": 32
+  },
   "files": {
-    "icons/effects/lighting_object.dmi": [
-      "basis"
-    ],
-    "icons/obj/doors/airlocks/glass_large/glass_large.dmi": [
-      "surface"
-    ],
-    "icons/obj/doors/airlocks/glass_large/overlays.dmi": [
-      "surface"
-    ],
-    "icons/obj/clockwork_objects.dmi": [
-      "surface"
-    ],
-    "icons/effects/blood.dmi": [
-      "surface"
-    ],
-    "icons/effects/crayondecal.dmi": [
-      "surface"
-    ],
-    "icons/effects/tomatodecal.dmi": [
-      "surface"
-    ],
-    "icons/effects/footprints.dmi": [
-      "surface"
-    ],
-    "icons/effects/dirt.dmi": [
-      "surface",
-      "smooth",
-      "corner"
-    ],
-    "icons/effects/navigation.dmi": [
-      "smooth"
-    ],
-    "icons/obj/machines/gasrig.dmi": [
-      "surface"
-    ],
-    "icons/obj/power_cond/cables.dmi": [
-      "surface"
-    ],
-    "icons/obj/2x2.dmi": [
-      "surface"
-    ],
-    "icons/obj/3x3.dmi": [
-      "surface"
-    ],
-    "icons/obj/4x7.dmi": [
-      "surface"
-    ],
-    "icons/obj/engine_chopped.dmi": [
-      "surface"
-    ],
-    "icons/obj/atmospherics/components/binary_devices.dmi": [
-      "surface"
-    ],
-    "icons/obj/atmospherics/components/thermomachine.dmi": [
-      "surface"
-    ],
-    "icons/obj/atmospherics/components/trinary_devices.dmi": [
-      "surface"
-    ],
-    "icons/obj/atmospherics/components/unary_devices.dmi": [
-      "surface"
-    ],
-    "icons/obj/decals.dmi": [
-      "surface"
-    ],
-    "icons/obj/barsigns.dmi": [
-      "surface"
-    ],
-    "icons/obj/machines/gravity_generator.dmi": [
-      "surface"
-    ],
-    "icons/obj/machines/gateway.dmi": [
-      "surface"
-    ],
-    "icons/effects/96x96.dmi": [
-      "surface"
-    ],
-    "icons/effects/160x160.dmi": [
-      "surface"
-    ],
-    "icons/obj/machines/incident_display.dmi": [
-      "surface"
-    ],
-    "icons/obj/plumbing/fluid_ducts.dmi": [
-      "surface"
-    ],
-    "icons/obj/plumbing/plumbers.dmi": [
-      "surface"
-    ],
-    "icons/obj/recycling.dmi": [
-      "surface"
-    ]
-  },
-  "rectangularSurfaces": [
-    "icons/obj/doors/airlocks/glass_large/glass_large.dmi",
-    "icons/obj/doors/airlocks/glass_large/overlays.dmi",
-    "icons/obj/2x2.dmi",
-    "icons/obj/3x3.dmi",
-    "icons/obj/4x7.dmi",
-    "icons/obj/barsigns.dmi",
-    "icons/obj/machines/gateway.dmi",
-    "icons/effects/96x96.dmi",
-    "icons/effects/160x160.dmi",
-    "icons/obj/machines/incident_display.dmi"
-  ],
-  "directionalSurfaces": [
-    "icons/obj/atmospherics/pipes/manifold.dmi",
-    "icons/obj/atmospherics/pipes/bridge_pipe.dmi",
-    "icons/obj/atmospherics/pipes/color_adapter.dmi",
-    "icons/obj/2x2.dmi",
-    "icons/obj/3x3.dmi",
-    "icons/obj/4x7.dmi",
-    "icons/obj/atmospherics/pipes/he-simple.dmi",
-    "icons/obj/atmospherics/pipes/he-manifold.dmi",
-    "icons/obj/atmospherics/pipes/he-junction.dmi",
-    "icons/obj/atmospherics/pipes/multiz.dmi",
-    "icons/obj/atmospherics/components/binary_devices.dmi",
-    "icons/obj/atmospherics/components/thermomachine.dmi",
-    "icons/obj/atmospherics/components/trinary_devices.dmi",
-    "icons/obj/atmospherics/components/unary_devices.dmi",
-    "icons/obj/barsigns.dmi",
-    "icons/obj/plumbing/fluid_ducts.dmi",
-    "icons/obj/atmospherics/pipes/disposal.dmi",
-    "icons/obj/recycling.dmi"
-  ],
-  "foreground": {
-    "icons/obj/beds_chairs/chairs.dmi": "chair",
-    "icons/obj/beds_chairs/benches.dmi": "chair",
-    "icons/obj/beds_chairs/sofa.dmi": "chair",
-    "icons/obj/fluff.dmi": "railing",
-    "icons/obj/platforms.dmi": "platform"
-  },
-  "worldTransforms": [
-    "icons/obj/projectiles.dmi",
-    "icons/obj/projectiles_tracer.dmi",
-    "icons/obj/projectiles_muzzle.dmi",
-    "icons/obj/projectiles_impact.dmi",
-    "icons/effects/effects.dmi",
-    "icons/effects/beam.dmi",
-    "icons/obj/machines/particle_accelerator.dmi",
-    "icons/obj/food/food.dmi",
-    "icons/obj/meteor.dmi",
-    "icons/obj/guns/toy.dmi",
-    "icons/obj/food/burgerbread.dmi",
-    "icons/obj/hydroponics/harvest.dmi",
-    "icons/obj/structures.dmi",
-    "icons/effects/light_overlays/light_32.dmi",
-    "icons/effects/light_overlays/light_64.dmi",
-    "icons/effects/light_overlays/light_96.dmi",
-    "icons/effects/light_overlays/light_128.dmi",
-    "icons/effects/light_overlays/light_160.dmi",
-    "icons/effects/light_overlays/light_192.dmi",
-    "icons/effects/light_overlays/light_224.dmi",
-    "icons/effects/light_overlays/light_256.dmi",
-    "icons/effects/light_overlays/light_288.dmi",
-    "icons/effects/light_overlays/light_320.dmi",
-    "icons/effects/light_overlays/light_352.dmi",
-    "icons/obj/solar.dmi",
-    "icons/obj/xenoarchaeology/xenoartifact.dmi"
-  ],
-  "maxGeometrySize": 256,
-  "maxSurfaceSize": 32,
-  "surfaceStates": {
-    "icons/misc/Beach/beach.dmi": [
-      "Water-0"
-    ],
-    "icons/obj/2x2.dmi": [
-      "large_engine",
-      "multiduct"
-    ],
-    "icons/obj/atmospherics/components/binary_devices.dmi": [
-      "pipe_intact",
-      "pipe_exposed"
-    ],
-    "icons/obj/atmospherics/components/thermomachine.dmi": [
-      "pipe"
-    ],
-    "icons/obj/atmospherics/components/trinary_devices.dmi": [
-      "cap"
-    ],
-    "icons/obj/atmospherics/components/unary_devices.dmi": [
-      "inje_cap",
-      "connector_cap",
-      "vent_cap",
-      "scrub_cap",
-      "dpvent_cap",
-      "pipe_intact",
-      "pipe_exposed"
-    ],
-    "icons/obj/atmospherics/pipes/multiz.dmi": [
-      "pipe-1",
-      "pipe-2",
-      "pipe-3",
-      "pipe-4",
-      "pipe-5"
-    ],
-    "icons/obj/decals.dmi": [
-      "map-left",
-      "map-right",
-      "map-left-MS",
-      "map-right-MS",
-      "map-left-fland",
-      "map-right-fland",
-      "map-pubby",
-      "map-CS",
-      "map-echo"
-    ],
-    "icons/effects/96x96.dmi": [
-      "gate_full",
-      "gate_bottom",
-      "gate_dais",
-      "gate_top",
-      "gate_blocker",
-      "door",
-      "door_opening",
-      "door_closing"
-    ],
-    "icons/effects/160x160.dmi": [
-      "arch_full",
-      "arch_bottom",
-      "arch_top"
-    ],
-    "icons/obj/plumbing/plumbers.dmi": [
-      "north-red-s",
-      "north-blue-s",
-      "south-red-s",
-      "south-blue-s",
-      "east-red-s",
-      "east-blue-s",
-      "west-red-s",
-      "west-blue-s"
-    ],
-    "icons/obj/atmospherics/pipes/disposal.dmi": [
-      "pipe",
-      "pipe-j1",
-      "pipe-j2",
-      "pipe-y",
-      "pipe-t",
-      "pipe-b",
-      "pipe-j1s",
-      "pipe-j2s",
-      "pipe-toggle0",
-      "pipe-toggle1",
-      "pipe-toggle0flick",
-      "pipe-toggle1flick",
-      "conpipe",
-      "conpipe-j1",
-      "conpipe-j2",
-      "conpipe-y",
-      "conpipe-t",
-      "conpipe-j1s",
-      "conpipe-j2s",
-      "conpipe-toggle0",
-      "pipe-down",
-      "pipe-up",
-      "conpipe-down",
-      "conpipe-up",
-      "pipe-r1",
-      "pipe-r2",
-      "conpipe-r1",
-      "conpipe-r2"
-    ],
-    "icons/obj/recycling.dmi": [
-      "conveyor0",
-      "conveyor_map",
-      "conveyor_map_inverted",
-      "conveyor1",
-      "conveyor-1",
-      "conveyor-broken"
-    ]
-  },
-  "assetClasses": {
-    "1": {
-      "name": "singleDirectionBillboard",
-      "directions": [
-        1
+    "icons/effects/spacevines.dmi": {
+      "modes": [
+        "surface"
       ],
-      "handling": "Keep original. Wall lettering, paintings, posters, characters, UI and scene backgrounds stay upright."
+      "states": [
+        "Light1",
+        "Light2",
+        "Light3",
+        "Med1",
+        "Med2",
+        "Med3",
+        "Hvy1",
+        "Hvy2",
+        "Hvy3"
+      ]
     },
-    "2": {
-      "name": "singleDirectionWorldGeometry",
-      "directions": [
-        1
-      ],
-      "handling": "Generate surface/smoothing/corner/basis banks or view gates. Tile connections, ground art and world transforms must rotate with the map."
+    "icons/effects/lighting_object.dmi": {
+      "modes": [
+        "basis"
+      ]
     },
-    "3": {
-      "name": "directionalArtwork",
-      "directions": [
-        4,
-        8
+    "icons/obj/doors/airlocks/glass_large/glass_large.dmi": {
+      "modes": [
+        "surface"
       ],
-      "handling": "Native dir selection for upright sprites; directional surface banks for floor geometry/pipes. Eight-dir files extend the same class to diagonal connections."
+      "rectangular": true,
+      "footprint": true
+    },
+    "icons/obj/doors/airlocks/glass_large/overlays.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true
+    },
+    "icons/obj/clockwork_objects.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/effects/blood.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/effects/crayondecal.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/effects/tomatodecal.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/effects/footprints.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/effects/dirt.dmi": {
+      "modes": [
+        "surface",
+        "smooth",
+        "corner"
+      ]
+    },
+    "icons/effects/navigation.dmi": {
+      "modes": [
+        "smooth"
+      ]
+    },
+    "icons/obj/machines/gasrig.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/obj/power_cond/cables.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/obj/2x2.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true,
+      "directional": true,
+      "states": [
+        "large_engine",
+        "multiduct"
+      ]
+    },
+    "icons/obj/3x3.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true,
+      "directional": true
+    },
+    "icons/obj/4x7.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true,
+      "directional": true
+    },
+    "icons/obj/engine_chopped.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/obj/atmospherics/components/binary_devices.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "directional": true,
+      "states": [
+        "pipe_intact",
+        "pipe_exposed"
+      ]
+    },
+    "icons/obj/atmospherics/components/thermomachine.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "directional": true,
+      "states": [
+        "pipe"
+      ]
+    },
+    "icons/obj/atmospherics/components/trinary_devices.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "directional": true,
+      "states": [
+        "cap"
+      ]
+    },
+    "icons/obj/atmospherics/components/unary_devices.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "directional": true,
+      "states": [
+        "inje_cap",
+        "connector_cap",
+        "vent_cap",
+        "scrub_cap",
+        "dpvent_cap",
+        "pipe_intact",
+        "pipe_exposed"
+      ]
+    },
+    "icons/obj/decals.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "compact": true,
+      "states": [
+        "map-left",
+        "map-right",
+        "map-left-MS",
+        "map-right-MS",
+        "map-left-fland",
+        "map-right-fland",
+        "map-pubby",
+        "map-CS",
+        "map-echo"
+      ]
+    },
+    "icons/obj/barsigns.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true,
+      "directional": true
+    },
+    "icons/obj/machines/gravity_generator.dmi": {
+      "modes": [
+        "surface"
+      ]
+    },
+    "icons/effects/96x96.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true,
+      "compact": true,
+      "states": [
+        "gate_full",
+        "gate_bottom",
+        "gate_dais",
+        "gate_top",
+        "gate_blocker",
+        "door",
+        "door_opening",
+        "door_closing",
+        "landing"
+      ]
+    },
+    "icons/effects/160x160.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true,
+      "compact": true,
+      "states": [
+        "arch_full",
+        "arch_bottom",
+        "arch_top"
+      ]
+    },
+    "icons/obj/machines/incident_display.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "rectangular": true
+    },
+    "icons/obj/plumbing/fluid_ducts.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "directional": true
+    },
+    "icons/obj/plumbing/plumbers.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "states": [
+        "north-red-s",
+        "north-blue-s",
+        "south-red-s",
+        "south-blue-s",
+        "east-red-s",
+        "east-blue-s",
+        "west-red-s",
+        "west-blue-s"
+      ]
+    },
+    "icons/obj/recycling.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "directional": true,
+      "states": [
+        "conveyor0",
+        "conveyor_map",
+        "conveyor_map_inverted",
+        "conveyor1",
+        "conveyor-1",
+        "conveyor-broken"
+      ]
+    },
+    "icons/hud/screen_gen.dmi": {
+      "modes": [
+        "surface"
+      ],
+      "compact": true,
+      "states": [
+        "arrow"
+      ]
+    },
+    "icons/obj/atmospherics/pipes/manifold.dmi": {
+      "directional": true
+    },
+    "icons/obj/atmospherics/pipes/bridge_pipe.dmi": {
+      "directional": true
+    },
+    "icons/obj/atmospherics/pipes/color_adapter.dmi": {
+      "directional": true
+    },
+    "icons/obj/atmospherics/pipes/he-simple.dmi": {
+      "directional": true
+    },
+    "icons/obj/atmospherics/pipes/he-manifold.dmi": {
+      "directional": true
+    },
+    "icons/obj/atmospherics/pipes/he-junction.dmi": {
+      "directional": true
+    },
+    "icons/obj/atmospherics/pipes/multiz.dmi": {
+      "directional": true,
+      "states": [
+        "pipe-1",
+        "pipe-2",
+        "pipe-3",
+        "pipe-4",
+        "pipe-5"
+      ]
+    },
+    "icons/obj/atmospherics/pipes/disposal.dmi": {
+      "directional": true,
+      "states": [
+        "pipe",
+        "pipe-j1",
+        "pipe-j2",
+        "pipe-y",
+        "pipe-t",
+        "pipe-b",
+        "pipe-j1s",
+        "pipe-j2s",
+        "pipe-toggle0",
+        "pipe-toggle1",
+        "pipe-toggle0flick",
+        "pipe-toggle1flick",
+        "conpipe",
+        "conpipe-j1",
+        "conpipe-j2",
+        "conpipe-y",
+        "conpipe-t",
+        "conpipe-j1s",
+        "conpipe-j2s",
+        "conpipe-toggle0",
+        "pipe-down",
+        "pipe-up",
+        "conpipe-down",
+        "conpipe-up",
+        "pipe-r1",
+        "pipe-r2",
+        "conpipe-r1",
+        "conpipe-r2"
+      ]
+    },
+    "icons/misc/Beach/beach.dmi": {
+      "compact": true,
+      "states": [
+        "Water-0"
+      ]
+    },
+    "icons/obj/beds_chairs/chairs.dmi": {
+      "foreground": "chair"
+    },
+    "icons/obj/beds_chairs/benches.dmi": {
+      "foreground": "chair"
+    },
+    "icons/obj/beds_chairs/sofa.dmi": {
+      "foreground": "chair"
+    },
+    "icons/obj/fluff.dmi": {
+      "foreground": "railing"
+    },
+    "icons/obj/platforms.dmi": {
+      "foreground": "platform"
+    },
+    "icons/turf/space.dmi": {
+      "exclude": "Scene background and speedspace art; not bound as floor geometry. Keep original single-direction states instead of generating unused surface banks."
+    },
+    "icons/obj/machines/gateway.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/projectiles.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/projectiles_tracer.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/projectiles_muzzle.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/projectiles_impact.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/effects.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/beam.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/machines/particle_accelerator.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/food/food.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/meteor.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/guns/toy.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/food/burgerbread.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/hydroponics/harvest.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/structures.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_32.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_64.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_96.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_128.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_160.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_192.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_224.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_256.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_288.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_320.dmi": {
+      "projection": "transform"
+    },
+    "icons/effects/light_overlays/light_352.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/solar.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/xenoarchaeology/xenoartifact.dmi": {
+      "projection": "transform"
+    },
+    "icons/obj/containers.dmi": {
+      "projection": "geometry"
+    },
+    "icons/obj/rug.dmi": {
+      "projection": "geometry"
+    },
+    "icons/obj/machines/power/rbmk/rbmk_reactor.dmi": {
+      "projection": "geometry"
+    },
+    "icons/obj/machines/dna_vault.dmi": {
+      "projection": "geometry"
+    },
+    "icons/obj/machines/bluespace_tap.dmi": {
+      "projection": "geometry"
+    },
+    "icons/obj/lavaland/cannon.dmi": {
+      "projection": "geometry"
+    },
+    "icons/obj/lavaland/dead_ratvar.dmi": {
+      "projection": "geometry"
     }
-  },
-  "billboardFiles": {
-    "icons/turf/space.dmi": "Scene background and speedspace art; not bound as floor geometry. Keep original single-direction states instead of generating unused surface banks."
-  },
-  "largeAssetPolicy": {
-    "billboards": "No square padding or rotation for upright large artwork (e.g. 32x64 ash walker nest and 64x64 talk bubbles). Sprite-origin offsets use screen pixel_w/z; wall mounting/ground placement uses world pixel_x/y.",
-    "geometry": "Only rectangularSurfaces are padded to square geometry with a matching footprint at the original pivot. Unlisted rectangular/multi-tile geometry is excluded and reported for review. Two-tile barsigns use their full 64x32 native bounds and complete state banks, including direct set_sign/flick changes."
-  },
-  "billboardStates": {
-    "icons/obj/decals.dmi": "Wall lettering, plaques and frames except explicitly selected connected station-map surfaceStates remain native upright artwork."
-  },
-  "compactSurfaces": [
-    "icons/misc/Beach/beach.dmi",
-    "icons/obj/decals.dmi",
-    "icons/effects/96x96.dmi",
-    "icons/effects/160x160.dmi"
-  ],
-  "compactSurfaceContract": "Compact banks cover fixed sand, connected wall maps and necropolis gate/arch states. All gate body/door/transition/blocker/arch states used by their bound types are included; their other effect users remain unbound. Callers pass state and omitted states resolve to the original. Other animated/directly-mutated families retain complete banks.",
-  "footprintMasks": [
-    "icons/obj/doors/airlocks/glass_large/glass_large.dmi"
-  ]
+  }
 }

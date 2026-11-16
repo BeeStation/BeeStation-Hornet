@@ -55,6 +55,8 @@
 		structure_climber.visible_message(span_warning("[structure_climber] is knocked off [climbed_thing]."), span_warning("You're knocked off [climbed_thing]!"), span_hear("You hear a cry from [structure_climber], followed by a slam."))
 
 /datum/element/climbable/proc/climb_structure(atom/climbed_thing, mob/living/user, params)
+	// Keep the axes of the original drag while the climbing delay runs.
+	var/click_facing = user.client?.dir || NORTH
 	if(!can_climb(climbed_thing, user))
 		return
 	climbed_thing.add_fingerprint(user)
@@ -73,7 +75,7 @@
 	if(do_after(user, adjusted_climb_time, climbed_thing))
 		if(QDELETED(climbed_thing)) //Checking if structure has been destroyed
 			return
-		if(do_climb(climbed_thing, user, params))
+		if(do_climb(climbed_thing, user, params, click_facing))
 			user.visible_message(span_warning("[user] climbs onto [climbed_thing]."), \
 								span_notice("You climb onto [climbed_thing]."))
 			log_combat(user, climbed_thing, "climbed onto", important = FALSE)
@@ -84,7 +86,7 @@
 	LAZYREMOVEASSOC(current_climbers, climbed_thing, user)
 
 
-/datum/element/climbable/proc/do_climb(atom/climbed_thing, mob/living/user, params)
+/datum/element/climbable/proc/do_climb(atom/climbed_thing, mob/living/user, params, click_facing = NORTH)
 	if(!can_climb(climbed_thing, user))
 		return
 	climbed_thing.set_density(FALSE)
@@ -97,8 +99,9 @@
 		if(ISDIAGONALDIR(climbed_thing.dir) && same_loc)
 			if(params) //we check the icon x and y parameters of the click-drag to determine step_dir.
 				var/list/modifiers = params2list(params)
-				var/x_dist = (text2num(LAZYACCESS(modifiers, ICON_X)) - ICON_SIZE_X/2) * (climbed_thing.dir & WEST ? -1 : 1)
-				var/y_dist = (text2num(LAZYACCESS(modifiers, ICON_Y)) - ICON_SIZE_Y/2) * (climbed_thing.dir & SOUTH ? -1 : 1)
+				var/list/click_offset = camera_click_offset(modifiers, click_facing)
+				var/x_dist = (click_offset ? click_offset[1] : 0) * (climbed_thing.dir & WEST ? -1 : 1)
+				var/y_dist = (click_offset ? click_offset[2] : 0) * (climbed_thing.dir & SOUTH ? -1 : 1)
 				dir_step = (x_dist >= y_dist ? (EAST|WEST) : (NORTH|SOUTH)) & climbed_thing.dir
 			else //user is being moved by a forced_movement datum. dir_step will be the direction to the forced movement target.
 				dir_step = get_dir(user, user.force_moving.target)

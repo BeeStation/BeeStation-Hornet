@@ -469,12 +469,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 	name = "certain death"
 	desc = "Don't just stand there, move!"
 	icon = 'icons/effects/96x96.dmi'
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	icon_state = "landing"
 	layer = BELOW_MOB_LAYER
 	pixel_x = -32
 	pixel_y = -32
 	color = COLOR_RED
 	duration = 10
+
+/obj/effect/temp_visual/dragon_swoop/Initialize(mapload)
+	. = ..()
+	brandish_screen_origin(-32, -32)
 
 /obj/effect/temp_visual/dragon_flight
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
@@ -488,19 +493,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dragon_flight)
 
 /obj/effect/temp_visual/dragon_flight/Initialize(mapload, negative)
 	. = ..()
+	brandish_screen_origin(-16, 0)
 	INVOKE_ASYNC(src, PROC_REF(flight), negative)
 
 /obj/effect/temp_visual/dragon_flight/proc/flight(negative)
+	// X is a world trajectory toward the target; only the canvas origin is
+	// screen-relative. Preserve every original NORTH animation endpoint.
+	var/origin_x = get_screen_base_pixel_w()
 	if(negative)
-		animate(src, pixel_x = -DRAKE_SWOOP_HEIGHT*0.1, pixel_z = DRAKE_SWOOP_HEIGHT*0.15, time = 3, easing = BOUNCE_EASING)
+		animate(src, pixel_x = -DRAKE_SWOOP_HEIGHT*0.1 - origin_x, pixel_z = DRAKE_SWOOP_HEIGHT*0.15, time = 3, easing = BOUNCE_EASING)
 	else
-		animate(src, pixel_x = DRAKE_SWOOP_HEIGHT*0.1, pixel_z = DRAKE_SWOOP_HEIGHT*0.15, time = 3, easing = BOUNCE_EASING)
+		animate(src, pixel_x = DRAKE_SWOOP_HEIGHT*0.1 - origin_x, pixel_z = DRAKE_SWOOP_HEIGHT*0.15, time = 3, easing = BOUNCE_EASING)
 	sleep(3)
 	icon_state = "swoop"
 	if(negative)
-		animate(src, pixel_x = -DRAKE_SWOOP_HEIGHT, pixel_z = DRAKE_SWOOP_HEIGHT, time = 7)
+		animate(src, pixel_x = -DRAKE_SWOOP_HEIGHT - origin_x, pixel_z = DRAKE_SWOOP_HEIGHT, time = 7)
 	else
-		animate(src, pixel_x = DRAKE_SWOOP_HEIGHT, pixel_z = DRAKE_SWOOP_HEIGHT, time = 7)
+		animate(src, pixel_x = DRAKE_SWOOP_HEIGHT - origin_x, pixel_z = DRAKE_SWOOP_HEIGHT, time = 7)
 
 /obj/effect/temp_visual/dragon_flight/end
 	pixel_x = DRAKE_SWOOP_HEIGHT
@@ -509,10 +518,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dragon_flight)
 
 /obj/effect/temp_visual/dragon_flight/end/flight(negative)
 	if(negative)
-		pixel_x = -DRAKE_SWOOP_HEIGHT
-		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
+		pixel_x = -DRAKE_SWOOP_HEIGHT - get_screen_base_pixel_w()
+		animate(src, pixel_x = 0, pixel_z = 0, time = 5)
 	else
-		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
+		animate(src, pixel_x = 0, pixel_z = 0, time = 5)
 
 /obj/effect/temp_visual/fireball
 	icon = 'icons/obj/wizard.dmi'

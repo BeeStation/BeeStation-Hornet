@@ -72,6 +72,8 @@
 		var/list/new_overlays = update_overlays(updates)
 		if (managed_overlays)
 			if (length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1))
+				if(world_space_icon?.projected)
+					world_space_icon.layers_dirty = TRUE
 				overlays = null
 				POST_OVERLAY_CHANGE(src)
 			else
@@ -87,6 +89,8 @@
 
 	if(icon != resource_before_overlays)
 		APPLY_BRANDISH_ICON(src)
+	if(world_space_icon?.layers_dirty)
+		world_space_icon.refresh()
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 	if (ismovable(src)) // need to update here as well since update_appearance() is not always called
 		UPDATE_OO_IF_PRESENT

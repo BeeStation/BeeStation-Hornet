@@ -1,4 +1,5 @@
 /obj/structure/shipping_container
+	brandish_icon_mode = BRANDISH_MODE_WORLD
 	name = "shipping container"
 	desc = "A standard-measure shipping container for bulk transport of goods. This one is blank, offering no clue as to its contents."
 	icon = 'icons/obj/containers.dmi'

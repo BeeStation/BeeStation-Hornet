@@ -303,6 +303,7 @@
 	name = "space vines"
 	desc = "An extremely expansionistic species of vine."
 	icon = 'icons/effects/spacevines.dmi'
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	icon_state = "Light1"
 	anchored = TRUE
 	density = FALSE

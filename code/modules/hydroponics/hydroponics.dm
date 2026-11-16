@@ -1,5 +1,5 @@
 /obj/machinery/hydroponics
-	brandish_icon_mode = "smooth"
+	brandish_icon_mode = BRANDISH_MODE_SMOOTH
 	base_icon_state = "hoses"
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'

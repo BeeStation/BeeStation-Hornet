@@ -9,7 +9,7 @@
 	brandish_screen_origin(pixel_x - wall_x, pixel_y - wall_y)
 
 /obj/structure/sign/map
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "station map"
 	desc = "A framed picture of the station."
 	max_integrity = 500

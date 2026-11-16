@@ -138,9 +138,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 	var/list/datum/station_trait/selectable_traits = selectable_traits_by_types[trait_category]
 	while (budget)
-		// Remove any station trait with a cost bigger than the budget
+		// Remove manual-only traits and those that exceed the budget.
 		for (var/datum/station_trait/proto_trait as anything in selectable_traits)
-			if (initial(proto_trait.cost) > budget)
+			if (initial(proto_trait.cost) > budget || initial(proto_trait.weight) <= 0)
 				selectable_traits -= proto_trait
 
 		// We have spare budget but no trait that can be bought with what's left of it
@@ -162,13 +162,17 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 /// Creates a given trait of a specific type, while also removing any blacklisted ones from the future pool.
 /datum/controller/subsystem/processing/station/proc/setup_trait(datum/station_trait/trait_type)
-	if (locate(trait_type) in station_traits)
-		return
+	var/datum/station_trait/existing_trait = locate(trait_type) in station_traits
+	if (existing_trait)
+		return existing_trait
 	var/datum/station_trait/trait_instance = new trait_type()
-	station_traits += trait_instance
+	if (QDELETED(trait_instance))
+		return
+	station_traits |= trait_instance
 	log_game("Station Trait: [trait_instance.name] chosen for this round.")
 	if (!trait_instance.blacklist)
-		return
+		return trait_instance
 	for (var/i in trait_instance.blacklist)
 		var/datum/station_trait/trait_to_remove = i
 		selectable_traits_by_types[initial(trait_to_remove.trait_type)] -= trait_to_remove
+	return trait_instance

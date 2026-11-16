@@ -130,12 +130,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 
 
 /obj/machinery/power/bsa/full
+	brandish_icon_mode = BRANDISH_MODE_WORLD
 	name = "Bluespace Artillery"
 	desc = "Long range bluespace artillery."
 	icon = 'icons/obj/lavaland/cannon.dmi'
 	icon_state = "cannon_west"
 	var/base_battery_icon_state = "bsa_west_capacitor"
-	var/static/mutable_appearance/top_layer
 	var/ex_power = 3
 	var/ready
 
@@ -213,7 +213,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	. = ..()
 	cell = new /obj/item/stock_parts/cell(src, 20 MEGAWATT)
 	cell.charge = 0
-	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)
 		if(WEST)
 			setDir(WEST)
@@ -231,20 +230,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/update_overlays()
 	. = ..()
-	cut_overlays()
-	add_overlay(top_layer)
-	top_layer.icon_state = "top_[dir2text(dir)]"
+	. += brandish_geometry_overlay("top_[dir2text(dir)]", ABOVE_MOB_LAYER)
 
 	var/charge_quarter = floor(cell.percent() / 25)
 	var/charge_sound = 'sound/machines/apc/PowerSwitch_Off.ogg'
 	if(charge_quarter >= 1)
-		add_overlay("[base_battery_icon_state]_25")
+		. += brandish_geometry_overlay("[base_battery_icon_state]_25")
 	if(charge_quarter >= 2)
-		add_overlay("[base_battery_icon_state]_50")
+		. += brandish_geometry_overlay("[base_battery_icon_state]_50")
 	if(charge_quarter >= 3)
-		add_overlay("[base_battery_icon_state]_75")
+		. += brandish_geometry_overlay("[base_battery_icon_state]_75")
 	if(charge_quarter >= 4)
-		add_overlay("[base_battery_icon_state]_100")
+		. += brandish_geometry_overlay("[base_battery_icon_state]_100")
 		charge_sound = 'sound/machines/apc/PowerUp_001.ogg'
 	if(charge_quarter > last_charge_quarter)
 		playsound(get_turf(src), charge_sound, 25, TRUE)

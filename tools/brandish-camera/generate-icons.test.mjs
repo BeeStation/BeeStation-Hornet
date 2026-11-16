@@ -3,7 +3,16 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { readPng, decodePng, encodePng, parseDmi, conversionPlan, generateVariant, generateForeground, generateViewGate, generate, directions, turnJunction, tile, squareGeometry, rotatePixels, allDirections, alignFootprint, assetClass, isDirectionalSurface } from './generate-icons.mjs';
+import { copyGeneratedAssets } from './copy-generated-assets.mjs';
+import { readPng, decodePng, encodePng, parseDmi, conversionPlan, generateVariant, generateForeground, generateViewGate, generate, directions, turnJunction, tile, squareGeometry, rotatePixels, allDirections, alignFootprint, isDirectionalSurface } from './generate-icons.mjs';
+
+let realManifest;
+function entryFor(source) {
+  realManifest ??= JSON.parse(fs.readFileSync('tmp/brandish-icons/manifest.json'));
+  const entry = realManifest.entries.find(entry => entry.source === source);
+  assert.ok(entry, source);
+  return entry;
+}
 
 function fixture(description, frames, depth=8, color=6, chunks=[]) {
   const pixelBytes = color===6 ? 4 : 1;
@@ -14,14 +23,8 @@ function fixture(description, frames, depth=8, color=6, chunks=[]) {
 const colored=Buffer.from([255,0,0,255, 0,255,0,255, 0,0,255,255, 255,255,0,255]);
 const description='state = "arrow"\n dirs = 1\n frames = 1\n';
 
-test('artwork classes separate upright single-dir, world single-dir and native directional art',()=>{
+test('directional surface policy distinguishes world art from upright sprites',()=>{
   const policy=JSON.parse(fs.readFileSync(new URL('./asset-policy.json',import.meta.url)));
-  assert.equal(assetClass('icons/obj/artstuff.dmi',{dirs:1},policy),1);
-  assert.equal(assetClass('icons/obj/decals.dmi',{dirs:1},policy,false),1);
-  assert.equal(assetClass('icons/turf/floors.dmi',{dirs:1},policy,true),2);
-  assert.equal(assetClass('icons/turf/decals.dmi',{dirs:4},policy,true),3);
-  assert.equal(assetClass('icons/mob/human.dmi',{dirs:4},policy),3);
-  assert.equal(assetClass('icons/turf/decals.dmi',{dirs:8},policy,true),3);
   assert.equal(isDirectionalSurface('icons/turf/decals.dmi',policy),true);
   assert.equal(isDirectionalSurface('icons/turf/boss_floors.dmi',policy),true);
   assert.equal(isDirectionalSurface('icons/obj/artstuff.dmi',policy),false);
@@ -118,13 +121,13 @@ test('all real prebuilt variants retain source names, timing and exact normal-vi
   let checked=0;
   for(const entry of manifest.entries) {
     let source=readPng(fs.readFileSync(path.join(root,entry.source))), original=parseDmi(source),pixels=decodePng(source);
-    if(manifest.policy.rectangularSurfaces?.includes(entry.source)) ({png:source,dmi:original,pixels}=squareGeometry(source,pixels,original));
+    if(manifest.policy.files[entry.source]?.rectangular) ({png:source,dmi:original,pixels}=squareGeometry(source,pixels,original));
     const originals=original.states.map(s=>Array.from({length:s.dirs*s.frames},(_,i)=>entry.footprintSize ? alignFootprint(tile(source,pixels,original,s.firstTile+i),original.width,source.pixelBytes,...entry.footprintSize,0) : tile(source,pixels,original,s.firstTile+i)));
     for(const kind of ['surface','smooth','corner']) for(const [anchor,file] of Object.entries(entry[kind]??{})) {
       const out=readPng(fs.readFileSync(path.join(root,file))), dmi=parseDmi(out), data=decodePng(out);
       const plan=conversionPlan(original,kind,kind==='surface' && isDirectionalSurface(entry.source,manifest.policy)).plan;
       if(!directions.includes(Number(anchor))) for(const state of plan.keys()) if(state.dirs===4) plan.delete(state);
-      const allowed=kind==='surface' && manifest.policy.surfaceStates?.[entry.source];
+      const allowed=kind==='surface' && manifest.policy.files[entry.source]?.states;
       if(allowed) for(const state of plan.keys()) if(!allowed.includes(state.name)) plan.delete(state);
       const compact=kind==='surface' && entry.surfaceStates;
       assert.equal(dmi.states.length,compact?Object.keys(entry.surfaceStates).length:original.states.length,file);
@@ -388,5 +391,168 @@ test('disposal connections and conveyor corners retain physical directions and a
         }
       }
     }
+  }
+});
+
+test('gateway view gates retain every activation frame and select exactly one native view',()=>{
+  const manifest=JSON.parse(fs.readFileSync('tmp/brandish-icons/manifest.json'));
+  const entry=manifest.entries.find(e=>e.source==='icons/obj/machines/gateway.dmi');
+  const original=readPng(fs.readFileSync(entry.source)),source=parseDmi(original),pixels=decodePng(original);
+  for(const facing of directions) {
+    const p=readPng(fs.readFileSync(entry.viewGates[facing])),d=parseDmi(p),data=decodePng(p);
+    const visible={1:1,4:8,2:2,8:4}[facing];
+    for(const old of source.states) {
+      const state=d.states.find(s=>s.name===old.name+'@2');
+      assert.equal(state.frames,old.frames);
+      for(let frame=0;frame<old.frames;frame++)for(let slot=0;slot<4;slot++) {
+        const expected=directions[slot]===visible?tile(original,pixels,source,old.firstTile+frame):Buffer.alloc(96*96*4);
+        assert.deepEqual(tile(p,data,d,state.firstTile+frame*4+slot),expected);
+      }
+    }
+  }
+});
+
+test('necropolis compact banks preserve complete door animations and omit unrelated effects',()=>{
+  const manifest=JSON.parse(fs.readFileSync('tmp/brandish-icons/manifest.json'));
+  for(const [file,names] of [
+    ['icons/effects/96x96.dmi',['gate_bottom','gate_top','gate_dais','gate_blocker','door','door_opening','door_closing']],
+    ['icons/effects/160x160.dmi',['arch_bottom','arch_top']],
+  ]) {
+    const entry=manifest.entries.find(e=>e.source===file);
+    const source=parseDmi(readPng(fs.readFileSync(file)));
+    for(const bank of Object.values(entry.surface)) {
+      const generated=parseDmi(readPng(fs.readFileSync(bank)));
+      for(const name of names) {
+        const old=source.states.find(s=>s.name===name),state=generated.states.find(s=>s.name===name);
+        assert.ok(state,name);assert.equal(state.frames,old.frames);
+        assert.equal(state.block.replace(/(^\s*dirs\s*=\s*)\d+/m,'$1X'),old.block.replace(/(^\s*dirs\s*=\s*)\d+/m,'$1X'));
+      }
+      assert.ok(generated.states.every(s=>entry.surfaceStates[s.name]));
+      assert.ok(generated.states.length<source.states.length);
+    }
+  }
+});
+
+test('spacevine ground coverage turns while upright trap buds remain native',()=>{
+  const file='icons/effects/spacevines.dmi';
+  const entry=entryFor(file);
+  const allowed=new Set(['Light1','Light2','Light3','Med1','Med2','Med3','Hvy1','Hvy2','Hvy3']);
+  const png=readPng(fs.readFileSync(file)),dmi=parseDmi(png),pixels=decodePng(png);
+  for(const anchor of directions) {
+    const out=readPng(fs.readFileSync(entry.surface[anchor]));
+    const metadata=parseDmi(out),data=decodePng(out);
+    for(const state of dmi.states) {
+      const generated=metadata.states.find(s=>s.name===state.name);
+      assert.equal(generated.frames,state.frames);
+      if(!allowed.has(state.name)) {
+        assert.equal(generated.dirs,state.dirs);
+        for(let slot=0;slot<state.dirs;slot++)assert.deepEqual(tile(out,data,metadata,generated.firstTile+slot),tile(png,pixels,dmi,state.firstTile+slot));
+        continue;
+      }
+      const original=tile(png,pixels,dmi,state.firstTile);
+      for(const quarter of [0,90,180,270]) {
+        const slot=turnJunction(anchor,quarter);
+        assert.deepEqual(tile(out,data,metadata,generated.firstTile+directions.indexOf(slot)),rotatePixels(original,32,png.pixelBytes,360-quarter));
+      }
+    }
+  }
+});
+
+test('landing telegraphs preserve their baseline and turn about their target tile',()=>{
+  const file='icons/effects/96x96.dmi';
+  assert.ok(entryFor(file).surfaceStates.landing);
+  const png=readPng(fs.readFileSync(file)),dmi=parseDmi(png),pixels=decodePng(png);
+  const old=dmi.states.find(s=>s.name==='landing'),original=tile(png,pixels,dmi,old.firstTile);
+  const plan=conversionPlan(dmi,'surface');
+  plan.plan=new Map([...plan.plan].filter(([state])=>state.name==='landing'));
+  plan.omitUnconverted=true;
+  for(const anchor of directions) {
+    const bank=readPng(generateVariant(png,pixels,dmi,'surface',anchor,plan));
+    const metadata=parseDmi(bank),data=decodePng(bank),state=metadata.states[0];
+    assert.equal(metadata.states.length,1);
+    assert.equal(state.frames,old.frames);
+    for(const quarter of [0,90,180,270]) {
+      const slot=turnJunction(anchor,quarter);
+      assert.deepEqual(tile(bank,data,metadata,state.firstTile+directions.indexOf(slot)),rotatePixels(original,96,png.pixelBytes,360-quarter));
+    }
+  }
+});
+
+test('point arrows rotate without banking the remaining HUD artwork',()=>{
+  const file='icons/hud/screen_gen.dmi';
+  assert.deepEqual(Object.keys(entryFor(file).surfaceStates),['arrow']);
+  const png=readPng(fs.readFileSync(file)),dmi=parseDmi(png),pixels=decodePng(png);
+  const old=dmi.states.find(s=>s.name==='arrow'),original=tile(png,pixels,dmi,old.firstTile);
+  const plan=conversionPlan(dmi,'surface');
+  plan.plan=new Map([...plan.plan].filter(([state])=>state.name==='arrow'));
+  plan.omitUnconverted=true;
+  for(const anchor of directions) {
+    const bank=readPng(generateVariant(png,pixels,dmi,'surface',anchor,plan));
+    const metadata=parseDmi(bank),data=decodePng(bank),state=metadata.states[0];
+    assert.equal(metadata.states.length,1);
+    for(const quarter of [0,90,180,270]) {
+      const slot=turnJunction(anchor,quarter);
+      assert.deepEqual(tile(bank,data,metadata,state.firstTile+directions.indexOf(slot)),rotatePixels(original,32,png.pixelBytes,360-quarter));
+    }
+  }
+});
+
+test('world geometry gates retain rectangular and odd canvases without padding or clipping',()=>{
+  const manifest=JSON.parse(fs.readFileSync('tmp/brandish-icons/manifest.json'));
+  const files=['icons/obj/containers.dmi','icons/obj/rug.dmi','icons/obj/machines/power/rbmk/rbmk_reactor.dmi','icons/obj/machines/dna_vault.dmi','icons/obj/machines/bluespace_tap.dmi','icons/obj/lavaland/cannon.dmi','icons/obj/lavaland/dead_ratvar.dmi'];
+  for(const file of files) {
+    const entry=manifest.entries.find(e=>e.source===file);
+    assert.ok(entry?.viewGates,file);
+    const original=readPng(fs.readFileSync(file)),source=parseDmi(original),pixels=decodePng(original);
+    for(const facing of directions) {
+      const png=readPng(fs.readFileSync(entry.viewGates[facing])),dmi=parseDmi(png),data=decodePng(png);
+      assert.equal(dmi.width,source.width);assert.equal(dmi.height,source.height);
+      const visible={1:1,4:8,2:2,8:4}[facing];
+      for(const old of source.states) {
+        const state=dmi.states.find(s=>s.name===old.name+'@2');
+        assert.equal(state.frames,old.frames);
+        for(let frame=0;frame<old.frames;frame++)for(let slot=0;slot<4;slot++) {
+          let wanted=Buffer.alloc(source.width*source.height*4);
+          if(directions[slot]===visible) {
+            wanted=tile(original,pixels,source,old.firstTile+frame);
+            if(original.color===3) {
+              const palette=original.chunks.find(c=>c.type==='PLTE').data;
+              const alpha=original.chunks.find(c=>c.type==='tRNS')?.data;
+              const rgba=Buffer.alloc(wanted.length*4);
+              for(let i=0;i<wanted.length;i++) {
+                palette.copy(rgba,i*4,wanted[i]*3,wanted[i]*3+3);
+                rgba[i*4+3]=alpha?.[wanted[i]]??255;
+              }
+              wanted=rgba;
+            }
+          }
+          assert.deepEqual(tile(png,data,dmi,state.firstTile+frame*4+slot),wanted);
+        }
+      }
+    }
+  }
+});
+
+test('deployment stages only current manifest resources and preserves the shared cache',()=>{
+  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'brandish-deploy-'));
+  const root=path.join(temporary,'build'),destination=path.join(temporary,'staging');
+  const relative='tmp/brandish-icons/assets/';
+  const wanted='a'.repeat(24)+'.dmi',stale='b'.repeat(24)+'.dmi';
+  try {
+    fs.mkdirSync(path.join(root,relative),{recursive:true});
+    fs.mkdirSync(path.join(destination,relative),{recursive:true});
+    fs.writeFileSync(path.join(root,relative,wanted),'current');
+    fs.writeFileSync(path.join(root,relative,stale),'shared stale cache');
+    fs.writeFileSync(path.join(destination,relative,stale),'old staging');
+    fs.writeFileSync(path.join(root,'tmp/brandish-icons/manifest.json'),JSON.stringify({entries:[{surface:{1:relative+wanted},viewGates:{2:relative+wanted}}]}));
+    assert.equal(copyGeneratedAssets(root,destination),1);
+    assert.equal(fs.readFileSync(path.join(destination,relative,wanted),'utf8'),'current');
+    assert.equal(fs.existsSync(path.join(destination,relative,stale)),false);
+    assert.equal(fs.readFileSync(path.join(root,relative,stale),'utf8'),'shared stale cache');
+    assert.throws(()=>copyGeneratedAssets(root,root),/separate/);
+    fs.writeFileSync(path.join(root,'tmp/brandish-icons/manifest.json'),JSON.stringify({entries:[{surface:{1:relative+'../escape.dmi'}}]}));
+    assert.throws(()=>copyGeneratedAssets(root,destination),/Invalid/);
+  } finally {
+    fs.rmSync(temporary,{recursive:true,force:true});
   }
 });

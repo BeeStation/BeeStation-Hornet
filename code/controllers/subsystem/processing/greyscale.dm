@@ -130,7 +130,7 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	if(directional_configs[key])
 		return key
 	var/datum/greyscale_config/converted = new config_type
-	converted.icon_file = GLOB.brandish_assets.icon_for(original.icon_file, kind, direction, prefix) || original.icon_file
+	converted.icon_file = GLOB.brandish_assets.icon_for(original.icon_file, kind, direction, prefix)
 	converted.string_icon_file = "[converted.icon_file]"
 	converted.Refresh()
 	directional_configs[key] = converted

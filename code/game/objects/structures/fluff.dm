@@ -188,6 +188,7 @@
 	desc = "A vent nested into the wall, managing the airflow between the rooms"
 
 /obj/structure/fluff/rug
+	brandish_icon_mode = BRANDISH_MODE_WORLD
 	icon = 'icons/obj/rug.dmi'
 	icon_state = "tiger_rug"
 	name = "tiger rug"

@@ -23,6 +23,22 @@
 	TEST_ASSERT_EQUAL(east[1], -64, "East-facing camera rotates world Y to negative screen X")
 	TEST_ASSERT_EQUAL(east[2], 32, "East-facing camera rotates world X to screen Y")
 
+/datum/unit_test/brandish_camera_body_effect_cleanup/Run()
+	var/datum/client_camera_state/state = allocate(/datum/client_camera_state)
+	var/mob/body = allocate(/mob/living/carbon/human/consistent)
+	var/datum/source = allocate(/datum)
+	state.requested_view = "19x15"
+	state.set_effect(source, null, 4, 5, TRUE, 12, 7)
+	state.effect_body = body
+	var/previous_epoch = state.effect_epoch
+	state.on_body_lost(body)
+	TEST_ASSERT_EQUAL(length(state.effects), 0, "Logout releases every source from the applied camera state")
+	TEST_ASSERT_EQUAL(state.effect_epoch, previous_epoch + 1, "Logout invalidates queued body-owned callbacks")
+	TEST_ASSERT_NULL(state.effect_body, "The old body must not remain bound")
+	var/list/resolved = state.resolve(TRUE, FALSE)
+	for(var/index in 2 to 5)
+		TEST_ASSERT_EQUAL(resolved[index], 0, "Removing old effects restores every base coordinate")
+
 /datum/unit_test/brandish_view_dimensions/Run()
 	var/datum/client_camera_state/state = allocate(/datum/client_camera_state)
 	state.requested_view = "17x15"
@@ -118,10 +134,12 @@
 /datum/brandish_camera/policy_test
 	var/openings = 0
 
-/datum/brandish_camera/policy_test/New(datum/brandish_test_viewer/viewer)
+/datum/brandish_camera/policy_test/New(datum/brandish_test_viewer/viewer, resumed_heading, restore_dir)
 	owner = viewer
 	body = viewer.mob
-	previous_body_dir = body.dir
+	previous_body_dir = isnull(restore_dir) ? body.dir : restore_dir
+	if(resumed_heading)
+		body.setDir(resumed_heading)
 	viewer.brandish_camera = src
 
 /datum/brandish_camera/policy_test/ui_interact(mob/user, datum/tgui/ui)
@@ -137,7 +155,7 @@
 /datum/unit_test/brandish_camera_policy/New()
 	. = ..()
 	saved_default = GLOB.default_client_dir
-	saved_enabled = CONFIG_GET(flag/brandish_camera)
+	saved_enabled = GLOB.brandish_perspective_enabled
 	saved_assets_enabled = GLOB.brandish_assets.enabled
 	saved_intro = GLOB.brandish_intro_shown.Copy()
 	set_brandish_perspective(FALSE)
@@ -152,31 +170,29 @@
 	GLOB.brandish_intro_shown = saved_intro
 
 /datum/unit_test/brandish_camera_policy/default_direction/Run()
+	set_brandish_perspective(FALSE)
 	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
 	viewer.mob = allocate(/mob/living/carbon/human/consistent)
 	for(var/facing in GLOB.cardinals)
-		TEST_ASSERT(set_default_client_dir(facing), "Cardinal default is accepted")
-		TEST_ASSERT_EQUAL(GLOB.default_client_dir, facing, "Default persists for later logins")
+		TEST_ASSERT(set_station_client_direction(facing), "Cardinal direction trait is accepted")
+		TEST_ASSERT_EQUAL(GLOB.default_client_dir, facing, "Trait drives the default for later logins")
 		viewer.apply_default_client_dir()
-		TEST_ASSERT_EQUAL(viewer.dir, facing, "An unowned view takes the current default")
+		TEST_ASSERT_EQUAL(viewer.dir, facing, "A normal view takes the trait direction")
 	for(var/invalid in list(NONE, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, 16, -1, 1.5, "NORTH", null))
 		var/before = GLOB.default_client_dir
-		TEST_ASSERT(!set_default_client_dir(invalid), "Non-cardinal default is rejected: [invalid]")
-		TEST_ASSERT_EQUAL(GLOB.default_client_dir, before, "Rejected input preserves the previous default")
+		TEST_ASSERT(!set_station_client_direction(invalid), "Non-cardinal default is rejected: [invalid]")
+		TEST_ASSERT_EQUAL(GLOB.default_client_dir, before, "Rejected input preserves the default")
+	set_station_client_direction(NORTH)
+	set_brandish_perspective(TRUE)
 	var/datum/brandish_camera/camera = allocate(/datum/brandish_camera/policy_test, viewer)
 	viewer.dir = EAST
-	set_default_client_dir(SOUTH)
-	viewer.apply_default_client_dir()
-	TEST_ASSERT_EQUAL(viewer.dir, EAST, "Active camera retains ownership when default changes")
+	TEST_ASSERT(!set_station_client_direction(SOUTH), "Direction traits cannot replace an active perspective")
 	qdel(camera)
-	TEST_ASSERT_EQUAL(viewer.dir, SOUTH, "Camera teardown uses the latest default rather than its original heading")
+	TEST_ASSERT_EQUAL(viewer.dir, NORTH, "Camera teardown returns to the unchanged NORTH default")
 	viewer.brandish_mirror = allocate(/datum/brandish_observe_mirror)
 	viewer.dir = EAST
-	set_default_client_dir(WEST)
-	viewer.apply_default_client_dir()
-	TEST_ASSERT_EQUAL(viewer.dir, EAST, "An Observe mirror retains its watched heading")
 	call(viewer, /client/proc/clear_brandish_observe)()
-	TEST_ASSERT_EQUAL(viewer.dir, WEST, "Ending Observe restores the latest default")
+	TEST_ASSERT_EQUAL(viewer.dir, NORTH, "Ending Observe returns to the unchanged NORTH default")
 
 /datum/unit_test/brandish_camera_policy/guide/Run()
 	var/mob/living/carbon/human/consistent/body = allocate(/mob/living/carbon/human/consistent)
@@ -245,33 +261,33 @@
 	var/datum/brandish_asset_registry/registry = allocate(/datum/brandish_asset_registry)
 	registry.aliases = list()
 	var/source = 'icons/obj/solar.dmi'
-	for(var/kind in list("surface", "smooth", "corner", "basis", "footprint"))
+	for(var/kind in list(BRANDISH_MODE_SURFACE, BRANDISH_MODE_SMOOTH, BRANDISH_MODE_CORNER, BRANDISH_MODE_BASIS, BRANDISH_ASSET_FOOTPRINT))
 		TEST_ASSERT_EQUAL(registry.icon_for(source, kind, NORTH), source, "Missing [kind] preserves original resource")
 		TEST_ASSERT(!registry.supports(source, kind), "Missing [kind] must not advertise support")
-	registry.aliases[source] = list("source" = source, "surface" = list("1" = 'icons/obj/fluff.dmi'))
-	registry.configure(FALSE)
-	TEST_ASSERT_EQUAL(registry.icon_for(source, "surface", NORTH), source, "Disabled catalog preserves original resource")
-	TEST_ASSERT(!registry.supports(source, "surface"), "Disabled catalog must not advertise support")
+	registry.aliases[source] = list("source" = source, BRANDISH_MODE_SURFACE = list("1" = 'icons/obj/fluff.dmi'))
+	registry.enabled = FALSE
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH), source, "Disabled catalog preserves original resource")
+	TEST_ASSERT(!registry.supports(source, BRANDISH_MODE_SURFACE), "Disabled catalog must not advertise support")
 
 /datum/unit_test/brandish_compact_surface_fallback/Run()
-	var/datum/brandish_asset_registry/runtime/registry = allocate(/datum/brandish_asset_registry/runtime)
+	var/datum/brandish_asset_registry/registry = allocate(/datum/brandish_asset_registry)
 	var/source = 'icons/obj/decals.dmi'
 	var/bank = 'icons/obj/fluff.dmi'
-	var/list/entry = list("source" = source, "surface" = list("1" = bank), "surfaceStates" = list("map-left" = TRUE))
+	var/list/entry = list("source" = source, BRANDISH_MODE_SURFACE = list("1" = bank), "surfaceStates" = list("map-left" = TRUE))
 	registry.aliases = list()
 	registry.aliases[source] = entry
 	registry.aliases[bank] = entry
-	TEST_ASSERT_EQUAL(registry.icon_for(source, "surface", NORTH, state = "map-left"), bank, "Selected geometry uses its compact bank")
-	TEST_ASSERT_EQUAL(registry.icon_for(source, "surface", NORTH, state = "frame-empty"), source, "Unselected upright state uses the source")
-	TEST_ASSERT_EQUAL(registry.icon_for(bank, "surface", NORTH, state = "frame-empty"), source, "Changing out of a compact state restores the source")
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH, state = "map-left"), bank, "Selected geometry uses its compact bank")
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH, state = "frame-empty"), source, "Unselected upright state uses the source")
+	TEST_ASSERT_EQUAL(registry.icon_for(bank, BRANDISH_MODE_SURFACE, NORTH, state = "frame-empty"), source, "Changing out of a compact state restores the source")
 	TEST_ASSERT_EQUAL(registry.source_for(bank), source, "Compact bank retains its original identity")
-	TEST_ASSERT_EQUAL(registry.icon_for(source, "surface", NORTH), source, "Calls without a state cannot select an incomplete bank")
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH), source, "Calls without a state cannot select an incomplete bank")
 	var/obj/probe = allocate(/obj)
-	probe.brandish_icon_mode = "surface"
+	probe.brandish_icon_mode = BRANDISH_MODE_SURFACE
 	probe.icon = bank
 	probe.icon_state = "frame-empty"
 	probe.dir = NORTH
-	var/datum/brandish_asset_registry/runtime/previous_registry = GLOB.brandish_assets
+	var/datum/brandish_asset_registry/previous_registry = GLOB.brandish_assets
 	GLOB.brandish_assets = registry
 	APPLY_BRANDISH_ICON(probe)
 	GLOB.brandish_assets = previous_registry
@@ -370,6 +386,148 @@
 			continue
 		found = TRUE
 		TEST_ASSERT_EQUAL(part.dir, EAST, "Transferred floor marking follows physical shuttle rotation")
-		TEST_ASSERT_EQUAL(part.icon, GLOB.brandish_assets.icon_for(resource, "surface", EAST, state = "warningline"), "Transferred marking retains the directional bank")
+		TEST_ASSERT_EQUAL(part.icon, GLOB.brandish_assets.icon_for(resource, BRANDISH_MODE_SURFACE, EAST, state = "warningline"), "Transferred marking retains the directional bank")
 	TEST_ASSERT(found, "Ground decal survives the shuttle transfer signal")
 	destination.RemoveElement(/datum/element/decal/ground, resource, "warningline", EAST, FALSE, null, TURF_LAYER, null, 255, TRUE, 0, 0)
+
+/datum/unit_test/brandish_station_direction
+	parent_type = /datum/unit_test/brandish_camera_policy
+
+/datum/unit_test/brandish_station_direction/Destroy()
+	set_station_client_direction(NORTH)
+	return ..()
+
+/datum/unit_test/brandish_station_direction/Run()
+	set_brandish_perspective(FALSE)
+	var/list/directions = list(/datum/station_trait/client_view_direction/south, /datum/station_trait/client_view_direction/east, /datum/station_trait/client_view_direction/west)
+	for(var/datum/station_trait/client_view_direction/trait_type as anything in directions)
+		TEST_ASSERT_EQUAL(initial(trait_type.weight), 0, "Direction traits cannot be rolled")
+		TEST_ASSERT_EQUAL(initial(trait_type.trait_type), STATION_TRAIT_NEUTRAL, "Direction traits are neutral")
+		var/datum/station_trait/client_view_direction/active = SSstation.setup_trait(trait_type)
+		TEST_ASSERT(active, "The normal station-trait setup API creates the trait")
+		TEST_ASSERT_EQUAL(GLOB.default_client_dir, active.view_direction, "The active trait drives the default")
+		var/count = 0
+		for(var/datum/station_trait/client_view_direction/direction_trait in SSstation.station_traits)
+			count++
+		TEST_ASSERT_EQUAL(count, 1, "A new direction replaces the previous trait")
+		TEST_ASSERT(!set_brandish_perspective(TRUE), "An active direction trait blocks Brandish")
+		TEST_ASSERT(!GLOB.brandish_perspective_enabled, "A rejected toggle leaves the perspective off")
+	var/datum/station_trait/client_view_direction/last = locate() in SSstation.station_traits
+	last.revert()
+	TEST_ASSERT_EQUAL(GLOB.default_client_dir, NORTH, "Reverting the last direction returns to NORTH")
+	TEST_ASSERT(!(locate(/datum/station_trait/client_view_direction) in SSstation.station_traits), "Revert removes the trait")
+	set_station_client_direction(EAST)
+	TEST_ASSERT(set_station_client_direction(NORTH), "Selecting NORTH succeeds")
+	TEST_ASSERT(!(locate(/datum/station_trait/client_view_direction) in SSstation.station_traits), "NORTH has no station trait")
+	TEST_ASSERT(set_brandish_perspective(TRUE), "Removing the trait allows Brandish")
+	TEST_ASSERT(!SSstation.setup_trait(/datum/station_trait/client_view_direction/west), "Station setup rejects a direction while Brandish is enabled")
+	TEST_ASSERT_EQUAL(GLOB.default_client_dir, NORTH, "Rejected setup preserves the normal default")
+	set_brandish_perspective(FALSE)
+	var/list/saved_pool = SSstation.selectable_traits_by_types[STATION_TRAIT_NEUTRAL]
+	var/list/zero_pool = list()
+	for(var/trait_type in directions)
+		zero_pool[trait_type] = 0
+	SSstation.selectable_traits_by_types[STATION_TRAIT_NEUTRAL] = zero_pool
+	SSstation.pick_traits(STATION_TRAIT_NEUTRAL, STATION_TRAIT_COST_FULL)
+	SSstation.selectable_traits_by_types[STATION_TRAIT_NEUTRAL] = saved_pool
+	TEST_ASSERT_EQUAL(length(zero_pool), 0, "Zero-weight traits are excluded even when no positive weights remain")
+	TEST_ASSERT(!(locate(/datum/station_trait/client_view_direction) in SSstation.station_traits), "An all-zero pool does not create a direction trait")
+
+/datum/unit_test/brandish_camera_body_signal_cleanup/Run()
+	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
+	var/mob/living/carbon/human/consistent/body = allocate(/mob/living/carbon/human/consistent)
+	viewer.mob = body
+	viewer.brandish_disconnecting = TRUE // Only native skin calls are suppressed.
+	var/datum/client_camera_state/state = allocate(/datum/client_camera_state, viewer)
+	var/runtimes_before = GLOB.total_runtimes
+	state.bind_effect_body()
+	TEST_ASSERT_EQUAL(state.effect_body, body, "A non-null owner exercises actual body signal registration")
+	state.effects["probe"] = list(null, 0, 0, TRUE, 12, 7)
+	SEND_SIGNAL(body, COMSIG_MOB_LOGOUT)
+	TEST_ASSERT(!state.effect_body && !length(state.effects), "The registered logout callback clears body effects")
+	state.bind_effect_body()
+	qdel(body)
+	TEST_ASSERT(!state.effect_body, "The registered deletion callback releases the body")
+	TEST_ASSERT_EQUAL(GLOB.total_runtimes, runtimes_before, "Registering multiple signals does not emit an older-method stack trace")
+
+/datum/brandish_test_viewer/proc/brandish_body_eligible(mob/body)
+	return call(src, /client/proc/brandish_body_eligible)(body)
+
+/datum/unit_test/brandish_camera_policy/availability/Run()
+	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
+	var/mob/living/carbon/human/consistent/body = allocate(/mob/living/carbon/human/consistent)
+	var/mob/other = allocate(/mob)
+	var/obj/remote = allocate(/obj)
+	viewer.mob = body
+	viewer.eye = body
+	var/datum/brandish_camera/camera = allocate(/datum/brandish_camera/policy_test, viewer)
+	var/datum/brandish_zlook_resume/resume = allocate(/datum/brandish_zlook_resume, viewer, body, run_loc_floor_bottom_left, NORTH, SOUTH)
+	for(var/mask in 0 to 1023)
+		viewer.brandish_camera_suppressed = !!(mask & 1)
+		viewer.brandish_disconnecting = !!(mask & 2)
+		GLOB.brandish_perspective_enabled = !(mask & 4)
+		body.stat = (mask & 8) ? DEAD : CONSCIOUS
+		body.remote_control = (mask & 16) ? remote : null
+		body.control_object = (mask & 32) ? remote : null
+		viewer.mob = (mask & 64) ? other : body
+		viewer.local_eye = !(mask & 128)
+		viewer.logged_in = !(mask & 256)
+		GLOB.brandish_assets.enabled = !(mask & 512)
+		var/expected_body = !viewer.brandish_camera_suppressed && !viewer.brandish_disconnecting && body && viewer.mob == body && body.stat != DEAD && body.brandish_perspective_allowed() && !body.remote_control && !body.control_object
+		TEST_ASSERT_EQUAL(!!viewer.brandish_body_eligible(body), !!expected_body, "Body truth table [mask]")
+		var/expected_sync = GLOB.brandish_perspective_enabled && !viewer.brandish_camera_suppressed && !viewer.brandish_disconnecting && viewer.logged_in && viewer.mob?.brandish_perspective_allowed() && viewer.mob.stat != DEAD && viewer.mob.hud_used && viewer.brandish_has_local_eye() && !viewer.mob.remote_control && !viewer.mob.control_object
+		var/actual_sync = GLOB.brandish_perspective_enabled && viewer.logged_in && viewer.brandish_body_eligible(viewer.mob) && viewer.mob.hud_used && viewer.brandish_has_local_eye()
+		TEST_ASSERT_EQUAL(!!actual_sync, !!expected_sync, "Creation truth table [mask]")
+		var/expected_camera = GLOB.brandish_perspective_enabled && GLOB.brandish_assets.enabled && viewer.brandish_camera == camera && !viewer.brandish_camera_suppressed && !viewer.brandish_disconnecting && !QDELETED(body) && body.stat != DEAD && body.brandish_perspective_allowed() && viewer.mob == body && viewer.brandish_has_local_eye() && !body.remote_control && !body.control_object
+		TEST_ASSERT_EQUAL(!!camera.is_available(), !!expected_camera, "Active-camera truth table [mask]")
+		var/expected_resume = !viewer.brandish_disconnecting && !viewer.brandish_camera_suppressed && viewer.logged_in && GLOB.brandish_perspective_enabled && GLOB.brandish_assets.enabled && viewer.mob == body && body.stat != DEAD && body.brandish_perspective_allowed() && !body.remote_control && !body.control_object && viewer.brandish_has_local_eye()
+		TEST_ASSERT_EQUAL(!!resume.is_valid(), !!expected_resume, "Resume truth table [mask]")
+	viewer.mob = null
+	TEST_ASSERT(!viewer.brandish_body_eligible(null), "Missing bodies cannot acquire a camera")
+	viewer.brandish_disconnecting = TRUE
+
+/datum/unit_test/brandish_corner_classification/Run()
+	var/datum/brandish_asset_registry/registry = allocate(/datum/brandish_asset_registry)
+	var/source = 'icons/turf/walls.dmi'
+	var/bank = 'icons/obj/fluff.dmi'
+	registry.aliases = list()
+	registry.aliases[source] = list("source" = source, BRANDISH_MODE_CORNER = list("1" = bank))
+	for(var/state in list("d-nw", "d-se-1", "1-i", "4-sw", "a-unknown"))
+		TEST_ASSERT_EQUAL(registry.appearance_icon(source, state, NORTH), bank, "Legacy corner selection is retained for [state]")
+	for(var/state in list("wall-1", "plain", "1-"))
+		TEST_ASSERT_EQUAL(registry.appearance_icon(source, state, NORTH), source, "Unrelated states keep original artwork")
+
+// Extend the existing socket-free client fixture; native skin calls stay stubbed.
+/datum/brandish_test_viewer
+	var/logged_in = TRUE
+	var/datum/brandish_zlook_resume/brandish_zlook_resume
+
+/datum/brandish_test_viewer/proc/remember_brandish_zlook(mob/living/body, turf/target)
+	call(src, /client/proc/remember_brandish_zlook)(body, target)
+
+/datum/brandish_test_viewer/proc/take_brandish_zlook_resume()
+	return call(src, /client/proc/take_brandish_zlook_resume)()
+
+/datum/brandish_test_viewer
+	var/datum/client_camera_state/composed_camera_state
+
+/datum/brandish_test_viewer/proc/set_camera_effect(datum/source, view_override = null, offset_x = 0, offset_y = 0, local_only = TRUE, offset_w = 0, offset_z = 0)
+	composed_camera_state.set_effect(source, view_override, offset_x, offset_y, local_only, offset_w, offset_z)
+
+/datum/unit_test/brandish_turn_offset_invariance/Run()
+	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
+	viewer.mob = allocate(/mob/living/carbon/human/consistent)
+	var/datum/brandish_camera/camera = allocate(/datum/brandish_camera/policy_test, viewer)
+	var/datum/client_camera_state/state = allocate(/datum/client_camera_state)
+	viewer.composed_camera_state = state
+	camera.update_offset()
+	var/datum/zoom = allocate(/datum)
+	state.set_effect(zoom, "23x19", 0, 0, TRUE, 12, 7)
+	for(var/facing in GLOB.cardinals)
+		viewer.setDir(facing)
+		var/list/composed = state.resolve(TRUE, TRUE)
+		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_WORLD_X], 0, "Turning adds no world X offset at [facing]")
+		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_WORLD_Y], 0, "Turning adds no world Y offset at [facing]")
+		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_X], 12, "Turning preserves the zoom's screen X at [facing]")
+		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_Y], 2 * world.icon_size + 7, "Two screen tiles compose with zoom identically at [facing]")
+		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_VIEW], "19x19", "Zoom composition stays square")

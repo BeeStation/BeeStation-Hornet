@@ -7,6 +7,7 @@
 //ratvar
 
 /obj/structure/dead_ratvar
+	brandish_icon_mode = BRANDISH_MODE_WORLD
 	name = "hulking wreck"
 	desc = "The remains of a monstrous war machine."
 	icon = 'icons/obj/lavaland/dead_ratvar.dmi'

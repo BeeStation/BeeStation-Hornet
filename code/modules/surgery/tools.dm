@@ -349,14 +349,9 @@
 
 	user.visible_message("[user] puts [I] into [src].", span_notice("You put [I] inside [src]."))
 	icon_state = "evidence"
-	var/xx = I.pixel_x
-	var/yy = I.pixel_y
-	I.pixel_x = 0
-	I.pixel_y = 0
-	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)
+	var/mutable_appearance/img = copy_appearance_without_offsets(I)
+	img.layer = FLOAT_LAYER
 	img.plane = FLOAT_PLANE
-	I.pixel_x = xx
-	I.pixel_y = yy
 	add_overlay(img)
 	add_overlay("evidence")
 	desc = "An organ storage container holding [I]."

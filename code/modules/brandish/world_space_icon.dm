@@ -13,6 +13,8 @@
 	var/list/state_dirs
 	/// Whether the gated layers are currently shown in place of the source icon.
 	var/projected = FALSE
+	/// External overlay replacement invalidates the cached presentation too.
+	var/layers_dirty = FALSE
 	/// Last projected inputs. Compared numerically: projectiles refresh every
 	/// movement step, so a formatted signature string per call is wasteful.
 	var/last_state
@@ -57,7 +59,7 @@
 		resolved_icon = source_icon
 		GLOB.brandish_assets.prepare()
 		var/list/entry = GLOB.brandish_assets.aliases[source_icon]
-		gates = entry?["viewGates"]
+		gates = entry?[BRANDISH_ASSET_VIEW_GATES]
 		state_dirs = entry?["stateDirs"]
 		force = TRUE
 	var/state = owner.icon_state
@@ -68,15 +70,20 @@
 			layers.Cut()
 			owner.icon = source_icon
 			projected = FALSE
-		return
+			layers_dirty = FALSE
+			return TRUE
+		layers_dirty = FALSE
+		return FALSE
 	var/art_dir = owner.dir
 	if(num_dirs == 1 || !art_dir)
 		art_dir = SOUTH
 	else if(num_dirs == 4 && !(art_dir in GLOB.cardinals))
 		art_dir = (art_dir & EAST) ? EAST : WEST
 	var/matrix/world_transform = owner.transform || matrix()
-	if(!force && projected && state == last_state && art_dir == last_dir 		&& world_transform.a == last_a && world_transform.b == last_b && world_transform.c == last_c 		&& world_transform.d == last_d && world_transform.e == last_e && world_transform.f == last_f)
-		return
+	if(!force && projected && !layers_dirty && state == last_state && art_dir == last_dir \
+		&& world_transform.a == last_a && world_transform.b == last_b && world_transform.c == last_c \
+		&& world_transform.d == last_d && world_transform.e == last_e && world_transform.f == last_f)
+		return FALSE
 	last_state = state
 	last_dir = art_dir
 	last_a = world_transform.a
@@ -102,10 +109,16 @@
 			layers += layer
 		layer.icon = gates["[facing]"]
 		layer.icon_state = "[state]@[art_dir]"
-		var/matrix/projection = matrix(world_transform)
-		projection.Turn(-dir2angle(facing))
-		layer.transform = projection
+		layer.transform = projection_for(facing, world_transform)
 	show_layers()
+	layers_dirty = FALSE
+	return TRUE
+
+/// Called only for dirty inputs, before the overlay appearance is attached.
+/datum/world_space_icon/proc/projection_for(facing, matrix/world_transform)
+	var/matrix/projection = matrix(world_transform)
+	projection.Turn(-dir2angle(facing))
+	return projection
 
 /atom
 	var/datum/world_space_icon/world_space_icon
@@ -119,3 +132,59 @@
 	if(!world_space_icon)
 		world_space_icon = new(src)
 	world_space_icon.refresh()
+
+/// Whole world geometry, including rectangular canvases and multi-tile bounds.
+/// Keep the owner's map pixel offsets and gameplay bounds unchanged. Rotate
+/// the canvas centre with the world, then undo BYOND's native bounds anchor.
+/datum/world_space_icon/geometry
+	var/atom/movable/bounds_owner
+	var/last_bound_width
+	var/last_bound_height
+	var/last_bound_x
+	var/last_bound_y
+	var/canvas_source
+	var/centre_x
+	var/centre_y
+
+/datum/world_space_icon/geometry/New(image/target, atom/movable/footprint = target)
+	bounds_owner = footprint
+	return ..()
+
+/datum/world_space_icon/geometry/Destroy()
+	bounds_owner = null
+	return ..()
+
+/datum/world_space_icon/geometry/refresh(force = FALSE)
+	var/bounds_changed = last_bound_width != bounds_owner.bound_width || last_bound_height != bounds_owner.bound_height \
+		|| last_bound_x != bounds_owner.bound_x || last_bound_y != bounds_owner.bound_y
+	last_bound_width = bounds_owner.bound_width
+	last_bound_height = bounds_owner.bound_height
+	last_bound_x = bounds_owner.bound_x
+	last_bound_y = bounds_owner.bound_y
+	return ..(force || bounds_changed)
+
+/datum/world_space_icon/geometry/projection_for(facing, matrix/world_transform)
+	if(canvas_source != source_icon)
+		canvas_source = source_icon
+		var/list/size = get_icon_dimensions(source_icon)
+		centre_x = (size["width"] - ICON_SIZE_X) / 2
+		centre_y = (size["height"] - ICON_SIZE_Y) / 2
+	var/list/centre = camera_world_to_screen(centre_x, centre_y, facing)
+	var/dx = centre[1] - centre_x
+	var/dy = centre[2] - centre_y
+	APPLY_BRANDISH_BOUNDS_OFFSET(dx, dy, bounds_owner, facing)
+	var/matrix/projection = ..()
+	// Matrix translation preserves the half-pixel pivot of odd canvases,
+	// such as the 355x76 cannon, without rounding pixel_w/z independently.
+	projection.Translate(dx, dy)
+	return projection
+
+/// Snapshot an owned geometry overlay into an ordinary appearance. Its four
+/// sparse children use the same footprint correction as the atom's body.
+/atom/movable/proc/brandish_geometry_overlay(state, overlay_layer = FLOAT_LAYER)
+	var/image/drawing = image(initial(icon), icon_state = state, layer = overlay_layer, dir = dir)
+	var/datum/world_space_icon/geometry/projector = new(drawing, src)
+	projector.refresh()
+	var/mutable_appearance/result = new(drawing.appearance)
+	qdel(projector)
+	return result

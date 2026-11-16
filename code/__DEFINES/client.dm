@@ -1,3 +1,6 @@
+/// Pixel-only native camera sequences can be stopped without freezing colour fades.
+#define CLIENT_CAMERA_ANIMATION "client_camera_pixels"
+
 #define AUTH_CLIENT_VERB(verb_name, args...)\
 /client/collect_client_verbs(){\
 	. = ..();\

@@ -77,9 +77,7 @@
 /mob/Initialize(mapload)
 	// A mob's base offsets align its upright sprite to its tile. Keep runtime
 	// placement (including mapper offsets and riding) in world coordinates.
-	brandish_screen_origin(base_pixel_x, base_pixel_y)
-	base_pixel_x = 0
-	base_pixel_y = 0
+	brandish_screen_origin(base_pixel_x, base_pixel_y, from_base = TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_CREATED, src)
 	mob_properties = list()
 	add_to_mob_list()
@@ -806,7 +804,6 @@
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
-/mob/var/tmp/direction_animation_depth = 0
 
 ///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)

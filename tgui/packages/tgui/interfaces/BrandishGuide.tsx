@@ -16,11 +16,15 @@ export const BrandishGuide = () => {
           <Stack.Item grow overflow="auto">
             <Section title="Face forward">
               Your character always faces the top of the screen. Turning rotates
-              your view in 90-degree steps, with the camera looking three tiles
+              your view in 90-degree steps, with the camera looking two tiles
               ahead.
               <Box mt={1}>
                 Your view is square: its width and height use the smaller of
                 your requested view dimensions.
+              </Box>
+              <Box mt={1}>
+                Default-direction station traits are for normal view and cannot
+                be combined with Brandish.
               </Box>
             </Section>
             <Section title="Your movement keys">

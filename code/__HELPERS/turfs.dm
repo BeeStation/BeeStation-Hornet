@@ -243,7 +243,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(!modifiers)
 		return null
 	if(viewing_client)
-		var/list/vector = viewing_client.camera_click_vector(modifiers, origin)
+		var/list/vector = camera_click_offset(modifiers, viewing_client.dir, origin, viewing_client)
 		if(!vector)
 			return null
 		var/offset_x = FLOOR((vector[1] + ICON_SIZE_X / 2) / ICON_SIZE_X, 1)

@@ -119,7 +119,7 @@
 	return TRUE
 
 /obj/structure/platform/update_icon_state()
-	if(!GLOB.brandish_assets.supports(icon, "foreground"))
+	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_FOREGROUND))
 		. = ..()
 		update_icon_state_original()
 		return .
@@ -128,7 +128,7 @@
 	layer = initial(layer)
 
 /obj/structure/platform/update_overlays()
-	if(!GLOB.brandish_assets.supports(icon, "foreground"))
+	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_FOREGROUND))
 		return ..() + update_overlays_original()
 
 	. = ..()

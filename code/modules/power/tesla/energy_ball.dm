@@ -43,6 +43,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 
 /obj/anomaly/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	energy = starting_energy
 	START_PROCESSING(SSobj, src)
 	var/turf/spawned_turf = get_turf(src)
@@ -74,12 +75,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	else
 		//Weaker, less intensive zap
 		tesla_zap(src, 4, TESLA_DEFAULT_ENERGY, zap_flags = ZAP_TESLA_SMALL_FLAGS)
-		pixel_x = -32
-		pixel_y = -32
 		return
 
-	pixel_x = -32
-	pixel_y = -32
 	for(var/ball in orbiting_balls)
 		if(TICK_CHECK)
 			return

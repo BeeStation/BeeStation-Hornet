@@ -15,7 +15,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	return ..()
 
 /obj/machinery/gateway
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "gateway"
 	desc = "A gateway built for quick travel between linked destinations."
 	icon = 'icons/obj/machines/gateway.dmi'
@@ -38,8 +38,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	active_power_usage = 1000
 
 	var/obj/effect/gateway_portal_bumper/bumper
-	/// Rendering uses a tile-sized anchor; collision remains the original 3x2.
-	var/obj/effect/overlay/gateway_art/brandish_gateway_art
 
 	var/active = FALSE
 
@@ -50,7 +48,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	COOLDOWN_DECLARE(telegraph_cooldown)
 
 /obj/machinery/gateway/Destroy()
-	QDEL_NULL(brandish_gateway_art)
 	if(GLOB.the_gateway == src)
 		GLOB.the_gateway = null
 	if(linked_gateway)
@@ -61,28 +58,30 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	return ..()
 
 /obj/machinery/gateway/apply_brandish_icon()
-	if(!GLOB.brandish_assets.supports(initial(icon), "surface"))
+	if(!GLOB.brandish_assets.supports(initial(icon), BRANDISH_ASSET_VIEW_GATES))
 		return ..()
-	if(!brandish_gateway_art)
-		// Multi-dir artwork on this asymmetric collision box is re-anchored by
-		// BYOND when it turns. A visual child keeps the picture centred without
-		// widening the collision box or moving the portal's entry row.
-		brandish_gateway_art = new(src)
-		vis_contents += brandish_gateway_art
-		pixel_x += ICON_SIZE_X
-		pixel_y += ICON_SIZE_Y
-	brandish_gateway_art.icon_state = icon_state
-	brandish_gateway_art.setDir(dir)
-	APPLY_BRANDISH_ICON(brandish_gateway_art)
-	icon = null
+	if(!world_space_icon)
+		brandish_screen_origin(initial(pixel_x), initial(pixel_y))
+		world_space_icon = new /datum/world_space_icon/gateway(src)
+	set_world_transform(transform)
 
-/obj/effect/overlay/gateway_art
-	icon = 'icons/obj/machines/gateway.dmi'
-	icon_state = "off"
-	brandish_icon_mode = "surface"
-	pixel_w = -32
-	pixel_z = -32
-	vis_flags = VIS_INHERIT_ID | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE
+/// Keep the 3x2 collision box while drawing the complete 3x3 picture. Native
+/// rotation anchors large collision boxes at their southwest corner. Compensate
+/// that anchor separately in each sparse view overlay; no per-client objects.
+/// Ordinary overlays also survive z-mimic's appearance copy and retain our ID.
+/datum/world_space_icon/gateway/refresh(force = FALSE)
+	. = ..()
+	if(!projected)
+		return
+	var/obj/machinery/gateway/gateway = owner
+	clear_layers()
+	var/index = 0
+	for(var/facing in GLOB.cardinals)
+		var/image/drawing = layers[++index]
+		drawing.pixel_w = 0
+		drawing.pixel_z = 0
+		APPLY_BRANDISH_BOUNDS_OFFSET(drawing.pixel_w, drawing.pixel_z, gateway, facing)
+	show_layers()
 
 /obj/machinery/gateway/examine(mob/user)
 	. = ..()

@@ -19,7 +19,7 @@
 	acid = 70
 
 /obj/structure/shuttle/engine
-	brandish_icon_mode = "surface"
+	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "engine"
 	desc = "A bluespace engine used to make shuttles move."
 	density = TRUE

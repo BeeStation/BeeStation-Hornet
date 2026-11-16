@@ -1268,12 +1268,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// Perform a shake on an atom, resets its position afterwards
 /atom/proc/Shake(pixelshiftx = 2, pixelshifty = 2, duration = 2.5 SECONDS, shake_interval = 0.02 SECONDS)
-	var/initialpixelx = pixel_x
-	var/initialpixely = pixel_y
-	animate(src, pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixelx + rand(-pixelshifty,pixelshifty), time = shake_interval, flags = ANIMATION_PARALLEL)
+	var/initialpixelw = pixel_w
+	var/initialpixelz = pixel_z
+	animate(src, pixel_w = initialpixelw + rand(-pixelshiftx,pixelshiftx), pixel_z = initialpixelz + rand(-pixelshifty,pixelshifty), time = shake_interval, flags = ANIMATION_PARALLEL)
 	for (var/i in 3 to ((duration / shake_interval))) // Start at 3 because we already applied one, and need another to reset
-		animate(pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixely + rand(-pixelshifty,pixelshifty), time = shake_interval)
-	animate(pixel_x = initialpixelx, pixel_y = initialpixely, time = shake_interval)
+		animate(pixel_w = initialpixelw + rand(-pixelshiftx,pixelshiftx), pixel_z = initialpixelz + rand(-pixelshifty,pixelshifty), time = shake_interval)
+	animate(pixel_w = initialpixelw, pixel_z = initialpixelz, time = shake_interval)
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
@@ -1309,9 +1309,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// Fikou's fix for making toast alerts look nice - resets offsets, transforms to fit
 /proc/get_small_overlay(atom/source)
-	var/mutable_appearance/alert_overlay = new(source)
-	alert_overlay.pixel_x = 0
-	alert_overlay.pixel_y = 0
+	var/mutable_appearance/alert_overlay = copy_appearance_without_offsets(source)
 
 	var/scale = 1
 	var/list/icon_dimensions = get_icon_dimensions(source.icon)
@@ -1330,6 +1328,16 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	alert_overlay.transform = alert_overlay.transform.Scale(scale)
 
 	return alert_overlay
+
+/// A local preview owns its own origin, independent of the source's map and
+/// screen placement. Leave the live source unchanged while copying all art.
+/proc/copy_appearance_without_offsets(atom/source)
+	var/mutable_appearance/result = new(source)
+	result.pixel_x = 0
+	result.pixel_y = 0
+	result.pixel_w = 0
+	result.pixel_z = 0
+	return result
 
 /**
  * Copies the passed /appearance, returns a /mutable_appearance

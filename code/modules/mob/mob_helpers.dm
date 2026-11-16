@@ -616,7 +616,7 @@
 
 	for(var/i in 0 to duration-1)
 		if (i == 0)
-			animate(C, pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
+			animate(C, pixel_x=rand(min,max), pixel_y=rand(min,max), time=1, tag = CLIENT_CAMERA_ANIMATION)
 		else
 			animate(pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
 	animate(pixel_x=oldx, pixel_y=oldy, time=1)

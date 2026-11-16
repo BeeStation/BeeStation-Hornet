@@ -464,13 +464,15 @@
 /atom/proc/get_cached_width()
 	if (isnull(icon))
 		return 0
-	var/list/dimensions = get_icon_dimensions(icon)
+	var/resource = brandish_icon_mode == BRANDISH_MODE_WORLD ? (world_space_icon?.source_icon || icon) : icon
+	var/list/dimensions = get_icon_dimensions(resource)
 	return dimensions[CACHED_WIDTH_INDEX]
 
 /atom/proc/get_cached_height()
 	if (isnull(icon))
 		return 0
-	var/list/dimensions = get_icon_dimensions(icon)
+	var/resource = brandish_icon_mode == BRANDISH_MODE_WORLD ? (world_space_icon?.source_icon || icon) : icon
+	var/list/dimensions = get_icon_dimensions(resource)
 	return dimensions[CACHED_HEIGHT_INDEX]
 
 #undef CACHED_WIDTH_INDEX

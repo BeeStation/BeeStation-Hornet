@@ -29,6 +29,7 @@
 
 /obj/structure/chair/noose/Initialize(mapload)
 	. = ..()
+	brandish_screen_origin(0, initial(pixel_y))
 	overlay = image(icon, "noose_overlay")
 	overlay.layer = FLY_LAYER
 	add_overlay(overlay)
@@ -42,14 +43,18 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	M.dir = SOUTH
-	M.add_offsets(NOOSE_SOURCE, y_add = 8)
+	M.add_offsets(NOOSE_SOURCE, z_add = 8)
 
 /obj/structure/chair/noose/post_unbuckle_mob(mob/living/M)
 	. = ..()
 	M.remove_offsets(NOOSE_SOURCE)
+	animate(M, pixel_w = M.get_screen_base_pixel_w() + M.has_offset(pixel = PIXEL_W_OFFSET), time = 0)
 	if(!has_buckled_mobs())
+		// Preserve the original unbuckled base anchor, including mapper offsets.
+		brandish_screen_origin(0, -brandish_origin_screen_y)
 		pixel_x = base_pixel_x
 		pixel_y = base_pixel_y
+		animate(src, pixel_w = get_screen_base_pixel_w(), pixel_z = get_screen_base_pixel_z(), time = 0)
 		STOP_PROCESSING(SSobj, src)
 
 /obj/structure/chair/noose/handle_layer()
@@ -118,12 +123,13 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	for(var/mob/living/buckled_mob as anything in buckled_mobs)
-		if(pixel_x >= 0)
-			animate(src, pixel_x = -3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
-			animate(buckled_mob, pixel_x = -3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
+		var/rest_w = buckled_mob.get_screen_base_pixel_w() + buckled_mob.has_offset(pixel = PIXEL_W_OFFSET)
+		if(pixel_w >= get_screen_base_pixel_w())
+			animate(src, pixel_w = get_screen_base_pixel_w() - 3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
+			animate(buckled_mob, pixel_w = rest_w - 3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
 		else
-			animate(src, pixel_x = 3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
-			animate(buckled_mob, pixel_x = 3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
+			animate(src, pixel_w = get_screen_base_pixel_w() + 3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
+			animate(buckled_mob, pixel_w = rest_w + 3, time = 4.5 SECONDS, easing = ELASTIC_EASING)
 
 		if(!buckled_mob.has_gravity())
 			continue

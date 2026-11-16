@@ -52,6 +52,7 @@
 		. = FALSE
 		CRASH(msg)
 	add_to_player_list()
+	client.ensure_camera_state().bind_effect_body()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")

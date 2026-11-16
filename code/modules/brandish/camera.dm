@@ -1,14 +1,17 @@
 // Camera/input only. Terrain uses shared, build-generated native DMI resources.
-GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
-
 /client
 	var/datum/brandish_camera/brandish_camera
 	/// Debug opt-out for the current body; reset on Login/body transfer.
 	var/brandish_camera_suppressed = FALSE
 	/// Teardown must not send skin/view updates to a disconnecting client.
 	var/brandish_disconnecting = FALSE
+	/// A temporary z-look may resume only on the same living body.
+	var/datum/brandish_zlook_resume/brandish_zlook_resume
 
 /client/proc/queue_brandish_camera_sync()
+	// Invalidate immediately, including an off/on or body transfer in one tick.
+	if(brandish_zlook_resume && !brandish_zlook_resume.is_valid())
+		QDEL_NULL(brandish_zlook_resume)
 	addtimer(CALLBACK(src, PROC_REF(sync_brandish_camera)), 0, TIMER_UNIQUE)
 
 /// forceMove into a locker, cryo cell, carrier or vehicle makes that container
@@ -16,81 +19,89 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 /client/proc/brandish_has_local_eye()
 	return mob && eye && (eye == mob || (ismovable(eye) && eye == mob.loc))
 
+/// Body/control qualification shared by creation, active ownership and z-look.
+/client/proc/brandish_body_eligible(mob/body)
+	return !brandish_camera_suppressed && !brandish_disconnecting && body && mob == body \
+		&& body.stat != DEAD && body.brandish_perspective_allowed() && !body.remote_control && !body.control_object
+
 /client/proc/sync_brandish_camera()
-	var/available = CONFIG_GET(flag/brandish_camera) && !brandish_camera_suppressed && !brandish_disconnecting && logged_in && mob?.brandish_perspective_allowed() && mob.stat != DEAD && mob.hud_used && brandish_has_local_eye() && !mob.remote_control && !mob.control_object
+	var/available = GLOB.brandish_perspective_enabled && logged_in && brandish_body_eligible(mob) && mob.hud_used && brandish_has_local_eye()
 	if(brandish_camera && (!available || brandish_camera.body != mob))
 		QDEL_NULL(brandish_camera)
+	var/list/resumed
+	if(brandish_zlook_resume)
+		if(!brandish_zlook_resume.is_valid())
+			QDEL_NULL(brandish_zlook_resume)
+		else if(available && !brandish_camera)
+			resumed = take_brandish_zlook_resume()
 	if(available && !brandish_camera && GLOB.brandish_assets.has_catalog())
-		brandish_camera = new(src)
+		brandish_camera = new(src, resumed?[BRANDISH_RESUME_HEADING], resumed?[BRANDISH_RESUME_RESTORE_DIR])
 
-/// Bodies that never use the perspective, even while it is enabled globally.
-/// Ghosts, lobby players and other non-living mobs are excluded here.
-/mob/proc/brandish_perspective_allowed()
+/// Called only after z-look has found a valid turf, before changing the eye.
+/client/proc/remember_brandish_zlook(mob/living/body, turf/target)
+	if(brandish_camera?.body == body && brandish_camera.is_available())
+		QDEL_NULL(brandish_zlook_resume)
+		brandish_zlook_resume = new(src, body, target, dir, brandish_camera.previous_body_dir)
+	else if(brandish_zlook_resume?.body_ref.resolve() == body && brandish_zlook_resume.is_valid())
+		// Moving while looking can select a different hole in the same stack.
+		brandish_zlook_resume.eye_ref = WEAKREF(target)
+
+/// Consume once; ordinary remote eyes and new bodies never use this state.
+/client/proc/take_brandish_zlook_resume()
+	if(!brandish_zlook_resume?.is_valid() || !brandish_has_local_eye())
+		return
+	var/list/resumed = list(brandish_zlook_resume.heading, brandish_zlook_resume.previous_body_dir)
+	QDEL_NULL(brandish_zlook_resume)
+	return resumed
+
+/// Resume owns immediate invalidation even while the camera datum is absent.
+/datum/brandish_zlook_resume
+	var/client/owner
+	var/datum/weakref/body_ref
+	var/datum/weakref/eye_ref
+	var/heading
+	var/previous_body_dir
+
+/datum/brandish_zlook_resume/New(client/viewer, mob/living/body, turf/target, facing, restore_dir)
+	owner = viewer
+	body_ref = WEAKREF(body)
+	eye_ref = WEAKREF(target)
+	heading = facing
+	previous_body_dir = restore_dir
+	RegisterSignals(body, list(COMSIG_MOB_LOGOUT, COMSIG_QDELETING), PROC_REF(on_body_lost))
+	RegisterSignal(body, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_changed))
+	return ..()
+
+/datum/brandish_zlook_resume/Destroy()
+	var/mob/living/body = body_ref?.resolve()
+	if(body)
+		UnregisterSignal(body, list(COMSIG_MOB_LOGOUT, COMSIG_QDELETING, COMSIG_MOB_STATCHANGE))
+	if(owner?.brandish_zlook_resume == src)
+		owner.brandish_zlook_resume = null
+	owner = null
+	body_ref = null
+	eye_ref = null
+	return ..()
+
+/datum/brandish_zlook_resume/proc/is_valid()
+	var/mob/living/body = body_ref?.resolve()
+	if(!owner || !owner.logged_in || !GLOB.brandish_perspective_enabled \
+		|| !GLOB.brandish_assets.enabled || !owner.brandish_body_eligible(body))
+		return FALSE
+	if(owner.brandish_has_local_eye())
+		return TRUE
+	if(body.looking_direction)
+		return isturf(owner.eye) && owner.eye == eye_ref?.resolve()
 	return FALSE
 
-/mob/living/brandish_perspective_allowed()
-	// A mind housed inside a carried object (soulstone shade, possessed blade,
-	// sentient artifact, pAI card, MMI) has no body to steer or face forward.
-	return !isitem(loc)
+/datum/brandish_zlook_resume/proc/on_body_lost()
+	SIGNAL_HANDLER
+	qdel(src)
 
-/// Cyborgs, AIs and pAIs keep their own cameras and controls.
-/mob/living/silicon/brandish_perspective_allowed()
-	return FALSE
-
-/mob/living/brain/brandish_perspective_allowed()
-	return FALSE
-
-/// Shades exist only inside a container: soulstones and sentient artifacts.
-/mob/living/simple_animal/shade/brandish_perspective_allowed()
-	return FALSE
-
-/// Server-wide switch. The round starts in the normal perspective; an admin or
-/// coder turns the experimental perspective on for every eligible living body.
-/proc/set_brandish_perspective(enable)
-	var/was_enabled = CONFIG_GET(flag/brandish_camera)
-	. = CONFIG_SET(flag/brandish_camera, enable)
-	if(. && enable && !was_enabled)
-		GLOB.brandish_intro_shown.Cut()
-
-/client/proc/toggle_brandish_perspective()
-	set name = "Toggle Brandish Perspective"
-	set category = "Debug"
-	set desc = "Switch every living player between the normal view and the experimental Brandish perspective."
-	if(!holder || !(holder.rank.rights & (R_ADMIN | R_DEBUG)))
-		return
-	var/enable = !CONFIG_GET(flag/brandish_camera)
-	if(enable && !GLOB.brandish_assets.has_catalog())
-		to_chat(src, span_warning("This build uses original artwork. Build with tools/build/build to enable the Brandish perspective."))
-		return
-	set_brandish_perspective(enable)
-	log_admin("[key_name(src)] [enable ? "enabled" : "disabled"] the Brandish perspective for all players.")
-	message_admins("[key_name_admin(src)] [enable ? "enabled" : "disabled"] the Brandish perspective for all players.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Brandish Perspective")
-
-/client/proc/toggle_brandish_camera()
-	set name = "Brandish Camera"
-	set category = "Debug"
-	set desc = "Toggle W forward, A/D turn, S backpedal, Shift+A/D strafe and a forward-offset camera."
-	var/allowed = holder && (holder.rank.rights & (R_ADMIN | R_DEBUG))
-	if(!allowed)
-		return
-	if(!CONFIG_GET(flag/brandish_camera))
-		to_chat(src, span_notice("The Brandish perspective is off. Use Toggle Brandish Perspective to enable it for everyone."))
-		return
-	if(!GLOB.brandish_assets.has_catalog())
-		to_chat(src, span_warning("This build uses original artwork. Build with tools/build/build to enable the Brandish camera."))
-		return
-	if(brandish_camera)
-		brandish_camera_suppressed = TRUE
-		QDEL_NULL(brandish_camera)
-		to_chat(src, span_notice("Brandish camera disabled. Normal view and controls restored."))
-		return
-	if(!mob?.brandish_perspective_allowed() || !brandish_has_local_eye() || mob.remote_control || mob.control_object)
-		to_chat(src, span_warning("Use this camera while directly controlling a living character that supports it."))
-		return
-	brandish_camera_suppressed = FALSE
-	sync_brandish_camera()
-	to_chat(src, span_notice("Brandish camera enabled: W forward, A/D turn, S backpedal, Shift+A/D strafe. Your character stays below center facing away. Use this verb again to restore the view."))
+/datum/brandish_zlook_resume/proc/on_stat_changed(mob/living/body)
+	SIGNAL_HANDLER
+	if(body.stat == DEAD)
+		qdel(src)
 
 /datum/brandish_camera
 	var/client/owner
@@ -103,28 +114,29 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	var/atom/movable/followed_seat
 	/// Keep a held seat movement command stable when the chair turns mid-step.
 	var/seat_input_basis = NONE
-	/// Keep the player three tiles below the viewport center.
-	var/lead_tiles = 3
+	/// Keep the player two tiles below the viewport center.
+	var/lead_tiles = 2
 
-/datum/brandish_camera/New(client/viewer)
+/datum/brandish_camera/New(client/viewer, resumed_heading, restore_dir)
 	owner = viewer
 	body = viewer.mob
-	previous_body_dir = body.dir
+	previous_body_dir = isnull(restore_dir) ? body.dir : restore_dir
 	viewer.ensure_camera_state()
+	// An OFF-mode shake/sway must not later overwrite the new composition.
+	animate(viewer, tag = CLIENT_CAMERA_ANIMATION)
 	viewer.brandish_camera = src
 	clear_movement()
 	RegisterSignal(body, COMSIG_LIVING_SET_BUCKLED, PROC_REF(on_buckle_changed))
 	RegisterSignals(body, list(COMSIG_MOB_SET_MOB_EYE, COMSIG_MOB_STATCHANGE), PROC_REF(on_control_changed))
 	RegisterSignal(body, COMSIG_MOB_LOGOUT, PROC_REF(on_logout))
 	follow_seat(body.buckled)
-	var/facing = followed_seat ? followed_seat.dir : body.dir
+	var/facing = followed_seat ? followed_seat.dir : (resumed_heading || body.dir)
 	if(!(facing in GLOB.cardinals))
 		facing = NORTH
 	viewer.setDir(facing)
 	body.setDir(facing)
 	update_offset()
-	// WASD must reach keyDown in classic input mode too. Only switch the live
-	// macro/focus; saved preferences are untouched and restored on disable.
+	// Movement bindings need keyDown in classic mode; saved preferences stay unchanged.
 	viewer.update_special_keybinds()
 	viewer.update_macro_mode()
 	addtimer(CALLBACK(src, PROC_REF(show_intro)), 1 SECONDS)
@@ -197,7 +209,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	qdel(src)
 
 /datum/brandish_camera/proc/is_available()
-	return CONFIG_GET(flag/brandish_camera) && GLOB.brandish_assets.enabled && owner && owner.brandish_camera == src && !owner.brandish_camera_suppressed && !owner.brandish_disconnecting && !QDELETED(body) && body.stat != DEAD && body.brandish_perspective_allowed() && owner.mob == body && owner.brandish_has_local_eye() && !body.remote_control && !body.control_object
+	return GLOB.brandish_perspective_enabled && GLOB.brandish_assets.enabled && owner && owner.brandish_camera == src && !QDELETED(body) && owner.brandish_body_eligible(body) && owner.brandish_has_local_eye()
 
 /// Incapacitation pauses input, not the camera's orientation or composition.
 /// SOFT_CRIT can still crawl through the ordinary client.Move path.
@@ -346,54 +358,10 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 		return 4 / 3
 	return 1
 
-/// Look-ahead as list(world x, world y, screen z) for a given heading.
-/datum/brandish_camera/proc/lead_offsets(facing)
-	// BYOND clips the outer row in rotated views when pixel_z alone exceeds
-	// two tiles. Put the extra look-ahead in world axes so it requests those
-	// tiles too, while keeping the same total screen-space displacement.
-	var/screen_tiles = min(lead_tiles, 2)
-	var/list/world_offset = camera_screen_to_world(0, (lead_tiles - screen_tiles) * world.icon_size, facing)
-	return list(world_offset[1], world_offset[2], screen_tiles * world.icon_size)
-
+// More than two screen tiles clips rotated views; world offsets can lag a turn
+// by one rendered frame. Keep look-ahead entirely in screen coordinates.
 /datum/brandish_camera/proc/update_offset()
-	var/list/lead = lead_offsets(owner.dir)
-	owner.set_camera_effect(src, offset_x = lead[1], offset_y = lead[2], offset_z = lead[3])
-
-/// Ghosts using Observe see the watched player's heading, look-ahead and view
-/// size. The mirror lives on the client so it cannot outlive a body transfer.
-/datum/brandish_observe_mirror
-
-/client
-	var/datum/brandish_observe_mirror/brandish_mirror
-
-/client/proc/clear_brandish_observe()
-	if(!brandish_mirror)
-		return
-	clear_camera_effect(brandish_mirror)
-	QDEL_NULL(brandish_mirror)
-	if(!brandish_disconnecting)
-		apply_default_client_dir()
-
-/mob/proc/sync_brandish_observers()
-	for(var/mob/dead/observer/watcher in observers)
-		watcher.sync_brandish_observe()
-
-/// Call whenever the observed target, its camera or its heading changes.
-/mob/dead/observer/proc/sync_brandish_observe()
-	if(!client)
-		return
-	var/client/watched = observetarget?.client
-	var/datum/brandish_camera/camera = watched?.brandish_camera
-	if(!camera || camera.body != observetarget)
-		client.clear_brandish_observe()
-		return
-	if(!client.brandish_mirror)
-		client.brandish_mirror = new
-	if(client.dir != watched.dir)
-		client.setDir(watched.dir)
-	var/list/lead = camera.lead_offsets(watched.dir)
-	// Not local_only: the observer's eye is the watched body, not its own mob.
-	client.set_camera_effect(client.brandish_mirror, watched.screen_view(), lead[1], lead[2], FALSE, 0, lead[3])
+	owner.set_camera_effect(src, offset_z = lead_tiles * world.icon_size)
 
 // Keep a backpedalling character's existing NORTH/back sprite selected in the
 // camera's coordinates, including their existing equipment/body overlays.
@@ -415,26 +383,6 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 
 /// Event-driven binding: initialized atoms, icon updates, smoothing and physical
 /// direction changes reuse prebuilt file resources. Camera turns never call it.
-/atom/proc/apply_brandish_icon()
-	if(!icon)
-		return
-	var/kind = brandish_icon_mode
-	if(!kind && !(smoothing_flags & (SMOOTH_BITMASK | SMOOTH_CORNERS)))
-		return
-	if(!GLOB?.brandish_assets?.enabled)
-		return
-	if((smoothing_flags & SMOOTH_BITMASK) && base_icon_state)
-		kind = "smooth"
-	else if(smoothing_flags & SMOOTH_CORNERS)
-		kind = "corner"
-	else if(!kind)
-		return
-	var/replacement = GLOB.brandish_assets.icon_for(icon, kind, dir, base_icon_state, icon_state)
-	if(replacement && replacement != icon)
-		if(kind == "corner")
-			clear_smooth_overlays()
-		icon = replacement
-
 /// Control ownership changes are event driven; direct field writes must use these setters.
 /mob/proc/set_remote_control(atom/movable/target)
 	remote_control = target
@@ -443,3 +391,5 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 /mob/proc/set_control_object(obj/target)
 	control_object = target
 	client?.queue_brandish_camera_sync()
+
+/mob/var/tmp/direction_animation_depth = 0

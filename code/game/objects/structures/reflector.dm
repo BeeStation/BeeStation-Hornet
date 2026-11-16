@@ -24,7 +24,7 @@
 	allowed_projectile_typecache = typecacheof(allowed_projectile_typecache)
 	if(deflector_icon_state)
 		deflector_overlay = image(icon, deflector_icon_state)
-		if(GLOB.brandish_assets.supports(icon, "viewGates"))
+		if(GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_VIEW_GATES))
 			deflector_projection = new(deflector_overlay)
 		add_overlay(deflector_overlay)
 

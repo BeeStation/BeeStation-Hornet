@@ -80,7 +80,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 /obj/machinery/power/solar/proc/add_panel_overlay(icon_state, y_offset)
 	var/obj/effect/overlay/solar_panel/overlay = new(src)
-	if(!GLOB.brandish_assets.supports(icon, "viewGates"))
+	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_VIEW_GATES))
 		overlay.vis_flags |= VIS_INHERIT_ICON
 		overlay.appearance_flags = TILE_BOUND
 		overlay.icon_state = icon_state

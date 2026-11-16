@@ -80,6 +80,8 @@ SUBSYSTEM_DEF(overlays)
 
 /atom/proc/cut_overlays()
 	STAT_START_STOPWATCH
+	if(world_space_icon?.projected)
+		world_space_icon.layers_dirty = TRUE
 	overlays = null
 	POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
@@ -94,6 +96,8 @@ SUBSYSTEM_DEF(overlays)
 /atom/proc/cut_overlay(list/remove_overlays)
 	if(!overlays)
 		return
+	if(world_space_icon?.projected)
+		world_space_icon.layers_dirty = TRUE
 	SSoverlays.context_needs_automangle = FALSE
 	STAT_START_STOPWATCH
 	overlays -= build_appearance_list(remove_overlays)
@@ -161,6 +165,8 @@ SUBSYSTEM_DEF(overlays)
 				src:zmm_flags |= ZMM_AUTOMANGLE
 				break
 	if(cut_old)
+		if(world_space_icon?.projected)
+			world_space_icon.layers_dirty = TRUE
 		if(cached_other)
 			overlays = cached_other
 		else

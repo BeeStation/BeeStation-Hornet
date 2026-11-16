@@ -43,6 +43,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 */
 
 /obj/machinery/atmospherics/components/unary/rbmk/core
+	brandish_icon_mode = BRANDISH_MODE_WORLD
 	name = "\improper Advanced Gas-Cooled Nuclear Reactor"
 	desc = "A tried and tested design which can output stable power at an acceptably low risk. The moderator can be changed to provide different effects."
 	icon = 'icons/obj/machines/power/rbmk/rbmk_reactor.dmi'
@@ -231,7 +232,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 /obj/machinery/atmospherics/components/unary/rbmk/core/update_overlays()
 	. = ..()
 	if(ISINRANGE(length(fuel_rods), 0, 5))
-		. += mutable_appearance('icons/obj/machines/power/rbmk/rbmk_reactor.dmi', "reactor_top_[length(fuel_rods)]")
+		. += brandish_geometry_overlay("reactor_top_[length(fuel_rods)]")
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()
