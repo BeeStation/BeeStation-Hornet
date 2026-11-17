@@ -77,15 +77,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 #endif
 
 	cable_color = param_color
+	src.multiz = multiz
 
 	// If our tile is open space, we're a multiz cable
 	if(mapload && isopenspace(loc))
-		multiz = TRUE
+		src.multiz = TRUE
 
-	if(multiz)
+	if(src.multiz)
 		sound_loop = new(src, start_immediately = TRUE)
-
-	src.multiz = multiz
 
 	// Our pixel offsets are modified for mapping icons, let's reset them here
 	pixel_x = 0
