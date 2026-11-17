@@ -104,10 +104,6 @@
 /datum/stamina_container/proc/update_maximum()
 	PRIVATE_PROC(TRUE)
 
-	var/new_max_stamina = default_max
-	for(var/source, value in maximum_modifiers)
-		new_max_stamina += value
-
-	maximum = max(new_max_stamina, 50)
+	maximum = max(values_sum(maximum_modifiers), 50)
 	current = min(current, maximum)
 	process()
