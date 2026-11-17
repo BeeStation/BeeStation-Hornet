@@ -61,6 +61,7 @@
 #define TRAIT_NO_MIRROR_REFLECTION "no_mirror_reflection"
 #define ACTION_TRAIT "action_trait"
 #define LEANING_TRAIT "leaning"
+#define TWITCH_TRAIT "twitch"
 #define TRAIT_REGEN_COMA "regencoma"
 /// From nanites
 #define NANITES_TRAIT "nanites"

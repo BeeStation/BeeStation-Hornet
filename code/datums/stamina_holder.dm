@@ -34,17 +34,17 @@
 	return ..()
 
 /datum/stamina_container/process(delta_time)
-	if(delta_time && world.time >= regen_blocked_until)
+	if(world.time >= regen_blocked_until)
 		current = min(current + (regen_rate*delta_time), maximum)
+	if(current == maximum)
+		STOP_PROCESSING(SSstamina, src)
+	update()
+
+/datum/stamina_container/proc/update()
 	loss = maximum - current
 	loss_as_percent = maximum ? loss / maximum * 100 : 0
-
-	if(datum_flags & DF_ISPROCESSING)
-		if(delta_time && current == maximum)
-			STOP_PROCESSING(SSstamina, src)
-	else if(current != maximum)
+	if(current != maximum)
 		START_PROCESSING(SSstamina, src)
-
 	parent.on_stamina_update()
 
 ///Hold off stamina regeneration for some period of time.
@@ -63,7 +63,7 @@
 	var/modify = parent.pre_stamina_change(amt, forced)
 	var/old_current = current
 	current = round(clamp(current + modify, 0, maximum), DAMAGE_PRECISION)
-	process()
+	update()
 	. = current - old_current
 	if(. < 0)
 		parent.on_stamina_loss()
@@ -91,7 +91,7 @@
 /datum/stamina_container/proc/update_stamina_regen()
 	PRIVATE_PROC(TRUE)
 
-	regen_rate = max(values_sum(regen_modifiers) * values_dot(regen_multipliers), 2)
+	regen_rate = max((default_regen + values_sum(regen_modifiers)) * values_product(regen_multipliers), 2)
 
 /datum/stamina_container/proc/add_max_modifier(source, amount)
 	LAZYSET(maximum_modifiers, source, amount)
@@ -104,6 +104,6 @@
 /datum/stamina_container/proc/update_maximum()
 	PRIVATE_PROC(TRUE)
 
-	maximum = max(values_sum(maximum_modifiers), 50)
+	maximum = max(default_max + values_sum(maximum_modifiers), 50)
 	current = min(current, maximum)
-	process()
+	update()

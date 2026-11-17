@@ -198,7 +198,7 @@
 	if(included_types & STAMINALOSS)
 		var/old_loss = testing_mob.stamina.loss
 		testing_mob.stamina.current = round(clamp(testing_mob.stamina.maximum - amount, 0, testing_mob.stamina.maximum), DAMAGE_PRECISION)
-		testing_mob.stamina.process()
+		testing_mob.stamina.update()
 		damage_returned = round(-(testing_mob.stamina.loss - old_loss), DAMAGE_PRECISION)
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
 			"stamina set should have resulted in [expected] change, but resulted in [damage_returned] instead!")
