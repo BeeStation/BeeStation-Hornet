@@ -62,7 +62,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
 	core_composition = new()
-	cdr_gas_factors = init_subtypes_w_path_keys(/datum/condensate_gas)
+	cdr_gas_factors = init_condensate_gas()
 	cdr_uid = gl_cdr_uid++
 	soundloop = new(src)
 	radio = new(src)
