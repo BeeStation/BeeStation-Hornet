@@ -230,18 +230,17 @@
 	var/total_flux_produced = 0
 	for(var/gastype, gas_amount in core_composition.moles)
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
-		var/gas_moles = gas_amount
 		if(!cdr_gas?.decays_into)
 			continue
-		if(!gas_moles)
+		if(!gas_amount)
 			continue
-		if(gas_moles < cdr_gas.threshold)
+		if(gas_amount < cdr_gas.threshold)
 			continue
 
-		var/decayed_gas = max((gas_moles - cdr_gas.threshold) * cdr_gas.decay_rate, 0)
+		var/decayed_gas = max((gas_amount - cdr_gas.threshold) * cdr_gas.decay_rate, 0)
 		total_energy_consumed += decayed_gas * CDR_HEAT_CONSUMED_PER_MOL * cdr_gas.decay_flux_mult
 
-		total_flux_produced += cdr_gas.decay_flux_mult * gas_moles
+		total_flux_produced += cdr_gas.decay_flux_mult * gas_amount
 		core_composition.convert_gas(gastype, cdr_gas.decays_into, decayed_gas)
 
 	set_flux(total_flux_produced * get_mass_multiplier())
