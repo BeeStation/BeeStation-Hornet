@@ -261,7 +261,7 @@
 	var/total_rating = 0
 	var/total_parts = 0
 	for(var/datum/stock_part/matter_bin/bin in component_parts)
-		total_rating += bin.rating
+		total_rating += bin.tier
 		total_parts += 1
 	component_instability_factor = total_parts ? CDR_BASE_INSTABILITY * (total_rating / total_parts) : CDR_BASE_INSTABILITY
 
@@ -372,4 +372,4 @@
 	return BULLET_ACT_BLOCK
 
 /obj/machinery/power/energy_accumulator/graviton_target/wrench_act(mob/living/user, obj/item/tool)
-	return default_unfasten_wrench(user, tool) ? ITEM_INTERACT_SUCCESS ? ITEM_INTERACT_BLOCKING
+	return default_unfasten_wrench(user, tool) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
