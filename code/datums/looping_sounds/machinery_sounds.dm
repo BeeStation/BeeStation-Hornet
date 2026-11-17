@@ -168,11 +168,11 @@
 	falloff_exponent = 5
 
 /datum/looping_sound/cdr
-	start_sound = 'sound/machines/cdr_start.ogg'
+	start_sound = 'sound/machines/cdr/cdr_start.ogg'
 	start_length = 2 SECONDS
-	mid_sounds = list('sound/machines/cdr_mid.ogg')
+	mid_sounds = list('sound/machines/cdr/cdr_mid.ogg')
 	mid_length = 2 SECONDS
-	end_sound = 'sound/machines/cdr_end.ogg'
+	end_sound = 'sound/machines/cdr/cdr_end.ogg'
 	extra_range = 10
 	volume = 40
 	falloff_distance = 5

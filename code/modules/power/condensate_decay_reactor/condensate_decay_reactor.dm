@@ -62,7 +62,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
 	core_composition = new()
-	cdr_gas_factors = init_condensate_gas()
+	cdr_gas_factors = init_subtypes_w_path_keys(/datum/condensate_gas)
 	cdr_uid = gl_cdr_uid++
 	soundloop = new(src)
 	radio = new(src)
@@ -74,6 +74,7 @@
 	QDEL_NULL(soundloop)
 	QDEL_NULL(radio)
 	QDEL_NULL(collapse)
+	core_composition = null
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
@@ -99,24 +100,24 @@
 		collapse.blend_mode = BLEND_ADD
 		collapse.add_filter("cdr_orb_glow", 1, list(type = "bloom", size = 1, threshold = rgb(156, 156, 156)))
 		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
-		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE, pressure_affected = FALSE)
+		playsound(src, 'sound/machines/cdr/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE, pressure_affected = FALSE)
 		return PROCESS_KILL
 
 /obj/machinery/atmospherics/components/unary/cdr/screwdriver_act(mob/living/user, obj/item/tool)
 	if(activated)
 		balloon_alert(user, "deactivate first!")
 		return ITEM_INTERACT_BLOCKING
-	return default_deconstruction_screwdriver(user, "cdr", "cdr", tool)
+	return default_deconstruction_screwdriver(user, "cdr", "cdr", tool) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
 
 /obj/machinery/atmospherics/components/unary/cdr/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)
 
 /obj/machinery/atmospherics/components/unary/cdr/multitool_act(mob/living/user, obj/item/tool)
-	deactivate(user)
-	return ITEM_INTERACT_BLOCKING
+	return deactivate(user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
 
 /obj/machinery/atmospherics/components/unary/cdr/crowbar_act(mob/living/user, obj/item/tool)
-	return crowbar_deconstruction_act(user, tool)
+	return crowbar_deconstruction_act(user, tool) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
+
 
 /obj/machinery/atmospherics/components/unary/cdr/update_overlays()
 	. = ..()
@@ -212,9 +213,9 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
 
-	for(var/gastype in core_composition.moles) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
+	for(var/gastype, gas_amount in core_composition.moles) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
-		stability_value += core_composition.moles[gastype] * cdr_gas?.stability_val
+		stability_value += gas_amount * cdr_gas?.stability_val
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
@@ -227,9 +228,9 @@
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
 	var/total_flux_produced = 0
-	for(var/gastype in core_composition.moles)
+	for(var/gastype, gas_amount in core_composition.moles)
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
-		var/gas_moles = core_composition.moles[gastype]
+		var/gas_moles = gas_amount
 		if(!cdr_gas?.decays_into)
 			continue
 		if(!gas_moles)
@@ -259,7 +260,7 @@
 	. = ..()
 	var/total_rating = 0
 	var/total_parts = 0
-	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
+	for(var/datum/stock_part/matter_bin/bin in component_parts)
 		total_rating += bin.rating
 		total_parts += 1
 	component_instability_factor = total_parts ? CDR_BASE_INSTABILITY * (total_rating / total_parts) : CDR_BASE_INSTABILITY
@@ -338,16 +339,10 @@
 
 		gas_diffused = clamp(gas_diffused, gas_diffused > 0 ? 0 : -turf_mix_mols, gas_diffused < 0 ? 0 : core_comp_mols)
 
-		if(gas_diffused > 0)
-			core_composition.adjust_gas(turf_gas, -gas_diffused)
-			turf_mix.adjust_gas(turf_gas, gas_diffused)
-		else
-			core_composition.adjust_gas(turf_gas, -gas_diffused)
-			turf_mix.adjust_gas(turf_gas, gas_diffused)
+		core_composition.adjust_gas(turf_gas, -gas_diffused)
+		turf_mix.adjust_gas(turf_gas, gas_diffused)
 
 		src.air_update_turf(FALSE, FALSE)
-		core_composition.garbage_collect()
-		turf_mix.garbage_collect()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/set_flux(flux_to_add)
 	flux += flux_to_add * toroid_flux_mult
@@ -357,7 +352,7 @@
 	particle.carried_energy = flux * CDR_FLUX_TO_POWER
 	particle.damage = min(300, round(log(2, flux)))
 	flux = 0
-	playsound(get_turf(src), 'sound/weapons/graviton.ogg', 100, TRUE)
+	playsound(src, 'sound/weapons/graviton.ogg', 100, TRUE)
 	particle.fire(rand(0, 360))
 
 
@@ -377,6 +372,4 @@
 	return BULLET_ACT_BLOCK
 
 /obj/machinery/power/energy_accumulator/graviton_target/wrench_act(mob/living/user, obj/item/tool)
-	if(default_unfasten_wrench(user, tool))
-		return TRUE
-	return FALSE
+	return default_unfasten_wrench(user, tool) ? ITEM_INTERACT_SUCCESS ? ITEM_INTERACT_BLOCKING

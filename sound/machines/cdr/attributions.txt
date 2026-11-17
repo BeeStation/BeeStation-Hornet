@@ -1,0 +1,3 @@
+sound/machines/cdr/[cdr_mid.ogg][cdr_start.ogg][cdr_end.ogg] made from https://freesound.org/people/bassimat/sounds/869570/ by bassimat -- License: Creative Commons 0
+
+sound/machines/cdr/cdr-collapse.ogg made from https://freesound.org/people/bevibeldesign/sounds/366091/ by bevibeldesign -- License: Creative Commons 0
