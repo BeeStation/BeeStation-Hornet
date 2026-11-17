@@ -192,3 +192,6 @@
   BotTierPC, Amanitaspooder:
   - rscadd: Adds A Lantern Varient, The Paper Lantern! This, And Mining Lanterns Are
       Both Now Buildable In The Misc Tab Of The Crafting Menu!
+  Programs-The-Station:
+  - rscadd: Adds a for-each wiremod component, which will iterate over a list one
+      item at a time.
