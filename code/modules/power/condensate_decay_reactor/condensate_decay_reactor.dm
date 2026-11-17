@@ -77,6 +77,12 @@
 	core_composition = null
 	return ..()
 
+/obj/machinery/atmospherics/components/unary/cdr/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_left_click_tool_action("Deactivate", TOOL_MULTITOOL)
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] panel", TOOL_SCREWDRIVER)
+	if(panel_open)
+		context.add_left_click_tool_action("Rotate", TOOL_WRENCH)
+
 /obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
 	if(!activated)
 		return
