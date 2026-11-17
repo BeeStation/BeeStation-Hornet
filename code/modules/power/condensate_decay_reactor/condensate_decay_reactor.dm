@@ -352,7 +352,7 @@
 	particle.carried_energy = flux * CDR_FLUX_TO_POWER
 	particle.damage = min(300, round(log(2, flux)))
 	flux = 0
-	playsound(src, 'sound/weapons/graviton.ogg', 100, TRUE)
+	playsound(src, 'sound/weapons/graviton/graviton.ogg', 100, TRUE)
 	particle.fire(rand(0, 360))
 
 
@@ -368,7 +368,7 @@
 	var/obj/projectile/energy/graviton_particle/grav = projectile
 	stored_energy += grav.carried_energy
 	add_emitter(/obj/emitter/electrified, "electrified", 10, 10)
-	playsound(src, 'sound/weapons/graviton_impact.ogg', 65, TRUE)
+	playsound(src, 'sound/weapons/graviton/graviton_impact.ogg', 65, TRUE)
 	return BULLET_ACT_BLOCK
 
 /obj/machinery/power/energy_accumulator/graviton_target/wrench_act(mob/living/user, obj/item/tool)
