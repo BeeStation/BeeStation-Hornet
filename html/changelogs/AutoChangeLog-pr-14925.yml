@@ -1,0 +1,13 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: fix clowncar unable to bump open doors
+  - bugfix: fixes 10+ xenoartifact reactions
+  - bugfix: calcified xenoartifacts say when they calcify
+  - bugfix: shuttles no longer lose power when rotated
+  - bugfix: fixes the spawner menu
+  - bugfix: character ages no longer get shared between charslots
+  - bugfix: non-gygax mechs can deactivate overclocking
+  - bugfix: fixed cargo crate export values being 1 credit. crates are now all recyclable
+      through exports again
+  - bugfix: xenoartifact pearls can be extracted again
