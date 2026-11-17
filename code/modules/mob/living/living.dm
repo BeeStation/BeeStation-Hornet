@@ -47,7 +47,7 @@
 	med_hud_set_status()
 
 /mob/living/Destroy()
-	qdel(stamina)
+	QDEL_NULL(stamina)
 	for(var/datum/status_effect/effect as anything in status_effects)
 		// The status effect calls on_remove when its mob is deleted
 		if(effect.on_remove_on_mob_delete)

@@ -27,11 +27,8 @@
 
 /datum/component/carbon_sprint/UnregisterFromParent()
 	. = ..()
-	UnregisterSignal(carbon_parent, COMSIG_MOB_CLIENT_PRE_MOVE)
-	UnregisterSignal(carbon_parent, COMSIG_MOB_CLIENT_MOVED)
-	UnregisterSignal(carbon_parent, COMSIG_KB_CARBON_SPRINT_DOWN)
-	UnregisterSignal(carbon_parent, COMSIG_KB_CARBON_SPRINT_UP)
-	UnregisterSignal(carbon_parent, COMSIG_MOB_LOGOUT)
+	UnregisterSignal(carbon_parent, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_MOB_CLIENT_MOVED, COMSIG_KB_CARBON_SPRINT_DOWN, COMSIG_KB_CARBON_SPRINT_UP, COMSIG_MOB_LOGOUT))
+	carbon_parent = null
 
 /datum/component/carbon_sprint/proc/onMobMove(datum/source, list/move_args)
 	var/direct = move_args[MOVE_ARG_DIRECTION]

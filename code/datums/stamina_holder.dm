@@ -29,7 +29,6 @@
 	src.current = maximum
 
 /datum/stamina_container/Destroy()
-	parent?.stamina = null
 	parent = null
 	STOP_PROCESSING(SSstamina, src)
 	return ..()
@@ -43,7 +42,7 @@
 	if(datum_flags & DF_ISPROCESSING)
 		if(delta_time && current == maximum)
 			STOP_PROCESSING(SSstamina, src)
-	else if(!(current == maximum))
+	else if(current != maximum)
 		START_PROCESSING(SSstamina, src)
 
 	parent.on_stamina_update()
@@ -92,13 +91,7 @@
 /datum/stamina_container/proc/update_stamina_regen()
 	PRIVATE_PROC(TRUE)
 
-	var/new_regen_rate = default_regen
-	for(var/source, value in regen_modifiers)
-		new_regen_rate += value
-	for(var/source, value in regen_multipliers)
-		new_regen_rate *= value
-
-	regen_rate = max(new_regen_rate, 2)
+	regen_rate = max(values_sum(regen_modifiers) * values_dot(regen_multipliers), 2)
 
 /datum/stamina_container/proc/add_max_modifier(source, amount)
 	LAZYSET(maximum_modifiers, source, amount)
