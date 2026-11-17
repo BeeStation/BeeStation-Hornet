@@ -32,8 +32,8 @@
 	required_container = /obj/item/slime_extract/grey
 
 /datum/chemical_reaction/slime/slimespawn/on_reaction(datum/reagents/holder)
-	var/mob/living/simple_animal/slime/S = new(get_turf(holder.my_atom), "grey")
-	S.visible_message(span_danger("Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!"))
+	var/mob/living/basic/slime/spawning_slime = new(get_turf(holder.my_atom), /datum/slime_type/grey)
+	spawning_slime.visible_message(span_danger("Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!"))
 	..()
 
 /datum/chemical_reaction/slime/slimeinaprov
@@ -316,13 +316,13 @@
 	required_container = /obj/item/slime_extract/red
 
 /datum/chemical_reaction/slime/slimebloodlust/on_reaction(datum/reagents/holder)
-	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom)))
-		if(slime.docile) //Undoes docility, but doesn't make rabid.
+	for(var/mob/living/basic/slime/slime in viewers(get_turf(holder.my_atom)))
+		if(slime.hunger_disabled) //Undoes docility, but doesn't make rabid.
 			slime.visible_message(span_danger("[slime] forgets its training, becoming wild once again!"))
-			slime.docile = FALSE
+			slime.set_default_behaviour()
 			slime.update_name()
 			continue
-		slime.rabid = 1
+		slime.set_enraged_behaviour()
 		slime.visible_message(span_danger("The [slime] is driven into a frenzy!"))
 	..()
 
@@ -550,7 +550,7 @@
 		addtimer(CALLBACK(S, TYPE_PROC_REF(/obj/item/grenade, prime)), rand(15,60))
 		qdel(holder.my_atom) //deleto
 	else
-		var/mob/living/simple_animal/slime/random/S = new (get_turf(holder.my_atom))
+		var/mob/living/basic/slime/random/S = new (get_turf(holder.my_atom))
 		S.visible_message(span_danger("Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!"))
 	..()
 

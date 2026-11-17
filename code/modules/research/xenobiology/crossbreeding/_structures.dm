@@ -130,9 +130,9 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	return view(3, src)
 
 /obj/structure/slime_crystal/grey/on_mob_effect(mob/living/affected_mob)
-	if(!istype(affected_mob, /mob/living/simple_animal/slime))
+	if(!isslime(affected_mob))
 		return
-	var/mob/living/simple_animal/slime/slime_mob = affected_mob
+	var/mob/living/basic/slime/slime_mob = affected_mob
 	slime_mob.nutrition += 2
 
 /obj/structure/slime_crystal/orange

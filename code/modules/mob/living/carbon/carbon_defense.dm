@@ -230,23 +230,6 @@
 			ForceContractDisease(D)
 		return 1
 
-
-/mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
-	if(..()) //successful slime attack
-		if(M.powerlevel > 0)
-			M.powerlevel--
-			visible_message(span_danger("The [M.name] has shocked [src]!"), \
-				span_userdanger("The [M.name] has shocked you!"))
-			do_sparks(5, TRUE, src)
-			Knockdown(M.powerlevel*5)
-			set_stutter_if_lower(M.powerlevel * 5)
-			if(M.transformeffects & SLIME_EFFECT_ORANGE)
-				adjust_fire_stacks(2)
-				ignite_mob()
-			adjustFireLoss(M.powerlevel * 3)
-			updatehealth()
-		return TRUE
-
 /mob/living/carbon/proc/dismembering_strike(mob/living/attacker, dam_zone)
 	if(!attacker.limb_destroyer)
 		return dam_zone

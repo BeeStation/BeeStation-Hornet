@@ -186,14 +186,14 @@
 /obj/machinery/processor/slime/interact(mob/user)
 	. = ..()
 	if(sbacklogged)
-		for(var/mob/living/simple_animal/slime/AM in ohearers(1,src)) //fallback in case slimes got placed while processor was active triggers only after processing!!!!
+		for(var/mob/living/basic/slime/AM in ohearers(1,src)) //fallback in case slimes got placed while processor was active triggers only after processing!!!!
 			if(AM.stat == DEAD)
 				visible_message("[AM] is sucked into [src].")
 				AM.forceMove(src)
 		sbacklogged = FALSE
 
 /obj/machinery/processor/slime/HasProximity(mob/AM)
-	if(!sbacklogged && istype(AM, /mob/living/simple_animal/slime) && AM.stat == DEAD)
+	if(!sbacklogged && istype(AM, /mob/living/basic/slime) && AM.stat == DEAD)
 		if(processing)
 			sbacklogged = TRUE
 		else
@@ -201,11 +201,19 @@
 			AM.forceMove(src)
 
 /obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
-	var/mob/living/simple_animal/slime/S = what
-	if (istype(S))
-		var/C = S.cores
-		for(var/i in 1 to (C+rating_amount-1))
-			var/obj/item/slime_extract/item = new S.coretype(drop_location())
-			adjust_item_drop_location(item)
-			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
-	..()
+	var/mob/living/basic/slime/processed_slime = what
+	if (!istype(processed_slime))
+		return
+
+	if(processed_slime.stat != DEAD)
+		processed_slime.forceMove(drop_location())
+		processed_slime.balloon_alert_to_viewers("crawls free")
+		return
+
+	var/core_count = processed_slime.cores
+	var/extra_cores = rating_amount - 1 // 0-3 bonus cores above what slime already has with upgraded parts
+	for(var/i in 1 to (core_count + extra_cores))
+		var/atom/movable/item = new processed_slime.slime_type.core_type(drop_location())
+		adjust_item_drop_location(item)
+		SSblackbox.record_feedback("tally", "slime_core_harvested", 1, processed_slime.slime_type.colour)
+	return ..()

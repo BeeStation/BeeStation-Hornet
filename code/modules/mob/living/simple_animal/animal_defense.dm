@@ -99,15 +99,6 @@
 		var/damage = M.melee_damage
 		return attack_threshold_check(damage, M.melee_damage_type)
 
-/mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
-	if(..()) //successful slime attack
-		var/damage = 20
-		if(M.is_adult)
-			damage = 30
-		if(M.transformeffects & SLIME_EFFECT_RED)
-			damage *= 1.1
-		return attack_threshold_check(damage)
-
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.combat_mode) //No kicking dogs even as a rogue drone. Use a weapon.
 		return

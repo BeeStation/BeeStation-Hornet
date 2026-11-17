@@ -24,13 +24,13 @@
 		moblist += mob_to_sort
 	for(var/mob/living/carbon/monkey/mob_to_sort in sortmob)
 		moblist += mob_to_sort
-	for(var/mob/living/simple_animal/slime/mob_to_sort in sortmob)
+	for(var/mob/living/basic/slime/mob_to_sort in sortmob)
 		moblist += mob_to_sort
 	for(var/mob/living/simple_animal/mob_to_sort in sortmob)
+		moblist += mob_to_sort
+	for(var/mob/living/basic/mob_to_sort in sortmob)
 		// We've already added slimes.
 		if(isslime(mob_to_sort))
 			continue
-		moblist += mob_to_sort
-	for(var/mob/living/basic/mob_to_sort in sortmob)
 		moblist += mob_to_sort
 	return moblist

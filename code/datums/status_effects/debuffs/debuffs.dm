@@ -1082,8 +1082,8 @@
 /datum/status_effect/slimegrub/on_apply(mob/living/new_owner, ...)
 	. = ..()
 	if(isslime(new_owner))
-		var/mob/living/simple_animal/slime/S = new_owner
-		if(S.is_adult)
+		var/mob/living/basic/slime/S = new_owner
+		if(S.life_stage == SLIME_LIFE_STAGE_ADULT)
 			adult = TRUE
 			duration = world.time + 120 SECONDS
 			if(S.amount_grown >= 9)
@@ -1092,7 +1092,7 @@
 
 /datum/status_effect/slimegrub/tick()
 	if(isslime(owner))
-		var/mob/living/simple_animal/slime/S = owner
+		var/mob/living/basic/slime/S = owner
 		if(S.amount_grown >= 9)
 			S.amount_grown = 8
 		if((S.reagents.has_reagent(/datum/reagent/consumable/capsaicin) || S.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)) //redgrubs don't like heat. heating them up for too long kills them

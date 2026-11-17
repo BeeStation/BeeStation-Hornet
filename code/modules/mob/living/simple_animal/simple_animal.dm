@@ -141,8 +141,6 @@
 	COOLDOWN_DECLARE(emote_cooldown)
 	var/turns_since_scan = 0
 
-	var/special_process = FALSE
-
 	///set it TRUE if "health" is not relable to this simple mob.
 	var/do_not_show_health_on_stat_panel
 

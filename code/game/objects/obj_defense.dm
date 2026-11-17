@@ -79,14 +79,6 @@
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE, attack_dir = REVERSE_DIR(direction))
 
-/obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
-	if(!user.is_adult)
-		return
-	var/damage = rand(15)
-	if(user.transformeffects & SLIME_EFFECT_RED)
-		damage *= 1.1
-	attack_generic(user, damage, MELEE, 1)
-
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src
 	if(src && !QDELETED(src))

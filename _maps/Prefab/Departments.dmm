@@ -131,7 +131,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/pharmacy)
 "cc" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/iron/grid/steel,
 /area/station/science/xenobiology)
 "ck" = (

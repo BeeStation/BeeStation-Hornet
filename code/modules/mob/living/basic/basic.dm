@@ -123,7 +123,7 @@
 		habitable_atmos = string_assoc_list(habitable_atmos)
 		AddElement(/datum/element/atmos_requirements, habitable_atmos, unsuitable_atmos_damage)
 
-	if(unsuitable_cold_damage != 0 && unsuitable_heat_damage != 0)
+	if(unsuitable_cold_damage != 0 || unsuitable_heat_damage != 0)
 		AddElement(/datum/element/basic_body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
 
 /mob/living/basic/Life(delta_time = SSMOBS_DT, times_fired)

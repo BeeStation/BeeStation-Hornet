@@ -236,16 +236,6 @@
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
-/turf/attack_slime(mob/living/simple_animal/slime/M)
-	if (!can_hit)
-		return
-	if(!M.is_adult)
-		return
-	var/damage = 4
-	if(M.transformeffects & SLIME_EFFECT_RED)
-		damage = 10
-	attack_generic(M, damage, MELEE, 1)
-
 //====================================
 // Mechs
 //====================================

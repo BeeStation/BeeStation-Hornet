@@ -228,9 +228,9 @@ Chilling extracts:
 
 /obj/item/slimecross/chilling/red/do_effect(mob/user)
 	var/slimesfound = FALSE
-	for(var/mob/living/simple_animal/slime/S in hearers(7, get_turf(user)))
+	for(var/mob/living/basic/slime/slime_in_view in hearers(7, get_turf(user)))
 		slimesfound = TRUE
-		S.docile = TRUE
+		slime_in_view.set_pacified_behaviour()
 	if(slimesfound)
 		user.visible_message(span_notice("[src] lets out a peaceful ring as it shatters, and nearby slimes seem calm."))
 	else
