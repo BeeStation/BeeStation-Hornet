@@ -20,16 +20,6 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
-"bs" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10";
-	pixel_x = null
-	},
-/turf/open/floor/iron,
-/area/shuttle/hunter)
 "bB" = (
 /obj/structure/sign/departments/security,
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -85,17 +75,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/techmaint,
-/area/shuttle/hunter)
-"cW" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/sink/directional/west,
-/obj/structure/sign/poster/official/the_owl{
-	pixel_y = 32
-	},
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/obj/structure/mirror/directional/east,
-/turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
 "dl" = (
 /obj/effect/turf_decal/siding/white,
@@ -537,18 +516,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"og" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 10
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-03"
-	},
-/obj/structure/sign/poster/contraband/the_griffin{
-	pixel_x = -32
-	},
-/turf/open/floor/iron,
-/area/shuttle/hunter)
 "or" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
@@ -567,18 +534,6 @@
 /obj/item/clothing/under/syndicate/combat,
 /obj/item/clothing/under/syndicate/combat,
 /turf/open/floor/wood,
-/area/shuttle/hunter)
-"ou" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/streak{
-	pixel_y = 11
-	},
-/obj/effect/turf_decal/caution,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
-/turf/open/floor/engine,
 /area/shuttle/hunter)
 "pY" = (
 /obj/structure/table/reinforced{
@@ -740,6 +695,17 @@
 "wV" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/hunter)
+"xB" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/sink/directional/west,
+/obj/structure/sign/poster/official/the_owl{
+	pixel_y = 32
+	},
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/structure/mirror/directional/east,
+/turf/open/floor/iron/showroomfloor,
+/area/shuttle/hunter)
 "xM" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/suit/space/eva,
@@ -793,6 +759,16 @@
 /area/shuttle/hunter)
 "yh" = (
 /turf/open/floor/iron/yellowsiding,
+/area/shuttle/hunter)
+"Bc" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 10
+	},
+/obj/item/plant_tray/pot/random,
+/obj/structure/sign/poster/contraband/the_griffin{
+	pixel_x = -32
+	},
+/turf/open/floor/iron,
 /area/shuttle/hunter)
 "Be" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
@@ -1154,12 +1130,29 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/wood,
 /area/shuttle/hunter)
+"QS" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/oil/streak{
+	pixel_y = 11
+	},
+/obj/effect/turf_decal/caution,
+/obj/item/plant_tray/pot/random,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
+/turf/open/floor/engine,
+/area/shuttle/hunter)
 "Rq" = (
 /obj/effect/turf_decal/caution{
 	dir = 4;
 	pixel_x = -6
 	},
 /turf/open/floor/iron/dark,
+/area/shuttle/hunter)
+"Rr" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
 /area/shuttle/hunter)
 "Sf" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1417,7 +1410,7 @@ GC
 TA
 GC
 Ua
-ou
+QS
 SW
 sz
 GC
@@ -1491,14 +1484,14 @@ je
 uR
 Of
 ce
-og
+Bc
 Be
 iD
 "}
 (9,1,1) = {"
 wV
 GC
-cW
+xB
 Sf
 dM
 nz
@@ -1658,7 +1651,7 @@ DY
 GC
 Gl
 ht
-bs
+Rr
 nB
 iD
 iD

@@ -39,7 +39,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "lT" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "oV" = (

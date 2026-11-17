@@ -181,6 +181,8 @@
 		. += span_purple("Unusual")
 
 /obj/item/sticker/proc/stick_to(atom/movable/target, x_offset, y_offset)
+	if(!target)
+		return
 	// Move to our target
 	forceMove(target)
 	layer = target.layer+0.001

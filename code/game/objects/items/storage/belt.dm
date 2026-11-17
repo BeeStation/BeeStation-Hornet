@@ -94,19 +94,20 @@
 		/obj/item/reagent_containers/cup/bottle,//fertilizer bottles
 		/obj/item/reagent_containers/syringe,//blood samples for pod cloning
 		/obj/item/reagent_containers/dropper,//on request by forums users
-		/obj/item/plant_analyzer,
+		/obj/item/plant_scanner,
 		/obj/item/cultivator,
 		/obj/item/hatchet,
 		/obj/item/shovel/spade,
-		/obj/item/disk/plantgene,
+		/obj/item/disk/plant_disk,
 		/obj/item/wrench,//because botanists move around trays with those
-		/obj/item/seeds,
+		/obj/item/plant_seeds,
 		/obj/item/clothing/gloves/botanic_leather,
 		/obj/item/rollingpaper,//dudeweed
 		/obj/item/lighter,
 		/obj/item/cigarette/pipe/cobpipe,
 		/obj/item/cigarette/rollie,//dudeweedlmao
-		/obj/item/gun/energy/floragun
+		/obj/item/gun/energy/floragun,
+		/obj/item/construction/plumbing/botany
 		))
 
 /obj/item/storage/belt/utility/chief

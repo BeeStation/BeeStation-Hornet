@@ -208,10 +208,6 @@
 	dir = 1
 	},
 /area/shuttle/escape)
-"bb" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "bc" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -318,15 +314,6 @@
 	},
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron,
-/area/shuttle/escape)
-"bv" = (
-/obj/item/radio/intercom/directional/south,
-/obj/effect/turf_decal/trimline/neutral/filled/line,
-/obj/item/kirbyplants/random,
-/obj/machinery/light,
-/turf/open/floor/iron/edge{
-	dir = 1
-	},
 /area/shuttle/escape)
 "bw" = (
 /obj/structure/chair/fancy/shuttle{
@@ -444,15 +431,6 @@
 /obj/structure/reagent_dispensers/peppertank/directional/south,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"bN" = (
-/obj/structure/mirror/directional/north,
-/obj/structure/sink/directional/south,
-/obj/effect/turf_decal/trimline/neutral/filled/line,
-/obj/effect/turf_decal/trimline/neutral/filled/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/shuttle/escape)
 "bP" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -483,6 +461,15 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
+"cW" = (
+/obj/item/radio/intercom/directional/south,
+/obj/effect/turf_decal/trimline/neutral/filled/line,
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light,
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
+/area/shuttle/escape)
 "dD" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/holopad,
@@ -496,22 +483,20 @@
 /obj/machinery/vending/wallmed,
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/escape)
+"iz" = (
+/obj/effect/turf_decal/trimline/neutral/filled/line{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
+/area/shuttle/escape)
 "iU" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 5
-	},
-/turf/open/floor/iron/edge,
-/area/shuttle/escape)
-"iZ" = (
-/obj/item/radio/intercom/directional/north,
-/obj/effect/turf_decal/trimline/neutral/filled/line{
-	dir = 1
-	},
-/obj/item/kirbyplants/random,
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/open/floor/iron/edge,
 /area/shuttle/escape)
@@ -531,6 +516,17 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"pK" = (
+/obj/item/radio/intercom/directional/north,
+/obj/effect/turf_decal/trimline/neutral/filled/line{
+	dir = 1
+	},
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/edge,
+/area/shuttle/escape)
 "sV" = (
 /obj/structure/toilet{
 	dir = 1
@@ -547,6 +543,14 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"tk" = (
+/obj/structure/mirror/directional/north,
+/obj/structure/sink/directional/south,
+/obj/effect/turf_decal/trimline/neutral/filled/end{
+	dir = 4
+	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "uc" = (
 /obj/machinery/status_display/evac,
@@ -612,14 +616,6 @@
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
-/area/shuttle/escape)
-"Cf" = (
-/obj/structure/mirror/directional/north,
-/obj/structure/sink/directional/south,
-/obj/effect/turf_decal/trimline/neutral/filled/end{
-	dir = 4
-	},
-/turf/open/floor/iron,
 /area/shuttle/escape)
 "CC" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -773,18 +769,22 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
-"TP" = (
+"Vb" = (
+/obj/structure/mirror/directional/north,
+/obj/structure/sink/directional/south,
+/obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
-	dir = 4
+	dir = 1
 	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron/edge{
-	dir = 8
-	},
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "Vz" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/large,
+/area/shuttle/escape)
+"VD" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "VO" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
@@ -930,7 +930,7 @@ aU
 bd
 bl
 ac
-bN
+Vb
 RT
 bE
 VO
@@ -960,7 +960,7 @@ aW
 bf
 bn
 ac
-Cf
+tk
 Ym
 sV
 VO
@@ -999,13 +999,13 @@ aa
 aa
 aa
 ac
-iZ
+pK
 Vz
 Vz
 Vz
 Vz
 Vz
-bv
+cW
 ac
 aa
 aa
@@ -1167,7 +1167,7 @@ ac
 iU
 yg
 CC
-TP
+iz
 CC
 yg
 aN
@@ -1196,7 +1196,7 @@ OP
 aE
 av
 aw
-bb
+VD
 ac
 bp
 NA

@@ -100,7 +100,7 @@
 ///We create our luxurious piping overlays/underlays, to indicate where we do what. only called once if use_overlays = TRUE in Initialize()
 /datum/component/plumbing/proc/create_overlays(atom/movable/AM, list/overlays)
 
-	if(tile_covered || !use_overlays)
+	if((tile_covered || !use_overlays))
 		return
 
 	for(var/D in GLOB.cardinals)
@@ -241,7 +241,6 @@
 
 	tile_covered = should_hide
 	AM.update_appearance()
-
 
 ///has one pipe input that only takes, example is manual output pipe
 /datum/component/plumbing/simple_demand

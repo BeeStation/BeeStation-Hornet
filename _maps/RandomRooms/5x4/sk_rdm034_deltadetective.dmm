@@ -111,7 +111,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = 32
 	},
