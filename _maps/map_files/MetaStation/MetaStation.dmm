@@ -7648,7 +7648,7 @@
 /area/station/cargo/miningoffice)
 "deq" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/iron,
 /area/station/medical/morgue)
 "deF" = (
@@ -37618,7 +37618,7 @@
 "nkM" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/iron,
 /area/station/medical/morgue)
 "nkP" = (
@@ -58918,7 +58918,7 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/iron,
 /area/station/medical/morgue)
 "usL" = (

@@ -35,11 +35,11 @@
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
-/datum/xenoartifact_trait/activator/sturdy/translation_type_d(datum/source, atom/item, atom/target)
+/datum/xenoartifact_trait/activator/sturdy/translation_type_d(datum/source, mob/user, list/modifiers)
 	var/atom/atom_parent = component_parent?.parent
-	if(!isliving(atom_parent?.loc) && !atom_parent?.density || check_item_safety(item))
+	if(!isliving(atom_parent?.loc) && !atom_parent?.density)
 		return
-	trigger_artifact(target || item, XENOA_ACTIVATION_TOUCH)
+	trigger_artifact(user, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/sturdy/translation_type_a(datum/source, atom/target)
 	var/atom/atom_parent = component_parent?.parent
@@ -91,13 +91,14 @@
 	if(!searching || search_cooldown_timer || !component_parent)
 		return
 	playsound(get_turf(component_parent?.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
+	var/triggered = FALSE
 	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
-		trigger_artifact(target, XENOA_ACTIVATION_CONTACT, FALSE, TRUE)
+		triggered = trigger_artifact(target, XENOA_ACTIVATION_CONTACT, FALSE, TRUE)
 		break
-	if(!length(component_parent.targets))
+	if(!triggered)
 		component_parent.trigger()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 
@@ -139,11 +140,10 @@
 	var/mob/living/M = target
 	var/edible
 	if(isliving(M))
-		var/list/sides = list("left", "right")
-		for(var/i in sides)
-			var/atom/atom_parent = M.get_held_items_for_side(i)
-			if(atom_parent) //Not pre-checking atom_parent can cause some runtimes
-				edible = SEND_SIGNAL(atom_parent, COMSIG_FOOD_FEED_ITEM, component_parent?.parent)
+		for(var/obj/item/held_item in M.held_items)
+			edible = SEND_SIGNAL(held_item, COMSIG_FOOD_FEED_ITEM, component_parent?.parent)
+			if(edible)
+				break
 	if(!edible && target)
 		edible = SEND_SIGNAL(target, COMSIG_FOOD_FEED_ITEM, component_parent?.parent)
 	//If food
@@ -157,7 +157,7 @@
 		movable.do_attack_animation(M)
 		var/affecting = M.get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		var/armour_block = M.run_armor_check(null, MELEE, armour_penetration = 0)
-		M.apply_damage(15, BRUTE, affecting, armour_block)
+		M.apply_damage(eat_damage, BRUTE, affecting, armour_block)
 		bite_timer = addtimer(CALLBACK(src, PROC_REF(handle_timer)), bite_cooldown, TIMER_STOPPABLE)
 		if(!maneater)
 			M.visible_message("<span class='warning'>[movable] bites [M], it didn't quite like the taste!</span>", "<span class='warning'>[movable] bites you!\n[movable] doesn't like that taste!</span>")

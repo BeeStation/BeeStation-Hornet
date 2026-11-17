@@ -60,3 +60,11 @@
 		return
 	UnregisterSignal(contained_buffer, COMSIG_QDELETING)
 	contained_buffer = null
+
+/datum/component/buffer/proc/get_buffer()
+	return contained_buffer
+
+/// Returns whatever is stored in the target's buffer component, if it has one.
+/proc/get_buffer_contents(datum/target)
+	var/datum/component/buffer/buffer_comp = target?.GetComponent(/datum/component/buffer)
+	return buffer_comp?.get_buffer()
