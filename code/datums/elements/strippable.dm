@@ -41,7 +41,6 @@
 /datum/element/strippable/proc/mouse_drop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
 
-	. = COMPONENT_CANCEL_MOUSEDROP_ONTO
 	if(user == source)
 		return
 	if(over != user)
