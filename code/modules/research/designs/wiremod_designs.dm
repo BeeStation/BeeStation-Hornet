@@ -107,6 +107,11 @@
 	build_path = /obj/item/circuit_component/iterator
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
+/datum/design/component/is_null_component
+	name = "Is Null Component"
+	id = "comp_isnull"
+	build_path = /obj/item/circuit_component/is_null
+	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/switch_case
 	name = "Switch Case"
