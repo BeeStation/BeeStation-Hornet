@@ -69,7 +69,7 @@
 		cast_list = cast_list?.Copy()
 
 		/// Make sure we have a list to store
-		if(isnull(cast_list) || length(cast_list) == 0)
+		if(!length(cast_list))
 			/// Bad list, nothing to output.
 			value_port.set_output(null)
 			index_port.set_output(null)
@@ -92,7 +92,7 @@
 		return
 
 	/// Make sure we have a list to iterate
-	if(length(list_to_iterate) == 0)
+	if(!length(list_to_iterate))
 		value_port.set_output(null)
 		index_port.set_output(null)
 		return
@@ -105,7 +105,7 @@
 		index_port.set_output(null)
 		end_of_list.set_output(COMPONENT_SIGNAL)
 		current_index = length(list_to_iterate) /// Make sure the current_index doesn't overflow by resetting it to the current size.
-		return; /// All done.
+		return /// All done.
 
 	value_port.set_output(list_to_iterate[current_index])
 	index_port.set_output(current_index)
