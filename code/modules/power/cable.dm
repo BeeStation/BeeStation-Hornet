@@ -170,6 +170,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	connected.Cut()
 
 	update_power_node()
+	linked_dirs = NONE
+	omni_dirs = NONE
 
 	down?.set_up(null)
 	up?.set_down(null)
