@@ -21,7 +21,12 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		CRASH("Invalid type passed in: [type]")
 
 	var/list/arguments = args.Copy(2)
-	return new type(arglist(arguments))
+	var/datum/atom_hud/alternate_appearance/basic/alt_appearance = new type(arglist(arguments))
+	if(ismovable(alt_appearance.target))
+		var/atom/movable/movable_target = alt_appearance.target
+		if(movable_target.bound_overlay)
+			alt_appearance.mimic(movable_target.bound_overlay)
+	return alt_appearance
 
 /mob/proc/update_alt_appearances()
 	for (var/datum/atom_hud/alternate_appearance/alt_appearance in GLOB.active_alternate_appearances)
@@ -148,11 +153,22 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		return
 	A.hud_list -= appearance_key
 	A.active_hud_list -= appearance_key
+	if(ismovable(A))
+		var/atom/movable/movable_atom = A
+		movable_atom.bound_overlay?.remove_alt_appearance(appearance_key)
 	if(!QDELETED(src))
 		qdel(src)
 
 /datum/atom_hud/alternate_appearance/basic/copy_overlays(atom/other, cut_old)
 	image.copy_overlays(other, cut_old)
+
+/datum/atom_hud/alternate_appearance/basic/proc/mimic(atom/movable/openspace/mimic/mimic)
+	var/image/mimic_image = image(loc = mimic)
+	mimic_image.appearance = image.appearance
+	copy_for_mimic(mimic_image)
+
+/datum/atom_hud/alternate_appearance/basic/proc/copy_for_mimic(image/mimic_image)
+	new type(appearance_key, mimic_image, NONE)
 
 /datum/atom_hud/alternate_appearance/basic/everyone
 	add_ghost_version = TRUE
@@ -208,6 +224,9 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	src.seer = WEAKREF(seer)
 	return ..()
 
+/datum/atom_hud/alternate_appearance/basic/one_person/copy_for_mimic(image/mimic_image)
+	new type(appearance_key, mimic_image, NONE, seer.resolve())
+
 /datum/atom_hud/alternate_appearance/basic/mimites
 
 /datum/atom_hud/alternate_appearance/basic/mimites/mobShouldSee(mob/M)
@@ -223,3 +242,9 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	for (var/datum/mind/mind in minds)
 		seers += WEAKREF(mind)
 	return ..()
+
+/datum/atom_hud/alternate_appearance/basic/minds/copy_for_mimic(image/mimic_image)
+	var/list/minds = list()
+	for (var/datum/weakref/seer_ref as anything in seers)
+		minds += seer_ref.resolve()
+	new type(appearance_key, mimic_image, NONE, minds)

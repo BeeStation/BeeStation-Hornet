@@ -285,8 +285,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	// Scanning an object; gets a brain item - Try to find a brain that holds a DNA
 	else if(istype(occupant, /obj/item/bodypart/head)) // From head
-		brain_to_clone = astype(occupant, /obj/item/bodypart/head).brain
-		dna = brain_to_clone.brain_dna
+		brain_to_clone = locate(/obj/item/organ/brain) in occupant
+		dna = brain_to_clone?.brain_dna
 		// occupant_mind = null // Reminder: does not exist. This line exists for a hint.
 	else if(istype(occupant, /obj/item/organ/brain)) // From brain
 		brain_to_clone = occupant

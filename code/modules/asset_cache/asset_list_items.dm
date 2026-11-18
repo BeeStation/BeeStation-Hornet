@@ -520,6 +520,10 @@
 /datum/asset/spritesheet_batched/sheetmaterials/create_spritesheets()
 	insert_all_icons("", 'icons/obj/stacks/minerals.dmi')
 
+	// Wood can be loaded into a lathe, but it's icon is somewhere else
+	for(var/state in list("sheet-wood", "sheet-wood_2", "sheet-wood_3"))
+		insert_icon(state, uni_icon('icons/obj/stacks/organic.dmi', state))
+
 	// Special bee edit to handle Bluespace Crystals
 	insert_icon("polycrystal", uni_icon('icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3"))
 

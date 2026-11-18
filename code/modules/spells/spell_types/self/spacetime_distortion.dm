@@ -125,13 +125,13 @@
 		if(M.can_block_magic(antimagic_flags))
 			return
 	if(linked_dist && walks_left > 0)
-		flick("purplesparkles", src)
+		z_flick("purplesparkles", src)
 		linked_dist.get_walker(AM)
 		walks_left--
 
 /obj/effect/cross_action/spacetime_dist/proc/get_walker(atom/movable/AM)
 	busy = TRUE
-	flick("purplesparkles", src)
+	z_flick("purplesparkles", src)
 	AM.forceMove(get_turf(src))
 	playsound(get_turf(src),sound,70,FALSE)
 	busy = FALSE

@@ -24,9 +24,6 @@
 	laws.set_laws_config()
 
 /obj/item/mmi/Destroy()
-	if(iscyborg(loc))
-		var/mob/living/silicon/robot/borg = loc
-		borg.mmi = null
 	set_mecha(null)
 	QDEL_NULL(brainmob)
 	QDEL_NULL(brain)
@@ -43,14 +40,16 @@
 
 /obj/item/mmi/update_overlays()
 	. = ..()
-	. += add_mmi_overlay()
+	var/new_overlay = add_mmi_overlay()
+	if(new_overlay)
+		. += new_overlay
 
 /obj/item/mmi/proc/add_mmi_overlay()
-	if(brainmob && brainmob.stat != DEAD)
-		. += "mmi_alive"
+	if(!brain)
 		return
-	if(brain)
-		. += "mmi_dead"
+	if(brainmob?.client && brainmob.stat != DEAD)
+		return "mmi_alive"
+	return "mmi_dead"
 
 /obj/item/mmi/attackby(obj/item/O, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -87,8 +86,6 @@
 		var/fubar_brain = newbrain.brain_death && newbrain.suicided && brainmob.suiciding //brain is damaged beyond repair or from a suicider
 		if(!fubar_brain && !(newbrain.organ_flags & ORGAN_FAILING)) // the brain organ hasn't been beaten to death, nor was from a suicider.
 			brainmob.set_stat(CONSCIOUS) //we manually revive the brain mob
-			brainmob.remove_from_dead_mob_list()
-			brainmob.add_to_alive_mob_list()
 		else if(!fubar_brain && newbrain.organ_flags & ORGAN_FAILING) // the brain is damaged, but not from a suicider
 			to_chat(user, span_warning("[src]'s indicator light turns yellow and its brain integrity alarm beeps softly. Perhaps you should check [newbrain] for damage."))
 			playsound(src, "sound/machines/synth_no.ogg", 5, TRUE)
@@ -133,8 +130,6 @@
 		brainmob.set_stat(DEAD)
 		brainmob.emp_damage = 0
 		brainmob.set_mob_eye_to(MOB_EYE_SELF) //so the brainmob follows the brain organ instead of the mmi. And to update our vision
-		brainmob.remove_from_alive_mob_list() //Get outta here
-		brainmob.add_to_dead_mob_list()
 		brain.brainmob = brainmob //Set the brain to use the brainmob
 		brainmob = null //Set mmi brainmob var to null
 	brain.forceMove(drop_location())
@@ -143,26 +138,28 @@
 	brain.organ_flags &= ~ORGAN_FROZEN
 	brain = null //No more brain in here
 
-/obj/item/mmi/proc/transfer_identity(mob/living/L) //Same deal as the regular brain proc. Used for human-->robot people.
-
-	//both of these need to be created so we can't keep either
-	if(brain)
-		QDEL_NULL(brain)
-	if(brainmob)
-		QDEL_NULL(brainmob)
-
-	var/obj/item/organ/BR = L.get_organ_by_type(/obj/item/organ/brain)
-	if(BR)
-		brain = new BR.type (src)
-	else
-		brain = new(src)
-	brain.organ_flags |= ORGAN_FROZEN
-
-	brain.transfer_identity(L)
-	set_brainmob(brain.brainmob)
+/obj/item/mmi/proc/transfer_identity(mob/living/transferred_user) //Same deal as the regular brain proc. Used for human-->robot people.
+	if(!brainmob)
+		set_brainmob(new /mob/living/brain(src))
+	brainmob.name = transferred_user.real_name
+	brainmob.real_name = transferred_user.real_name
+	if(astype(transferred_user, /mob/living/carbon)?.has_dna())
+		var/mob/living/carbon/carbon_user = transferred_user
+		brainmob.stored_dna ||= new(brainmob)
+		carbon_user.dna.copy_dna_to(brainmob.stored_dna)
 	brainmob.container = src
 
-	brain.name = "[L.real_name]'s brain"
+	if(ishuman(transferred_user))
+		var/mob/living/carbon/human/human_user = transferred_user
+		var/obj/item/organ/brain/newbrain = human_user.get_organ_by_type(/obj/item/organ/brain)
+		newbrain.Remove(human_user, special = TRUE, movement_flags = NO_ID_TRANSFER)
+		newbrain.forceMove(src)
+		brain = newbrain
+	else if(!brain)
+		brain = new(src)
+		brain.name = "[transferred_user.real_name]'s brain"
+	brain.organ_flags |= ORGAN_FROZEN
+
 	name = "[initial(name)]: [brainmob.real_name]"
 	update_appearance()
 	if(istype(brain, /obj/item/organ/brain/alien))
@@ -179,16 +176,12 @@
 	brainmob = new_brainmob
 	if(new_brainmob)
 		if(mecha)
-			REMOVE_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
-			REMOVE_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+			new_brainmob.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
 		else
-			ADD_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
-			ADD_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+			new_brainmob.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
 	if(.)
 		var/mob/living/brain/old_brainmob = .
-		ADD_TRAIT(old_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
-		ADD_TRAIT(old_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
-
+		old_brainmob.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
 
 /// Proc to hook behavior associated to the change in value of the [obj/vehicle/sealed/var/mecha] variable.
 /obj/item/mmi/proc/set_mecha(obj/vehicle/sealed/mecha/new_mecha)
@@ -198,11 +191,9 @@
 	mecha = new_mecha
 	if(new_mecha)
 		if(!. && brainmob) // There was no mecha, there now is, and we have a brain mob that is no longer unaided.
-			REMOVE_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
-			REMOVE_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+			brainmob.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
 	else if(. && brainmob) // There was a mecha, there no longer is one, and there is a brain mob that is now again unaided.
-		ADD_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
-		ADD_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+		brainmob.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
 
 /obj/item/mmi/proc/replacement_ai_name()
 	return brainmob.name
@@ -246,40 +237,44 @@
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
-	. += span_notice("There is a switch to toggle the radio system [radio.is_on() ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : null]")
-	if(brainmob)
-		var/mob/living/brain/B = brainmob
-		if(!B.key || !B.mind || B.stat == DEAD)
-			. += span_warning("The MMI indicates the brain is completely unresponsive.")
+	. += span_notice("There is a switch to toggle the radio system [radio.is_on() ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : ""]")
 
-		else if(!B.client)
-			. += span_warning("The MMI indicates the brain is currently inactive; it might change.")
+	if(!brain)
+		return
 
-		else
-			. += span_notice("The MMI indicates the brain is active.")
+	// no associated client, ckey, or ghost
+	if(!brain.decoy_override && !brainmob?.client && !brainmob.key && !brainmob.get_ghost())
+		. += span_warning("The MMI indicates that the brain is completely unresponsive.")
+	// brain damage
+	else if((brain.organ_flags & ORGAN_FAILING) || brainmob?.stat >= DEAD)
+		. += span_warning("The MMI indicates that the brain is damaged!")
+	// no associated client, but they do have either a ckey or ghost
+	else if(!brain.decoy_override && !brainmob?.client)
+		. += span_notice("The MMI indicates that the brain is currently inactive; it might change.")
+	else
+		. += span_notice("The MMI indicates that the brain is active.")
 
 /obj/item/mmi/relaymove(mob/living/user, direction)
 	return //so that the MMI won't get a warning about not being able to move if it tries to move
 
 /obj/item/mmi/proc/brain_check(mob/user)
-	var/mob/living/brain/B = brainmob
-	if(!B)
+	if(!brainmob)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that there is no brain present!"))
 		return FALSE
-	if(!B.key || !B.mind)
+	if(!brainmob.key || !brainmob.mind)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that their mind is completely unresponsive!"))
 		return FALSE
-	if(!B.client)
+	if(!brainmob.client)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that their mind is currently inactive."))
 		return FALSE
-	if(B.suiciding || brain?.suicided)
+	if(brainmob.suiciding || brain?.suicided)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that their mind has no will to live!"))
 		return FALSE
-	if(B.stat == DEAD)
+	if(brainmob.stat == DEAD)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that the brain is dead!"))
 		return FALSE

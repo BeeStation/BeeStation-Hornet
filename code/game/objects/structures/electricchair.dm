@@ -33,7 +33,7 @@
 		return
 	A.use_power(AREA_USAGE_EQUIP, 5000)
 
-	flick("echair_shock", src)
+	z_flick("echair_shock", src)
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(12, 1, src)
 	s.start()

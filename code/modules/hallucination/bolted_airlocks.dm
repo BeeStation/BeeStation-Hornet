@@ -84,6 +84,7 @@
 
 	src.airlock = airlock
 	RegisterSignal(airlock, COMSIG_QDELETING, PROC_REF(on_airlock_deleted))
+	RegisterSignal(airlock, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_airlock_attack_hand))
 	// We need to grab these for our image before we run our parent's parent initialize
 	src.image_icon = airlock.overlays_file
 	src.image_state = "lights_[AIRLOCK_LIGHT_BOLTS]"
@@ -91,7 +92,7 @@
 	return ..()
 
 /obj/effect/client_image_holder/hallucination/fake_door_lock/Destroy(force)
-	UnregisterSignal(airlock, COMSIG_QDELETING)
+	UnregisterSignal(airlock, list(COMSIG_QDELETING, COMSIG_ATOM_ATTACK_HAND))
 	airlock = null
 	return ..()
 
@@ -108,7 +109,12 @@
 	. = ..()
 	show_to.playsound_local(get_turf(src), 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 
-/obj/effect/client_image_holder/hallucination/fake_door_lock/proc/on_airlock_deleted(datum/source)
+/obj/effect/client_image_holder/hallucination/fake_door_lock/proc/on_airlock_attack_hand(atom/source)
+	SIGNAL_HANDLER
+
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/obj/effect/client_image_holder/hallucination/fake_door_lock/proc/on_airlock_deleted(atom/source)
 	SIGNAL_HANDLER
 
 	qdel(src)

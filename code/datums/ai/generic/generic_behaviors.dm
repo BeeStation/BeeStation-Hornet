@@ -48,15 +48,8 @@
 	big_guy.face_atom(batman)
 
 	batman.visible_message(span_warning("[batman] gets a slightly too tight hug from [big_guy]!"), span_userdanger("You feel your body break as [big_guy] embraces you!"))
-
-	if(iscarbon(batman))
-		var/mob/living/carbon/carbon_batman = batman
-		for(var/obj/item/bodypart/bodypart_to_break in carbon_batman.bodyparts)
-			if(bodypart_to_break.body_zone == BODY_ZONE_HEAD)
-				continue
-			bodypart_to_break.receive_damage(brute = 15)
-	else
-		batman.adjustBruteLoss(150)
+	for(var/zone in GLOB.all_body_zones - BODY_ZONE_HEAD)
+		batman.apply_damage(15, BRUTE, zone)
 
 	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
 
@@ -332,6 +325,10 @@
 			continue
 		if(thing.IsObscured())
 			continue
+		if(isitem(thing))
+			var/obj/item/item = thing
+			if(item.item_flags & ABSTRACT)
+				continue
 		possible_targets += thing
 	if(!possible_targets.len)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED

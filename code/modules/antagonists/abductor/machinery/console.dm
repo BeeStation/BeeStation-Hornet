@@ -257,7 +257,7 @@
 		say("Incoming supply!")
 		var/drop_location = loc
 		if(pad)
-			flick("alien-pad", pad)
+			z_flick("alien-pad", pad)
 			drop_location = pad.loc
 		new item(drop_location)
 

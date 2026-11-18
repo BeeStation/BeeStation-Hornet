@@ -50,7 +50,7 @@
 	to_chat(hallucinator, span_userdanger("You're set on fire!"))
 	var/atom/movable/screen/alert/fire/fake/alert = hallucinator.throw_alert(ALERT_FIRE, /atom/movable/screen/alert/fire/fake, override = TRUE)
 	alert.hallucination_weakref = WEAKREF(src)
-	times_to_lower_stamina = rand(5, 10)
+	times_to_lower_stamina = rand(8, 12)
 	addtimer(CALLBACK(src, PROC_REF(start_expanding)), 2 SECONDS)
 	return TRUE
 
@@ -102,10 +102,10 @@
 			if(stage == RAISE_FIRE_COUNT)
 				increasing_stages = FALSE
 
-	else if(times_to_lower_stamina)
+	if(times_to_lower_stamina)
 		next_action -= delta_time
 		if(next_action < 0)
-			hallucinator.adjustStaminaLoss(15)
+			hallucinator.adjustStaminaLoss(30)
 			next_action += 2
 			times_to_lower_stamina -= 1
 

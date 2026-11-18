@@ -90,9 +90,9 @@
 	var/obj/item/storage/pill_bottle/mannitol/braintumor/P = new(get_turf(H))
 
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
 	)
 	where = H.equip_in_one_of_slots(P, slots, FALSE)
 
@@ -228,9 +228,9 @@
 	)
 	heirloom = new heirloom_type(get_turf(quirk_target))
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
 	)
 	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
 
@@ -554,9 +554,9 @@
 	if (accessory_type)
 		accessory_instance = new accessory_type(current_turf)
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
 	)
 	where_drug = H.equip_in_one_of_slots(drug_instance, slots, FALSE) || "at your feet"
 	if (accessory_instance)
@@ -564,7 +564,7 @@
 	announce_drugs()
 
 /datum/quirk/junkie/post_spawn()
-	if(where_drug == "in your backpack" || where_accessory == "in your backpack")
+	if(where_drug == LOCATION_BACKPACK || where_accessory == LOCATION_BACKPACK)
 		var/mob/living/carbon/human/H = quirk_target
 		H.back.atom_storage.show_contents(H)
 
@@ -620,7 +620,7 @@
 			smoker_lungs = /obj/item/organ/lungs/smoker_lungs
 	if(!isnull(smoker_lungs))
 		smoker_lungs = new smoker_lungs
-		smoker_lungs.Insert(carbon_holder, special = TRUE, drop_if_replaced = FALSE)
+		smoker_lungs.Insert(carbon_holder, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 
 /datum/quirk/junkie/smoker/announce_drugs()
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] [where_drug], and a lighter [where_accessory]. Make sure you get your favorite brand when you run out."))
@@ -663,7 +663,7 @@
 	if(!drink_instance)
 		drink_instance = pick(drink_types)
 	drink_instance = new drink_instance()
-	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
+	var/list/slots = list(LOCATION_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
 	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE) || "at your feet"
 

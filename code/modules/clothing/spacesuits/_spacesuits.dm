@@ -34,6 +34,7 @@
 /obj/item/clothing/head/helmet/space/Initialize(mapload)
 	. = ..()
 	add_stabilizer()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/space)
 
 /obj/item/clothing/head/helmet/space/proc/add_stabilizer()
 	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
@@ -85,6 +86,8 @@
 	. = ..()
 	if(ispath(cell))
 		cell = new cell(src)
+
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/space)
 
 /// Start Processing on the space suit when it is worn to heat the wearer
 /obj/item/clothing/suit/space/equipped(mob/user, slot)

@@ -476,17 +476,16 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				SEND_SOUND(H, sound(SSstation.announcer.event_sounds[ANNOUNCER_ANIMES]))
 
 				if(H.dna.species.id == SPECIES_HUMAN)
-					if(H.dna.features["tail_human"] == "None" || H.dna.features["ears"] == "None")
+					if(H.dna.features[FEATURE_TAIL_CAT] == "None" || H.dna.features[FEATURE_EARS] == "None")
 						var/obj/item/organ/ears/cat/ears = new
 						var/obj/item/organ/tail/cat/tail = new
-						ears.Insert(H, drop_if_replaced=FALSE)
-						tail.Insert(H, drop_if_replaced=FALSE)
+						ears.Insert(H, movement_flags = DELETE_IF_REPLACED)
+						tail.Insert(H, movement_flags = DELETE_IF_REPLACED)
 					var/list/honorifics = list("[MALE]" = list("kun"), "[FEMALE]" = list("chan","tan"), "[NEUTER]" = list("san"), "[PLURAL]" = list("san")) //John Robust -> Robust-kun
 					var/list/names = splittext(H.real_name," ")
 					var/forename = names.len > 1 ? names[2] : names[1]
 					var/newname = "[forename]-[pick(honorifics["[H.gender]"])]"
 					H.fully_replace_character_name(H.real_name,newname)
-					H.update_mutant_bodyparts()
 					if(animetype == "Yes")
 						var/seifuku = pick(typesof(/obj/item/clothing/under/costume/schoolgirl))
 						var/obj/item/clothing/under/costume/schoolgirl/I = new seifuku

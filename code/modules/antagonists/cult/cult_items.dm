@@ -195,12 +195,20 @@ Striking a noncultist, however, will tear their flesh."}
 	icon_state = "cult_hoodalt"
 	inhand_icon_state = null
 
+/obj/item/clothing/head/hooded/cult_hoodie/alt/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/cult)
+
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	name = "cultist robes"
 	desc = "An armored set of robes worn by the followers of Nar'Sie."
 	icon_state = "cultrobesalt"
 	inhand_icon_state = null
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/alt
+
+/obj/item/clothing/suit/hooded/cultrobes/alt/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/cult)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	item_flags = DROPDEL
@@ -459,7 +467,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(curselimit > 1)
 		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
 		return
-	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
+	if(locate(/obj/eldritch/narsie) in SSpoints_of_interest.narsies)
 		to_chat(user, span_warning("Nar'Sie is already on this plane, there is no delaying the end of all things."))
 		return
 

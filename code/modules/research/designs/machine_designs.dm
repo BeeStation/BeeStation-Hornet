@@ -369,7 +369,7 @@
 	desc = "The circuit board for a microwave."
 	id = "microwave"
 	build_path = /obj/item/circuitboard/machine/microwave
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/gibber
@@ -377,7 +377,7 @@
 	desc = "The circuit board for a gibber."
 	id = "gibber"
 	build_path = /obj/item/circuitboard/machine/gibber
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/smartfridge
@@ -385,7 +385,7 @@
 	desc = "The circuit board for a smartfridge."
 	id = "smartfridge"
 	build_path = /obj/item/circuitboard/machine/smartfridge
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/monkey_recycler
@@ -393,7 +393,7 @@
 	desc = "The circuit board for a monkey recycler."
 	id = "monkey_recycler"
 	build_path = /obj/item/circuitboard/machine/monkey_recycler
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/seed_extractor
@@ -409,7 +409,7 @@
 	desc = "The circuit board for a processing unit. Screwdriver the circuit to switch between food (default) or slime processing."
 	id = "processor"
 	build_path = /obj/item/circuitboard/machine/processor
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/soda_dispenser
@@ -418,7 +418,7 @@
 	id = "soda_dispenser"
 	build_path = /obj/item/circuitboard/machine/chem_dispenser/drinks
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_BAR)
 
 /datum/design/board/beer_dispenser
 	name = "Machine Design (Portable Booze Dispenser Board)"
@@ -426,14 +426,14 @@
 	id = "beer_dispenser"
 	build_path = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_BAR)
 
 /datum/design/board/recycler
 	name = "Machine Design (Recycler Board)"
 	desc = "The circuit board for a recycler."
 	id = "recycler"
 	build_path = /obj/item/circuitboard/machine/recycler
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/scanner_gate
@@ -441,7 +441,7 @@
 	desc = "The circuit board for a scanner gate."
 	id = "scanner_gate"
 	build_path = /obj/item/circuitboard/machine/scanner_gate
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SECURITY)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/holopad
@@ -449,7 +449,7 @@
 	desc = "The circuit board for a holopad."
 	id = "holopad"
 	build_path = /obj/item/circuitboard/machine/holopad
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/autolathe
@@ -457,7 +457,7 @@
 	desc = "The circuit board for an autolathe."
 	id = "autolathe"
 	build_path = /obj/item/circuitboard/machine/autolathe
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_FAB)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL		//Lets be honest here half the maps have public ones.
 
 /datum/design/board/recharger
@@ -466,7 +466,7 @@
 	id = "recharger"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/copper = 300)
 	build_path = /obj/item/circuitboard/machine/recharger
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SECURITY)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/vendor
@@ -474,7 +474,7 @@
 	desc = "The circuit board for a Vendor."
 	id = "vendor"
 	build_path = /obj/item/circuitboard/machine/vendor
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/ore_redemption
@@ -482,7 +482,7 @@
 	desc = "The circuit board for an Ore Redemption machine."
 	id = "ore_redemption"
 	build_path = /obj/item/circuitboard/machine/ore_redemption
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/mining_equipment_vendor
@@ -490,7 +490,7 @@
 	desc = "The circuit board for a Mining Rewards Vendor."
 	id = "mining_equipment_vendor"
 	build_path = /obj/item/circuitboard/machine/mining_equipment_vendor
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/board/exploration_equipment_vendor
@@ -498,7 +498,7 @@
 	desc = "The circuit board for an Exploration Rewards Vendor."
 	id = "exploration_equipment_vendor"
 	build_path = /obj/item/circuitboard/machine/exploration_equipment_vendor
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/board/tesla_coil
@@ -506,7 +506,7 @@
 	desc = "The circuit board for a tesla coil."
 	id = "tesla_coil"
 	build_path = /obj/item/circuitboard/machine/tesla_coil
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/grounding_rod
@@ -514,7 +514,7 @@
 	desc = "The circuit board for a grounding rod."
 	id = "grounding_rod"
 	build_path = /obj/item/circuitboard/machine/grounding_rod
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/plantgenes
@@ -554,7 +554,7 @@
 	desc = "The circuit board for a Deep Fryer."
 	id = "deepfryer"
 	build_path = /obj/item/circuitboard/machine/deep_fryer
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/griddle
@@ -562,7 +562,7 @@
 	desc = "The circuit board for a Griddle."
 	id = "griddle"
 	build_path = /obj/item/circuitboard/machine/griddle
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/oven
@@ -570,7 +570,7 @@
 	desc = "The circuit board for a Oven."
 	id = "oven"
 	build_path = /obj/item/circuitboard/machine/oven
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/donksofttoyvendor
@@ -578,7 +578,7 @@
 	desc = "The circuit board for a Donksoft Toy Vendor."
 	id = "donksofttoyvendor"
 	build_path = /obj/item/circuitboard/machine/vending/donksofttoyvendor
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL			//Toys!!
 
 /datum/design/board/cell_charger
@@ -586,7 +586,7 @@
 	desc = "The circuit board for a cell charger."
 	id = "cell_charger"
 	build_path = /obj/item/circuitboard/machine/cell_charger
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/dish_drive
@@ -594,7 +594,7 @@
 	desc = "The circuit board for a dish drive."
 	id = "dish_drive"
 	build_path = /obj/item/circuitboard/machine/dish_drive
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/stacking_unit_console
@@ -602,7 +602,7 @@
 	desc = "The circuit board for a Stacking Machine Console."
 	id = "stack_console"
 	build_path = /obj/item/circuitboard/machine/stacking_unit_console
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/stacking_machine
@@ -610,7 +610,7 @@
 	desc = "The circuit board for a Stacking Machine."
 	id = "stack_machine"
 	build_path = /obj/item/circuitboard/machine/stacking_machine
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/mass_driver
@@ -618,7 +618,7 @@
 	desc = "The circuit board for a mass driver."
 	id = "mass_driver"
 	build_path = /obj/item/circuitboard/machine/mass_driver
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
 
 
@@ -635,7 +635,7 @@
 	desc = "The circuit board for a paystand."
 	id = "paystand"
 	build_path = /obj/item/circuitboard/machine/paystand
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/fat_sucker
@@ -643,7 +643,7 @@
 	desc = "The circuit board for a lipid extractor."
 	id = "fat_sucker"
 	build_path = /obj/item/circuitboard/machine/fat_sucker
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/stasis
@@ -659,7 +659,7 @@
 	desc = "The circuit board for a component printer"
 	id = "component_printer"
 	build_path = /obj/item/circuitboard/machine/component_printer
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_FAB)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/module_printer
@@ -667,7 +667,7 @@
 	desc = "The circuit board for a module duplicator"
 	id = "module_duplicator"
 	build_path = /obj/item/circuitboard/machine/module_duplicator
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_FAB)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/xenoa_listing_console
@@ -692,7 +692,7 @@
 	id = "suit_storage_unit"
 	build_path = /obj/item/circuitboard/machine/suit_storage_unit
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 
 /datum/design/board/fax
 	name = "Machine Design (Fax Machine)"
@@ -700,7 +700,7 @@
 	id = "fax"
 	build_path = /obj/item/circuitboard/machine/fax
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 
 /datum/design/board/turnstile
 	name = "Machine Design (Turnstile)"
@@ -708,7 +708,7 @@
 	id = "turnstile"
 	build_path = /obj/item/circuitboard/machine/turnstile
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SECURITY)
 
 /datum/design/board/genpop_interface
 	name = "Machine Design (Prisoner Management Interface)"
@@ -716,7 +716,7 @@
 	id = "genpop_interface"
 	build_path = /obj/item/electronics/genpop_interface
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SECURITY)
 
 /datum/design/board/xenoa_scale
 	name = "Machine Design (Industrial Scale)"
@@ -747,7 +747,7 @@
 	desc = "This machine turns weird things into sheets."
 	id = "sheetifier"
 	build_path = /obj/item/circuitboard/machine/sheetifier
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/board/shieldwallgen
@@ -755,21 +755,21 @@
 	desc = "A shield generator commonly used in xenobiology research."
 	id = "shieldwallgen"
 	build_path = /obj/item/circuitboard/machine/shieldwallgen
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING)
 
 /datum/design/board/shieldwallgen/atmos
 	name = "Machine Design (Holofield Generator)"
 	desc = "A specialized shield generator used to block airflow."
 	id = "shieldwallgen_atmos"
 	build_path = /obj/item/circuitboard/machine/shieldwallgen/atmos
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING)
 
 /datum/design/board/photobooth
 	name = "Photobooth Board"
 	desc = "The circuit board for a photobooth."
 	id = "photobooth"
 	build_path = /obj/item/circuitboard/machine/photobooth
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/security_photobooth
@@ -777,5 +777,5 @@
 	desc = "The circuit board for a security photobooth."
 	id = "security_photobooth"
 	build_path = /obj/item/circuitboard/machine/photobooth/security
-	category = list(RND_CATEGORY_MISC_MACHINERY)
+	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SECURITY)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

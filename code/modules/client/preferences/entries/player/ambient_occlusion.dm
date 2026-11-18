@@ -5,8 +5,7 @@
 	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/toggle/ambient_occlusion/apply_to_client(client/client, value)
-	var/atom/movable/screen/plane_master/game_world/plane_master = locate() in client?.screen
-	if (!plane_master)
+	if (!client)
 		return
-
-	plane_master.backdrop(client.mob)
+	for (var/atom/movable/screen/plane_master/pm in client.screen)
+		pm.update_effects(client.mob)

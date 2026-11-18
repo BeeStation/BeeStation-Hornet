@@ -12,17 +12,15 @@
 /datum/hallucination/station_message/blob_alert
 
 /datum/hallucination/station_message/blob_alert/start()
-	to_chat(hallucinator, ALERT_TITLE("Biohazard Alert"))
-	to_chat(hallucinator, ALERT_BODY("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak."))
-	SEND_SOUND(hallucinator, sound(SSstation.announcer.event_sounds[ANNOUNCER_OUTBREAK5]))
+	priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.",
+		"Biohazard Alert", ANNOUNCER_OUTBREAK5, players = list(hallucinator))
 	return ..()
 
 /datum/hallucination/station_message/shuttle_dock
 
 /datum/hallucination/station_message/shuttle_dock/start()
-	to_chat(hallucinator, ALERT_TITLE("Priority Announcement"))
-	to_chat(hallucinator, ALERT_BODY("[SSshuttle.emergency || "The Emergency Shuttle"] has docked with the station. You have 3 minutes to board the Emergency Shuttle."))
-	SEND_SOUND(hallucinator, sound(SSstation.announcer.event_sounds[ANNOUNCER_SHUTTLEDOCK]))
+	priority_announce("[SSshuttle.emergency] has docked with the station. You have [DisplayTimeText(SSshuttle.emergency_dock_time)] to board the Emergency Shuttle.",
+	null, ANNOUNCER_SHUTTLEDOCK, ANNOUNCEMENT_TYPE_PRIORITY, players = list(hallucinator))
 	return ..()
 
 /datum/hallucination/station_message/malf_ai
@@ -31,34 +29,38 @@
 	if(!(locate(/mob/living/silicon/ai) in GLOB.silicon_mobs))
 		return FALSE
 
-	to_chat(hallucinator, ALERT_TITLE("Anomaly Alert"))
-	to_chat(hallucinator, ALERT_BODY("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core."))
-	SEND_SOUND(hallucinator, sound(SSstation.announcer.event_sounds[ANNOUNCER_AIMALF]))
+	priority_announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.",
+		"Anomaly Alert", ANNOUNCER_AIMALF, players = list(hallucinator))
 	return ..()
 
 /datum/hallucination/station_message/heretic
-	/// This is gross and will probably easily be outdated in some time but c'est la vie.
-	/// Maybe if someone datumizes heretic paths or something this can be improved
-	var/static/list/ascension_bodies = list(
-		"Fear the blaze, for the Ashlord, %FAKENAME% has ascended! The flames shall consume all!",
-		"Master of blades, the Torn Champion's disciple, %FAKENAME% has ascended! Their steel is that which will cut reality in a maelstom of silver!",
-		"Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %FAKENAME% has ascended! Fear the ever twisting hand!",
-		"Fear the decay, for the Rustbringer, %FAKENAME% has ascended! None shall escape the corrosion!",
-		"The nobleman of void %FAKENAME% has arrived, stepping along the Waltz that ends worlds!",
-	)
+	// Assoc list of ascension text to ascension sound
+	var/static/list/announcement_info = list()
 
 /datum/hallucination/station_message/heretic/start()
+	if(!length(announcement_info))
+		for(var/ascension in subtypesof(/datum/heretic_knowledge/ultimate))
+			var/datum/heretic_knowledge/ultimate/instance = new ascension()
+			var/text = instance.announcement_text
+			var/sound = instance.announcement_sound
+			if(text && sound)
+				announcement_info[text] = sound
+			qdel(instance)
+
 	// Unfortunately, this will not be synced if mass hallucinated
 	var/mob/living/carbon/human/totally_real_heretic = random_non_sec_crewmember()
 	if(!totally_real_heretic)
 		return FALSE
 
-	var/message_with_name = pick(ascension_bodies)
-	message_with_name = replacetext(message_with_name, "%FAKENAME%", totally_real_heretic.real_name)
+	var/message = pick(announcement_info)
+	var/message_with_name = replacetext(message, "%USER%", totally_real_heretic.real_name)
 
-	to_chat(hallucinator, ALERT_TITLE(generate_heretic_text()))
-	to_chat(hallucinator, ALERT_BODY("[generate_heretic_text()] [message_with_name] [generate_heretic_text()]"))
-	SEND_SOUND(hallucinator, sound(SSstation.announcer.event_sounds[ANNOUNCER_SPANOMALIES]))
+	priority_announce(
+		text = "[generate_heretic_text()] [message_with_name] [generate_heretic_text()]",
+		title = "[generate_heretic_text()]",
+		sound = announcement_info[message],
+		players = list(hallucinator)
+	)
 	return ..()
 
 /datum/hallucination/station_message/cult_summon
@@ -74,27 +76,24 @@
 	var/area/fake_summon_area_type = pick(GLOB.the_station_areas - hallucinator_area.type)
 	var/area/fake_summon_area = GLOB.areas_by_type[fake_summon_area_type]
 
-	to_chat(hallucinator, ALERT_TITLE("Central Command Higher Dimensional Affairs"))
-	to_chat(hallucinator, ALERT_BODY("Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] \
-		into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!"))
-
-	SEND_SOUND(hallucinator, sound(SSstation.announcer.event_sounds[ANNOUNCER_SPANOMALIES]))
+	priority_announce("Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!",
+		"Central Command Higher Dimensional Affairs", 'sound/effects/antag/bloodcult/bloodcult_scribe.ogg',
+		players = list(hallucinator))
 	return ..()
 
 /datum/hallucination/station_message/meteors
 	random_hallucination_weight = 2
 
 /datum/hallucination/station_message/meteors/start()
-	to_chat(hallucinator, ALERT_TITLE("Meteor Alert"))
-	to_chat(hallucinator, ALERT_BODY("Meteors have been detected on collision course with the station."))
-	SEND_SOUND(hallucinator, sound(SSstation.announcer.event_sounds[ANNOUNCER_METEORS]))
+	priority_announce("Meteors have been detected on collision course with the station. Estimated time until impact: 10 MINUTES. Anti-meteor point defense is available for purchase via the station's cargo shuttle.",
+		"Meteor Alert", ANNOUNCER_METEORS, players = list(hallucinator))
 	return ..()
 
 /datum/hallucination/station_message/supermatter_delam
 
 /datum/hallucination/station_message/supermatter_delam/start()
 	SEND_SOUND(hallucinator, 'sound/magic/charge.ogg')
-	to_chat(hallucinator, span_boldannounce("You feel reality distort for a moment..."))
+	to_chat(hallucinator, span_bolddanger("You feel reality distort for a moment..."))
 	return ..()
 
 /datum/hallucination/station_message/clock_cult_ark

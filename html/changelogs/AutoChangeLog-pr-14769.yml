@@ -1,5 +1,0 @@
-author: SunShine214
-delete-after: true
-changes:
-  - bugfix: Fixed IPCs being able to metabolize non-synth chemicals.
-  - bugfix: Fixed IPCs being able to be mutated with the genetics console.

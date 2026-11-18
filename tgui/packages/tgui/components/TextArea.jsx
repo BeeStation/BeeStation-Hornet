@@ -62,9 +62,7 @@ export class TextArea extends Component {
         if (onInput) {
           onInput(e, e.target.value);
         }
-        if (onEnter) {
-          onEnter(e, e.target.value);
-        }
+        onEnter(e, e.target.value);
         if (this.props.selfClear) {
           e.target.value = '';
           e.target.blur();

@@ -32,10 +32,9 @@
 	. = ..()
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
-			if(!R.connected_ai)
-				R.TryConnectToAI()
-
+		for(var/mob/living/silicon/robot/roundstart_borg as anything in GLOB.cyborg_list)
+			if(!roundstart_borg.connected_ai)
+				roundstart_borg.try_connect_to_ai()
 
 /datum/job/ai/get_roundstart_spawn_point()
 	return get_latejoin_spawn_point()

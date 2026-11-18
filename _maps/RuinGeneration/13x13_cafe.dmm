@@ -56,7 +56,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered)
 "p" = (
-/obj/effect/spawner/structure/window/shutter,
+/obj/machinery/door/poddoor/shutters/window,
 /turf/open/floor/plating,
 /area/ruin/powered)
 "q" = (

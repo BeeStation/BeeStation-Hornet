@@ -89,13 +89,13 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/fireaxe,
 		/obj/item/stack/sheet/telecrystal/five,
 		/obj/item/stack/sheet/telecrystal/twenty,
-		/obj/item/clothing/suit/space/hardsuit/syndi
+		/obj/item/mod/control/pre_equipped/traitor,
 	))
 
 GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted,
 		/obj/item/energy_katana,
-		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
+		/obj/item/mod/control/pre_equipped/traitor_elite,
 		/obj/item/his_grace,
 		/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 		/obj/item/holoparasite_creator/tech,
@@ -332,6 +332,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	if(!spawn_turf)
+		to_chat(usr, span_warning("Failed to find valid spawn location for Battle Royale."))
 		return
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()

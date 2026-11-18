@@ -1448,15 +1448,15 @@
 	max_supply = 1
 	access = ACCESS_CE
 	access_budget = ACCESS_CE
-	contains = list(/obj/item/RBMK_box/core,
-					/obj/item/RBMK_box/body/coolant_input,
-					/obj/item/RBMK_box/body/moderator_input,
-					/obj/item/RBMK_box/body/waste_output,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
+	contains = list(/obj/item/rbmk_box/core,
+					/obj/item/rbmk_box/body/coolant_input,
+					/obj/item/rbmk_box/body/moderator_input,
+					/obj/item/rbmk_box/body/waste_output,
+					/obj/item/rbmk_box/body,
+					/obj/item/rbmk_box/body,
+					/obj/item/rbmk_box/body,
+					/obj/item/rbmk_box/body,
+					/obj/item/rbmk_box/body,
 					/obj/item/circuitboard/computer/control_rods,
 					/obj/item/book/manual/wiki/rbmk)
 	crate_name = "nuclear engine crate"

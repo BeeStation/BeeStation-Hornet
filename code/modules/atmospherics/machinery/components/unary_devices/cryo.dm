@@ -347,13 +347,13 @@
 /obj/machinery/cryo_cell/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(!state_open && !panel_open)
 		set_on(FALSE)
-	flick("pod-open-anim", src)
+	z_flick("pod-open-anim", src)
 	return ..()
 
 /obj/machinery/cryo_cell/close_machine(mob/living/carbon/user, density_to_set = TRUE)
 	if(!state_open || panel_open)
 		return
-	flick("pod-close-anim", src)
+	z_flick("pod-close-anim", src)
 	. = ..()
 	if(!QDELETED(occupant)) //auto on if an occupant is inside
 		set_on(TRUE)
@@ -580,6 +580,8 @@
 	balloon_alert(user, "door [state_open ? "opened" : "closed"]")
 
 /obj/machinery/cryo_cell/MouseDrop_T(mob/target, mob/user, params)
+	if(..())
+		return
 	if(user.incapacitated || !Adjacent(user) || !user.Adjacent(target) || !isliving(target) || !ISADVANCEDTOOLUSER(user) || !state_open)
 		return
 

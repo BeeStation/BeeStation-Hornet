@@ -45,7 +45,7 @@
 	if(!user.can_read(src))
 		return
 
-	flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
+	z_flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
 
 	// Clumsiness/brain damage check
 	if ((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
@@ -199,17 +199,22 @@
 		var/list/damaged = carbontarget.get_damaged_bodyparts(1,1)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
 			var/dmgreport = "<span class='info ml-1'>General status:</span>\
-							<table class='ml-2'><tr><font face='Verdana'>\
+							<font face='Verdana'>\
+							<table class='ml-2'>\
+							<tr>\
 							<td style='width:7em;'><font color='#ff0000'><b>Damage:</b></font></td>\
 							<td style='width:5em;'><font color='#ff3333'><b>Brute</b></font></td>\
 							<td style='width:4em;'><font color='#ff9933'><b>Burn</b></font></td>\
 							<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>\
-							<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></font></td></tr>\
-							<tr><td><font color='#ff3333'><b>Overall:</b></font></td>\
+							<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></font></td>\
+							</tr>\
+							<tr>\
+							<td><font color='#ff3333'><b>Overall:</b></font></td>\
 							<td><font color='#ff3333'><b>[ceil(brute_loss)]</b></font></td>\
 							<td><font color='#ff9933'><b>[ceil(fire_loss)]</b></font></td>\
 							<td><font color='#00cc66'><b>[ceil(tox_loss)]</b></font></td>\
-							<td><font color='#33ccff'><b>[ceil(oxy_loss)]</b></font></td></tr>"
+							<td><font color='#33ccff'><b>[ceil(oxy_loss)]</b></font></td>\
+							</tr>"
 
 			if(mode == SCANNER_VERBOSE)
 				for(var/obj/item/bodypart/limb as anything in damaged)
@@ -219,7 +224,8 @@
 						dmgreport += "<tr><td><font color='#cc3333'>[capitalize(limb.plaintext_zone)]:</font></td>"
 					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[ceil(limb.brute_dam)]" : "0"]</font></td>"
 					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[ceil(limb.burn_dam)]" : "0"]</font></td></tr>"
-			dmgreport += "</font></table>"
+
+			dmgreport += "</table></font>"
 			render_list += dmgreport // tables do not need extra linebreak
 		for(var/obj/item/bodypart/limb as anything in carbontarget.bodyparts)
 			for(var/obj/item/embed as anything in limb.embedded_objects)
@@ -290,8 +296,7 @@
 			|| targetspecies.mutanttongue != initial(targetspecies.mutanttongue) \
 			|| targetspecies.mutantliver != initial(targetspecies.mutantliver) \
 			|| targetspecies.mutantstomach != initial(targetspecies.mutantstomach) \
-			|| targetspecies.mutantappendix != initial(targetspecies.mutantappendix) \
-			|| targetspecies.mutantwings != initial(targetspecies.mutantwings)
+			|| targetspecies.mutantappendix != initial(targetspecies.mutantappendix)
 
 		render_list += "<span class='info ml-1'>Species: [targetspecies.name][mutant ? "-derived mutant" : ""]</span>\n"
 		var/core_temperature_message = "Core temperature: [round(humantarget.coretemperature-T0C, 0.1)] &deg;C ([round(humantarget.coretemperature*1.8-459.67,0.1)] &deg;F)"

@@ -31,7 +31,7 @@
 	busy = TRUE
 	loaded_item = attacking_item
 	to_chat(user, span_notice("You add the [attacking_item] to the [name]!"))
-	flick("[base_icon_state]_la", src)
+	z_flick("[base_icon_state]_la", src)
 	addtimer(CALLBACK(src, PROC_REF(finish_loading)), 1 SECONDS)
 	return TRUE
 
@@ -125,7 +125,7 @@
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item(gain_research_points = FALSE)
 	if(QDELETED(loaded_item) || QDELETED(src))
 		return FALSE
-	flick("[base_icon_state]_process", src)
+	z_flick("[base_icon_state]_process", src)
 	busy = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), 2.4 SECONDS)
 	use_power(DESTRUCTIVE_ANALYZER_POWER_USAGE)

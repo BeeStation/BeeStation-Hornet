@@ -19,7 +19,7 @@
 		for(var/obj/item/clothing/I in M.contents)
 			clothing_list += I
 		if(!length(clothing_list))
-			break
+			continue
 		var/obj/item/clothing/C = pick(clothing_list)
 		if(!HAS_TRAIT_FROM(C, TRAIT_NODROP, GLUED_ITEM_TRAIT))
 			M.dropItemToGround(C)

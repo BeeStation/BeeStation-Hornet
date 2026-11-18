@@ -29,7 +29,15 @@
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
-		notify_ghosts("A swarmer shell has been created in [A.name].", 'sound/effects/bin_close.ogg', source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
+		notify_ghosts(
+			"A swarmer shell has been created in [A.name].",
+			'sound/effects/bin_close.ogg',
+			source = src,
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
+
+/obj/effect/mob_spawn/swarmer/equip(mob/new_swarmer)
+	new_swarmer.real_name = new_swarmer.name
 
 /obj/effect/mob_spawn/swarmer/attack_hand(mob/living/user)
 	. = ..()

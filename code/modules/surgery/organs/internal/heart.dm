@@ -1,0 +1,373 @@
+/obj/item/organ/heart
+	name = "heart"
+	desc = "I feel bad for the heartless bastard who lost this."
+	icon_state = "heart-on"
+	base_icon_state = "heart"
+
+	visual = FALSE
+	zone = BODY_ZONE_CHEST
+	slot = ORGAN_SLOT_HEART
+	item_flags = NO_BLOOD_ON_ITEM
+
+	healing_factor = STANDARD_ORGAN_HEALING
+	decay_factor = 5 * STANDARD_ORGAN_DECAY //designed to fail about 5 minutes after death
+
+	low_threshold_passed = span_info("Prickles of pain appear then die out from within your chest...")
+	high_threshold_passed = span_warning("Something inside your chest hurts, and the pain isn't subsiding. You notice yourself breathing far faster than before.")
+	now_fixed = span_info("Your heart begins to beat again.")
+	high_threshold_cleared = span_info("The pain in your chest has died down, and your breathing becomes more relaxed.")
+
+	attack_verb_continuous = list("beats", "thumps")
+	attack_verb_simple = list("beat", "thump")
+
+	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
+	var/beating = TRUE
+	//is this mob having a heatbeat sound played? if so, which?
+	var/beat = BEAT_NONE
+	//to prevent constantly running failing code
+	var/failed = FALSE
+	//whether the heart's been operated on to fix some of its damages
+	var/operated = FALSE
+
+/obj/item/organ/heart/update_icon_state()
+	. = ..()
+	icon_state = "[base_icon_state]-[beating ? "on" : "off"]"
+
+/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, movement_flags)
+	..()
+	if(!special)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
+
+/obj/item/organ/heart/proc/stop_if_unowned()
+	if(QDELETED(src))
+		return
+	if(!owner)
+		Stop()
+
+/obj/item/organ/heart/attack_self(mob/user)
+	..()
+	if(!beating)
+		user.visible_message(span_notice("[user] squeezes [src] to make it beat again!"), span_notice("You squeeze [src] to make it beat again!"))
+		Restart()
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
+
+/obj/item/organ/heart/proc/Stop()
+	beating = FALSE
+	update_appearance()
+	return TRUE
+
+/obj/item/organ/heart/proc/Restart()
+	beating = TRUE
+	update_appearance()
+	return TRUE
+
+/obj/item/organ/heart/on_eat_from(eater, feeder)
+	. = ..()
+	beating = FALSE
+	update_appearance()
+
+/obj/item/organ/heart/on_life(delta_time, times_fired)
+	..()
+
+	if(!owner.needs_heart())
+		return
+
+	if(owner.client && beating)
+		failed = FALSE
+		var/sound/slowbeat = sound('sound/health/slowbeat.ogg', repeat = TRUE)
+		var/sound/fastbeat = sound('sound/health/fastbeat.ogg', repeat = TRUE)
+		var/mob/living/carbon/H = owner
+
+		if(H.health <= H.crit_threshold && beat != BEAT_SLOW)
+			beat = BEAT_SLOW
+			H.playsound_local(get_turf(H), slowbeat,40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
+			to_chat(owner, span_notice("You feel your heart slow down."))
+		if(beat == BEAT_SLOW && H.health > H.crit_threshold)
+			H.stop_sound_channel(CHANNEL_HEARTBEAT)
+			beat = BEAT_NONE
+
+		if(H.has_status_effect(/datum/status_effect/jitter))
+			if(H.health > HEALTH_THRESHOLD_FULLCRIT && (!beat || beat == BEAT_SLOW))
+				H.playsound_local(get_turf(H),fastbeat,40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
+				beat = BEAT_FAST
+
+		else if(beat == BEAT_FAST)
+			H.stop_sound_channel(CHANNEL_HEARTBEAT)
+			beat = BEAT_NONE
+
+	if(organ_flags & ORGAN_FAILING)	//heart broke, stopped beating, death imminent
+		if(owner.stat == CONSCIOUS)
+			owner.visible_message(span_userdanger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"))
+		owner.set_heartattack(TRUE)
+		failed = TRUE
+
+/obj/item/organ/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantheart
+
+/obj/item/organ/heart/feel_for_damage(self_aware)
+	if(owner.needs_heart() && (!beating || (organ_flags & ORGAN_FAILING)))
+		return span_boldwarning("[self_aware ? "Your heart is not beating!" : "You don't feel your heart beating."]")
+	if(damage < low_threshold)
+		return ""
+	if(damage < high_threshold)
+		return span_warning("[self_aware ? "Your heart hurts." : "It hurts, and your heart rate feels irregular."]")
+	return span_boldwarning("[self_aware ? "Your heart seriously hurts!" : "It seriously hurts, and your heart rate is all over the place."]")
+
+/obj/item/organ/heart/cursed
+	name = "cursed heart"
+	desc = "A heart that, when inserted, will force you to pump it manually."
+	icon_state = "cursedheart-off"
+	base_icon_state = "cursedheart"
+	decay_factor = 0
+
+	/// How long between needed pumps
+	var/pump_delay = 3 SECONDS
+	/// How much blood you lose per missed pump
+	var/blood_loss = BLOOD_VOLUME_NORMAL * 0.2
+	/// How much of each damage type to heal per pump
+	var/heal_brute = 0
+	var/heal_burn = 0
+	var/heal_oxy = 0
+
+/obj/item/organ/heart/cursed/attack_self(mob/user)
+	. = ..()
+	playsound(user,'sound/effects/singlebeat.ogg',40,1)
+	user.temporarilyRemoveItemFromInventory(src, TRUE)
+	Insert(user)
+
+/obj/item/organ/heart/cursed/on_mob_insert(mob/living/carbon/accursed)
+	. = ..()
+	accursed.AddComponent(/datum/component/manual_heart, pump_delay = pump_delay, blood_loss = blood_loss, heal_brute = heal_brute, heal_burn = heal_burn, heal_oxy = heal_oxy)
+
+/obj/item/organ/heart/cursed/on_mob_remove(mob/living/carbon/accursed, special = FALSE, movement_flags)
+	. = ..()
+	qdel(accursed.GetComponent(/datum/component/manual_heart))
+
+/datum/client_colour/cursed_heart_blood
+	priority = 100 //it's an indicator you're dying, so it's very high priority
+	colour = "red"
+
+/obj/item/organ/heart/cybernetic
+	name = "cybernetic heart"
+	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
+	icon_state = "heart-c-on"
+	base_icon_state = "heart-c"
+	organ_flags = ORGAN_ROBOTIC
+
+	var/dose_available = TRUE
+	var/rid = /datum/reagent/medicine/epinephrine
+	var/ramount = 10
+	var/emp_vulnerability = 60
+
+/obj/item/organ/heart/cybernetic/upgraded
+	name = "upgraded cybernetic heart"
+	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
+	icon_state = "heart-c-u-on"
+	base_icon_state = "heart-c-u"
+	emp_vulnerability = 40
+
+/obj/item/organ/heart/cybernetic/ipc
+	name = "coolant pump"
+	desc = "A small pump powered by the IPC's internal systems for circulating coolant."
+	dose_available = FALSE
+	emp_vulnerability = 35
+
+/obj/item/organ/heart/cybernetic/ipc/emp_act()
+	. = ..()
+	to_chat(owner, "<span class='warning'>Alert: Cybernetic heart failed one heartbeat</span>")
+	addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
+
+/obj/item/organ/heart/cybernetic/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!owner?.needs_heart())
+		return
+
+	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
+		owner.set_dizzy_if_lower(20 SECONDS)
+		owner.losebreath += 10
+		COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+
+	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
+		Stop()
+		addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
+		owner.visible_message(
+			span_danger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"),
+			span_userdanger("You feel a terrible pain in your chest, as if your heart has stopped!")
+		)
+
+/obj/item/organ/heart/cybernetic/on_life(delta_time, times_fired)
+	. = ..()
+
+	if(organ_flags & ORGAN_EMP)
+		return
+
+	if(dose_available && owner.stat == UNCONSCIOUS && !owner.has_reagent(rid))
+		owner.reagents.add_reagent(rid, ramount)
+		used_dose()
+
+/obj/item/organ/heart/cybernetic/proc/used_dose()
+	owner.reagents.add_reagent(rid, ramount)
+	dose_available = FALSE
+
+/obj/item/organ/heart/cybernetic/upgraded/used_dose()
+	. = ..()
+	addtimer(VARSET_CALLBACK(src, dose_available, TRUE), 5 MINUTES)
+
+/obj/item/organ/heart/freedom
+	name = "heart of freedom"
+	desc = "This heart pumps with the passion to give... something freedom."
+	organ_flags = ORGAN_ROBOTIC  //the power of freedom prevents heart attacks
+	/// The cooldown until the next time this heart can give the host an adrenaline boost.
+	COOLDOWN_DECLARE(adrenaline_cooldown)
+
+/obj/item/organ/heart/freedom/on_life(delta_time, times_fired)
+	. = ..()
+	if(owner.health < 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
+		COOLDOWN_START(src, adrenaline_cooldown, rand(25 SECONDS, 1 MINUTES))
+		to_chat(owner, span_userdanger("You feel yourself dying, but you refuse to give up!"))
+		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
+		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
+			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
+
+/obj/item/organ/heart/ethereal
+	name = "crystal core"
+	icon_state = "ethereal_heart-on"
+	base_icon_state = "ethereal_heart"
+	visual = TRUE //This is used by the ethereal species for color
+	desc = "A crystal-like organ that functions similarly to a heart for Ethereals."
+
+	///Color of the heart, overwritten from owner's dna upon init
+	var/ethereal_color = "#9c3030"
+	///The colour we are currently glowing
+	var/current_color
+	///Set while an EMP has dumped glow
+	var/emp_effect = FALSE
+	///Set while an emag is flickering
+	var/emag_effect = FALSE
+	///The glow...
+	var/obj/effect/dummy/lighting_obj/ethereal_light
+	///stores last color, save us some processing
+	var/last_rendered_color
+
+/obj/item/organ/heart/ethereal/Initialize(mapload)
+	. = ..()
+	add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
+	update_appearance()
+
+/obj/item/organ/heart/ethereal/Destroy()
+	QDEL_NULL(ethereal_light)
+	return ..()
+
+/obj/item/organ/heart/ethereal/on_mob_insert(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
+	. = ..()
+	ethereal_light = organ_owner.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
+	RegisterSignal(organ_owner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(refresh_light_color))
+	RegisterSignal(organ_owner, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
+	if(isethereal(organ_owner) && ethereal_color == initial(ethereal_color))
+		sync_color(organ_owner)
+	else
+		refresh_light_color(organ_owner)
+
+/obj/item/organ/heart/ethereal/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+	. = ..()
+	UnregisterSignal(organ_owner, list(COMSIG_LIVING_HEALTH_UPDATE, COMSIG_ATOM_EMP_ACT))
+	QDEL_NULL(ethereal_light)
+	last_rendered_color = null
+	// No more cool glow heart, gray upon you
+	if(!isethereal(organ_owner))
+		return
+	organ_owner.dna?.species?.fixed_mut_color = COLOR_GRAY
+	organ_owner.set_facial_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
+	organ_owner.set_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
+	organ_owner.update_body()
+
+/// Needs electric stomach to be powered
+/obj/item/organ/heart/ethereal/proc/has_power()
+	if(owner?.visual_only_organs)
+		return TRUE
+	var/obj/item/organ/stomach/electrical/battery = owner?.get_organ_slot(ORGAN_SLOT_STOMACH)
+	return istype(battery) && !battery.in_brownout
+
+/obj/item/organ/heart/ethereal/proc/get_body_color()
+	return ethereal_light?.light_on ? current_color : COLOR_GRAY
+
+/obj/item/organ/heart/ethereal/proc/refresh_light_color(mob/living/carbon/human/ethereal)
+	SIGNAL_HANDLER
+	if(isnull(ethereal_light) || !ishuman(ethereal))
+		return
+
+	var/lit = ethereal.stat != DEAD && !emp_effect && has_power()
+	if(lit)
+		var/healthpercent = max(ethereal.health, 0) / 100
+		if(!emag_effect)
+			var/static/list/skin_color = rgb2num("#eda495")
+			var/list/colors = rgb2num(ethereal_color)
+			var/list/built_color = list()
+			for(var/i in 1 to 3)
+				built_color += skin_color[i] + ((colors[i] - skin_color[i]) * healthpercent)
+			current_color = rgb(built_color[1], built_color[2], built_color[3])
+		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
+		ethereal_light.set_light_on(TRUE)
+	else
+		ethereal_light.set_light_on(FALSE)
+
+	var/body_color = get_body_color()
+	if(body_color == last_rendered_color)
+		return
+	last_rendered_color = body_color
+
+	if(isethereal(ethereal))
+		ethereal.dna?.species?.fixed_mut_color = body_color
+		ethereal.set_facial_haircolor(body_color, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(body_color, override = TRUE, update = FALSE)
+
+	ethereal.update_body()
+
+/obj/item/organ/heart/ethereal/proc/on_emp_act(mob/living/carbon/human/source, severity, protection)
+	SIGNAL_HANDLER
+	var/was_lit = ethereal_light?.light_on
+	emp_effect = TRUE
+	refresh_light_color(source)
+	if(was_lit)
+		to_chat(source, span_notice("You feel the light of your body leave you."))
+	switch(severity)
+		if(EMP_LIGHT)
+			addtimer(CALLBACK(src, PROC_REF(stop_emp), source), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+		if(EMP_HEAVY)
+			addtimer(CALLBACK(src, PROC_REF(stop_emp), source), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/obj/item/organ/heart/ethereal/proc/stop_emp(mob/living/carbon/human/ethereal)
+	emp_effect = FALSE
+	refresh_light_color(ethereal)
+	if(ethereal_light?.light_on)
+		to_chat(ethereal, span_notice("You feel more energized as your shine comes back."))
+
+/obj/item/organ/heart/ethereal/proc/sync_color(mob/living/carbon/human/ethereal)
+	var/dna_color = ethereal.dna?.features["ethcolor"]
+	if(dna_color)
+		ethereal_color = dna_color
+		add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
+		update_appearance()
+	refresh_light_color(ethereal)
+
+/obj/item/organ/heart/ethereal/proc/set_emagged(new_value, mob/living/carbon/human/ethereal)
+	emag_effect = new_value
+	refresh_light_color(ethereal)
+
+/obj/item/organ/heart/ethereal/proc/flicker_to(new_color, mob/living/carbon/human/ethereal)
+	current_color = new_color
+	refresh_light_color(ethereal)
+
+/obj/item/organ/heart/ethereal/update_overlays()
+	. = ..()
+	var/mutable_appearance/shine = mutable_appearance(icon, icon_state = "[base_icon_state]_overlay-[beating ? "on" : "off"]")
+	shine.appearance_flags = RESET_COLOR //white
+	. += shine
+
+/obj/item/organ/heart/diona
+	name = "polypment segment"
+	desc = "A segment of plant matter that is resposible for pumping nutrients around the body."
+	icon_state = "diona_heart"

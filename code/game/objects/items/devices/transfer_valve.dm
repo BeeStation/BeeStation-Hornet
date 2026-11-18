@@ -167,6 +167,7 @@
 	*/
 
 /obj/item/transfer_valve/proc/toggle_valve(datum/gas_mixture/target, change_volume = TRUE)
+	playsound(src, 'sound/effects/valve_opening.ogg', 50)
 	if(!valve_open && tank_one && tank_two)
 		var/turf/bombturf = get_turf(src)
 

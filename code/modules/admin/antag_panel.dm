@@ -64,7 +64,7 @@ GLOBAL_VAR(antag_prototypes)
 			common_commands += "<a href='byond://?src=[REF(src)];silicon=Unemag'>Unemag</a>"
 	else if(isAI(current))
 		var/mob/living/silicon/ai/A = current
-		if (A.connected_robots.len)
+		if (LAZYLEN(A.connected_robots))
 			for (var/mob/living/silicon/robot/R in A.connected_robots)
 				if (R.emagged)
 					common_commands += "<a href='byond://?src=[REF(src)];silicon=unemagcyborgs'>Unemag slaved cyborgs</a>"

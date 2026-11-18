@@ -142,9 +142,15 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	if(length(candidates))
 		var/mob/M = pick_n_take(candidates)
 		spawner.create(M.ckey)
-		notify_ghosts("The fugitive hunter ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts(
+			"The fugitive hunter ship has an object of interest: [M]!",
+			source=M,
+		)
 	else
-		notify_ghosts("The fugitive hunter ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts(
+			"The fugitive hunter ship has an object of interest: [spawner]!",
+			source=spawner,
+		)
 
 /proc/admin_select_backstory(list/backstory_keys)
 	GLOB.fugitive_backstory_selection = backstory_keys

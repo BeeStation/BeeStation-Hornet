@@ -118,6 +118,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 
 //mouse drop another mob or self
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
+	if(..())
+		return
 	if(istype(target))
 		stuff_mob_in(target, user)
 
@@ -212,7 +214,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		return
 
 /obj/machinery/disposal/proc/flushAnimation()
-	flick("[icon_state]-flush", src)
+	z_flick("[icon_state]-flush", src)
 
 // called when holder is expelled from a disposal
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)

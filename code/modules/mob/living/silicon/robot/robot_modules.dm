@@ -182,7 +182,7 @@
 	var/mob/living/silicon/robot/robot = loc
 	var/prev_lockcharge = robot.lockcharge
 	sleep(1)
-	flick("[cyborg_base_icon]_transform", robot)
+	z_flick("[cyborg_base_icon]_transform", robot)
 	ADD_TRAIT(robot, TRAIT_NO_TRANSFORM, REF(src))
 	robot.SetLockdown(TRUE)
 	robot.set_anchored(TRUE)

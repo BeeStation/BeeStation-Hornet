@@ -26,6 +26,7 @@ Bonus
 	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 35
+	required_organ = ORGAN_SLOT_LUNGS
 	prefixes = list("Nasal ")
 	bodies = list("Cold")
 	var/infective = FALSE

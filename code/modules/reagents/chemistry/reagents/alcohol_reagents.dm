@@ -227,17 +227,17 @@
 
 	if(DT_PROB(2.5, delta_time))
 		var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
-		if(affected_mob.is_blind())
-			if(istype(eyes))
+		if(eyes && IS_ORGANIC_ORGAN(eyes)) // doesn't affect robotic eyes
+			if(affected_mob.is_blind())
 				eyes.Remove(affected_mob)
 				eyes.forceMove(get_turf(affected_mob))
 				to_chat(affected_mob, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
 				affected_mob.emote("scream")
 				affected_mob.adjustBruteLoss(15, required_bodytype = affected_bodytype)
-		else
-			to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
-			eyes.apply_organ_damage(eyes.maxHealth)
-			affected_mob.emote("scream")
+			else
+				to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
+				eyes.apply_organ_damage(eyes.maxHealth)
+				affected_mob.emote("scream")
 
 	if(DT_PROB(1.5, delta_time))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
@@ -1960,7 +1960,7 @@
 /datum/reagent/consumable/ethanol/quadruple_sec
 	name = "Quadruple Sec"
 	description = "Kicks just as hard as licking the power cell on a baton, but tastier."
-	color = COLOR_BLOOD
+	color = BLOOD_COLOR_RED
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD

@@ -913,6 +913,7 @@
 /obj/item/toy/cards/deck/Initialize(mapload)
 	. = ..()
 	populate_deck()
+	AddElement(/datum/element/drag_pickup)
 
 ///Generates all the cards within the deck.
 /obj/item/toy/cards/deck/proc/populate_deck()
@@ -947,7 +948,6 @@
 	var/O = src
 	H.apply_card_vars(H,O)
 	popleft(cards)
-	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message(span_notice("[user] draws a card from the deck."), span_notice("You draw a card from the deck."))
 	update_icon()
@@ -1000,26 +1000,6 @@
 	else
 		return ..()
 
-/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/M = usr
-	if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
-		return
-	if(Adjacent(usr))
-		if(over_object == M && loc != M)
-			M.put_in_hands(src)
-			to_chat(usr, span_notice("You pick up the deck."))
-
-		else if(istype(over_object, /atom/movable/screen/inventory/hand))
-			var/atom/movable/screen/inventory/hand/H = over_object
-			if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-				to_chat(usr, span_notice("You pick up the deck."))
-
-	else
-		to_chat(usr, span_warning("You can't reach it from here!"))
-
-
-
 /obj/item/toy/cards/cardhand
 	name = "hand of cards"
 	desc = "A number of cards not in a deck, customarily held in ones hand."
@@ -1051,7 +1031,6 @@
 	C.parentdeck = parentdeck
 	C.cardname = choice
 	C.apply_card_vars(C,O)
-	C.pickup(cardUser)
 	cardUser.put_in_hands(C)
 	cardUser.visible_message(span_notice("[cardUser] draws a card from [cardUser.p_their()] hand."), span_notice("You take the [C.cardname] from your hand."))
 
@@ -1063,7 +1042,6 @@
 		N.cardname = currenthand[1]
 		N.apply_card_vars(N,O)
 		qdel(src)
-		N.pickup(cardUser)
 		cardUser.put_in_hands(N)
 		to_chat(cardUser, span_notice("You also take [currenthand[1]] and hold it."))
 
@@ -1178,7 +1156,6 @@
 			to_chat(user, span_notice("You combine the [C.cardname] and the [src.cardname] into a hand."))
 			qdel(C)
 			qdel(src)
-			H.pickup(user)
 			user.put_in_active_hand(H)
 		else
 			to_chat(user, span_warning("You can't mix cards from other decks!"))

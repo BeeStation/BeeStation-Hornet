@@ -63,14 +63,103 @@
 		cell.add_fingerprint(user)
 		user.put_in_active_hand(cell)
 		to_chat(user, span_notice("You remove \the [cell]."))
-		cell = null
 		update_icons()
 		diag_hud_set_borgcell()
+
+/mob/living/silicon/robot/welder_act(mob/living/user, obj/item/tool)
+	if(user == src)
+		to_chat(user, span_warning("You are unable to maneuver [tool] properly to repair yourself, seek assistance!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(LAZYLEN(user.progressbars))
+		to_chat(user, span_warning("You are already busy!"))
+		return ITEM_INTERACT_BLOCKING
+	if (!getBruteLoss())
+		to_chat(user, span_warning("[src] is already in good condition!"))
+		return ITEM_INTERACT_BLOCKING
+
+	user.changeNext_move(CLICK_CD_MELEE)
+
+	while(getBruteLoss() && tool.use_tool(src, user, delay = 3 SECONDS, amount = 1, volume = 50))
+		adjustBruteLoss(-10)
+		add_fingerprint(user)
+		user.visible_message(
+			span_notice("[user] fixes some of the dents on [src]."),
+			span_notice("You fix some of the dents on [src]."),
+			visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
+		)
+		. = ITEM_INTERACT_SUCCESS
+
+	return . || ITEM_INTERACT_BLOCKING
+
+/mob/living/silicon/robot/crowbar_act(mob/living/user, obj/item/tool)
+	if(opened)
+		opened = FALSE
+		balloon_alert(user, "chassis cover closed")
+		update_icons()
+		return ITEM_INTERACT_SUCCESS
+
+	if(locked)
+		balloon_alert(user, "chassis cover locked!")
+		return ITEM_INTERACT_BLOCKING
+
+	opened = TRUE
+	balloon_alert(user, "chassis cover opened")
+	update_icons()
+	return ITEM_INTERACT_SUCCESS
+
+/mob/living/silicon/robot/screwdriver_act(mob/living/user, obj/item/tool)
+	if(!opened)
+		return NONE
+
+	if(!cell) // haxing
+		wiresexposed = !wiresexposed
+		update_icons()
+		balloon_alert(user, "wires [wiresexposed ? "exposed" : "unexposed"]")
+		return ITEM_INTERACT_SUCCESS
+
+	// radio
+	if(shell)
+		balloon_alert(user, "can't access radio!") // Prevent AI radio key theft
+		return ITEM_INTERACT_BLOCKING
+	if(!radio)
+		to_chat(user, span_warning("Unable to locate a radio!"))
+		balloon_alert(user, "no radio found!", show_in_chat = FALSE)
+		return ITEM_INTERACT_BLOCKING
+
+	radio.screwdriver_act(user, tool) // Push it to the radio to let it handle everything
+	return ITEM_INTERACT_SUCCESS
+
+/// Deconstruction. The flashes break from the fall, to prevent this from being a ghetto reset module.
+/mob/living/silicon/robot/wrench_act(mob/living/user, obj/item/tool)
+	if(!opened)
+		return NONE
+
+	if(cell)
+		balloon_alert(user, "remove cell first!")
+		return ITEM_INTERACT_BLOCKING
+	if(!lockcharge)
+		to_chat(user, span_boldannounce("[src]'s bolts spark! Maybe you should lock them down first!"))
+		spark_system.start()
+		return ITEM_INTERACT_BLOCKING
+
+	balloon_alert(user, "deconstructing...")
+	if(!tool.use_tool(src, user, 5 SECONDS, volume = 50) && !cell)
+		return ITEM_INTERACT_BLOCKING
+	loc.balloon_alert(user, "deconstructed")
+
+	user.visible_message(
+		span_notice("[user] deconstructs [src]!"),
+		span_notice("You unfasten the securing bolts, and [src] falls to pieces!"),
+		visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
+	)
+	log_attack("[key_name(user)] deconstructed [key_name(src)] at [AREACOORD(src)].")
+	cyborg_deconstruct()
+	return ITEM_INTERACT_SUCCESS
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
 		ignite_mob()
-
 
 /mob/living/silicon/robot/emp_act(severity)
 	. = ..()
@@ -147,10 +236,10 @@
 	addtimer(CALLBACK(src, PROC_REF(after_emag), user), 1)
 
 /mob/living/silicon/robot/proc/after_emag(mob/user)
-	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/malf_ai))
+	if(IS_MALF_AI(connected_ai))
 		to_chat(src, span_danger("ALERT: Foreign software execution prevented."))
 		logevent("ALERT: Foreign software execution prevented.")
-		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]] successfully defended against subversion."))
+		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]\] successfully defended against subversion."))
 		log_game("[key_name(user)] attempted to emag cyborg [key_name(src)], but they were slaved to traitor AI [connected_ai].")
 		return
 
@@ -160,10 +249,10 @@
 		addtimer(CALLBACK(src, PROC_REF(after_emag_shell), user), 1)
 		return
 
-	SetEmagged(1)
+	SetEmagged(TRUE)
 	SetStun(60) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 	lawupdate = FALSE
-	connected_ai = null
+	set_connected_ai(null)
 	message_admins("[ADMIN_LOOKUPFLW(user)] emagged cyborg [ADMIN_LOOKUPFLW(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")

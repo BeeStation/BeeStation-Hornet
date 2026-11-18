@@ -47,3 +47,6 @@
 		server_var = station_fallback_web; \
 	}; \
 } while (FALSE)
+
+/// Most copies of an item a lathe will print from a single order.
+#define MAX_LATHE_PRINT_AMOUNT 50

@@ -10,7 +10,7 @@
 	spreading_modifier = 0.75
 	desc = "If left untreated the subject will burn to death for being a heretic."
 	danger = DISEASE_DANGEROUS
-
+	required_organ = ORGAN_SLOT_LUNGS
 
 /datum/disease/fluspanish/stage_act(delta_time, times_fired)
 	. = ..()

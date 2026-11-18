@@ -111,7 +111,7 @@
 
 	var/muthands_path = /obj/item/mutant_hand/zombie
 
-/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species, pref_load)
+/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species)
 	. = ..()
 
 	new_zombie.set_combat_mode(TRUE)
@@ -137,7 +137,7 @@
 		infection = new()
 		infection.Insert(new_zombie)
 
-/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/was_zombie, datum/species/new_species, pref_load)
+/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/was_zombie, datum/species/new_species)
 	. = ..()
 	qdel(was_zombie.GetComponent(/datum/component/mutant_hands))
 	qdel(was_zombie.GetComponent(/datum/component/regenerator))

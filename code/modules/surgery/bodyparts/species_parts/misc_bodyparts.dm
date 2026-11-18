@@ -602,14 +602,13 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/arm/left/golem/durathread/set_owner(mob/living/carbon/new_owner)
+/obj/item/bodypart/arm/left/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
 	. = ..()
-	if(. == FALSE)
-		return
-	var/mob/living/carbon/old_owner = .
-	if(!isnull(old_owner))
-		UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/left/golem/durathread/clear_ownership(mob/living/carbon/old_owner)
+	. = ..()
+	UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 
 /obj/item/bodypart/arm/left/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
 	SIGNAL_HANDLER
@@ -622,14 +621,13 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/arm/right/golem/durathread/set_owner(mob/living/carbon/new_owner)
+/obj/item/bodypart/arm/right/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
 	. = ..()
-	if(. == FALSE)
-		return
-	var/mob/living/carbon/old_owner = .
-	if(!isnull(old_owner))
-		UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/right/golem/durathread/clear_ownership(mob/living/carbon/old_owner)
+	. = ..()
+	UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 
 /obj/item/bodypart/arm/right/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
 	SIGNAL_HANDLER
@@ -854,6 +852,14 @@
 
 /// Pumpkin people
 
+/datum/bodypart_overlay/simple/pumpkin_face
+	icon = 'icons/mob/pumpkin_faces.dmi'
+	icon_state = "blank"
+	layers = list("" = BODY_ADJ_LAYER)
+
+/datum/bodypart_overlay/simple/pumpkin_face/icon_render_key(obj/item/bodypart/limb)
+	return list(icon_state)
+
 /obj/item/bodypart/head/pumpkin_man
 	limb_id = "pumpkin_man"
 	is_dimorphic = FALSE
@@ -861,17 +867,21 @@
 	burn_modifier = 1.25
 	head_flags = HEAD_EYECOLOR
 	///Carved overlay
-	var/image/carved_overlay
+	var/datum/bodypart_overlay/simple/pumpkin_face/carved_overlay
 
 /obj/item/bodypart/head/pumpkin_man/Initialize(mapload)
-	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-	. = ..() // set after carved_overlay is set
-
-/obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
+	carved_overlay = new()
+	add_bodypart_overlay(carved_overlay, update = FALSE)
 	. = ..()
-	if(owner)
-		owner.cut_overlay(carved_overlay)
-	. += carved_overlay
+
+/obj/item/bodypart/head/pumpkin_man/proc/set_carved_face(face_state)
+	if(carved_overlay.icon_state == face_state)
+		return
+	carved_overlay.icon_state = face_state
+	if(!owner)
+		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
 
 /obj/item/bodypart/chest/pumpkin_man
 	limb_id = "pumpkin_man"

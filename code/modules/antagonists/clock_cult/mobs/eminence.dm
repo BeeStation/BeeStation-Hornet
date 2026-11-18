@@ -121,7 +121,7 @@
 	if(message)
 		hierophant_message(message, src, span="<span class='large_brass'>", say=FALSE)
 
-/mob/living/simple_animal/eminence/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
+/mob/living/simple_animal/eminence/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode, list/message_mods)
 	return FALSE
 
 /mob/living/simple_animal/eminence/Move(atom/newloc, direct)

@@ -16,6 +16,7 @@
 		/obj/item/reagent_containers/cup/bowl,
 		/obj/item/reagent_containers/cup/glass/drinkingglass,
 		/obj/item/kitchen/fork,
+		/obj/item/kitchen/spoon,
 		/obj/item/shard,
 		/obj/item/broken_bottle
 	)
@@ -51,7 +52,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
 	user.put_in_hands(I)
 	to_chat(user, span_notice("You take out [I] from [src]."))
 	playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
-	flick("synthesizer_beam", src)
+	z_flick("synthesizer_beam", src)
 
 /obj/machinery/dish_drive/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(is_type_in_list(I, collectable_items) && !user.combat_mode)
@@ -60,7 +61,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
 		LAZYADD(dish_drive_contents, I)
 		to_chat(user, span_notice("You put [I] in [src], and it's beamed into energy!"))
 		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
-		flick("synthesizer_beam", src)
+		z_flick("synthesizer_beam", src)
 		return
 	else if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		return
@@ -97,7 +98,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
 				visible_message(span_notice("[src] beams up [I]!"))
 				I.forceMove(src)
 				playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
-				flick("synthesizer_beam", src)
+				z_flick("synthesizer_beam", src)
 			else
 				step_towards(I, src)
 
@@ -136,7 +137,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
 		playsound(bin, 'sound/items/pshoom.ogg', 50, TRUE)
 		Beam(bin, icon_state = "rped_upgrade", time = 5)
 		bin.update_icon()
-		flick("synthesizer_beam", src)
+		z_flick("synthesizer_beam", src)
 	else
 		if(manual)
 			visible_message(span_notice("There are no disposable items in [src]!"))

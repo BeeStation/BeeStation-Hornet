@@ -123,9 +123,6 @@
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
 ///! from base of atom/has_gravity(): (turf/location, list/forced_gravities)
 #define COMSIG_ATOM_HAS_GRAVITY "atom_has_gravity"
-///! from internal loop in atom/movable/proc/CanReach(): (list/next)
-#define COMSIG_ATOM_CANREACH "atom_can_reach"
-	#define COMPONENT_ALLOW_REACH (1<<0)
 ///for when an atom has been created through processing (atom/original_atom, list/chosen_processing_option)
 #define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
 ///when an atom is processed (mob/living/user, obj/item/I, list/atom/results)
@@ -173,6 +170,9 @@
 /// called on [/obj/item/lazarus_injector/afterattack] : (injector, user)
 #define COMSIG_ATOM_ON_LAZARUS_INJECTOR "atom_on_lazarus_injector"
 	#define LAZARUS_INJECTOR_USED (1<<0) //Early return.
+
+/// from cosmetic items to restyle certain mobs, objects or organs: (atom/source, mob/living/trimmer, atom/movable/original_target, body_zone, restyle_type, style_speed)
+#define COMSIG_ATOM_RESTYLE "atom_restyle"
 
 /// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
 #define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"

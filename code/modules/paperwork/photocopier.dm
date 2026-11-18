@@ -342,7 +342,7 @@
 		temp_img = icon('icons/ass/assalien.png')
 	else if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/temporary = ass
-		temp_img = icon(temporary.dna.features["body_model"] == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
+		temp_img = icon((temporary.physique == FEMALE) ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
 	else if(isdrone(ass)) //Drones are hot
 		temp_img = icon('icons/ass/assdrone.png')
 
@@ -364,7 +364,7 @@
 /obj/machinery/photocopier/proc/do_insertion(obj/item/object, mob/user)
 	object.forceMove(src)
 	to_chat(user, span_notice("You insert [object] into [src]."))
-	flick("photocopier1", src)
+	z_flick("photocopier1", src)
 
 /**
  * Called when someone hits the "remove item" button on the copier UI.
@@ -437,6 +437,8 @@
 		toner_cartridge.charges = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
+	if(..())
+		return
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
 	if(!istype(target) || target.anchored || target.buckled || !Adjacent(target) || !user.canUseTopic(src, BE_CLOSE) || target == ass || copier_blocked())
 		return

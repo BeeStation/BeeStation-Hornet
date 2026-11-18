@@ -54,7 +54,7 @@
 		else
 			to_chat(user, span_warning("You need a tighter grip!"))
 
-	else if(cistern && !open && user.CanReach(src))
+	else if(cistern && !open && IsReachableBy(user))
 		if(!contents.len)
 			to_chat(user, span_notice("The cistern is empty."))
 		else
@@ -305,7 +305,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 	if(istype(O, /obj/item/melee/baton/security))
 		var/obj/item/melee/baton/security/baton = O
 		if(baton.cell?.charge && baton.active)
-			flick("baton_active", src)
+			z_flick("baton_active", src)
 			user.Paralyze(baton.knockdown_time)
 			user.set_stutter(baton.knockdown_time)
 			baton.cell.use(baton.cell_hit_cost)

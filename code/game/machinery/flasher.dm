@@ -116,7 +116,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		return
 
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
-	flick("[base_state]_flash", src)
+	z_flick("[base_state]_flash", src)
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 

@@ -38,22 +38,16 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/sealed/car/clowncar/relaymove(mob/living/user, direction)
-	if(upgraded)
-		if(!ishuman(user))
-			return FALSE
-		var/mob/living/carbon/human/rider = user
-		if(!is_clown_job(rider.mind?.assigned_role)) //Only clowns can drive the syndicate version of the clown car.
-			return FALSE
-	return ..()
-
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(is_clown_job(H.mind?.assigned_role)) //Ensures only clowns can drive the car. (Including more at once)
+		if(is_clown_job(H.mind?.assigned_role)) //Any number of clowns can drive
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
 			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(FireCannon))
 			return
+	//syndicate or emagged car only for clowns
+	if(!upgraded && !(occupants[M] & VEHICLE_CONTROL_KIDNAPPED))
+		return ..()
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 
 /obj/vehicle/sealed/car/clowncar/mob_forced_enter(mob/M, silent = FALSE)
@@ -137,7 +131,6 @@
 			return
 		if(C.canBeHandcuffed())
 			C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
-			C.update_handcuffed()
 			to_chat(C, span_danger("Your hands are restrained by the sheer volume of occupants in the car!"))
 
 /obj/item/restraints/handcuffs/energy/used/clown
@@ -214,14 +207,14 @@
 	cannonbusy = TRUE
 	if(cannonmode)
 		cannonmode = FALSE
-		flick("clowncar_fromfire", src)
+		z_flick("clowncar_fromfire", src)
 		icon_state = "clowncar"
 		addtimer(CALLBACK(src, PROC_REF(LeaveCannonMode)), 20)
 		playsound(src, 'sound/vehicles/clowncar_cannonmode2.ogg', 75)
 		visible_message(span_danger("The [src] starts going back into mobile mode."))
 	else
 		canmove = FALSE
-		flick("clowncar_tofire", src)
+		z_flick("clowncar_tofire", src)
 		icon_state = "clowncar_fire"
 		visible_message(span_danger("The [src] opens up and reveals a large cannon."))
 		addtimer(CALLBACK(src, PROC_REF(EnterCannonMode)), 20)
@@ -248,7 +241,7 @@
 	if(cannonmode && return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED).len)
 		var/mob/living/L = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 		mob_exit(L, TRUE)
-		flick("clowncar_recoil", src)
+		z_flick("clowncar_recoil", src)
 		playsound(src, pick('sound/vehicles/carcannon1.ogg', 'sound/vehicles/carcannon2.ogg', 'sound/vehicles/carcannon3.ogg'), 75)
 		L.throw_at(A, 10, 2)
 		return COMSIG_MOB_CANCEL_CLICKON

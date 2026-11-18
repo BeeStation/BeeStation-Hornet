@@ -313,6 +313,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(!(listening_movable in in_view) && !HAS_TRAIT(listening_movable, TRAIT_XRAY_HEARING))
 			listening.Remove(listening_movable)
 
+	#ifdef ZMIMIC_MULTIZ_SPEECH
+	if(bound_overlay)
+		listening |= get_hearers_in_view(message_range + whisper_range, bound_overlay)
+	#endif
+
 	if(client) //client is so that ghosts don't have to listen to mice
 		for(var/mob/player_mob as anything in GLOB.player_list)
 			if(QDELETED(player_mob)) //Some times nulls and deleteds stay in this list. This is a workaround to prevent ic chat breaking for everyone when they do.
@@ -364,7 +369,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(M.client?.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 			speech_bubble_recipients.Add(M.client)
 
-	var/image/say_popup = image('icons/mob/talk.dmi', src, "[bubble_type][talk_icon_state]", (-TYPING_LAYER))
+	var/image/say_popup = image('icons/mob/talk.dmi', src, "[bubble_type][talk_icon_state]", CALCULATE_MOB_OVERLAY_LAYER(TYPING_LAYER))
 	say_popup.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(animate_speechbubble), say_popup, speech_bubble_recipients, 30)
 

@@ -21,6 +21,7 @@
 	diag_hud.add_atom_to_hud(src)
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
+	SSpoints_of_interest.make_point_of_interest(src)
 	if (playable)
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
@@ -54,6 +55,8 @@
 
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
+	if(playable)
+		remove_from_spawner_menu()
 	QDEL_LIST(diseases)
 	return ..()
 
@@ -484,7 +487,7 @@
 		incap_status |= INCAPABLE_RESTRAINTS
 	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
 		incap_status |= INCAPABLE_GRAB
-	if(IS_IN_STASIS(src))
+	if(HAS_TRAIT(src, TRAIT_STASIS))
 		incap_status |= INCAPABLE_STASIS
 
 	return incap_status
@@ -937,8 +940,12 @@
 		var/mob/living/puller = pulledby
 		puller.set_pull_offsets(src, puller.grab_state)
 
-	if(active_storage && !((active_storage.parent?.resolve() in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE]) || CanReach(active_storage.parent?.resolve(),view_only = TRUE)))
-		active_storage.hide_contents(src)
+	if(active_storage)
+		var/obj/item/storage_parent = active_storage.parent?.resolve()
+		var/storage_is_important_recursive = (storage_parent in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE])
+		var/can_reach_active_storage = storage_parent?.IsReachableBy(src, depth = REACH_DEPTH_STORAGE(2))
+		if(!storage_is_important_recursive && !can_reach_active_storage)
+			active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, old_loc, old_direction)
@@ -1303,12 +1310,11 @@
 		// Disconnect AI's in shells
 		if(Robot.connected_ai)
 			Robot.undeploy() // disconnect any AI shells first
-		if(Robot.mmi)
-			qdel(Robot.mmi)
+		QDEL_NULL(Robot.mmi)
 		Robot.notify_ai(AI_NOTIFICATION_NEW_BORG)
 	else
 		for(var/obj/item/item in src)
-			if(!dropItemToGround(item))
+			if(!dropItemToGround(item) && !(item.item_flags & ABSTRACT))
 				qdel(item)
 				continue
 			item_contents += item
@@ -1342,7 +1348,7 @@
 				new_mob.invisibility = 0
 				new_mob.job = JOB_NAME_CYBORG
 				created_robot.lawupdate = FALSE
-				created_robot.connected_ai = null
+				created_robot.set_connected_ai(null)
 				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
 				created_robot.clear_inherent_laws(announce = FALSE)
 				created_robot.clear_zeroth_law(announce = FALSE)
@@ -1964,12 +1970,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(IS_SERVANT_OF_RATVAR(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, span_brass("You select [src]."))
-
-/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	if(forced)
-		gender = ngender
-		return TRUE
-	return FALSE
 
 /**
   * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.

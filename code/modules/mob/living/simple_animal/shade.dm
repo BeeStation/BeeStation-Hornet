@@ -38,7 +38,7 @@
 
 /mob/living/simple_animal/shade/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_SPACEWALK, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/shade/death()
@@ -53,7 +53,7 @@
 /mob/living/simple_animal/shade/attack_animal(mob/user, list/modifiers)
 	if(isconstruct(user))
 		var/mob/living/simple_animal/hostile/construct/construct = user
-		if(!construct.can_repair_constructs)
+		if(!construct.can_repair)
 			return
 		if(health < maxHealth)
 			adjustHealth(-25)

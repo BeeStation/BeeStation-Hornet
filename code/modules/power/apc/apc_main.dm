@@ -25,10 +25,8 @@
 	light_power = 0.85
 
 	FASTDMM_PROP(\
-		set_instance_vars(\
-			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
-			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
-		),\
+		pixel_x = (dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT)),\
+		pixel_y = (dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)),\
 		dir_amount = 4\
 	)
 
@@ -45,6 +43,8 @@
 	var/cell_type = /obj/item/stock_parts/cell/high/plus	//Base cell has 150 kW. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	///State of the cover (closed, opened, removed)
 	var/opened = APC_COVER_CLOSED
+	/// Whether closing the replacement cover should restart the APC.
+	var/restart_on_cover_close = FALSE
 	///Is the APC shorted and not working?
 	var/shorted = 0
 	///State of the lighting channel (off, auto off, on, auto on)
@@ -301,9 +301,24 @@
 	if (context.accept_silicons())
 		context.add_ctrl_click_action("Toggle Power")
 
+	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			context.add_left_click_tool_action("Pry Off Cover", TOOL_CROWBAR)
+	else
+		if(has_electronics && opened != APC_COVER_REMOVED && get_integrity() < max_integrity)
+			context.add_left_click_tool_action("Repair Cover", TOOL_WELDER)
+		if(opened == APC_COVER_REMOVED && has_electronics && terminal)
+			context.add_left_click_item_action("Replace Cover", /obj/item/wallframe/apc)
+		if(opened == APC_COVER_OPENED && !integration_cog && has_electronics != APC_ELECTRONICS_INSTALLED)
+			context.add_left_click_tool_action("Close Cover", TOOL_CROWBAR)
+
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			. += "The broken cover can be pried off with a crowbar."
+		else if(has_electronics && terminal)
+			. += "The missing cover can be replaced using a new APC frame."
 		return
 	if(opened)
 		if(has_electronics && terminal)
@@ -327,7 +342,7 @@
 		else
 			. += "The cover is closed."
 
-	. += span_notice("Alt-Click the APC to [ locked ? "unlock" : "lock"] the interface.")
+	. += span_notice("Alt-Click the APC to [locked ? "unlock" : "lock"] the interface.")
 
 	if(issilicon(user))
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")

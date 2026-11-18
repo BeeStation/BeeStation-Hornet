@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(movement)
 			loop.status &= ~MOVELOOP_STATUS_QUEUED
 			loop.timer = world.time + loop.delay
 			queue_loop(loop)
-		if(MC_TICK_CHECK)
+		if (MC_TICK_CHECK)
 			break
 
 	if(length(processing))
@@ -113,8 +113,6 @@ SUBSYSTEM_DEF(movement)
 		loop.status &= ~MOVELOOP_STATUS_QUEUED
 		return
 	var/list/our_entries = buckets["[loop.queued_time]"]
-	if(!our_entries) //appearantly something already killed the list before we could
-		return
 	our_entries -= loop
 	if(!length(our_entries))
 		smash_bucket(bucket_time = loop.queued_time) // We can't pass an index in for context because we don't know our position
@@ -124,11 +122,11 @@ SUBSYSTEM_DEF(movement)
 /datum/controller/subsystem/movement/proc/add_loop(datum/move_loop/add)
 	if(add.status & MOVELOOP_STATUS_QUEUED)
 		CRASH("Loop being added that is already queued.")
-	add.start_loop()
+	add.loop_started()
 	if(QDELETED(add) || add.status & MOVELOOP_STATUS_QUEUED)
 		return
 	queue_loop(add)
 
 /datum/controller/subsystem/movement/proc/remove_loop(datum/move_loop/remove)
 	dequeue_loop(remove)
-	remove.stop_loop()
+	remove.loop_stopped()

@@ -57,7 +57,6 @@ CREATION_TEST_IGNORE_SELF(/image/appearance)
 		if(each in unused_var_names)
 			continue
 		used_variables += each
-	del(dummy_image)
 	dummy_image = null
 
 	return used_variables

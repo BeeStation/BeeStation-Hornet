@@ -40,16 +40,15 @@
 
 #define DNA_UNI_IDENTITY_BLOCKS 12
 
-#define DNA_FEATURE_BLOCKS 29
 #define DNA_MUTANT_COLOR_BLOCK 1
 #define DNA_ETHEREAL_COLOR_BLOCK 2
 #define DNA_LIZARD_MARKINGS_BLOCK 3
-#define DNA_LIZARD_TAIL_BLOCK 4
-#define DNA_SNOUT_BLOCK 5
-#define DNA_HORNS_BLOCK 6
-#define DNA_FRILLS_BLOCK 7
-#define DNA_SPINES_BLOCK 8
-#define DNA_HUMAN_TAIL_BLOCK 9
+#define DNA_TAIL_BLOCK 4
+#define DNA_LIZARD_TAIL_BLOCK 5
+#define DNA_SNOUT_BLOCK 6
+#define DNA_HORNS_BLOCK 7
+#define DNA_FRILLS_BLOCK 8
+#define DNA_SPINES_BLOCK 9
 #define DNA_EARS_BLOCK 10
 #define DNA_MOTH_WINGS_BLOCK 11
 #define DNA_MOTH_ANTENNAE_BLOCK 12
@@ -71,9 +70,53 @@
 #define DNA_DIONA_EYES_BLOCK 28
 #define DNA_DIONA_PBODY_BLOCK 29
 
+/// Total amount of DNA blocks, must be equal to the highest DNA block number
+#define DNA_FEATURE_BLOCKS 29
+
 #define DNA_SEQUENCE_LENGTH 4
 #define DNA_MUTATION_BLOCKS 8
 #define DNA_UNIQUE_ENZYMES_LEN 32
+
+//Features - No more magic strings
+//These can't just simply use dna block paths like identities, because there's keys that aren't tied to blocks
+
+// Block tied
+#define FEATURE_MUTANT_COLOR "mcolor"
+#define FEATURE_ETHEREAL_COLOR "ethcolor"
+#define FEATURE_EARS "ears"
+#define FEATURE_TAIL_CAT "tail_cat"
+#define FEATURE_TAIL_LIZARD "tail_lizard"
+#define FEATURE_TAIL_FISH "fish_tail"
+#define FEATURE_SNOUT "snout"
+#define FEATURE_LIZARD_MARKINGS "marking_lizard"
+#define FEATURE_HORNS "horns"
+#define FEATURE_FRILLS "frills"
+#define FEATURE_SPINES "spines"
+#define FEATURE_MOTH_WINGS "moth_wings"
+#define FEATURE_MOTH_ANTENNAE "moth_antennae"
+#define FEATURE_MOTH_MARKINGS "moth_markings"
+#define FEATURE_APID_ANTENNA "apid_antenna"
+#define FEATURE_APID_HEADSTRIPES "apid_headstripes"
+#define FEATURE_APID_STRIPES "apid_stripes"
+#define FEATURE_PSYPHOZA_CAP "psyphoza_cap"
+#define FEATURE_DIONA_LEAVES "diona_leaves"
+#define FEATURE_DIONA_THORNS "diona_thorns"
+#define FEATURE_DIONA_FLOWERS "diona_flowers"
+#define FEATURE_DIONA_MOSS "diona_moss"
+#define FEATURE_DIONA_MUSHROOM "diona_mushroom"
+#define FEATURE_DIONA_ANTENNAE "diona_antennae"
+#define FEATURE_DIONA_EYES "diona_eyes"
+#define FEATURE_DIONA_PBODY "diona_pbody"
+#define FEATURE_IPC_SCREEN "ipc_screen"
+#define FEATURE_IPC_ANTENNA "ipc_antenna"
+
+// Other
+#define FEATURE_WINGS "wings"
+#define FEATURE_WINGS_OPEN "wingsopen"
+#define FEATURE_TAIL_MONKEY "tail_monkey"
+#define FEATURE_TAIL_XENO "tail_xeno"
+#define FEATURE_TAILSPINES "tailspines" // Different from regular spines, these appear on tails
+#define FEATURE_LEGS "legs"
 
 //Transformation proc stuff
 #define TR_KEEPITEMS (1<<0)
@@ -104,6 +147,8 @@
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
 #define ORGAN_SLOT_THRUSTERS "thrusters"
 #define ORGAN_SLOT_HUD "eye_hud"
+#define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
+#define ORGAN_SLOT_MONSTER_CORE "monstercore"
 #define ORGAN_SLOT_LIVER "liver"
 #define ORGAN_SLOT_TONGUE "tongue"
 #define ORGAN_SLOT_VOICE "vocal_cords"
@@ -113,13 +158,41 @@
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
 #define ORGAN_SLOT_UPGRADE_CONTROL "upgrade_control"
-#define ORGAN_SLOT_TAIL "tail"
-#define ORGAN_SLOT_WINGS "wings"
 #define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
 #define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
 #define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
 #define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
 #define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
+
+/// Xenomorph organ slots
+#define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
+#define ORGAN_SLOT_XENO_EGGSAC "eggsac"
+#define ORGAN_SLOT_XENO_HIVENODE "hive_node"
+#define ORGAN_SLOT_XENO_NEUROTOXINGLAND "neurotoxin_gland"
+#define ORGAN_SLOT_XENO_PLASMAVESSEL "plasma_vessel"
+#define ORGAN_SLOT_XENO_RESINSPINNER "resin_spinner"
+
+/// Organ slot external
+#define ORGAN_SLOT_EXTERNAL_TAIL "tail"
+#define ORGAN_SLOT_EXTERNAL_SPINES "spines"
+#define ORGAN_SLOT_EXTERNAL_SNOUT "snout"
+#define ORGAN_SLOT_EXTERNAL_FRILLS "frills"
+#define ORGAN_SLOT_EXTERNAL_HORNS "horns"
+#define ORGAN_SLOT_EXTERNAL_WINGS "wings"
+#define ORGAN_SLOT_EXTERNAL_ANTENNAE "antennae"
+#define ORGAN_SLOT_EXTERNAL_HEADSTRIPES "headstripes"
+#define ORGAN_SLOT_EXTERNAL_STRIPES "stripes"
+#define ORGAN_SLOT_EXTERNAL_PSYPHOZA_CAP "psyphoza_cap"
+#define ORGAN_SLOT_EXTERNAL_DIONA_LEAVES "diona_leaves"
+#define ORGAN_SLOT_EXTERNAL_DIONA_THORNS "diona_thorns"
+#define ORGAN_SLOT_EXTERNAL_DIONA_FLOWERS "diona_flowers"
+#define ORGAN_SLOT_EXTERNAL_DIONA_MOSS "diona_moss"
+#define ORGAN_SLOT_EXTERNAL_DIONA_MUSHROOM "diona_mushroom"
+#define ORGAN_SLOT_EXTERNAL_DIONA_ANTENNAE "diona_antennae"
+#define ORGAN_SLOT_EXTERNAL_DIONA_EYES "diona_eyes"
+#define ORGAN_SLOT_EXTERNAL_DIONA_PBODY "diona_pbody"
+#define ORGAN_SLOT_EXTERNAL_IPC_SCREEN "ipc_screen"
+#define ORGAN_SLOT_EXTERNAL_IPC_ANTENNA "ipc_antenna"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100
@@ -131,6 +204,7 @@
 #define CHROMOSOME_NONE 1
 #define CHROMOSOME_USED 2
 
+#define GENDERS 4
 #define G_MALE 1
 #define G_FEMALE 2
 #define G_PLURAL 3
@@ -161,5 +235,12 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 	ORGAN_SLOT_HEART_AID,
 	ORGAN_SLOT_BRAIN_ANTIDROP,
 	ORGAN_SLOT_BRAIN_ANTISTUN,
-	ORGAN_SLOT_TAIL
+	ORGAN_SLOT_PARASITE_EGG,
+	ORGAN_SLOT_MONSTER_CORE,
+	ORGAN_SLOT_XENO_PLASMAVESSEL,
+	ORGAN_SLOT_XENO_HIVENODE,
+	ORGAN_SLOT_XENO_RESINSPINNER,
+	ORGAN_SLOT_XENO_ACIDGLAND,
+	ORGAN_SLOT_XENO_NEUROTOXINGLAND,
+	ORGAN_SLOT_XENO_EGGSAC,
 	))

@@ -157,23 +157,24 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 
 /datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
-	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
-	if(N)
+	var/disk_count = 1
+	for(var/obj/item/disk/nuclear/nuke_disk as anything in SSpoints_of_interest.real_nuclear_disks)
 		var/list/data = list()
-		var/turf/T = get_turf(N)
-		if(T)
-			data["x"] = T.x
-			data["y"] = T.y
-			data["z"] = T.z
-		var/atom/outer = get_atom_on_turf(N,/mob/living)
-		if(outer != N)
+		var/turf/disk_turf = get_turf(nuke_disk)
+		if(disk_turf)
+			data["x"] = disk_turf.x
+			data["y"] = disk_turf.y
+			data["z"] = disk_turf.z
+		var/atom/outer = get_atom_on_turf(nuke_disk, /mob/living)
+		if(outer != nuke_disk)
 			if(isliving(outer))
-				var/mob/living/L = outer
-				data["holder"] = L.real_name
+				var/mob/living/disk_holder = outer
+				data["holder"] = disk_holder.real_name
 			else
 				data["holder"] = outer.name
 
-		SSblackbox.record_feedback("associative", "roundend_nukedisk", 1 , data)
+		SSblackbox.record_feedback("associative", "roundend_nukedisk", disk_count, data)
+		disk_count++
 
 /datum/controller/subsystem/ticker/proc/gather_newscaster()
 	var/json_file = file("[GLOB.log_directory]/newscaster.json")
@@ -475,15 +476,14 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 				aiPlayer.client.give_award(/datum/award/achievement/misc/laws)
 
 
-		if (aiPlayer.connected_robots.len)
-			var/borg_num = aiPlayer.connected_robots.len
+		var/borg_num = LAZYLEN(aiPlayer.connected_robots)
+		if (borg_num)
 			parts += "<br><b>[aiPlayer.real_name]</b>'s minions were:"
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				borg_num--
 				if(robo.mind)
-					parts += "<b>[robo.name]</b> [robo.stat == DEAD ? " [span_redtext("(Deactivated)")]" : ""][borg_num ?", ":""]"
-		if(!borg_spacer)
-			borg_spacer = TRUE
+					parts += "<b>[robo.name]</b> [robo.stat == DEAD ? span_redtext("(Deactivated)") : ""][borg_num ? ", " : ""]"
+		borg_spacer = TRUE
 
 	for (var/mob/living/silicon/robot/robo as anything in GLOB.cyborg_list)
 		if (!robo.connected_ai && robo.mind)
@@ -492,8 +492,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				parts += robo.laws.get_law_list(include_zeroth=TRUE)
 
-			if(!borg_spacer)
-				borg_spacer = TRUE
+			borg_spacer = TRUE
 
 	if(parts.len)
 		return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
@@ -660,7 +659,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	var/obj/item/card/id/I = mind.current?.get_idcard()
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
-			custom_title = I.assignment // get the custom title
+			custom_title = I.get_assignment() // get the custom title
 		if(custom_title == mind.assigned_role.title) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card

@@ -152,7 +152,7 @@
 
 	if(user)
 		log_admin("[ADMIN_LOOKUPFLW(user)] activated a sound emitter with file \"[sound_file]\" at [AREACOORD(src)]")
-	flick("shield1", src)
+	z_flick("shield1", src)
 
 #undef SOUND_EMITTER_LOCAL
 #undef SOUND_EMITTER_DIRECT

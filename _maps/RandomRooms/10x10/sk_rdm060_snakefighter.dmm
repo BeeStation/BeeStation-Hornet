@@ -159,10 +159,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"K" = (
-/mob/living/basic/snake,
-/turf/open/floor/plating,
-/area/template_noop)
 "L" = (
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/structure/disposalpipe/segment{
@@ -181,17 +177,12 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
-"R" = (
-/obj/item/food/meat/slab/monkey,
+"P" = (
+/mob/living/basic/snake,
 /turf/open/floor/plating,
 /area/template_noop)
-"S" = (
-/obj/structure/cable,
-/obj/structure/cable/yellow,
-/obj/structure/sign/warning{
-	pixel_y = -32
-	},
-/obj/machinery/power/shieldwallgen/xenobiologyaccess,
+"R" = (
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
@@ -250,7 +241,7 @@ b
 k
 X
 u
-S
+i
 H
 H
 f
@@ -264,7 +255,7 @@ e
 v
 B
 H
-K
+P
 f
 H
 f
@@ -300,7 +291,7 @@ r
 e
 D
 f
-K
+P
 f
 O
 f
@@ -325,7 +316,7 @@ y
 B
 H
 f
-K
+P
 H
 f
 "}

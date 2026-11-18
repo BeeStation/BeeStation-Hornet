@@ -85,3 +85,20 @@ GLOBAL_LIST_INIT(multilingual_language_list, typecacheof(list(
 	/datum/language/uncommon,
 	/datum/language/voltaic,
 )))
+
+/// Languages reasonable to speak on the station
+GLOBAL_LIST_INIT(station_languages, list(
+	/datum/language/apidite,
+	/datum/language/beachbum,
+	/datum/language/buzzwords,
+	/datum/language/calcic,
+	/datum/language/common,
+	/datum/language/draconic,
+	/datum/language/moffic,
+	/datum/language/monkey,
+	/datum/language/slime,
+	/datum/language/sylvan,
+	/datum/language/terrum,
+	/datum/language/uncommon,
+	/datum/language/voltaic,
+))

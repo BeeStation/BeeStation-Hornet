@@ -74,7 +74,7 @@
 		for(var/datum/surgery/operations as anything in owner.surgeries)
 			if(operations.location != BODY_ZONE_CHEST)
 				continue
-			if(!istype(operations.get_surgery_step(), /datum/surgery_step/manipulate_organs/internal))
+			if(!ispath(operations.steps[operations.status], /datum/surgery_step/manipulate_organs/internal))
 				continue
 			attempt_grow(kill_on_success = FALSE)
 			return
@@ -112,7 +112,7 @@
 	var/atom/xeno_loc = get_turf(owner)
 	var/mob/living/carbon/alien/larva/new_xeno = new(xeno_loc)
 	new_xeno.key = candidate.key
-	SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100))	//To get the player's attention
+	SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100)) //To get the player's attention
 	new_xeno.add_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_IMMOBILIZED, TRAIT_NO_TRANSFORM), REF(src)) //so we don't move during the bursting animation
 	new_xeno.invisibility = INVISIBILITY_MAXIMUM
 
@@ -133,7 +133,7 @@
 		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
 		if(BP)
-			BP.receive_damage(brute = 200) // Kill them dead
+			owner.apply_damage(200, def_zone = BP) // Kill them dead
 			BP.dismember()
 		else
 			owner.apply_damage(200)

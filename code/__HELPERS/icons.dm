@@ -637,7 +637,7 @@ world
 			continue//If layer is greater than what we need, skip it.
 		var/icon/image_overlay = new(I.icon,I.icon_state)//Blend only works with icon objects.
 		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
-		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
+		alpha_mask.Blend(image_overlay, ICON_OR)//OR so they are lumped together in a nice overlay.
 	return alpha_mask//And now return the mask.
 
 /**
@@ -669,6 +669,7 @@ world
 	// result for the matching pixels, while starting with a base color of white everywhere.
 	mask_icon.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 255,255,255,-255, 1,1,1,1)
 	return mask_icon
+
 
 /mob/proc/AddCamoOverlay(atom/A)//A is the atom which we are using as the overlay.
 	var/icon/opacity_icon = new(A.icon, A.icon_state)//Don't really care for overlays/underlays.
@@ -1289,6 +1290,30 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		var/icon/my_icon = icon(icon_path)
 		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
 	return GLOB.icon_dimensions[icon_path]
+
+/// Fikou's fix for making toast alerts look nice - resets offsets, transforms to fit
+/proc/get_small_overlay(atom/source)
+	var/mutable_appearance/alert_overlay = new(source)
+	alert_overlay.pixel_x = 0
+	alert_overlay.pixel_y = 0
+
+	var/scale = 1
+	var/list/icon_dimensions = get_icon_dimensions(source.icon)
+	var/width = icon_dimensions["width"]
+	var/height = icon_dimensions["height"]
+
+	if(width > ICON_SIZE_X)
+		alert_overlay.pixel_x = -(ICON_SIZE_X / 2) * ((width - ICON_SIZE_X) / ICON_SIZE_X)
+	if(height > ICON_SIZE_Y)
+		alert_overlay.pixel_y = -(ICON_SIZE_Y / 2) * ((height - ICON_SIZE_Y) / ICON_SIZE_Y)
+	if(width > ICON_SIZE_X || height > ICON_SIZE_Y)
+		if(width >= height)
+			scale = ICON_SIZE_X / width
+		else
+			scale = ICON_SIZE_Y / height
+	alert_overlay.transform = alert_overlay.transform.Scale(scale)
+
+	return alert_overlay
 
 /**
  * Copies the passed /appearance, returns a /mutable_appearance
