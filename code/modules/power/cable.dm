@@ -35,8 +35,6 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	var/has_power_node = FALSE
 	/// Have we been manually given a power node and should keep it when we change?
 	var/forced_power_node = FALSE
-	/// List of cables that are connected to this cable.
-	var/list/connected = list()
 	/// A bitfield of the directions this cable connects to.
 	var/linked_dirs = NONE
 	/// A bitfield of the directions that have an omni-cable connection.
@@ -106,7 +104,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	// If we're being maploaded, SSmachines.makepowernets() will handle powernet creation
 	var/should_we_make_a_powernet = SSatoms.initialized != INITIALIZATION_INNEW_MAPLOAD
-	linkup_adjacent(should_we_make_a_powernet)
+	linkup_adjacent(link_powernets = should_we_make_a_powernet)
 
 /obj/structure/cable/Destroy()
 	// Update our neighbors
@@ -126,8 +124,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 /// Explicitly reject edits of managed variables
 /obj/structure/cable/vv_edit_var(vname, vval)
 	switch (vname)
-		if (NAMEOF(src, connected))
-			return FALSE
 		if (NAMEOF(src, linked_dirs))
 			return FALSE
 		if (NAMEOF(src, omni_dirs))
@@ -144,30 +140,33 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/proc/clear_connections()
-	for (var/obj/structure/cable/connected_cable as anything in connected)
-		connected_cable.connected -= src
+	var/another_cable_on_our_turf = FALSE
+	var/turf/our_turf = get_turf(src)
+	for(var/obj/structure/cable/other_cable in our_turf.contents - src)
+		another_cable_on_our_turf = TRUE
+		break
 
-		var/inbetween_dir = get_dir(connected_cable, src)
+	// This loop does the same thing as get_connected_cables()
+	for(var/cardinal in GLOB.cardinals)
+		if(!(cardinal & linked_dirs))
+			continue
 
-		// Don't clear the cable's linked dir if there's still a cable.
-		// This only matters for omni-cables
-		if(connected_cable.omni)
-			var/has_other_cable = FALSE
-			var/reverse_dir = REVERSE_DIR(inbetween_dir)
-			for(var/obj/structure/cable/other_cable as anything in connected_cable.connected)
-				if(other_cable.linked_dirs & reverse_dir)
-					has_other_cable = TRUE
-					break
-			if(!has_other_cable)
-				connected_cable.linked_dirs &= ~(inbetween_dir)
-		else
-			connected_cable.linked_dirs &= ~(inbetween_dir)
+		for(var/obj/structure/cable/connected_cable in get_step(src, cardinal))
+			if (!omni && !connected_cable.omni && connected_cable.cable_color != cable_color)
+				continue
 
-		connected_cable.omni_dirs &= ~(inbetween_dir)
+			var/inbetween_dir = REVERSE_DIR(cardinal)
 
-		connected_cable.update_power_node()
-		connected_cable.update_appearance(UPDATE_ICON)
-	connected.Cut()
+			// Only clear the cable's linked dir if there isn't another cable on our turf
+			// This is only possible for omni-cables, so we can just take a shortcut if we aren't an omni-cable.
+			if(!connected_cable.omni || !another_cable_on_our_turf)
+				connected_cable.linked_dirs &= ~inbetween_dir
+
+			if(omni)
+				connected_cable.omni_dirs &= ~inbetween_dir
+
+			connected_cable.update_power_node()
+			connected_cable.update_appearance(UPDATE_ICON)
 
 	update_power_node()
 	linked_dirs = NONE
@@ -188,10 +187,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 			var/reverse_cardinal = REVERSE_DIR(cardinal)
 
-			connected |= adjacent_cable
 			linked_dirs |= cardinal
-
-			adjacent_cable.connected |= src
 			adjacent_cable.linked_dirs |= reverse_cardinal
 
 			if(adjacent_cable.omni)
@@ -213,6 +209,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(current_location), cable_color)
 		above_cable?.set_down(src)
+
+/**
+ * Returns a list of all the cables which we are connected to
+ */
+/obj/structure/cable/proc/get_connected_cables() as /list
+	var/list/connected_cables = list()
+	for(var/cardinal in GLOB.cardinals)
+		if(!(cardinal & linked_dirs))
+			continue
+
+		for(var/obj/structure/cable/adjacent_cable in get_step(src, cardinal))
+			if (omni || adjacent_cable.omni || adjacent_cable.cable_color == cable_color)
+				connected_cables += adjacent_cable
+
+	return connected_cables
 
 /**
  * Updates the has_power_node bool and connects/disconnects from machines if it changed.
@@ -492,7 +503,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if (link_powernets)
 		// Don't linkup if they have no powernet, for example in the case of
 		// shuttle moving where we get a null powernet until we land
-		for (var/obj/structure/cable/connected_cable as anything in connected)
+		for (var/obj/structure/cable/connected_cable as anything in get_connected_cables())
 			if (connected_cable.powernet)
 				if (powernet)
 					merge_powernets(powernet, connected_cable.powernet)
@@ -563,7 +574,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	. = ..()
 	clear_connections()
 	reform_connections()
-	linkup_adjacent(TRUE)
+	linkup_adjacent(link_powernets = TRUE)
 
 /obj/structure/cable/yellow
 	cable_color = "yellow"
