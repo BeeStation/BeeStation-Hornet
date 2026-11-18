@@ -37,9 +37,6 @@
 			// since this is relatively important and giving it space makes it easier to read
 			ADD_NEWLINE_IF_NECESSARY(.)
 
-			if(suiciding)
-				. += span_warning("[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.")
-
 			. += generate_death_examine_text()
 
 	//Status effects
@@ -255,8 +252,34 @@
 
 	return examine_list.Join("<br>")
 
+#define DEATH_EXAMINE_TEXT "[t_He] [t_is] limp and unresponsive; there are no signs of life"
+
+/mob/living/proc/generate_death_examine_text()
+	var/t_He = p_They()
+	var/t_his = p_their()
+	var/t_is = p_are()
+
+	if(suiciding)
+		return span_deadsay("[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.")
+	if(!key && !get_ghost(FALSE, TRUE))
+		return span_deadsay(DEATH_EXAMINE_TEXT + " and [t_his] soul has departed...")
+	else if(!client && key)
+		return span_deadsay(DEATH_EXAMINE_TEXT + " and [t_his] soul seems distant, it may return soon...")
+	else
+		return span_deadsay(DEATH_EXAMINE_TEXT + "...")
+
 /// Returns death message for mob examine text
-/mob/living/carbon/proc/generate_death_examine_text()
+/mob/living/carbon/generate_death_examine_text()
+
+	var/t_He = p_They()
+	var/t_his = p_their()
+	var/t_is = p_are()
+
+	if(!get_organ_by_type(/obj/item/organ/brain))
+		return span_deadsay(DEATH_EXAMINE_TEXT + " and [t_his] soul is elsewhere...")
+
+	return ..()
+/*
 	var/t_He = p_They()
 	var/t_his = p_their()
 	var/t_is = p_are()
@@ -269,6 +292,7 @@
 		return span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...")
 	else
 		return span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
+*/
 
 /// Returns a list of "damtype" => damage description based off of which bodypart description is most common
 /mob/living/carbon/proc/get_harm_descriptors()
