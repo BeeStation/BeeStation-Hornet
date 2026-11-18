@@ -166,19 +166,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/misc/space)
-"cM" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/mob/living/simple_animal/bot/medbot{
-	name = "Flint, RN"
-	},
-/mob/living/simple_animal/bot/cleanbot/larry{
-	on = 0
-	},
-/mob/living/simple_animal/butterfly{
-	name = "Lisa, PsyD"
-	},
-/turf/open/floor/iron/white,
-/area/station/medical/treatment_center)
 "cP" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -443,15 +430,19 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
-"jF" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/mob/living/carbon/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
+"jC" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/mob/living/simple_animal/bot/medbot{
+	name = "Flint, RN"
 	},
-/turf/open/floor/iron/grid/steel,
-/area/station/medical/virology)
+/mob/living/simple_animal/bot/cleanbot/larry{
+	on = 0
+	},
+/mob/living/basic/butterfly{
+	name = "Lisa, PsyD"
+	},
+/turf/open/floor/iron/white,
+/area/station/medical/treatment_center)
 "jK" = (
 /obj/effect/landmark/start/detective,
 /turf/open/floor/wood,
@@ -721,6 +712,14 @@
 	},
 /turf/open/floor/iron,
 /area/misc/space)
+"pA" = (
+/mob/living/basic/pet/fox/renault{
+	density = 0;
+	dir = 8;
+	pixel_y = 10
+	},
+/turf/open/floor/carpet/blue,
+/area/station/command/heads_quarters/captain)
 "pG" = (
 /obj/machinery/requests_console,
 /turf/open/floor/iron/dark,
@@ -745,6 +744,10 @@
 	},
 /turf/open/floor/iron,
 /area/misc/space)
+"qo" = (
+/mob/living/basic/goat/pete,
+/turf/open/floor/iron/freezer,
+/area/station/ai_monitored/turret_protected/ai)
 "qx" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/machinery/door/airlock/virology/glass{
@@ -766,14 +769,6 @@
 	dir = 4
 	},
 /area/misc/space)
-"qD" = (
-/mob/living/simple_animal/pet/fox/Renault{
-	density = 0;
-	dir = 8;
-	pixel_y = 10
-	},
-/turf/open/floor/carpet/blue,
-/area/station/command/heads_quarters/captain)
 "qJ" = (
 /obj/effect/landmark/start/shaft_miner,
 /obj/effect/landmark/start/cargo_technician,
@@ -828,16 +823,6 @@
 "sb" = (
 /turf/closed/wall,
 /area/misc/space)
-"sn" = (
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #2";
-	suffix = "#2"
-	},
-/mob/living/simple_animal/sloth/citrus{
-	density = 0
-	},
-/turf/open/floor/iron/sepia,
-/area/station/cargo/storage)
 "sx" = (
 /obj/structure/closet/secure_closet/bar,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -1243,12 +1228,6 @@
 /obj/machinery/computer/security/telescreen/entertainment,
 /turf/open/floor/iron,
 /area/misc/space)
-"CT" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
-/turf/open/floor/iron/freezer,
-/area/station/ai_monitored/turret_protected/ai)
 "De" = (
 /obj/machinery/recycler,
 /turf/open/floor/plating,
@@ -1606,6 +1585,16 @@
 /obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen)
+"LG" = (
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #2";
+	suffix = "#2"
+	},
+/mob/living/basic/sloth/citrus{
+	density = 0
+	},
+/turf/open/floor/iron/sepia,
+/area/station/cargo/storage)
 "LH" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/door/airlock/medical/glass{
@@ -2161,15 +2150,6 @@
 	dir = 8
 	},
 /area/misc/space)
-"Wp" = (
-/mob/living/carbon/monkey/punpun,
-/mob/living/simple_animal/chicken{
-	name = "Kentucky";
-	real_name = "Kentucky"
-	},
-/obj/item/book/manual/wiki/barman_recipes,
-/turf/open/floor/iron/cafeteria_red,
-/area/station/service/bar)
 "Wx" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -2194,6 +2174,15 @@
 /obj/item/dest_tagger,
 /turf/open/floor/iron/sepia,
 /area/station/cargo/sorting)
+"Xl" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/mob/living/carbon/monkey,
+/mob/living/basic/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron/grid/steel,
+/area/station/medical/virology)
 "Xs" = (
 /obj/machinery/button/ignition,
 /turf/open/floor/iron,
@@ -2296,6 +2285,15 @@
 	},
 /turf/open/floor/iron/tech,
 /area/misc/space)
+"ZX" = (
+/mob/living/carbon/monkey/punpun,
+/mob/living/basic/chicken{
+	name = "Kentucky";
+	real_name = "Kentucky"
+	},
+/obj/item/book/manual/wiki/barman_recipes,
+/turf/open/floor/iron/cafeteria_red,
+/area/station/service/bar)
 
 (1,1,1) = {"
 OZ
@@ -2320,7 +2318,7 @@ TZ
 (2,1,1) = {"
 DS
 vl
-qD
+pA
 rP
 Pz
 Os
@@ -2395,7 +2393,7 @@ rW
 nr
 dZ
 qJ
-sn
+LG
 "}
 (6,1,1) = {"
 tM
@@ -2446,7 +2444,7 @@ LU
 lt
 ty
 EF
-cM
+jC
 Qi
 jK
 ic
@@ -2560,13 +2558,13 @@ Qk
 (14,1,1) = {"
 mO
 Ky
-Wp
+ZX
 xJ
 ee
 cc
 TS
 eL
-jF
+Xl
 Qk
 ff
 Qk
@@ -2682,7 +2680,7 @@ ZA
 EM
 JN
 YE
-CT
+qo
 ou
 XF
 AF

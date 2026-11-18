@@ -26,7 +26,7 @@ Difficulty: Medium
 	maxHealth = 450
 	icon_state = "miner"
 	icon_living = "miner"
-	icon = 'icons/mob/broadMobs.dmi'
+	icon = 'icons/mob/simple/broad_mobs.dmi'
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	light_color = "#E4C7C5"
 	movement_type = GROUND

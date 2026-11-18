@@ -159,10 +159,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"K" = (
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
-/turf/open/floor/plating,
-/area/template_noop)
 "L" = (
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/structure/disposalpipe/segment{
@@ -179,6 +175,10 @@
 	name = "Research Pit"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/mob/living/basic/snake,
 /turf/open/floor/plating,
 /area/template_noop)
 "R" = (
@@ -255,7 +255,7 @@ e
 v
 B
 H
-K
+P
 f
 H
 f
@@ -291,7 +291,7 @@ r
 e
 D
 f
-K
+P
 f
 O
 f
@@ -316,7 +316,7 @@ y
 B
 H
 f
-K
+P
 H
 f
 "}

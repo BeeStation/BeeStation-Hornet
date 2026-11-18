@@ -6,6 +6,7 @@
 	icon_living = "pine_1"
 	icon_dead = "pine_1"
 	icon_gib = "pine_1"
+	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	gender = NEUTER
 	speak_chance = 0
 	turns_per_move = 5
@@ -36,7 +37,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1200
 
-	faction = list(FACTION_PLANTS)
 	death_message = "is hacked into pieces!"
 	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = HOSTILE_SPAWN

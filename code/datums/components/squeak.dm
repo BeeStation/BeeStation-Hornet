@@ -79,6 +79,8 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/carbon/human/owner = source.loc
+	if(CHECK_MOVE_LOOP_FLAGS(owner, MOVEMENT_LOOP_OUTSIDE_CONTROL))
+		return
 	if(owner.buckled || owner.throwing || (owner.movement_type & (VENTCRAWLING | FLYING)) || HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return
 	if(steps > step_delay)

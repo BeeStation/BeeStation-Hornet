@@ -160,7 +160,7 @@
 	var/oxygen_used = 0
 	var/moles = breath.total_moles()
 	var/breath_pressure = (moles * R_IDEAL_GAS_EQUATION * breath.return_temperature()) / BREATH_VOLUME
-	var/O2_partialpressure = ((cached_moles[/datum/gas/oxygen] / moles) * breath_pressure) + (((cached_moles[/datum/gas/pluoxium] * 8) / moles) * breath_pressure)
+	var/O2_partialpressure = ((cached_moles[/datum/gas/oxygen] / moles) * breath_pressure) + (((cached_moles[/datum/gas/pluoxium] * PLUOXIUM_PROPORTION) / moles) * breath_pressure)
 	var/Toxins_partialpressure = (cached_moles[/datum/gas/plasma] / moles) * breath_pressure
 	var/CO2_partialpressure = (cached_moles[/datum/gas/carbon_dioxide] / moles) * breath_pressure
 

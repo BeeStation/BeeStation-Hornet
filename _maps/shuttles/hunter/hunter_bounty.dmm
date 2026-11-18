@@ -425,7 +425,7 @@
 	},
 /obj/effect/turf_decal/edges/techfloor/corners,
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/pet/fox{
+/mob/living/basic/pet/fox{
 	dir = 8
 	},
 /obj/structure/bed/dogbed,

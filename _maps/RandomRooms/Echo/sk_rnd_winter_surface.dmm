@@ -226,10 +226,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
-"dP" = (
-/mob/living/simple_animal/pet/penguin/baby,
-/turf/open/floor/plating/ice/smooth/planetary,
-/area/template_noop)
 "dR" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
@@ -901,6 +897,13 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"nh" = (
+/mob/living/basic/turkey/tom,
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
+/area/template_noop)
 "ni" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
@@ -914,10 +917,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
-/area/template_noop)
-"nE" = (
-/mob/living/simple_animal/pet/penguin/emperor,
-/turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "nF" = (
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
@@ -1390,6 +1389,17 @@
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
+"vP" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "vU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1405,6 +1415,10 @@
 	dir = 8
 	},
 /obj/structure/sign/warning/secure_area,
+/turf/open/floor/plating/asteroid/snow/planetary,
+/area/template_noop)
+"we" = (
+/mob/living/basic/pet/penguin/emperor,
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "wk" = (
@@ -1663,17 +1677,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east{
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
-/area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32;
@@ -1732,10 +1735,6 @@
 	pixel_y = 24
 	},
 /turf/open/floor/mineral/titanium,
-/area/template_noop)
-"Ba" = (
-/mob/living/simple_animal/pet/penguin/baby,
-/turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "Bj" = (
 /obj/machinery/button/door{
@@ -2115,10 +2114,6 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/template_noop)
-"FD" = (
-/mob/living/simple_animal/pet/penguin/emperor,
-/turf/open/floor/plating/ice/smooth/planetary,
-/area/template_noop)
 "FH" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/weather/snow/corner,
@@ -2214,6 +2209,10 @@
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
+"HN" = (
+/mob/living/basic/pet/penguin/baby/permanent,
+/turf/open/floor/plating/ice/smooth/planetary,
+/area/template_noop)
 "HR" = (
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/dirt/planetary{
@@ -2287,6 +2286,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed/smoothed/planetary,
+/area/template_noop)
+"IY" = (
+/mob/living/basic/pet/penguin/baby/permanent,
+/turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "IZ" = (
 /obj/item/clothing/suit/costume/snowman,
@@ -3105,6 +3108,10 @@
 "Vq" = (
 /turf/open/floor/carpet,
 /area/template_noop)
+"Vr" = (
+/mob/living/basic/pet/penguin/emperor,
+/turf/open/floor/plating/ice/smooth/planetary,
+/area/template_noop)
 "Vv" = (
 /obj/structure/fence/corner{
 	dir = 1
@@ -3426,21 +3433,6 @@
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/template_noop)
-"ZK" = (
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/obj/structure/closet/crate/critter,
-/turf/open/floor/mineral/plastitanium{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
 /area/template_noop)
 
 (1,1,1) = {"
@@ -9265,7 +9257,7 @@ LO
 pz
 Zw
 Zw
-ZK
+nh
 Gi
 MT
 iB
@@ -11275,7 +11267,7 @@ VX
 VX
 hw
 rw
-Ae
+vP
 an
 hw
 vy
@@ -11929,11 +11921,11 @@ XB
 XB
 XB
 XB
-nE
+we
 XB
-FD
+Vr
 gm
-FD
+Vr
 gm
 VX
 VX
@@ -12064,8 +12056,8 @@ XB
 XB
 XB
 XB
-dP
-dP
+HN
+HN
 gm
 gm
 gm
@@ -12198,9 +12190,9 @@ XB
 XB
 XB
 gm
-FD
+Vr
 gm
-FD
+Vr
 gm
 gm
 gm
@@ -12595,12 +12587,12 @@ XB
 XB
 XB
 XB
-nE
+we
 XB
-FD
+Vr
 gm
 gm
-FD
+Vr
 gm
 gm
 gm
@@ -12729,9 +12721,9 @@ XB
 XB
 XB
 XB
-nE
+we
 gm
-dP
+HN
 gm
 gm
 gm
@@ -12863,7 +12855,7 @@ XB
 XB
 XB
 XB
-Ba
+IY
 gm
 gm
 gm
@@ -12997,7 +12989,7 @@ XB
 XB
 XB
 XB
-nE
+we
 gm
 gm
 gm
@@ -13133,7 +13125,7 @@ XB
 XB
 XB
 gm
-FD
+Vr
 gm
 gm
 gm
@@ -13266,7 +13258,7 @@ th
 YZ
 XB
 gm
-FD
+Vr
 gm
 gm
 gm
@@ -13401,7 +13393,7 @@ mn
 XB
 gm
 gm
-dP
+HN
 gm
 gm
 gm
