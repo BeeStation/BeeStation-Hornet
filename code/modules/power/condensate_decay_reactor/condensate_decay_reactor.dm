@@ -116,7 +116,7 @@
 	return default_deconstruction_screwdriver(user, "cdr", "cdr", tool) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
 
 /obj/machinery/atmospherics/components/unary/cdr/wrench_act(mob/living/user, obj/item/tool)
-	return default_change_direction_wrench(user, tool)
+	return default_change_direction_wrench(user, tool) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
 
 /obj/machinery/atmospherics/components/unary/cdr/multitool_act(mob/living/user, obj/item/tool)
 	return deactivate(user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
@@ -231,7 +231,10 @@
 	return max(-core_composition.temperature * temp_slope + maximum_temp_factor, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/decay_gases()
-	var/datum/gas_mixture/turf_mix = src.loc.return_air()
+	var/turf/location = get_turf(src)
+	if(!location)
+		return
+	var/datum/gas_mixture/turf_mix = location.return_air()
 	var/total_energy_consumed = 0
 	var/total_flux_produced = 0
 	for(var/gastype, gas_amount in core_composition.moles)
