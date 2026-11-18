@@ -9435,7 +9435,9 @@
 /obj/item/clothing/suit/wizrobe/magusblue,
 /obj/item/clothing/head/wizard/magus,
 /obj/item/staff,
-/obj/structure/mirror/directional/north,
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
 /obj/machinery/light{
 	dir = 1
 	},
