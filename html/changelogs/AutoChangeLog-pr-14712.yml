@@ -1,0 +1,9 @@
+author: BotTierPC, Racc-Off, BlerpFish, Rkz
+delete-after: true
+changes:
+  - rscadd: Added the Spoon! Can be printed in Autolathes or bought from the Dinnerware
+      Vendor
+  - tweak: "Expanded the Fork/Omelette Interaction: Forks can now be used on all (non-soup)\
+      \ food items, they'll pick up a chunk of the food that can then be eaten! Spoons\
+      \ work similarly, but will only function on soup food items!"
+  - tweak: Forks, and Spoons now fit on plates.

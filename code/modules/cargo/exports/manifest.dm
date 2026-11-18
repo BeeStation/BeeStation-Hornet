@@ -16,10 +16,12 @@
 		return TRUE
 	return FALSE
 
+/datum/export/manifest_correct/get_cost(obj/thing)
+	return cost
+
 // Correctly denied manifest.
 // Refunds the package cost minus the cost of crate.
 /datum/export/manifest_error_denied
-	cost = -500
 	unit_name = "correctly denied manifest"
 	export_types = list(
 		/obj/item/paper/fluff/jobs/cargo/manifest = TRUE,
@@ -36,7 +38,7 @@
 
 /datum/export/manifest_error_denied/get_cost(obj/thing)
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
-	return ..() + manifest.order_cost
+	return manifest.order_cost - /obj/structure/closet/crate::custom_price
 
 
 // Erroneously approved manifest.
@@ -65,7 +67,6 @@
 // Erroneously denied manifest.
 // Substracts the package cost minus the cost of crate.
 /datum/export/manifest_correct_denied
-	cost = -500
 	unit_name = "erroneously denied manifest"
 	export_types = list(
 		/obj/item/paper/fluff/jobs/cargo/manifest = TRUE,
@@ -83,4 +84,4 @@
 
 /datum/export/manifest_correct_denied/get_cost(obj/thing)
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
-	return ..() - manifest.order_cost
+	return -manifest.order_cost - /obj/structure/closet/crate::custom_price

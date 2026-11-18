@@ -12,6 +12,8 @@
 		if (SENTIENCE_FORCE)
 			set_playable(playable_bantype)
 		if (SENTIENCE_ERASE)
+			if (playable)
+				remove_from_spawner_menu()
 			playable = FALSE
 			playable_bantype = null
 
@@ -78,4 +80,4 @@
 		GLOB.mob_spawners[spawner] -= src
 		if(!length(GLOB.mob_spawners[spawner]))
 			GLOB.mob_spawners -= spawner
-		SSmobs.update_spawners()
+	SSmobs.update_spawners()

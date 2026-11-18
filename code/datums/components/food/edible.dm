@@ -50,6 +50,8 @@ Behavior that's still missing from this component that original food items had t
 	var/list/tastes
 	///The type of atom this creates when the object is microwaved.
 	var/atom/microwaved_type
+	///Utensils holding food that hasn't been eaten
+	var/list/obj/item/loaded_utensils
 
 /datum/component/edible/Initialize(
 	list/initial_reagents,
@@ -80,6 +82,7 @@ Behavior that's still missing from this component that original food items had t
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
 	RegisterSignal(parent, COMSIG_FOOD_FEED_ITEM, PROC_REF(feed_to_item))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
@@ -155,6 +158,7 @@ Behavior that's still missing from this component that original food items had t
 	after_eat = null
 	on_consume = null
 	check_liked = null
+	loaded_utensils = null
 	return ..()
 
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
@@ -195,6 +199,58 @@ Behavior that's still missing from this component that original food items had t
 	SIGNAL_HANDLER
 
 	return TryToEat(M, user)
+
+///Load bite onto utensil
+/datum/component/edible/proc/on_attackby(datum/source, obj/item/utensil, mob/living/user)
+	SIGNAL_HANDLER
+
+	if(!HAS_TRAIT(utensil, TRAIT_UTENSIL))
+		return
+	. = COMPONENT_NO_AFTERATTACK
+	var/atom/owner = parent
+	if(IsFoodGone(owner, user))
+		return
+	if(!(SEND_SIGNAL(utensil, COMSIG_ITEM_UTENSIL_SCOOP, owner, user) & COMPONENT_UTENSIL_SCOOPED))
+		return
+	owner.reagents.trans_to(utensil, bite_consumption)
+	utensil.update_appearance(UPDATE_OVERLAYS)
+	LAZYADD(loaded_utensils, utensil)
+	RegisterSignal(utensil, COMSIG_ITEM_UTENSIL_PRE_FEED, PROC_REF(on_utensil_pre_feed))
+	RegisterSignal(utensil, COMSIG_ITEM_UTENSIL_FED, PROC_REF(on_utensil_fed))
+	RegisterSignal(utensil, COMSIG_QDELETING, PROC_REF(on_utensil_deleted))
+
+/datum/component/edible/proc/on_utensil_pre_feed(obj/item/utensil, mob/living/eater, mob/living/feeder)
+	SIGNAL_HANDLER
+
+	if(pre_eat && !pre_eat.Invoke(eater, feeder))
+		return COMPONENT_UTENSIL_BLOCK_FEED
+	if(is_too_full(eater, feeder))
+		if(eater == feeder)
+			to_chat(eater, span_warning("You cannot force any more of \the [parent] to go down your throat!"))
+		else
+			to_chat(feeder, span_warning("[eater] can't eat any more of \the [parent]!"))
+		return COMPONENT_UTENSIL_BLOCK_FEED
+
+/datum/component/edible/proc/on_utensil_fed(obj/item/utensil, mob/living/eater, mob/living/feeder, amount)
+	SIGNAL_HANDLER
+
+	release_utensil(utensil)
+	var/atom/owner = parent
+	bite_effects(eater, feeder, amount / (owner.reagents.total_volume + amount))
+	if(!owner.reagents.total_volume && !LAZYLEN(loaded_utensils))
+		on_consume(eater, feeder)
+
+/datum/component/edible/proc/on_utensil_deleted(obj/item/utensil)
+	SIGNAL_HANDLER
+
+	release_utensil(utensil)
+	var/atom/owner = parent
+	if(!owner.reagents.total_volume && !LAZYLEN(loaded_utensils))
+		on_consume(null, null)
+
+/datum/component/edible/proc/release_utensil(obj/item/utensil)
+	LAZYREMOVE(loaded_utensils, utensil)
+	UnregisterSignal(utensil, list(COMSIG_ITEM_UTENSIL_PRE_FEED, COMSIG_ITEM_UTENSIL_FED, COMSIG_QDELETING))
 
 /datum/component/edible/proc/GrillFood(datum/source, atom/fry_object, grill_time)
 	SIGNAL_HANDLER
@@ -334,7 +390,7 @@ Behavior that's still missing from this component that original food items had t
 			eater.visible_message(span_notice("[eater] [eatverb]s \the [parent]."), span_notice("You [eatverb] \the [parent]."))
 		else if(fullness > 500 && fullness < 600)
 			eater.visible_message(span_notice("[eater] unwillingly [eatverb]s a bit of \the [parent]."), span_notice("You unwillingly [eatverb] a bit of \the [parent]."))
-		else if(fullness > (600 * (1 + eater.overeatduration / (4000 SECONDS))))	// The more you eat - the more you can eat
+		else if(is_too_full(eater, feeder))
 			eater.visible_message(span_warning("[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!"), span_warning("You cannot force any more of \the [parent] to go down your throat!"))
 			return
 
@@ -342,7 +398,7 @@ Behavior that's still missing from this component that original food items had t
 		if(isbrain(eater))
 			to_chat(feeder, span_warning("[eater] doesn't seem to have a mouth!"))
 			return
-		if(fullness <= (600 * (1 + eater.overeatduration / (2000 SECONDS))))
+		if(!is_too_full(eater, feeder))
 			eater.visible_message(
 				span_danger("[feeder] attempts to feed [eater] [parent]."), \
 				span_userdanger("[feeder] attempts to feed you [parent].")
@@ -385,37 +441,34 @@ Behavior that's still missing from this component that original food items had t
 	if(!owner?.reagents)
 		stack_trace("[eater] failed to bite [owner], because [owner] had no reagents.")
 		return FALSE
-	if(eater.satiety > -200)
-		eater.satiety -= junkiness
 	playsound(eater.loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
 	if(!owner.reagents.total_volume)
 		return
+	bite_effects(eater, feeder, min(bite_consumption / owner.reagents.total_volume, 1))
+	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
+	if(!owner.reagents.total_volume)
+		on_consume(eater, feeder)
+
+	return TRUE
+
+///everything except reagent transfer
+/datum/component/edible/proc/bite_effects(mob/living/eater, mob/living/feeder, fraction)
+	if(eater.satiety > -200)
+		eater.satiety -= junkiness
 	SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder, bitecount, bite_consumption)
 
 	//Give a buff when the dish is hand-crafted and unbitten
 	if(bitecount == 0)
 		apply_buff(eater)
 
-	var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
-	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
 	bitecount++
-	
+
 	check_liked(fraction, eater)
-
-	if(!owner.reagents.total_volume)
-		on_consume(eater, feeder)
-
-	//Invoke our after eat callback if it is valid
 	after_eat?.Invoke(eater, feeder, bitecount)
 
-	//Invoke the eater's stomach's after_eat callback if valid
-	if(iscarbon(eater))
-		var/mob/living/carbon/carbon_eater = eater
-		var/obj/item/organ/stomach/stomach = carbon_eater.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(istype(stomach))
-			stomach.after_eat(owner)
-
-	return TRUE
+/datum/component/edible/proc/is_too_full(mob/living/eater, mob/living/feeder)
+	var/overeat_scale = eater == feeder ? 4000 SECONDS : 2000 SECONDS
+	return eater.get_fullness() + 10 > 600 * (1 + eater.overeatduration / overeat_scale)
 
 ///Checks if we can compost something, and handles it
 /datum/component/edible/proc/compost(mob/living/user)
