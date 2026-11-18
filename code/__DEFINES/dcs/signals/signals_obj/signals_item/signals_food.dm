@@ -7,6 +7,14 @@
 #define COMSIG_FOOD_CROSSED "food_crossed"
 /// From base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
 #define COMSIG_FOOD_CONSUMED "food_consumed"
+/// From datum/component/edible/proc/on_attackby: (atom/food, mob/user)
+#define COMSIG_ITEM_UTENSIL_SCOOP "item_utensil_scoop"
+	#define COMPONENT_UTENSIL_SCOOPED (1<<0)
+/// From datum/element/utensil/proc/feed, before feeding: (mob/living/eater, mob/living/feeder)
+#define COMSIG_ITEM_UTENSIL_PRE_FEED "item_utensil_pre_feed"
+	#define COMPONENT_UTENSIL_BLOCK_FEED (1<<0)
+/// From datum/element/utensil/proc/feed, before transferred: (mob/living/eater, mob/living/feeder, amount)
+#define COMSIG_ITEM_UTENSIL_FED "item_utensil_fed"
 ///called when an atom with /datum/component/customizable_reagent_holder is customized (obj/item/I)
 #define COMSIG_ATOM_CUSTOMIZED "atom_customized"
 /// called when an item is used as an ingredient: (atom/customized)
