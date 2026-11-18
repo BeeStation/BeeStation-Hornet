@@ -112,10 +112,7 @@
 		src.display_name_chat = found_client.display_name_chat()
 	martial_art = default_martial_art
 	setup_soul_glimmer()
-	// A fast client (or local one) can reach here before Master detached init reaches SSdepartment,
-	// making get_job_type() return null. Hold this until we can assign unassigned. Twin of /datum/controller/subsystem/job/proc/setup_occupations() gate
-	UNTIL(SSdepartment.initialized)
-	set_assigned_role(SSjob.get_job_type(/datum/job/unassigned)) // Unassigned by default.
+	set_unassigned_job_after_deparatment_init()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -133,6 +130,14 @@
 		datum_flags |= DF_VAR_EDITED
 		return
 	return ..()
+
+/// A fast client (or local one) can reach here before Master detached init reaches SSdepartment,
+/// making get_job_type() return null. Hold this until we can assign unassigned. Twin of /datum/controller/subsystem/job/proc/setup_occupations() gate
+/datum/mind/proc/set_unassigned_job_after_deparatment_init()
+	set waitfor = FALSE
+	PRIVATE_PROC(TRUE)
+	UNTIL(SSdepartment.initialized)
+	set_assigned_role(SSjob.get_job_type(/datum/job/unassigned)) // Unassigned by default.
 
 /datum/mind/proc/set_current(mob/new_current)
 	if(new_current && QDELING(new_current))

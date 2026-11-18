@@ -71,10 +71,11 @@
 	var/random_reagents
 
 /datum/xenoartifact_trait/activator/edible/random/register_parent(datum/source)
-	random_reagents = rand(1, 3)
-	for(var/i in 1 to random_reagents)
-		food_reagents += list(get_random_reagent_id(CHEMICAL_RNG_GENERAL) = 300/random_reagents)
-	max_bite_reagents = random_reagents * 2
+	if(!random_reagents)
+		random_reagents = rand(1, 3)
+		for(var/i in 1 to random_reagents)
+			food_reagents += list(get_random_reagent_id(CHEMICAL_RNG_GENERAL) = 300/random_reagents)
+		max_bite_reagents = random_reagents * 2
 	return ..()
 
 /datum/xenoartifact_trait/activator/edible/random/get_dictionary_hint()
