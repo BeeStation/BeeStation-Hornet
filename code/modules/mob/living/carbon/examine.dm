@@ -280,6 +280,8 @@
 
 	return ..()
 
+#undef DEATH_EXAMINE_TEXT
+
 /// Returns a list of "damtype" => damage description based off of which bodypart description is most common
 /mob/living/carbon/proc/get_harm_descriptors()
 	return dna?.species.get_harm_descriptors() || list(BLEED = "bleeding", BRUTE = "bruising", BURN = "burns")
