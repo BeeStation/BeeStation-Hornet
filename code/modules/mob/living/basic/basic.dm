@@ -171,9 +171,8 @@
 
 /mob/living/basic/examine(mob/user)
 	. = ..()
-	if(stat != DEAD)
-		return
-	. += generate_death_examine_text()
+	if(stat == DEAD)
+		. += generate_death_examine_text()
 
 /mob/living/basic/proc/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
