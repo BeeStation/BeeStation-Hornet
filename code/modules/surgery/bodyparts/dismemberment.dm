@@ -35,6 +35,8 @@
 		return TRUE
 	add_mob_blood(C)
 	var/direction = pick(GLOB.cardinals)
+	if(IS_ORGANIC_LIMB(src))
+		C.spray_blood(direction, 4)
 	var/t_range = rand(2,max(throw_range/2, 2))
 	var/turf/target_turf = get_turf(src)
 	for(var/i in 1 to t_range-1)

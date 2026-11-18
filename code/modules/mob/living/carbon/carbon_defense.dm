@@ -88,7 +88,7 @@
 	if (I.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
 		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(I.bleed_force * hit_amount)
+		add_bleeding(I.bleed_force * hit_amount, splatter_dir = get_dir(user, src))
 	if(I.force)
 		var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
@@ -573,7 +573,7 @@
 	if (P.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = P.armour_penetration, silent = TRUE)
 		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(P.bleed_force * hit_amount)
+		add_bleeding(P.bleed_force * hit_amount, splatter_dir = angle2dir(P.Angle))
 	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 		cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)
@@ -598,7 +598,7 @@
 	if (user.melee_damage_type == BRUTE)
 		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = user.armour_penetration, silent = TRUE)
 		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(user.melee_damage * 0.1 * hit_amount)
+		add_bleeding(user.melee_damage * 0.1 * hit_amount, splatter_dir = get_dir(user, src))
 
 /mob/living/carbon/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -617,7 +617,7 @@
 	if (M.melee_damage_type == BRUTE)
 		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
 		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(M.melee_damage * 0.1 * hit_amount)
+		add_bleeding(M.melee_damage * 0.1 * hit_amount, splatter_dir = get_dir(M, src))
 
 /mob/living/carbon/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())

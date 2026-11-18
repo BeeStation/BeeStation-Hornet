@@ -88,6 +88,109 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 	dryname = "dried tracks"
 	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
 
+/// Splatter left on a wall from the adjacent floor, or inside a window's vis_contents
+/obj/effect/decal/cleanable/blood/splatter/over_window
+	layer = ABOVE_WINDOW_LAYER
+	plane = GAME_PLANE
+	vis_flags = VIS_INHERIT_PLANE
+	alpha = 180
+	turf_loc_check = FALSE
+
+/// Blood flying through the air, painting what it passes and landing on the floor, a wall or a window
+/obj/effect/decal/cleanable/blood/hitsplatter
+	name = "blood splatter"
+	pass_flags = PASSTABLE | PASSGRILLE
+	icon_state = "hitsplatter1"
+	random_icon_states = list("hitsplatter1", "hitsplatter2", "hitsplatter3")
+	plane = GAME_PLANE
+	layer = ABOVE_WINDOW_LAYER
+	mergeable_decal = FALSE
+	should_dry = FALSE
+	/// The turf we were on before the last step
+	var/turf/prev_loc
+	/// How many tiles we can fly, painting everything dense on them
+	var/splatter_strength = 3
+	var/splatter_speed = 0.1 SECONDS
+	var/flight_dir = NONE
+
+/obj/effect/decal/cleanable/blood/hitsplatter/Initialize(mapload, list/datum/disease/diseases, splatter_strength)
+	. = ..()
+	if(. == INITIALIZE_HINT_QDEL)
+		return
+	if(splatter_strength)
+		src.splatter_strength = splatter_strength
+
+/obj/effect/decal/cleanable/blood/hitsplatter/proc/expire()
+	if(isturf(loc))
+		playsound(src, 'sound/effects/wounds/splatter.ogg', 60, TRUE, -1)
+		loc.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+	qdel(src)
+
+/obj/effect/decal/cleanable/blood/hitsplatter/proc/fly_towards(turf/target_turf, range)
+	flight_dir = get_dir(src, target_turf)
+	var/datum/move_loop/loop = SSmove_manager.move_towards(src, target_turf, splatter_speed, timeout = splatter_speed * range, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, flags = MOVEMENT_LOOP_START_FAST)
+	RegisterSignal(loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move))
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move))
+	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(loop_done))
+
+/obj/effect/decal/cleanable/blood/hitsplatter/proc/pre_move(datum/move_loop/source)
+	SIGNAL_HANDLER
+	prev_loc = loc
+
+/obj/effect/decal/cleanable/blood/hitsplatter/proc/post_move(datum/move_loop/source)
+	SIGNAL_HANDLER
+	if(loc == prev_loc || !isturf(loc))
+		return
+
+	for(var/atom/movable/iter_atom in loc)
+		if(iter_atom == src || iter_atom.invisibility || iter_atom.alpha <= 0 || (isobj(iter_atom) && !iter_atom.density))
+			continue
+		iter_atom.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+		if(isliving(iter_atom))
+			SEND_SIGNAL(iter_atom, COMSIG_ADD_MOOD_EVENT, "splattered_with_blood", /datum/mood_event/splattered_with_blood)
+
+	splatter_strength--
+	if(splatter_strength <= 0)
+		expire()
+		return
+
+	var/obj/effect/decal/cleanable/blood/fly_trail = new(loc)
+	if(QDELETED(fly_trail))
+		return
+	fly_trail.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+	fly_trail.icon_state = pick("trails_1", "trails_2")
+	fly_trail.bloodiness *= 0.34
+	// Diagonal trail states are corner pieces, so turn the straight one instead
+	if(ISDIAGONALDIR(flight_dir))
+		fly_trail.dir = NORTH
+		fly_trail.transform = turn(matrix(), (flight_dir == NORTHEAST || flight_dir == SOUTHWEST) ? 45 : -45)
+	else
+		fly_trail.dir = flight_dir
+
+/obj/effect/decal/cleanable/blood/hitsplatter/proc/loop_done(datum/source)
+	SIGNAL_HANDLER
+	if(!QDELETED(src))
+		expire()
+
+/obj/effect/decal/cleanable/blood/hitsplatter/Bump(atom/bumped_atom)
+	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter
+	if(iswallturf(bumped_atom))
+		final_splatter = new(loc)
+		if(!QDELETED(final_splatter))
+			final_splatter.pixel_x = (bumped_atom.x - x) * ICON_SIZE_X
+			final_splatter.pixel_y = (bumped_atom.y - y) * ICON_SIZE_Y
+	else if(istype(bumped_atom, /obj/structure/window))
+		var/obj/structure/window/bumped_window = bumped_atom
+		if(bumped_window.fulltile)
+			// Spawned inside the window so it can't merge with a floor splatter first
+			final_splatter = new(bumped_window)
+			bumped_window.vis_contents += final_splatter
+	if(QDELETED(final_splatter))
+		expire()
+		return
+	final_splatter.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+	qdel(src)
+
 /obj/effect/decal/cleanable/blood/tracks
 	name = "tracks"
 	desc = "They look like tracks left by wheels."

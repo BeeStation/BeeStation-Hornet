@@ -1089,7 +1089,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if (weapon.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = weapon.armour_penetration, silent = (weapon.force > 0))
 		var/hit_amount = (100 - armour_block) / 100
-		human.add_bleeding(weapon.bleed_force * hit_amount)
+		human.add_bleeding(weapon.bleed_force * hit_amount, splatter_dir = get_dir(user, human))
 		if(IS_ORGANIC_LIMB(affecting))
 			weapon.add_mob_blood(human)	//Make the weapon bloody, not the person.
 			if(get_dist(user, human) <= 1)	//people with TK won't get smeared with blood

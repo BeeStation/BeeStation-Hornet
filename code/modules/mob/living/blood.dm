@@ -158,7 +158,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return FALSE
 	return bleed.bleed_rate > 0
 
-/mob/living/carbon/proc/add_bleeding(bleed_level, sound_effect = TRUE)
+/// splatter_dir: direction the blood sprays out of a deep wound, none if null
+/mob/living/carbon/proc/add_bleeding(bleed_level, sound_effect = TRUE, splatter_dir)
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return
 	if(sound_effect)
@@ -169,8 +170,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
 		if(blood)
 			to_chat(src, span_userdanger("[initial(blood.name)] starts rushing out of the open wound!"))
+		if(splatter_dir)
+			spray_blood(splatter_dir, bleed_level >= BLEED_CRITICAL ? 3 : 2)
 
-/mob/living/carbon/human/add_bleeding(bleed_level)
+/mob/living/carbon/human/add_bleeding(bleed_level, sound_effect = TRUE, splatter_dir)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
 	..()
@@ -598,6 +601,31 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/obj/effect/decal/cleanable/oil/B = locate() in T.contents
 	if(!B)
 		B = new(T)
+
+/// Visual-only puff of blood flying off us
+/mob/living/proc/create_splatter(splatter_dir)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return
+	new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), splatter_dir, get_blood_dna_color(get_blood_dna_list()))
+
+/mob/living/carbon/alien/create_splatter(splatter_dir)
+	new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(get_turf(src), splatter_dir)
+
+/**
+ * Sprays blood that flies up to splatter_strength tiles, bloodying everything dense it passes
+ * and landing on the floor, or on the wall or window it hits
+ */
+/mob/living/proc/spray_blood(splatter_direction, splatter_strength)
+	if(!isturf(loc) || HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING))
+		return
+	var/list/blood_dna = get_blood_dna_list()
+	if(!blood_dna)
+		return
+	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, get_static_viruses(), splatter_strength)
+	if(QDELETED(our_splatter))
+		return
+	our_splatter.add_blood_DNA(blood_dna)
+	our_splatter.fly_towards(get_ranged_target_turf(src, splatter_direction, splatter_strength), splatter_strength)
 
 /**
  * Item to represent the fact that we are covering a wound
