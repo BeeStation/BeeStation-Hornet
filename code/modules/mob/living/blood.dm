@@ -83,7 +83,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	// Actually do the bleeding
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
-	if(final_bleed_rate >= BLEED_CRITICAL && COOLDOWN_FINISHED(src, spray_cooldown) && owner.spray_blood(pick(GLOB.alldirs), 2))
+	var/mob/living/carbon/carbon_owner = owner
+	var/pumping = owner.stat != DEAD && owner.blood_volume >= BLOOD_VOLUME_BAD && !(istype(carbon_owner) && carbon_owner.undergoing_cardiac_arrest())
+	if(pumping && final_bleed_rate >= BLEED_CRITICAL && COOLDOWN_FINISHED(src, spray_cooldown) && owner.spray_blood(pick(GLOB.alldirs), 2))
 		COOLDOWN_START(src, spray_cooldown, 8 SECONDS)
 		owner.visible_message(span_danger("Blood sprays out of [owner]'s wounds!"), span_userdanger("Blood sprays out of your wounds!"))
 	// Update the alert to show current bleed rate
