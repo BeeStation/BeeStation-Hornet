@@ -279,20 +279,6 @@
 		return span_deadsay(DEATH_EXAMINE_TEXT + " and [t_his] soul is elsewhere...")
 
 	return ..()
-/*
-	var/t_He = p_They()
-	var/t_his = p_their()
-	var/t_is = p_are()
-
-	if(suiciding)
-		return span_warning("[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.")
-	if(get_organ_by_type(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE))
-		return span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...")
-	else if(!client && key)
-		return span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...")
-	else
-		return span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
-*/
 
 /// Returns a list of "damtype" => damage description based off of which bodypart description is most common
 /mob/living/carbon/proc/get_harm_descriptors()
