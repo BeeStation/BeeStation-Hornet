@@ -47,7 +47,7 @@
 	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
 	icon_state = "debug"
 
-/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/cotton))
 		var/obj/item/stack/S = I
 		if(S.amount< 3)
@@ -97,7 +97,7 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon()
 
-/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/cup))
 		if(I.reagents)
 			if(I.reagents.total_volume <= 0)
@@ -230,7 +230,7 @@
 	. = ..()
 	. += "There [bullets == 1 ? "is" : "are"] [bullets] cap\s left."
 
-/obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, params)
+/obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, list/modifiers)
 
 	if(istype(A, /obj/item/toy/ammo/gun))
 		if (src.bullets >= 7)
@@ -361,7 +361,7 @@
 	update_appearance(UPDATE_ICON)
 
 // Copied from /obj/item/melee/energy/sword/attackby
-/obj/item/toy/sword/attackby(obj/item/weapon, mob/living/user, params)
+/obj/item/toy/sword/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(istype(weapon, /obj/item/toy/sword))
 		var/obj/item/toy/sword/attatched_sword = weapon
 		if(HAS_TRAIT(weapon, TRAIT_NODROP))
@@ -913,6 +913,7 @@
 /obj/item/toy/cards/deck/Initialize(mapload)
 	. = ..()
 	populate_deck()
+	AddElement(/datum/element/drag_pickup)
 
 ///Generates all the cards within the deck.
 /obj/item/toy/cards/deck/proc/populate_deck()
@@ -947,7 +948,6 @@
 	var/O = src
 	H.apply_card_vars(H,O)
 	popleft(cards)
-	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message(span_notice("[user] draws a card from the deck."), span_notice("You draw a card from the deck."))
 	update_icon()
@@ -972,7 +972,7 @@
 		user.visible_message(span_notice("[user] shuffles the deck."), span_notice("You shuffle the deck."))
 		cooldown = world.time
 
-/obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/cards/singlecard))
 		var/obj/item/toy/cards/singlecard/SC = I
 		if(SC.parentdeck == src)
@@ -999,26 +999,6 @@
 		update_icon()
 	else
 		return ..()
-
-/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/M = usr
-	if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
-		return
-	if(Adjacent(usr))
-		if(over_object == M && loc != M)
-			M.put_in_hands(src)
-			to_chat(usr, span_notice("You pick up the deck."))
-
-		else if(istype(over_object, /atom/movable/screen/inventory/hand))
-			var/atom/movable/screen/inventory/hand/H = over_object
-			if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-				to_chat(usr, span_notice("You pick up the deck."))
-
-	else
-		to_chat(usr, span_warning("You can't reach it from here!"))
-
-
 
 /obj/item/toy/cards/cardhand
 	name = "hand of cards"
@@ -1051,7 +1031,6 @@
 	C.parentdeck = parentdeck
 	C.cardname = choice
 	C.apply_card_vars(C,O)
-	C.pickup(cardUser)
 	cardUser.put_in_hands(C)
 	cardUser.visible_message(span_notice("[cardUser] draws a card from [cardUser.p_their()] hand."), span_notice("You take the [C.cardname] from your hand."))
 
@@ -1063,11 +1042,10 @@
 		N.cardname = currenthand[1]
 		N.apply_card_vars(N,O)
 		qdel(src)
-		N.pickup(cardUser)
 		cardUser.put_in_hands(N)
 		to_chat(cardUser, span_notice("You also take [currenthand[1]] and hold it."))
 
-/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, list/modifiers)
 	if(istype(C))
 		if(C.parentdeck == src.parentdeck)
 			src.currenthand += C.cardname
@@ -1166,7 +1144,7 @@
 		src.name = "card"
 		src.pixel_x = -5
 
-/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == src.parentdeck)
@@ -1178,7 +1156,6 @@
 			to_chat(user, span_notice("You combine the [C.cardname] and the [src.cardname] into a hand."))
 			qdel(C)
 			qdel(src)
-			H.pickup(user)
 			user.put_in_active_hand(H)
 		else
 			to_chat(user, span_warning("You can't mix cards from other decks!"))

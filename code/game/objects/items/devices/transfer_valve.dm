@@ -23,7 +23,7 @@
 /obj/item/transfer_valve/IsAssemblyHolder()
 	return TRUE
 
-/obj/item/transfer_valve/attackby(obj/item/item, mob/user, params)
+/obj/item/transfer_valve/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/tank))
 		if(tank_one && tank_two)
 			to_chat(user, span_warning("There are already two tanks attached, remove one first!"))
@@ -167,6 +167,7 @@
 	*/
 
 /obj/item/transfer_valve/proc/toggle_valve(datum/gas_mixture/target, change_volume = TRUE)
+	playsound(src, 'sound/effects/valve_opening.ogg', 50)
 	if(!valve_open && tank_one && tank_two)
 		var/turf/bombturf = get_turf(src)
 

@@ -29,7 +29,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	throw_range = 4
 
 // Use a knife/sharp object to process the coconut
-/obj/item/grown/coconut/attackby(obj/item/W, mob/user, params)
+/obj/item/grown/coconut/attackby(obj/item/W, mob/user, list/modifiers)
 	if(!W.get_sharpness())
 		return ..()
 	to_chat(user, span_notice("You use [W] to process the flesh from the coconut"))

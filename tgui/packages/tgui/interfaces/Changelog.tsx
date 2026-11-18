@@ -43,6 +43,7 @@ const icons = {
   tweak: { icon: 'wrench', color: 'green' },
   unknown: { icon: 'info-circle', color: 'label' },
   wip: { icon: 'hammer', color: 'orange' },
+  github: { icon: 'code-pull-request', color: 'purple' },
 };
 
 type ChangelogEntry = Record<string, Record<string, ChangeEntry[]>>;

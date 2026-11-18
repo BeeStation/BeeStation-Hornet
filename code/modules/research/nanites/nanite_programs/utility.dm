@@ -330,8 +330,15 @@
 	var/datum/nanite_extra_setting/bn_name = extra_settings[NES_BUTTON_NAME]
 	var/datum/nanite_extra_setting/bn_icon = extra_settings[NES_ICON]
 	if(!button)
-		button = new(src, bn_name.get_value(), bn_icon.get_value(), "red")
+		var/datum/nanite_extra_setting/bn_color = extra_settings[NES_COLOR]
+		button = new(src, bn_name.get_value(), bn_icon.get_value(), bn_color?.get_value() || "red")
 	button.Grant(host_mob)
+
+/datum/nanite_program/dermal_button/copy_extra_settings_to(datum/nanite_program/dermal_button/target)
+	. = ..()
+	var/datum/nanite_extra_setting/button_color = target.extra_settings[NES_COLOR]
+	if(target.button && button_color)
+		target.button.update_icon(target.get_extra_setting_value(NES_ICON), button_color.get_value())
 
 /datum/nanite_program/dermal_button/disable_passive_effect()
 	. = ..()
@@ -352,7 +359,7 @@
 /datum/action/innate/nanite_button
 	name = "Button"
 	button_icon = 'icons/hud/actions/actions_items.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	button_icon_state = "power_green"
 	var/datum/nanite_program/dermal_button/program
 

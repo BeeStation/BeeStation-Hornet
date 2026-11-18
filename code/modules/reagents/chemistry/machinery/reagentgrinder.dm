@@ -1,15 +1,13 @@
 #define MILK_TO_BUTTER_COEFF 15
 
 /obj/machinery/reagentgrinder
-	name = "\improper All-In-One Grinder"
+	name = "all-in-one grinder"
 	desc = "From BlenderTech. Will It Blend? Let's test it out!"
 	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "juicer1"
 	base_icon_state = "juicer"
 	layer = BELOW_OBJ_LAYER
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.0025
 	circuit = /obj/item/circuitboard/machine/reagentgrinder
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
@@ -61,9 +59,10 @@
 				SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/reagentgrinder/RefreshParts()
+	. = ..()
 	speed = 1
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		speed = M.rating
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		speed = manipulator.tier
 
 /obj/machinery/reagentgrinder/examine(mob/user)
 	. = ..()
@@ -139,17 +138,17 @@
 /obj/machinery/reagentgrinder/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 	if(!beaker && !length(holdingitems))
 		return default_deconstruction_screwdriver(user, icon_state, icon_state, tool)
 
 /obj/machinery/reagentgrinder/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
 
-/obj/machinery/reagentgrinder/attackby(obj/item/weapon, mob/living/user, params)
+/obj/machinery/reagentgrinder/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(panel_open) //Can't insert objects when its screwed open
 		return TRUE
 
@@ -268,14 +267,27 @@
 	pixel_x = old_px
 
 /obj/machinery/reagentgrinder/proc/operate_for(time, silent = FALSE, juicing = FALSE)
-	shake_for(time / speed)
+	PRIVATE_PROC(TRUE)
+
+	var/duration = time / speed
+
+	shake_for(duration)
 	operating = TRUE
 	if(!silent)
 		if(!juicing)
 			playsound(src, 'sound/machines/blender.ogg', 50, 1)
 		else
 			playsound(src, 'sound/machines/juicer.ogg', 20, 1)
-	addtimer(CALLBACK(src, PROC_REF(stop_operating)), time / speed)
+
+	// Cost scales with how loaded the drum is. The callers do the actual grinding
+	// over holdingitems, so don't touch the contents here.
+	var/total_weight = 0
+	for(var/obj/item/ingredient in holdingitems)
+		total_weight += ingredient.w_class
+	if(total_weight)
+		use_power(active_power_usage * (duration / (1 SECONDS)) * total_weight)
+
+	addtimer(CALLBACK(src, PROC_REF(stop_operating)), duration)
 
 /obj/machinery/reagentgrinder/proc/stop_operating()
 	operating = FALSE
@@ -305,20 +317,18 @@
 	for(var/obj/item/grinded_item in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
-		if(grinded_item.grind_results || grinded_item.is_grindable())
-			if(istype(grinded_item, /obj/item/reagent_containers))
-				var/obj/item/reagent_containers/beaker = grinded_item
-				if(!beaker.prevent_grinding)
-					grind_item(beaker, user)
-			else
-				grind_item(grinded_item, user)
+		if(!grinded_item.grind_results && !grinded_item.is_grindable())
+			continue
+		if(HAS_TRAIT(grinded_item, TRAIT_NO_GRINDING))
+			continue
+		grind_item(grinded_item, user)
 
 /obj/machinery/reagentgrinder/proc/grind_item(obj/item/grinded_item, mob/user) //Grind results can be found in respective object definitions
 	if(!grinded_item.grind(beaker.reagents, user))
 		if(isstack(grinded_item))
-			to_chat(usr, "<span class='notice'>[src] attempts to grind as many pieces of [grinded_item] as possible.</span>")
+			to_chat(usr, span_notice("[src] attempts to grind as many pieces of [grinded_item] as possible."))
 		else
-			to_chat(usr, "<span class='danger'>[src] shorts out as it tries to grind up [grinded_item], and transfers it back to storage.</span>")
+			to_chat(usr, span_danger("[src] shorts out as it tries to grind up [grinded_item], and transfers it back to storage."))
 		return
 	remove_object(grinded_item)
 

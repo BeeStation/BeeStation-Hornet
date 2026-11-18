@@ -27,6 +27,16 @@
 	} \
 } while (FALSE)
 
+/// Asserts that two floats are equal to within a tolerance, fails otherwise
+/// Optionally allows an additional message in the case of a failure
+#define TEST_ASSERT_APPROX(a, b, message) do { \
+	var/lhs = ##a; \
+	var/rhs = ##b; \
+	if (abs(lhs - rhs) > 0.001) { \
+		Fail("Expected [isnull(lhs) ? "null" : lhs] to be approximately [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
+	} \
+} while (FALSE)
+
 /// Asserts that the two parameters passed are not equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure
 #define TEST_ASSERT_NOTEQUAL(a, b, message) do { \

@@ -33,6 +33,9 @@
 	var/inertia_moving = FALSE
 	///Delay in deciseconds between inertia based movement
 	var/inertia_move_delay = 5
+	///The last time we pushed off something
+	///This is a hack to get around dumb him him me scenarios
+	var/last_pushoff
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 	/// If false makes CanPass call CanPassThrough on this type instead of using default behaviour
@@ -63,7 +66,7 @@
 	/// Either [EMISSIVE_BLOCK_NONE], [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
 	var/blocks_emissive = EMISSIVE_BLOCK_NONE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
-	var/atom/movable/emissive_blocker/em_block
+	var/atom/movable/render_step/emissive_blocker/em_block
 	/**
 	 * an associative lazylist of relevant nested contents by "channel", the list is of the form: list(channel = list(important nested contents of that type))
 	 * each channel has a specific purpose and is meant to replace potentially expensive nested contents iteration
@@ -90,7 +93,7 @@
 	. = ..()
 	// Need to do this here because it's overridden by the parent call
 	// This is a microop which is the sole reason why this child exists, because its static this is a really cheap way to set color without setting or checking it every time we create an atom
-	color = EM_BLOCKER_MATRIX
+	color = EM_BLOCK_COLOR
 
 /atom/movable/Initialize(mapload, ...)
 	. = ..()
@@ -109,7 +112,7 @@
 	if (blocks_emissive)
 		if (blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
-			em_block = new(src, src)
+			em_block = new(null, src)
 			overlays += em_block
 			if(managed_overlays)
 				if(islist(managed_overlays))
@@ -211,19 +214,24 @@
 		vis_contents.Cut()
 
 /atom/movable/proc/update_emissive_block()
-	if(!blocks_emissive)
-		return
-	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
-		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
-		gen_emissive_blocker.color = GLOB.em_blocker_matrix
-		return gen_emissive_blocker
-	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
-		if(!em_block && !QDELETED(src))
-			render_target = ref(src)
-			em_block = new(src, render_target)
-		return em_block
+	// This one is incredible.
+	// `if (x) else { /* code */ }` is surprisingly fast, and it's faster than a switch, which is seemingly not a jump table.
+	// From what I can tell, a switch case checks every single branch individually, although sane, is slow in a hot proc like this.
+	// So, we make the most common `blocks_emissive` value, EMISSIVE_BLOCK_GENERIC, 0, getting to the fast else branch quickly.
+	// If it fails, then we can check over every value it can be (here, EMISSIVE_BLOCK_UNIQUE is the only one that matters).
+	// This saves several hundred milliseconds of init time.
+	if (blocks_emissive)
+		if (blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
+			if(em_block)
+				em_block.plane = EMISSIVE_PLANE
+			else if(!QDELETED(src))
+				render_target = ref(src)
+				em_block = new(null, src)
+			return em_block
+		// Implied else if (blocks_emissive == EMISSIVE_BLOCK_NONE) -> return
+	// EMISSIVE_BLOCK_GENERIC == 0
+	else
+		return fast_emissive_blocker(src)
 
 /atom/movable/update_overlays()
 	var/list/overlays = ..()
@@ -234,43 +242,54 @@
 	return overlays
 
 /atom/movable/vv_edit_var(var_name, var_value)
-	var/static/list/banned_edits = list("step_x", "step_y", "step_size", "bounds")
-	var/static/list/careful_edits = list("bound_x", "bound_y", "bound_width", "bound_height")
-	if(var_name in banned_edits)
-		return FALSE	//PLEASE no.
-	if((var_name in careful_edits) && (var_value % ICON_SIZE_ALL) != 0)
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, step_x) = TRUE, NAMEOF_STATIC(src, step_y) = TRUE, NAMEOF_STATIC(src, step_size) = TRUE, NAMEOF_STATIC(src, bounds) = TRUE)
+	var/static/list/careful_edits = list(NAMEOF_STATIC(src, bound_x) = TRUE, NAMEOF_STATIC(src, bound_y) = TRUE, NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
+	var/static/list/not_falsey_edits = list(NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
+	if(banned_edits[var_name])
+		return FALSE //PLEASE no.
+	if(careful_edits[var_name] && (var_value % ICON_SIZE_ALL) != 0)
+		return FALSE
+	if(not_falsey_edits[var_name] && !var_value)
 		return FALSE
 
 	switch(var_name)
-		if(NAMEOF(src, anchored))
-			set_anchored(var_value)
-			return TRUE
 		if(NAMEOF(src, x))
-			var/turf/T = locate(var_value, y, z)
-			if(T)
-				forceMove(T)
+			var/turf/current_turf = locate(var_value, y, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, y))
 			var/turf/T = locate(x, var_value, z)
 			if(T)
-				forceMove(T)
+				admin_teleport(T)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, z))
 			var/turf/T = locate(x, y, var_value)
 			if(T)
-				forceMove(T)
+				admin_teleport(T)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, loc))
-			if(istype(var_value, /atom))
-				forceMove(var_value)
-				return TRUE
-			else if(isnull(var_value))
-				moveToNullspace()
+			if(isatom(var_value) || isnull(var_value))
+				admin_teleport(var_value)
 				return TRUE
 			return FALSE
+		if(NAMEOF(src, anchored))
+			set_anchored(var_value)
+			. = TRUE
+		if(NAMEOF(src, pulledby))
+			set_pulledby(var_value)
+			. = TRUE
+		if(NAMEOF(src, glide_size))
+			set_glide_size(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
 	return ..()
 
 /atom/movable/proc/start_pulling(atom/movable/pulled_atom, state, force = move_force, supress_message = FALSE)
@@ -542,8 +561,9 @@
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
-				//if(client_mobs_in_contents)
-				//	update_parallax_contents()
+			// We're done moving, update our parallax now
+			for(var/mob/client_mob as anything in important_recursive_contents?[RECURSIVE_CONTENTS_CLIENT_MOBS])
+				SSparallax.update_client_parallax(client_mob.client)
 			moving_diagonally = 0
 			return
 
@@ -563,7 +583,6 @@
 				pulling.Move(current_turf, get_dir(pulling, current_turf), glide_size) //the pullee tries to reach our previous position
 				pulling.moving_from_pull = null
 			check_pulling()
-
 
 	//glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
 	//This means that if you don't override it late like this, it will just be set back by the movement update that's called when you move turfs.
@@ -611,18 +630,21 @@
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_ABSTRACT_ENTERED, src, old_loc, old_locs)
 
+	var/turf/old_turf = get_turf(old_loc)
+	var/turf/new_turf = get_turf(src)
+
 	// Z-Mimic hook
 	if (bound_overlay)
 		// The overlay will handle cleaning itself up on non-openspace turfs.
-		if (isturf(loc))
-			bound_overlay.forceMove(get_step_multiz(src, UP))
+		var/turf/above_turf = isturf(loc) ? GET_TURF_ABOVE(new_turf) : null
+		if (above_turf)
+			bound_overlay.forceMove(above_turf)
 			if (bound_overlay && dir != bound_overlay.dir)
 				bound_overlay.setDir(dir)
-		else // Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
+			if (old_turf && GET_TURF_DEPTH(old_turf) != GET_TURF_DEPTH(new_turf))
+				bound_overlay.z_shift()
+		else // No turf above to show it on
 			qdel(bound_overlay)
-
-	var/turf/old_turf = get_turf(old_loc)
-	var/turf/new_turf = get_turf(src)
 
 	if (old_turf && new_turf && old_turf.z != new_turf.z)
 		onTransitZ(old_turf.z, new_turf.z)
@@ -731,9 +753,6 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	. = FALSE
-	if(destination == null) //destination destroyed due to explosion
-		return
-
 	if(destination)
 		. = doMove(destination)
 	else
@@ -818,16 +837,23 @@
 
 	RESOLVE_ACTIVE_MOVEMENT
 
-//Called whenever an object moves and by mobs when they attempt to move themselves through space
-//And when an object or action applies a force on src, see newtonian_move() below
-//Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
-//Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
-//movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(movement_dir = 0)
+/**
+ * Called whenever an object moves and by mobs when they attempt to move themselves through space
+ * And when an object or action applies a force on src, see [newtonian_move][/atom/movable/proc/newtonian_move]
+ *
+ * Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
+ *
+ * Mobs should return 1 if they should be able to move of their own volition, see [/client/proc/Move]
+ *
+ * Arguments:
+ * * movement_dir - 0 when stopping or any dir when trying to move
+ * * continuous_move - If this check is coming from something in the context of already drifting
+ */
+/atom/movable/proc/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(has_gravity())
 		return TRUE
 
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
 		return TRUE
 
 	if(pulledby && (pulledby.pulledby != src || moving_from_pull))
@@ -839,32 +865,36 @@
 	if(!isturf(loc))
 		return TRUE
 
-	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
+	if (handle_spacemove_grabbing())
 		return TRUE
 
 	return FALSE
 
-
-/// Only moves the object if it's under no gravity
-/// Accepts the direction to move, and if the push should be instant
-/atom/movable/proc/newtonian_move(direction, instant = FALSE)
-	if(!isturf(loc) || Process_Spacemove(0) || !direction)
-		return FALSE
-
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
+/atom/movable/proc/handle_spacemove_grabbing()
+	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
 		return TRUE
 
-	set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(inertia_move_delay, SSspacedrift.visual_delay))
-	AddComponent(/datum/component/drift, direction, instant)
+/// Only moves the object if it's under no gravity
+/// Accepts the direction to move, if the push should be instant, and an optional parameter to fine tune the start delay
+/atom/movable/proc/newtonian_move(direction, instant = FALSE, start_delay = 0)
+	if(!isturf(loc) || !direction || Process_Spacemove(direction, continuous_move = TRUE))
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction, start_delay) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
+		return TRUE
+
+	AddComponent(/datum/component/drift, direction, instant, start_delay)
 
 	return TRUE
 
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = FALSE
+	if(QDELETED(hit_atom))
+		return TRUE
 	var/hitpush = TRUE
 	var/impact_flags = pre_impact(hit_atom, throwingdatum)
 	if(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
-		return // in case a signal interceptor broke or deleted the thing before we could process our hit
+		return TRUE // in case a signal interceptor broke or deleted the thing before we could process our hit
 	if(impact_flags & COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH)
 		hitpush = FALSE
 	var/caught = hit_atom.hitby(src, throwingdatum=throwingdatum, hitpush=hitpush)
@@ -1025,23 +1055,19 @@
 	return
 
 /atom/movable/proc/get_spacemove_backup()
-	var/atom/movable/dense_object_backup
-	for(var/A in orange(1, get_turf(src)))
-		if(isarea(A))
+	for(var/checked_range in orange(1, get_turf(src)))
+		if(isarea(checked_range))
 			continue
-		else if(isturf(A))
-			var/turf/turf = A
+		if(isturf(checked_range))
+			var/turf/turf = checked_range
 			if(!turf.density)
 				continue
 			return turf
-		else
-			var/atom/movable/AM = A
-			if(AM.density || !AM.CanPass(src, get_dir(src, AM)))
-				if(AM.anchored)
-					return AM
-				dense_object_backup = AM
-				break
-	. = dense_object_backup
+		var/atom/movable/checked_atom = checked_range
+		if(checked_atom.density || !checked_atom.CanPass(src, get_dir(src, checked_atom)))
+			if(checked_atom.last_pushoff == world.time)
+				continue
+			return checked_atom
 
 //Called when something resists while this atom is its loc
 /atom/movable/proc/container_resist(mob/living/user)
@@ -1076,8 +1102,9 @@
 
 	var/matrix/initial_transform = matrix(transform)
 	var/matrix/rotated_transform = transform.Turn(rand(13,17) * turn_dir)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
+	for(var/atom/movable/attacking as anything in get_associated_mimics() + src)
+		animate(attacking, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+		animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
 	var/image/attack_image
@@ -1085,7 +1112,8 @@
 		attack_image = image(icon = 'icons/effects/effects.dmi', icon_state = visual_effect_icon)
 	else if(used_item)
 		attack_image = image(icon = used_item)
-		attack_image.plane = GAME_PLANE
+		attack_image.plane = attacked_atom.plane
+		attack_image.layer = attacked_atom.layer + 0.1
 
 		// Scale the icon.
 		attack_image.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
@@ -1339,7 +1367,6 @@
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
 /obj/item/proc/do_pickup_animation(atom/target, turf/source)
-	set waitfor = FALSE
 	if(!source)
 		if(!istype(loc, /turf))
 			return

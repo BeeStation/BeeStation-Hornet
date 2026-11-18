@@ -16,9 +16,7 @@ GLOBAL_VAR_INIT(message_delay, FALSE)
 	desc = "A dish-shaped machine used to broadcast processed subspace signals."
 	telecomms_type = /obj/machinery/telecomms/broadcaster
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 20
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.01
 	circuit = /obj/item/circuitboard/machine/telecomms/broadcaster
 
 /obj/machinery/telecomms/broadcaster/receive_information(datum/signal/subspace/signal, obj/machinery/telecomms/machine_from)
@@ -57,7 +55,9 @@ GLOBAL_VAR_INIT(message_delay, FALSE)
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_message_delay)), 1 SECONDS)
 
 	/* --- Do a snazzy animation! --- */
-	flick("broadcaster_send", src)
+	z_flick("broadcaster_send", src)
+
+	use_power(idle_power_usage)
 
 /**
  * Simply resets the message delay and the recent messages list, to ensure that

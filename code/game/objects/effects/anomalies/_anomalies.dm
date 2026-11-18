@@ -28,7 +28,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
 /obj/effect/anomaly/Initialize(mapload, life_span = 1.5 MINUTES, spawned_fake_harvested)
 	. = ..()
 
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 
 	START_PROCESSING(SSobj, src)
 
@@ -63,7 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
 	if(isnull(anomaly_core))
 		return
 	to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(anomaly_core.frequency)], code [anomaly_core.code]."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/effect/anomaly/process(delta_time)
 	anomaly_process(delta_time)

@@ -242,6 +242,10 @@ GLOBAL_LIST_INIT(trait_blockers_to_hud, list(
 
 	hud_atoms_all_z_levels -= hud_atom_to_remove
 
+	if(ismovable(hud_atom_to_remove))
+		var/atom/movable/movable_to_remove = hud_atom_to_remove
+		remove_atom_from_hud(movable_to_remove.bound_overlay)
+
 	var/turf/atom_turf = get_turf(hud_atom_to_remove)
 	if(!atom_turf)
 		return TRUE

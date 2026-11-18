@@ -10,8 +10,7 @@
 	verb_ask = "queries"
 	verb_exclaim = "alarms"
 
-	idle_power_usage = 20
-	active_power_usage = 50
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.05
 
 	circuit = /obj/item/circuitboard/machine/announcement_system
 

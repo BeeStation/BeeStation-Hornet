@@ -178,16 +178,10 @@
 	if(!iscarbon(user) || user.can_touch_burning(source))
 		return NONE
 
-	var/obj/item/bodypart/affecting = user.get_active_hand()
-	//Should not happen!
-	if(!affecting)
-		return NONE
-
-	affecting.receive_damage(burn = 5)
+	user.apply_damage(5, BURN, user.get_active_hand())
 	to_chat(user, span_userdanger("The ignited thermite on \the [source] burns your hand!"))
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, emote), "scream")
 	playsound(source, "sear", 50, TRUE)
-	user.update_damage_overlays()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
@@ -199,7 +193,7 @@
  * * mob/user - The user behind the attack
  * * params - params
  */
-/datum/component/thermite/proc/attackby_react(datum/source, obj/item/thing, mob/user, params)
+/datum/component/thermite/proc/attackby_react(datum/source, obj/item/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(thing.get_temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)

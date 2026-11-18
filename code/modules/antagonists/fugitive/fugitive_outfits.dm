@@ -61,7 +61,7 @@
 	if(visuals_only)
 		return
 	var/obj/item/organ/eyes/robotic/glow/eyes = new()
-	eyes.Insert(H, drop_if_replaced = FALSE)
+	eyes.Insert(H, movement_flags = DELETE_IF_REPLACED)
 
 /datum/outfit/synthetic/leader
 	name = "Factory Error Synth Leader"

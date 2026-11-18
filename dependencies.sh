@@ -17,7 +17,7 @@ export RUST_G_VERSION=6.0.1
 export NODE_VERSION_LTS=22.11.0
 
 # SpacemanDMM git tag
-export SPACEMAN_DMM_VERSION=suite-1.11
+export SPACEMAN_DMM_VERSION=suite-1.12
 
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.11.2

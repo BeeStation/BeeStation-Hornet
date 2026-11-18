@@ -93,7 +93,7 @@
 	generate_animation() //our animation start point changed, gotta redo
 
 /// Our aquarium is hit with stuff
-/datum/component/aquarium_content/proc/attack_reaction(datum/source, obj/item/thing, mob/user, params)
+/datum/component/aquarium_content/proc/attack_reaction(datum/source, obj/item/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 	if(istype(thing, /obj/item/fish_feed))
 		properties.on_feeding(thing.reagents)

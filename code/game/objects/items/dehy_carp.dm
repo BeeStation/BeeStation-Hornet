@@ -45,7 +45,7 @@
 
 	//Animation
 	icon = 'icons/mob/carp.dmi'
-	flick("carp_swell", src)
+	z_flick("carp_swell", src)
 	//Wait for animation to end
 	addtimer(CALLBACK(src, PROC_REF(spawn_carp)), 0.6 SECONDS)
 
@@ -65,7 +65,7 @@
 		forceMove(drop_location()) //we move it back
 	swelling = TRUE
 	icon = 'icons/mob/carp.dmi'
-	flick("carp_swell", src)
+	z_flick("carp_swell", src)
 	addtimer(CALLBACK(src, PROC_REF(spawn_carp)), 0.6 SECONDS)
 	return BRUTELOSS
 

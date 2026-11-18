@@ -1,3 +1,5 @@
+///How much power it costs to deconstruct an item.
+#define DESTRUCTIVE_ANALYZER_POWER_USAGE (BASE_MACHINE_IDLE_CONSUMPTION * 2.5)
 ///The 'ID' for deconstructing items for Research points instead of nodes.
 #define DESTRUCTIVE_ANALYZER_DESTROY_POINTS "research_points"
 
@@ -18,7 +20,7 @@
 	else if(!isnull(context.held_item))
 		context.add_left_click_action("Insert Item")
 
-/obj/machinery/rnd/destructive_analyzer/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/rnd/destructive_analyzer/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(user.combat_mode)
 		return ..()
 	if(!is_insertion_ready(user))
@@ -29,7 +31,7 @@
 	busy = TRUE
 	loaded_item = attacking_item
 	to_chat(user, span_notice("You add the [attacking_item] to the [name]!"))
-	flick("[base_icon_state]_la", src)
+	z_flick("[base_icon_state]_la", src)
 	addtimer(CALLBACK(src, PROC_REF(finish_loading)), 1 SECONDS)
 	return TRUE
 
@@ -123,10 +125,10 @@
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item(gain_research_points = FALSE)
 	if(QDELETED(loaded_item) || QDELETED(src))
 		return FALSE
-	flick("[base_icon_state]_process", src)
+	z_flick("[base_icon_state]_process", src)
 	busy = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), 2.4 SECONDS)
-	use_power(250)
+	use_power(DESTRUCTIVE_ANALYZER_POWER_USAGE)
 	var/list/all_contents = loaded_item.GetAllContents()
 	for(var/innerthing in all_contents)
 		destroy_item_individual(innerthing, gain_research_points)
@@ -180,3 +182,4 @@
 	return TRUE
 
 #undef DESTRUCTIVE_ANALYZER_DESTROY_POINTS
+#undef DESTRUCTIVE_ANALYZER_POWER_USAGE

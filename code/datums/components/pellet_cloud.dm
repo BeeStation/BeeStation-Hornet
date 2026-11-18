@@ -85,7 +85,7 @@
   * Honestly this is mostly just a rehash of [/obj/item/ammo_casing/proc/fire_casing()] for pellet counts > 1, except this lets us tamper with the pellets and hook onto them for tracking purposes.
   * The arguments really don't matter, this proc is triggered by COMSIG_PELLET_CLOUD_INIT which is only for this really, it's just a big mess of the state vars we need for doing the stuff over here.
   */
-/datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params)
+/datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, list/modifiers)
 	SIGNAL_HANDLER
 
 	shooter = user
@@ -107,7 +107,7 @@
 		var/turf/current_loc = get_turf(user)
 		if(!istype(targloc) || !istype(current_loc))
 			return
-		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, targloc, shooter, params, bullet_angle)
+		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, targloc, shooter, modifiers, bullet_angle)
 		if(i != num_pellets)
 			shell.newshot()
 

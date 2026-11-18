@@ -28,7 +28,7 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, 1)
 
-/obj/structure/sign/attackby(obj/item/I, mob/user, params)
+/obj/structure/sign/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH && buildable_sign)
 		user.visible_message(span_notice("[user] starts removing [src]..."), \
 							span_notice("You start unfastening [src]."))

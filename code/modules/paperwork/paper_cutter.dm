@@ -15,6 +15,7 @@
 /obj/item/papercutter/Initialize(mapload)
 	. = ..()
 	storedcutter = new /obj/item/hatchet/cutterblade(src)
+	AddElement(/datum/element/drag_pickup)
 	update_icon()
 
 
@@ -42,7 +43,7 @@
 		add_overlay("paper")
 
 
-/obj/item/papercutter/attackby(obj/item/P, mob/user, params)
+/obj/item/papercutter/attackby(obj/item/P, mob/user, list/modifiers)
 	if(istype(P, /obj/item/paper) && !storedpaper)
 		if(!user.transferItemToLoc(P, src))
 			return
@@ -90,20 +91,6 @@
 		new /obj/item/paperslip(get_turf(src))
 		update_icon()
 
-/obj/item/papercutter/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/M = usr
-	if(M.incapacitated || !Adjacent(M))
-		return
-
-	if(over_object == M)
-		M.put_in_hands(src)
-
-	else if(istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-	add_fingerprint(M)
-
 /obj/item/paperslip
 	name = "paper slip"
 	desc = "A little slip of paper left over after a larger piece was cut. Whoa."
@@ -112,7 +99,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 
-/obj/item/paperslip/attackby(obj/item/I, mob/living/user, params)
+/obj/item/paperslip/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(burn_paper_product_attackby_check(I, user))
 		return
 	return ..()

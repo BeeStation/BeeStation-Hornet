@@ -321,6 +321,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if((R.name == mob_occupant.real_name))
 			announce_rank = R.rank
 			qdel(R)
+	SSjob.end_acting_heads_for(mob_occupant.real_name, "[mob_occupant.real_name] entered cryogenic storage")
 
 
 	for(var/obj/machinery/computer/cloning/cloner as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/cloning))
@@ -344,9 +345,12 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		aas_config_announce(/datum/aas_config_entry/cryo, list("PERSON" = mob_occupant.real_name, "RANK" = announce_rank))
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
+		if(istype(W, /obj/item/organ) || istype(W, /obj/item/bodypart))
+			continue
 		if(W.loc.loc && (( W.loc.loc == loc ) || (W.loc.loc == control_computer)))
 			continue//means we already moved whatever this thing was in
 			//I'm a professional, okay
+			//This method is shit, thanks jlsnow, but atleast mobs shouldnt fucking explode anymore
 		for(var/T in preserve_items)
 			if(istype(W, T))
 				if(control_computer && control_computer.allow_items)
@@ -356,6 +360,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					mob_occupant.transferItemToLoc(W, loc, TRUE)
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
+		if(istype(W, /obj/item/organ) || istype(W, /obj/item/bodypart))
+			continue
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
 
@@ -372,7 +378,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(iscyborg(mob_occupant))
 		var/mob/living/silicon/robot/R = occupant
-		if(!istype(R)) return
 
 		R.contents -= R.mmi
 		QDEL_NULL(R.mmi)
@@ -399,6 +404,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	name = initial(name)
 
 /obj/machinery/cryopod/MouseDrop_T(mob/living/target, mob/user)
+	if(..())
+		return
 	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 

@@ -9,8 +9,14 @@
 #define HARD_CRIT 3
 #define DEAD 4
 
+#define IS_UNCONSCIOUS_OR_CRIT(mob) (HAS_TRAIT(mob, TRAIT_KNOCKEDOUT) || mob.stat >= SOFT_CRIT)
+
 //Maximum healthiness an individual can have
 #define MAX_SATIETY 600
+//Satiety at which the well-fed bonuses start applying
+#define SATIETY_WELL_NOURISHED 80
+//Satiety at or below which a junk food diet starts having consequences
+#define SATIETY_JUNK_FOOD -60
 
 // bitflags for machine stat variable
 

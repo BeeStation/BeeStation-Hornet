@@ -272,7 +272,7 @@
 	if(delold)
 		qdel(src)
 
-/mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
+/mob/living/silicon/pai/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	. = ..()
 	if(!.)
 		add_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
@@ -344,13 +344,13 @@
 
 	return ..()
 
-/obj/item/pai_card/attackby(obj/item/used, mob/user, params)
+/obj/item/pai_card/attackby(obj/item/used, mob/user, list/modifiers)
 	if(pai && (istype(used, /obj/item/encryptionkey) || used.tool_behaviour == TOOL_SCREWDRIVER))
 		if(!pai.encryptmod)
 			to_chat(user, span_alert("Encryption Key ports not configured."))
 			return
 		user.set_machine(src)
-		pai.radio.attackby(used, user, params)
+		pai.radio.attackby(used, user, modifiers)
 		to_chat(user, span_notice("You insert [used] into the [src]."))
 		return
 

@@ -65,7 +65,7 @@
 		return TRUE
 	return pry_tile(I, user) ? TRUE : FALSE
 
-/turf/open/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/open/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, list/modifiers)
 	if(T.turf_type == type)
 		return
 	var/obj/item/tool = user.is_holding_tool_quality(TOOL_SCREWDRIVER)
@@ -76,7 +76,7 @@
 	var/turf/open/floor/plating/P = pry_tile(tool, user, TRUE)
 	if(!istype(P))
 		return
-	P.attackby(T, user, params)
+	P.attackby(T, user, modifiers)
 
 /turf/open/floor/wood/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	C.play_tool_sound(src, 80)
@@ -139,8 +139,8 @@
 	. = ..()
 	update_icon()
 
-/turf/open/floor/grass/attackby(obj/item/C, mob/user, params)
-	if((C.tool_behaviour == TOOL_SHOVEL) && params)
+/turf/open/floor/grass/attackby(obj/item/C, mob/user, list/modifiers)
+	if(C.tool_behaviour == TOOL_SHOVEL)
 		new ore_type(src, 2)
 		user.visible_message("[user] digs up [src].", span_notice("You [turfverb] [src]."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
@@ -153,8 +153,7 @@
 		canSmoothWith = list()
 		transform = null
 		playsound(src, 'sound/items/wirecutter.ogg')
-	if(..())
-		return
+	return ..()
 
 /turf/open/floor/grass/fairy //like grass but fae-er
 	name = "fairygrass patch"
@@ -244,7 +243,7 @@
 	smoothing_flags = NONE
 	transform = null
 
-/turf/open/floor/grass/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/open/floor/grass/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, list/modifiers)
 	return
 
 /turf/open/floor/grass/snow/crowbar_act(mob/living/user, obj/item/I)

@@ -45,8 +45,8 @@
 			chamber_round()
 	update_icon()
 
-/obj/item/gun/ballistic/bow/attackby(obj/item/I, mob/user, params)
-	if (magazine.attackby(I, user, params, 1))
+/obj/item/gun/ballistic/bow/attackby(obj/item/I, mob/user, list/modifiers)
+	if (magazine.attackby(I, user, modifiers, 1))
 		to_chat(user, span_notice("You notch the arrow."))
 		update_icon()
 

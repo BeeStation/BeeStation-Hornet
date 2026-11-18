@@ -75,6 +75,7 @@
 		"cultivator",
 		"decal_painter",
 		"discovery_scanner",
+		"dropper",
 		"hatchet",
 		"hemostat",
 		"mop",

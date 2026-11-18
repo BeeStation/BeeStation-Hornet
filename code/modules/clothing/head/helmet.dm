@@ -40,7 +40,7 @@
 	. = ..()
 	AddComponent(/datum/component/seclite_attachable, light_icon_state = "flight")
 
-/obj/item/clothing/head/helmet/sec/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/clothing/head/helmet/sec/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(issignaler(attacking_item))
 		var/obj/item/assembly/signaler/attached_signaler = attacking_item
 		// There's a flashlight in us. Remove it first, or it'll be lost forever!
@@ -72,6 +72,7 @@
 	if(!do_after(user, 3 SECONDS, src))
 		return
 	flags_inv ^= HIDEHAIR
+	user.refresh_obscured()
 	balloon_alert(user, "[flags_inv & HIDEHAIR ? "tightened" : "loosened"] straps")
 	return TRUE
 
@@ -135,6 +136,7 @@
 	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
+		carbon_user.refresh_obscured()
 		carbon_user.head_update(src, forced = TRUE)
 
 ///Attempt to toggle the visor. Returns true if it does the thing.

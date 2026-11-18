@@ -28,9 +28,7 @@
 /obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},

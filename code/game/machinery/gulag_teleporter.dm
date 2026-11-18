@@ -13,8 +13,7 @@ The console is located at computer/gulag_teleporter.dm
 	icon_state = "implantchair"
 	state_open = FALSE
 	density = TRUE
-	idle_power_usage = 200
-	active_power_usage = 5000
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
 	circuit = /obj/item/circuitboard/machine/gulag_teleporter
 	var/locked = FALSE
 	var/message_cooldown
@@ -161,13 +160,16 @@ The console is located at computer/gulag_teleporter.dm
 	if(R)
 		R.set_wanted_status(src, WANTED_PRISONER)
 
+	use_power(active_power_usage)
+
 /obj/item/circuitboard/machine/gulag_teleporter
 	name = "labor camp teleporter (Machine Board)"
 	build_path = /obj/machinery/gulag_teleporter
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 2,
-							/obj/item/stock_parts/scanning_module,
-							/obj/item/stock_parts/manipulator)
+		/obj/item/stack/ore/bluespace_crystal = 2,
+		/datum/stock_part/scanning_module = 1,
+		/datum/stock_part/manipulator = 1,
+	)
 	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
 
 /*  beacon that receives the teleported prisoner */

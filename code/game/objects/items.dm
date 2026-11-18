@@ -21,7 +21,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The icon for holding in hand icon states for the right hand.
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-	var/supports_variations_flags = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
+	///This is a bitfield that defines what variations exist for bodyparts like Digi legs. See: code\_DEFINES\inventory.dm
+	var/supports_variations_flags = NONE
+	/// This is a bitfield that defines which bodyshapes this item is capable of rendering, used by build_worn_icon()
+	var/bodyshapes_with_variations = NONE
 
 	//Dimensions of the icon file used when this item is worn, eg: hats.dmi
 	//eg: 32x32 sprite, 64x64 sprite, etc.
@@ -66,8 +69,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/hitsound = null
 	/// If it's a tool, this is the sound played when the tool is used. For example when you use a wrench it goes *ccTCTHCHHTHCHT*
 	var/usesound = null
-	/// The sound played when you throw it at something and it hits that something.
-	var/throwhitsound = null
 	///Used when yate into a mob
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot
@@ -153,8 +154,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/sprite_sheets = null
 	///A bitfield of species that the item cannot be worn by.
 	var/species_restricted = null
-	///A weakref to the mob who threw the item
-	var/datum/weakref/thrownby = null
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
@@ -173,7 +172,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// What this thing does when used like a tool. NONE if it isn't a tool. If I give a piece of paper TOOL_WRENCH I can use it to unwrench tables. See _DEFINES/tools.dm
 	var/tool_behaviour = NONE
 	/// The tool speed multiplier of how long it takes to do the tool action.
-	var/toolspeed = 1
+	VAR_PROTECTED/toolspeed = 1
 
 	/// Whether or not an item can block attacks
 	var/canblock = FALSE
@@ -252,7 +251,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
 
 	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * toolspeed)
+		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * get_toolspeed())
 
 	. = ..()
 	for(var/path in actions_types)
@@ -290,7 +289,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	updateEmbedding()
 
 	if(sharpness) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, 80 * toolspeed)
+		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
 /obj/item/Destroy(force)
 	master = null
@@ -514,7 +513,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					C.update_damage_overlays()
 
-	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))		//See if we're supposed to auto pickup.
+	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP)) //See if we're supposed to auto pickup.
 		return
 
 	//Heavy gravity makes picking up things very slow.
@@ -544,7 +543,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user && outside_storage)
-		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
+		if(!can_mob_unequip(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
 	. = FALSE
@@ -560,7 +559,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (. == SECONDARY_ATTACK_CALL_NORMAL)
 		. = SECONDARY_ATTACK_CONTINUE_CHAIN
 
-/obj/item/proc/allow_attack_hand_drop(mob/user)
+/// Called when a mob is manually attempting to unequip the item
+/// Returning FALSE will prevent the unequip from happening
+/obj/item/proc/can_mob_unequip(mob/user)
 	return TRUE
 
 /obj/item/attack_paw(mob/user, list/modifiers)
@@ -622,10 +623,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!blockhand)
 		return FALSE
 	if(blockhand?.bodypart_disabled)
-		to_chat(owner, span_danger("You're too exausted to block the attack!"))
+		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
 	else if(owner.getStaminaLoss() >= 45)
-		to_chat(owner, span_danger("You're too exausted to block the attack!"))
+		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
 	if((block_flags & BLOCKING_ACTIVE) && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return FALSE
@@ -684,7 +685,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = 0
 
 		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
-		else if(!I.damtype == BRUTE)
+		else if(I.damtype != BRUTE)
 			attackforce = (attackforce * 0.8)
 
 		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
@@ -758,18 +759,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)))
 
 	item_flags &= ~BEING_REMOVED
-	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	SEND_SIGNAL(user, COMSIG_MOB_DROPPED_ITEM, src, loc)
-	if(item_flags & SLOWS_WHILE_IN_HAND)
-		user?.update_equipment_speed_mods()
 	remove_outline()
 	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 	log_item(user, INVESTIGATE_VERB_DROPPED)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
-	user?.update_equipment_speed_mods()
 	user.refresh_self_screentips()
 
 	if(item_flags & DROPDEL && !QDELETED(src))
@@ -779,7 +776,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
-	item_flags |= PICKED_UP
 	if(item_flags & WAS_THROWN)
 		item_flags &= ~WAS_THROWN
 	if(verbs && user.client)
@@ -792,6 +788,32 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /**
+ * Returns the toolspeed for this item modified by it's users tool proficiency. If there is no user, it simply returns the toolspeed.
+ * * user the mob to check for tool proficiency
+ */
+/obj/item/proc/get_toolspeed(mob/user)
+	if(isliving(user))
+		var/mob/living/living_user = user
+		return toolspeed * living_user.tool_proficiency
+	return toolspeed
+
+/**
+ * Called after an item is placed in an equipment slot. Runs equipped(), then sends a signal.
+ * This should be called last or near-to-last, after all other inventory code stuff is handled.
+ *
+ * Arguments:
+ * * user is mob that equipped it
+ * * slot uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
+ * * initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+ */
+/obj/item/proc/on_equipped(mob/user, slot, initial = FALSE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	equipped(user, slot, initial)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_POST_EQUIPPED, user, slot) & COMPONENT_EQUIPPED_FAILED)
+		return FALSE
+	return TRUE
+
+/**
  * To be overwritten to only perform visual tasks;
  * this is directly called instead of `equipped` on visual-only features like human dummies equipping outfits.
  *
@@ -799,7 +821,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * polling ghosts while it's just being equipped as a visual preview for a dummy.
  */
 /obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
-	return
+	return TRUE
 
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
@@ -818,8 +840,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)), PROC_REF(update_slot_icon), override = TRUE)
 
-	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
-		user.update_equipment_speed_mods()
 	if(ismonkey(user)) //Only generate icons if we have to
 		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
@@ -829,7 +849,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == ITEM_SLOT_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
-	user.update_equipment_speed_mods()
 
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot
@@ -846,7 +865,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
-	if(slot == ITEM_SLOT_BACKPACK || slot == ITEM_SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there
+	if(!slot) // Equipped into storage
+		return FALSE
+	if(slot & (ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED)) // These aren't true slots, so avoid granting actions there
 		return FALSE
 	return TRUE
 
@@ -861,11 +882,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * * ignore_equipped ignores any already equipped items in that slot
  * * indirect_action allows inserting into "soft locked" bags, things that can be easily opened by the owner
  */
-/obj/item/proc/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+/obj/item/proc/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	if(!M)
 		return FALSE
 
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_equipped)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_equipped, indirect_action = indirect_action)
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
@@ -985,67 +1006,48 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/atom/location = master_storage.real_location?.resolve()
 	do_drop_animation(location)
 
-/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(QDELETED(hit_atom))
-		return
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum) & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
-		return
-
-	if(get_temperature() && isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		L.ignite_mob()
-	var/itempush = 1
+/obj/item/pre_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/impact_flags = ..()
 	if(w_class < WEIGHT_CLASS_NORMAL)
-		itempush = 0 //too light to push anything
-	if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
-		var/volume = get_volume_by_throwforce_and_or_w_class()
-		if (throwforce > 0)
-			if (mob_throw_hit_sound)
-				playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
-			else if(hitsound)
-				playsound(hit_atom, hitsound, volume, TRUE, -1)
-			else
-				playsound(hit_atom, 'sound/weapons/genhit.ogg',volume, TRUE, -1)
-		else
-			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
-	var/obj/item/modular_computer/comp
-	var/obj/item/computer_hardware/processor_unit/cpu
-	for(var/obj/item/modular_computer/M in contents)
-		cpu = M.all_components[MC_CPU]
-		if(cpu?.hacked)
-			comp = M
-		break
-	if(comp)
-		if(!cpu)
-			return
-		var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
-		var/turf/start = get_turf(src)
-		if(!comp.enabled)
-			new /obj/effect/particle_effect/sparks(start)
-			playsound(start, "sparks", 50, 1)
-			return
-		if(!target)
-			return
-		// The better the CPU the farther it goes, and the more battery it needs
-		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(start, "sparks", 50, 1)
-		playsound(target, "sparks", 50, 1)
-		do_dash(src, start, target, 0, TRUE)
-		comp.use_power((250 * cpu.max_idle_programs))
-	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
+		impact_flags |= COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH
+	if(!(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND) && get_temperature() && isliving(hit_atom))
+		var/mob/living/victim = hit_atom
+		victim.ignite_mob()
+	return impact_flags
 
+/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(.)
+		return
+	for(var/obj/item/modular_computer/computer in contents)
+		if(computer.hacked_throw_blink(src))
+			break
+	if(QDELETED(hit_atom) || !isliving(hit_atom))
+		return
+
+	var/volume = get_volume_by_throwforce_and_or_w_class()
+	if(!volume)
+		return
+	if (throwforce > 0)
+		if (mob_throw_hit_sound)
+			playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
+		else if(hitsound)
+			playsound(hit_atom, hitsound, volume, TRUE, -1)
+		else
+			playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+	else
+		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
-	thrownby = WEAKREF(thrower)
 	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
 		. = callback.Invoke()
-	item_flags &= ~PICKED_UP
+	item_flags &= ~IN_INVENTORY
 	if(!pixel_y && !pixel_x && !(item_flags & NO_PIXEL_RANDOM_DROP))
 		pixel_x = rand(-8,8)
 		pixel_y = rand(-8,8)
@@ -1264,7 +1266,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!delay && !tool_start_check(user, amount))
 		return
 
-	delay *= toolspeed
+	delay *= get_toolspeed(user)
 
 	// Play tool sound at the beginning of tool usage.
 	play_tool_sound(target, volume)
@@ -1328,19 +1330,26 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/get_part_rating()
 	return FALSE
 
+/**
+ * this proc override makes sure that even if DoUnEquip is not properly called through the appropriate channels,
+ * it'll still be called if we find that the item has the IN_INVENTORY flag.
+ *
+ * THIS IS BY NO MEAN AN EXCUSE TO KNOWINGLY AVOID CALLING THE RIGHT PROCS FOR INVENTORY MANAGEMENT,
+ * BUT A FALLBACK IN THE CASE WE MISTAKINGLY DON'T, TO MAKE SURE THINGS WORK AS INTENDED SINCE
+ * INVENTORY MANAGEMENT HAS A LOT MORE TO IT THAN JUST CALLING A PROC OR TWO MANUALLY.
+ */
 /obj/item/doMove(atom/destination)
-	if (ismob(loc))
-		var/mob/M = loc
-		var/hand_index = M.get_held_index_of_item(src)
-		if(hand_index)
-			M.held_items[hand_index] = null
-			M.update_held_items()
-			if(M.client)
-				M.client.screen -= src
-			layer = initial(layer)
-			plane = initial(plane)
-			dropped(M, FALSE)
-	return ..()
+	if (!(item_flags & IN_INVENTORY))
+		return ..()
+
+	if(!ismob(loc))
+		stack_trace("[src] had the IN_INVENTORY flag but the location was not a mob!")
+		item_flags &= ~IN_INVENTORY
+		return ..()
+
+	var/mob/owner = loc
+	// This should remove the IN_INVENTORY flag. Otherwise we'll end up having a loop
+	return owner.transferItemToLoc(src, destination, force = TRUE, silent = TRUE, animated = FALSE)
 
 /obj/item/proc/embedded(atom/embedded_target)
 
@@ -1518,7 +1527,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		/// victim's chest (for cavity implanting the item)
 		var/obj/item/bodypart/chest/victim_cavity = victim.get_bodypart(BODY_ZONE_CHEST)
 		if(victim_cavity.cavity_item)
-			victim.vomit(5, FALSE, FALSE, distance = 0)
+			victim.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM), lost_nutrition = 5, distance = 0)
 			forceMove(drop_location())
 			to_chat(victim, span_warning("You vomit up a [name]! [source_item? "Was that in \the [source_item]?" : ""]"))
 		else
@@ -1574,10 +1583,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
 	return
 
-/// Whether or not this item can be put into a storage item through attackby
-/obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
-	return TRUE
-
 /**
  * * Overridden to generate icons for monkey clothing
  */
@@ -1585,7 +1590,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
-/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
 	CRASH("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
 /**
@@ -1690,3 +1695,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return "<a href='byond://?src=\ref[src];examine=1'>[examine_name]</a>"
 		else
 			return "[examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+
+/**
+ * Returns the atom(either itself or an internal module) that will interact/attack the target on behalf of us
+ * For example an object can have different `tool_behaviours` (e.g borg omni tool) but will return an internal reference of that tool to attack for us
+ * You can use it for general purpose polymorphism if you need a proxy atom to interact in a specific way
+ * with a target on behalf on this atom
+ *
+ * Currently used only in the object melee attack chain but can be used anywhere else or even moved up to the atom level if required
+ */
+/obj/item/proc/get_proxy_attacker_for(atom/target, mob/user)
+	RETURN_TYPE(/obj/item)
+
+	return src

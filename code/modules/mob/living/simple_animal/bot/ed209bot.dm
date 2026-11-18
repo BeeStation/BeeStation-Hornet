@@ -160,7 +160,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/living/user, list/modifiers)
 	..()
 	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode) // Any intent but harm will heal, so we shouldn't get angry.
 		return
@@ -513,9 +513,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 /mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
-		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
-			var/mob/living/carbon/human/H = I.thrownby
-			retaliate(H)
+		var/mob/living/thrower = throwingdatum?.get_thrower()
+		if(I.throwforce < src.health && ishuman(thrower))
+			retaliate(thrower)
 	..()
 
 /mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
@@ -555,6 +555,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		return
 	if(!C.handcuffed)
 		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
-		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()

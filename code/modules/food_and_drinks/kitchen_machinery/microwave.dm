@@ -50,11 +50,12 @@
 	. = ..()
 
 /obj/machinery/microwave/RefreshParts()
+	. = ..()
 	efficiency = 0
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		efficiency += M.rating
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		max_n_of_items = 10 * M.rating
+	for(var/datum/stock_part/micro_laser/M in component_parts)
+		efficiency += M.tier
+	for(var/datum/stock_part/matter_bin/M in component_parts)
+		max_n_of_items = 10 * M.tier
 		break
 
 /obj/machinery/microwave/examine(mob/user)
@@ -178,7 +179,16 @@
 
 	return ..()
 
-/obj/machinery/microwave/attackby(obj/item/O, mob/living/user, params)
+/obj/machinery/microwave/wash(clean_types)
+	. = ..()
+	if(operating || !(clean_types & CLEAN_SCRUB))
+		return .
+
+	dirty = 0
+	update_icon()
+	. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+
+/obj/machinery/microwave/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(operating)
 		return
 	if(default_deconstruction_crowbar(O))
@@ -210,30 +220,6 @@
 			to_chat(user, span_warning("It's broken!"))
 			return TRUE
 		return
-
-	if(istype(O, /obj/item/reagent_containers/spray))
-		var/obj/item/reagent_containers/spray/clean_spray = O
-		if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
-			clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
-			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-			user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
-			dirty = 0
-			update_icon()
-		else
-			to_chat(user, span_warning("You need more space cleaner!"))
-		return TRUE
-
-	if(istype(O, /obj/item/soap) || istype(O, /obj/item/rag))
-		var/cleanspeed = 50
-		if(istype(O, /obj/item/soap))
-			var/obj/item/soap/used_soap = O
-			cleanspeed = used_soap.cleanspeed
-		user.visible_message("[user] starts to clean \the [src].", span_notice("You start to clean \the [src]..."))
-		if(do_after(user, cleanspeed, target = src))
-			user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
-			dirty = 0
-			update_icon()
-		return TRUE
 
 	if(dirty == 100) // The microwave is all dirty so can't be used!
 		to_chat(user, span_warning("\The [src] is dirty!"))
@@ -388,8 +374,14 @@
 				pre_success()
 		return
 	time--
-	use_power(500)
+	use_power(active_power_usage)
 	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
+
+/obj/machinery/microwave/power_change()
+	. = ..()
+	if((machine_stat & NOPOWER) && operating)
+		pre_fail()
+		eject()
 
 /obj/machinery/microwave/proc/loop_finish(mob/user)
 	operating = FALSE

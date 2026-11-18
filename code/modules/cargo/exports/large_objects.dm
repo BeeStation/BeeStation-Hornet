@@ -1,6 +1,26 @@
 /datum/export/large
 	abstract_type = /datum/export/large
 
+/datum/export/large/crate
+	unit_name = "crate"
+	export_types = list(
+		/obj/structure/closet/crate = TRUE,
+		/obj/structure/closet/crate/mail = FALSE,
+		// Craftable from a few iron sheets
+		/obj/structure/closet/crate/trashcart = FALSE,
+		/obj/structure/closet/crate/bin = FALSE,
+	)
+
+/datum/export/large/crate/get_cost(obj/structure/closet/crate/crate, allowed_categories = NONE)
+	if(crate.trade_flags & TRADE_NOT_SELLABLE)
+		return 0
+	return crate.custom_price
+
+/datum/export/large/crate/total_printout(datum/export_report/report, notes = TRUE) // That's why a goddamn metal crate costs that much.
+	. = ..()
+	if(. && notes)
+		. += " Thanks for participating in Nanotrasen Crates Recycling Program."
+
 /datum/export/large/reagent_dispenser
 	abstract_type = /datum/export/large/reagent_dispenser
 	cost = 100 // +0-400 depending on amount of reagents left

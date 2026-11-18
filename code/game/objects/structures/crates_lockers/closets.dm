@@ -279,6 +279,7 @@
 	update_appearance()
 	update_icon()
 	after_open(user, force)
+	SEND_SIGNAL(src, COMSIG_CLOSET_POST_OPEN, user, force)
 	return TRUE
 
 ///Proc to override for effects after opening a door
@@ -362,7 +363,7 @@
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		bust_open()
 
-/obj/structure/closet/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/attackby(obj/item/W, mob/user, list/modifiers)
 	if(user in src)
 		return
 	if(src.tool_interact(W,user))

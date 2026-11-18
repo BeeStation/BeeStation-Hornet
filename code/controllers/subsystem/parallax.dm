@@ -80,10 +80,14 @@ SUBSYSTEM_DEF(parallax)
 /datum/controller/subsystem/parallax/proc/on_mob_logout(mob/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(source, COMSIG_PARENT_MOVED_RELAY)
+	UnregisterSignal(source, COMSIG_MOVABLE_Z_CHANGED)
 	UnregisterSignal(source, COMSIG_MOB_LOGOUT)
 
-/datum/controller/subsystem/parallax/proc/on_mob_moved(mob/source, atom/parent, force)
+/datum/controller/subsystem/parallax/proc/on_mob_moved(mob/source, atom/movable/mover, force)
 	SIGNAL_HANDLER
+	// Diagonal moves update once from Move()
+	if(mover.moving_diagonally)
+		return
 	update_client_parallax(source.client)
 
 /datum/controller/subsystem/parallax/proc/on_mob_changed_z_level(mob/source, old_z, new_z)

@@ -16,6 +16,7 @@
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_OFFLINE
 
+	use_power = NO_POWER_USE
 	var/minimum_timer = 60
 	var/timer_set = 60
 	var/maximum_timer = 60000
@@ -122,7 +123,7 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH && can_unanchor)
 		if(!anchored)
 			if(!isturf(loc) || isspaceturf(loc))
@@ -217,7 +218,11 @@
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
-	notify_ghosts("\A [src] has been activated at [get_area(src)]!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Bomb Planted")
+	notify_ghosts(
+		"\A [src] has been activated at [get_area(src)]!",
+		source = src,
+		header = "Bomb Planted"
+	)
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
@@ -441,7 +446,7 @@
 		var/datum/reagents/reactants = new(time_release)
 		reactants.my_atom = src
 		for(var/obj/item/reagent_containers/RC in beakers)
-			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, 1, 1, 1)
+			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, no_react = TRUE)
 		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
 
 		// Detonate it again in one second, until it's out of juice.
@@ -476,7 +481,7 @@
 		qdel(loc)
 	qdel(src)
 
-/obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
+/obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR && beakers.len > 0)
 		I.play_tool_sound(src)
 		for (var/obj/item/B in beakers)

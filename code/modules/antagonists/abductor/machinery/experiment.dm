@@ -16,6 +16,8 @@
 	var/breakout_time = 450
 
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/target, mob/user)
+	if(..())
+		return
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
 		return
 	if(isabductor(target))

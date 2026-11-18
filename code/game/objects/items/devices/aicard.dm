@@ -28,7 +28,7 @@
 	user.visible_message(span_suicide("[user] is trying to upload [user.p_them()]self into [src]! That's not going to work out well!"))
 	return BRUTELOSS
 
-/obj/item/aicard/pre_attack(atom/target, mob/living/user, params)
+/obj/item/aicard/pre_attack(atom/target, mob/living/user, list/modifiers)
 	if(AI) //AI is on the card, implies user wants to upload it.
 		var/our_ai = AI
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)

@@ -31,7 +31,7 @@
 			if(user_unbuckle_mob(buckled_mobs[1],user))
 				return TRUE
 
-/atom/movable/attackby(obj/item/attacking_item, mob/user, params)
+/atom/movable/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!can_buckle || !istype(attacking_item, /obj/item/riding_offhand) || !user.Adjacent(src))
 		return ..()
 
@@ -57,9 +57,11 @@
 		else
 			return user_unbuckle_mob(buckled_mobs[1], user)
 
-/atom/movable/MouseDrop_T(mob/living/M, mob/living/user, params)
+/atom/movable/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
-	return mouse_buckle_handling(M, user)
+	if(.)
+		return
+	return mouse_buckle_handling(dropping, user)
 
 /**
   * Does some typechecks and then calls user_buckle_mob
@@ -122,7 +124,7 @@
 	M.set_buckled(src)
 	buckled_mobs |= M
 
-	M.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
+	M.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/buckled)
 	M.set_glide_size(glide_size)
 
 	M.Move(loc)
@@ -332,6 +334,8 @@
   * user - The mob unbuckling buckled_mob
   */
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(!(buckled_mob in buckled_mobs) || !buckled_mob.IsReachableBy(user))
+		return
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)

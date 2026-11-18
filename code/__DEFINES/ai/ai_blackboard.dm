@@ -20,6 +20,9 @@
 /// song lines blackboard, set by default on controllers
 #define BB_SONG_LINES "song_lines"
 
+/// hamster wheel, searched for by mice
+#define BB_HAMSTER_WHEEL "BB_HAMSTER_WHEEL"
+
 // Hunting BB keys
 
 ///key that holds our current hunting target

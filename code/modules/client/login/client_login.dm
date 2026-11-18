@@ -153,7 +153,7 @@
 			if(QDELETED(src))
 				return FALSE
 			// Retrieve cached antag token count
-			get_antag_token_count_db()
+			get_antag_token_count_db(ckey)
 			if(QDELETED(src))
 				return FALSE
 		else
@@ -413,7 +413,7 @@
 				else
 					new /datum/admins(autorank, ckey)
 	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin && is_localhost())
-		if(Debugger?.enabled)
+		if(Debugger?.enabled || CONFIG_GET(flag/mimic_debugger))
 			to_chat_immediate(src, span_userdanger("Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab."))
 		var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 		new /datum/admins(localhost_rank, ckey, 1, 1)

@@ -47,14 +47,15 @@
 		if(living_pawn.health < MONKEY_FLEE_HEALTH) //Time to skeddadle
 			controller.queue_behavior(/datum/ai_behavior/monkey_flee)
 			return SUBTREE_RETURN_FINISH_PLANNING //I'm running fuck you guys
+		controller.queue_behavior(/datum/ai_behavior/monkey_attack_mob, BB_MONKEY_CURRENT_ATTACK_TARGET) //What was i doing... oh yeah we hate this guy, kill his ass
 
 		if(controller.TryFindWeapon()) //Getting a weapon is higher priority if im not fleeing.
 			return SUBTREE_RETURN_FINISH_PLANNING
 
 		if(controller.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] < world.time)
 			controller.queue_behavior(/datum/ai_behavior/recruit_monkeys, BB_MONKEY_CURRENT_ATTACK_TARGET)
+			return
 		controller.queue_behavior(/datum/ai_behavior/battle_screech/monkey)
-		controller.queue_behavior(/datum/ai_behavior/monkey_attack_mob, BB_MONKEY_CURRENT_ATTACK_TARGET)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
 	//by this point we have a target but they're down, let's try dumpstering this loser

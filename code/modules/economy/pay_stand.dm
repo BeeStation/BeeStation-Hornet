@@ -11,7 +11,7 @@
 	var/signaler_threshold = 0 //signaler threshold amount
 	var/amount_deposited = 0 //keep track of the amount deposited over time so you can pay multiple times to reach the signaler threshold
 
-/obj/machinery/paystand/attackby(obj/item/W, mob/user, params)
+/obj/machinery/paystand/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/card/id))
 		if(W == my_card)
 			locked = !locked

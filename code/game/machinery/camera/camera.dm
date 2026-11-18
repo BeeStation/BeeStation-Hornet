@@ -4,8 +4,7 @@
 	icon = 'icons/obj/machines/camera.dmi'
 	icon_state = "camera" //mapping icon to represent upgrade states. if you want a different base icon, update default_camera_icon as well as this.
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 50 WATT
-	active_power_usage = 200 WATT
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.02
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
@@ -277,7 +276,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	return TRUE
 
-/obj/machinery/camera/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/camera/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	// UPGRADES
 	if(panel_open)
 		var/obj/structure/camera_assembly/assembly = assembly_ref?.resolve()

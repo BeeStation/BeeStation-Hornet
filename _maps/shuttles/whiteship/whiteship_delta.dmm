@@ -42,9 +42,7 @@
 	pixel_y = 16
 	},
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,

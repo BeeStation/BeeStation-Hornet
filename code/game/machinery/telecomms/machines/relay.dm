@@ -13,7 +13,7 @@
 	desc = "A mighty piece of hardware used to send massive amounts of data far away."
 	telecomms_type = /obj/machinery/telecomms/relay
 	density = TRUE
-	use_power = NO_POWER_USE // made only so they don't overheat in whatever places they usually are in (exploration shuttle, small rooms in multi-z maps etc.)
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.01
 	netspeed = 5
 	long_range_link = TRUE
 	circuit = /obj/item/circuitboard/machine/telecomms/relay
@@ -27,6 +27,8 @@
 	var/turf/T = get_turf(src)
 	if(can_send(signal) && T)
 		signal.levels |= T.get_virtual_z_level()
+
+	use_power(idle_power_usage)
 
 /**
  * Checks to see if the relay can send/receive the signal, by checking if it's
@@ -98,15 +100,15 @@
 	icon_state = "relay"
 	broadcasting = FALSE	//It only receives
 
-/obj/machinery/telecomms/relay/preset/reebe/attackby(obj/item/P, mob/user, params)
+/obj/machinery/telecomms/relay/preset/reebe/attackby(obj/item/P, mob/user, list/modifiers)
 	if(istype(P, /obj/item/encryptionkey) || P.tool_behaviour == TOOL_SCREWDRIVER)
 		if(GLOB.clockcult_eminence)
 			var/mob/living/simple_animal/eminence/eminence = GLOB.clockcult_eminence
 			var/obj/item/encryptionkey/E
 			for(var/i in E.channels)
 				E.channels[i] = 1
-			eminence.internal_radio.attackby(E, user, params)
-	. = ..()
+			eminence.internal_radio.attackby(E, user, modifiers)
+	return ..()
 
 // Generic preset relay
 /obj/machinery/telecomms/relay/preset/auto

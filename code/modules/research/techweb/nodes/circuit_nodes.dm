@@ -14,6 +14,7 @@
 		"comp_delay",
 		"comp_direction",
 		"comp_iterator",
+		"comp_isnull",
 		"comp_get_column",
 		"comp_get_name",
 		"comp_gps",
@@ -106,6 +107,7 @@
 	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_DATATHEORY)
 	design_ids = list(
 		"comp_append",
+		"comp_foreach",
 		"comp_index",
 		"comp_length",
 		"comp_list_constructor",
@@ -125,6 +127,7 @@
 	design_ids = list(
 		"assembly_shell",
 		"bot_shell",
+		"ipc_control",
 		//"comp_mod_action",
 		"controller_shell",
 		"door_shell",

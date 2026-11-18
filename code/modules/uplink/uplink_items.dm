@@ -1985,7 +1985,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/device_tools/potion
 	name = "Syndicate Sentience Potion"
-	item = /obj/item/slimepotion/slime/sentience/nuclear
+	item = /obj/item/slimepotion/sentience/nuclear
 	desc = "A potion recovered at great risk by undercover Syndicate operatives and then subsequently modified with Syndicate technology. \
 			Using it will make any animal sentient, and bound to serve you, as well as implanting an internal radio for communication and an internal ID card for opening doors."
 	cost = 4
@@ -2152,6 +2152,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 8
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
+
+/datum/uplink_item/race_restricted/blood_drive
+	name = "Blood Drive Upgrade"
+	desc = "We thought you might want to become a blood-fueled robot. \
+			This allows you to heal from the blood of your enemies. Consider sharpening! \
+			Does not come with a kit to install, though you can install it yourself if you have a operating table."
+	item = /obj/item/ipc_upgrade/blood_drive
+	cost = 12
+	surplus = 0
+	restricted_species = list(SPECIES_IPC)
 
 // Role-specific items
 /datum/uplink_item/role_restricted

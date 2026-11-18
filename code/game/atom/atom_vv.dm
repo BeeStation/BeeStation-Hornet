@@ -17,6 +17,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_IRRADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
+	VV_DROPDOWN_OPTION(VV_HK_TEST_MATRIXES, "Test Matrices")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify Armor")
 	if(greyscale_colors)
@@ -154,12 +155,13 @@
 		ai_controller = new result(src)
 
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
-		var/client/C = usr.client
-		C?.open_filter_editor(src)
+		usr.client?.open_filter_editor(src)
 
 	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
-		var/client/C = usr.client
-		C?.open_color_matrix_editor(src)
+		usr.client?.open_color_matrix_editor(src)
+
+	if(href_list[VV_HK_TEST_MATRIXES] && check_rights(R_VAREDIT))
+		usr.client?.open_matrix_tester(src)
 
 /atom/vv_get_header()
 	. = ..()
@@ -180,14 +182,24 @@
  */
 /atom/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if(NAMEOF(src, base_pixel_x))
-			set_base_pixel_x(var_value)
+		if(NAMEOF(src, light_range))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
 			. = TRUE
-		if(NAMEOF(src, base_pixel_y))
-			set_base_pixel_y(var_value)
+		if(NAMEOF(src, light_power))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
 			. = TRUE
-		if (NAMEOF(src, _emissive_count))
-			. = FALSE
+		if(NAMEOF(src, light_color))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			. = TRUE
 		if(NAMEOF(src, light_height))
 			if(light_system == STATIC_LIGHT)
 				set_light(l_height = var_value)
@@ -201,6 +213,20 @@
 		if(NAMEOF(src, light_flags))
 			set_light_flags(var_value)
 			. = TRUE
+		if(NAMEOF(src, smoothing_junction))
+			set_smoothed_icon_state(var_value)
+			. = TRUE
+		if(NAMEOF(src, opacity))
+			set_opacity(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+		if (NAMEOF(src, _emissive_count))
+			. = FALSE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED

@@ -85,11 +85,12 @@
 
 	eyeobj = new /mob/camera/ai_eye/remote/base_construction(get_turf(spawn_spot))
 	eyeobj.origin = src
+	eyeobj.eye_initialized = TRUE
 
 
-/obj/machinery/computer/camera_advanced/base_construction/attackby(obj/item/W, mob/user, params)
+/obj/machinery/computer/camera_advanced/base_construction/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/rcd_ammo) || istype(W, /obj/item/stack/sheet))
-		RCD.attackby(W, user, params) //If trying to feed the console more materials, pass it along to the RCD.
+		RCD.attackby(W, user, modifiers) //If trying to feed the console more materials, pass it along to the RCD.
 	else
 		return ..()
 

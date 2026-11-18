@@ -14,12 +14,11 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 
-/obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.combat_mode || (I.item_flags & ABSTRACT))
 		return ..()
 	if(move_inside && length(held_contents) >= max_contents)
 		return
-	var/list/modifiers = params2list(params)
 	var/atom/target = get_target()
 	///Move the item to our target, so we can work with it, like we're a table
 	if(user.transferItemToLoc(I, target, silent = FALSE))
@@ -82,7 +81,7 @@
 	build_path = /obj/machinery/xenoarchaeology_machine
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 5,
-		/obj/item/stock_parts/matter_bin = 1)
+		/datum/stock_part/matter_bin = 1)
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
@@ -231,9 +230,10 @@
 		deltimer(cooking_timer)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/RefreshParts()
+	. = ..()
 	//Should only be one, but I'm lazy and this seems safe
-	for(var/obj/item/stock_parts/manipulator/part in component_parts)
-		reward_rate = part.rating / 16
+	for(var/datum/stock_part/manipulator/part in component_parts)
+		reward_rate = part.tier / 16
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -269,6 +269,10 @@
 				say("No label detected!")
 				if(!artifact_component.calcified)
 					decision = tgui_alert(user, "Do you want to continue, this will destroy [atom_target]?", "Calcify Artifact", list("Yes", "No"))
+			else if(artifact_component?.calcified)
+				say("[atom_target] is calcified and can't be calibrated!")
+			else if(artifact_component?.calibrated)
+				say("[atom_target] is already calibrated!")
 			if(decision == "No")
 				//This stops us from spitting out stuff we shouldn't, mostly
 				if(atom_target in held_contents)
@@ -314,6 +318,8 @@
 	empty_contents(atom_target)
 	//If we're cooked
 	if(!solid_as)
+		if(locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents)
+			say("Calibration failed, the label doesn't match [atom_target]'s traits!")
 		artifact_component.calcify()
 		return
 	//Scoring & success
@@ -340,4 +346,4 @@
 	name = "anomalous material calibrator (Machine Board)"
 	icon_state = "science"
 	build_path = /obj/machinery/xenoarchaeology_machine/calibrator
-	req_components = list(/obj/item/stock_parts/matter_bin = 3, /obj/item/stock_parts/manipulator = 1)
+	req_components = list(/datum/stock_part/matter_bin = 3, /datum/stock_part/manipulator = 1)

@@ -1,4 +1,5 @@
 /datum/action/spell/aoe/repulse
+	abstract_type = /datum/action/spell/aoe/repulse
 	/// The max throw range of the repulsioon.
 	var/max_throw = 5
 	/// A visual effect to be spawned on people who are thrown away.

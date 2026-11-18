@@ -6,6 +6,8 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	slot_flags = ITEM_SLOT_ICLOTHING
 	armor_type = /datum/armor/clothing_under
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
+	bodyshapes_with_variations = BODYSHAPE_DIGITIGRADE
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	dying_key = DYE_REGISTRY_UNDER
@@ -63,17 +65,18 @@
 		accessory_overlay_under.layer = item_layer +  0.0001
 		. += accessory_overlay_under
 
-/obj/item/clothing/under/attackby(obj/item/attacking_item, mob/user, params)
-	if(has_sensor == BROKEN_SENSORS && istype(attacking_item, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/cable = attacking_item
+/obj/item/clothing/under/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(has_sensor == BROKEN_SENSORS && istype(tool, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/cable = tool
 		cable.use(1)
 		set_has_sensor(HAS_SENSORS)
 		to_chat(user, span_notice("You repair the suit sensors on [src] with [cable]."))
-		return TRUE
-	if(!attach_accessory(attacking_item, user))
-		return ..()
+		return ITEM_INTERACT_SUCCESS
+	if(istype(tool, /obj/item/clothing/accessory))
+		return attach_accessory(tool, user)
+	return ..()
 
-/obj/item/clothing/under/attack_hand_secondary(mob/user, params)
+/obj/item/clothing/under/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
@@ -163,6 +166,10 @@
 			current_pixel_y ++
 		. += accessory_appearance
 
+/obj/item/clothing/under/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	var/icon/legs = icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "jumpsuit_worn")
+	return replace_icon_legs(base_icon, legs)
+
 /obj/item/clothing/under/equipped(mob/user, slot)
 	. = ..()
 	if (slot & slot_flags)
@@ -230,23 +237,23 @@
 			set_sensor_mode(sensor_selection)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 
-/obj/item/clothing/under/proc/attach_accessory(obj/item/I, mob/user, notifyAttach = 1)
-	. = FALSE
-	if(istype(I, /obj/item/clothing/accessory))
-		var/obj/item/clothing/accessory/attached_accessory = I
-		if(!attached_accessory.can_attach_accessory(src, user, FALSE)) //Make sure the suit has a place to put the accessory.
-			return
-		if(user && !user.temporarilyRemoveItemFromInventory(I))
-			return
-		if(!attached_accessory.attach(src, user))
-			return
+/obj/item/clothing/under/proc/attach_accessory(obj/item/attaching_item, mob/user, notify_attach = TRUE)
+	if(!istype(attaching_item, /obj/item/clothing/accessory))
+		return NONE
 
-		if(user && notifyAttach)
-			to_chat(user, span_notice("You attach [I] to [src]."))
+	var/obj/item/clothing/accessory/attached_accessory = attaching_item
+	if(!attached_accessory.can_attach_accessory(src, user, FALSE)) //Make sure the suit has a place to put the accessory.
+		return ITEM_INTERACT_BLOCKING
+	if(user && !user.temporarilyRemoveItemFromInventory(attached_accessory))
+		return ITEM_INTERACT_BLOCKING
+	if(!attached_accessory.attach(src, user))
+		return ITEM_INTERACT_BLOCKING
 
-		update_accessory_overlays()
+	if(user && notify_attach)
+		to_chat(user, span_notice("You attach [attached_accessory] to [src]."))
 
-		return TRUE
+	update_accessory_overlays()
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/clothing/under/proc/update_accessory_overlays()
 	if (accessory_overlay_over)

@@ -10,9 +10,12 @@
 	buckle_lying = 90
 	buckle_dir = SOUTH
 	circuit = /obj/item/circuitboard/machine/stasis
-	idle_power_usage = 50
-	active_power_usage = 500
 	fair_market_price = 10
+	use_power = IDLE_POWER_USE
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 3
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+	// You cannot be *more* stasis'd, so power draw scales down
+	part_power_scaling = MACHINE_POWER_SCALES_DOWN
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0
@@ -20,7 +23,6 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
-// dir check for buckle_lying state
 /obj/machinery/stasis/Initialize(mapload)
 	. = ..()
 	initial_link()
@@ -81,7 +83,7 @@
 /obj/machinery/stasis/Exited(atom/movable/gone, direction)
 	if(gone == occupant)
 		var/mob/living/L = gone
-		if(IS_IN_STASIS(L))
+		if(HAS_TRAIT(L, TRAIT_STASIS))
 			thaw_them(L)
 	return ..()
 
@@ -160,9 +162,10 @@
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())
-		if(!IS_IN_STASIS(L_occupant))
+		if(!HAS_TRAIT(L_occupant, TRAIT_STASIS))
 			chill_out(L_occupant)
-	else if(IS_IN_STASIS(L_occupant))
+
+	else if(HAS_TRAIT(L_occupant, TRAIT_STASIS))
 		thaw_them(L_occupant)
 
 /obj/machinery/stasis/screwdriver_act(mob/living/user, obj/item/I)

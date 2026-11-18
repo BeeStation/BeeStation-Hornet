@@ -45,8 +45,13 @@
 		CR.dragon = dragon
 		dragon.rift_list += CR
 		to_chat(S, span_boldwarning("The rift has been summoned. Prevent the crew from destroying it at all costs!"))
-		notify_ghosts("The Space Dragon has opened a rift!", source = CR, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Carp Rift Opened")
-		qdel(src) // remove the action, a new one is granted if this rift charges or is destroyed
+		notify_ghosts(
+			"The Space Dragon has opened a rift!",
+			source = CR,
+			header = "Carp Rift Opened",
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
+		qdel(src) // remove the action, a new on e is granted if this rift charges or is destroyed
 
 /**
   * # Carp Rift
@@ -95,6 +100,15 @@
 
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
+
+	AddComponent( \
+		/datum/component/aura_healing, \
+		range = 1, \
+		simple_heal = 5, \
+		limit_to_trait = TRAIT_HEALS_FROM_CARP_RIFTS, \
+		healing_color = COLOR_BLUE, \
+	)
+
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/carp_rift/examine(mob/user)
@@ -121,12 +135,6 @@
 	return ..()
 
 /obj/structure/carp_rift/process(delta_time)
-	// Heal carp around us
-	for(var/mob/living/simple_animal/hostile/hostilehere in range(1))
-		if("carp" in hostilehere.faction)
-			hostilehere.adjustHealth(-10)
-			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(hostilehere))
-			H.color = COLOR_BLUE
 
 	// If we're fully charged, just start mass spawning carp and move around.
 	if(charge_state == CHARGE_COMPLETED)
@@ -167,7 +175,12 @@
 		if(light_color != LIGHT_COLOR_PURPLE)
 			set_light_color(LIGHT_COLOR_PURPLE)
 			update_light()
-		notify_ghosts("The carp rift can summon an additional carp!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Carp Spawn Available")
+		notify_ghosts(
+			"The carp rift can summon an additional carp!",
+			source = src,
+			header = "Carp Spawn Available",
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 		last_carp_inc -= carp_interval
 
 	// Is the rift now fully charged?
@@ -233,6 +246,8 @@
 		ckey_list += user.ckey
 	newcarp.key = user.key
 	newcarp.unique_name = TRUE
+	var/datum/antagonist/space_carp/carp_antag = new(src)
+	newcarp.mind.add_antag_datum(carp_antag)
 	dragon.carp += newcarp.mind
 	to_chat(newcarp, span_boldwarning("You have arrived in order to assist the space dragon with securing the rifts. Do not jeopardize the mission, and protect the rifts at all costs!"))
 	carp_stored--

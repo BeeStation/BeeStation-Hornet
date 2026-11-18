@@ -210,7 +210,7 @@
 				borg.notify_ai(AI_NOTIFICATION_CYBORG_DISCONNECTED)
 				if(borg.shell)
 					borg.undeploy()
-				borg.connected_ai = newai
+				borg.set_connected_ai(newai)
 				borg.notify_ai(TRUE)
 				message_admins("[key_name_admin(user)] slaved [ADMIN_LOOKUPFLW(borg)] to the AI [ADMIN_LOOKUPFLW(newai)].")
 				log_admin("[key_name(user)] slaved [key_name(borg)] to the AI [key_name(newai)].")
@@ -218,7 +218,7 @@
 				borg.notify_ai(AI_NOTIFICATION_CYBORG_DISCONNECTED)
 				if(borg.shell)
 					borg.undeploy()
-				borg.connected_ai = null
+				borg.set_connected_ai(null)
 				message_admins("[key_name_admin(user)] freed [ADMIN_LOOKUPFLW(borg)] from being slaved to an AI.")
 				log_admin("[key_name(user)] freed [key_name(borg)] from being slaved to an AI.")
 			if (borg.lawupdate)

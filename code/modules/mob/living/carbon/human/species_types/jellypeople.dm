@@ -77,14 +77,13 @@
 	bodies = old_species.bodies
 
 /datum/species/oozeling/slime/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 		if(prob(5))
 			to_chat(H, span_notice("You feel very bloated!"))
 	else if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 		H.blood_volume += 3
 		H.adjust_nutrition(-2.5)
-
-	..()
 
 /datum/action/innate/split_body
 	name = "Split Body"
@@ -137,10 +136,11 @@
 
 	spare.underwear = "Nude"
 	H.dna.transfer_identity(spare, transfer_SE=1)
-	spare.dna.features["mcolor"] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
+	spare.dna.features[FEATURE_MUTANT_COLOR] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
 	spare.updateappearance(mutcolor_update=1)
+	spare.gender = H.gender
 	spare.domutcheck()
 	spare.Move(get_step(H.loc, pick(NORTH,SOUTH,EAST,WEST)))
 
@@ -209,7 +209,7 @@
 
 		var/list/L = list()
 		// HTML colors need a # prefix
-		L["htmlcolor"] = body.dna.features["mcolor"]
+		L["htmlcolor"] = body.dna.features[FEATURE_MUTANT_COLOR]
 		L["area"] = get_area_name(body, TRUE)
 		var/stat = "error"
 		switch(body.stat)
@@ -371,7 +371,7 @@
 /datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/human/glowie, intensity)
 	if(intensity)
 		glow_intensity = intensity
-	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features["mcolor"])
+	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features[FEATURE_MUTANT_COLOR])
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"

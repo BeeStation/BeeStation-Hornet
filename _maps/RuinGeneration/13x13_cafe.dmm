@@ -48,9 +48,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered)
 "o" = (
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -58,7 +56,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered)
 "p" = (
-/obj/effect/spawner/structure/window/shutter,
+/obj/machinery/door/poddoor/shutters/window,
 /turf/open/floor/plating,
 /area/ruin/powered)
 "q" = (

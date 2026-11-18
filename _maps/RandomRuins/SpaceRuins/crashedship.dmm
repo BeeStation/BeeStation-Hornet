@@ -1477,9 +1477,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/BMPship/Aft)
 "Qh" = (
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/iron/cafeteria{
 	dir = 2
 	},

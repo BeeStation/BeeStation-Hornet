@@ -21,10 +21,13 @@
 	log_game("A pyroclastic anomaly has detonated at [AREACOORD(loc)].")
 	message_admins("A pyroclastic anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
 	var/new_colour = pick(SLIME_TYPE_ORANGE, SLIME_TYPE_RED)
-	var/mob/living/simple_animal/slime/S = new(our_turf, new_colour)
-	S.rabid = TRUE
-	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
-	S.Evolve()
-	S.flavor_text = FLAVOR_TEXT_EVIL
-	S.transformeffects = SLIME_EFFECT_LIGHT_PINK
-	S.set_playable_slime(ROLE_PYRO_SLIME)
+	var/mob/living/simple_animal/slime/pyro = new(our_turf, new_colour)
+	pyro.rabid = TRUE
+	pyro.amount_grown = SLIME_EVOLUTION_THRESHOLD
+	pyro.Evolve()
+	pyro.flavor_text = FLAVOR_TEXT_EVIL
+	pyro.transformeffects = SLIME_EFFECT_LIGHT_PINK
+	pyro.set_playable_slime(ROLE_PYROCLASTIC_SLIME)
+	pyro.mind.special_role = ROLE_PYROCLASTIC_SLIME
+	pyro.mind.add_antag_datum(/datum/antagonist/pyro_slime)
+	pyro.log_message("was made into a slime by pyroclastic anomaly", LOG_GAME)

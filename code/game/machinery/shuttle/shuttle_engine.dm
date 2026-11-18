@@ -125,7 +125,7 @@
 	env.temperature = env.return_temperature() + deltaTemperature
 	air_update_turf(FALSE, FALSE)
 
-/obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, list/modifiers)
 	check_setup()
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
 		return

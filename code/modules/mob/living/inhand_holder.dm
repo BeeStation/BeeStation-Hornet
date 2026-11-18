@@ -95,6 +95,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/mob_holder)
 			qdel(src)
 		return FALSE
 	var/mob/living/released_mob = held_mob
+	held_mob = null
 	if(isliving(loc))
 		var/mob/living/captor = loc
 		if(display_messages)

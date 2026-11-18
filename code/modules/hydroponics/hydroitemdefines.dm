@@ -138,7 +138,7 @@
 			playsound(src,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
 	return BRUTELOSS
 
-/obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
+/obj/item/scythe/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
 		return ..()
 	var/turf/user_turf = get_turf(user)

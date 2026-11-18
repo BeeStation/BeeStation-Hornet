@@ -74,6 +74,7 @@
 
 //Base energy weapon type
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
+	abstract_type = /obj/item/mecha_parts/mecha_equipment/weapon/energy
 	name = "general energy weapon"
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
@@ -220,6 +221,7 @@
 
 //Base ballistic weapon type
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
+	abstract_type = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	name = "general ballistic weapon"
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	var/projectiles
@@ -360,6 +362,7 @@
 	ammo_type = MECHA_AMMO_MISSILE_PEP
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher
+	abstract_type = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher
 	var/missile_speed = 2
 	var/missile_range = 30
 	var/diags_first = FALSE

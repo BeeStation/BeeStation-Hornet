@@ -28,6 +28,7 @@
 		/obj/item/clothing/head/soft/sec = 3,
 		/obj/item/clothing/mask/bandana/striped/security = 3,
 		/obj/item/clothing/mask/gas/sechailer = 6,
+		/obj/item/clothing/mask/balaclava = 3,
 		/obj/item/clothing/under/rank/security/officer/skirt = 3,
 		/obj/item/clothing/under/rank/security/officer/white = 3,
 		/obj/item/clothing/under/rank/security/officer/grey = 3,
@@ -39,6 +40,7 @@
 	contraband = list(
 		/obj/item/clothing/suit/hooded/wintercoat/security/old = 3,
 		/obj/item/storage/backpack/security_borg_bag = 3,
+		/obj/item/clothing/mask/balaclava/russian_balaclava = 3,
 	)
 	premium = list(
 		/obj/item/clothing/under/rank/security/officer/formal = 3,

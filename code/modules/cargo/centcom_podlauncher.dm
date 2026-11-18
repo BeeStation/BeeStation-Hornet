@@ -399,15 +399,23 @@
 		if("effectTarget") //Toggle: Launch at a specific mob (instead of at whatever turf you click on). Used for the supplypod smite
 			if (specificTarget)
 				specificTarget = null
-			else
-				var/list/mobs = getpois()//code stolen from observer.dm
-				var/inputTarget = input("Select a mob! (Smiting does this automatically)", "Target", null, null) as null|anything in mobs
-				if (isnull(inputTarget))
-					return
-				var/mob/target = mobs[inputTarget]
-				specificTarget = target///input specific tartget
-			. = TRUE
+				return
 
+			var/list/possible_destinations = SSpoints_of_interest.get_mob_pois()
+			var/target = input("Select a mob! (Smiting does this automatically)", "Target", null, null) as null|anything in possible_destinations
+
+			if (isnull(target))
+				return
+
+			var/mob/mob_target = possible_destinations[target]
+
+			// During the break between opening the input menu and selecting our target, has this become an invalid option?
+			if(!SSpoints_of_interest.is_valid_poi(mob_target))
+				return
+
+			specificTarget = mob_target
+
+			. = TRUE
 		////////////////////////////TIMER DELAYS//////////////////
 		if("editTiming") //Change the different timers relating to the pod
 			var/delay = params["timer"]
@@ -570,7 +578,7 @@
 		owner_client.click_intercept = null
 		owner_client_mob?.update_mouse_pointer() //set the moues icons to null, then call update_mouse_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
-/datum/centcom_podlauncher/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+/datum/centcom_podlauncher/proc/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
 	_intercept_click_on(user, params, target)
 
 /datum/centcom_podlauncher/proc/_intercept_click_on(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks

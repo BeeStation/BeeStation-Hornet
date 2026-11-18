@@ -6,8 +6,8 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarmp"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 0.2 KILOWATT
-	active_power_usage = 0.5 KILOWATT
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.02
 	power_channel = AREA_USAGE_ENVIRON
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 250
@@ -518,7 +518,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			var/threshold_type = params["threshold_type"]
 			var/value = params["value"]
 			tlv.set_value(threshold_type, value)
-			investigate_log("threshold value for [threshold]:[threshold_type] was set to [value] by [key_name(user)]", INVESTIGATE_ATMOS)
+			investigate_log("threshold value for [threshold]:[threshold_type] was set to [html_encode(value)] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 			check_enviroment()
 

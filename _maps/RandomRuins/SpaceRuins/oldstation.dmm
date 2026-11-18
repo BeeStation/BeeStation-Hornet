@@ -34,7 +34,9 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/ancientstation/delta/ai)
 "aj" = (
-/obj/machinery/door/airlock/command,
+/obj/machinery/door/airlock/command{
+	name = "Primary Hallway"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
@@ -130,6 +132,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/neck/link_scryer/loaded/charlie,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/bridge)
 "aS" = (
@@ -224,7 +227,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/bridge)
 "bo" = (
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Science Storage"
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/ancientstation/delta/ai)
 "bq" = (
@@ -424,7 +429,9 @@
 /area/ruin/space/ancientstation/beta/mining)
 "cj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/command,
+/obj/machinery/door/airlock/command{
+	name = "Primary Hallway"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -527,7 +534,9 @@
 /area/ruin/space/ancientstation/delta/hall)
 "cB" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Science Wing"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
@@ -622,7 +631,9 @@
 /area/ruin/space/ancientstation/delta/ai)
 "da" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Science Wing"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
@@ -660,7 +671,9 @@
 /turf/open/floor/plating,
 /area/ruin/space/ancientstation/delta/hall)
 "dj" = (
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "Mining External Access"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 6
 	},
@@ -825,7 +838,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/sec)
 "dV" = (
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Science Wing"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -904,7 +919,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/public,
+/obj/machinery/door/airlock/public{
+	name = "Hydroponics"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/hydro)
@@ -1217,7 +1234,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/engie)
 "fG" = (
-/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering"
+	},
 /obj/machinery/door/poddoor{
 	id = "ancient"
 	},
@@ -1243,7 +1262,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/hall)
 "fK" = (
-/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security"
+	},
 /obj/machinery/door/poddoor{
 	id = "ancient"
 	},
@@ -2330,6 +2351,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/decoration/glowstick,
+/obj/item/clothing/neck/link_scryer/loaded/charlie,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/dorms)
 "kP" = (
@@ -2776,7 +2798,9 @@
 /turf/closed/wall,
 /area/ruin/space/ancientstation/beta/mining)
 "mP" = (
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "Engineering External Access"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/away/general,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/ancientstation/beta/supermatter)
@@ -2936,7 +2960,9 @@
 /area/ruin/space/ancientstation/beta/medbay)
 "nI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Research and Development"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/closed,
 /turf/open/floor/iron,
@@ -3002,7 +3028,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/delta/rnd)
 "oc" = (
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Science Wing"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/closed,
@@ -3360,7 +3388,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/bridge)
 "qx" = (
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "Engineering External Access"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 10
 	},
@@ -3396,7 +3426,9 @@
 /area/ruin/space/ancientstation/delta/hall)
 "qQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "Engineering External Access"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/away/general,
 /obj/structure/cable,
 /turf/open/floor/iron/dark/airless,
@@ -3784,7 +3816,9 @@
 /area/ruin/space/ancientstation/beta/gravity)
 "tS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Science Storage"
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/alien/weeds,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
@@ -3996,7 +4030,9 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ancientstation/beta/supermatter)
 "vl" = (
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Science Storage"
+	},
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/xenoblood/xtracks,
 /obj/effect/decal/cleanable/blood/tracks,
@@ -4011,9 +4047,11 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/public,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable/yellow,
+/obj/machinery/door/airlock/public{
+	name = "Hydroponics"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/hydro)
 "vq" = (
@@ -4443,7 +4481,9 @@
 /turf/closed/wall/rust,
 /area/ruin/space/ancientstation/delta/biolab)
 "yu" = (
-/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering"
+	},
 /obj/machinery/door/poddoor{
 	id = "ancient"
 	},
@@ -4475,7 +4515,9 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/ruin/space/solars/ancientstation/charlie/solars)
 "yG" = (
-/obj/machinery/door/airlock/science/glass,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry"
+	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -4819,7 +4861,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/beta/mining)
 "Bb" = (
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Science Storage"
+	},
 /obj/structure/alien/weeds,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
 	cycle_id = "oldstation-aisat"
@@ -4930,7 +4974,9 @@
 /turf/open/floor/engine/airless,
 /area/ruin/space/ancientstation/beta/supermatter)
 "BR" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/west{
+	pixel_x = 2
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/space/ancientstation/delta/biolab)
 "BS" = (
@@ -4964,7 +5010,9 @@
 /turf/closed/wall/rust,
 /area/ruin/space/ancientstation/beta/medbay)
 "Cl" = (
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Science Wing"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/closed,
@@ -5156,7 +5204,9 @@
 /area/ruin/space/ancientstation/charlie/dorms)
 "DI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Science Storage"
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks,
@@ -5867,7 +5917,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/hydro)
 "IC" = (
-/obj/machinery/door/airlock/science/glass,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry"
+	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -6028,7 +6080,9 @@
 /turf/open/floor/iron/white/textured,
 /area/ruin/space/ancientstation/delta/biolab)
 "JF" = (
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Research and Development"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/closed,
@@ -6292,7 +6346,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/delta/hall)
 "Le" = (
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Science Wing"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/closed,
@@ -6521,6 +6577,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/decoration/glowstick,
 /obj/structure/mirror/directional/west,
+/obj/item/clothing/neck/link_scryer/loaded/charlie,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/dorms)
 "Mu" = (
@@ -6938,7 +6995,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/sec)
 "Po" = (
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "External Access"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/away/general,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/ancientstation/delta/hall)
@@ -6964,6 +7023,12 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/ruin/space/ancientstation/delta/proto)
+"Pv" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "AI Chamber"
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/space/ancientstation/delta/ai)
 "Pw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass/plasma,
@@ -6992,7 +7057,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/delta/hall)
 "PC" = (
-/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security"
+	},
 /obj/machinery/door/poddoor{
 	id = "ancient"
 	},
@@ -7069,7 +7136,9 @@
 /turf/open/floor/engine/airless,
 /area/ruin/space/ancientstation/beta/supermatter)
 "Ql" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	name = "Bathroom"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 6
 	},
@@ -7533,7 +7602,9 @@
 /turf/open/floor/iron/white/textured,
 /area/ruin/space/ancientstation/delta/proto)
 "TI" = (
-/obj/machinery/door/airlock/science,
+/obj/machinery/door/airlock/science{
+	name = "Science Wing"
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/closed,
@@ -7581,7 +7652,9 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/ruin/space/solars/ancientstation/charlie/solars)
 "Ui" = (
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "External Access"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/dark,
@@ -7791,7 +7864,9 @@
 /turf/open/floor/engine/airless,
 /area/ruin/space/ancientstation/beta/supermatter)
 "VU" = (
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "Mining External Access"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/away/general,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/ancientstation/beta/mining)
@@ -7804,7 +7879,9 @@
 /area/ruin/space/ancientstation/delta/biolab)
 "Wa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/external/glass/ruin,
+/obj/machinery/door/airlock/external/glass/ruin{
+	name = "Engineering External Access"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 6
 	},
@@ -14855,7 +14932,7 @@ ad
 ad
 ad
 ad
-bo
+Pv
 ad
 ad
 ad

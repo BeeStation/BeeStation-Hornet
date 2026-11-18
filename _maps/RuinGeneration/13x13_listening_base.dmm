@@ -354,9 +354,7 @@
 /obj/structure/toilet{
 	pixel_y = 18
 	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/listeningstation)

@@ -176,8 +176,7 @@
 		/obj/effect/gibspawner/human = 1,
 		/obj/item/organ/wings = 1,
 		/obj/item/organ/wings/moth = 1,
-		/obj/item/organ/wings/bee = 1,
-		/obj/item/organ/wings/dragon/fake = 1
+		/obj/item/organ/wings/bee = 1
 	)
 
 /obj/effect/spawner/random/medical/teratoma/major
@@ -189,7 +188,7 @@
 		/obj/item/organ/eyes/night_vision = 1,
 		/obj/item/organ/liver/plasmaman = 3,
 		/obj/item/organ/liver/alien = 3,
-		/obj/item/organ/stomach/plasmaman = 3,
+		/obj/item/organ/stomach/bone/plasmaman = 3,
 		/obj/item/organ/lungs/plasmaman = 3,
 		/obj/item/organ/lungs/slime = 3,
 		/obj/item/organ/tongue/abductor = 1,
@@ -224,15 +223,10 @@
 		/obj/item/organ/eyes/robotic/flashlight = 1,
 		/obj/item/organ/eyes/night_vision = 1,
 		/obj/item/organ/liver/cybernetic = 4,
-		/obj/item/organ/liver/cybernetic/upgraded/ipc = 3,
+		/obj/item/organ/liver/cybernetic/tier2/ipc = 3,
 		/obj/item/organ/lungs/cybernetic = 4,
 		/obj/item/organ/lungs/cybernetic/upgraded= 2,
-		/obj/item/organ/stomach/battery/ipc = 4,
-		/obj/item/organ/heart/clockwork = 6,
-		/obj/item/organ/stomach/clockwork = 6,
-		/obj/item/organ/liver/clockwork = 6,
-		/obj/item/organ/lungs/clockwork = 6,
-		/obj/item/organ/tail/clockwork = 6,
+		/obj/item/organ/stomach/electrical/ipc = 4,
 		/obj/item/organ/adamantine_resonator = 1,
 		/obj/item/organ/eyes/robotic/thermals = 2,
 		/obj/item/organ/heart/gland/viral = 1,
@@ -240,7 +234,6 @@
 		/obj/item/organ/eyes/robotic/glow = 2,
 		/obj/item/organ/heart/cybernetic = 2,
 		/obj/item/organ/wings/cybernetic = 2,
-		/obj/item/organ/tongue/robot/clockwork/better = 2,
 		/obj/effect/gibspawner/robot = 4,
 		/obj/effect/mob_spawn/drone = 1,
 		)

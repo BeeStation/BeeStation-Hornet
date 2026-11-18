@@ -104,7 +104,7 @@
 	// So he can't jump out the gate right away.
 	new_borg.SetLockdown()
 	if(master_ai && new_borg.connected_ai != master_ai)
-		new_borg.connected_ai = master_ai
+		new_borg.set_connected_ai(master_ai)
 		new_borg.lawsync()
 		new_borg.lawupdate = TRUE
 	addtimer(CALLBACK(src, PROC_REF(unlock_new_robot), new_borg), 5 SECONDS)

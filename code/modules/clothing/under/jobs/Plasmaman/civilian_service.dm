@@ -41,7 +41,7 @@
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return 0
 
-/obj/item/clothing/under/plasmaman/attackby(obj/item/E, mob/user, params)
+/obj/item/clothing/under/plasmaman/attackby(obj/item/E, mob/user, list/modifiers)
 	..()
 	if (istype(E, /obj/item/extinguisher_refill))
 		if (extinguishes_left == 5)

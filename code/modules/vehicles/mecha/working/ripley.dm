@@ -166,7 +166,7 @@
 	cell = new /obj/item/stock_parts/cell/high(src)
 	//No scanmod for Big Bess
 	capacitor = new /obj/item/stock_parts/capacitor(src)
-	servo = new /obj/item/stock_parts/manipulator(src)
+	manipulator = new /obj/item/stock_parts/manipulator(src)
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/ripley/Exit(atom/movable/O)
@@ -250,3 +250,5 @@
 		movedelay = slow_pressure_step_in
 		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in flat_equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)
+	if(overclock_mode)
+		movedelay /= overclock_coeff

@@ -229,7 +229,7 @@
 			mark(M, user)
 
 
-/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(flag)
 		return
@@ -310,7 +310,7 @@
 		icon_state = "mind_device_message"
 	to_chat(user, span_notice("You switch the device to [mode==MIND_DEVICE_MESSAGE? "TRANSMISSION": "COMMAND"] MODE"))
 
-/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(!ScientistCheck(user))
 		return
@@ -604,7 +604,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			if(do_after(user, time_to_cuff, C) && C.canBeHandcuffed())
 				if(!C.handcuffed)
 					C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
-					C.update_handcuffed()
 					to_chat(user, span_notice("You restrain [C]."))
 					log_combat(user, C, "handcuffed")
 			else
@@ -706,7 +705,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 // Stops humans from disassembling abductor headsets.
 /obj/item/radio/headset/abductor/screwdriver_act(mob/living/user, obj/item/tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/abductor_machine_beacon
 	name = "machine beacon"
@@ -820,7 +819,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You start disassembling [src]..."))
 		I.play_tool_sound(src)

@@ -112,10 +112,7 @@
 		src.display_name_chat = found_client.display_name_chat()
 	martial_art = default_martial_art
 	setup_soul_glimmer()
-	// A fast client (or local one) can reach here before Master detached init reaches SSdepartment,
-	// making get_job_type() return null. Hold this until we can assign unassigned. Twin of /datum/controller/subsystem/job/proc/setup_occupations() gate
-	UNTIL(SSdepartment.initialized)
-	set_assigned_role(SSjob.get_job_type(/datum/job/unassigned)) // Unassigned by default.
+	set_unassigned_job_after_deparatment_init()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -133,6 +130,14 @@
 		datum_flags |= DF_VAR_EDITED
 		return
 	return ..()
+
+/// A fast client (or local one) can reach here before Master detached init reaches SSdepartment,
+/// making get_job_type() return null. Hold this until we can assign unassigned. Twin of /datum/controller/subsystem/job/proc/setup_occupations() gate
+/datum/mind/proc/set_unassigned_job_after_deparatment_init()
+	set waitfor = FALSE
+	PRIVATE_PROC(TRUE)
+	UNTIL(SSdepartment.initialized)
+	set_assigned_role(SSjob.get_job_type(/datum/job/unassigned)) // Unassigned by default.
 
 /datum/mind/proc/set_current(mob/new_current)
 	if(new_current && QDELING(new_current))
@@ -570,7 +575,7 @@
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
 				if (istype(R))
-					R.SetEmagged(0)
+					R.SetEmagged(FALSE)
 					message_admins("[key_name_admin(usr)] has unemag'ed [R].")
 					log_admin("[key_name(usr)] has unemag'ed [R].")
 
@@ -578,7 +583,7 @@
 				if(isAI(current))
 					var/mob/living/silicon/ai/ai = current
 					for (var/mob/living/silicon/robot/R in ai.connected_robots)
-						R.SetEmagged(0)
+						R.SetEmagged(FALSE)
 					message_admins("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
 					log_admin("[key_name(usr)] has unemag'ed [ai]'s Cyborgs.")
 
@@ -713,15 +718,19 @@
 
 ///Adds addiction points to the specified addiction
 /datum/mind/proc/add_addiction_points(type, amount)
+	var/last_amount = LAZYACCESS(addiction_points, type) || 0
 	LAZYSET(addiction_points, type, min(LAZYACCESS(addiction_points, type) + amount, MAX_ADDICTION_POINTS))
-	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
-	return affected_addiction.on_gain_addiction_points(src)
+	var/new_amount = LAZYACCESS(addiction_points, type)
+	return GLOB.addictions[type].on_gain_addiction_points(src, new_amount, last_amount)
 
 ///Adds addiction points to the specified addiction
 /datum/mind/proc/remove_addiction_points(type, amount)
+	var/last_amount = LAZYACCESS(addiction_points, type) || 0
 	LAZYSET(addiction_points, type, max(LAZYACCESS(addiction_points, type) - amount, 0))
-	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
-	return affected_addiction.on_lose_addiction_points(src)
+	var/new_amount = LAZYACCESS(addiction_points, type)
+	if(new_amount <= 0)
+		LAZYREMOVE(addiction_points, type)
+	return GLOB.addictions[type].on_lose_addiction_points(src, new_amount, last_amount)
 
 /// Setter for the assigned_role job datum.
 /datum/mind/proc/set_assigned_role(datum/job/new_role)

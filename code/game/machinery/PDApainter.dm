@@ -110,9 +110,9 @@
 	. = ..()
 	if(default_unfasten_wrench(user, tool))
 		power_change()
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
-/obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, params)
+/obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(istype(O, /obj/item/modular_computer/tablet/pda))
 		if(stored_pda)
 			to_chat(user, span_warning("There is already a PDA inside!"))
@@ -198,7 +198,7 @@
 				stored_id_card.hud_state = get_hud_by_jobname(newidskin)
 
 				// QoL to correct the system behavior
-				GLOB.manifest.modify(stored_id_card.registered_name, stored_id_card.assignment, stored_id_card.hud_state) // update crew manifest
+				stored_id_card.sync_manifest() // update crew manifest
 				// There are the same code lines in `card.dm`
 				eject_id_card(user)
 		else

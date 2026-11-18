@@ -4,7 +4,7 @@
 	max_slots = 30
 	allow_big_nesting = TRUE
 
-/datum/storage/bag_of_holding/attempt_insert(obj/item/to_insert, mob/user, override, force)
+/datum/storage/bag_of_holding/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = FALSE, messages = TRUE)
 	var/obj/item/resolve_parent = parent?.resolve()
 	if(!resolve_parent)
 		return

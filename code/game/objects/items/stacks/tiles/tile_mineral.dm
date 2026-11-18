@@ -2,7 +2,7 @@
 	/// Determines what stack is gotten out of us when welded.
 	var/mineralType = null
 
-/obj/item/stack/tile/mineral/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/tile/mineral/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 4)
 			to_chat(user, span_warning("You need at least four tiles to do this!"))
@@ -274,7 +274,13 @@
 		/obj/item/stack/tile/mineral/bronze,
 		/obj/item/stack/tile/mineral/bronze/flat,
 		/obj/item/stack/tile/mineral/bronze/filled,
-		)
+	)
+
+/obj/item/stack/tile/mineral/bronze/ten
+	amount = 10
+
+/obj/item/stack/tile/mineral/bronze/twenty
+	amount = 20
 
 /obj/item/stack/tile/mineral/bronze/flat
 	name = "flat bronze tile"

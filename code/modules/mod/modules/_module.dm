@@ -151,7 +151,7 @@
 		//specifically a to_chat because the user is phased out.
 		to_chat(mod.wearer, span_warning("You cannot activate this right now."))
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	if(module_type == MODULE_ACTIVE)
 		if(mod.selected_module && !mod.selected_module.deactivate(display_message = FALSE))
@@ -191,7 +191,7 @@
 			UnregisterSignal(mod.wearer, used_signal)
 			used_signal = null
 	mod.wearer.update_clothing(mod.slot_flags)
-	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED)
+	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED, mod.wearer)
 	on_deactivation(display_message = TRUE, deleting = FALSE)
 	return TRUE
 
@@ -206,7 +206,7 @@
 		//specifically a to_chat because the user is phased out.
 		to_chat(mod.wearer, span_warning("You cannot activate this right now."))
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	start_cooldown()
 	mod.wearer.update_clothing(mod.slot_flags)
@@ -226,7 +226,7 @@
 /// Called when an activated module without a device is active and the user alt/middle-clicks
 /obj/item/mod/module/proc/on_special_click(mob/source, atom/target)
 	SIGNAL_HANDLER
-	on_select_use(target)
+	INVOKE_ASYNC(src, PROC_REF(on_select_use), target)
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /// Called on the MODsuit's process
@@ -444,10 +444,9 @@
 		. += span_notice("You need to insert \a [english_list(core_list, and_text = " or ")] for this module to function.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
-	if(!core)
-		balloon_alert(mod.wearer, "no core!")
-		return
-	return ..()
+	if(core)
+		return ..()
+	balloon_alert(mod.wearer, "no core!")
 
 /obj/item/mod/module/anomaly_locked/on_process(delta_time)
 	. = ..()
@@ -455,11 +454,9 @@
 		return FALSE
 
 /obj/item/mod/module/anomaly_locked/on_active_process(delta_time)
-	if(!core)
-		return FALSE
-	return TRUE
+	return !!core
 
-/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
+/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(item.type in accepted_anomalies)
 		if(core)
 			balloon_alert(user, "core already in!")

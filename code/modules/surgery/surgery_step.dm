@@ -102,7 +102,7 @@
 	play_preop_sound(user, target, target_zone, tool, surgery) // Here because most steps overwrite preop
 
 	if(tool)
-		speed_mod = tool.toolspeed
+		speed_mod = tool.get_toolspeed(user)
 
 	var/implement_speed_mod = 1
 	if(implement_type)//this means it isn't a require hand or any item step.

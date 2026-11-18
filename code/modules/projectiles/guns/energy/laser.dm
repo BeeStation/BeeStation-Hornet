@@ -54,14 +54,14 @@
 			if(do_after(user, 1 SECONDS) && !fire_interrupted)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
 				cell.give(500 WATT)
-				flick("repeater", src)
+				z_flick("repeater", src)
 				update_icon()
 			else
 				break
 	cranking = FALSE
 	fire_interrupted = FALSE
 
-/obj/item/gun/energy/laser/repeater/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/energy/laser/repeater/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(cranking)
 		fire_interrupted = TRUE //no more cranking when you shoot.
 	return ..()

@@ -15,7 +15,7 @@
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	animate_movement = FORWARD_STEPS
+	animate_movement = SLIDE_STEPS
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -134,7 +134,7 @@
 	reached_target = FALSE
 	new_destination = null
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		. = ..()
 		if(open)
@@ -184,7 +184,7 @@
 	if(!open)
 		locked = !locked
 		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] [src]'s controls!"))
-	flick("[base_icon]-emagged", src)
+	z_flick("[base_icon]-emagged", src)
 	playsound(src, "sparks", 100, FALSE)
 
 /mob/living/simple_animal/bot/mulebot/update_icon_state() //if you change the icon_state names, please make sure to update /datum/wires/mulebot/on_pulse() as well. <3
@@ -355,12 +355,14 @@
 		if(CHIME)
 			audible_message("[src] makes a chiming sound!", span_italics("You hear a chime."))
 			playsound(loc, 'sound/machines/chime.ogg', 50, 0)
-	flick("[base_icon]1", src)
+	z_flick("[base_icon]1", src)
 
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
+	if(..())
+		return
 	var/mob/living/L = user
 
 	if (!istype(L))

@@ -54,7 +54,6 @@
 		/obj/item/clothing/shoes/laceup = 1,
 		/obj/item/storage/belt/military/army = 1,
 		/obj/item/tank/jetpack/carbondioxide = 1,
-		/obj/item/tank/jetpack/suit = 1,
 		/obj/item/clothing/ears/headphones = 1,
 		/obj/item/camera = 1,
 		/obj/item/gps = 1,
@@ -147,7 +146,7 @@
 		postmark_image.appearance_flags |= RESET_COLOR
 		add_overlay(postmark_image)
 
-/obj/item/mail/attackby(obj/item/W, mob/user, params)
+/obj/item/mail/attackby(obj/item/W, mob/user, list/modifiers)
 	// Destination tagging
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/destination_tag = W

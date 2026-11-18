@@ -53,9 +53,8 @@
 		context.add_left_click_tool_action("Open Wires", TOOL_MULTITOOL)
 	else if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
-		var/obj/item/tool = carbon_user.get_active_held_item()
-		var/datum/component/buffer/buffer_component = tool?.GetComponent(/datum/component/buffer)
-		if(istype(buffer_component?.target, /datum/techweb))
+		var/obj/item/held_item = carbon_user.get_active_held_item()
+		if(held_item && istype(get_buffer_contents(held_item), /datum/techweb))
 			context.add_left_click_action("Upload Techweb")
 
 /// Called when attempting to connect the machine to a techweb, forgetting the old.
@@ -87,7 +86,7 @@
 /obj/machinery/rnd/multitool_act(mob/living/user, obj/item/multitool/tool)
 	if(panel_open)
 		wires.interact(user)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/rnd/multitool_act_secondary(mob/living/user, obj/item/tool)
 	return multitool_act(user, tool)
@@ -95,7 +94,7 @@
 /obj/machinery/rnd/wirecutter_act(mob/living/user, obj/item/tool)
 	if(panel_open)
 		wires.interact(user)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/rnd/wirecutter_act_secondary(mob/living/user, obj/item/tool)
 	return wirecutter_act(user, tool)

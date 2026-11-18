@@ -334,7 +334,7 @@
 		else
 			to_chat(user, span_warning("Access denied."))
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/bot/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!locked)
 			open = !open
@@ -902,6 +902,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/list/data = list()
 	data["can_hack"] = (issilicon(user) || IsAdminGhost(user))
 	data["custom_controls"] = list()
+	data["model"] = model
+	data["ui_colour"] = path_image_color
 	data["emagged"] = emagged
 	data["locked"] = locked
 	data["pai"] = list()

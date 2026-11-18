@@ -40,6 +40,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
+	flags_1 &= ~PREVENT_CLICK_UNDER_1
 	if(set_dir)
 		setDir(set_dir)
 	if(req_access?.len)
@@ -261,7 +262,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/on_emag(mob/user)
 	..()
 	operating = TRUE
-	flick("[base_state]spark", src)
+	z_flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, 1)
 	addtimer(CALLBACK(src, PROC_REF(after_emag)), 6)
 
@@ -272,7 +273,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	desc += "<BR>[span_warning("Its access panel is smoking slightly.")]"
 	open(2)
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, list/modifiers)
 
 	if(operating)
 		return
@@ -363,11 +364,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/do_animate(animation)
 	switch(animation)
 		if("opening")
-			flick("[base_state]opening", src)
+			z_flick("[base_state]opening", src)
 		if("closing")
-			flick("[base_state]closing", src)
+			z_flick("[base_state]closing", src)
 		if("deny")
-			flick("[base_state]deny", src)
+			z_flick("[base_state]deny", src)
 
 /obj/machinery/door/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
@@ -467,7 +468,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/clockwork/ratvar_act()
 	return FALSE
 
-/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, list/modifiers)
 
 	if(operating)
 		return

@@ -96,7 +96,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 
-/turf/open/indestructible/sound/pool/attackby(obj/item/W, mob/user, params)
+/turf/open/indestructible/sound/pool/attackby(obj/item/W, mob/user, list/modifiers)
 	if(..())
 		return
 	if(!istype(W, /obj/item/stack/rods))
@@ -226,7 +226,6 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	icon = 'icons/obj/pool.dmi'
 	icon_state = "poolfilter"
 	pixel_y = 12 //So it sits above the water
-	idle_power_usage = IDLE_POWER_USE
 	var/id = null //change this if youre an annoying mapper who wants multiple pools per area.
 	var/list/pool = list()
 	var/desired_temperature = 300 //Room temperature

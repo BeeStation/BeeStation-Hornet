@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		return
 	return attack_hand(user)
 
-/obj/structure/bodycontainer/attackby(obj/P, mob/user, params)
+/obj/structure/bodycontainer/attackby(obj/P, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(istype(P, /obj/item/pen))
 		if(!user.is_literate())
@@ -362,7 +362,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	return attack_hand(user)
 
-/obj/structure/tray/attackby(obj/P, mob/user, params)
+/obj/structure/tray/attackby(obj/P, mob/user, list/modifiers)
 	if(!istype(P, /obj/item/riding_offhand))
 		return ..()
 
@@ -374,6 +374,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	MouseDrop_T(carried_mob, user)
 
 /obj/structure/tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
+	if(..())
+		return
 	if(!ismovable(O) || O.anchored || !Adjacent(user) || !user.Adjacent(O) || O.loc == user)
 		return
 	if(!ismob(O))

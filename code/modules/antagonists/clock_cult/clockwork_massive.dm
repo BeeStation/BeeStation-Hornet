@@ -126,7 +126,7 @@
 		return
 
 	hierophant_message("The ark is taking damage!", null, "<span class='large_brass'>")
-	flick("clockwork_gateway_damaged", src)
+	z_flick("clockwork_gateway_damaged", src)
 	playsound(src, 'sound/machines/clockcult/ark_damage.ogg', 75, FALSE)
 
 /**

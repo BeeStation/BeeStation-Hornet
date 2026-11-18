@@ -5,6 +5,7 @@
 	icon_state = "light"
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
+	use_power = NO_POWER_USE
 	layer = ABOVE_WINDOW_LAYER
 	mouse_over_pointer = MOUSE_HAND_POINTER
 	/// Set this to a string, path, or area instance to control that area
@@ -78,7 +79,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 	area.power_change()
 
-/obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
+/obj/machinery/light_switch/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		screwdrivered = !screwdrivered
 		user.visible_message(span_notice("[user] [screwdrivered ? "un" : ""]secures [name]."), \

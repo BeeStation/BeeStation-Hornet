@@ -66,7 +66,7 @@
 	INVOKE_ASYNC(src, PROC_REF(try_deploy), user, user.loc)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/component/deployable/proc/on_afterattack(datum/source, atom/movable/target, mob/user, proximity_flag, params)
+/datum/component/deployable/proc/on_afterattack(datum/source, atom/movable/target, mob/user, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
 	if(!proximity_flag)
 		return

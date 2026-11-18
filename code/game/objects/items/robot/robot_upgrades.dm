@@ -265,7 +265,7 @@
 		if(robot.emagged)
 			return FALSE
 
-		robot.SetEmagged(1)
+		robot.SetEmagged(TRUE)
 		robot.logevent("WARN: hardware installed with missing security certificate!") //A bit of fluff to hint it was an illegal tech item
 		robot.logevent("WARN: root privleges granted to PID [num2hex(rand(1,65535), -1)][num2hex(rand(1,65535), -1)].") //random eight digit hex value. Two are used because rand(1,4294967295) throws an error
 

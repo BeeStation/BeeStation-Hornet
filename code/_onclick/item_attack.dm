@@ -2,22 +2,30 @@
   * This is the proc that handles the order of an item_attack.
   *
   * The order of procs called is:
-  * * [/atom/proc/tool_act] on the target. If it returns TOOL_ACT_TOOLTYPE_SUCCESS or TOOL_ACT_SIGNAL_BLOCKING, the chain will be stopped.
+  * * [/atom/proc/tool_act] on the target. If it returns ITEM_INTERACT_SUCCESS or ITEM_INTERACT_BLOCKING, the chain will be stopped.
   * * [/obj/item/proc/pre_attack] on src. If this returns TRUE, the chain will be stopped.
   * * [/atom/proc/attackby] on the target. If it returns TRUE, the chain will be stopped.
   * * [/obj/item/proc/afterattack]. The return value does not matter.
   */
-/obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	var/is_right_clicking = LAZYACCESS(params2list(params), RIGHT_CLICK)
+/obj/item/proc/melee_attack_chain(mob/user, atom/target, list/modifiers)
+	// Proxy replaces src cause it returns an atom that will attack the target on our behalf
+	var/obj/item/source_atom = get_proxy_attacker_for(target, user)
+	if(source_atom != src) //if we are someone else then call that attack chain else we can proceed with the usual stuff
+		return source_atom.melee_attack_chain(user, target, modifiers)
 
-	if(tool_behaviour && (target.tool_act(user, src, tool_behaviour, is_right_clicking) & TOOL_ACT_MELEE_CHAIN_BLOCKING))
+	var/is_right_clicking = LAZYACCESS(modifiers, RIGHT_CLICK)
+
+	var/item_interact_result = target.base_item_interaction(user, src, modifiers)
+	if(item_interact_result & ITEM_INTERACT_SUCCESS)
 		return TRUE
+	if(item_interact_result & ITEM_INTERACT_BLOCKING)
+		return FALSE
 
 	var/pre_attack_result
 	if (is_right_clicking)
-		switch (pre_attack_secondary(target, user, params))
+		switch (pre_attack_secondary(target, user, modifiers))
 			if (SECONDARY_ATTACK_CALL_NORMAL)
-				pre_attack_result = pre_attack(target, user, params)
+				pre_attack_result = pre_attack(target, user, modifiers)
 			if (SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 				return TRUE
 			if (SECONDARY_ATTACK_CONTINUE_CHAIN)
@@ -25,7 +33,7 @@
 			else
 				CRASH("pre_attack_secondary must return an SECONDARY_ATTACK_* define, please consult code/__DEFINES/combat.dm")
 	else
-		pre_attack_result = pre_attack(target, user, params)
+		pre_attack_result = pre_attack(target, user, modifiers)
 
 	if(pre_attack_result)
 		return TRUE
@@ -33,9 +41,9 @@
 	var/attackby_result
 
 	if (is_right_clicking)
-		switch (target.attackby_secondary(src, user, params))
+		switch (target.attackby_secondary(src, user, modifiers))
 			if (SECONDARY_ATTACK_CALL_NORMAL)
-				attackby_result = target.attackby(src, user, params)
+				attackby_result = target.attackby(src, user, modifiers)
 			if (SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 				return TRUE
 			if (SECONDARY_ATTACK_CONTINUE_CHAIN)
@@ -43,33 +51,28 @@
 			else
 				CRASH("attackby_secondary must return an SECONDARY_ATTACK_* define, please consult code/__DEFINES/combat.dm")
 	else
-		attackby_result = target.attackby(src, user, params)
+		attackby_result = target.attackby(src, user, modifiers)
 
 	if (attackby_result)
 		return TRUE
 
-	if(QDELETED(src) || QDELETED(target))
-		attack_qdeleted(target, user, TRUE, params)
-		return TRUE
-
 	if (is_right_clicking)
-		var/after_attack_secondary_result = afterattack_secondary(target, user, TRUE, params)
+		var/after_attack_secondary_result = afterattack_secondary(target, user, TRUE, modifiers)
 
 		// There's no chain left to continue at this point, so CANCEL_ATTACK_CHAIN and CONTINUE_CHAIN are functionally the same.
 		if (after_attack_secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || after_attack_secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
 			return TRUE
 
-	return afterattack(target, user, TRUE, params)
-
+	return afterattack(target, user, TRUE, modifiers)
 
 /// Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
-/obj/item/proc/attack_self(mob/user, modifiers)
+/obj/item/proc/attack_self(mob/user, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	interact(user)
 
 /// Called when the item is in the active hand, and right-clicked. Intended for alternate or opposite functions, such as lowering reagent transfer amount. At the moment, there is no verb or hotkey.
-/obj/item/proc/attack_self_secondary(mob/user, modifiers)
+/obj/item/proc/attack_self_secondary(mob/user, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF_SECONDARY, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
@@ -80,11 +83,11 @@
  *
  * Arguments:
  * * atom/target - The atom about to be hit
- * * mob/living/user - The mob doing the htting
- * * params - click params such as alt/shift etc
+ * * mob/living/user - The mob doing the hitting
+ * * list/modifiers - click params such as alt/shift and x/y, etc
  */
-/obj/item/proc/ranged_attack(atom/target, mob/living/user, params)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_RANGED_ATTACK, target, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+/obj/item/proc/ranged_attack(atom/target, mob/living/user, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_RANGED_ATTACK, target, user, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	return FALSE //return TRUE to avoid calling attackby after this proc does stuff
 
@@ -94,12 +97,12 @@
   * Arguments:
   * * atom/A - The atom about to be hit
   * * mob/living/user - The mob doing the htting
-  * * params - click params such as alt/shift etc
+  * * list/modifiers - click params such as alt/shift and x/y, etc
   *
   * See: [/obj/item/proc/melee_attack_chain]
   */
-/obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
-	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+/obj/item/proc/pre_attack(atom/A, mob/living/user, list/modifiers) //do stuff before attackby!
+	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	return FALSE //return TRUE to avoid calling attackby after this proc does stuff
 
@@ -110,10 +113,10 @@
  * Arguments:
  * * atom/target - The atom about to be hit
  * * mob/living/user - The mob doing the htting
- * * params - click params such as alt/shift etc
+ * * list/modifiers - click params such as alt/shift and x/y, etc
  */
-/obj/item/proc/ranged_attack_secondary(atom/target, mob/living/user, params)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_RANGED_ATTACK_SECONDARY, target, user, params)
+/obj/item/proc/ranged_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_RANGED_ATTACK_SECONDARY, target, user, modifiers)
 
 	if(signal_result & COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -129,12 +132,12 @@
  * Arguments:
  * * atom/target - The atom about to be hit
  * * mob/living/user - The mob doing the htting
- * * params - click params such as alt/shift etc
+ * * list/modifiers - click params such as alt/shift and x/y, etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/obj/item/proc/pre_attack_secondary(atom/target, mob/living/user, params)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK_SECONDARY, target, user, params)
+/obj/item/proc/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK_SECONDARY, target, user, modifiers)
 
 	if(signal_result & COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -150,12 +153,12 @@
   * Arguments:
   * * obj/item/attacking_item - The item hitting this atom
   * * mob/user - The wielder of this item
-  * * params - click params such as alt/shift etc
+  * * list/modifiers - click params such as alt/shift and x/y, etc
   *
   * See: [/obj/item/proc/melee_attack_chain]
   */
-/atom/proc/attackby(obj/item/attacking_item, mob/user, params)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, attacking_item, user, params) & COMPONENT_NO_AFTERATTACK)
+/atom/proc/attackby(obj/item/attacking_item, mob/user, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, attacking_item, user, modifiers) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 	return FALSE
 
@@ -165,12 +168,12 @@
  * Arguments:
  * * obj/item/weapon - The item hitting this atom
  * * mob/user - The wielder of this item
- * * params - click params such as alt/shift etc
+ * * list/modifiers - click params such as alt/shift and x/y, etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/atom/proc/attackby_secondary(obj/item/weapon, mob/user, params)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY_SECONDARY, weapon, user, params)
+/atom/proc/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY_SECONDARY, weapon, user, modifiers)
 
 	if(signal_result & COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -180,20 +183,35 @@
 
 	return SECONDARY_ATTACK_CALL_NORMAL
 
-/obj/attackby(obj/item/attacking_item, mob/user, params)
-	return ..() || ((obj_flags & CAN_BE_HIT) && attacking_item.attack_atom(src, user, params))
+/obj/attackby(obj/item/attacking_item, mob/user, list/modifiers)
+	if(..())
+		return TRUE
+	if(!(obj_flags & CAN_BE_HIT))
+		return FALSE
+	return attacking_item.attack_atom(src, user, modifiers)
 
-/mob/living/attackby(obj/item/attacking_item, mob/living/user, params)
-	if(can_perform_surgery(user, params))
+/mob/living/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	for(var/datum/surgery/operation as anything in surgeries)
+		if(IS_IN_INVALID_SURGICAL_POSITION(src, operation))
+			continue
+		if(!(operation.surgery_flags & SURGERY_SELF_OPERABLE) && (user == src))
+			continue
+		if(operation.next_step(user, modifiers))
+			return ITEM_INTERACT_SUCCESS
+
+	return ..()
+
+/mob/living/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
+	if(can_perform_surgery(user, modifiers))
 		return TRUE
 
 	if(..())
 		return TRUE
 	user.changeNext_move(attacking_item.attack_speed)
-	return attacking_item.attack(src, user, params)
+	return attacking_item.attack(src, user, modifiers)
 
-/mob/living/attackby_secondary(obj/item/weapon, mob/living/user, params)
-	var/result = weapon.attack_secondary(src, user, params)
+/mob/living/attackby_secondary(obj/item/weapon, mob/living/user, list/modifiers)
+	var/result = weapon.attack_secondary(src, user, modifiers)
 
 	// Normal attackby updates click cooldown, so we have to make up for it
 	if (result != SECONDARY_ATTACK_CALL_NORMAL)
@@ -210,31 +228,27 @@
  * Arguments:
  * * mob/living/target_mob - The mob being hit by this item
  * * mob/living/user - The mob hitting with this item
- * * params - Click params of this attack
+ * * list/modifiers - click params such as alt/shift and x/y, etc
  */
-/obj/item/proc/attack(mob/living/target_mob, mob/living/user, params)
-	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target_mob, user, params)
+/obj/item/proc/attack(mob/living/target_mob, mob/living/user, list/modifiers)
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target_mob, user, modifiers)
 	if(signal_return & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return
 
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target_mob, user, params)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target_mob, user, modifiers)
 	SEND_SIGNAL(target_mob, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
 
-	if(!user.combat_mode && !(item_flags & ISWEAPON))
+	if((!user.combat_mode && !(item_flags & ISWEAPON)) || (item_flags & NOBLUDGEON))
 		nonharmfulhit = TRUE
-
-	if(item_flags & NOBLUDGEON)
-		nonharmfulhit = TRUE
-
-	if(damtype != STAMINA && force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
+	else if(damtype != STAMINA && force > 0 && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		nonharmfulhit = TRUE
 
-	if(!force || nonharmfulhit)
+	if(force <= 0 || nonharmfulhit)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else if(hitsound)
 		playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
@@ -258,8 +272,8 @@
 	add_fingerprint(user)
 
 /// The equivalent of [/obj/item/proc/attack] but for alternate attacks, AKA right clicking
-/obj/item/proc/attack_secondary(mob/living/victim, mob/living/user, params)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SECONDARY, victim, user, params)
+/obj/item/proc/attack_secondary(mob/living/victim, mob/living/user, list/modifiers)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SECONDARY, victim, user, modifiers)
 
 	if(signal_result & COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -270,7 +284,7 @@
 	return SECONDARY_ATTACK_CALL_NORMAL
 
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
-/obj/item/proc/attack_atom(atom/attacked_atom, mob/living/user, params)
+/obj/item/proc/attack_atom(atom/attacked_atom, mob/living/user, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_ATOM, attacked_atom, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 	if(item_flags & NOBLUDGEON)
@@ -311,8 +325,8 @@
 			user.add_mob_blood(src)
 	return TRUE //successful attack
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
-	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE) || nonharmfulhit)
+/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE))
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
 	else
 		return ..()
@@ -330,12 +344,12 @@
  * * atom/target - The thing that was hit
  * * mob/user - The mob doing the hitting
  * * proximity_flag - is 1 if this afterattack was called on something adjacent, in your square, or on your person.
- * * click_parameters - is the params string from byond [/atom/proc/Click] code, see that documentation.
+ * * list/modifiers - click params such as alt/shift and x/y, etc
  */
-/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
-	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, click_parameters)
+/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, modifiers)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, modifiers)
 
 /**
  * Called at the end of the attack chain if the user right-clicked.
@@ -344,11 +358,11 @@
  * * atom/target - The thing that was hit
  * * mob/user - The mob doing the hitting
  * * proximity_flag - is 1 if this afterattack was called on something adjacent, in your square, or on your person.
- * * click_parameters - is the params string from byond [/atom/proc/Click] code, see that documentation.
+ * * list/modifiers - click params such as alt/shift and x/y, etc
  */
-/obj/item/proc/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK_SECONDARY, target, user, proximity_flag, click_parameters)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK_SECONDARY, target, src, proximity_flag, click_parameters)
+/obj/item/proc/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK_SECONDARY, target, user, proximity_flag, modifiers)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK_SECONDARY, target, src, proximity_flag, modifiers)
 
 	if(signal_result & COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -357,11 +371,6 @@
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 	return SECONDARY_ATTACK_CALL_NORMAL
-
-// Called if the target gets deleted by our attack
-/obj/item/proc/attack_qdeleted(atom/target, mob/user, proximity_flag, click_parameters)
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_QDELETED, target, user, proximity_flag, click_parameters)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK_QDELETED, target, user, proximity_flag, click_parameters)
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)
@@ -392,8 +401,8 @@
 	return 1
 
 /mob/living/proc/send_item_poke_message(obj/item/I, mob/living/user)
-	var/list/messages = list("poked", "prodded", "tapped", "nudged")
-	var/message_verb = "[pick(messages)]"
+	var/static/list/messages = list("poked", "prodded", "tapped", "nudged")
+	var/message_verb = pick(messages)
 	var/poke_message = "[src] is [message_verb] with [I]!"
 	var/poke_message_local = "You're [message_verb] with [I]!"
 	if(user in viewers(src))

@@ -66,7 +66,7 @@
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
@@ -232,6 +232,7 @@
 			visible_message(span_notice("[src] cleans \the [T]."))
 			target = null
 
+		set_anchored(FALSE)
 		mode = BOT_IDLE
 		icon_state = "cleanbot[on]"
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
@@ -274,6 +275,7 @@
 /mob/living/simple_animal/bot/cleanbot/proc/clean(atom/A)
 	mode = BOT_IDLE
 	icon_state = "cleanbot[on]"
+	set_anchored(FALSE)
 	if(!on)
 		return
 	if(A && isturf(A.loc))
@@ -281,7 +283,6 @@
 		if(istype(AM, /obj/effect/decal/cleanable))
 			for(var/obj/effect/decal/cleanable/C in A.loc)
 				qdel(C)
-	anchored = FALSE
 	target = null
 
 /mob/living/simple_animal/bot/cleanbot/explode()
@@ -305,7 +306,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "larryframe"
 
-/obj/item/larryframe/attackby(obj/O, mob/user, params)
+/obj/item/larryframe/attackby(obj/O, mob/user, list/modifiers)
 	if(isprox(O))
 		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)

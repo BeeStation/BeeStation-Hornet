@@ -179,7 +179,7 @@
 /obj/vehicle/ridden/scooter/skateboard/hoverboard/screwdriver_act(mob/living/user, obj/item/I)
 	return FALSE
 
-/obj/vehicle/ridden/scooter/skateboard/hoverboard/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/scooter/skateboard/hoverboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		return
 	else
@@ -201,7 +201,7 @@
 	icon_state = "scooter_frame"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
+/obj/item/scooter_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/iron))
 		if(!I.tool_start_check(user, amount=5))
 			return
@@ -220,7 +220,7 @@
 	qdel(src)
 	return TRUE
 
-/obj/vehicle/ridden/scooter/skateboard/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/scooter/skateboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		if(!I.tool_start_check(user, amount=2))
 			return

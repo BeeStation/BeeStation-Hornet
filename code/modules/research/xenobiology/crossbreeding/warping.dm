@@ -200,13 +200,13 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/stack/medical/bruise_pack,
 		/obj/item/stack/medical/ointment,
-		/obj/item/reagent_containers/pill/oxandrolone,
+		/obj/item/reagent_containers/applicator/pill/oxandrolone,
 		/obj/item/storage/pill_bottle/charcoal,
-		/obj/item/reagent_containers/pill/mutadone,
-		/obj/item/reagent_containers/pill/antirad,
-		/obj/item/reagent_containers/pill/patch/styptic,
-		/obj/item/reagent_containers/pill/patch/synthflesh,
-		/obj/item/reagent_containers/pill/patch/silver_sulf,
+		/obj/item/reagent_containers/applicator/pill/mutadone,
+		/obj/item/reagent_containers/applicator/pill/antirad,
+		/obj/item/reagent_containers/applicator/patch/styptic,
+		/obj/item/reagent_containers/applicator/patch/synthflesh,
+		/obj/item/reagent_containers/applicator/patch/silver_sulf,
 		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/scalpel,
@@ -380,7 +380,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(!GLOB.blue_storage)
 		GLOB.blue_storage = new
 	GLOB.blue_storage.loc = loc
-	GLOB.blue_storage.atom_storage.refresh_views()
+	GLOB.blue_storage.atom_storage.show_contents(user)
 	playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
@@ -537,7 +537,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
-		randomize_human(AM, TRUE)
+		randomize_human(AM)
 		activated_on_step = TRUE
 	. = ..()
 
@@ -695,7 +695,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	to_chat(user, span_brass("[src] demands a weapon to enhance."))
 	return
 
-/obj/effect/warped_rune/blackspace/attackby(obj/item/I, mob/living/user, params)
+/obj/effect/warped_rune/blackspace/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(HAS_TRAIT(I, TRAIT_STARGAZED))
 		to_chat(user, span_brass("[I] has already been enhanced!"))
 		return

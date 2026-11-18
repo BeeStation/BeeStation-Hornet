@@ -81,7 +81,7 @@
 	plants = list()
 	dna = list()
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag || !target)
 		return
@@ -239,7 +239,7 @@
 		completed = TRUE
 	ui_update()
 
-/obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
+/obj/machinery/dna_vault/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/dna_probe))
 		var/obj/item/dna_probe/P = I
 		var/uploaded = 0

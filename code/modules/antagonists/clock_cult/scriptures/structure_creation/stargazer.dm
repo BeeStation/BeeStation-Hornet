@@ -32,7 +32,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/destructible/clockwork/gear_base/stargazer/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/structure/destructible/clockwork/gear_base/stargazer/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(user.combat_mode || !IS_SERVANT_OF_RATVAR(user))
 		return ..()
 

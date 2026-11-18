@@ -14,9 +14,6 @@
 #define COMSIG_CARBON_GAIN_ORGAN "carbon_gain_organ"
 ///from /item/organ/proc/Remove() (/obj/item/organ/)
 #define COMSIG_CARBON_LOSE_ORGAN "carbon_lose_organ"
-///from /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop, silent)
-#define COMSIG_CARBON_UNEQUIP_SHOECOVER "carbon_unequip_shoecover"
-#define COMSIG_CARBON_EQUIP_SHOECOVER "carbon_equip_shoecover"
 ///defined twice, in carbon and human's topics, fired when interacting with a valid embedded_object to pull it out (mob/living/carbon/target, /obj/item, /obj/item/bodypart/L)
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
@@ -27,6 +24,10 @@
 //! from base of mob/living/carbon/set_species(): (new_race)
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"
 
+///Called from apply_overlay(cache_index, overlay)
+#define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
+///Called from remove_overlay(cache_index, overlay)
+#define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
 
 ///from base of /obj/item/bodypart/proc/can_attach_limb(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_ATTEMPT_CARBON_ATTACH_LIMB "attempt_carbon_attach_limb"
@@ -37,8 +38,6 @@
 #define COMSIG_BODYPART_ATTACHED "bodypart_attached"
 ///from base of /obj/item/bodypart/proc/try_attach_limb(): (new_limb, special)
 #define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
-/// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
-#define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
 /// Called from bodypart changing owner, which could be on attach or detachment. Either argument can be null. (mob/living/carbon/new_owner, mob/living/carbon/old_owner)
 #define COMSIG_BODYPART_CHANGED_OWNER "bodypart_changed_owner"
 
@@ -59,14 +58,24 @@
 /// Called from /obj/item/bodypart/check_for_injuries (obj/item/bodypart/examined, list/check_list)
 #define COMSIG_CARBON_CHECKING_BODYPART "carbon_checking_injury"
 
-/// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
+/// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, special, dismembered)
 #define COMSIG_CARBON_REMOVE_LIMB "carbon_remove_limb"
-/// Called from bodypart being removed /obj/item/bodypart/proc/drop_limb(mob/living/carbon/old_owner, dismembered)
+/// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, special, dismembered)
+#define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
+/// Called from bodypart being removed /obj/item/bodypart/proc/drop_limb(mob/living/carbon/old_owner, special, dismembered)
 #define COMSIG_BODYPART_REMOVED "bodypart_removed"
 
-#define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
+/// From /obj/item/bodypart/proc/update_limb(): (dropping_limb, is_creating)
+#define COMSIG_BODYPART_UPDATED "bodypart_updated"
+/// From /datum/component/butchering/create_replacement_limb(): (replacement limb)
+#define COMSIG_BODYPART_BUTCHERED "bodypart_butchered"
 
-///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN: (identity)
+/// From /mob/living/carbon/item_coverage_changed: (added_slots, removed_slots)
+#define COMSIG_CARBON_ITEM_COVERAGE_CHANGED "carbon_item_coverage_changed"
+/// Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
+#define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"
+
+///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN_APPEARANCE: (identity)
 #define COMSIG_HUMAN_GET_VISIBLE_NAME "human_get_visible_name"
 	//Index for the name of the face
 	#define VISIBLE_NAME_FACE 1
@@ -74,7 +83,7 @@
 	#define VISIBLE_NAME_ID 2
 	//Index for whether their name is being overriden instead of obsfuscated
 	#define VISIBLE_NAME_FORCED 3
-///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN and it's being overriden: (identity)
+///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN_APPEARANCE and it's being overriden: (identity)
 #define COMSIG_HUMAN_GET_FORCED_NAME "human_get_forced_name"
 
 ///Called when a carbon's health hud is updated. (source = carbon, shown_health_amount)

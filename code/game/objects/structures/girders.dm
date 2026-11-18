@@ -43,7 +43,7 @@
 		if(GIRDER_DISASSEMBLED)
 			. += span_notice("[src] is disassembled! You probably shouldn't be able to see this examine message.")
 
-/obj/structure/girder/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/attackby(obj/item/W, mob/user, list/modifiers)
 	var/platingmodifier = 1
 	if(HAS_TRAIT(user, TRAIT_QUICK_BUILD))
 		platingmodifier = 0.7
@@ -373,7 +373,7 @@
 	canSmoothWith = null
 	can_displace = FALSE
 
-/obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/cult/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(!W.tool_start_check(user, amount=0))
@@ -469,7 +469,7 @@
 	can_displace = FALSE
 
 /*
-/obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 
 	if(W.tool_behaviour == TOOL_WELDER)

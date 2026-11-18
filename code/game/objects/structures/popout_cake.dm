@@ -34,6 +34,8 @@
 		string.cake = src
 
 /obj/structure/popout_cake/MouseDrop_T(mob/living/target, mob/user)
+	if(..())
+		return
 	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
@@ -74,7 +76,7 @@
 			user.forceMove(get_turf(src))
 			occupant = null
 
-/obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
+/obj/structure/popout_cake/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
 		user.visible_message(span_notice("[user] sticks the [W] inside [src] and stars fiddling around!"), span_notice("You start to rewind the hidden mechanism inside [src] with [W]."))
 		W.play_tool_sound(src, 50)
@@ -162,7 +164,7 @@
 /datum/action/item_action/pull_string
 	name = "String Tug"
 	desc = "Pull the string and pop out of the cake in a surprising fashion, with confetti and everything!"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	button_icon_state = "pull_string"
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	var/obj/structure/popout_cake/cake = null

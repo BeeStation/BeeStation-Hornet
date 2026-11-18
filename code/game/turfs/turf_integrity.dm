@@ -154,7 +154,7 @@
 		log_combat(user, src, "attacked", I)
 	take_damage(I.force, I.damtype, MELEE, 1)
 
-/turf/attackby(obj/item/W, mob/user, params)
+/turf/attackby(obj/item/W, mob/user, list/modifiers)
 	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
@@ -189,20 +189,18 @@
 // Mob Attacks
 //====================================
 
-/turf/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
+/turf/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
 	if (!can_hit)
-		return ..()
-	if(user.combat_mode)
-		..(user, 1)
-		user.visible_message(span_danger("[user] smashes [src]!"), span_danger("You smash [src]!"), null, COMBAT_MESSAGE_RANGE)
-		if(density)
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
-		else
-			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
-		return 1
-	return 0
+		return
+	user.visible_message(span_danger("[user] smashes [src]!"), span_danger("You smash [src]!"), null, COMBAT_MESSAGE_RANGE)
+	if(density)
+		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
+	else
+		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+	take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
+	return TRUE
 
 /turf/blob_act(obj/structure/blob/B)
 	if (!can_hit)

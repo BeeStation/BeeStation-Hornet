@@ -145,7 +145,7 @@
 	custom_price = 10
 	max_demand = 10
 
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I

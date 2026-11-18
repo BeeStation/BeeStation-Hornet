@@ -11,8 +11,8 @@
 	weight = 12
 	///What damage type do we exchange
 	var/damage_type = BRUTE
-	///How long until the window for exchange closes
-	var/exchange_window = 13 SECONDS //5 second window, in theory?
+	///How long the exchange window stays open after the artifact's cooldown ends
+	var/exchange_window = 5 SECONDS
 
 /datum/xenoartifact_trait/major/exchange/trigger(datum/source, _priority, atom/override)
 	//Collect some targets
@@ -21,7 +21,7 @@
 		return
 //Do filters
 	var/atom/atom_parent = component_parent.parent
-	var/final_time = exchange_window*(component_parent.trait_strength/100)
+	var/final_time = exchange_window*(component_parent.trait_strength/100) + max(0, component_parent.use_cooldown + component_parent.trait_cooldown)
 	for(var/mob/living/target in focus)
 		//Build exchange hint
 		if(!atom_parent.render_target)

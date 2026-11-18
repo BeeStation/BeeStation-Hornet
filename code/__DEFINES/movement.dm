@@ -37,6 +37,14 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 ///Should we not update our movables dir on move?
 #define MOVEMENT_LOOP_NO_DIR_UPDATE (1<<3)
 
+// Movement loop status flags
+/// Has the loop been paused, soon to be resumed?
+#define MOVELOOP_STATUS_PAUSED (1<<0)
+/// Is the loop running? (Is true even when paused)
+#define MOVELOOP_STATUS_RUNNING (1<<1)
+/// Is the loop queued in a subsystem?
+#define MOVELOOP_STATUS_QUEUED (1<<2)
+
 //Index defines for movement bucket data packets
 #define MOVEMENT_BUCKET_TIME 1
 #define MOVEMENT_BUCKET_LIST 2
@@ -100,18 +108,3 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define GRAVITY_JOULE_REQUIREMENT 100
 /// Amount to increase consumption by
 #define JETPACK_COMBUSTION_CONSUMPTION_ADJUSTMENT 500
-
-// The pressure at which jetpacks begin to slowdown
-#define JETPACK_FAST_PRESSURE_MIN 20
-// The pressure at which jetpacks reach their min speed
-#define JETPACK_FAST_PRESSURE_MAX 80
-
-#define JETPACK_SPEED_CHECK(user, movespeed_id, speed, full_speed) \
-	var/datum/gas_mixture/__env = loc.return_air();\
-	if(full_speed && __env.return_pressure() < JETPACK_FAST_PRESSURE_MAX) {\
-		var/__proportion = CLAMP01(1 - ((__env.return_pressure() - JETPACK_FAST_PRESSURE_MIN) / (JETPACK_FAST_PRESSURE_MAX - JETPACK_FAST_PRESSURE_MIN)));\
-		user.add_or_update_variable_movespeed_modifier(movespeed_id, multiplicative_slowdown=speed * __proportion);\
-	} else {\
-		user.remove_movespeed_modifier(movespeed_id);\
-	}
-

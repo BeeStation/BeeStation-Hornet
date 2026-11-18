@@ -59,8 +59,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 /// Causes death-like unconsciousness
 #define TRAIT_DEATHCOMA "deathcoma"
-#define TRAIT_FAKEDEATH "fakedeath" //Makes the owner appear as dead to most forms of medical examination
-#define TRAIT_DISFIGURED		"disfigured"
+/// The mob has the stasis effect.
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
+/// Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_FAKEDEATH "fakedeath"
+/// When applied to a mob's head, their face will be unrecognizable and get displayed as Unknown
+#define TRAIT_DISFIGURED "disfigured"
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
@@ -116,8 +121,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AGENDER "agender"
 /// Species with this trait use skin tones for coloration
 #define TRAIT_USES_SKINTONES "uses_skintones"
-/// Species with this trait have markings (this SUCKS, remove this later in favor of bodypart overlays)
-#define TRAIT_HAS_MARKINGS "has_markings"
 /// Species with this trait use mutant colors for coloration
 #define TRAIT_MUTANT_COLORS "mutcolors"
 /// Species with this trait have mutant colors that cannot be chosen by the player, nor altered ingame by external means
@@ -154,7 +157,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 // This race can't become a vampire, changeling antagonist or be copied by a changeling.
 #define TRAIT_NOT_TRANSMORPHIC "not_transmorphic"
-#define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
+// Use when you want a mob to be able to metabolize plasma temporarily (e.g. plasma fixation disease symptom)
+#define TRAIT_PLASMA_LOVER_METABOLISM "plasma_lover_metabolism"
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
 #define TRAIT_TOXIMMUNE			"toxin_immune"
 #define TRAIT_EASYDISMEMBER		"easy_dismember"
@@ -182,6 +186,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_WORN_ICON "no_worn_icon"
 /// Items with this trait will not appear when examined.
 #define TRAIT_EXAMINE_SKIP "examine_skip"
+/// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
+#define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"
 /// Gives you the Shifty Eyes quirk, rarely making people who examine you think you examined them back even when you didn't
 #define TRAIT_SHIFTY_EYES "shifty_eyes"
 /// Tells us that the mob currently has the fire_handler/wet_stacks status effect
@@ -236,6 +242,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
 #define TRAIT_QUICKER_CARRY "quicker-carry"
+/**
+ *
+ * This trait is used in some interactions very high in the interaction chain to allow
+ * certain atoms to be skipped by said interactions if the user is in combat mode.
+ *
+ * Its primarily use case is for stuff like storage and tables, to allow things like emags to be bagged
+ * (because in some contexts you might want to be emagging a bag, and in others you might want to be storing it.)
+ *
+ * This is only checked by certain items explicitly so you can't just add the trait and expect it to work.
+ * (This may be changed later but I chose to do it this way to avoid messing up interactions which require combat mode)
+ */
+#define TRAIT_COMBAT_MODE_SKIP_INTERACTION "combat_mode_skip_interaction"
 /// Having this trait allows the basic health hud to show up for this mob
 #define TRAIT_BASIC_HEALTH_HUD_VISIBLE "basic_health_hud_visible"
 #define TRAIT_QUICK_BUILD "quick-build"
@@ -248,10 +266,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
 #define TRAIT_BEEFRIEND "beefriend"
 #define TRAIT_PASSTABLE "passtable"
-#define TRAIT_BLUSHING "blushing"
-#define TRAIT_CRYING "crying"
 #define TRAIT_NOBLOCK "noblock"
 #define TRAIT_NANITECOMPATIBLE "nanitecompatible"
+/// Can have synth (IPC) upgrades
+#define TRAIT_UPGRADE_COMPATIBLE "upgrade_compatible"
 #define TRAIT_NICE_SHOT "nice_shot" //hnnnnnnnggggg..... you're pretty good....
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_HALLUCINATION_SUPPRESSED "hallucination_suppressed"
@@ -263,7 +281,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DRINKSBLOOD "drinks_blood"
 #define TRAIT_SOMMELIER "sommelier"  // shows different booze power flavor texts
 #define TRAIT_BARMASTER "bar_master" // always can identify reagents
-#define TRAIT_MOTH_BURNT "moth_burnt"
 /// From anti-convulsant medication against seizures.
 #define TRAIT_ANTICONVULSANT "anticonvulsant"
 #define TRAIT_BLOODSHOT_EYES "bloodshot_eyes"
@@ -284,6 +301,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BLOOD "no_blood" // Bleeding heals itself and bleeding is impossible
 #define TRAIT_NO_BLEEDING "no_bleed" // The user can acquire the bleeding status effect, but will no lose blood
 #define TRAIT_BLOOD_COOLANT "blood_coolant" // Replaces blood with coolant, meaning we overheat instead of losing air
+#define TRAIT_DIES_NO_NUTRITION "dies_no_nutrition" // Do we apply a status effect (eventually causing death) if the owner runs out of nutrition?
 #define TRAIT_NO_BUMP_SLAM "no_bump_slam"	// Disables the ability to slam into walls
 /// Trait given by being a hulk
 #define TRAIT_HULK "hulk"
@@ -299,7 +317,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_KNOW_ROBO_WIRES "know_robo_wires"
 /// Mob has gotten an armor buff from adamantine extract
 #define TRAIT_ADAMANTINE_EXTRACT_ARMOR "adamantine_extract_armor"
-
+/// Whether or not the user is in a MODlink call, prevents making more calls
+#define TRAIT_IN_CALL "in_call"
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
 /// Whether we're sneaking, from the alien sneak ability.
@@ -407,6 +426,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FOOD_FRIED "food_fried"
 /// If this item's been made by a chef instead of spawned by the map or admins
 #define TRAIT_FOOD_CHEF_MADE "food_made_by_chef"
+/// scoops bites of food
+#define TRAIT_UTENSIL "utensil"
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
 #define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
 #define TRAIT_DOOR_PRYER		"door-pryer"	//Item can be used on airlocks to pry them open (even when powered)
@@ -467,6 +488,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
  */
 #define TRAIT_VENTCRAWLER_ALWAYS "ventcrawler_always"
 #define TRAIT_VENTCRAWLER_NUDE "ventcrawler_nude"
+
+/// This item cannot be put into the all-in-one grinder
+#define TRAIT_NO_GRINDING "cannot_be_grinded"
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
@@ -532,6 +556,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
+/// Lets the mob move in zero gravity without anything to push off from
+#define TRAIT_FREE_FLOAT_MOVEMENT "free_float_movement"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -642,5 +668,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This clothing protects the user from radiation.
 /// This should not be used on clothing_traits, but should be applied to the clothing itself.
 #define TRAIT_RADIATION_PROTECTED_CLOTHING "radiation_protected_clothing"
+
+/// This mob heals from carp rifts.
+#define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 
 // END TRAIT DEFINES

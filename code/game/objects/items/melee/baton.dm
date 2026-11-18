@@ -89,9 +89,8 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
  *
  * TL;DR: [/baton_attack()] -> [/finalize_baton_attack()] -> [/baton_effect()] -> [/set_batoned()]
  */
-/obj/item/melee/baton/attack(mob/living/target, mob/living/user, params)
+/obj/item/melee/baton/attack(mob/living/target, mob/living/user, list/modifiers)
 	add_fingerprint(user)
-	var/list/modifiers = params2list(params)
 	switch(baton_attack(target, user, modifiers))
 		if(BATON_DO_NORMAL_ATTACK)
 			return ..()
@@ -787,7 +786,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		tool.play_tool_sound(src)
 	return TRUE
 
-/obj/item/melee/baton/security/attackby(obj/item/item, mob/user, params)
+/obj/item/melee/baton/security/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/active_cell = item
 		if(cell)
@@ -948,7 +947,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	. = ..()
 	//base 35% success chance if you throw it
 	if(!. && active && prob(throw_stun_chance) && isliving(hit_atom))
-		finalize_baton_attack(hit_atom, thrownby?.resolve(), in_attack_chain = FALSE, is_harm = FALSE)
+		finalize_baton_attack(hit_atom, throwingdatum?.get_thrower(), in_attack_chain = FALSE, is_harm = FALSE)
 
 /obj/item/melee/baton/security/emp_act(severity)
 	. = ..()
@@ -1001,7 +1000,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	. = ..()
 	sparkler = new (src)
 
-/obj/item/melee/baton/security/cattleprod/attackby(obj/item/item, mob/user, params)//handles sticking a crystal onto a stunprod to make a teleprod
+/obj/item/melee/baton/security/cattleprod/attackby(obj/item/item, mob/user, list/modifiers)//handles sticking a crystal onto a stunprod to make a teleprod
 	if(!istype(item, /obj/item/stack))
 		return ..()
 

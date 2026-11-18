@@ -162,7 +162,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
-		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", source = mychild, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Lavaland Elite awakened")
+		notify_ghosts(
+			"\A [mychild] has been awakened in \the [get_area(src)]!",
+			source = mychild,
+			header = "Lavaland Elite awakened",
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 	mychild.log_message("has been awakened by [key_name(activator)]!", LOG_GAME, color="#960000")
 	activator.log_message("has awakened [key_name(mychild)]!", LOG_GAME, color="#960000")
 	icon_state = "tumor_popped"
@@ -176,7 +181,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.maxHealth = mychild.maxHealth * 2
 		mychild.health = mychild.maxHealth
-		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", source = mychild, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Lavaland Elite challenged")
+		notify_ghosts(
+			"\A [mychild] has been challenged in \the [get_area(src)]!",
+			source = mychild,
+			header = "Lavaland Elite challenged",
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 	mychild.log_message("has been challenged by [key_name(activator)]!", LOG_GAME, color="#960000")
 
 /obj/structure/elite_tumor/Initialize(mapload)
@@ -198,7 +208,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
 				H.color = COLOR_RED
 
-/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
+/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(istype(I, /obj/item/organ/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
 		var/obj/item/organ/regenerative_core/core = I

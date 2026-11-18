@@ -1375,9 +1375,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/hallway)
 "dD" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/machinery/shower{
 	dir = 4;
 	name = "emergency shower"
@@ -2013,11 +2011,8 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "JN" = (
-/obj/structure/mirror{
-	pixel_y = 35;
-	pixel_x = -1
-	},
 /obj/structure/sink/directional/south,
+/obj/structure/mirror/directional/north,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "KA" = (

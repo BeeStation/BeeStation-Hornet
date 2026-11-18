@@ -116,7 +116,7 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
 	..()
 	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
-	if(spider_antag.spider_team.directive)
+	if(spider_antag?.spider_team.directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[spider_antag.spider_team.directive]'.")
 	return TRUE
 

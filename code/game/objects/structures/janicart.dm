@@ -52,7 +52,7 @@
 	mymop = null
 	update_icon()
 
-/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, list/modifiers)
 
 	if(istype(I, /obj/item/mop))
 		var/obj/item/mop/m=I
@@ -102,7 +102,7 @@
 			balloon_alert(user, "The sign rack is full!")
 			to_chat(user, span_notice("The [src] can't hold any more signs!"))
 	else if(mybag)
-		mybag.attackby(I, user)
+		mybag.atom_storage.attempt_insert(I, user)
 	else if(I.tool_behaviour == TOOL_CROWBAR)
 		user.balloon_alert_to_viewers("Starts dumping [src]...", "Started dumping [src]...")
 		user.visible_message("[user] begins to dump the contents of [src].", span_notice("You begin to dump the contents of [src]..."))

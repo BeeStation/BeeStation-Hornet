@@ -24,17 +24,14 @@
 			speak("neutral", prob(25))
 
 /datum/brain_trauma/special/godwoken/on_gain()
-	owner.AddComponent(/datum/component/anti_magic, \
-	_source = TRAUMA_TRAIT, \
-	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND), \
-	)
-	..()
+	owner.AddComponent(/datum/component/anti_magic, source = TRAUMA_TRAIT, antimagic_flags = MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND)
+	return ..()
 
 /datum/brain_trauma/special/godwoken/on_lose()
 	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == TRAUMA_TRAIT)
 			qdel(anti_magic)
-	..()
+	return ..()
 
 /datum/brain_trauma/special/godwoken/proc/speak(type, include_owner = FALSE)
 	var/message

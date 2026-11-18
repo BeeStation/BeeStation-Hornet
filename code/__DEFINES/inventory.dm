@@ -21,8 +21,9 @@
 
 //Inventory depth: limits how many nested storage items you can access directly.
 //1: stuff in mob, 2: stuff in backpack, 3: stuff in box in backpack, etc
-#define INVENTORY_DEPTH		3
-#define STORAGE_VIEW_DEPTH	2
+#define REACH_DEPTH_SELF 1
+/// A storage depth ontop of SELF. REACH_DEPTH_STORAGE(1) would allow an item inside of a backpack you are carrying.
+#define REACH_DEPTH_STORAGE(level) (level + REACH_DEPTH_SELF)
 
 //ITEM INVENTORY SLOT BITMASKS
 /// Suit slot (armors, costumes, space suits, etc.)
@@ -53,20 +54,18 @@
 #define ITEM_SLOT_NECK (1<<12)
 /// A character's hand slots
 #define ITEM_SLOT_HANDS (1<<13)
-/// Inside of a character's backpack
-#define ITEM_SLOT_BACKPACK (1<<14)
 /// Suit Storage slot
-#define ITEM_SLOT_SUITSTORE (1<<15)
+#define ITEM_SLOT_SUITSTORE (1<<14)
 /// Left Pocket slot
-#define ITEM_SLOT_LPOCKET (1<<16)
+#define ITEM_SLOT_LPOCKET (1<<15)
 /// Right Pocket slot
-#define ITEM_SLOT_RPOCKET (1<<17)
+#define ITEM_SLOT_RPOCKET (1<<16)
 /// Handcuff slot
-#define ITEM_SLOT_HANDCUFFED (1<<18)
+#define ITEM_SLOT_HANDCUFFED (1<<17)
 /// Legcuff slot (bolas, beartraps)
-#define ITEM_SLOT_LEGCUFFED (1<<19)
+#define ITEM_SLOT_LEGCUFFED (1<<18)
 
-#define SLOTS_AMT 20 // Keep this up to date!
+#define SLOTS_AMT 19 // Keep this up to date!
 
 DEFINE_BITFIELD(no_equip_flags, list(
 	"EXOSUIT" = ITEM_SLOT_OCLOTHING,
@@ -85,8 +84,7 @@ DEFINE_BITFIELD(no_equip_flags, list(
 #define ITEM_SLOT_POCKETS (ITEM_SLOT_LPOCKET|ITEM_SLOT_RPOCKET)
 
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
-//Make sure to update check_obscured_slots() if you add more.
-//! ## FLAGS FOR flags_inv
+//Make sure to update obscured_slots if you add more.
 #define HIDEGLOVES (1<<0)
 #define HIDESUITSTORAGE (1<<1)
 #define HIDEJUMPSUIT (1<<2) //these first four are only used in exterior suits
@@ -120,9 +118,9 @@ DEFINE_BITFIELD(no_equip_flags, list(
 #define HAIR_APPENDAGE_ALL (HAIR_APPENDAGE_FRONT|HAIR_APPENDAGE_LEFT|HAIR_APPENDAGE_RIGHT|HAIR_APPENDAGE_REAR|HAIR_APPENDAGE_TOP|HAIR_APPENDAGE_HANGING_FRONT|HAIR_APPENDAGE_HANGING_REAR)
 
 //bitflags for clothing coverage - also used for limbs
-#define HEAD (1<<0)
-#define CHEST (1<<1)
-#define GROIN (1<<2)
+#define CHEST (1<<0)
+#define GROIN (1<<1)
+#define HEAD (1<<2)
 #define LEG_LEFT (1<<3)
 #define LEG_RIGHT (1<<4)
 #define LEGS (LEG_LEFT | LEG_RIGHT)
@@ -165,16 +163,15 @@ DEFINE_BITFIELD(no_equip_flags, list(
 //This system takes priority over Sprite Sheets.
 
 //Flags (actual flags, fucker ^) for /obj/item/var/supports_variations_flags
-///No alternative sprites based on bodytype
-#define CLOTHING_NO_VARIATION (1<<0)
-///Has a sprite for digitigrade legs specifically.
-#define CLOTHING_DIGITIGRADE_VARIATION (1<<1)
-///The sprite works fine for digitigrade legs as-is.
-#define CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<2)
+/// Has a sprite for digitigrade legs specifically.
+#define CLOTHING_DIGITIGRADE_VARIATION (1<<0)
+/// The sprite works fine for digitigrade legs as-is.
+#define CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<1)
+/// Auto-generates the leg portion of the sprite with GAGS
+#define CLOTHING_DIGITIGRADE_MASK (1<<2)
 
-#define NOT_DIGITIGRADE				0
-#define FULL_DIGITIGRADE			1
-#define SQUISHED_DIGITIGRADE		2
+/// All variation flags which render "correctly" on a digitigrade leg setup
+#define DIGITIGRADE_VARIATIONS (CLOTHING_DIGITIGRADE_VARIATION|CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON|CLOTHING_DIGITIGRADE_MASK)
 
 //flags for covering body parts
 #define GLASSESCOVERSEYES (1<<0)
@@ -270,3 +267,28 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, (list(
 #define COLLECT_ONE 0
 #define COLLECT_EVERYTHING 1
 #define COLLECT_SAME 2
+
+/// Loadout gear slot for items that go in the backpack, kept separate from other slotless gear
+#define LOADOUT_SLOT_BACKPACK "backpack"
+
+// Keys for equip_in_one_of_slots, if you add new ones update the assoc lists in equip_in_one_of_slots
+/// Items placed into the left pocket.
+#define LOCATION_LPOCKET "in your left pocket"
+/// Items placed into the right pocket
+#define LOCATION_RPOCKET "in your right pocket"
+/// Items placed into the backpack.
+#define LOCATION_BACKPACK "in your backpack"
+/// Items placed into the hands.
+#define LOCATION_HANDS "in your hands"
+/// Items placed in the glove slot.
+#define LOCATION_GLOVES "on your hands"
+/// Items placed in the eye/glasses slot.
+#define LOCATION_EYES "covering your eyes"
+/// Items placed in the mask slot.
+#define LOCATION_MASK "covering your face"
+/// Items placed on the head/hat slot.
+#define LOCATION_HEAD "on your head"
+/// Items placed in the neck slot.
+#define LOCATION_NECK "around your neck"
+/// Items placed in the id slot
+#define LOCATION_ID "in your ID slot"

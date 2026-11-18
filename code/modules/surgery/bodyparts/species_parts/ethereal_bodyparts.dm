@@ -1,3 +1,8 @@
+/// getter for ethereal color. needs an electric stomach and an ethereal core to work
+/obj/item/bodypart/proc/get_ethereal_color(mob/living/carbon/carbon)
+	var/obj/item/organ/heart/ethereal/core = carbon.get_organ_slot(ORGAN_SLOT_HEART)
+	return istype(core) ? core.get_body_color() : COLOR_GRAY
+
 /obj/item/bodypart/head/ethereal
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
@@ -11,10 +16,8 @@
 
 /obj/item/bodypart/head/ethereal/update_limb(dropping_limb, is_creating)
 	. = ..()
-	if(isethereal(owner))
-		var/mob/living/carbon/human/potato_oc = owner
-		var/datum/species/ethereal/eth_holder = potato_oc.dna.species
-		species_color = eth_holder.current_color
+	if(owner)
+		species_color = get_ethereal_color(owner)
 
 /obj/item/bodypart/chest/ethereal
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
@@ -26,10 +29,8 @@
 
 /obj/item/bodypart/chest/ethereal/update_limb(dropping_limb, is_creating)
 	. = ..()
-	if(isethereal(owner))
-		var/mob/living/carbon/human/potato_oc = owner
-		var/datum/species/ethereal/eth_holder = potato_oc.dna.species
-		species_color = eth_holder.current_color
+	if(owner)
+		species_color = get_ethereal_color(owner)
 
 /obj/item/bodypart/arm/left/ethereal
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
@@ -43,10 +44,8 @@
 
 /obj/item/bodypart/arm/left/ethereal/update_limb(dropping_limb, is_creating)
 	. = ..()
-	if(isethereal(owner))
-		var/mob/living/carbon/human/potato_oc = owner
-		var/datum/species/ethereal/eth_holder = potato_oc.dna.species
-		species_color = eth_holder.current_color
+	if(owner)
+		species_color = get_ethereal_color(owner)
 
 /obj/item/bodypart/arm/right/ethereal
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
@@ -60,10 +59,8 @@
 
 /obj/item/bodypart/arm/right/ethereal/update_limb(dropping_limb, is_creating)
 	. = ..()
-	if(isethereal(owner))
-		var/mob/living/carbon/human/potato_oc = owner
-		var/datum/species/ethereal/eth_holder = potato_oc.dna.species
-		species_color = eth_holder.current_color
+	if(owner)
+		species_color = get_ethereal_color(owner)
 
 /obj/item/bodypart/leg/left/ethereal
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
@@ -76,10 +73,8 @@
 
 /obj/item/bodypart/leg/left/ethereal/update_limb(dropping_limb, is_creating)
 	. = ..()
-	if(isethereal(owner))
-		var/mob/living/carbon/human/potato_oc = owner
-		var/datum/species/ethereal/eth_holder = potato_oc.dna.species
-		species_color = eth_holder.current_color
+	if(owner)
+		species_color = get_ethereal_color(owner)
 
 /obj/item/bodypart/leg/right/ethereal
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
@@ -92,7 +87,5 @@
 
 /obj/item/bodypart/leg/right/ethereal/update_limb(dropping_limb, is_creating)
 	. = ..()
-	if(isethereal(owner))
-		var/mob/living/carbon/human/potato_oc = owner
-		var/datum/species/ethereal/eth_holder = potato_oc.dna.species
-		species_color = eth_holder.current_color
+	if(owner)
+		species_color = get_ethereal_color(owner)

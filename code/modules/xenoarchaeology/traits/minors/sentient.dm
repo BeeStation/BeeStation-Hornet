@@ -70,9 +70,6 @@
 	sentience.real_name = "[sentience.name] - [component_parent?.parent]"
 	sentience.key = ckey
 	sentience.add_traits(list(TRAIT_GODMODE, TRAIT_ARTIFACT_IGNORE), TRAIT_GENERIC)
-	//Stop them from wriggling away
-	var/atom/movable/movable = component_parent.parent
-	movable.buckle_mob(movable, TRUE)
 	//Action
 	var/datum/action/spell/pointed/artifact_senitent_action/P = new /datum/action/spell/pointed/artifact_senitent_action(component_parent?.parent, component_parent)
 	P.Grant(sentience)
@@ -103,6 +100,7 @@
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
 	name = "Sentient Xenoartifact"
+	mob_name = "a sentient xenoartifact"
 	short_desc = "You're a malevolent sentience, possessing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE

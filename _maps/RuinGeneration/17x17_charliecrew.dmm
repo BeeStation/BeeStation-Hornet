@@ -135,8 +135,8 @@
 /area/ruin/powered)
 "oq" = (
 /obj/structure/closet/crate,
-/obj/item/storage/backpack/old,
-/obj/item/storage/backpack/old,
+/obj/item/storage/backpack,
+/obj/item/storage/backpack,
 /obj/item/crowbar,
 /obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron/white,
@@ -270,7 +270,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered)
 "yA" = (
-/obj/effect/mob_spawn/human/oldsec{
+/obj/effect/mob_spawn/human/oldstation/sec{
 	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -370,7 +370,7 @@
 /area/ruin/powered)
 "IJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldeng{
+/obj/effect/mob_spawn/human/oldstation/eng{
 	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -399,7 +399,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered)
 "JM" = (
-/obj/effect/mob_spawn/human/oldsci{
+/obj/effect/mob_spawn/human/oldstation/sci{
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,

@@ -163,7 +163,7 @@ GLOBAL_LIST(labor_sheet_values)
 		return
 	user.examinate(src)
 
-/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/card/id))
 		if(istype(I, /obj/item/card/id/gulag))
 			var/obj/item/card/id/gulag/prisoner_id = I

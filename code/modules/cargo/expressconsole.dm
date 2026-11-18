@@ -29,7 +29,7 @@
 		beacon.unlink_console()
 	return ..()
 
-/obj/machinery/computer/cargo/express/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/computer/cargo/express/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda)) && allowed(user))
 		locked = !locked
 		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] the interface."))

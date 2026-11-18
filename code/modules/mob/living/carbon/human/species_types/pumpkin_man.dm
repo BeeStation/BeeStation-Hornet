@@ -34,13 +34,13 @@
 		return TRUE
 	return ..()
 
-/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	//They can't speak!
 	//Register signal for carving
 	RegisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(handle_carving))
 
-/datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 
@@ -63,12 +63,12 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(2,0)
 
-/datum/species/pumpkin_man/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/pumpkin_man/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/pumpkin_man/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	switch(P.type)
@@ -122,10 +122,9 @@
 			for(var/i in 0 to 8)
 				face_options += list("face[i]" = image('icons/mob/pumpkin_faces.dmi', "face[i]"))
 			var/face_choosen = show_radial_menu(_user, _source, face_options, require_near = TRUE)
-			//Reset overlays
-			M.cut_overlay(head.carved_overlay) //This is needed in addition to the head icon getter's - for some reason?
-			head.carved_overlay.icon_state = face_choosen
-			M.update_body_parts_head_only()
+			if(!face_choosen)
+				return
+			head.set_carved_face(face_choosen)
 			to_chat(_user, span_notice("You carve a face into [_source]."))
 			//Adjust the tongue
 			var/obj/item/organ/tongue/diona/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]

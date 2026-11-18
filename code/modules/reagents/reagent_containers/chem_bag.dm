@@ -6,7 +6,7 @@
 	volume = 200
 	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 	has_variable_transfer_amount = FALSE
-	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
+	initial_reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
 
 /obj/item/reagent_containers/chem_bag/Initialize(mapload)
 	. = ..()
@@ -26,16 +26,16 @@
 
 // this is specifically made as an example for a sleeper feature that uses a chem bag at roundstart.
 /obj/item/reagent_containers/chem_bag/oxy_mix
-	name = "Quadra-oxymix Medicines Bag"
+	name = "quadra-oxymix medicines bag"
 	desc = "a small note on it says: Perfluorodecalin 50u, Dexalin 20u, Dexalin Plus 20u, Salbutamol 20u, with 100u of Saline-Glucose Solution."
-	label_name = "Quadra-oxymix Medicines"
+	label_name = "quadra-oxymix medicines"
 	list_reagents = list(
 		/datum/reagent/medicine/perfluorodecalin = 50,
 		/datum/reagent/medicine/dexalin = 20,
 		/datum/reagent/medicine/dexalinp = 20,
 		/datum/reagent/medicine/salbutamol = 20,
 		/datum/reagent/medicine/salglu_solution = 100,
-		) // you are welcome to change the chem contents here
+	) // you are welcome to change the chem contents here
 
 /obj/item/reagent_containers/chem_bag/epi
 	name = "epinephrine reserve bag"
@@ -47,7 +47,11 @@
 
 /obj/item/reagent_containers/chem_bag/triamed
 	name = "triamed reserve bag"
-	list_reagents=  list(/datum/reagent/medicine/bicaridine = 40, /datum/reagent/medicine/kelotane = 40, /datum/reagent/medicine/epinephrine = 20)
+	list_reagents=  list(
+		/datum/reagent/medicine/bicaridine = 40,
+		/datum/reagent/medicine/kelotane = 40,
+		/datum/reagent/medicine/epinephrine = 20,
+	)
 
 /obj/item/reagent_containers/chem_bag/tricordrazine
 	name = "tricordrazine reserve bag"
@@ -63,4 +67,8 @@
 
 /obj/item/reagent_containers/chem_bag/syndicate
 	name = "suspicious reserve bag"
-	list_reagents = list(/datum/reagent/medicine/leporazine = 30, /datum/reagent/medicine/syndicate_nanites = 40, /datum/reagent/medicine/stabilizing_nanites = 30)
+	list_reagents = list(
+		/datum/reagent/medicine/leporazine = 30,
+		/datum/reagent/medicine/syndicate_nanites = 40,
+		/datum/reagent/medicine/stabilizing_nanites = 30,
+	)

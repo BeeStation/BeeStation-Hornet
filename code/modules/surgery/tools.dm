@@ -105,7 +105,9 @@
 		throwforce_on = throwforce, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+		inhand_icon_change = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
@@ -118,7 +120,7 @@
 
 	tool_behaviour = (active ? TOOL_DRILL : TOOL_CAUTERY)
 	balloon_alert(user, "lenses set to [active ? "drill" : "mend"]")
-	playsound(user ? user : src, 'sound/weapons/tap.ogg', 50, TRUE)
+	playsound(user || src, 'sound/weapons/tap.ogg', 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/cautery/advanced/examine()
@@ -246,7 +248,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = SURGICAL_TOOL
 	force = 12 //These are not large saws, their big threat is how bad the bleeding is.
@@ -272,7 +274,7 @@
 	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "saw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -292,7 +294,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "hacksaw"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	inhand_icon_state = "wrench"
@@ -446,7 +448,9 @@
 		sharpness_on = sharpness, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+		inhand_icon_change = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
@@ -486,7 +490,9 @@
 		throwforce_on = throwforce, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+		inhand_icon_change = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*

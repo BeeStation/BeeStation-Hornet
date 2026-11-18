@@ -94,9 +94,11 @@
 
 /datum/surgery_step/coronary_bypass/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	target.setOrganLoss(ORGAN_SLOT_HEART, 60)
-	var/obj/item/organ/heart/heart = target.get_organ_slot(ORGAN_SLOT_HEART)
-	if(heart)	//slightly worrying if we lost our heart mid-operation, but that's life
-		heart.operated = TRUE
+	var/obj/item/organ/heart/target_heart = target.get_organ_slot(ORGAN_SLOT_HEART)
+	if(target_heart) //slightly worrying if we lost our heart mid-operation, but that's life
+		target_heart.operated = TRUE
+		if(target_heart.organ_flags & ORGAN_EMP)
+			target_heart.organ_flags &= ~ORGAN_EMP
 	display_results(
 		user,
 		target,

@@ -70,6 +70,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/reagent_weight = 1
 	///is it currently metabolizing
 	var/metabolizing = FALSE
+	///A list of causes why this chem should skip being removed, if the length is 0 it will be removed from holder naturally, if this is >0 it will not be removed from the holder.
+	var/list/reagent_removal_skip_list = list()
 	///Assoc list with key type of addiction this reagent feeds, and value amount of addiction points added per unit of reagent metabolzied (which means * REAGENTS_METABOLISM every life())
 	var/list/addiction_types = null
 	/// The affected organ_flags, if the reagent damages/heals organ damage of an affected mob.
@@ -122,6 +124,17 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/expose_turf(turf/exposed_turf, volume)
 	SHOULD_CALL_PARENT(TRUE)
 
+///Called to begin metabolization and return the x of reagent to metabolize
+/datum/reagent/proc/compute_metabolization(mob/living/carbon/affected_mob, seconds_per_tick)
+	var/metabolizing_out = metabolization_rate * seconds_per_tick
+	if(!(chemical_flags & REAGENT_UNAFFECTED_BY_METABOLISM))
+		if(chemical_flags & REAGENT_REVERSE_METABOLISM)
+			metabolizing_out /= affected_mob.metabolism_efficiency
+		else
+			metabolizing_out *= affected_mob.metabolism_efficiency
+
+	return metabolizing_out
+
 /**
  * Ticks on mob Life() for as long as the reagent remains in the mob's reagents.
  *
@@ -139,12 +152,13 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
  */
 /datum/reagent/proc/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
-	current_cycle++
 
+///Metabolizes a portion of the reagent after on_mob_life() is called
+/datum/reagent/proc/metabolize_reagent(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	if(isnull(holder))
 		return
 
-	var/metabolizing_out = metabolization_rate * delta_time
+	var/metabolizing_out = metabolization_rate * seconds_per_tick
 	if(!(chemical_flags & REAGENT_UNAFFECTED_BY_METABOLISM))
 		if(chemical_flags & REAGENT_REVERSE_METABOLISM)
 			metabolizing_out /= affected_mob.metabolism_efficiency
@@ -182,6 +196,13 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	SHOULD_CALL_PARENT(TRUE)
 	REMOVE_TRAITS_IN(affected_mob, "metabolize:[type]")
+
+/**
+ * Called when a reagent is inside of a mob when they are dead if the reagent has the REAGENT_DEAD_PROCESS flag
+ * Returning UPDATE_MOB_HEALTH will cause updatehealth() to be called on the holder mob by /datum/reagents/proc/metabolize.
+ */
+/datum/reagent/proc/on_mob_dead(mob/living/carbon/affected_mob, delta_time)
+	SHOULD_CALL_PARENT(TRUE)
 
 /// Called by [/datum/reagents/proc/conditional_update_move]
 /datum/reagent/proc/on_move(mob/M)

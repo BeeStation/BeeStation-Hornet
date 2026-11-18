@@ -243,7 +243,7 @@
 	vest = V
 	return TRUE
 
-/obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
+/obj/machinery/abductor/console/attackby(obj/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
 		to_chat(user, span_notice("You link the tool to the console."))
 	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
@@ -257,7 +257,7 @@
 		say("Incoming supply!")
 		var/drop_location = loc
 		if(pad)
-			flick("alien-pad", pad)
+			z_flick("alien-pad", pad)
 			drop_location = pad.loc
 		new item(drop_location)
 

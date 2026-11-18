@@ -3,9 +3,7 @@
 	desc = "It produces items using iron, copper, and glass."
 	icon_state = "autolathe"
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.5
 	circuit = /obj/item/circuitboard/machine/autolathe
 	can_be_hacked_or_unlocked = TRUE
 	accepts_disks = TRUE
@@ -31,7 +29,7 @@
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
-/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(operating)
 		balloon_alert(user, "it's busy!")
 		return FALSE
@@ -104,9 +102,9 @@
 /obj/machinery/modular_fabricator/autolathe/after_material_insert(item_inserted, id_inserted, amount_inserted)
 	. = ..()
 	if(length(custom_materials) && custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
-		flick("autolathe_r", src)//plays glass insertion animation by default otherwise
+		z_flick("autolathe_r", src)//plays glass insertion animation by default otherwise
 	else
-		flick("autolathe_o", src)//plays metal insertion animation
+		z_flick("autolathe_o", src)//plays metal insertion animation
 
 /obj/machinery/modular_fabricator/autolathe/set_default_sprite()
 	icon_state = "autolathe"

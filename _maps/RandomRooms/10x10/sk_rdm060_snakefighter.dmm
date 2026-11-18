@@ -185,15 +185,6 @@
 /obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
-"S" = (
-/obj/structure/cable,
-/obj/structure/cable/yellow,
-/obj/structure/sign/warning{
-	pixel_y = -32
-	},
-/obj/machinery/power/shieldwallgen/xenobiologyaccess,
-/turf/open/floor/plating,
-/area/template_noop)
 "T" = (
 /obj/structure/closet,
 /obj/item/food/meat/slab/monkey,
@@ -250,7 +241,7 @@ b
 k
 X
 u
-S
+i
 H
 H
 f

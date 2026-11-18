@@ -1,28 +1,30 @@
-/mob/living/carbon/update_obscured_slots(obscured_flags)
-	..()
-	update_body()
-
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]
 
 /mob/living/carbon/proc/apply_overlay(cache_index)
 	if((. = overlays_standing[cache_index]))
 		add_overlay(.)
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
-		return TRUE
-	return FALSE
+		. = TRUE
+	else
+		. = FALSE
+	SEND_SIGNAL(src, COMSIG_CARBON_REMOVE_OVERLAY, cache_index, I)
+	return .
 
 /mob/living/carbon/regenerate_icons()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
+	icon_render_keys = list() //Clear this bad larry out
 	update_held_items()
 	update_worn_handcuffs()
 	update_worn_legcuffs()
+	update_body()
 	update_appearance(UPDATE_OVERLAYS)
 
 /mob/living/carbon/update_held_items()
@@ -50,7 +52,7 @@
 		if(get_held_index_of_item(I) % 2 == 0)
 			icon_file = I.righthand_file
 
-		hands += I.build_worn_icon(src, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+		hands += I.build_worn_icon(src, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE, bodyshape = bodyshape)
 
 	overlays_standing[HANDS_LAYER] = hands
 	apply_overlay(HANDS_LAYER)
@@ -71,25 +73,30 @@
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
 
-	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
+	var/mutable_appearance/damage_overlay
+	for(var/obj/item/bodypart/iter_part as anything in get_bodyparts())
+		if(!iter_part.dmg_overlay_type)
+			continue
+		if(isnull(damage_overlay) && (iter_part.brutestate || iter_part.burnstate))
+			damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), appearance_flags = KEEP_TOGETHER)
+		if(iter_part.brutestate)
+			var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[iter_part.dmg_overlay_type]_[iter_part.body_zone]_[iter_part.brutestate]0")
+			if(iter_part.use_damage_color && !HAS_TRAIT(src, TRAIT_NOBLOOD))
+				//Set damage_color to species blood color
+				iter_part.damage_color = src.dna.blood_type.blood_color
+				brute_overlay.color = iter_part.damage_color
+			damage_overlay.add_overlay(brute_overlay)
+		if(iter_part.burnstate)
+			damage_overlay.add_overlay("[iter_part.dmg_overlay_type]_[iter_part.body_zone]_0[iter_part.burnstate]")
+
+	if(isnull(damage_overlay))
+		return
+
 	overlays_standing[DAMAGE_LAYER] = damage_overlay
-
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		if(BP.dmg_overlay_type && !BP.is_husked)
-			if(BP.brutestate)
-				var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")
-				if(BP.use_damage_color && !HAS_TRAIT(src, TRAIT_NOBLOOD))
-					//Set damage_color to species blood color
-					BP.damage_color = src.dna.blood_type.blood_color
-					brute_overlay.color = BP.damage_color
-				damage_overlay.add_overlay(brute_overlay)
-			if(BP.burnstate)
-				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_0[BP.burnstate]")
-
 	apply_overlay(DAMAGE_LAYER)
 
 
-/mob/living/carbon/update_worn_mask(update_obscured = TRUE)
+/mob/living/carbon/update_worn_mask()
 	remove_overlay(FACEMASK_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -100,15 +107,13 @@
 		inv.update_icon()
 
 	if(wear_mask)
-		if(update_obscured)
-			update_obscured_slots(wear_mask.flags_inv)
-		if(!(check_obscured_slots() & ITEM_SLOT_MASK))
-			overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(src, default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/clothing/mask.dmi')
+		if(!(obscured_slots & HIDEMASK))
+			overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(src, default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/clothing/mask.dmi', bodyshape = bodyshape)
 		update_hud_wear_mask(wear_mask)
 
 	apply_overlay(FACEMASK_LAYER)
 
-/mob/living/carbon/update_worn_neck(update_obscured = TRUE)
+/mob/living/carbon/update_worn_neck()
 	remove_overlay(NECK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1])
@@ -116,15 +121,13 @@
 		inv.update_icon()
 
 	if(wear_neck)
-		if(update_obscured)
-			update_obscured_slots(wear_neck.flags_inv)
-		if(!(check_obscured_slots() & ITEM_SLOT_NECK))
-			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(src, default_layer = NECK_LAYER, default_icon_file = 'icons/mob/clothing/neck.dmi')
+		if(!(obscured_slots & HIDENECK))
+			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(src, default_layer = NECK_LAYER, default_icon_file = 'icons/mob/clothing/neck.dmi', bodyshape = bodyshape)
 		update_hud_neck(wear_neck)
 
 	apply_overlay(NECK_LAYER)
 
-/mob/living/carbon/update_worn_back(update_obscured = TRUE)
+/mob/living/carbon/update_worn_back()
 	remove_overlay(BACK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
@@ -132,14 +135,12 @@
 		inv.update_icon()
 
 	if(back)
-		if(update_obscured)
-			update_obscured_slots(back.flags_inv)
-		overlays_standing[BACK_LAYER] = back.build_worn_icon(src, default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi')
+		overlays_standing[BACK_LAYER] = back.build_worn_icon(src, default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi', bodyshape = bodyshape)
 		update_hud_back(back)
 
 	apply_overlay(BACK_LAYER)
 
-/mob/living/carbon/update_worn_head(update_obscured = TRUE)
+/mob/living/carbon/update_worn_head()
 	remove_overlay(HEAD_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -150,19 +151,15 @@
 		inv.update_icon()
 
 	if(head)
-		if(update_obscured)
-			update_obscured_slots(head.flags_inv)
-		if(!(check_obscured_slots() & ITEM_SLOT_HEAD))
-			overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+		if(!(obscured_slots & HIDEHEADGEAR))
+			overlays_standing[HEAD_LAYER] = head.build_worn_icon(src, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi', bodyshape = bodyshape)
 		update_hud_head(head)
 
 	apply_overlay(HEAD_LAYER)
 
-/mob/living/carbon/update_worn_handcuffs(update_obscured = TRUE)
+/mob/living/carbon/update_worn_handcuffs()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
-		if(update_obscured)
-			update_obscured_slots(handcuffed.flags_inv)
 		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
 		apply_overlay(HANDCUFF_LAYER)
 
@@ -199,12 +196,12 @@
 //eg: ammo counters, primed grenade flashing, etc.
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
 //Clothing layer is the layer that clothing would usually appear on
-/obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
+/obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin, bodyshape = NONE)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
 	. = list()
-	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
+	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file, bodyshape)
 
 /mob/living/carbon/update_body(is_creating = FALSE)
 	if(!ismonkey(src))
@@ -216,37 +213,34 @@
 ///Returns an integer representing the number of limbs that were updated.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	update_damage_overlays()
-	var/list/needs_update = list()
 	var/limb_count_update = 0
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+	var/list/new_limbs = list()
+	for(var/body_zone, limb_untyped in get_bodyparts_by_zones())
+		var/obj/item/bodypart/limb = limb_untyped
+		if(isnull(limb))
+			if(icon_render_keys[body_zone])
+				icon_render_keys -= body_zone
+				limb_count_update += 1
+			continue
 
-		var/old_key = icon_render_keys?[limb.body_zone]
-		icon_render_keys[limb.body_zone] = (limb.is_husked) ? limb.generate_husk_key().Join() : limb.generate_icon_key().Join() //Generates a key for the current bodypart
+		// Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		limb.update_limb(is_creating = update_limb_data)
 
-		if(icon_render_keys[limb.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
-			needs_update += limb
+		var/old_key = icon_render_keys[limb.body_zone]
+		var/new_key = limb.get_cache_key()
 
-	limb_count_update += length(needs_update)
-	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
-		limb_count_update += 1
-		for(var/missing_limb in missing_bodyparts)
-			icon_render_keys -= missing_limb
+		if(new_key == old_key)
+			new_limbs += limb_icon_cache[new_key]
+
+		else
+			limb_icon_cache[new_key] ||= limb.get_limb_icon(dropped = FALSE)
+			new_limbs += limb_icon_cache[new_key]
+			icon_render_keys[limb.body_zone] = new_key
+			limb_count_update += 1
 
 	. = limb_count_update
 	if(!.)
 		return
-
-	//GENERATE NEW LIMBS
-	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		if(limb in needs_update)
-			var/bodypart_icon = limb.get_limb_icon()
-			new_limbs += bodypart_icon
-			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon //Caches the icon with the bodypart key, as it is new
-		else
-			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]] //Pulls existing sprites from the cache
 
 	remove_overlay(BODYPARTS_LAYER)
 
@@ -258,6 +252,13 @@
 /////////////////////////
 // Limb Icon Cache 2.0 //
 /////////////////////////
+
+/// Returns a string representing the bodyparts icon cache key
+/obj/item/bodypart/proc/get_cache_key()
+	if(is_husked)
+		return jointext(generate_husk_key(), "-")
+	return jointext(generate_icon_key(), "-")
+
 //Updated by Kapu#1178
 /**
  * Called from update_body_parts() these procs handle the limb icon cache.
@@ -273,30 +274,33 @@
 	RETURN_TYPE(/list)
 	. = list()
 	if(is_dimorphic)
-		. += "[limb_gender]-"
-	. += "[limb_id]"
-	. += "-[body_zone]"
+		. += limb_gender
+	. += limb_id
+	. += body_zone
 	if(should_draw_greyscale && draw_color)
-		. += "-[draw_color]"
-	/*
+		. += draw_color
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
-		if(!overlay.can_draw_on_bodypart(src, owner))
-			continue
-		. += "-[jointext(overlay.generate_icon_cache(), "-")]"
-	if(ishuman(owner))
-		var/mob/living/carbon/human/human_owner = owner
-		. += "-[human_owner.mob_height]"
-	*/
+		if(overlay.can_draw_on_bodypart(src, owner))
+			. += overlay.icon_render_key(src)
+	for(var/datum/bodypart_texture/texture as anything in bodypart_textures)
+		if(texture.can_texture_bodypart(src))
+			. += texture.icon_render_key()
 	return .
 
 ///Generates a cache key specifically for husks
 /obj/item/bodypart/proc/generate_husk_key()
 	RETURN_TYPE(/list)
 	. = list()
-	. += "[limb_id]-"
-	. += "[husk_type]"
-	. += "-husk"
-	. += "-[body_zone]"
+	if(is_dimorphic)
+		. += limb_gender
+	. += limb_id
+	. += husk_type
+	. += "husk"
+	. += body_zone
+	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
+		if(overlay.can_draw_on_bodypart(src, owner))
+			. += overlay.icon_render_key(src)
+	. += get_husk_blood_color()
 	return .
 
 /obj/item/bodypart/head/generate_icon_key()
@@ -333,4 +337,57 @@
 		if(LAZYLEN(hair_masks))
 			. += "-[jointext(hair_masks, "-")]"
 
+	return .
+
+GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
+
+/**
+ * This proc serves as a way to ensure that legs layer properly on a mob.
+ * To do this, two separate images are created - A low layer one, and a normal layer one.
+ * Each of the image will appropriately crop out dirs that are not used on that given layer.
+
+ *
+ * Arguments:
+ * * limb_overlay - The limb image being masked, not necessarily the original limb image as it could be an overlay on top of it
+ *
+ * Returns the list of masked images, or `null` if the limb_overlay didn't exist
+ */
+/obj/item/bodypart/proc/handle_masking(image/limb_overlay)
+	PROTECTED_PROC(TRUE)
+	return
+
+/obj/item/bodypart/leg/handle_masking(image/limb_overlay)
+	RETURN_TYPE(/list)
+	if(!limb_overlay)
+		return
+	. = list()
+
+	var/icon_cache_key = "[limb_overlay.icon]-[limb_overlay.icon_state]-[body_zone]"
+	var/icon/new_leg_icon
+	var/icon/new_leg_icon_lower
+
+	//in case we do not have a cached version of the two cropped icons for this key, we have to create it
+	if(!GLOB.masked_leg_icons_cache[icon_cache_key])
+		var/icon/leg_crop_mask = (body_zone == BODY_ZONE_R_LEG ? icon('icons/mob/leg_masks.dmi', "right_leg") : icon('icons/mob/leg_masks.dmi', "left_leg"))
+		var/icon/leg_crop_mask_lower = (body_zone == BODY_ZONE_R_LEG ? icon('icons/mob/leg_masks.dmi', "right_leg_lower") : icon('icons/mob/leg_masks.dmi', "left_leg_lower"))
+
+		new_leg_icon = icon(limb_overlay.icon, limb_overlay.icon_state)
+		new_leg_icon.Blend(leg_crop_mask, ICON_MULTIPLY)
+
+		new_leg_icon_lower = icon(limb_overlay.icon, limb_overlay.icon_state)
+		new_leg_icon_lower.Blend(leg_crop_mask_lower, ICON_MULTIPLY)
+
+		GLOB.masked_leg_icons_cache[icon_cache_key] = list(new_leg_icon, new_leg_icon_lower)
+	new_leg_icon = GLOB.masked_leg_icons_cache[icon_cache_key][1]
+	new_leg_icon_lower = GLOB.masked_leg_icons_cache[icon_cache_key][2]
+
+	//this could break layering in oddjob cases, but i'm sure it will work fine most of the time... right?
+	var/mutable_appearance/new_leg_appearance = new(limb_overlay)
+	new_leg_appearance.icon = new_leg_icon
+	new_leg_appearance.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER)
+	. += new_leg_appearance
+	var/mutable_appearance/new_leg_appearance_lower = new(limb_overlay)
+	new_leg_appearance_lower.icon = new_leg_icon_lower
+	new_leg_appearance_lower.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LOW_LAYER)
+	. += new_leg_appearance_lower
 	return .

@@ -9,6 +9,7 @@
 	new /obj/item/plant_analyzer(src)
 	new /obj/item/radio/headset/headset_srv(src)
 	new /obj/item/cultivator(src)
+	new /obj/item/shovel/spade(src)
 	new /obj/item/hatchet(src)
 	new /obj/item/storage/belt/botanical(src)
 	new /obj/item/storage/box/disks_plantgene(src)

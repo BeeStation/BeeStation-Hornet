@@ -91,7 +91,7 @@
 
 // Check if an item has access to this object
 /obj/proc/check_access(obj/item/I)
-	return check_access_list(I ? I.GetAccess() : null)
+	return check_access_list(I?.GetAccess())
 
 
 /obj/proc/check_access_list(list/accesses_to_check)
@@ -173,7 +173,7 @@
 /proc/get_all_accesses()
 	var/list/access_list = list() // do not do this as a static - SSdepartment might return a modified station access list
 	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_STATIONS))
-		access_list += dept_datum.access_list
+		access_list |= dept_datum.access_list
 	return access_list
 
 /proc/get_all_centcom_access()
@@ -302,18 +302,27 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	// you need to check /datum/map_exclusive_access and var/access_name
 	))
 
+/// Takes one access or a list of them
 /proc/get_access_desc(access_code)
+	if(islist(access_code))
+		var/list/descriptions = list()
+		for(var/access in access_code)
+			descriptions += get_access_desc(access)
+		return english_list(descriptions)
 	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
 
 
 /proc/get_all_centcom_jobs()
 	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
 
-/obj/item/proc/get_item_job_icon() //Used in secHUD icon generation (the new one)
-	var/obj/item/card/id/I = GetID()
-	if(!I)
-		return
-	var/I_hud = I.hud_state
-	if(I_hud)
-		return I_hud
-	return "unknown"
+/// Returns the SecHUD job icon state for whatever this object's ID card is, if it has one.
+/obj/item/proc/get_sechud_job_icon_state()
+	var/obj/item/card/id/id_card = GetID()
+	if(!id_card)
+		return "hudno_id"
+	var/icon_hud = id_card.get_hud_state()
+	if(icon_hud)
+		return "hud[icon_hud]"
+
+	// If none of the above apply, job name is unknown.
+	return "hudunknown"

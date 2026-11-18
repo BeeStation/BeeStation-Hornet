@@ -41,7 +41,7 @@
 	build_path = /obj/machinery/turnstile
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/micro_laser = 2,
+		/datum/stock_part/micro_laser = 2,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 		/obj/item/stack/rods = 12
 	)
@@ -72,7 +72,7 @@
 	var/registered_name = null
 	var/assigned_id = null
 
-/obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/I = W
 		if(broken)
@@ -167,7 +167,7 @@
 	SIGNAL_HANDLER
 	if(!istype(arrived, /mob))
 		return
-	flick("operate", src)
+	z_flick("operate", src)
 	playsound(src,'sound/items/ratchet.ogg',50,0,3)
 	if(arrived.pulledby) // don't do anything else for prisoners that are being escorted.
 		return
@@ -176,7 +176,7 @@
 	var/mob/living/carbon/human/H = arrived
 	var/obj/item/card/id/id_card = H.get_idcard(hand_first = TRUE)
 	if(ACCESS_PRISONER in id_card?.GetAccess())
-		id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once to exit the turnstile
+		id_card.remove_access(list(ACCESS_PRISONER)) //Prisoner IDs can only be used once to exit the turnstile
 		to_chat(H, span_warning("Your prisoner ID access has been purged, you won't be able to exit the prison through the turnstile again!"))
 		addtimer(CALLBACK(src, PROC_REF(exit_push), H), 2)
 
@@ -193,7 +193,7 @@
 	if(!ismob(movable)) //Try to mimmick how airlocks act when bumped by items and the likes. Except when pulled (for crates and beds etc.)
 		if(movable.pulledby)
 			return
-		flick("deny", src)
+		z_flick("deny", src)
 		playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 		return
 	if(machine_stat & BROKEN) //try to shock mobs if we're broken
@@ -201,11 +201,11 @@
 		return
 	//pretend to be an airlock if a mob bumps us
 	//(which means they tried to move through but didn't have access)
-	flick("deny", src)
+	z_flick("deny", src)
 	playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 
 ///Shock attacker if we're broken
-/obj/machinery/turnstile/attackby(obj/item/I, mob/user, params)
+/obj/machinery/turnstile/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", I))
 		update_appearance()//add proper panel icons
 		state = TURNSTILE_CIRCUIT_EXPOSED

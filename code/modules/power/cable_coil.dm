@@ -135,7 +135,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	place_on_turf(T, user)
 	return TRUE
 
-/obj/item/stack/cable_coil/pre_attack_secondary(atom/target, mob/living/user, params)
+/obj/item/stack/cable_coil/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
 	place_on_turf(get_turf(target), user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
@@ -218,3 +218,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 /obj/item/stack/cable_coil/one
 	icon_state = "omni-coil1"
 	amount = 1
+
+/obj/item/stack/cable_coil/five
+	amount = 5

@@ -64,7 +64,7 @@
 		Grant(user)
 		log_game("[key_name(user)] has removed the disguise lock on \the [source] ([source.type]) with [tool].")
 
-	return COMPONENT_BLOCK_TOOL_ATTACK
+	return ITEM_INTERACT_BLOCKING
 
 /datum/action/item_action/chameleon/change/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER
@@ -149,6 +149,7 @@
 	if(ismob(chameleon_item.loc))
 		var/mob/wearer = chameleon_item.loc
 		wearer.update_clothing(chameleon_item.slot_flags | ITEM_SLOT_HANDS)
+		wearer.refresh_obscured()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
 	PROTECTED_PROC(TRUE) // Call update_look, not this!

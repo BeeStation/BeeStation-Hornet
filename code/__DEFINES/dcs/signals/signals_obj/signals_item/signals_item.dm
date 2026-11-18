@@ -5,6 +5,10 @@
 // /obj/item signals
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
+///From base of obj/item/on_equipped() (mob/equipped, slot)
+#define COMSIG_ITEM_POST_EQUIPPED "item_post_equipped"
+	/// This will make the on_equipped proc return FALSE.
+	#define COMPONENT_EQUIPPED_FAILED (1<<0)
 /// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
 #define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 /// A mob has just unequipped an item.
@@ -17,7 +21,7 @@
 #define COMSIG_ITEM_ON_GRIND "on_grind"
 ///from base of obj/item/on_juice(): ()
 #define COMSIG_ITEM_ON_JUICE "on_juice"
-///from /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params) when an object is used as compost: (mob/user)
+///from /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, list/modifiers) when an object is used as compost: (mob/user)
 #define COMSIG_ITEM_ON_COMPOSTED "on_composted"
 ///Called when an item is dried by a drying rack:
 #define COMSIG_ITEM_DRIED "item_dried"
@@ -52,13 +56,32 @@
 	///Interrupts the offer acceptance
 	#define COMPONENT_OFFER_TAKE_INTERRUPT (1<<0)
 
-///for any tool behaviors: (mob/living/user, obj/item/I, list/recipes)
+/// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with an item
+/// Sent from the very beginning of the click chain, intended for generic atom-item interactions
+/// Args: (mob/living/user, obj/item/tool, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ATOM_ITEM_INTERACTION "atom_item_interaction"
+/// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with an item
+/// Sent from the very beginning of the click chain, intended for generic atom-item interactions
+/// Args: (mob/living/user, obj/item/tool, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ATOM_ITEM_INTERACTION_SECONDARY "atom_item_interaction_secondary"
+/// Sent from [atom/proc/item_interaction], to an item clicking on an atom
+/// Args: (mob/living/user, atom/interacting_with, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ITEM_INTERACTING_WITH_ATOM "item_interacting_with_atom"
+/// Sent from [atom/proc/item_interaction], to an item right-clicking on an atom
+/// Args: (mob/living/user, atom/interacting_with, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ITEM_INTERACTING_WITH_ATOM_SECONDARY "item_interacting_with_atom_secondary"
+/// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with a tool of a specific tool type
+/// Args: (mob/living/user, obj/item/tool, list/recipes)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
 #define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
-	#define COMPONENT_BLOCK_TOOL_ATTACK (1<<0)
-///for any rightclick tool behaviors: (mob/living/user, obj/item/I)
+/// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with a tool of a specific tool type
+/// Args: (mob/living/user, obj/item/tool)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
 #define COMSIG_ATOM_SECONDARY_TOOL_ACT(tooltype) "tool_secondary_act_[tooltype]"
-	// We have the same returns here as COMSIG_ATOM_TOOL_ACT
-	// #define COMPONENT_BLOCK_TOOL_ATTACK (1<<0)
 
 //not widely used yet, but has lot of potential
 
@@ -116,7 +139,7 @@
 /// Sent to a beam when any turf the beam covers changes: (list/datum/callback/post_change_callbacks)
 #define COMSIG_BEAM_TURFS_CHANGED "beam_turfs_changed"
 
-/// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
+/// from base of /obj/item/slimepotion/speed/interact_with_atom(): (obj/target, /obj/src, mob/user)
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
 // signals for painting canvases, tools and the /datum/component/palette component
@@ -132,3 +155,8 @@
 
 /// Called by poison paper when a user applies it (atom/target, mob/living/user)
 #define COMSIG_POISON_PAPER_APPLIED "posion_paper_applied"
+
+/// Sent from /obj/item/organ/wings/proc/open_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_OPENED "wings_opened"
+/// Sent from /obj/item/organ/wings/proc/close_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_CLOSED "wings_closed"
