@@ -16,11 +16,16 @@
 		return FALSE
 	if(!_color)
 		_color = BLOOD_COLOR_RED
-	var/icon/blood_splatter_icon = icon(_icon, _icon_state, , 1) //we only want to apply blood-splatters to the initial icon_state for each object
-	blood_splatter_icon.Blend("#fff", ICON_ADD) //fills the icon_state with white (except where it's transparent)
-	blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-	pic = mutable_appearance(blood_splatter_icon)
-	pic.color = _color
+	var/list/dimensions = get_icon_dimensions(_icon)
+	var/width = dimensions["width"]
+	var/height = dimensions["height"]
+	pic = mutable_appearance('icons/effects/blood.dmi', "itemblood", appearance_flags = RESET_COLOR, color = _color)
+	var/matrix/splatter_transform = matrix()
+	splatter_transform.Scale(width / ICON_SIZE_X, height / ICON_SIZE_Y)
+	// Scaling is around the 32x32 sprite's centre, so shift it back over the item's bottom-left-anchored icon
+	splatter_transform.Translate((width - ICON_SIZE_X) / 2, (height - ICON_SIZE_Y) / 2)
+	pic.transform = splatter_transform
+	pic.blend_mode = BLEND_INSET_OVERLAY
 	return TRUE
 
 /datum/element/decal/blood/proc/get_examine_name(datum/source, mob/user, list/override)
