@@ -220,12 +220,21 @@
 	if(target == src)
 		return FALSE
 
+	var/turf/turf = get_turf(src)
+	// Check if there's something blocking the way to buckle
+	if(get_turf(target) != turf)
+		if(!isopenturf(loc) || !isopenturf(target.loc))
+			return FALSE
+
+		if(turf.is_blocked_turf(exclude_mobs = TRUE, source_atom = src))
+			return FALSE
+
+		// If we're checking the loc, make sure the target is on the thing we're bucking them to.
+		if(check_loc && !target.Adjacent(src))
+			return FALSE
+
 	// Check if this atom can have things buckled to it.
 	if(!can_buckle && !force)
-		return FALSE
-
-	// If we're checking the loc, make sure the target is on the thing we're bucking them to.
-	if(check_loc && !target.Adjacent(src))
 		return FALSE
 
 	// Make sure the target isn't already buckled to something.
@@ -246,12 +255,6 @@
 
 	//If buckling is forbidden for the target, cancel
 	if(!target.can_buckle_to && !force)
-		return FALSE
-
-	// Check if there's something blocking the way to buckle
-	var/turf/turf = get_turf(src)
-	if(turf.is_blocked_turf(source_atom = target, ignore_atoms = list(src)))
-		to_chat(target, span_warning("Something is in the way"))
 		return FALSE
 
 	return TRUE
