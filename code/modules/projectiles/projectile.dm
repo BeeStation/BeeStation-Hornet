@@ -261,8 +261,7 @@
 				do_sparks(2, FALSE, target.loc)
 			else
 				L.create_splatter(splatter_dir)
-			if(prob(33))
-				L.add_splatter_floor(target_loca)
+				L.add_exit_splatter(splatter_dir, damage)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 

@@ -18,26 +18,31 @@
 		forensics = new(src)
 	forensics.add_fingerprint(suspect, ignoregloves)
 
-	blood_smear(suspect, ignoregloves) //smear blood if we have any
+	blood_smear(suspect)
 
 	return TRUE
 
-/atom/proc/blood_smear(mob/suspect, ignoregloves = FALSE)
-	if(!ishuman(suspect))
+/// Wipes blood onto the atom
+/atom/proc/blood_smear(mob/living/carbon/human/suspect)
+	if(!istype(suspect))
 		return
-	var/mob/living/carbon/human/H = suspect
-	///the current amount of blood on the thing
-	var/old_blood = GET_ATOM_BLOOD_DNA_LENGTH(src)
-	if(H.gloves && isclothing(H.gloves))
-		var/obj/item/clothing/gloves/G = H.gloves
-		if(G.transfer_blood > 1 && GET_ATOM_BLOOD_DNA_LENGTH(G) > old_blood) //bloodied gloves transfer blood to touched objects
-			if(add_blood_DNA(GET_ATOM_BLOOD_DNA(G)))
-				G.transfer_blood--
-				H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] gloves all over \the [src]!</span>","<span class='danger'>You smear blood from your gloves all over \the [src]!")
-	else if(H.blood_in_hands > 1)
-		if(add_blood_DNA(GET_ATOM_BLOOD_DNA(H)) && GET_ATOM_BLOOD_DNA_LENGTH(H) > old_blood) //if the onject you're touching is already drenched in blood, the blood from your hands won't get used up again
-			H.blood_in_hands-- //we don't update icon after so you still have to wash your hands off, I don't think you'd be able to completely wipe your hands off just on the floor
-			H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] hands all over \the [src]!</span>","<span class='danger'>You smear blood from your hands all over \the [src]!")
+	var/old_length = GET_ATOM_BLOOD_DNA_LENGTH(src)
+	var/obj/item/clothing/gloves/gloves = suspect.gloves
+	if(istype(gloves))
+		if(gloves.transfer_blood <= 1)
+			return
+		add_blood_DNA(GET_ATOM_BLOOD_DNA(gloves))
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
+			return
+		gloves.transfer_blood--
+		suspect.visible_message(span_danger("[suspect] smears blood from [suspect.p_their()] gloves all over \the [src]!"), span_danger("You smear blood from your gloves all over \the [src]!"))
+	else if(suspect.blood_in_hands > 1)
+		add_blood_DNA(GET_ATOM_BLOOD_DNA(suspect))
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
+			return
+		// Hands stay visibly bloody until washed, so no icon update
+		suspect.blood_in_hands--
+		suspect.visible_message(span_danger("[suspect] smears blood from [suspect.p_their()] hands all over \the [src]!"), span_danger("You smear blood from your hands all over \the [src]!"))
 
 /// Add a list of fibers to the atom
 /atom/proc/add_fiber_list(list/fibers_to_add) //ASSOC LIST FIBERTEXT = FIBERTEXT

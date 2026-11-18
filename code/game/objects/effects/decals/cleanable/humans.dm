@@ -85,8 +85,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 /obj/effect/decal/cleanable/blood/splatter
 	icon_state = "gibbl1"
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
-	dryname = "dried tracks"
-	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
+
+/// Blood blown out behind someone who was shot
+/obj/effect/decal/cleanable/blood/splatter/directional
+	icon_state = "dir_splatter_1"
+	random_icon_states = list("dir_splatter_1", "dir_splatter_2")
+
+/// The streak left on each tile blood flies over
+/obj/effect/decal/cleanable/blood/squirt
+	icon_state = "squirt"
+	random_icon_states = null
+	bloodiness = BLOOD_AMOUNT_PER_DECAL * 0.34
 
 /// Splatter left on a wall from the adjacent floor, or inside a window's vis_contents
 /obj/effect/decal/cleanable/blood/splatter/over_window
@@ -108,10 +117,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 	should_dry = FALSE
 	/// The turf we were on before the last step
 	var/turf/prev_loc
-	/// How many tiles we can fly, painting everything dense on them
+	/// How many tiles we can fly, painting what's on them
 	var/splatter_strength = 3
 	var/splatter_speed = 0.1 SECONDS
-	var/flight_dir = NONE
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Initialize(mapload, list/datum/disease/diseases, splatter_strength)
 	. = ..()
@@ -127,7 +135,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 	qdel(src)
 
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/fly_towards(turf/target_turf, range)
-	flight_dir = get_dir(src, target_turf)
 	var/datum/move_loop/loop = SSmove_manager.move_towards(src, target_turf, splatter_speed, timeout = splatter_speed * range, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, flags = MOVEMENT_LOOP_START_FAST)
 	RegisterSignal(loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move))
 	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move))
@@ -142,30 +149,40 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 	if(loc == prev_loc || !isturf(loc))
 		return
 
+	var/caught = FALSE
 	for(var/atom/movable/iter_atom in loc)
-		if(iter_atom == src || iter_atom.invisibility || iter_atom.alpha <= 0 || (isobj(iter_atom) && !iter_atom.density))
+		if(iter_atom == src || iter_atom.invisibility || iter_atom.alpha <= 0)
 			continue
-		iter_atom.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 		if(isliving(iter_atom))
-			SEND_SIGNAL(iter_atom, COMSIG_ADD_MOOD_EVENT, "splattered_with_blood", /datum/mood_event/splattered_with_blood)
+			var/mob/living/splashed = iter_atom
+			splashed.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+			SEND_SIGNAL(splashed, COMSIG_ADD_MOOD_EVENT, "splattered_with_blood", /datum/mood_event/splattered_with_blood)
+			if(splashed.body_position == STANDING_UP)
+				caught = TRUE
+				if(ishuman(splashed))
+					splash_face(splashed)
+		else if(isitem(iter_atom) || (isobj(iter_atom) && iter_atom.density))
+			iter_atom.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 
 	splatter_strength--
-	if(splatter_strength <= 0)
+	if(caught || splatter_strength <= 0)
 		expire()
 		return
 
-	var/obj/effect/decal/cleanable/blood/fly_trail = new(loc)
+	var/obj/effect/decal/cleanable/blood/squirt/fly_trail = new(loc)
 	if(QDELETED(fly_trail))
 		return
 	fly_trail.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
-	fly_trail.icon_state = pick("trails_1", "trails_2")
-	fly_trail.bloodiness *= 0.34
-	// Diagonal trail states are corner pieces, so turn the straight one instead
-	if(ISDIAGONALDIR(flight_dir))
-		fly_trail.dir = NORTH
-		fly_trail.transform = turn(matrix(), (flight_dir == NORTHEAST || flight_dir == SOUTHWEST) ? 45 : -45)
-	else
-		fly_trail.dir = flight_dir
+	fly_trail.setDir(get_dir(prev_loc, loc))
+
+/obj/effect/decal/cleanable/blood/hitsplatter/proc/splash_face(mob/living/carbon/human/splashed)
+	if(splashed.is_eyes_covered())
+		to_chat(splashed, span_danger("You're hit by a spray of blood!"))
+		return
+	to_chat(splashed, span_userdanger("You're blinded by a spray of blood!"))
+	splashed.set_eye_blur_if_lower(6 SECONDS)
+	if(prob(10))
+		splashed.set_temp_blindness_if_lower(5 SECONDS)
 
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/loop_done(datum/source)
 	SIGNAL_HANDLER

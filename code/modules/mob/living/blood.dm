@@ -34,6 +34,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/bleed_rate = 0
 	var/time_applied = 0
 	var/bleed_heal_multiplier = 1
+	COOLDOWN_DECLARE(spray_cooldown)
 
 /datum/status_effect/bleeding/merge(bleed_level)
 	src.bleed_rate = src.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(src.bleed_rate, 1), bleed_level - src.bleed_rate)
@@ -82,6 +83,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	// Actually do the bleeding
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
+	if(final_bleed_rate >= BLEED_CRITICAL && COOLDOWN_FINISHED(src, spray_cooldown) && owner.spray_blood(pick(GLOB.alldirs), 2))
+		COOLDOWN_START(src, spray_cooldown, 8 SECONDS)
+		owner.visible_message(span_danger("Blood sprays out of [owner]'s wounds!"), span_userdanger("Blood sprays out of your wounds!"))
 	// Update the alert to show current bleed rate
 	update_shown_duration()
 
@@ -158,8 +162,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return FALSE
 	return bleed.bleed_rate > 0
 
-/// splatter_dir: direction the blood sprays out of a deep wound, none if null
-/mob/living/carbon/proc/add_bleeding(bleed_level, sound_effect = TRUE, splatter_dir)
+/mob/living/carbon/proc/add_bleeding(bleed_level, sound_effect = TRUE)
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return
 	if(sound_effect)
@@ -170,10 +173,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
 		if(blood)
 			to_chat(src, span_userdanger("[initial(blood.name)] starts rushing out of the open wound!"))
-		if(splatter_dir)
-			spray_blood(splatter_dir, bleed_level >= BLEED_CRITICAL ? 3 : 2)
 
-/mob/living/carbon/human/add_bleeding(bleed_level, sound_effect = TRUE, splatter_dir)
+/mob/living/carbon/human/add_bleeding(bleed_level)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
 	..()
@@ -611,21 +612,39 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/carbon/alien/create_splatter(splatter_dir)
 	new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(get_turf(src), splatter_dir)
 
+/// Blood blown out the far side of us by a bullet, bigger for harder hits
+/mob/living/proc/add_exit_splatter(splatter_dir, damage)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || get_blood_id() != /datum/reagent/blood)
+		return
+	var/turf/splatter_turf = get_step(src, splatter_dir)
+	if(!splatter_turf || splatter_turf.density)
+		splatter_turf = get_turf(src)
+	if(!isturf(splatter_turf) || isgroundlessturf(splatter_turf))
+		return
+	var/obj/effect/decal/cleanable/blood/splatter/directional/splatter = new(splatter_turf, get_static_viruses())
+	if(QDELETED(splatter))
+		return
+	splatter.transfer_mob_blood_dna(src)
+	splatter.setDir(splatter_dir)
+	splatter.transform = matrix() * clamp(round(damage / 50, 0.2), 0.4, 1)
+
 /**
- * Sprays blood that flies up to splatter_strength tiles, bloodying everything dense it passes
- * and landing on the floor, or on the wall or window it hits
+ * Sprays blood that flies up to splatter_strength tiles, bloodying what it passes until a standing mob
+ * catches it, and landing on the floor, or on the wall or window it hits.
+ * Returns TRUE if any blood was sprayed.
  */
 /mob/living/proc/spray_blood(splatter_direction, splatter_strength)
 	if(!isturf(loc) || HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING))
-		return
+		return FALSE
 	var/list/blood_dna = get_blood_dna_list()
 	if(!blood_dna)
-		return
+		return FALSE
 	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, get_static_viruses(), splatter_strength)
 	if(QDELETED(our_splatter))
-		return
+		return FALSE
 	our_splatter.add_blood_DNA(blood_dna)
 	our_splatter.fly_towards(get_ranged_target_turf(src, splatter_direction, splatter_strength), splatter_strength)
+	return TRUE
 
 /**
  * Item to represent the fact that we are covering a wound
