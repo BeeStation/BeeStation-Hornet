@@ -1266,3 +1266,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/psyphoza
 	race = /datum/species/psyphoza
+
+/mob/living/carbon/human/proc/get_crazy()
+	stack_trace("I'M WILD DUDE")
+	to_chat(world, span_userdanger("hello"))
