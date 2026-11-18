@@ -567,7 +567,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	// Find a blood decal or create a new one.
 	var/obj/effect/decal/cleanable/blood/B
 	for (var/obj/effect/decal/cleanable/blood/candidate in T)
-		if (QDELETED(T))
+		if (QDELETED(candidate) || !candidate.pools_blood)
 			continue
 		B = candidate
 		break
@@ -616,14 +616,23 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /// Blood blown out the far side of us by a bullet, bigger for harder hits
 /mob/living/proc/add_exit_splatter(splatter_dir, damage)
-	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || get_blood_id() != /datum/reagent/blood)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING))
+		return
+	// Xeno blood, oil and the like have no directional sprite
+	if(get_blood_id() != /datum/reagent/blood)
+		if(prob(33))
+			add_splatter_floor()
 		return
 	var/turf/splatter_turf = get_step(src, splatter_dir)
 	if(!splatter_turf || splatter_turf.density)
 		splatter_turf = get_turf(src)
 	if(!isturf(splatter_turf) || isgroundlessturf(splatter_turf))
 		return
-	var/obj/effect/decal/cleanable/blood/splatter/directional/splatter = new(splatter_turf, get_static_viruses())
+	var/obj/effect/decal/cleanable/blood/splatter/directional/splatter = locate() in splatter_turf
+	if(splatter)
+		splatter.transfer_mob_blood_dna(src)
+		return
+	splatter = new(splatter_turf, get_static_viruses())
 	if(QDELETED(splatter))
 		return
 	splatter.transfer_mob_blood_dna(src)
@@ -636,7 +645,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
  * Returns TRUE if any blood was sprayed.
  */
 /mob/living/proc/spray_blood(splatter_direction, splatter_strength)
-	if(!isturf(loc) || HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING))
+	if(!isturf(loc) || HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || get_blood_id() != /datum/reagent/blood)
 		return FALSE
 	var/list/blood_dna = get_blood_dna_list()
 	if(!blood_dna)

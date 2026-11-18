@@ -29,16 +29,12 @@
 	var/old_length = GET_ATOM_BLOOD_DNA_LENGTH(src)
 	var/obj/item/clothing/gloves/gloves = suspect.gloves
 	if(istype(gloves))
-		if(gloves.transfer_blood <= 1)
-			return
-		add_blood_DNA(GET_ATOM_BLOOD_DNA(gloves))
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
+		if(gloves.transfer_blood <= 1 || GET_ATOM_BLOOD_DNA_LENGTH(gloves) <= old_length || !add_blood_DNA(GET_ATOM_BLOOD_DNA(gloves)))
 			return
 		gloves.transfer_blood--
 		suspect.visible_message(span_danger("[suspect] smears blood from [suspect.p_their()] gloves all over \the [src]!"), span_danger("You smear blood from your gloves all over \the [src]!"))
 	else if(suspect.blood_in_hands > 1)
-		add_blood_DNA(GET_ATOM_BLOOD_DNA(suspect))
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
+		if(!add_blood_DNA(GET_ATOM_BLOOD_DNA(suspect)) || GET_ATOM_BLOOD_DNA_LENGTH(suspect) <= old_length)
 			return
 		// Hands stay visibly bloody until washed, so no icon update
 		suspect.blood_in_hands--
@@ -112,7 +108,11 @@
 	return ..()
 
 /turf/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
-	var/obj/effect/decal/cleanable/blood/splatter/blood_splatter = locate() in src
+	var/obj/effect/decal/cleanable/blood/splatter/blood_splatter
+	for(var/obj/effect/decal/cleanable/blood/splatter/candidate in src)
+		if(candidate.pools_blood)
+			blood_splatter = candidate
+			break
 	if(!blood_splatter)
 		blood_splatter = new /obj/effect/decal/cleanable/blood/splatter(src, diseases)
 	if(!QDELETED(blood_splatter))

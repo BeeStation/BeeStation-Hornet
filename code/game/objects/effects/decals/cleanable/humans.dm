@@ -13,6 +13,8 @@
 	var/dryname = "dried blood" //when the blood lasts long enough, it becomes dry and gets a new name
 	var/drydesc = "Looks like it's been here a while. Eew." //as above
 	var/drytime = 0
+	/// If FALSE, blood dripped or smeared onto tile makes its own pool instead of adding
+	var/pools_blood = TRUE
 
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
@@ -90,20 +92,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 /obj/effect/decal/cleanable/blood/splatter/directional
 	icon_state = "dir_splatter_1"
 	random_icon_states = list("dir_splatter_1", "dir_splatter_2")
+	pools_blood = FALSE
 
-/// The streak left on each tile blood flies over
+/// streak left on each tile blood flies over
 /obj/effect/decal/cleanable/blood/squirt
 	icon_state = "squirt"
 	random_icon_states = null
 	bloodiness = BLOOD_AMOUNT_PER_DECAL * 0.34
+	pools_blood = FALSE
 
-/// Splatter left on a wall from the adjacent floor, or inside a window's vis_contents
+/// Splatter left on a wall from the adjacent floor
 /obj/effect/decal/cleanable/blood/splatter/over_window
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
-	vis_flags = VIS_INHERIT_PLANE
+	vis_flags = VIS_INHERIT_PLANE | VIS_INHERIT_ID
 	alpha = 180
 	turf_loc_check = FALSE
+	// One tile can border several walls
+	mergeable_decal = FALSE
+	pools_blood = FALSE
+
+// out of reach of anything on the floor
+/obj/effect/decal/cleanable/blood/splatter/over_window/on_entered(datum/source, atom/movable/AM)
+	return
+
+/obj/effect/decal/cleanable/blood/splatter/over_window/can_bloodcrawl_in()
+	return FALSE
 
 /// Blood flying through the air, painting what it passes and landing on the floor, a wall or a window
 /obj/effect/decal/cleanable/blood/hitsplatter
@@ -115,9 +129,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 	layer = ABOVE_WINDOW_LAYER
 	mergeable_decal = FALSE
 	should_dry = FALSE
-	/// The turf we were on before the last step
+	pools_blood = FALSE
+	/// turf we were on before the last step
 	var/turf/prev_loc
-	/// How many tiles we can fly, painting what's on them
+	/// how many tiles to fly
 	var/splatter_strength = 3
 	var/splatter_speed = 0.1 SECONDS
 
@@ -192,14 +207,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 /obj/effect/decal/cleanable/blood/hitsplatter/Bump(atom/bumped_atom)
 	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter
 	if(iswallturf(bumped_atom))
-		final_splatter = new(loc)
-		if(!QDELETED(final_splatter))
-			final_splatter.pixel_x = (bumped_atom.x - x) * ICON_SIZE_X
-			final_splatter.pixel_y = (bumped_atom.y - y) * ICON_SIZE_Y
+		var/offset_x = (bumped_atom.x - x) * ICON_SIZE_X
+		var/offset_y = (bumped_atom.y - y) * ICON_SIZE_Y
+		for(var/obj/effect/decal/cleanable/blood/splatter/over_window/existing in loc)
+			if(existing.pixel_x == offset_x && existing.pixel_y == offset_y)
+				final_splatter = existing
+				break
+		if(!final_splatter)
+			final_splatter = new(loc)
+			if(!QDELETED(final_splatter))
+				final_splatter.pixel_x = offset_x
+				final_splatter.pixel_y = offset_y
 	else if(istype(bumped_atom, /obj/structure/window))
 		var/obj/structure/window/bumped_window = bumped_atom
 		if(bumped_window.fulltile)
-			// Spawned inside the window so it can't merge with a floor splatter first
+			// so it can't merge with floor splatter
 			final_splatter = new(bumped_window)
 			bumped_window.vis_contents += final_splatter
 	if(QDELETED(final_splatter))
