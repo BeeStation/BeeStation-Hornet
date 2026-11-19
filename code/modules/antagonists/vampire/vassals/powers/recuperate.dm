@@ -22,7 +22,7 @@
 		return FALSE
 
 	var/mob/living/living_owner = owner
-	if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD) && living_owner.blood_volume <= BLOOD_VOLUME_OKAY)
+	if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD) && living_owner.get_blood_volume() <= BLOOD_VOLUME_OKAY)
 		owner.balloon_alert(owner, "not enough blood!")
 		return FALSE
 
@@ -46,7 +46,7 @@
 	carbon_owner.adjustToxLoss(-2, forced = TRUE)
 	// Plasmamen won't lose blood, they don't have any, so they don't heal from Burn.
 	if(!HAS_TRAIT(carbon_owner, TRAIT_NO_BLOOD))
-		carbon_owner.blood_volume -= vitaecost
+		carbon_owner.adjust_blood_volume(-vitaecost)
 		carbon_owner.adjustFireLoss(-1.5)
 	// Stop Bleeding
 	if(istype(carbon_owner) && carbon_owner.is_bleeding())
@@ -59,7 +59,7 @@
 		owner.balloon_alert(owner, "too exhausted...")
 		return FALSE
 	var/mob/living/living_owner = owner
-	if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD) && living_owner.blood_volume <= BLOOD_VOLUME_OKAY)
+	if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD) && living_owner.get_blood_volume() <= BLOOD_VOLUME_OKAY)
 		owner.balloon_alert(owner, "not enough blood!")
 		return FALSE
 	return TRUE

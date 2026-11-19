@@ -42,12 +42,11 @@
 	target.adjustBruteLoss(20)
 	living_owner.adjustBruteLoss(-20)
 
-	if(!target.blood_volume || !living_owner.blood_volume)
+	if(!target.get_blood_volume() || !living_owner.get_blood_volume())
 		return TRUE
 
-	target.blood_volume -= 20
-	if(living_owner.blood_volume < BLOOD_VOLUME_MAXIMUM) // we dont want to explode from casting
-		living_owner.blood_volume += 20
+	target.adjust_blood_volume(-20)
+	living_owner.adjust_blood_volume(20)
 
 	if(!iscarbon(target) || !iscarbon(owner))
 		return TRUE

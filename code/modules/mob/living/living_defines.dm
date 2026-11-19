@@ -148,7 +148,13 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage = 0
 
-	var/blood_volume = 0 //how much blood the mob has
+	/// How much blood the mob currently has.
+	/// Don't read directly, use get_blood_volume() and get_blood_volume(apply_modifiers = TRUE).
+	/// Don't write directly either, use set_blood_volume() and adjust_blood_volume().
+	/// Also don't initialize this. Initialize default_blood_volume instead.
+	var/blood_volume = 0
+	/// The default blood volume of the mob. Used primarily for healing bloodloss.
+	var/default_blood_volume = 0
 
 	var/list/status_effects //a list of all status effects the mob has
 	var/druggy = 0

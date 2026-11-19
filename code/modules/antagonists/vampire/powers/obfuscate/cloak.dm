@@ -68,10 +68,10 @@
 			vampiredatum_power.adjust_vitae(-actual_cost)
 		else
 			if(!HAS_TRAIT(user, TRAIT_NO_BLOOD))
-				if(user.blood_volume < actual_cost)
+				if(user.get_blood_volume() < actual_cost)
 					to_chat(user, span_warning("You don't have enough blood to sustain your cloak in the light!"))
 					return FALSE
-				user.blood_volume -= actual_cost
+				user.adjust_blood_volume(-actual_cost)
 	else if(!was_in_shadow && in_shadow)
 		// Just entered shadow
 		to_chat(user, span_notice("The shadows embrace you. Your cloak no longer drains your blood."))

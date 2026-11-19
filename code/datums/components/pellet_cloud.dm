@@ -205,7 +205,7 @@
 	if(isliving(target) && P.damage && P.damage_type == BRUTE)
 		var/mob/living/hit_living = target
 		var/obj/item/bodypart/hit_part = hit_living.get_bodypart(hit_zone)
-		if(hit_living.blood_volume && (!hit_part || IS_ORGANIC_LIMB(hit_part)))
+		if(hit_living.get_blood_volume() && (!hit_part || IS_ORGANIC_LIMB(hit_part)))
 			P.exit_splatter = FALSE
 			var/armor = hit_living.run_armor_check(hit_zone, P.armor_flag, armour_penetration = P.armour_penetration, silent = TRUE)
 			LAZYADDASSOC(targets_hit[target], "splatter_damage", P.damage * max(0, 1 - armor / 100))

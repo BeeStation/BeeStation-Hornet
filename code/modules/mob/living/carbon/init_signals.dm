@@ -7,6 +7,8 @@
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_AGENDER), PROC_REF(on_agender_trait_loss))
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_MOUTH), PROC_REF(on_no_mouth_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NO_MOUTH), PROC_REF(on_no_mouth_trait_loss))
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NOBLOOD), PROC_REF(on_noblood_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NOBLOOD), PROC_REF(on_noblood_trait_loss))
 
 	//Traits that register add only
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath_trait_gain))
@@ -65,6 +67,25 @@
 	for(var/obj/item/bodypart/head/head in bodyparts)
 		head.mouth = TRUE
 
+/**
+ * On gain of TRAIT_NOBLOOD
+ *
+ * This will make the mob update its blood state.
+ */
+/mob/living/carbon/proc/on_noblood_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	update_blood_status()
+
+/**
+ * On removal of TRAIT_NOBLOOD
+ *
+ * This will make the mob update its blood state.
+ */
+/mob/living/carbon/proc/on_noblood_trait_loss(datum/source)
+	SIGNAL_HANDLER
+
+	update_blood_status()
 
 /**
  * On gain of TRAIT_NOBREATH

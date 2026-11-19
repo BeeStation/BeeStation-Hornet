@@ -183,7 +183,7 @@
 		var/touch_mod = 0
 		if(method in list(TOUCH, VAPOR)) // No melting if you have skin protection
 			touch_mod = exposed_mob.getarmor(null, BIO) * 0.01
-		exposed_mob.blood_volume = max(exposed_mob.blood_volume - 30 * (1 - touch_mod), 0)
+		exposed_mob.adjust_blood_volume(-30 * (1 - touch_mod))
 		if(touch_mod < 0.9)
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
 
@@ -307,8 +307,7 @@
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
-		if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-			affected_mob.blood_volume += 3 * REM * delta_time
+		affected_mob.adjust_blood_volume(3 * REM * delta_time, maximum = BLOOD_VOLUME_NORMAL)
 
 	else  // Will deal about 90 damage when 50 units are thrown
 		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
@@ -2039,8 +2038,7 @@
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
-		if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-			affected_mob.blood_volume += 3 * REM * delta_time
+		affected_mob.adjust_blood_volume(3 * REM * delta_time, maximum = BLOOD_VOLUME_NORMAL)
 	else
 		need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 		need_mob_update += affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)

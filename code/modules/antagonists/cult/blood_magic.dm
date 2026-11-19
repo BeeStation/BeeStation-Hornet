@@ -667,15 +667,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				if(H.stat == DEAD)
 					to_chat(user,span_warning("Only a revive rune can bring back the dead!"))
 					return
-				if(H.blood_volume < BLOOD_VOLUME_SAFE)
-					var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
+				if(H.get_blood_volume() < BLOOD_VOLUME_SAFE)
+					var/restore_blood = BLOOD_VOLUME_SAFE - H.get_blood_volume()
 					if(uses*2 < restore_blood)
-						H.blood_volume += uses*2
+						H.adjust_blood_volume(uses * 2)
 						to_chat(user,span_danger("You use the last of your blood rites to restore what blood you could!"))
 						uses = 0
 						return ..()
 					else
-						H.blood_volume = BLOOD_VOLUME_SAFE
+						H.set_blood_volume(BLOOD_VOLUME_SAFE)
 						uses -= round(restore_blood/2)
 						to_chat(user,span_warning("Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!"))
 				var/overall_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
@@ -712,8 +712,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				if(H.has_status_effect(/datum/status_effect/speech/slurring/cult))
 					to_chat(user,span_danger("[H.p_Their()] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
 					return
-				if(H.blood_volume > BLOOD_VOLUME_SAFE)
-					H.blood_volume -= 100
+				if(H.get_blood_volume() > BLOOD_VOLUME_SAFE)
+					H.adjust_blood_volume(-100)
 					uses += 50
 					user.Beam(H, icon_state="drainbeam", time = 1 SECONDS)
 					playsound(get_turf(H), 'sound/magic/enter_blood.ogg', 50)

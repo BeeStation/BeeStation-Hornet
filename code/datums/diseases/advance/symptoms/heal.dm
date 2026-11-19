@@ -654,13 +654,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(5)
 			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
-			if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_reagent() == /datum/reagent/blood)
-				var/missing = BLOOD_VOLUME_NORMAL - M.blood_volume
+			if(M.get_blood_volume() < BLOOD_VOLUME_NORMAL && M.get_blood_reagent() == /datum/reagent/blood)
+				var/missing = BLOOD_VOLUME_NORMAL - M.get_blood_volume()
 				var/inflated = grabbedblood * 4
-				M.blood_volume = min(M.blood_volume + inflated, BLOOD_VOLUME_NORMAL)
+				M.adjust_blood_volume(inflated, maximum = BLOOD_VOLUME_NORMAL)
 				bloodpoints += round(max(0, (inflated - missing)/4))
-			else if((M.blood_volume >= BLOOD_VOLUME_NORMAL + 4) && (bloodpoints < maxbloodpoints))//so drinking blood accumulates bloodpoints
-				M.blood_volume = (M.blood_volume - 4)
+			else if((M.get_blood_volume() >= BLOOD_VOLUME_NORMAL + 4) && (bloodpoints < maxbloodpoints))//so drinking blood accumulates bloodpoints
+				M.adjust_blood_volume(-4)
 				bloodpoints += 1
 			else
 				bloodpoints += max(0, grabbedblood)
@@ -671,16 +671,16 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						if(bruteheal && bloodpoints)
 							bloodpoints -= 1
 							H.cauterise_wounds(0.1)
-					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_reagent() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
+					if(M.get_blood_volume() < BLOOD_VOLUME_NORMAL && M.get_blood_reagent() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
 						bloodpoints -= 1
-						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
+						M.adjust_blood_volume(3 * power, maximum = BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
 						M.heal_overall_damage(2, required_bodytype = BODYTYPE_ORGANIC)
 					if(prob(60) && !M.stat)
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
-				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
-					M.blood_volume = (M.blood_volume - 1)
+				else if(prob(20) && M.get_blood_volume() >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
+					M.adjust_blood_volume(-1)
 
 			if(!bloodpoints && prob(3) && M.stat != DEAD)
 				to_chat(M, span_warning("[pick("You feel a pang of thirst.", "No food can sate your hunger", "Blood...")]"))
@@ -694,7 +694,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need to have blood, or at least a shared blood reagent, for most of the other uses
 	var/gainedpoints = 0
-	if(bloodbag && !bloodbag.blood_volume) //we've exsanguinated them!
+	if(bloodbag && !bloodbag.get_blood_volume()) //we've exsanguinated them!
 		bloodbag = null
 	if(ishuman(M) && M.stat == DEAD && vampire)
 		var/mob/living/carbon/human/H = M
@@ -703,17 +703,17 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			possibledist = 1
 		if(!HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
-			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
+			if(bloodpoints >= 200 && H.health > 0 && H.get_blood_volume() >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
 				H.revive()
 				H.visible_message(span_warning("[H.name]'s skin takes on a rosy hue as they begin moving. They live again!"), span_userdanger("As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood."))
 				bloodpoints = 0
 				return 0
-			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.is_bleeding()))
+			else if(bloodbag && bloodbag.get_blood_volume() && (bloodbag.stat || bloodbag.is_bleeding()))
 				if(get_dist(bloodbag, H) <= 1 && bloodbag.z == H.z)
 					var/amt = ((bloodbag.stat * 2) + 2) * power
-					var/excess = max(((min(amt, bloodbag.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 2), 0)
-					H.blood_volume = min(H.blood_volume + min(amt, bloodbag.blood_volume), BLOOD_VOLUME_NORMAL)
-					bloodbag.blood_volume = max(bloodbag.blood_volume - amt, 0)
+					var/excess = max(((min(amt, bloodbag.get_blood_volume()) - (BLOOD_VOLUME_NORMAL - H.get_blood_volume())) / 2), 0)
+					H.adjust_blood_volume(min(amt, bloodbag.get_blood_volume()), maximum = BLOOD_VOLUME_NORMAL)
+					bloodbag.adjust_blood_volume(-amt)
 					bloodpoints += max(excess, 0)
 					playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 10, 1)
 					bloodbag.visible_message(span_warning("Blood flows from [bloodbag.name]'s wounds into [H.name]'s corpse!"), span_userdanger("Blood flows from your wounds into [H.name]'s corpse!"))
@@ -752,7 +752,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
 					if(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 						continue
-					if(C.stat && C.blood_volume && C.get_blood_reagent() == H.get_blood_reagent())
+					if(C.stat && C.get_blood_volume() && C.get_blood_reagent() == H.get_blood_reagent())
 						candidates += C
 				for(var/prospect in candidates)
 					candidates[prospect] = 1
@@ -760,7 +760,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						var/mob/living/carbon/human/candidate = prospect
 						candidates[prospect] += (candidate.stat - 1)
 						candidates[prospect] += (3 - get_dist(candidate, H)) * 2
-						candidates[prospect] += round(candidate.blood_volume / 150)
+						candidates[prospect] += round(candidate.get_blood_volume() / 150)
 				bloodbag = pick_weight(candidates) //dont return here
 
 	if(bloodpoints >= maxbloodpoints)
@@ -772,12 +772,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_reagent() == H.get_blood_reagent() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
 				C.add_bleeding(BLEED_SURFACE)
 				C.visible_message(span_warning("Wounds open on [C.name]'s skin as [H.name] grips them tightly!"), span_userdanger("You begin bleeding at [H.name]'s touch!"))
-			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_reagent() == H.get_blood_reagent() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))
+			if(C.get_blood_volume() && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_reagent() == H.get_blood_reagent() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))
 				var/amt = (H.grab_state + C.stat + 2) * power
-				if(C.blood_volume)
-					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
-					H.blood_volume = min(H.blood_volume + min(amt, C.blood_volume), BLOOD_VOLUME_NORMAL)
-					C.blood_volume = max(C.blood_volume - amt, 0)
+				if(C.get_blood_volume())
+					var/excess = max(((min(amt, C.get_blood_volume()) - (BLOOD_VOLUME_NORMAL - H.get_blood_volume())) / 4), 0)
+					H.adjust_blood_volume(min(amt, C.get_blood_volume()), maximum = BLOOD_VOLUME_NORMAL)
+					C.adjust_blood_volume(-amt)
 					gainedpoints = clamp(excess, 0, maxbloodpoints - bloodpoints)
 					C.visible_message(span_warning("Blood flows from [C.name]'s wounds into [H.name]!"), span_userdanger("Blood flows from your wounds into [H.name]!"))
 					playsound(C.loc, 'sound/magic/exit_blood.ogg', 25, 1)
@@ -820,10 +820,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				continue
 			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_reagent() == H.get_blood_reagent())
 				var/amt = (2 * power)
-				if(C.blood_volume)
-					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4 * power), 0)
-					H.blood_volume = min(H.blood_volume + min(amt, C.blood_volume), BLOOD_VOLUME_NORMAL)
-					C.blood_volume = max(C.blood_volume - amt, 0)
+				if(C.get_blood_volume())
+					var/excess = max(((min(amt, C.get_blood_volume()) - (BLOOD_VOLUME_NORMAL - H.get_blood_volume())) / 4 * power), 0)
+					H.adjust_blood_volume(min(amt, C.get_blood_volume()), maximum = BLOOD_VOLUME_NORMAL)
+					C.adjust_blood_volume(-amt)
 					gainedpoints += clamp(excess, 0, maxbloodpoints - bloodpoints)
 					C.visible_message(span_warning("Blood flows from [C.name]'s wounds into [H.name]!"), span_userdanger("Blood flows from your wounds into [H.name]!"))
 		return clamp(gainedpoints, 0, maxbloodpoints - bloodpoints)

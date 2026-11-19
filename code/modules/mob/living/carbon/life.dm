@@ -284,8 +284,9 @@
 	if(!blood_type)
 		return
 
-	if(chem.type == blood_type.restoration_chem && blood_volume < BLOOD_VOLUME_NORMAL)
-		blood_volume += BLOOD_REGEN_FACTOR * seconds_per_tick
+	if(chem.type == blood_type?.restoration_chem && get_blood_volume() < BLOOD_VOLUME_NORMAL)
+		// Don't clamp this to BLOOD_VOLUME_NORMAL. Reagents have quantization, making an clamped threshold janky.
+		adjust_blood_volume(BLOOD_REGEN_FACTOR * seconds_per_tick)
 		reagents.remove_reagent(chem.type, chem.metabolization_rate * seconds_per_tick)
 		return COMSIG_MOB_STOP_REAGENT_CHECK
 
@@ -306,7 +307,7 @@
 		reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
 		return COMPONENT_NO_EXPOSE_REAGENTS
 
-	blood_volume = min(blood_volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+	adjust_blood_volume(round(reac_volume, 0.1))
 	return COMPONENT_NO_EXPOSE_REAGENTS
 
 /mob/living/carbon/proc/handle_bodyparts(delta_time, times_fired)
@@ -643,7 +644,7 @@
 /mob/living/carbon/proc/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
-	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NOBLOOD) || isnull(dna.species.mutantheart))) //not all carbons have species!
+	if(dna && dna.species && (!CAN_HAVE_BLOOD(src) || isnull(dna.species.mutantheart))) //not all carbons have species!
 		return FALSE
 	return TRUE
 

@@ -124,9 +124,13 @@ Slimecrossing Weapons
 		return FALSE
 	charge_timer = 0
 	var/mob/living/M = loc
-	if(istype(M) && M.blood_volume >= 20)
+	if(istype(M) && !CAN_HAVE_BLOOD(M) && M.stat == CONSCIOUS)
 		charges++
-		M.blood_volume -= 20
+		M.apply_damage(5, BRUTE)
+	else
+		if(istype(M) && M.get_blood_volume() >= 20)
+			charges++
+			M.adjust_blood_volume(-20)
 	if(charges == 1)
 		recharge_newshot()
 	return 1

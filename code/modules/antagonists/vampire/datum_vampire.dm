@@ -372,8 +372,8 @@
 /datum/antagonist/vampire/farewell()
 	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
 	// Refill with Blood so they don't instantly die.
-	if(!HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
-		owner.current.blood_volume = max(owner.current.blood_volume, BLOOD_VOLUME_NORMAL)
+	if(!HAS_TRAIT(owner.current, TRAIT_NO_BLOOD) && owner.current.get_blood_volume() < BLOOD_VOLUME_NORMAL)
+		owner.current.set_blood_volume(BLOOD_VOLUME_NORMAL)
 
 // Called when using admin tools to give antag status
 /datum/antagonist/vampire/admin_add(datum/mind/new_owner, mob/admin)

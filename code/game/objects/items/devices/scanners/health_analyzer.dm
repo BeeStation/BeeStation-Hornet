@@ -424,7 +424,8 @@
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding at a rate of [round(carbontarget.get_bleed_rate(), 0.1)]/s!</b></span>\n"
 			else if (carbontarget.is_bandaged())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding (Bandaged)!</b></span>\n"
-			var/blood_percent = round((carbontarget.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+			var/cached_blood_volume = carbontarget.get_blood_volume(apply_modifiers = TRUE)
+			var/blood_percent = round((cached_blood_volume / BLOOD_VOLUME_NORMAL) * 100)
 			var/blood_name = blood_type.get_blood_name()
 
 			var/blood_info = ""
@@ -444,14 +445,14 @@
 
 			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
 				render_list += "<span class='info ml-1'>[blood_name] level: 100 %, 560 cl,</span> [span_info(blood_info)]\n"
-			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>[blood_name] level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info(blood_info)]\n"
+			else if(cached_blood_volume <= BLOOD_VOLUME_SAFE && cached_blood_volume > BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>[blood_name] level: LOW [blood_percent] %, [cached_blood_volume] cl,</span> [span_info(blood_info)]\n"
 				render_list += recommendation_text
-			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>[blood_name] level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info(blood_info)]\n"
+			else if(cached_blood_volume <= BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>[blood_name] level: <b>CRITICAL [blood_percent] %</b>, [cached_blood_volume] cl,</span> [span_info(blood_info)]\n"
 				render_list += recommendation_text
 			else
-				render_list += "<span class='info ml-1'>[blood_name] level: [blood_percent] %, [carbontarget.blood_volume] cl, [blood_info]</span>\n"
+				render_list += "<span class='info ml-1'>[blood_name] level: [blood_percent] %, [cached_blood_volume] cl, [blood_info]</span>\n"
 
 	// Cybernetics
 	if(iscarbon(target))

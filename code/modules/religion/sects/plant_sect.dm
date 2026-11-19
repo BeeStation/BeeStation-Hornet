@@ -70,8 +70,7 @@
 				L.adjustFireLoss(-2*delta_time, 0)
 				L.adjustCloneLoss(-2*delta_time, 0)
 				L.updatehealth()
-				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1.0
+				L.adjust_blood_volume(1, maximum = BLOOD_VOLUME_NORMAL)
 
 	if(last_spread <= world.time)
 		var/list/validturfs = list()

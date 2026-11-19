@@ -144,7 +144,7 @@
 		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
 			. += "[t_He] look[p_s()] extremely disgusted."
 
-	var/apparent_blood_volume = blood_volume
+	var/apparent_blood_volume = CAN_HAVE_BLOOD(src) ? get_blood_volume(apply_modifiers = TRUE) : BLOOD_VOLUME_NORMAL
 	if(HAS_TRAIT(src, TRAIT_USES_SKINTONES) && ishuman(src))
 		var/mob/living/carbon/human/human_us = src // gross istypesrc but easier than refactoring even further for now
 		if(human_us.skin_tone == "albino")

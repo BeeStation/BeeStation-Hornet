@@ -713,8 +713,7 @@
 
 /datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume = min(affected_mob.blood_volume + (3 * REM * delta_time), BLOOD_VOLUME_NORMAL) //Bloody Mary quickly restores blood loss.
+	affected_mob.adjust_blood_volume(3 * REM * delta_time, maximum = BLOOD_VOLUME_NORMAL) // Bloody Mary quickly restores blood loss.
 
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"

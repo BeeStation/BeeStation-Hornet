@@ -1,6 +1,6 @@
 /mob/living/carbon
 	abstract_type = /mob/living/carbon
-	blood_volume = BLOOD_VOLUME_NORMAL
+	default_blood_volume = BLOOD_VOLUME_NORMAL
 	gender = MALE
 	pressure_resistance = 15
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,GLAND_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
@@ -44,8 +44,10 @@
 	var/obj/item/clothing/glasses/glasses = null //only used by humans.
 	var/obj/item/clothing/ears = null //only used by humans.
 
-	var/datum/dna/dna = null // Carbon
-	var/datum/mind/last_mind = null //last mind to control this mob, for blood-based cloning
+	/// DNA is carbon-only, and ideally you should be accessing it through has_dna(), but you can access it directly if you know you're working with a carbon mob
+	var/datum/dna/dna = null
+	///last mind to control this mob, for blood-based cloning
+	var/datum/mind/last_mind = null
 
 	var/failed_last_breath = 0 //This is used to determine if the mob failed a breath. If they did fail a brath, they will attempt to breathe each tick, otherwise just once per 4 ticks.
 

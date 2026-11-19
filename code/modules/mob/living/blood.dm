@@ -84,7 +84,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	// Actually do the bleeding
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
 	var/mob/living/carbon/carbon_owner = owner
-	var/pumping = owner.stat != DEAD && owner.blood_volume >= BLOOD_VOLUME_BAD && !(istype(carbon_owner) && carbon_owner.undergoing_cardiac_arrest())
+	var/pumping = owner.stat != DEAD && owner.get_blood_volume() >= BLOOD_VOLUME_BAD && !(istype(carbon_owner) && carbon_owner.undergoing_cardiac_arrest())
 	if(pumping && final_bleed_rate >= BLEED_CRITICAL && COOLDOWN_FINISHED(src, spray_cooldown) && owner.spray_blood(pick(GLOB.alldirs), 2))
 		COOLDOWN_START(src, spray_cooldown, 8 SECONDS)
 		owner.visible_message(span_danger("Blood sprays out of [owner]'s wounds!"), span_userdanger("Blood sprays out of your wounds!"))
@@ -157,7 +157,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return bleed.bandaged_bleeding > 0
 
 /mob/living/carbon/proc/is_bleeding()
-	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
+	if(!CAN_HAVE_BLOOD(src))
 		return FALSE
 	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
@@ -192,6 +192,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return 0
 
 /mob/living/carbon/get_bleed_rate()
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || !can_bleed())
+		return 0
+
 	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if(!bleed)
 		return 0
@@ -275,93 +278,208 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		stop_holding_wounds()
 
 /mob/living/carbon/monkey/handle_blood()
-	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
-		//Blood regeneration if there is some space
-		if(blood_volume < BLOOD_VOLUME_NORMAL)
-			blood_volume += 0.1 // regenerate blood VERY slowly
-			if(blood_volume < BLOOD_VOLUME_OKAY)
-				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
+	if(bodytemperature < TCRYO || HAS_TRAIT(src, TRAIT_HUSK)) //cryosleep or husked people do not pump the blood.
+		return
+	adjust_blood_volume(0.1, maximum = BLOOD_VOLUME_NORMAL) // regenerate blood VERY slowly
+	var/modified_blood_volume = get_blood_volume(apply_modifiers = TRUE)
+	if(modified_blood_volume < BLOOD_VOLUME_OKAY)
+		adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - modified_blood_volume) * 0.02, 1))
+
+/// Returns whether this mob can have blood.
+/// Use the CAN_HAVE_BLOOD(mob) macro instead, this is used to update the cached value.
+/mob/living/proc/can_have_blood()
+	return default_blood_volume > 0
+
+/mob/living/carbon/can_have_blood()
+	return !HAS_TRAIT(src, TRAIT_NOBLOOD)
+
+/// Returns the blood volume of the mob.
+/// Apply modifiers when reading blood volume for oxyloss damage, HUDs and analyzers.
+/// Don't apply modifiers when using blood itself, like in spells and reagent transfers.
+/mob/living/proc/get_blood_volume(apply_modifiers = FALSE)
+	return CAN_HAVE_BLOOD(src) ? blood_volume : 0 // Overriding blood setting code can cause blood_volume to be non-zero even when a mob shouldn't have blood.
+
+/mob/living/carbon/get_blood_volume(apply_modifiers = FALSE)
+	if (!CAN_HAVE_BLOOD(src))
+		return 0 // Overriding blood setting code can cause blood_volume to be non-zero even when a mob shouldn't have blood.
+	if (!apply_modifiers)
+		return blood_volume // Default behavior, returns the real blood volume.
+	if (HAS_TRAIT(src, TRAIT_GODMODE))
+		return default_blood_volume // Makes TRAIT_GODMODE grant immunity to the effects of bleeding. (oxyloss, passing out, etc.)
+
+	var/amount = blood_volume
+
+	// Handled here instead of in the saline reagent datum, because this way the modification order is consistent.
+	// E.g. if you have an effect that modifies blood volume over the dilution cap, then saline should do nothing.
+	var/datum/reagent/medicine/salglu_solution/saline = reagents?.has_reagent(/datum/reagent/medicine/salglu_solution)
+	if (saline && amount < saline.dilution_cap)
+		var/datum/blood_type/blood_type = get_bloodtype()
+		if (blood_type?.restoration_chem == saline.required_restoration_chem)
+			amount = min(amount + saline.volume * saline.dilution_per_unit, BLOOD_VOLUME_NORMAL)
+
+	return amount
+
+/// Sets the base blood volume of the mob, returns the blood volume of the mob after.
+/mob/living/proc/set_blood_volume(amount, minimum = 0, maximum = BLOOD_VOLUME_MAXIMUM, cached_blood_volume = null)
+	if (!isnum(cached_blood_volume))
+		cached_blood_volume = get_blood_volume()
+
+	if (!CAN_HAVE_BLOOD(src) && amount != 0)
+		return cached_blood_volume
+
+	// Don't return early even if "amount == cached_blood_volume", because we don't know if minimum or maximum would change it anyway.
+	// Putting this here because I made that mistake and it led to a bug.
+
+	blood_volume = clamp(amount, minimum, maximum)
+
+	var/updated_blood_volume = get_blood_volume()
+
+	if (cached_blood_volume != updated_blood_volume)
+		living_flags |= QUEUE_BLOOD_UPDATE
+
+	return updated_blood_volume
+
+/// Adjusts the base blood volume of the mob and returns the change.
+/// Increases in blood volume give a positive return value and vice versa.
+/// Maximum only applies on positive amounts and vice versa.
+/mob/living/proc/adjust_blood_volume(amount, minimum = 0, maximum = BLOOD_VOLUME_MAXIMUM)
+	if (!CAN_HAVE_BLOOD(src) || amount == 0)
+		return 0
+
+	var/cached_blood_volume = get_blood_volume()
+
+	if (amount < 0)
+		if (cached_blood_volume <= minimum)
+			// Already at or below the minimum, don't decrease further.
+			return 0
+		// Decreases shouldn't jump the pre-existing value to the maximum.
+		maximum = INFINITY
+	else
+		if (cached_blood_volume >= maximum)
+			// Already at or above the maximum, don't increase further.
+			return 0
+		// Increases shouldn't jump the pre-existing value to the minimum.
+		minimum = -INFINITY
+
+	var/updated_blood_volume = set_blood_volume(cached_blood_volume + amount, minimum = minimum, maximum = maximum, cached_blood_volume = cached_blood_volume)
+	return updated_blood_volume - cached_blood_volume
+
+/// Updates effects that rely on blood volume, like blood HUDs.
+/mob/living/proc/update_blood_effects()
+	living_flags &= ~QUEUE_BLOOD_UPDATE
+
+/// Updates effects that rely on whether the mob can have blood.
+/mob/living/proc/update_blood_status()
+	var/had_blood = CAN_HAVE_BLOOD(src)
+
+	living_flags = can_have_blood() ? (living_flags | LIVING_CAN_HAVE_BLOOD) : (living_flags & ~LIVING_CAN_HAVE_BLOOD)
+
+	var/has_blood = CAN_HAVE_BLOOD(src)
+
+	if (had_blood == has_blood)
+		return
+
+	var/old_blood_volume = get_blood_volume()
+
+	set_blood_volume(has_blood ? default_blood_volume : 0)
+
+	var/new_blood_volume = get_blood_volume()
+
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_BLOOD_STATUS, had_blood, has_blood, old_blood_volume, new_blood_volume)
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood(delta_time, times_fired)
 	if(mind && IS_VAMPIRE(src)) // vampires should not be affected by blood
-		return FALSE
+		return
 
-	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
+	if(!CAN_HAVE_BLOOD(src) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		cauterise_wounds()
 		return
 
-	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
+	if(bodytemperature < TCRYO || HAS_TRAIT(src, TRAIT_HUSK)) //cryosleep or husked people do not pump the blood.
+		return
 
-		//Blood regeneration if there is some space
-		if(!is_bleeding() && blood_volume < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
-			var/nutrition_ratio = 0
-			switch(nutrition)
-				if(0 to NUTRITION_LEVEL_STARVING)
-					nutrition_ratio = 0.2
-				if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-					nutrition_ratio = 0.4
-				if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-					nutrition_ratio = 0.6
-				if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-					nutrition_ratio = 0.8
-				else
-					nutrition_ratio = 1
-			if(satiety > SATIETY_WELL_NOURISHED)
-				nutrition_ratio *= 1.25
-			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time)
-			blood_volume = min(blood_volume + (BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time), BLOOD_VOLUME_NORMAL)
+	//Blood regeneration if there is some space
+	if(!is_bleeding() && get_blood_volume() < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+		var/nutrition_ratio = 0
+		switch(nutrition)
+			if(0 to NUTRITION_LEVEL_STARVING)
+				nutrition_ratio = 0.2
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				nutrition_ratio = 0.4
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				nutrition_ratio = 0.6
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				nutrition_ratio = 0.8
+			else
+				nutrition_ratio = 1
+		if(satiety > SATIETY_WELL_NOURISHED)
+			nutrition_ratio *= 1.25
+		var/blood_to_restore = BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time
+		var/blood_restored = adjust_blood_volume(blood_to_restore, maximum = BLOOD_VOLUME_NORMAL)
+		if(blood_restored > 0)
+			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time * (blood_restored / blood_to_restore))
 
-		//Effects of bloodloss
-		var/word = pick("dizzy","woozy","faint")
+	// Takes into account modifiers like saline-glucose solution in the blood
+	var/modified_blood_volume = get_blood_volume(apply_modifiers = TRUE)
 
-		// How much oxyloss we want to be on
-		var/desired_damage = (getMaxHealth() * 1.2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
-		// Make it so we only go unconcious at 25% blood remaining
-		desired_damage = max(0, (getMaxHealth() * 1.2) - ((desired_damage ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
-		if (desired_damage >= getMaxHealth() * 1.2)
-			desired_damage = getMaxHealth() * 2.0
-		if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
-			switch(blood_volume)
-				if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
-					if(prob(3))
-						to_chat(src, span_warning("Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")]."))
-				if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-					desired_damage = getMaxHealth() * 2.0
-					// Rapidly die with no saving you
-					adjustFireLoss(clamp(getMaxHealth() * 2.0 - getFireLoss(), 0, 10))
-			var/health_difference = clamp(desired_damage - getFireLoss(), 0, 5)
-			adjustFireLoss(health_difference)
-			return
-		switch(blood_volume)
-			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-				if(DT_PROB(2.5, delta_time))
-					to_chat(src, span_warning("You feel [word]."))
-				//adjustOxyLoss(round(0.005 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
-			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				//adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
-				if(DT_PROB(2.5, delta_time))
-					set_eye_blur_if_lower(12 SECONDS)
-					to_chat(src, span_warning("You feel very [word]."))
-			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				//adjustOxyLoss(2.5 * delta_time)
-				if(DT_PROB(15, delta_time))
-					set_eye_blur_if_lower(12 SECONDS)
-					Unconscious(rand(3,6))
-					to_chat(src, span_warning("You feel extremely [word]."))
+	//Effects of bloodloss
+	var/word = pick("dizzy","woozy","faint")
+
+	// How much oxyloss we want to be on
+	var/desired_damage = (getMaxHealth() * 1.2) * CLAMP01((modified_blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
+	// Make it so we only go unconcious at 25% blood remaining
+	desired_damage = max(0, (getMaxHealth() * 1.2) - ((desired_damage ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
+	if (desired_damage >= getMaxHealth() * 1.2)
+		desired_damage = getMaxHealth() * 2.0
+	if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+		switch(modified_blood_volume)
+			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
+				if(prob(3))
+					to_chat(src, span_warning("Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				desired_damage = getMaxHealth() * 2.0
 				// Rapidly die with no saving you
-				adjustOxyLoss(clamp(getMaxHealth() * 2.0 - getOxyLoss(), 0, 10))
-		var/health_difference = clamp(desired_damage - getOxyLoss(), 0, 5)
-		adjustOxyLoss(health_difference)
+				adjustFireLoss(clamp(getMaxHealth() * 2.0 - getFireLoss(), 0, 10))
+		var/health_difference = clamp(desired_damage - getFireLoss(), 0, 5)
+		adjustFireLoss(health_difference)
+		return
+	switch(modified_blood_volume)
+		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
+			if(DT_PROB(2.5, delta_time))
+				to_chat(src, span_warning("You feel [word]."))
+		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+			if(DT_PROB(2.5, delta_time))
+				set_eye_blur_if_lower(12 SECONDS)
+				to_chat(src, span_warning("You feel very [word]."))
+		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
+			if(DT_PROB(15, delta_time))
+				set_eye_blur_if_lower(12 SECONDS)
+				Unconscious(rand(3,6))
+				to_chat(src, span_warning("You feel extremely [word]."))
+		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
+			desired_damage = getMaxHealth() * 2.0
+			// Rapidly die with no saving you
+			adjustOxyLoss(clamp(getMaxHealth() * 2.0 - getOxyLoss(), 0, 10))
+	var/health_difference = clamp(desired_damage - getOxyLoss(), 0, 5)
+	adjustOxyLoss(health_difference)
 
-/mob/living/proc/bleed(amt)
-	add_splatter_floor(loc, TRUE)
+/// Bleeds amount units of blood from the mob, sometimes creating a blood splatter on the floor.
+/mob/living/proc/bleed(amount)
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || !can_bleed())
+		return
 
-//Makes a blood drop, leaking amt units of blood from the mob
-/mob/living/carbon/bleed(amt)
-	if(!blood_volume || !can_bleed() || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || HAS_TRAIT(src, TRAIT_STASIS))
+	var/amount_bled = -adjust_blood_volume(-amount)
+
+	// Blood loss still happens in locker, floor stays clean
+	if(isturf(loc) && prob(sqrt(amount_bled) * BLOOD_DRIP_RATE_MOD))
+		add_splatter_floor(loc, TRUE)
+
+/mob/living/carbon/bleed(amount)
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || !can_bleed() || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || HAS_TRAIT(src, TRAIT_STASIS))
+		return
+	var/cached_blood_volume = get_blood_volume()
+	if(!cached_blood_volume)
 		return
 	// As you get less bloodloss, you bleed slower
 	// See the top of this file for desmos lines
@@ -369,70 +487,75 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if (!heart || !heart.beating || src.stat == DEAD)
 		decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
-	var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
-	blood_volume = max(blood_volume - blood_loss_amount, 0)
+	var/blood_loss_amount = cached_blood_volume - cached_blood_volume * NUM_E ** (-(amount * decrease_multiplier) / BLOOD_VOLUME_NORMAL)
+	var/amount_bled = -adjust_blood_volume(-blood_loss_amount)
 	// Blood loss still happens in locker, floor stays clean
-	if(isturf(loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD))
-		add_splatter_floor(loc, blood_loss_amount < 2)
+	if(isturf(loc) && prob(sqrt(amount_bled) * BLOOD_DRIP_RATE_MOD))
+		add_splatter_floor(loc, amount_bled < 2)
 
-/mob/living/carbon/human/bleed(amt)
-	amt *= physiology.bleed_mod
+/mob/living/carbon/human/bleed(amount)
+	amount *= physiology.bleed_mod
 	return ..()
 
 /mob/living/proc/restore_blood()
-	blood_volume = initial(blood_volume)
+	set_blood_volume(default_blood_volume)
 
 /mob/living/carbon/human/restore_blood()
-	blood_volume = BLOOD_VOLUME_NORMAL
+	. = ..()
 	cauterise_wounds()
 
 /****************************************************
 				BLOOD TRANSFERS
 ****************************************************/
 
-//Gets blood from mob to a container or other mob, preserving all data in it.
-/mob/living/proc/transfer_blood_to(atom/movable/receiver, amount, forced, ignore_incompatibility)
-	if(!blood_volume || !receiver.reagents)
-		return FALSE
+// Transfers blood from mob to a container or another mob, preserving all data in it.
+// Returns how much blood was able to be transferred.
+/mob/living/proc/transfer_blood_to(atom/movable/receiver, amount, ignore_low_blood = FALSE, ignore_incompatibility = FALSE, transfer_viruses = TRUE)
+	var/cached_blood_volume = get_blood_volume()
 
-	if(blood_volume < BLOOD_VOLUME_BAD && !forced)
-		return FALSE
+	if(!cached_blood_volume || !receiver.reagents || amount <= 0)
+		return 0
 
-	if(blood_volume < amount)
-		amount = blood_volume
+	if(cached_blood_volume < BLOOD_VOLUME_BAD && !ignore_low_blood)
+		return 0
 
 	var/datum/blood_type/blood_type = get_bloodtype()
 	if (!blood_type)
-		return FALSE
+		return 0
 
 	var/blood_reagent = get_blood_reagent()
-	if (!blood_reagent)
-		return FALSE
-
-	blood_volume -= amount
 	var/list/blood_data = get_blood_data()
 
-	if (!isliving(receiver))
-		receiver.reagents.add_reagent(blood_reagent, amount, blood_data, bodytemperature, creation_callback = CALLBACK(src, PROC_REF(on_blood_created), blood_type))
-		return TRUE
+	// Caps the amount to how much blood we have.
+	amount = min(amount, get_blood_volume())
+
+	if (!ignore_low_blood)
+		// Caps the amount to how much we can transfer before reaching low blood.
+		amount = min(amount, get_blood_volume() - BLOOD_VOLUME_BAD)
 
 	var/mob/living/target = receiver
-	if (target.get_blood_reagent() != blood_reagent)
-		target.reagents.add_reagent(blood_reagent, amount, blood_data, bodytemperature, creation_callback = CALLBACK(src, PROC_REF(on_blood_created), blood_type))
-		return TRUE
+	if (!isliving(receiver) || target.get_blood_reagent() != blood_reagent)
+		// Further caps the amount to how much blood we were able to add to the target.
+		amount = receiver.reagents.add_reagent(blood_reagent, amount, blood_data, bodytemperature, creation_callback = CALLBACK(src, PROC_REF(on_blood_created), blood_type))
+		adjust_blood_volume(-amount)
+		return amount
 
-	if(blood_data["viruses"])
+	if(blood_data["viruses"] && transfer_viruses)
 		for(var/datum/disease/blood_disease as anything in blood_data["viruses"])
 			if((blood_disease.spread_flags & DISEASE_SPREAD_SPECIAL) || (blood_disease.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 				continue
 			target.ForceContractDisease(blood_disease)
 
 	if(!ignore_incompatibility && !(blood_type.type_key() in target.get_bloodtype().compatible_types))
-		target.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
-		return TRUE
+		// Yes, we cap it to the amount of toxin. This is ridiculously niche, but we do it anyway.
+		amount = target.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5) * 2
+		adjust_blood_volume(-amount)
+		return amount
 
-	target.blood_volume = min(target.blood_volume + round(amount, 0.1), BLOOD_VOLUME_MAXIMUM)
-	return TRUE
+	// And, obviously, cap it to how much blood the target can take if they're living.
+	amount = target.adjust_blood_volume(amount)
+	adjust_blood_volume(-amount)
+	return amount
 
 /// Callback that adds blood_reagent to any blood extracted from ourselves
 /mob/living/proc/on_blood_created(datum/blood_type/blood_type, datum/reagent/new_blood)
@@ -505,7 +628,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /mob/living/proc/get_bloodtype()
 	RETURN_TYPE(/datum/blood_type)
-	if (!blood_volume)
+	if (!CAN_HAVE_BLOOD(src))
 		return
 
 	if (!(mob_biotypes & MOB_ORGANIC))
@@ -523,6 +646,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /mob/living/carbon/get_bloodtype()
 	RETURN_TYPE(/datum/blood_type)
+	if(!CAN_HAVE_BLOOD(src))
+		return
 	return dna?.blood_type
 
 /// Returns the reagent type this mob has for blood
@@ -535,7 +660,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /// Check if a mob can bleed, and possibly if they're capable of leaving decals on turfs/mobs/items
 /mob/living/proc/can_bleed(bleed_flag = NONE)
-	if (HAS_TRAIT(src, TRAIT_HUSK) || HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
+	if (!CAN_HAVE_BLOOD(src) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return BLEED_NONE
 
 	if (!bleed_flag)
@@ -658,7 +783,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /// Create a small visual-only blood splatter
 /mob/living/proc/create_splatter(splatter_dir = pick(GLOB.cardinals))
-	if (!can_bleed())
+	// Check for TRAIT_NOBLOOD
+	if (!can_bleed()) // Even if we can't cover turfs, we still can add DNA to everything our blood hits
 		return
 	new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), splatter_dir, get_bloodtype())
 
@@ -677,6 +803,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (!isturf(splatter_turf))
 		return
 
+	// Check for TRAIT_NOBLOOD
 	switch (can_bleed(BLOOD_COVER_TURFS))
 		if (BLEED_NONE)
 			return
@@ -718,8 +845,16 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	our_splatter.fly_towards(get_ranged_target_turf(src, splatter_direction, splatter_strength), splatter_strength)
 	return TRUE
 
+// FIXME: This duplicates blood like crazy. The amount you bleed is way less than the splatter.
+// To summarize, you can literally dupe blood and bypass bloodloss with a syringe and a beaker.
+// I'm writing this here because it's out of scope for my PR, but was discovered because of it.
 /mob/living/proc/make_blood_trail(turf/target_turf, turf/start, was_facing, movement_direction)
-	if(!has_gravity() || !isturf(start) || (movement_type & THROWN))
+	if(!has_gravity() || !isturf(start) || !can_bleed())
+		return
+
+	var/cached_blood_volume = get_blood_volume()
+
+	if(!cached_blood_volume)
 		return
 
 	var/base_bleed_rate = get_bleed_rate()
@@ -727,15 +862,17 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 	var/brute_ratio = round(base_brute / (maxHealth * 4), 0.1)
 	var/bleeding_rate = round(base_bleed_rate / 4, 0.1)
+
 	// We only leave a trail if we're below a certain blood threshold
 	// The more brute damage we have, or the more we're bleeding, the less blood we need to leave a trail
-	if(blood_volume < max(BLOOD_VOLUME_NORMAL * (1 - max(bleeding_rate, brute_ratio)), 0))
+	if(cached_blood_volume < max(BLOOD_VOLUME_NORMAL * (1 - max(bleeding_rate, brute_ratio)), 0))
 		return
 
 	var/blood_to_add = BLOOD_AMOUNT_PER_DECAL * 0.1
+
 	if(body_position == LYING_DOWN)
 		blood_to_add += bleed_drag_amount()
-		blood_volume = max(blood_volume - blood_to_add, 0)
+		adjust_blood_volume(-blood_to_add)
 	else
 		blood_to_add += base_bleed_rate
 
@@ -743,10 +880,11 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if(base_brute >= 300 || base_bleed_rate >= BLEED_CRITICAL)
 		blood_to_add *= 2
 
-	switch (can_bleed(BLOOD_COVER_TURFS))
-		if (BLEED_NONE)
+	// Checks if we can add visual blood effects on turfs.
+	switch(can_bleed(BLOOD_COVER_TURFS))
+		if(BLEED_NONE)
 			return
-		if (BLEED_ADD_DNA)
+		if(BLEED_ADD_DNA)
 			return start.add_mob_blood(src)
 
 	var/trail_dir = REVERSE_DIR(movement_direction)

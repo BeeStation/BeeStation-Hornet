@@ -15,6 +15,8 @@
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
+	update_blood_status()
+	update_blood_effects()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(src)
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]

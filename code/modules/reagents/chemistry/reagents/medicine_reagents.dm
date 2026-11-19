@@ -340,27 +340,31 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	taste_description = "sweetness and salt"
-	var/last_added = 0
-	var/maximum_reachable = BLOOD_VOLUME_NORMAL - 10 //So that normal blood regeneration can continue with salglu active
+
+	/// Add about half this much extra blood regen per second.
+	var/extra_regen = 0.25
+
+	/// Add many extra units of blood per unit of saline.
+	var/dilution_per_unit = 5
+
+	/// Doesn't dilute blood beyond this point.
+	var/dilution_cap = BLOOD_VOLUME_NORMAL
+
+	/// Only supplements blood types that use this restoration chem.
+	var/required_restoration_chem = /datum/reagent/iron
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update = FALSE
+
 	if(DT_PROB(18, delta_time))
 		need_mob_update = affected_mob.adjustBruteLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_biotype)
 		need_mob_update += affected_mob.adjustFireLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_biotype)
+
+	// Regen is handled here, dilution is handled in [living/proc/get_blood_volume]
 	var/datum/blood_type/blood_type = affected_mob.get_bloodtype()
-	// Only suppliments base blood types
-	if(blood_type?.restoration_chem != /datum/reagent/iron)
-		return need_mob_update ? UPDATE_MOB_HEALTH : null
-	if(last_added)
-		affected_mob.blood_volume -= last_added
-		last_added = 0
-	if(affected_mob.blood_volume < maximum_reachable) //Can only up to double your effective blood level.
-		var/amount_to_add = min(affected_mob.blood_volume, 5 * volume)
-		var/new_blood_level = min(affected_mob.blood_volume + amount_to_add, maximum_reachable)
-		last_added = new_blood_level - affected_mob.blood_volume
-		affected_mob.blood_volume = new_blood_level
+	if(blood_type?.restoration_chem == required_restoration_chem)
+		affected_mob.adjust_blood_volume(extra_regen * REM * delta_time)
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
@@ -1357,8 +1361,7 @@
 	affected_mob.adjustCloneLoss(-3 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15 * REM * delta_time)
 
-	if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
-		affected_mob.blood_volume = max(affected_mob.blood_volume, min(affected_mob.blood_volume + 4, BLOOD_VOLUME_NORMAL))
+	affected_mob.adjust_blood_volume(4, maximum = BLOOD_VOLUME_NORMAL)
 
 	return UPDATE_MOB_HEALTH
 
@@ -1687,5 +1690,4 @@
 	if(DT_PROB(10, delta_time))
 		affected_mob.set_jitter_if_lower(10 SECONDS)
 
-	if(affected_mob.blood_volume < BLOOD_VOLUME_SAFE)
-		affected_mob.blood_volume = max(affected_mob.blood_volume, (min(affected_mob.blood_volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
+	affected_mob.adjust_blood_volume(4 * REM * delta_time, maximum = BLOOD_VOLUME_SAFE)

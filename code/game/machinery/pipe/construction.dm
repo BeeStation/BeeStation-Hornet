@@ -381,7 +381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 			if(prob(20))
 				C.spew_organ()
 			sleep(0.5 SECONDS)
-		C.blood_volume = 0
+		C.set_blood_volume(0)
 	return(OXYLOSS|BRUTELOSS)
 
 /obj/item/pipe/examine(mob/user)

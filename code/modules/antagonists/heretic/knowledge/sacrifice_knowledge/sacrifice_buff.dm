@@ -24,6 +24,8 @@
 /datum/status_effect/unholy_determination/on_apply()
 	initial_heal()
 	owner.add_traits(list(TRAIT_NOBREATH, TRAIT_NOCRITDAMAGE, TRAIT_NOSOFTCRIT), type)
+	if(owner.get_blood_volume() < BLOOD_VOLUME_OKAY)
+		owner.set_blood_volume(BLOOD_VOLUME_OKAY)
 	return TRUE
 
 /datum/status_effect/unholy_determination/on_remove()
@@ -108,8 +110,7 @@
  * Slow and stop any blood loss the owner's experiencing.
  */
 /datum/status_effect/unholy_determination/proc/adjust_bleed_wounds(seconds_between_ticks)
-	if(!iscarbon(owner) || !owner.blood_volume)
+	if(!iscarbon(owner) || !CAN_HAVE_BLOOD(owner))
 		return
 
-	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
-		owner.blood_volume = owner.blood_volume + (2 * seconds_between_ticks)
+	owner.adjust_blood_volume(2 * seconds_between_ticks, maximum = BLOOD_VOLUME_NORMAL)

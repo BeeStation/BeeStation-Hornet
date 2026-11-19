@@ -90,8 +90,11 @@
 	our_mob.flags_1 |= HOLOGRAM_1
 
 	// these vars are not really standardized but all would theoretically create stuff on death
-	for(var/v in list("butcher_results","corpse","weapon1","weapon2","blood_volume") & our_mob.vars)
+	for(var/v in list("butcher_results","corpse","weapon1","weapon2","default_blood_volume") & our_mob.vars)
 		our_mob.vars[v] = null
+	if(isliving(our_mob))
+		var/mob/living/living_mob = our_mob
+		living_mob.update_blood_status()
 	RegisterSignal(our_mob, COMSIG_QDELETING, PROC_REF(handle_mob_delete))
 	return our_mob
 

@@ -21,6 +21,7 @@
 #include "async.dm"
 #include "autowiki.dm"
 #include "blindness.dm"
+#include "blood_volume_procs.dm"
 #include "bloody_footprints.dm"
 #include "breath.dm"
 #include "check_adjustable_clothing.dm"

@@ -213,3 +213,6 @@
 #define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
 	/// Return to stop the sac from occurring
 	#define STOP_SACRIFICE (1<<0)
+
+/// From /mob/living/proc/update_blood_status(), sent when the return value of /mob/living/proc/can_have_blood() changes : (had_blood, has_blood, old_blood_volume, new_blood_volume)
+#define COMSIG_LIVING_UPDATE_BLOOD_STATUS "living_update_blood_status"
