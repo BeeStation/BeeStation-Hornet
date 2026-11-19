@@ -1,0 +1,5 @@
+author: Ucksus
+delete-after: true
+changes:
+  - balance: discovery scanner now returns a reasonable amount of discovery points
+      from artifacts.
