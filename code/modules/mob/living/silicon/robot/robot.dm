@@ -1122,3 +1122,10 @@
 
 /mob/living/silicon/robot/get_bloodtype()
 	return get_blood_type(BLOOD_TYPE_OIL)
+
+/mob/living/silicon/robot/add_splatter_floor(turf/splatter_turf, small_drip = FALSE)
+	if(!splatter_turf)
+		splatter_turf = get_turf(src)
+	if(!isturf(splatter_turf))
+		return
+	return get_bloodtype().make_blood_splatter(src, splatter_turf, small_drip)

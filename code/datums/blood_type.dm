@@ -81,7 +81,7 @@
 	if(new_splat && !blood.decal_reagent)
 		blood.decal_reagent = reagent_type
 	else if(blood.reagents && blood.bloodiness) // If reagents don't exist yet, we'll be added via lazyloading
-		blood.reagents.add_reagent(reagent_type, round(blood.bloodiness / (GET_ATOM_BLOOD_DNA_LENGTH(blood) - 1) * BLOOD_TO_UNITS_MULTIPLIER, CHEMICAL_VOLUME_ROUNDING)) // -1 as this happens before bloodiness is adjusted
+		blood.reagents.add_reagent(reagent_type, round(blood.bloodiness / max(1, GET_ATOM_BLOOD_DNA_LENGTH(blood) - 1) *BLOOD_TO_UNITS_MULTIPLIER, CHEMICAL_VOLUME_ROUNDING)) // -1 as this happens before bloodiness is adjusted
 
 /**
  * Helper proc to make a blood splatter from the passed mob of this type
@@ -276,6 +276,8 @@
 	desc = "A synthetic coolant that keeps positronic machinery from overheating."
 	dna_string = "Synthetic DNA"
 	color = BLOOD_COLOR_SYNTHETIC
+	reagent_type = /datum/reagent/blood/coolant
+	restoration_chem = null
 
 /datum/blood_type/oil
 	name = BLOOD_TYPE_OIL
@@ -353,7 +355,7 @@
 	dna_string = "Slime DNA"
 	color = /datum/reagent/toxin/slimejelly::color
 	reagent_type = /datum/reagent/toxin/slimejelly
-	restoration_chem = /datum/reagent/stable_plasma // Because normal plasma already refills our blood
+	restoration_chem = /datum/reagent/stable_plasma
 
 // Ensures that lighter slimefolk look half-decent when wounded and bleeding
 /datum/blood_type/slime/get_damage_color(mob/living/carbon/victim)

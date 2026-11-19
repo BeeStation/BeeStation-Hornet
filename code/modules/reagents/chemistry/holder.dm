@@ -896,7 +896,7 @@
 			iter_reagent.on_merge(data, amount)
 			if(!no_react)
 				handle_reactions()
-			return TRUE
+			return amount
 
 	//otherwise make a new one
 	var/datum/reagent/R = new D.type(data)
@@ -915,7 +915,7 @@
 		my_atom.on_reagent_change(ADD_REAGENT)
 	if(!no_react)
 		handle_reactions()
-	return TRUE
+	return amount
 
 /**
  * Like add_reagent but you can enter a list.

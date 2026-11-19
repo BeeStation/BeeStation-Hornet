@@ -50,6 +50,8 @@
 	RegisterSignal(parent, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(check_added_organ))
 	RegisterSignal(parent, COMSIG_HEART_MANUAL_PULSE, PROC_REF(on_pump))
 	RegisterSignal(parent, COMSIG_LIVING_UPDATE_BLOOD_STATUS, PROC_REF(on_update_blood_status))
+	RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(pause))
+	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(restart))
 
 	pump_action.cooldown_time = pump_delay - (1 SECONDS) //you can pump up to a second early
 	pump_action.Grant(parent)
@@ -63,7 +65,7 @@
 	to_chat(parent, span_userdanger("Your heart no longer beats automatically! You have to pump it manually - otherwise you'll die!"))
 
 /datum/component/manual_heart/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_CARBON_GAIN_ORGAN, COMSIG_CARBON_LOSE_ORGAN, COMSIG_HEART_MANUAL_PULSE, COMSIG_LIVING_REVIVE, COMSIG_LIVING_DEATH, COMSIG_LIVING_UPDATE_BLOOD_STATUS))
+	UnregisterSignal(parent, list(COMSIG_CARBON_GAIN_ORGAN, COMSIG_CARBON_LOSE_ORGAN, COMSIG_HEART_MANUAL_PULSE, COMSIG_LIVING_UPDATE_BLOOD_STATUS, COMSIG_LIVING_DEATH, COMSIG_LIVING_REVIVE))
 
 	to_chat(parent, span_userdanger("You feel your heart start beating normally again!"))
 	var/mob/living/carbon/carbon_parent = parent

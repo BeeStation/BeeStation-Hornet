@@ -307,7 +307,8 @@
 		reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
 		return COMPONENT_NO_EXPOSE_REAGENTS
 
-	adjust_blood_volume(round(reac_volume, 0.1))
+	var/blood_added = adjust_blood_volume(round(reac_volume, 0.1))
+	reagents.remove_reagent(chem.type, blood_added)
 	return COMPONENT_NO_EXPOSE_REAGENTS
 
 /mob/living/carbon/proc/handle_bodyparts(delta_time, times_fired)

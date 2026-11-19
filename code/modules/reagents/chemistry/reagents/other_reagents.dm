@@ -35,13 +35,6 @@
 	if(blood_color == BLOOD_COLOR_RED) // If the blood is default red, just use the darker red color for the reagent.
 		color = initial(color)
 
-/datum/reagent/blood/proc/get_diseases()
-	. = list()
-	if(data && data["viruses"])
-		for(var/thing in data["viruses"])
-			var/datum/disease/D = thing
-			. += D
-
 /datum/reagent/blood/coolant
 	name = "Synthetic Coolant"
 	default_blood_type = BLOOD_TYPE_SYNTHETIC
