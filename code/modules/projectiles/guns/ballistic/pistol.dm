@@ -7,11 +7,20 @@
 	can_suppress = TRUE
 	actions_types = list()
 	bolt_type = BOLT_TYPE_LOCKING
-	fire_sound = "sound/weapons/gunshot.ogg"
+	fire_sound = 'sound/weapons/gun/pistol/shot.ogg'
+	dry_fire_sound = 'sound/weapons/gun/pistol/dry_fire.ogg'
+	suppressed_sound = 'sound/weapons/gun/pistol/shot_suppressed.ogg'
+	load_sound = 'sound/weapons/gun/pistol/mag_insert.ogg'
+	load_empty_sound = 'sound/weapons/gun/pistol/mag_insert.ogg'
+	eject_sound = 'sound/weapons/gun/pistol/mag_release.ogg'
+	eject_empty_sound = 'sound/weapons/gun/pistol/mag_release.ogg'
 	vary_fire_sound = FALSE
-	fire_sound_volume = 80
-	rack_sound = "sound/weapons/pistolrack.ogg"
-	bolt_drop_sound = "sound/weapons/pistolslidedrop.ogg"
+	rack_sound = 'sound/weapons/gun/pistol/rack_small.ogg'
+	lock_back_sound = 'sound/weapons/gun/pistol/lock_small.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/pistol/drop_small.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/pistol/pistol_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/pistol/pistol_pickup1.ogg'
+	fire_sound_volume = 90
 	bolt_wording = "slide"
 	fire_rate = 3
 	automatic = 0
@@ -35,8 +44,8 @@
 	inhand_icon_state = null //Too small to show in hand, unless examined
 	throwforce = 0 //Derringers are light and tiny, no hurtie
 	mag_type = /obj/item/ammo_box/magazine/internal/der38
-	load_sound = 'sound/weapons/revolverload.ogg'
-	eject_sound = 'sound/weapons/revolverempty.ogg'
+	load_sound = 'sound/weapons/gun/revolver/load_bullet.ogg'
+	eject_sound = 'sound/weapons/gun/revolver/empty.ogg'
 	can_suppress = FALSE
 	casing_ejector = FALSE
 	internal_magazine = TRUE
@@ -60,6 +69,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
+	fire_sound = 'sound/weapons/gun/pistol/shot_alt.ogg'
+	rack_sound = 'sound/weapons/gun/pistol/rack.ogg'
+	lock_back_sound = 'sound/weapons/gun/pistol/slide_lock.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/pistol/slide_drop.ogg'
 	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
@@ -74,10 +87,10 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
-	rack_sound = "sound/weapons/deaglerack.ogg"
-	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
-	lock_back_sound = "sound/weapons/deaglelock.ogg"
-	fire_sound = "sound/weapons/deagleshot.ogg"
+	fire_sound = 'sound/weapons/gun/deagle/shot.ogg'
+	rack_sound = 'sound/weapons/gun/deagle/rack.ogg'
+	lock_back_sound = 'sound/weapons/gun/deagle/slide_lock.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/deagle/slide_drop.ogg'
 	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold

@@ -115,7 +115,7 @@
 			new /obj/item/shard(drop_location())
 			playsound(src, "shatter", 70, TRUE)
 		else
-			playsound(src, "sound/magic/summonitems_generic.ogg", 70, TRUE)
+			playsound(src, 'sound/magic/summonitems_generic.ogg', 70, TRUE)
 		update_appearance()
 		trigger_alarm()
 

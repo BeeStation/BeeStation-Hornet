@@ -171,6 +171,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 				return
 			if(!user.canUseTopic(src, BE_CLOSE))
 				return
+			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			scribble_page = curr_page
 			scribble = s
 			attack_self(user)

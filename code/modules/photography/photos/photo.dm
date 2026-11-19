@@ -63,6 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/photo)
 		var/txt = stripped_input(user, "What would you like to write on the back? 256 characters max.", "Photo Writing", max_length=256)
 
 		if(txt && user.canUseTopic(src, BE_CLOSE))
+			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			scribble = txt
 	else
 		return ..()

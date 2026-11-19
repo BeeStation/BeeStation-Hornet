@@ -164,13 +164,13 @@
 	icon_state = "syndicate_pistol"
 	icon_living = "syndicate_pistol"
 	casingtype = /obj/item/ammo_casing/c10mm
-	projectilesound = 'sound/weapons/gunshot.ogg'
+	projectilesound = 'sound/weapons/gun/pistol/shot.ogg'
 	loot = list(/obj/effect/gibspawner/human)
 	dodging = FALSE
 	rapid_melee = 1
 
 /mob/living/simple_animal/hostile/syndicate/ranged/infiltrator //shuttle loan event
-	projectilesound = 'sound/weapons/gunshot_silenced.ogg'
+	projectilesound = 'sound/weapons/gun/smg/shot_suppressed.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
@@ -200,7 +200,7 @@
 	icon_state = "syndicate_smg"
 	icon_living = "syndicate_smg"
 	casingtype = /obj/item/ammo_casing/c45
-	projectilesound = 'sound/weapons/gunshot_smg.ogg'
+	projectilesound = 'sound/weapons/gun/smg/shot.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/pilot //caravan ambush ruin
 	name = "Syndicate Salvage Pilot"
@@ -328,7 +328,7 @@
 	attack_verb_continuous = "hits"
 	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit3.ogg'
-	projectilesound = 'sound/weapons/sniper_shot.ogg'
+	projectilesound = 'sound/weapons/gun/sniper/shot.ogg'
 	speak_chance = 2
 	var/cooldown = 0
 	speak = list("You're pretty good.","You can't dodge everything!","Fall down already!")
@@ -345,7 +345,7 @@
 	if (cooldown < world.time)
 		cooldown = world.time + 150
 		summon_backup(10)
-		playsound(get_turf(src), 'sound/weapons/sniper_rack.ogg', 80, TRUE)
+		playsound(get_turf(src), 'sound/weapons/gun/sniper/rack.ogg', 80, TRUE)
 		say("I've got you in my scope.")
 
 /mob/living/simple_animal/hostile/syndicate/sniper/Shoot()

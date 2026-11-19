@@ -92,6 +92,7 @@
 	name = "Manuscript: [booked_job.title] Edition"
 	title = name
 	desc = "A book with the expertise of the [booked_job.title]."
+	playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 	to_chat(user, span_notice("You finished writing a job manuscript."))
 	writing = FALSE
 

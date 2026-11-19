@@ -4,8 +4,9 @@
 	icon_state = "boxing"
 	inhand_icon_state = "boxing"
 	worn_icon_state = "boxing"
-	equip_delay_other = 60
+	equip_delay_other = 6 SECONDS
 	species_exception = list(/datum/species/golem) // now you too can be a golem boxing champion
+	equip_sound = 'sound/items/equip/glove_equip.ogg'
 
 /obj/item/clothing/gloves/boxing/green
 	icon_state = "boxinggreen"

@@ -164,9 +164,11 @@
 	icon_state = "beaker"
 	inhand_icon_state = "beaker"
 	worn_icon_state = "beaker"
+	label_icon = "label_beaker"
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
-	label_icon = "label_beaker"
+	pickup_sound = 'sound/items/handling/beaker/beaker_pickup.ogg'
+	drop_sound = 'sound/items/handling/beaker/beaker_place.ogg'
 
 /obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
@@ -467,8 +469,8 @@
 	volume = 50
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
-	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
-	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
+	drop_sound = 'sound/items/handling/drink/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drink/drinkglass_pickup.ogg'
 
 /obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
 	if (reagents && reagents.total_volume > 0)

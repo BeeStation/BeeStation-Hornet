@@ -353,7 +353,7 @@
 
 /obj/item/razor/straightrazor/attack_self(mob/user)
 	extended = !extended
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/baton/batonextend.ogg', 50, 1)
 	if(extended)
 		force = extended_force
 		w_class = WEIGHT_CLASS_SMALL //if it becomes normal you can decapitate a guy with a straight razor

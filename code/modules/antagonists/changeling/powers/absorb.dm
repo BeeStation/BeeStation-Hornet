@@ -7,6 +7,8 @@
 	req_human = TRUE
 	///if we're currently absorbing, used for sanity
 	var/is_absorbing = FALSE
+	/// The sound loop we play when absorbing someone
+	var/datum/looping_sound/changeling_absorb/absorbing_loop
 
 /datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user)
 	if(!..())
@@ -61,6 +63,7 @@
 		else
 			to_chat(owner, span_changeling("We were unable to find any memories inside of [target.p_them()], we gain no additional DNA to work with."))
 
+	QDEL_NULL(absorbing_loop)
 	is_absorbing = FALSE
 
 	changeling.adjust_chemicals(10)
@@ -149,6 +152,7 @@
 			if(2)
 				owner.visible_message(span_warning("[owner] extends a proboscis!"), span_notice("We extend a proboscis."))
 			if(3)
+				absorbing_loop = new(owner, start_immediately = TRUE)
 				owner.visible_message(span_danger("[owner] stabs [target] with the proboscis!"), span_notice("We stab [target] with the proboscis."))
 				to_chat(target, span_userdanger("You feel a sharp stabbing pain!"))
 				target.take_overall_damage(40)
@@ -156,6 +160,7 @@
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[absorbing_iteration]"))
 		if(!do_after(owner, 15 SECONDS, target, hidden = TRUE))
 			owner.balloon_alert(owner, "interrupted!")
+			QDEL_NULL(absorbing_loop)
 			is_absorbing = FALSE
 			return FALSE
 	return TRUE

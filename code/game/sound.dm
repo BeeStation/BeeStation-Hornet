@@ -397,19 +397,11 @@
 			if ("im_here")
 				soundin = pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg')
 			if ("can_open")
-				soundin = pick('sound/effects/can_open1.ogg', 'sound/effects/can_open2.ogg', 'sound/effects/can_open3.ogg')
+				soundin = pick('sound/items/can/can_open1.ogg', 'sound/items/can/can_open2.ogg', 'sound/items/can/can_open3.ogg')
 			if("bullet_miss")
 				soundin = pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg')
-			if("gun_insert_empty_magazine")
-				soundin = pick('sound/weapons/gun_magazine_insert_empty_1.ogg', 'sound/weapons/gun_magazine_insert_empty_2.ogg', 'sound/weapons/gun_magazine_insert_empty_3.ogg', 'sound/weapons/gun_magazine_insert_empty_4.ogg')
-			if("gun_insert_full_magazine")
-				soundin = pick('sound/weapons/gun_magazine_insert_full_1.ogg', 'sound/weapons/gun_magazine_insert_full_2.ogg', 'sound/weapons/gun_magazine_insert_full_3.ogg', 'sound/weapons/gun_magazine_insert_full_4.ogg', 'sound/weapons/gun_magazine_insert_full_5.ogg')
-			if("gun_remove_empty_magazine")
-				soundin = pick('sound/weapons/gun_magazine_remove_empty_1.ogg', 'sound/weapons/gun_magazine_remove_empty_2.ogg', 'sound/weapons/gun_magazine_remove_empty_3.ogg', 'sound/weapons/gun_magazine_remove_empty_4.ogg')
-			if("gun_slide_lock")
-				soundin = pick('sound/weapons/gun_slide_lock_1.ogg', 'sound/weapons/gun_slide_lock_2.ogg', 'sound/weapons/gun_slide_lock_3.ogg', 'sound/weapons/gun_slide_lock_4.ogg', 'sound/weapons/gun_slide_lock_5.ogg')
 			if("revolver_spin")
-				soundin = pick('sound/weapons/revolverspin1.ogg', 'sound/weapons/revolverspin2.ogg', 'sound/weapons/revolverspin3.ogg')
+				soundin = pick('sound/weapons/gun/revolver/spin1.ogg', 'sound/weapons/gun/revolver/spin2.ogg', 'sound/weapons/gun/revolver/spin3.ogg')
 			if("law")
 				soundin = pick('sound/voice/beepsky/god.ogg', 'sound/voice/beepsky/iamthelaw.ogg', 'sound/voice/beepsky/secureday.ogg', 'sound/voice/beepsky/radio.ogg', 'sound/voice/beepsky/insult.ogg', 'sound/voice/beepsky/creep.ogg')
 			if("honkbot_e")
@@ -430,6 +422,207 @@
 				soundin = pick('sound/machines/switch1.ogg','sound/machines/switch2.ogg','sound/machines/switch3.ogg')
 			if("liquid_pour")
 				soundin = pick('sound/effects/liquid_pour/liquid_pour1.ogg', 'sound/effects/liquid_pour/liquid_pour2.ogg', 'sound/effects/liquid_pour/liquid_pour3.ogg')
+			if("buckle")
+				soundin = pick('sound/machines/buckle/buckle1.ogg', 'sound/machines/buckle/buckle2.ogg', 'sound/machines/buckle/buckle3.ogg')
+			if("unbuckle")
+				soundin = pick('sound/machines/buckle/unbuckle1.ogg', 'sound/machines/buckle/unbuckle2.ogg', 'sound/machines/buckle/unbuckle3.ogg')
+			if("headset_equip")
+				soundin = pick('sound/items/equip/headset_equip1.ogg', 'sound/items/equip/headset_equip2.ogg')
+			if("headset_pickup")
+				soundin = pick('sound/items/handling/headset/headset_pickup1.ogg', 'sound/items/handling/headset/headset_pickup2.ogg', 'sound/items/handling/headset/headset_pickup3.ogg',)
+			if("portal_created")
+				soundin = pick('sound/effects/portal/portal_open_1.ogg', 'sound/effects/portal/portal_open_2.ogg', 'sound/effects/portal/portal_open_3.ogg')
+			if("stone_drop")
+				soundin = pick('sound/items/stones/stone_drop1.ogg', 'sound/items/stones/stone_drop2.ogg', 'sound/items/stones/stone_drop3.ogg')
+			if("stone_pickup")
+				soundin = pick('sound/items/stones/stone_pick_up1.ogg', 'sound/items/stones/stone_pick_up2.ogg')
+			if("goggles_pickup")
+				soundin = pick(
+					'sound/items/goggles/goggles_pickup1.ogg',
+					'sound/items/goggles/goggles_pickup2.ogg',
+					'sound/items/goggles/goggles_pickup3.ogg',
+				)
+			if("goggles_drop")
+				soundin = pick(
+					'sound/items/goggles/goggles_drop1.ogg',
+					'sound/items/goggles/goggles_drop2.ogg',
+					'sound/items/goggles/goggles_drop3.ogg',
+				)
+			if("goggles_equip")
+				soundin = pick(
+					'sound/items/goggles/goggles_equip1.ogg',
+					'sound/items/goggles/goggles_equip2.ogg',
+					'sound/items/goggles/goggles_equip3.ogg',
+					'sound/items/goggles/goggles_equip4.ogg',
+				)
+			if("glasses_pickup")
+				soundin = pick(
+					'sound/items/glasses/glasses_pickup1.ogg',
+					'sound/items/glasses/glasses_pickup2.ogg',
+					'sound/items/glasses/glasses_pickup3.ogg',
+				)
+			if("glasses_drop")
+				soundin = pick(
+					'sound/items/glasses/glasses_drop1.ogg',
+					'sound/items/glasses/glasses_drop2.ogg',
+					'sound/items/glasses/glasses_drop3.ogg',
+				)
+			if("glasses_equip")
+				soundin = pick(
+					'sound/items/glasses/glasses_equip1.ogg',
+					'sound/items/glasses/glasses_equip2.ogg',
+				)
+			if("writing_pen")
+				soundin = pick(
+					'sound/effects/writing_pen/writing_pen1.ogg',
+					'sound/effects/writing_pen/writing_pen2.ogg',
+					'sound/effects/writing_pen/writing_pen3.ogg',
+					'sound/effects/writing_pen/writing_pen4.ogg',
+					'sound/effects/writing_pen/writing_pen5.ogg',
+					'sound/effects/writing_pen/writing_pen6.ogg',
+					'sound/effects/writing_pen/writing_pen7.ogg',
+				)
+			if("food_plate_pickup")
+				soundin = pick(
+					'sound/items/food_plate/food_plate_pickup1.ogg',
+					'sound/items/food_plate/food_plate_pickup2.ogg',
+					'sound/items/food_plate/food_plate_pickup3.ogg',
+				)
+			if("food_plate_drop")
+				soundin = pick(
+					'sound/items/food_plate/food_plate_drop1.ogg',
+					'sound/items/food_plate/food_plate_drop2.ogg',
+					'sound/items/food_plate/food_plate_drop3.ogg',
+				)
+			if("cutlery_pickup")
+				soundin = pick(
+					'sound/items/cutlery/cutlery_pickup1.ogg',
+					'sound/items/cutlery/cutlery_pickup2.ogg',
+					'sound/items/cutlery/cutlery_pickup3.ogg',
+				)
+			if("cutlery_drop")
+				soundin = pick(
+					'sound/items/cutlery/cutlery_drop1.ogg',
+					'sound/items/cutlery/cutlery_drop2.ogg',
+					'sound/items/cutlery/cutlery_drop3.ogg',
+				)
+			if("knife_pickup")
+				soundin = pick(
+					'sound/items/knife/knife_pickup1.ogg',
+					'sound/items/knife/knife_pickup2.ogg',
+					'sound/items/knife/knife_pickup3.ogg',
+				)
+			if("knife_drop")
+				soundin = pick(
+					'sound/items/knife/knife_drop1.ogg',
+					'sound/items/knife/knife_drop2.ogg',
+					'sound/items/knife/knife_drop3.ogg',
+				)
+			if("knife_slice")
+				soundin = pick(
+					'sound/items/knife/knife_slice1.ogg',
+					'sound/items/knife/knife_slice2.ogg',
+					'sound/items/knife/knife_slice3.ogg',
+					'sound/items/knife/knife_slice4.ogg',
+					'sound/items/knife/knife_slice5.ogg',
+					'sound/items/knife/knife_slice6.ogg',
+				)
+			if("tray_pickup")
+				soundin = pick(
+					'sound/items/tray/tray_pickup1.ogg',
+					'sound/items/tray/tray_pickup2.ogg',
+					'sound/items/tray/tray_pickup3.ogg',
+				)
+			if("tray_drop")
+				soundin = pick(
+					'sound/items/tray/tray_drop1.ogg',
+					'sound/items/tray/tray_drop2.ogg',
+					'sound/items/tray/tray_drop3.ogg',
+				)
+			if("tray_insert")
+				soundin = pick(
+					'sound/items/tray/tray_insert1.ogg',
+					'sound/items/tray/tray_insert2.ogg',
+					'sound/items/tray/tray_insert3.ogg',
+				)
+			if("rolling_pin_pickup")
+				soundin = pick(
+					'sound/items/rolling_pin/rolling_pin_pickup1.ogg',
+					'sound/items/rolling_pin/rolling_pin_pickup2.ogg',
+					'sound/items/rolling_pin/rolling_pin_pickup3.ogg',
+				)
+			if("rolling_pin_drop")
+				soundin = pick(
+					'sound/items/rolling_pin/rolling_pin_drop1.ogg',
+					'sound/items/rolling_pin/rolling_pin_drop2.ogg',
+					'sound/items/rolling_pin/rolling_pin_drop3.ogg',
+				)
+			if("rolling_pin_rolling")
+				soundin = pick(
+					'sound/items/rolling_pin/rolling_pin_rolling1.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling2.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling3.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling4.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling5.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling6.ogg',
+				)
+			if("default_liquid_slosh")
+				soundin = pick(
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh1.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh2.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh3.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh4.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh5.ogg',
+				)
+			if("plastic_liquid_slosh")
+				soundin = pick(
+					'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh1.ogg',
+					'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh2.ogg',
+				)
+			if("griddle_on")
+				soundin = pick(
+					'sound/machines/griddle/griddle_turn_on1.ogg',
+					'sound/machines/griddle/griddle_turn_on2.ogg',
+				)
+			if("griddle_off")
+				soundin = pick(
+					'sound/machines/griddle/griddle_turn_off1.ogg',
+					'sound/machines/griddle/griddle_turn_off2.ogg',
+				)
+			if("seasoning_shaker_pickup")
+				soundin = pick(
+					'sound/items/seasoning_shaker/seasoning_shaker_pickup1.ogg',
+					'sound/items/seasoning_shaker/seasoning_shaker_pickup2.ogg',
+					'sound/items/seasoning_shaker/seasoning_shaker_pickup3.ogg',
+				)
+			if("seasoning_shaker_drop")
+				soundin = pick(
+					'sound/items/seasoning_shaker/seasoning_shaker_drop1.ogg',
+					'sound/items/seasoning_shaker/seasoning_shaker_drop2.ogg',
+				)
+			if("towel_pickup")
+				soundin = pick(
+					'sound/items/towel/towel_pickup1.ogg',
+					'sound/items/towel/towel_pickup2.ogg',
+				)
+			if("towel_drop")
+				soundin = pick(
+					'sound/items/towel/towel_drop1.ogg',
+					'sound/items/towel/towel_drop2.ogg',
+				)
+			if("cucumba_pickup")
+				soundin = pick(
+					'sound/items/cucumba/cucumba_pickup1.ogg',
+					'sound/items/cucumba/cucumba_pickup2.ogg',
+					'sound/items/cucumba/cucumba_pickup3.ogg',
+				)
+			if("cucumba_drop")
+				soundin = pick(
+					'sound/items/cucumba/cucumba_drop1.ogg',
+					'sound/items/cucumba/cucumba_drop2.ogg',
+					'sound/items/cucumba/cucumba_drop3.ogg',
+				)
+
 	return soundin
 
 /client/proc/get_playing_channel(channel)

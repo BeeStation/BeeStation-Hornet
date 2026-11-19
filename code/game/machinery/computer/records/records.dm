@@ -98,7 +98,7 @@
 			if(!target_record)
 				return FALSE
 
-			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
+			playsound(src, "terminal_type", 50, TRUE)
 			update_preview(user, sanitize(params["character_preview_view"]), target_record, ui.window)
 			return TRUE
 

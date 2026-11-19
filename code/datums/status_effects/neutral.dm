@@ -101,7 +101,7 @@
 
 /datum/status_effect/bounty/on_apply()
 	to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("You have been marked for death by [rewarded]. If you die, they will be rewarded.")]")
-	playsound(owner, 'sound/weapons/shotgunpump.ogg', 75, 0)
+	playsound(owner, 'sound/weapons/gun/shotgun/rack.ogg', 75)
 	return ..()
 
 /datum/status_effect/bounty/tick(seconds_between_ticks)
@@ -112,7 +112,7 @@
 /datum/status_effect/bounty/proc/rewards()
 	if(rewarded && rewarded.mind && rewarded.stat != DEAD)
 		to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("Bounty claimed.")]")
-		playsound(owner, 'sound/weapons/shotgunshot.ogg', 75, 0)
+		playsound(owner, 'sound/weapons/gun/shotgun/shot.ogg', 75)
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
 		for(var/datum/action/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()

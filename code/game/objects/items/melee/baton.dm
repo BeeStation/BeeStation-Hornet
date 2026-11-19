@@ -25,11 +25,11 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	/// Used interally, you don't want to modify
 	var/cooldown_check = 0
 	// Default wait time until it can stun again.
-	var/cooldown = (20)
+	var/cooldown = 2 SECONDS
 	/// The length of the knockdown applied to a struck living, non-cyborg mob.
-	var/knockdown_time = (1.5 SECONDS)
+	var/knockdown_time = 1.5 SECONDS
 	/// If affect_cyborg is TRUE, this is how long we stun cyborgs for on a hit.
-	var/stun_time_cyborg = (5 SECONDS)
+	var/stun_time_cyborg = 5 SECONDS
 	/// The length of the knockdown applied to the user on clumsy_check()
 	var/clumsy_knockdown_time = 18 SECONDS
 	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
@@ -480,9 +480,15 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	item_flags = ISWEAPON
 	force = 0
 	active = FALSE
+	var/folded_drop_sound = 'sound/items/baton/telescopic_baton_folded_drop.ogg'
+	var/folded_pickup_sound = 'sound/items/baton/telescopic_baton_folded_pickup.ogg'
+	var/unfolded_drop_sound = 'sound/items/baton/telescopic_baton_unfolded_drop.ogg'
+	var/unfolded_pickup_sound = 'sound/items/baton/telescopic_baton_unfolded_pickup.ogg'
+	pickup_sound = 'sound/items/baton/telescopic_baton_folded_pickup.ogg'
+	drop_sound = 'sound/items/baton/telescopic_baton_folded_drop.ogg'
 
 	/// The sound effect played when our baton is extended.
-	var/on_sound = 'sound/weapons/batonextend.ogg'
+	var/on_sound = 'sound/items/baton/batonextend.ogg'
 	/// The inhand iconstate used when our baton is extended.
 	var/on_inhand_icon_state = "nullrod"
 	/// The force on extension.
@@ -590,6 +596,12 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	inhand_icon_state = active ? on_inhand_icon_state : null // When inactive, there is no inhand icon_state.
 	if(user)
 		balloon_alert(user, active ? "extended" : "collapsed")
+	if(!active)
+		drop_sound = folded_drop_sound
+		pickup_sound = folded_pickup_sound
+	else
+		drop_sound = unfolded_drop_sound
+		pickup_sound = unfolded_pickup_sound
 	playsound(src, on_sound, 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
@@ -611,8 +623,10 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	force_say_chance = 80
 	stamina_damage = 85
 	affect_cyborg = TRUE
-	on_sound = 'sound/weapons/contractorbatonextend.ogg'
+	on_sound = 'sound/items/baton/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
+	unfolded_drop_sound = 'sound/items/baton/contractor_baton_unfolded_pickup.ogg'
+	unfolded_pickup_sound = 'sound/items/baton/contractor_baton_unfolded_pickup.ogg'
 	stun_animation = TRUE
 
 	on_inhand_icon_state = "contractor_baton_on"
@@ -682,6 +696,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	desc = "A stun baton for incapacitating people with."
 	desc_controls = "Left click to stun, right click to harm."
 	icon_state = "stunbaton"
+	base_icon_state = "stunbaton"
 	inhand_icon_state = "baton"
 	worn_icon_state = "baton"
 	force = 8
@@ -701,6 +716,14 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	light_on = FALSE
 	light_color = LIGHT_COLOR_ORANGE
 	light_power = 0.5
+
+	hitsound = "swing_hit"
+	drop_sound = 'sound/items/baton/stun_baton_inactive_drop.ogg'
+	pickup_sound = 'sound/items/baton/stun_baton_inactive_pickup.ogg'
+	var/inactive_drop_sound = 'sound/items/baton/stun_baton_inactive_drop.ogg'
+	var/inactive_pickup_sound = 'sound/items/baton/stun_baton_inactive_pickup.ogg'
+	var/active_drop_sound = 'sound/items/baton/stun_baton_active_drop.ogg'
+	var/active_pickup_sound = 'sound/items/baton/stun_baton_active_pickup.ogg'
 
 	var/throw_stun_chance = 35
 	var/obj/item/stock_parts/cell/cell
@@ -765,14 +788,14 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		update_appearance()
 
 /obj/item/melee/baton/security/update_icon_state()
+	. = ..()
 	if(active)
-		icon_state = "[initial(icon_state)]_active"
-		return ..()
+		icon_state = "[base_icon_state]_active"
+		return
 	if(!cell)
-		icon_state = "[initial(icon_state)]_nocell"
-		return ..()
-	icon_state = "[initial(icon_state)]"
-	return ..()
+		icon_state = "[base_icon_state]_nocell"
+		return
+	icon_state = base_icon_state
 
 /obj/item/melee/baton/security/examine(mob/user)
 	. = ..()
@@ -814,30 +837,44 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	return FALSE
 
 /obj/item/melee/baton/security/attack_self(mob/user)
-	if(cell?.charge >= cell_hit_cost)
-		active = !active
-		balloon_alert(user, "turned [active ? "on" : "off"]")
-		playsound(src, "sparks", 75, TRUE, -1)
-		toggle_light(user)
-		do_sparks(1, TRUE, src)
-		if(active)
-			hitsound = "swing_hit"
-		else
-			hitsound = "swing_hit"
+	if(cell?.charge >= cell_hit_cost && !active)
+		turn_on(user)
+		balloon_alert(user, "turned on")
 	else
-		active = FALSE
+		turn_off()
 		if(!cell)
 			balloon_alert(user, "no power source!")
-		else
+		else if(cell?.charge < cell_hit_cost)
 			balloon_alert(user, "out of charge!")
-		hitsound = "swing_hit"
-	update_appearance()
+		else
+			balloon_alert(user, "turned off")
 	add_fingerprint(user)
 
 /// Toggles the stun baton's light
-/obj/item/melee/baton/security/proc/toggle_light(mob/user)
+/obj/item/melee/baton/security/proc/toggle_light()
 	set_light_on(!light_on)
 	return
+
+/obj/item/melee/baton/security/proc/turn_on(mob/user)
+	if(active)
+		return
+	active = TRUE
+	playsound(src, "sparks", 75, TRUE, -1)
+	update_appearance(UPDATE_ICON_STATE)
+	toggle_light()
+	do_sparks(1, TRUE, src)
+	drop_sound = active_drop_sound
+	pickup_sound = active_pickup_sound
+
+/obj/item/melee/baton/security/proc/turn_off()
+	if(!active)
+		return
+	active = FALSE
+	set_light_on(FALSE)
+	update_appearance(UPDATE_ICON_STATE)
+	playsound(src, "sparks", 75, TRUE, -1)
+	drop_sound = inactive_drop_sound
+	pickup_sound = inactive_pickup_sound
 
 /obj/item/melee/baton/security/proc/deductcharge(deducted_charge)
 	if(!cell)
@@ -847,11 +884,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	. = cell.use(deducted_charge)
 	if(active && cell.charge < cell_hit_cost)
 		//we're below minimum, turn off
-		active = FALSE
-		set_light_on(FALSE)
-		update_appearance()
-		playsound(src, "sparks", 75, TRUE, -1)
-		hitsound = "swing_hit"
+		turn_off()
 
 // Override baton_effect to handle cell usage and special cases
 /obj/item/melee/baton/security/baton_effect(mob/living/target, mob/living/user, modifiers, stun_override)
@@ -965,11 +998,10 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 /obj/item/melee/baton/security/proc/scramble_mode()
 	if (!cell || cell.charge < cell_hit_cost)
 		return
-	active = !active
-	toggle_light()
-	do_sparks(1, TRUE, src)
-	playsound(src, "sparks", 75, TRUE, -1)
-	update_appearance()
+	if(active)
+		turn_off()
+	else
+		turn_on()
 
 //This one starts with a cell pre-installed.
 /obj/item/melee/baton/security/loaded

@@ -11,7 +11,7 @@
 	armor_type = /datum/armor/color_yellow
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
-
+	equip_sound = 'sound/items/equip/glove_equip.ogg'
 
 /datum/armor/color_yellow
 	bio = 50
@@ -212,6 +212,7 @@
 	armor_type = /datum/armor/color_latex
 	clothing_traits = list(TRAIT_QUICK_CARRY)
 	resistance_flags = NONE
+	equip_sound = 'sound/items/equip/glove_equip.ogg'
 
 /datum/armor/color_latex
 	bio = 100

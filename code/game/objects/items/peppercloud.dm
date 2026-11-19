@@ -10,6 +10,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	volume = 75
 	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 75)
+	pickup_sound = 'sound/items/handling/pepper_spray/pepper_spray_pick_up.ogg'
+	drop_sound = 'sound/items/handling/pepper_spray/pepper_spray_drop.ogg'
 
 	item_flags = NOBLUDGEON | ISWEAPON
 	initial_reagent_flags = OPENCONTAINER | NO_SPLASH
@@ -100,7 +102,7 @@
 	reagents.trans_to(R, 25)
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, 1, center, silent = TRUE, circle = FALSE)
-	playsound(src, 'sound/weapons/grenadelaunch.ogg', 70, FALSE, -2)
+	playsound(src, 'sound/weapons/gun/general/grenade_launch.ogg', 70, FALSE, -2)
 	playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -2)
 	smoke.start()
 	user.investigate_log("deployed a peppercloud at [COORD(center)].", INVESTIGATE_PEPPERSPRAY)

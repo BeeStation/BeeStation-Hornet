@@ -41,6 +41,7 @@
 
 	if(user.canUseTopic(src, BE_CLOSE))
 		name = "folder[(inputvalue ? " - '[inputvalue]'" : null)]"
+		playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 
 /obj/item/folder/proc/remove_item(obj/item/I, mob/user)
 	if(istype(I))
