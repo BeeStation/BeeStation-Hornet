@@ -9,7 +9,8 @@
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
-
+	///If TRUE, the whetstone will only sharpen already sharp items
+	var/requires_sharpness = TRUE
 
 /obj/item/sharpener/attackby(obj/item/I, mob/user, list/modifiers)
 	if(used)
@@ -18,7 +19,7 @@
 	if(I.force >= max || I.throwforce >= max)//no esword sharpening
 		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
 		return
-	if(!I.get_sharpness())
+	if(requires_sharpness && !I.sharpness)
 		to_chat(user, span_warning("You can only sharpen items that are already sharp, such as knives!"))
 		return
 	if(is_type_in_list(I, list(/obj/item/melee/energy, /obj/item/dualsaber))) //You can't sharpen the photons in energy meelee weapons
@@ -53,3 +54,4 @@
 	increment = 200
 	max = 200
 	prefix = "super-sharpened"
+	requires_sharpness = FALSE //Super whetstones can sharpen even tooboxes

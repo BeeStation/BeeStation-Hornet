@@ -54,15 +54,15 @@
 			if(DT_PROB(1.5, delta_time))
 				to_chat(affected_mob, span_danger("You feel very weak and dizzy..."))
 				affected_mob.adjust_confusion(8 SECONDS)
-				affected_mob.adjustStaminaLoss(40, FALSE)
+				affected_mob.stamina.adjust(-40)
 				affected_mob.emote("cough")
 		if(5)
 			affected_mob.stop_sound_channel(CHANNEL_HEARTBEAT)
 			affected_mob.playsound_local(affected_mob, 'sound/effects/singlebeat.ogg', 100, FALSE)
 			if(affected_mob.stat == CONSCIOUS)
-				affected_mob.visible_message("<span class='danger'>[affected_mob] clutches at [affected_mob.p_their()] chest as if [affected_mob.p_their()] heart is stopping!</span>", \
-					"<span class='userdanger'>You feel a terrible pain in your chest, as if your heart has stopped!</span>")
-			affected_mob.adjustStaminaLoss(60, FALSE)
+				affected_mob.visible_message(span_danger("[affected_mob] clutches at [affected_mob.p_their()] chest as if [affected_mob.p_their()] heart is stopping!"), \
+					span_userdanger("You feel a terrible pain in your chest, as if your heart has stopped!"))
+			affected_mob.stamina.adjust(-60)
 			affected_mob.set_heartattack(TRUE)
 			affected_mob.reagents.add_reagent(/datum/reagent/medicine/corazone, 3) // To give the victim a final chance to shock their heart before losing consciousness
 			cure()

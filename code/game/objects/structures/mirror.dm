@@ -133,6 +133,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 	icon_state = "magic_mirror"
 	var/list/choosable_races
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/magic, 28)
+
 /obj/structure/mirror/magic/Initialize(mapload)
 	. = ..()
 	if(!islist(choosable_races))

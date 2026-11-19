@@ -1121,6 +1121,7 @@
 		lamp_doom = FALSE
 
 /mob/living/silicon/robot/get_bloodtype()
+	RETURN_TYPE(/datum/blood_type)
 	return get_blood_type(BLOOD_TYPE_OIL)
 
 /mob/living/silicon/robot/add_splatter_floor(turf/splatter_turf, small_drip = FALSE)

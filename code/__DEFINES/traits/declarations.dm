@@ -18,6 +18,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLOORED "floored"
 /// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
 #define TRAIT_FORCED_STANDING "forcedstanding"
+///Slows the user, with additional effects based on the source.
+#define TRAIT_DISORIENTED "disoriented"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"
 /// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
@@ -27,6 +29,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 #define TRAIT_INCAPACITATED "incapacitated"
+///User's stamina is over the STAMINA_EXHAUSTION_THRESHOLD
+#define TRAIT_EXHAUSTED "exhausted"
+///User is sprinting, full speed ahead
+#define TRAIT_SPRINTING "sprinting"
+///User cannot sprint
+#define TRAIT_NO_SPRINT "no_sprint"
+///Exhaustion doesn't slow the user, stop their sprint or force a whisper, but stuns still land
+#define TRAIT_SECOND_WIND "second_wind"
+///All stamina loss, from attacks, stuns or exertion, drains this mob's power instead, see [COMSIG_LIVING_DRAIN_STAMINA_POWER]
+#define TRAIT_STAMINA_DRAINS_POWER "stamina_drains_power"
+/// In softcrit.
+#define TRAIT_SOFT_CRITICAL_CONDITION "soft-critical-condition"
 //In some kind of critical condition. Is able to succumb.
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 /// Whitelist for mobs that can read or write

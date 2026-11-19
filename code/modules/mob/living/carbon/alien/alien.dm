@@ -3,6 +3,7 @@
 	name = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = FEMALE //All xenos are girls!!
+	move_intents = list(/datum/move_intent/walk, /datum/move_intent/run) //no stamina to pay for sprinting
 	dna = null
 	faction = list(FACTION_ALIEN)
 	sight = SEE_MOBS
@@ -67,6 +68,7 @@
 		clear_alert("alien_fire")
 
 /mob/living/carbon/alien/get_bloodtype()
+	RETURN_TYPE(/datum/blood_type)
 	return get_blood_type(BLOOD_TYPE_XENO)
 
 /*----------------------------------------
