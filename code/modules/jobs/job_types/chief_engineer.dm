@@ -2,6 +2,7 @@
 	title = JOB_NAME_CHIEFENGINEER
 	description = "Oversee the engineers and atmospheric technicians, keep a watchful eye on the station's engine, gravity generator, and telecomms. Send your staff to repair hull breaches and damaged equipment as necessary."
 	department_for_prefs = DEPARTMENT_NAME_ENGINEERING
+	department_head_for_prefs = JOB_NAME_CHIEFENGINEER
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"

@@ -2,6 +2,7 @@
 	title = JOB_NAME_HEADOFSECURITY
 	description = "Oversee the members of security and ensure they follow Space Law. Deputize other crew members when the station is in need of additional protection."
 	department_for_prefs = DEPARTMENT_NAME_SECURITY
+	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"

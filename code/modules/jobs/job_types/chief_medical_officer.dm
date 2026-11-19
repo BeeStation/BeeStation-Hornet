@@ -4,6 +4,7 @@
 		Ensure doctors and paramedics are treating people in a timely manner, request medicine and other concoctions from chemists, \
 		and ensure geneticists are following appropriate safety precautions while performing their research."
 	department_for_prefs = DEPARTMENT_NAME_MEDICAL
+	department_head_for_prefs = JOB_NAME_CHIEFMEDICALOFFICER
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD

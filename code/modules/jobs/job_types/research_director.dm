@@ -2,6 +2,7 @@
 	title = JOB_NAME_RESEARCHDIRECTOR
 	description = "Oversee the scientists and roboticists and keep up with their research projects, take care of any issues with the station's AI that may arise, ensure research is being prioritized in accordance with the needs of the station."
 	department_for_prefs = DEPARTMENT_NAME_SCIENCE
+	department_head_for_prefs = JOB_NAME_RESEARCHDIRECTOR
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
