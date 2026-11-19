@@ -252,25 +252,26 @@
 
 	return examine_list.Join("<br>")
 
-#define DEATH_EXAMINE_TEXT(dead_person) "[dead_person.p_They()] [dead_person.p_are()] limp and unresponsive; there are no signs of life"
+#define DEATH_EXAMINE_TEXT(p_they,p_are) "[p_they] [p_are] limp and unresponsive; there are no signs of life"
 
 /mob/living/proc/generate_death_examine_text()
 	var/t_He = p_They()
 	var/t_his = p_their()
+	var/t_is = p_are()
 
 	if(suiciding)
 		return span_deadsay("[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.")
 	if(!key && !get_ghost(FALSE, TRUE))
-		return span_deadsay(DEATH_EXAMINE_TEXT(src) + " and [t_his] soul has departed...")
+		return span_deadsay(DEATH_EXAMINE_TEXT(t_He,t_is) + " and [t_his] soul has departed...")
 	else if(!client && key)
-		return span_deadsay(DEATH_EXAMINE_TEXT(src) + " and [t_his] soul seems distant, it may return soon...")
+		return span_deadsay(DEATH_EXAMINE_TEXT(t_He,t_is) + " and [t_his] soul seems distant, it may return soon...")
 	else
-		return span_deadsay(DEATH_EXAMINE_TEXT(src) + "...")
+		return span_deadsay(DEATH_EXAMINE_TEXT(t_He,t_is) + "...")
 
 /// Returns death message for mob examine text
 /mob/living/carbon/generate_death_examine_text()
 	if(!get_organ_by_type(/obj/item/organ/brain))
-		return span_deadsay(DEATH_EXAMINE_TEXT(src) + " and [p_their()] soul is elsewhere...")
+		return span_deadsay(DEATH_EXAMINE_TEXT(p_They(),p_are()) + " and [p_their()] soul is elsewhere...")
 
 	return ..()
 
