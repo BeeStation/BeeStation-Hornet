@@ -55,6 +55,10 @@ export class TextArea extends Component {
       const { editing } = this.state;
       const { onChange, onInput, onEnter, onKey } = this.props;
       if (e.key === KEY.Enter) {
+        if (event.shiftKey) {
+          return;
+        }
+
         this.setEditing(false);
         if (onChange) {
           onChange(e, e.target.value);
