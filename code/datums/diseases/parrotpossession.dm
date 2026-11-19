@@ -28,7 +28,7 @@
 	if(length(parrot.speech_buffer) && DT_PROB(parrot.speak_chance, delta_time)) // I'm not going to dive into polycode trying to adjust that probability. Enjoy doubled ghost parrot speach
 		affected_mob.say(pick(parrot.speech_buffer), forced = "parrot possession")
 
-/datum/disease/parrot_possession/cure()
+/datum/disease/parrot_possession/cure(add_resistance = FALSE)
 	if(parrot && parrot.loc == affected_mob)
 		parrot.forceMove(affected_mob.drop_location())
 		affected_mob.visible_message(span_danger("[parrot] is violently driven out of [affected_mob]!"), span_userdanger("[parrot] bursts out of your chest!"))

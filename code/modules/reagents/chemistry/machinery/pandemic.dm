@@ -191,9 +191,10 @@
 	if(!blood)
 		return
 	.["has_blood"] = TRUE
+	var/datum/blood_type/blood_type = blood.data["blood_type"]
 	.["blood"] = list(
 		"dna" = blood.data["blood_DNA"] || "none",
-		"type" = blood.data["blood_type"]?.name || "none"
+		"type" = blood_type?.name || "none"
 	)
 	.["viruses"] = get_viruses_data(blood)
 	.["resistances"] = get_resistance_data(blood)
