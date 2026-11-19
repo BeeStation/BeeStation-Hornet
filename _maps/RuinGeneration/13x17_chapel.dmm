@@ -175,7 +175,7 @@
 /obj/item/stock_parts/cell/potato,
 /obj/item/bot_assembly/secbot,
 /obj/item/melee/baton,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /turf/open/floor/iron/chapel{
 	dir = 9
 	},

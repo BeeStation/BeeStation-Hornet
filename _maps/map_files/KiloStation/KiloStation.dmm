@@ -2061,7 +2061,7 @@
 /area/station/hallway/secondary/entry)
 "aUN" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/station/maintenance/central)
 "aUP" = (
@@ -3020,7 +3020,7 @@
 "bkp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
@@ -3309,7 +3309,7 @@
 /turf/closed/wall/r_wall,
 /area/station/science/storage)
 "brS" = (
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/binary/pump/on,
 /turf/open/floor/plating{
@@ -3776,7 +3776,7 @@
 /area/station/security/prison)
 "bAx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/xenoblood/xgibs/larva/body,
+/obj/effect/decal/cleanable/blood/gibs/xeno/larva/body,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -4768,7 +4768,7 @@
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /obj/item/stock_parts/cell/high,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -9707,7 +9707,7 @@
 /turf/open/floor/engine/co2,
 /area/station/engineering/atmos)
 "dKx" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -10080,7 +10080,7 @@
 /area/station/engineering/main)
 "dRb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -16041,7 +16041,7 @@
 /area/station/security/prison)
 "fMn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -28203,7 +28203,7 @@
 	name = "Starboard Maintenance APC";
 	pixel_y = -24
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -32229,7 +32229,7 @@
 /area/station/hallway/primary/starboard)
 "ljA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -33272,7 +33272,7 @@
 /area/station/medical/medbay/central)
 "lBb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/item/kirbyplants/dead{
 	desc = "A bit of nature in a pot";
 	name = "potted plant"
@@ -44575,7 +44575,7 @@
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "plD" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	broken = 1
@@ -47491,7 +47491,7 @@
 	location = "QM #1"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/the_griffin{
 	pixel_y = 32
@@ -50214,7 +50214,7 @@
 /turf/open/floor/engine,
 /area/station/ai_monitored/command/storage/satellite)
 "rgJ" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	burnt = 1
@@ -50550,7 +50550,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "rol" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -53378,7 +53378,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "sto" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -53467,7 +53467,7 @@
 /area/station/engineering/atmos)
 "suW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating{
@@ -55301,7 +55301,7 @@
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "tep" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/cargo/warehouse)
@@ -58432,7 +58432,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/medbay/central)
 "uce" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/airless{
@@ -59377,7 +59377,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/brig/upper)
 "utn" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -64839,7 +64839,7 @@
 /area/station/medical/genetics)
 "wnG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -66213,7 +66213,7 @@
 /area/station/maintenance/port/aft)
 "wNe" = (
 /obj/structure/frame/machine,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/item/stack/cable_coil/cut,
 /turf/open/floor/plating,
 /area/station/cargo/warehouse)
@@ -67770,7 +67770,7 @@
 "xpj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{

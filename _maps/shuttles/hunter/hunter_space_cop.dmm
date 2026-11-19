@@ -399,7 +399,7 @@
 	pixel_x = -10
 	},
 /obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -570,7 +570,7 @@
 /area/shuttle/hunter)
 "ou" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/streak{
+/obj/effect/decal/cleanable/blood/splatter/oil{
 	pixel_y = 11
 	},
 /obj/effect/turf_decal/caution,
@@ -608,7 +608,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot/right,
 /obj/effect/turf_decal/bot/left,
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /obj/machinery/light,
 /obj/effect/mob_spawn/human/fugitive_hunter/leader{
 	dir = 1
@@ -1122,7 +1122,7 @@
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "NS" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/button/door{
 	id = "hunter_police_cargo";
 	name = "cargo shutters";
@@ -1179,7 +1179,7 @@
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "SW" = (
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_y = 11
 	},
 /obj/item/reagent_containers/cup/bucket{

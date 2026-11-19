@@ -2738,7 +2738,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/structure/spider/stickyweb,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
@@ -6283,7 +6283,7 @@
 /area/mine/living_quarters)
 "MK" = (
 /obj/machinery/light_switch/directional/east,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -6519,7 +6519,7 @@
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
 	},
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
@@ -6776,7 +6776,7 @@
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
 "PG" = (
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
 "PH" = (
@@ -8512,7 +8512,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
 "ZV" = (
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},

@@ -16,7 +16,7 @@
 	},
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "t" = (

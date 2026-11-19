@@ -36,7 +36,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "k" = (
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "l" = (

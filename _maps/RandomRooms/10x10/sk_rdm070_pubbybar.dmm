@@ -94,7 +94,7 @@
 	},
 /area/template_noop)
 "s" = (
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	icon_state = "floor5"
 	},
 /turf/open/floor/plating,
@@ -203,7 +203,7 @@
 /area/template_noop)
 "L" = (
 /obj/item/coin/silver,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	icon_state = "floor5"
 	},
 /obj/structure/light_construct/small{
@@ -260,7 +260,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	icon_state = "floor6"
 	},
 /turf/open/floor/iron/dark,

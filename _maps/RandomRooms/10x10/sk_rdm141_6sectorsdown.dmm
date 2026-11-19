@@ -34,7 +34,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "fb" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/template_noop)
 "fy" = (
@@ -121,7 +121,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "qz" = (
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	icon_state = "floor5"
 	},
 /obj/structure/curtain,

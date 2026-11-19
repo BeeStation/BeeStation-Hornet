@@ -117,7 +117,7 @@
 /area/shuttle/supply)
 "F" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /turf/open/floor/iron,
 /area/shuttle/supply)
 "G" = (

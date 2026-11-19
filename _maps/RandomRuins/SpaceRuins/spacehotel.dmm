@@ -1051,7 +1051,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/workroom)
 "ed" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "ee" = (
@@ -1600,7 +1600,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel/dock)
 "gj" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,

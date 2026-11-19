@@ -232,7 +232,7 @@
 /area/shuttle/supply)
 "E" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},

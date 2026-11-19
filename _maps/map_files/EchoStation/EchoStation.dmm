@@ -69,7 +69,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/food_or_drink/donkpockets,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/sepia,
 /area/station/cargo/warehouse)
 "acf" = (
@@ -1290,7 +1290,7 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "aWQ" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/station/science/robotics)
@@ -3339,7 +3339,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -3854,7 +3854,7 @@
 "cDe" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/machinery/firealarm/directional/north{
 	pixel_y = -3;
 	pixel_x = -27;
@@ -4135,7 +4135,7 @@
 /area/station/command/heads_quarters/chief)
 "cNP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/textured_corner,
 /area/station/engineering/atmos)
 "cNT" = (
@@ -20546,7 +20546,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/start/roboticist,
 /turf/open/floor/iron/dark,
@@ -20781,7 +20781,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
@@ -22925,7 +22925,7 @@
 /area/paradise)
 "nWw" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /turf/open/floor/plating,
 /area/station/science/mixing)
 "nWS" = (
@@ -24262,7 +24262,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
@@ -24942,7 +24942,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -32844,7 +32844,7 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/tcommsat/server)
 "tVw" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible/layer4{
 	dir = 1
 	},
@@ -33146,7 +33146,7 @@
 /area/station/maintenance/department/science/central)
 "ucV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/structure/table_frame/wood,
 /obj/item/folder,
 /obj/item/folder{
@@ -34666,7 +34666,7 @@
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "veb" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/half,
 /area/station/engineering/main)
@@ -35415,7 +35415,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine/atmos)
 "vyz" = (
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /turf/open/floor/plating,
 /area/station/science/mixing)
 "vzv" = (
@@ -36759,7 +36759,7 @@
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "wjX" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating/rust,
 /area/station/science/mixing)
 "wku" = (
@@ -38888,7 +38888,7 @@
 /turf/open/floor/plating,
 /area/station/cargo/warehouse)
 "xzV" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/smooth_large,
 /area/station/engineering/main)
 "xAl" = (
@@ -39929,7 +39929,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/eva)
 "yhZ" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/food_cart,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/service)

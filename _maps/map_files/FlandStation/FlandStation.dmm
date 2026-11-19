@@ -20,7 +20,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/science/robotics/lab)
 "aak" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 8
 	},
@@ -1066,7 +1066,7 @@
 "aoK" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/south,
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /turf/open/floor/iron,
 /area/station/maintenance/disposal)
 "aoM" = (
@@ -5669,7 +5669,7 @@
 /turf/open/floor/plating/airless,
 /area/centcom/asteroid)
 "bLI" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -15131,7 +15131,7 @@
 /area/station/science/robotics/lab)
 "eyJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/station/maintenance/disposal)
 "eyK" = (
@@ -19271,7 +19271,7 @@
 /turf/open/floor/engine/vacuum,
 /area/station/science/mixing/chamber)
 "fIm" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/vending/wardrobe/science_wardrobe,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -25157,7 +25157,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/engine_smes)
 "hyL" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/table,
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
@@ -29602,7 +29602,7 @@
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/hop)
 "iMg" = (
-/obj/effect/decal/cleanable/xenoblood,
+/obj/effect/decal/cleanable/blood/xeno,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
 "iMq" = (
@@ -30809,7 +30809,7 @@
 /turf/open/floor/iron/checker,
 /area/station/cargo/storage)
 "jda" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -51951,7 +51951,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/maintenance/department/engine)
 "pkm" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -55239,7 +55239,7 @@
 /area/station/cargo/exploration_prep)
 "qlw" = (
 /obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/station/construction)
 "qlA" = (
@@ -57752,7 +57752,7 @@
 /area/station/maintenance/solars/starboard/fore)
 "qZc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
 	},
@@ -57833,7 +57833,7 @@
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "rar" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 4
