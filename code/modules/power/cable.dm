@@ -141,7 +141,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/proc/clear_connections()
 	var/turf/our_turf = get_turf(src)
-	var/another_cable_on_our_turf = !!(locate(/obj/structure/cable) in our_turf.contents - src)
+	for(var/obj/structure/cable/other_cable in our_turf.contents - src)
+		another_cable_on_our_turf = TRUE
+		break
 
 	// This loop does the same thing as get_connected_cables()
 	for(var/cardinal in GLOB.cardinals)
