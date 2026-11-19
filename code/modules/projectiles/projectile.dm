@@ -26,8 +26,10 @@
 	var/xo = null
 	var/atom/original = null // the original target clicked
 	var/turf/starting = null // the projectile's starting turf
+	/// brute hit on mob has exit splatter
+	var/exit_splatter = TRUE
 	var/p_x = 16
-	var/p_y = 16			// the pixel location of the tile that the player clicked. Default is the center
+	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
 
 	//Fired processing vars
 	var/fired = FALSE	//Have we been fired yet
@@ -261,7 +263,8 @@
 				do_sparks(2, FALSE, target.loc)
 			else
 				L.create_splatter(splatter_dir)
-				L.add_exit_splatter(splatter_dir, damage)
+				if(exit_splatter)
+					L.add_exit_splatter(splatter_dir, damage)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
