@@ -38,22 +38,16 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/sealed/car/clowncar/relaymove(mob/living/user, direction)
-	if(upgraded)
-		if(!ishuman(user))
-			return FALSE
-		var/mob/living/carbon/human/rider = user
-		if(!is_clown_job(rider.mind?.assigned_role)) //Only clowns can drive the syndicate version of the clown car.
-			return FALSE
-	return ..()
-
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(is_clown_job(H.mind?.assigned_role)) //Ensures only clowns can drive the car. (Including more at once)
+		if(is_clown_job(H.mind?.assigned_role)) //Any number of clowns can drive
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
 			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(FireCannon))
 			return
+	//syndicate or emagged car only for clowns
+	if(!upgraded && !(occupants[M] & VEHICLE_CONTROL_KIDNAPPED))
+		return ..()
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 
 /obj/vehicle/sealed/car/clowncar/mob_forced_enter(mob/M, silent = FALSE)

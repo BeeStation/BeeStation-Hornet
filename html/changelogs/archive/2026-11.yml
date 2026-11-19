@@ -166,3 +166,51 @@
     - rscadd: Biosuits and beekeeper suit sprites now altar when worn by digitigrade
         mobs.
     - rscadd: Aprons and overalls sprites now altar when worn by digitigrade mobs.
+2026-11-13:
+  Tsar-Salat:
+  - bugfix: prisoners no longer get skeleton access or are considered in its pop counter
+  mrmanlikesbt:
+  - github: auxtools 3.0 is now included as a recommended VScode extension and a new
+      launch task has been created to use it. It's primary features include hot-reloading.
+      This means that you can make changes to the game's code in real-time without
+      having to recompile the whole project and start a new server.
+2026-11-15:
+  Baherain:
+  - bugfix: Changed addiction tolerance of Morphine from 10u to 25u, to match the
+      wiki page
+  Isaac, BotTierPC:
+  - rscadd: New sliders in the medibot for brute, burn, toxin, suffocation make your
+      own medibot!
+  - rscadd: New UI design for all bots
+  - bugfix: You wont hit a medibot when trying to insert a bag inside
+  Ucksus:
+  - bugfix: fixed Clock component not using Clock divider correctly
+  afonsofpuga-a11y:
+  - bugfix: Fixed your chat being spammed with errors when trying to craft something
+      with cable coils.
+2026-11-17:
+  BotTierPC, Amanitaspooder:
+  - rscadd: Adds A Lantern Varient, The Paper Lantern! This, And Mining Lanterns Are
+      Both Now Buildable In The Misc Tab Of The Crafting Menu!
+  Programs-The-Station:
+  - rscadd: Adds a for-each wiremod component, which will iterate over a list one
+      item at a time.
+2026-11-18:
+  BotTierPC, Racc-Off, BlerpFish, Rkz:
+  - rscadd: Added the Spoon! Can be printed in Autolathes or bought from the Dinnerware
+      Vendor
+  - tweak: 'Expanded the Fork/Omelette Interaction: Forks can now be used on all (non-soup)
+      food items, they''ll pick up a chunk of the food that can then be eaten! Spoons
+      work similarly, but will only function on soup food items!'
+  - tweak: Forks, and Spoons now fit on plates.
+  Tsar-Salat:
+  - bugfix: fix clowncar unable to bump open doors
+  - bugfix: fixes 10+ xenoartifact reactions
+  - bugfix: calcified xenoartifacts say when they calcify
+  - bugfix: shuttles no longer lose power when rotated
+  - bugfix: fixes the spawner menu
+  - bugfix: character ages no longer get shared between charslots
+  - bugfix: non-gygax mechs can deactivate overclocking
+  - bugfix: fixed cargo crate export values being 1 credit. crates are now all recyclable
+      through exports again
+  - bugfix: xenoartifact pearls can be extracted again

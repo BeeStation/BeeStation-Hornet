@@ -279,6 +279,7 @@
 	update_appearance()
 	update_icon()
 	after_open(user, force)
+	SEND_SIGNAL(src, COMSIG_CLOSET_POST_OPEN, user, force)
 	return TRUE
 
 ///Proc to override for effects after opening a door

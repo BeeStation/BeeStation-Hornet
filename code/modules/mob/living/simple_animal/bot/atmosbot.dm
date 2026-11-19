@@ -30,7 +30,7 @@
 	radio_key = /obj/item/encryptionkey/headset_eng
 	radio_channel = RADIO_CHANNEL_ENGINEERING
 	bot_type = FLOOR_BOT
-	model = "Floorbot"
+	model = "Atmosbot"
 	bot_core = /obj/machinery/bot_core/floorbot
 	window_id = "autofloor"
 	window_name = "Automatic Station Atmospherics Restabilizer v1.1"

@@ -422,7 +422,12 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 /datum/bodypart_overlay/mutant/psyphoza_cap
 	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	feature_key = FEATURE_PSYPHOZA_CAP
+	color_source = ORGAN_COLOR_OVERRIDE
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+
+/datum/bodypart_overlay/mutant/psyphoza_cap/override_color(obj/item/bodypart/bodypart_owner)
+	var/mob/living/carbon/human/human_owner = bodypart_owner.owner
+	return human_owner?.dna.features[FEATURE_MUTANT_COLOR]
 
 /datum/bodypart_overlay/mutant/psyphoza_cap/get_global_feature_list()
 	return GLOB.psyphoza_cap_list

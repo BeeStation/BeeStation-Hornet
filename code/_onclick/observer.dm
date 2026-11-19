@@ -51,6 +51,18 @@
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
 
+// Open "View Variables" menu for target
+/mob/dead/observer/CtrlShiftClickOn(atom/target)
+	if(!check_rights_for(client, R_DEBUG))
+		return ..()
+	client.debug_variables(target)
+
+// Open "Show Player Panel" menu for target mob
+/mob/dead/observer/CtrlClickOn(atom/target)
+	if(!ismob(target) || !check_rights_for(client, R_ADMIN))
+		return ..()
+	client.holder.show_player_panel(target)
+
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
 /atom/proc/attack_ghost(mob/dead/observer/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
