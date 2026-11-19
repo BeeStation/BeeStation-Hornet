@@ -155,7 +155,12 @@
 /mob/living/proc/med_hud_set_status()
 	SIGNAL_HANDLER
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		set_hud_image_state(STATUS_HUD, "huddead")
+		if(!client && !get_ghost(FALSE, TRUE))
+			set_hud_image_state(STATUS_HUD, "huddead-permanent")
+		else if(!client && key)
+			set_hud_image_state(STATUS_HUD, "huddead-ssd")
+		else
+			set_hud_image_state(STATUS_HUD, "huddefib")
 		return FALSE
 
 	set_hud_image_state(STATUS_HUD, "hudhealthy")
@@ -167,7 +172,7 @@
 		return FALSE
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		if(!client && !get_ghost(FALSE, TRUE))
+		if((!client && !get_ghost(FALSE, TRUE)) || suiciding)
 			set_hud_image_state(STATUS_HUD, "huddead-permanent")
 		else if(station_timestamp_timeofdeath)
 			var/time_since_death = round(world.time - timeofdeath)

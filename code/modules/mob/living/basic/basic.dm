@@ -167,7 +167,7 @@
 	. = ..()
 	if(stat != DEAD)
 		return
-	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_MIND_TRAIT(user, TRAIT_NAIVE) ? "asleep" : "dead"].")
+	. += generate_death_examine_text()
 
 /mob/living/basic/proc/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)

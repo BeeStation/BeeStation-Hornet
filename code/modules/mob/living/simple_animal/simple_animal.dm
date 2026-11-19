@@ -201,8 +201,9 @@
 
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
-	if(stat == DEAD)
-		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
+	if(stat != DEAD)
+		return
+	. += generate_death_examine_text()
 
 /mob/living/simple_animal/updatehealth()
 	. = ..()
