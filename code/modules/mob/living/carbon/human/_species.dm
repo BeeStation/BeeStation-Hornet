@@ -108,9 +108,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// The body temperature limit the body can take before it starts taking damage from cold.
 	var/bodytemp_cold_damage_limit = BODYTEMP_COLD_DAMAGE_LIMIT
 
-	///Does our species have colors for its damage overlays?
-	var/use_damage_color = TRUE
-
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits = list()
 	/// Bitflags of biotypes the mob belongs to. Used by diseases.

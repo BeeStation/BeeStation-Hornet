@@ -269,7 +269,6 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
 	equipped_slot = ITEM_SLOT_FEET
-	var/static/mutable_appearance/bloody_feet
 
 	/// List of DNA on mob's feet, so we can handle it separately from blood on mob's hands
 	var/list/blood_DNA = null
@@ -279,9 +278,6 @@
 		return COMPONENT_INCOMPATIBLE
 
 	wielder = parent
-
-	if(!bloody_feet)
-		bloody_feet = mutable_appearance('icons/effects/blood.dmi', "shoeblood", CALCULATE_MOB_OVERLAY_LAYER(SHOES_LAYER))
 
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD, PROC_REF(on_step_blood))
@@ -306,17 +302,15 @@
 	update_icon()
 
 /datum/component/bloodysoles/feet/update_icon()
-	if(!ishuman(wielder) || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
-		return
-
-	wielder.remove_overlay(SHOES_LAYER)
-	if(!total_bloodiness || is_obscured())
+	if(ishuman(wielder))
 		wielder.update_worn_shoes()
-		return
 
+/datum/component/bloodysoles/feet/proc/get_feet_overlay()
+	if(!total_bloodiness || is_obscured() || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
+		return
+	var/mutable_appearance/bloody_feet = mutable_appearance('icons/effects/blood.dmi', "shoeblood", CALCULATE_MOB_OVERLAY_LAYER(SHOES_LAYER))
 	bloody_feet.color = get_color_from_blood_list(blood_DNA)
-	wielder.overlays_standing[SHOES_LAYER] = bloody_feet
-	wielder.apply_overlay(SHOES_LAYER)
+	return bloody_feet
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/footprint)
 	if(ismonkey(wielder))

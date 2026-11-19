@@ -368,6 +368,9 @@ There are several things that need to be remembered:
 
 		shoes_overlay.pixel_y += feature_y_offset
 		overlays_standing[SHOES_LAYER] = shoes_overlay
+	else
+		var/datum/component/bloodysoles/feet/bloody_feet = GetComponent(/datum/component/bloodysoles/feet)
+		overlays_standing[SHOES_LAYER] = bloody_feet?.get_feet_overlay()
 
 	apply_overlay(SHOES_LAYER)
 
