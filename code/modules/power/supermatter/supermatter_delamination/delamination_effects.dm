@@ -100,8 +100,7 @@
 	if(!sm_turf)
 		stack_trace("Supermatter [sm] failed to spawn singularity, cant get current turf.")
 		return FALSE
-	var/obj/anomaly/singularity/created_singularity = new(sm_turf)
-	created_singularity.energy = 800
+	var/obj/anomaly/singularity/created_singularity = new(sm_turf, 800)
 	created_singularity.consume(sm)
 	return TRUE
 
