@@ -212,8 +212,9 @@
 
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
-	if(stat == DEAD)
-		. += generate_death_examine_text()
+	if(stat != DEAD)
+		return
+	. += generate_death_examine_text()
 
 /mob/living/simple_animal/updatehealth()
 	. = ..()
