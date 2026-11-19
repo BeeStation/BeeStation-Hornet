@@ -982,7 +982,7 @@
 
 /// Owner's blood color while attached, otherwise whatever blood is on the limb. Part of the husk cache key.
 /obj/item/bodypart/proc/get_husk_blood_color()
-	return owner?.dna?.blood_type?.blood_color || get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+	return owner?.get_bloodtype()?.get_damage_color(owner) || get_blood_dna_color()
 
 /**
  * Adds a bodypart overlay to the limb

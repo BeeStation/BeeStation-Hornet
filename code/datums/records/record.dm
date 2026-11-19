@@ -227,7 +227,7 @@
 /datum/record/crew/proc/anonymize_record_info()
 
 	age = 18
-	blood_type = pick(list("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"))
+	blood_type = pick(list(BLOOD_TYPE_A_PLUS, BLOOD_TYPE_A_MINUS, BLOOD_TYPE_B_PLUS, BLOOD_TYPE_B_MINUS, BLOOD_TYPE_O_PLUS, BLOOD_TYPE_O_MINUS, BLOOD_TYPE_AB_PLUS, BLOOD_TYPE_AB_MINUS))
 	unique_enzymes = "Unknown"
 	gender = "Unknown"
 	medical_notes.Cut()

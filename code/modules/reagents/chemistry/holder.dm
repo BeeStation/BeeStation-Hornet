@@ -256,7 +256,7 @@
 			var/transfer_amount = isnull(target_id) ? T.volume * part : amount
 			if(preserve_data)
 				trans_data = copy_data(T)
-			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
+			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE, creation_callback = CALLBACK(src, PROC_REF(on_transfer_creation), T, R))) //we only handle reaction after every reagent has been transfered.
 				continue
 			if(method)
 				if(istype(target_atom, /obj/item/organ))
@@ -283,7 +283,7 @@
 			var/transfer_amount = amount
 			if(amount > T.volume)
 				transfer_amount = T.volume
-			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
+			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE, creation_callback = CALLBACK(src, PROC_REF(on_transfer_creation), T, R))) //we only handle reaction after every reagent has been transfered.
 				continue
 			to_transfer = max(to_transfer - transfer_amount , 0)
 			if(method)
@@ -330,7 +330,7 @@
 		var/copy_amount = T.volume * part
 		if(preserve_data)
 			trans_data = T.data
-		R.add_reagent(T.type, copy_amount * multiplier, trans_data, chem_temp)
+		R.add_reagent(T.type, copy_amount * multiplier, trans_data, chem_temp, creation_callback = CALLBACK(src, PROC_REF(on_transfer_creation), T, R))
 
 	src.update_total()
 	R.update_total()
@@ -374,7 +374,7 @@
 		if(current_reagent.type == reagent)
 			if(preserve_data)
 				trans_data = current_reagent.data
-			R.add_reagent(current_reagent.type, amount, trans_data, src.chem_temp)
+			R.add_reagent(current_reagent.type, amount, trans_data, src.chem_temp, creation_callback = CALLBACK(src, PROC_REF(on_transfer_creation), current_reagent, R))
 			remove_reagent(current_reagent.type, amount, 1)
 			break
 
@@ -841,8 +841,9 @@
  * * list/data - Any reagent data for this reagent, used for transferring data with reagents
  * * reagtemp - Temperature of this reagent, will be equalized
  * * no_react - prevents reactions being triggered by this addition
+ * * creation_callback - Callback to invoke when the reagent is created
  */
-/datum/reagents/proc/add_reagent(datum/reagent/reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE)
+/datum/reagents/proc/add_reagent(datum/reagent/reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE, datum/callback/creation_callback = null)
 
 	if(!ispath(reagent))
 		stack_trace("invalid reagent passed to add reagent [reagent]")
@@ -902,6 +903,8 @@
 	cached_reagents += R
 	R.holder = src
 	R.volume = amount
+	if(creation_callback)
+		creation_callback.Invoke(R)
 	R.on_new(data)
 
 	if(isliving(my_atom))
@@ -1098,10 +1101,15 @@
 	// that could possibly eat up a lot of memory needlessly
 	// if most data lists are read-only.
 	if(trans_data["viruses"])
-		var/list/v = trans_data["viruses"]
-		trans_data["viruses"] = v.Copy()
+		var/list/viruses = list()
+		for (var/datum/disease/disease as anything in trans_data["viruses"])
+			viruses += disease.Copy()
+		trans_data["viruses"] = viruses
 
 	return trans_data
+
+/datum/reagents/proc/on_transfer_creation(datum/reagent/reagent, datum/reagents/target_holder, datum/reagent/new_reagent)
+	SEND_SIGNAL(reagent, COMSIG_REAGENT_ON_TRANSFER, target_holder, new_reagent)
 
 /// Get a reference to the reagent if it exists
 /datum/reagents/proc/get_reagent(type)

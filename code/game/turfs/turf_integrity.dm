@@ -338,6 +338,7 @@
 
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
+		SEND_SIGNAL(R, COMSIG_REAGENT_EXPOSE_TURF, src, reagents[R])
 		. |= R.expose_turf(src, reagents[R])
 
 /turf/proc/burn_tile()

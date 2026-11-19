@@ -381,7 +381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 
 /obj/effect/meteor/meaty/xeno/ram_turf(turf/T)
 	if(!isspaceturf(T))
-		new /obj/effect/decal/cleanable/xenoblood(T)
+		new /obj/effect/decal/cleanable/blood/xeno(T)
 
 //Station buster Tunguska
 /obj/effect/meteor/tunguska

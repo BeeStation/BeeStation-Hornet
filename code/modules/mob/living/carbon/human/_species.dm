@@ -51,10 +51,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// The color used for blush overlay
 	var/blush_color = COLOR_BLUSH_PINK
-	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
-	var/datum/reagent/exotic_blood
 	///If your race uses a non standard bloodtype (A+, O-, AB-, etc). For example, lizards have L type blood.
-	var/exotic_bloodtype = ""
+	///Reagent that your species bleeds, and what chemical can be used to recover lost blood depend on this
+	var/exotic_bloodtype
 	///What the species drops when gibbed by a gibber machine.
 	var/meat = /obj/item/food/meat/slab/human
 	var/skinned_type
@@ -439,12 +438,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(old_species.type != type)
 		replace_body(C, src)
 
-	//Assigns exotic blood type if the species has one
-	if(exotic_bloodtype)
-		C.set_blood_type(exotic_bloodtype)
-	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
-	else if(old_species.exotic_bloodtype)
-		C.set_blood_type(random_blood_type())
+	if(!C.get_bloodtype()?.is_species_universal) // Clown blood is forever.
+		//Assigns exotic blood type if the species has one
+		if(exotic_bloodtype && C.get_bloodtype()?.id != exotic_bloodtype)
+			C.set_blood_type(get_blood_type(exotic_bloodtype))
+		//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
+		else if(old_species.exotic_bloodtype && isnull(exotic_bloodtype))
+			C.set_blood_type(random_human_blood_type())
 
 	regenerate_organs(C, old_species, replace_current = FALSE, visual_only = C.visual_only_organs)
 	// Update locked slots AFTER all organ and body stuff is handled
@@ -800,10 +800,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
  **/
 /datum/species/proc/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
-	if(chem.type == exotic_blood)
-		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
-		affected.reagents.del_reagent(chem.type)
-		return COMSIG_MOB_STOP_REAGENT_CHECK
 	if(process_out_reagents(chem, affected))
 		return COMSIG_MOB_STOP_REAGENT_CHECK
 	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
@@ -1093,26 +1089,30 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(IS_ORGANIC_LIMB(affecting))
 			weapon.add_mob_blood(human)	//Make the weapon bloody, not the person.
 			if(get_dist(user, human) <= 1)	//people with TK won't get smeared with blood
-				user.add_mob_blood(human)
+				if(ishuman(user))
+					var/bloodied_things = ITEM_SLOT_GLOVES
+					var/damage_done = weapon.force
+					if(damage_done >= 20 || (damage_done >= 15 && prob(25)))
+						bloodied_things |= ITEM_SLOT_ICLOTHING|ITEM_SLOT_OCLOTHING
+						if(prob(33) && damage_done >= 10)
+							bloodied_things |= ITEM_SLOT_FEET
+						if(prob(33) && damage_done >= 24) // fireaxe damage, because heeeeere's johnny
+							bloodied_things |= ITEM_SLOT_MASK
+						if(prob(33) && damage_done >= 30) // esword damage
+							bloodied_things |= ITEM_SLOT_HEAD
+					var/mob/living/carbon/human/human_attacker = user
+					human_attacker.add_blood_DNA_to_items(human.get_blood_dna_list(), bloodied_things)
+				else
+					user.add_mob_blood(human)
 			switch(hit_area)
 				if(BODY_ZONE_HEAD)
-					if(human.wear_mask)
-						human.wear_mask.add_mob_blood(human)
-						human.update_worn_mask()
-					if(human.head)
-						human.head.add_mob_blood(human)
-						human.update_worn_head()
-					if(human.glasses && prob(33))
-						human.glasses.add_mob_blood(human)
-						human.update_worn_glasses()
+					var/bloodied_things = ITEM_SLOT_MASK|ITEM_SLOT_HEAD
+					if(prob(33))
+						bloodied_things |= ITEM_SLOT_EYES
+					human.add_blood_DNA_to_items(human.get_blood_dna_list(), bloodied_things)
 
 				if(BODY_ZONE_CHEST)
-					if(human.wear_suit)
-						human.wear_suit.add_mob_blood(human)
-						human.update_worn_oversuit()
-					if(human.w_uniform)
-						human.w_uniform.add_mob_blood(human)
-						human.update_worn_undersuit()
+					human.add_blood_DNA_to_items(human.get_blood_dna_list(), ITEM_SLOT_ICLOTHING|ITEM_SLOT_OCLOTHING)
 
 	human.send_item_attack_message(weapon, user, hit_area, affecting)
 	var/damage_dealt = human.apply_damage(
@@ -1902,6 +1902,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/create_pref_blood_perks()
 	var/list/to_add = list()
+	var/datum/blood_type/blood_type = exotic_bloodtype ? get_blood_type(exotic_bloodtype) : null
 
 	// TRAIT_NOBLOOD takes priority by default
 	if(TRAIT_NOBLOOD in inherent_traits)
@@ -1913,12 +1914,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		))
 
 	// Otherwise, check if their exotic blood is a valid typepath
-	else if(ispath(exotic_blood))
+	else if(blood_type && blood_type.reagent_type != /datum/reagent/blood)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "tint",
-			SPECIES_PERK_NAME = initial(exotic_blood.name),
-			SPECIES_PERK_DESC = "[name] blood is [initial(exotic_blood.name)], which can make receiving medical treatment harder.",
+			SPECIES_PERK_NAME = initial(blood_type.reagent_type.name),
+			SPECIES_PERK_DESC = "[name] blood is [initial(blood_type.reagent_type.name)], which can make receiving medical treatment harder.",
 		))
 
 	// Otherwise otherwise, see if they have an exotic bloodtype set

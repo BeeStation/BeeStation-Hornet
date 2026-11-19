@@ -345,6 +345,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
+		SEND_SIGNAL(R, COMSIG_REAGENT_EXPOSE_OBJ, src, reagents[R], method, show_message)
 		. |= R.expose_obj(src, reagents[R])
 
 ///attempt to freeze this obj if possible. returns TRUE if it succeeded, FALSE otherwise.

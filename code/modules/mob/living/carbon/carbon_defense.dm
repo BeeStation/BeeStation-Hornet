@@ -344,6 +344,23 @@
 	if(should_stun)
 		Paralyze(60)
 
+/// When another mob touches us, they may messy us up.
+/mob/living/carbon/proc/share_blood_on_touch(mob/living/carbon/human/who_touched_us, messy_slots)
+	return
+
+/mob/living/carbon/human/share_blood_on_touch(mob/living/carbon/human/who_touched_us, messy_slots = ITEM_SLOT_ICLOTHING|ITEM_SLOT_OCLOTHING)
+	if(!istype(who_touched_us) || !messy_slots)
+		return
+
+	for(var/obj/item/thing as anything in who_touched_us.get_equipped_items())
+		if((thing.body_parts_covered & HANDS) && prob(GET_ATOM_BLOOD_DNA_LENGTH(thing) * 25))
+			add_blood_DNA_to_items(GET_ATOM_BLOOD_DNA(thing), messy_slots)
+			return
+
+	if(prob(who_touched_us.blood_in_hands * GET_ATOM_BLOOD_DNA_LENGTH(who_touched_us) * 10))
+		add_blood_DNA_to_items(GET_ATOM_BLOOD_DNA(who_touched_us), messy_slots)
+		who_touched_us.blood_in_hands -= 1
+
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(on_fire)
 		to_chat(M, span_warning("You can't put [p_them()] out with just your bare hands!"))
@@ -363,6 +380,7 @@
 					span_notice("You hug [src] to make [p_them()] feel better!"))
 
 		SEND_SIGNAL(M, COMSIG_LIVING_HUG_CARBON, src)
+		share_blood_on_touch(M, ITEM_SLOT_HEAD|ITEM_SLOT_MASK|ITEM_SLOT_GLOVES)
 
 		// Warm them up with hugs
 		share_bodytemperature(M)

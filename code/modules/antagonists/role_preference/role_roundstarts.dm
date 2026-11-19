@@ -259,7 +259,9 @@
 
 /datum/role_preference/roundstart/vampire/get_preview_icon()
 	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
-	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+	var/icon/icon_blood = icon('icons/effects/blood.dmi', "uniformblood")
+	icon_blood.Blend(BLOOD_COLOR_RED, ICON_MULTIPLY)
+	icon.Blend(icon_blood, ICON_OVERLAY)
 	return finish_preview_icon(icon)
 
 /datum/role_preference/roundstart/malfunctioning_ai

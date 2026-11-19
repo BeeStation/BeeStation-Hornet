@@ -15,7 +15,7 @@
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime
-	exotic_blood = /datum/reagent/toxin/slimejelly
+	exotic_bloodtype = BLOOD_TYPE_TOX
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
@@ -258,7 +258,7 @@
 		SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 		SPECIES_PERK_ICON = "tint",
 		SPECIES_PERK_NAME = "Jelly Blood",
-		SPECIES_PERK_DESC = "[plural_form] don't have blood, but instead have toxic [initial(exotic_blood.name)]! \
+		SPECIES_PERK_DESC = "[plural_form] don't have blood, but instead have toxic [initial(/datum/blood_type/slime::reagent_type.name)]! \
 			Jelly is extremely important, as losing it will cause you to cannibalize your limbs. Having low jelly will make medical treatment very difficult. \
 			Jelly is also extremely sensitive to cold, and you may rapidy solidify. [plural_form] regain jelly passively by eating, but supplemental injections are possible.",
 	))

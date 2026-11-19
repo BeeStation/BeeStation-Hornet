@@ -87,6 +87,7 @@
 	data = counterlist_normalise(supplied_data)
 
 /datum/reagent/consumable/nutriment/on_merge(list/mix_data, new_total)
+	. = ..()
 	if(!islist(data) || !length(mix_data))
 		return
 

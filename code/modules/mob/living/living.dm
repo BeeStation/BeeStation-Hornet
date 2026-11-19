@@ -345,6 +345,9 @@
 				M.visible_message(span_warning("[src] grabs [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!"), \
 								span_warning("[src] grabs you [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by your hands":"passively"]!"), null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, span_notice("You grab [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!")) //Message sent to grabber
+				if(ishuman(M))
+					var/mob/living/carbon/human/grabbed_human = M
+					grabbed_human.share_blood_on_touch(src, (is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM)) ? ITEM_SLOT_GLOVES : ITEM_SLOT_ICLOTHING|ITEM_SLOT_OCLOTHING)
 		if(isliving(M))
 			var/mob/living/L = M
 
@@ -947,8 +950,12 @@
 		if(!storage_is_important_recursive && !can_reach_active_storage)
 			active_storage.hide_contents(src)
 
-	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
-		makeTrail(newloc, old_loc, old_direction)
+	if(!buckled && !moving_diagonally && loc != old_loc)
+		var/blood_flow = get_bleed_rate()
+		var/health_check = body_position == LYING_DOWN && prob(getBruteLoss() * 200 / maxHealth)
+		var/bleeding_check = blood_flow > 3 && prob(blood_flow * 16)
+		if(health_check || bleeding_check)
+			make_blood_trail(newloc, old_loc, old_direction, direct)
 
 /**
  * Called by mob/living attackby()
@@ -979,56 +986,6 @@
 
 /mob/living/carbon/alien/adult/lying_angle_on_movement(direct)
 	return
-
-/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
-	if(!has_gravity() || (movement_type & THROWN))
-		return
-	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
-
-	var/glowyblood = FALSE
-	if(ishuman(src))
-		var/mob/living/carbon/human/humanoid = src
-		glowyblood = humanoid.dna.blood_type?.glowy
-
-	if(isturf(start))
-		var/trail_type = getTrail()
-		if(trail_type)
-			var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
-			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
-				blood_volume = max(blood_volume - max(1, brute_ratio * 2), 0) 					//that depends on our brute damage.
-				var/newdir = get_dir(target_turf, start)
-				if(newdir != direction)
-					newdir = newdir | direction
-					if(newdir == 3) //N + S
-						newdir = NORTH
-					else if(newdir == 12) //E + W
-						newdir = EAST
-				if((newdir in GLOB.cardinals) && (prob(50)))
-					newdir = turn(get_dir(target_turf, start), 180)
-				if(!blood_exists)
-					//Snowflake to make blood glow
-					if(glowyblood)
-						new /obj/effect/decal/cleanable/blood/trail_holder/glowy(start, get_static_viruses())
-					else
-						new /obj/effect/decal/cleanable/blood/trail_holder(start, get_static_viruses())
-
-
-				for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in start)
-					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
-						TH.existing_dirs += newdir
-						TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
-						TH.transfer_mob_blood_dna(src)
-
-/mob/living/carbon/human/makeTrail(turf/T)
-	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
-		return
-	..()
-
-/mob/living/proc/getTrail()
-	if(getBruteLoss() < 300)
-		return pick("ltrails_1", "ltrails_2")
-	else
-		return pick("trails_1", "trails_2")
 
 /mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
 	if(buckled || mob_negates_gravity())

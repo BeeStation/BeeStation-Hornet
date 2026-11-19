@@ -216,7 +216,7 @@ There are several things that need to be remembered:
 
 	//Bloody hands begin
 	if(isnull(gloves))
-		if(!blood_in_hands || !num_hands)
+		if(!blood_in_hands || !num_hands || !GET_ATOM_BLOOD_DECAL_LENGTH(src))
 			return
 		var/mutable_appearance/bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", CALCULATE_MOB_OVERLAY_LAYER(GLOVES_LAYER))
 		if(num_hands < 2)
@@ -224,9 +224,12 @@ There are several things that need to be remembered:
 				bloody_overlay.icon_state = "bloodyhands_left"
 			else if(has_right_hand(FALSE))
 				bloody_overlay.icon_state = "bloodyhands_right"
-		var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
-		if(length(blood_dna))
-			bloody_overlay.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		var/blood_color = get_blood_dna_color()
+		if(blood_color)
+			bloody_overlay.color = blood_color
+		var/emissive_alpha = get_blood_emissive_alpha(is_worn = TRUE)
+		if(emissive_alpha)
+			bloody_overlay.overlays += emissive_appearance(bloody_overlay.icon, bloody_overlay.icon_state, bloody_overlay.layer, alpha = emissive_alpha)
 
 		overlays_standing[GLOVES_LAYER] = bloody_overlay
 		apply_overlay(GLOVES_LAYER)

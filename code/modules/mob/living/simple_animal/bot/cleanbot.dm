@@ -174,9 +174,9 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/get_targets()
 	target_types = list(
-		/obj/effect/decal/cleanable/oil,
+		/obj/effect/decal/cleanable/blood/oil,
 		/obj/effect/decal/cleanable/vomit,
-		/obj/effect/decal/cleanable/robot_debris,
+		/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 		/obj/effect/decal/cleanable/molten_object,
 		/obj/effect/decal/cleanable/food,
 		/obj/effect/decal/cleanable/ash,
@@ -194,7 +194,7 @@
 
 	if(blood)
 		target_types += list(
-			/obj/effect/decal/cleanable/xenoblood,
+			/obj/effect/decal/cleanable/blood/xeno,
 			/obj/effect/decal/cleanable/blood,
 			/obj/effect/decal/cleanable/blood/trail_holder,
 		)

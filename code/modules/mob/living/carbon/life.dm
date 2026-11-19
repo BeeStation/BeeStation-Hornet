@@ -275,6 +275,40 @@
 /mob/living/carbon/proc/handle_blood(delta_time, times_fired)
 	return
 
+/mob/living/carbon/reagent_check(datum/reagent/chem, seconds_per_tick, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
+
+	var/datum/blood_type/blood_type = get_bloodtype()
+	if(!blood_type)
+		return
+
+	if(chem.type == blood_type.restoration_chem && blood_volume < BLOOD_VOLUME_NORMAL)
+		blood_volume += BLOOD_REGEN_FACTOR * seconds_per_tick
+		reagents.remove_reagent(chem.type, chem.metabolization_rate * seconds_per_tick)
+		return COMSIG_MOB_STOP_REAGENT_CHECK
+
+/mob/living/carbon/reagent_expose(datum/reagent/chem, method = TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
+	. = ..()
+	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	if(method != INJECT && !(method == INGEST && HAS_TRAIT(src, TRAIT_DRINKSBLOOD)))
+		return
+
+	var/datum/blood_type/blood_type = get_bloodtype()
+	if(blood_type?.reagent_type != chem.type)
+		return
+
+	var/datum/blood_type/donor_type = chem.data?["blood_type"]
+	if(istype(donor_type) && !(donor_type.type_key() in blood_type.compatible_types))
+		reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
+		return COMPONENT_NO_EXPOSE_REAGENTS
+
+	blood_volume = min(blood_volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+	return COMPONENT_NO_EXPOSE_REAGENTS
+
 /mob/living/carbon/proc/handle_bodyparts(delta_time, times_fired)
 	var/stam_regen = FALSE
 	if(stam_regen_start_time <= world.time)

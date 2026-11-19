@@ -664,3 +664,17 @@ BLIND	 // can't see anything
 		return . * high_pressure_multiplier
 
 #undef MOTH_EATING_CLOTHING_DAMAGE
+
+/// Returns an overlay of our blood, if we're bloodied
+/obj/item/clothing/proc/get_blood_overlay(blood_state, item_layer)
+	if (!GET_ATOM_BLOOD_DECAL_LENGTH(src))
+		return
+
+	var/mutable_appearance/blood_overlay = mutable_appearance('icons/effects/blood.dmi', blood_state, item_layer)
+	blood_overlay.color = get_blood_dna_color()
+
+	var/emissive_alpha = get_blood_emissive_alpha(is_worn = TRUE)
+	if (emissive_alpha)
+		blood_overlay.overlays += emissive_appearance(blood_overlay.icon, blood_overlay.icon_state, item_layer, alpha = emissive_alpha)
+
+	return blood_overlay

@@ -2475,6 +2475,7 @@
 	generate_data_info(data)
 
 /datum/reagent/consumable/ethanol/fruit_wine/on_merge(list/mix_data, new_total)
+	. = ..()
 	var/diff = (new_total/volume)
 	if(diff < 1)
 		color = BlendRGB(color, mix_data["color"], diff / 2) //The percentage difference over two, so that they take average if equal.

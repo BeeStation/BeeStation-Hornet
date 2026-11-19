@@ -7,6 +7,7 @@
 	spark_system.attach(src)
 
 	add_traits(list(TRAIT_CAN_STRIP, TRAIT_FORCED_STANDING), INNATE_TRAIT)
+	LoadComponent(/datum/component/bloodysoles/bot)
 	AddComponent(/datum/component/tippable, \
 		tip_time = 3 SECONDS, \
 		untip_time = 2 SECONDS, \
@@ -1118,3 +1119,6 @@
 		lamp_doom = !!connected_ai.doomsday_device
 	else
 		lamp_doom = FALSE
+
+/mob/living/silicon/robot/get_bloodtype()
+	return get_blood_type(BLOOD_TYPE_OIL)

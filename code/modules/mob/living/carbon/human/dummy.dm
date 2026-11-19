@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features[FEATURE_DIONA_ANTENNAE] = get_consistent_feature_entry(GLOB.diona_antennae_list)
 	target.dna.features[FEATURE_DIONA_EYES] = get_consistent_feature_entry(GLOB.diona_eyes_list)
 	target.dna.features[FEATURE_DIONA_PBODY] = get_consistent_feature_entry(GLOB.diona_pbody_list)
-	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
+	target.dna.initialize_dna(newblood_type = get_blood_type(BLOOD_TYPE_O_MINUS), create_mutation_blocks = FALSE, randomize_features = FALSE)
 	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
 	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency
 	var/static/consistent_UF

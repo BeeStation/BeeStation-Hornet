@@ -216,7 +216,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /// Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(list/mix_data, new_total)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_REAGENT_ON_MERGE, mix_data, new_total)
 
 /// Called by [/datum/reagents/proc/conditional_update]
 /datum/reagent/proc/on_update(atom/A)

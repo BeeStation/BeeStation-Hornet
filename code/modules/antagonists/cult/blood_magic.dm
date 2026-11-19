@@ -746,11 +746,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	var/turf/T = get_turf(target)
 	if(T)
 		for(var/obj/effect/decal/cleanable/blood/B in view(2, T))
-			if(B.blood_state == BLOOD_STATE_HUMAN)
-				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
-					temp += 30
-				else
-					temp += max((B.bloodiness**2)/800,1)
+			if(B.decal_reagent == /datum/reagent/blood || B.reagents?.has_reagent(/datum/reagent/blood))
+				temp += max(B.bloodiness * 0.6 * BLOOD_TO_UNITS_MULTIPLIER, 1)
 				new /obj/effect/temp_visual/cult/turf/floor(get_turf(B))
 				qdel(B)
 		if(temp)

@@ -150,7 +150,7 @@
 /obj/vehicle/sealed/car/clowncar/Move(newloc, dir)
 	. = ..()
 	if(droppingoil)
-		new /obj/effect/decal/cleanable/oil/slippery(loc)
+		new /obj/effect/decal/cleanable/blood/oil/slippery(loc)
 
 /obj/vehicle/sealed/car/clowncar/proc/RollTheDice(mob/user)
 	if(world.time - lastRTDtime < RTDcooldown)

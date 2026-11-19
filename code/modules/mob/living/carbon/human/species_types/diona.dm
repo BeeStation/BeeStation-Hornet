@@ -35,7 +35,7 @@
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona
-	exotic_blood = /datum/reagent/consumable/chlorophyll
+	exotic_bloodtype = BLOOD_TYPE_CHLOROPHYLL
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona

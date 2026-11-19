@@ -541,7 +541,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 							if(A.affected_mob.job == JOB_NAME_CLOWN)
 								new /obj/effect/spawner/random/medical/teratoma/major/clown(M.loc)
 							if(A.infectable_biotypes & MOB_ROBOTIC)
-								new /obj/effect/decal/cleanable/robot_debris(M.loc)
+								new /obj/effect/decal/cleanable/blood/gibs/robot_debris(M.loc)
 								new /obj/effect/spawner/random/medical/teratoma/robot(M.loc)
 						new /obj/effect/spawner/random/medical/teratoma/minor(M.loc)
 				if(tetsuo)
@@ -638,10 +638,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		vampire = TRUE
 		maxbloodpoints += 50
 		power += 1
-	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
+	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_reagent() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.set_blood_type(/datum/blood_type/universal)
+		H.set_blood_type(get_blood_type(BLOOD_TYPE_UNIVERSAL))
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -654,7 +654,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(5)
 			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
-			if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood)
+			if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_reagent() == /datum/reagent/blood)
 				var/missing = BLOOD_VOLUME_NORMAL - M.blood_volume
 				var/inflated = grabbedblood * 4
 				M.blood_volume = min(M.blood_volume + inflated, BLOOD_VOLUME_NORMAL)
@@ -671,7 +671,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						if(bruteheal && bloodpoints)
 							bloodpoints -= 1
 							H.cauterise_wounds(0.1)
-					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
+					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_reagent() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
 						bloodpoints -= 1
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
 					else if(bruteheal && M.getBruteLoss())
@@ -699,7 +699,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(M) && M.stat == DEAD && vampire)
 		var/mob/living/carbon/human/H = M
 		var/possibledist = power + 1
-		if(M.get_blood_id() != /datum/reagent/blood)
+		if(M.get_blood_reagent() != /datum/reagent/blood)
 			possibledist = 1
 		if(!HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
@@ -752,7 +752,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
 					if(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 						continue
-					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
+					if(C.stat && C.blood_volume && C.get_blood_reagent() == H.get_blood_reagent())
 						candidates += C
 				for(var/prospect in candidates)
 					candidates[prospect] = 1
@@ -769,10 +769,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/mob/living/carbon/human/H = M
 		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
-			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
+			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_reagent() == H.get_blood_reagent() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
 				C.add_bleeding(BLEED_SURFACE)
 				C.visible_message(span_warning("Wounds open on [C.name]'s skin as [H.name] grips them tightly!"), span_userdanger("You begin bleeding at [H.name]'s touch!"))
-			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))
+			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_reagent() == H.get_blood_reagent() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))
 				var/amt = (H.grab_state + C.stat + 2) * power
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
@@ -818,7 +818,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
 			if(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 				continue
-			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_id() == H.get_blood_id())
+			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_reagent() == H.get_blood_reagent())
 				var/amt = (2 * power)
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4 * power), 0)

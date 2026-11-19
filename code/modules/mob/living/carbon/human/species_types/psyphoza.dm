@@ -11,7 +11,7 @@
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
-	exotic_blood = /datum/reagent/drug/mushroomhallucinogen
+	exotic_bloodtype = BLOOD_TYPE_SPORE
 	allow_numbers_in_name = TRUE
 	inert_mutation = /datum/mutation/spores
 

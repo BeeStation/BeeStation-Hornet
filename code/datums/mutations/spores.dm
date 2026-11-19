@@ -30,8 +30,8 @@
 	var/mob/living/carbon/C = user
 	if(iscarbon(user) && C.blood_volume > 0)
 		C.blood_volume = max(0, C.blood_volume-15)
-		if(C.get_blood_id())
-			holder.add_reagent(C.get_blood_id(), min(C.blood_volume, 15))
+		if(C.get_blood_reagent())
+			holder.add_reagent(C.get_blood_reagent(), min(C.blood_volume, 15))
 		else
 			holder.add_reagent(/datum/reagent/blood, min(C.blood_volume, 15))
 	else

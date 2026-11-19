@@ -172,7 +172,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		set_eye_blur_if_lower(2 SECONDS)
-		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
+		var/datum/reagent/blood = get_blood_reagent() //Not every race has "BLOOD" rushing from the wound
 		if(blood)
 			to_chat(src, span_userdanger("[initial(blood.name)] starts rushing out of the open wound!"))
 
@@ -187,11 +187,15 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return 0
 	return 3 ** bleed.bleed_rate
 
-/mob/living/carbon/proc/get_bleed_rate()
+/// A helper to see how much blood we're losing per tick
+/mob/living/proc/get_bleed_rate()
+	return 0
+
+/mob/living/carbon/get_bleed_rate()
 	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if(!bleed)
-		return FALSE //bleed?.bleed_rate runtimes when has_status_effect returns FALSE
-	return bleed?.bleed_rate
+		return 0
+	return bleed.bleed_rate
 
 /// Can we heal bleeding using a welding tool?
 /mob/living/carbon/proc/has_mechanical_bleeding()
@@ -353,29 +357,27 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		adjustOxyLoss(health_difference)
 
 /mob/living/proc/bleed(amt)
-	add_splatter_floor(src.loc, TRUE)
+	add_splatter_floor(loc, TRUE)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
-	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && !HAS_TRAIT(src, TRAIT_NO_BLEEDING) && !HAS_TRAIT(src, TRAIT_STASIS))
-		// As you get less bloodloss, you bleed slower
-		// See the top of this file for desmos lines
-		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
-		var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-		if (!heart || !heart.beating || src.stat == DEAD)
-			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
-		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
-		blood_volume = max(blood_volume - blood_loss_amount, 0)
-		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD))
-			if(blood_loss_amount >= 2)
-				add_splatter_floor(src.loc)
-			else
-				add_splatter_floor(src.loc, TRUE)
+	if(!blood_volume || !can_bleed() || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || HAS_TRAIT(src, TRAIT_STASIS))
+		return
+	// As you get less bloodloss, you bleed slower
+	// See the top of this file for desmos lines
+	var/decrease_multiplier = BLEED_RATE_MULTIPLIER
+	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
+	if (!heart || !heart.beating || src.stat == DEAD)
+		decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
+	var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
+	blood_volume = max(blood_volume - blood_loss_amount, 0)
+	// Blood loss still happens in locker, floor stays clean
+	if(isturf(loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD))
+		add_splatter_floor(loc, blood_loss_amount < 2)
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
-	if(!HAS_TRAIT(src, TRAIT_NOBLOOD))
-		..()
+	return ..()
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
@@ -389,104 +391,167 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 ****************************************************/
 
 //Gets blood from mob to a container or other mob, preserving all data in it.
-/mob/living/proc/transfer_blood_to(atom/movable/AM, amount, forced)
-	if(!blood_volume || !AM.reagents)
+/mob/living/proc/transfer_blood_to(atom/movable/receiver, amount, forced, ignore_incompatibility)
+	if(!blood_volume || !receiver.reagents)
 		return FALSE
+
 	if(blood_volume < BLOOD_VOLUME_BAD && !forced)
 		return FALSE
 
 	if(blood_volume < amount)
 		amount = blood_volume
 
-	var/blood_id = get_blood_id()
-	if(!blood_id)
+	var/datum/blood_type/blood_type = get_bloodtype()
+	if (!blood_type)
+		return FALSE
+
+	var/blood_reagent = get_blood_reagent()
+	if (!blood_reagent)
 		return FALSE
 
 	blood_volume -= amount
+	var/list/blood_data = get_blood_data()
 
-	var/list/blood_data = get_blood_data(blood_id)
+	if (!isliving(receiver))
+		receiver.reagents.add_reagent(blood_reagent, amount, blood_data, bodytemperature, creation_callback = CALLBACK(src, PROC_REF(on_blood_created), blood_type))
+		return TRUE
 
-	if(iscarbon(AM))
-		var/mob/living/carbon/C = AM
-		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
-			if(blood_id == /datum/reagent/blood) //normal blood
-				if(blood_data["viruses"])
-					for(var/thing in blood_data["viruses"])
-						var/datum/disease/D = thing
-						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-							continue
-						C.ForceContractDisease(D)
+	var/mob/living/target = receiver
+	if (target.get_blood_reagent() != blood_reagent)
+		target.reagents.add_reagent(blood_reagent, amount, blood_data, bodytemperature, creation_callback = CALLBACK(src, PROC_REF(on_blood_created), blood_type))
+		return TRUE
 
-				var/datum/blood_type/blood_type = blood_data["blood_type"]
-				if(!blood_type || !(blood_type.type in C.dna.blood_type.compatible_types))
-					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
-					return TRUE
+	if(blood_data["viruses"])
+		for(var/datum/disease/blood_disease as anything in blood_data["viruses"])
+			if((blood_disease.spread_flags & DISEASE_SPREAD_SPECIAL) || (blood_disease.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+				continue
+			target.ForceContractDisease(blood_disease)
 
-			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_MAXIMUM)
-			return TRUE
+	if(!ignore_incompatibility && !(blood_type.type_key() in target.get_bloodtype().compatible_types))
+		target.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
+		return TRUE
 
-	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
+	target.blood_volume = min(target.blood_volume + round(amount, 0.1), BLOOD_VOLUME_MAXIMUM)
 	return TRUE
 
+/// Callback that adds blood_reagent to any blood extracted from ourselves
+/mob/living/proc/on_blood_created(datum/blood_type/blood_type, datum/reagent/new_blood)
+	new_blood.AddElement(/datum/element/blood_reagent, src, blood_type)
 
-/mob/living/proc/get_blood_data(blood_id)
-	return
+/mob/living/proc/get_blood_data()
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
 
-/mob/living/carbon/get_blood_data(blood_id)
-	if(blood_id == /datum/reagent/blood) //actual blood reagent
-		var/blood_data = list()
-		//set the blood data
-		blood_data["viruses"] = list()
+	var/datum/blood_type/blood_type = get_bloodtype()
+	if (!blood_type || !can_bleed())
+		return
 
-		for(var/thing in diseases)
-			var/datum/disease/D = thing
-			blood_data["viruses"] += D.Copy()
+	var/blood_data = list()
+	blood_data["blood_type"] = blood_type
+	blood_data["blood_DNA"] = blood_type.dna_string
 
-		blood_data["blood_DNA"] = dna.unique_enzymes
-		if(disease_resistances?.len)
-			blood_data["resistances"] = disease_resistances.Copy()
+	if (reagents)
 		var/list/temp_chem = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			temp_chem[R.type] = R.volume
+		for(var/datum/reagent/blood_reagent in reagents.reagent_list)
+			temp_chem[blood_reagent.type] = blood_reagent.volume
 		blood_data["trace_chem"] = list2params(temp_chem)
-		if(mind)
-			blood_data["mind"] = mind
-		else if(last_mind)
-			blood_data["mind"] = last_mind
-		if(ckey)
-			blood_data["ckey"] = ckey
-		else if(last_mind)
-			blood_data["ckey"] = ckey(last_mind.key)
 
-		if(!suiciding)
-			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = dna.blood_type
-		blood_data["gender"] = gender
-		blood_data["real_name"] = real_name
-		blood_data["features"] = dna.features
-		blood_data["factions"] = faction
+	if (blood_type.blood_flags & BLOOD_TRANSFER_VIRAL_DATA)
+		blood_data["viruses"] = list()
+		for(var/datum/disease/disease as anything in diseases)
+			blood_data["viruses"] += disease.Copy()
+
+		if(LAZYLEN(disease_resistances))
+			blood_data["resistances"] = disease_resistances.Copy()
+
+	// DNA, mind, factions, etc don't get stored in stuff like oil
+	if (!(blood_type.blood_flags & BLOOD_ADD_DNA))
 		return blood_data
 
-//get the id of the substance this mob use as blood.
-/mob/proc/get_blood_id()
-	return
+	if(mind)
+		blood_data["mind"] = mind
 
-/mob/living/simple_animal/get_blood_id()
-	if(blood_volume)
-		return /datum/reagent/blood
+	if(ckey)
+		blood_data["ckey"] = ckey
 
-/mob/living/carbon/monkey/get_blood_id()
-	if(!(HAS_TRAIT(src, TRAIT_HUSK)))
-		return /datum/reagent/blood
+	blood_data["factions"] = faction
+	return blood_data
 
-/mob/living/carbon/human/get_blood_id()
-	if(HAS_TRAIT(src, TRAIT_HUSK) || !dna)
+/mob/living/carbon/get_blood_data()
+	var/list/blood_data = ..()
+	if (!blood_data)
 		return
-	if(dna.species.exotic_blood)
-		return dna.species.exotic_blood
-	else if(HAS_TRAIT(src, TRAIT_NOBLOOD))
+
+	var/datum/blood_type/blood_type = get_bloodtype()
+	if (!(blood_type.blood_flags & BLOOD_ADD_DNA))
+		return blood_data
+
+	if(!suiciding)
+		blood_data["cloneable"] = TRUE
+
+	if (!blood_data["mind"] && last_mind)
+		blood_data["mind"] = last_mind
+
+	if (!blood_data["ckey"] && last_mind)
+		blood_data["ckey"] = ckey(last_mind.key)
+
+	blood_data["gender"] = gender
+	blood_data["real_name"] = real_name
+	if (dna)
+		blood_data["blood_DNA"] = dna.unique_enzymes
+		blood_data["features"] = dna.features
+
+	return blood_data
+
+/mob/living/proc/get_bloodtype()
+	RETURN_TYPE(/datum/blood_type)
+	if (!blood_volume)
 		return
-	return /datum/reagent/blood
+
+	if (!(mob_biotypes & MOB_ORGANIC))
+		if (mob_biotypes & MOB_ROBOTIC)
+			return get_blood_type(BLOOD_TYPE_OIL)
+		return
+
+	if (mob_biotypes & MOB_REPTILE)
+		return get_blood_type(BLOOD_TYPE_LIZARD)
+	else if (mob_biotypes & MOB_HUMANOID)
+		// O+ as to avoid mobs bleeding all human bloodtypes under the sun, and its statistically the most common one
+		return get_blood_type(BLOOD_TYPE_O_PLUS)
+
+	return get_blood_type(BLOOD_TYPE_ANIMAL)
+
+/mob/living/carbon/get_bloodtype()
+	RETURN_TYPE(/datum/blood_type)
+	return dna?.blood_type
+
+/// Returns the reagent type this mob has for blood
+/mob/living/proc/get_blood_reagent()
+	if (!can_bleed())
+		return
+
+	var/datum/blood_type/blood_type = get_bloodtype()
+	return blood_type?.reagent_type
+
+/// Check if a mob can bleed, and possibly if they're capable of leaving decals on turfs/mobs/items
+/mob/living/proc/can_bleed(bleed_flag = NONE)
+	if (HAS_TRAIT(src, TRAIT_HUSK) || HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return BLEED_NONE
+
+	if (!bleed_flag)
+		return BLEED_SPLATTER
+
+	var/datum/blood_type/blood_type = get_bloodtype()
+	if (!blood_type)
+		return BLEED_NONE
+
+	if (blood_type.blood_flags & bleed_flag)
+		return BLEED_SPLATTER
+
+	if (blood_type.blood_flags & BLOOD_ADD_DNA)
+		return BLEED_ADD_DNA
+
+	return BLEED_NONE
 
 /// Goes through the organs and bodyparts of the mob and updates their blood_dna_info, in case their blood type has changed (via set_species() or otherwise)
 /mob/living/carbon/proc/update_cached_blood_dna_info()
@@ -501,127 +566,128 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if(isnull(dna))
 		return
 
-	if(ispath(new_blood_type, /datum/blood_type))
-		new_blood_type = initial(new_blood_type.name)
 	if(istext(new_blood_type))
 		new_blood_type = get_blood_type(new_blood_type)
 	if(!istype(new_blood_type))
 		return
-		
-	if(dna.blood_type == new_blood_type)
+
+	if(get_bloodtype() == new_blood_type)
 		return
 
 	dna.blood_type = new_blood_type
 	if(update_cached_blood_dna_info)
 		update_cached_blood_dna_info()
 
-// This is has more potential uses, and is probably faster than the old proc.
-/proc/random_blood_type()
-	return get_blood_type(pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+"))
+/// Returns the blood_type datum that corresponds to the string id key in GLOB.blood_types
+/proc/get_blood_type(id)
+	RETURN_TYPE(/datum/blood_type)
+	return GLOB.blood_types[id]
 
-/proc/get_blood_type(type)
-	return GLOB.blood_types[type]
+/// Returns one of the human blood types at random, weighted by their rarity
+/proc/random_human_blood_type()
+	RETURN_TYPE(/datum/blood_type)
+	return get_blood_type(pick_weight(list(
+		BLOOD_TYPE_O_MINUS = 4,
+		BLOOD_TYPE_O_PLUS = 36,
+		BLOOD_TYPE_A_MINUS = 3,
+		BLOOD_TYPE_A_PLUS = 28,
+		BLOOD_TYPE_B_MINUS = 1,
+		BLOOD_TYPE_B_PLUS = 20,
+		BLOOD_TYPE_AB_MINUS = 1,
+		BLOOD_TYPE_AB_PLUS = 5,
+	)))
 
-/proc/get_blood_dna_color(list/blood_dna)
-	if(!length(blood_dna))
-		return BLOOD_COLOR_RED
-	var/blood_print = blood_dna[length(blood_dna)]
-	var/datum/blood_type/blood_type = blood_dna[blood_print]
-	if(!blood_type)
-		return BLOOD_COLOR_RED
-	if(!blood_type.blood_color)
-		return BLOOD_COLOR_RED
-	return blood_type.blood_color
+/// Returns the hex color string of a given blood_type datum given an assoc list of blood_DNA e.g. ("Unknown Blood Type", "*X")
+/proc/get_color_from_blood_list(list/blood_DNA)
+	var/datum/blood_type/blood_type
+	if(!length(blood_DNA))
+		return get_blood_type(BLOOD_TYPE_O_PLUS).get_color()
+	else if (length(blood_DNA) == 1) // Microop for when we don't need to do color mixing
+		blood_type = blood_DNA[blood_DNA[length(blood_DNA)]]
+		return blood_type.get_color()
 
-//to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip)
-	if (HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || HAS_TRAIT(src, TRAIT_STASIS))
-		return
-	if(get_blood_id() != /datum/reagent/blood)
-		return
-	if (!T)
-		T = get_turf(src)
-	if (!isturf(T) || isgroundlessturf(T))
-		return
-
-	var/list/temp_blood_DNA
-	if(small_drip)
-		// Only a certain number of drips (or one large splatter) can be on a given turf.
-		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
-		if(drop)
-			if(drop.drips < 5)
-				drop.drips++
-				drop.add_overlay(pick(drop.random_icon_states))
-				drop.transfer_mob_blood_dna(src)
-				return
-			else
-				temp_blood_DNA = GET_ATOM_BLOOD_DNA(drop) //we transfer the dna from the drip to the splatter
-				qdel(drop)//the drip is replaced by a bigger splatter
-		else
-			drop = new(T, get_static_viruses())
-			drop.transfer_mob_blood_dna(src)
-			if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(drop)) == BLOOD_COLOR_ETHEREAL)
-				drop.set_light(1, 0.5, BLOOD_COLOR_ETHEREAL)
-			return
-
-	// Find a blood decal or create a new one.
-	var/obj/effect/decal/cleanable/blood/B
-	for (var/obj/effect/decal/cleanable/blood/candidate in T)
-		if (QDELETED(candidate) || !candidate.pools_blood)
+	var/r_color = 0
+	var/g_color = 0
+	var/b_color = 0
+	var/valid_colors = 0
+	for (var/blood_key in blood_DNA)
+		blood_type = blood_DNA[blood_key]
+		if(!istype(blood_type))
 			continue
-		B = candidate
-		break
-	if(!B)
-		B = new /obj/effect/decal/cleanable/blood/splatter(T, get_static_viruses())
-	if(QDELETED(B)) //Give it up
+
+		var/list/rgb_blood = rgb2num(blood_type.get_color())
+		r_color += rgb_blood[1]
+		g_color += rgb_blood[2]
+		b_color += rgb_blood[3]
+		valid_colors += 1
+
+	if (valid_colors == 0)
+		return get_blood_type(BLOOD_TYPE_O_PLUS).get_color()
+
+	r_color /= valid_colors
+	g_color /= valid_colors
+	b_color /= valid_colors
+	return rgb(r_color, g_color, b_color)
+
+/// Checks if any of the passed blood types have certain blood flags
+/proc/has_blood_flag(list/blood_DNA, blood_flags)
+	if (isnull(blood_DNA))
+		return FALSE
+
+	if (!islist(blood_DNA))
+		var/datum/blood_type/blood_type = blood_DNA
+		blood_DNA = list(blood_type.dna_string = blood_type)
+
+	var/matches = NONE
+	for (var/blood_key in blood_DNA)
+		var/datum/blood_type/blood_type = blood_DNA[blood_key]
+		matches |= (blood_type.blood_flags & blood_flags)
+	return matches
+
+/**
+ * Returns TRUE if src is compatible with donor's blood, otherwise FALSE.
+ * * donor: Mob that is donating blood.
+ */
+/mob/living/proc/get_blood_compatibility(mob/living/donor)
+	if (get_blood_reagent() != donor.get_blood_reagent())
+		return FALSE
+
+	var/datum/blood_type/patient_blood_data = get_bloodtype()
+	var/datum/blood_type/donor_blood_data = donor.get_bloodtype()
+	return (donor_blood_data?.type_key() in patient_blood_data?.compatible_types)
+
+/// Create a small visual-only blood splatter
+/mob/living/proc/create_splatter(splatter_dir = pick(GLOB.cardinals))
+	if (!can_bleed())
 		return
-	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
-	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
-	if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(B)) == BLOOD_COLOR_ETHEREAL)
-		B.set_light(1, 0.5, BLOOD_COLOR_ETHEREAL)
-	if(temp_blood_DNA)
-		B.add_blood_DNA(temp_blood_DNA)
+	new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), splatter_dir, get_bloodtype())
 
-/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
-	if(!HAS_TRAIT(src, TRAIT_NOBLOOD))
-		..()
-
-/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
-	if(!T)
-		T = get_turf(src)
-	if(!isturf(T) || isgroundlessturf(T))
+/*
+ * Create a splatter or drip of this mob's blood type
+ * Arguments:
+ * * splatter_turf - If the splatter should be made on a different turf than the mob
+ * * small_drip
+ */
+/mob/living/proc/add_splatter_floor(turf/splatter_turf, small_drip = FALSE)
+	if (HAS_TRAIT(src, TRAIT_NO_BLEEDING) || HAS_TRAIT(src, TRAIT_STASIS))
 		return
-	var/obj/effect/decal/cleanable/xenoblood/B = locate() in T.contents
-	if(!B)
-		B = new(T)
-	B.add_blood_DNA(list("UNKNOWN DNA" = "X*"))
 
-/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip)
-	if(!T)
-		T = get_turf(src)
-	if(!isturf(T) || isgroundlessturf(T))
+	if (!splatter_turf)
+		splatter_turf = get_turf(src)
+	if (!isturf(splatter_turf))
 		return
-	var/obj/effect/decal/cleanable/oil/B = locate() in T.contents
-	if(!B)
-		B = new(T)
 
-/// Visual-only puff of blood flying off us
-/mob/living/proc/create_splatter(splatter_dir)
-	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
-		return
-	new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), splatter_dir, get_blood_dna_color(get_blood_dna_list()))
+	switch (can_bleed(BLOOD_COVER_TURFS))
+		if (BLEED_NONE)
+			return
+		if (BLEED_ADD_DNA)
+			return splatter_turf.add_mob_blood(src)
 
-/mob/living/carbon/alien/create_splatter(splatter_dir)
-	new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(get_turf(src), splatter_dir)
+	return get_bloodtype()?.make_blood_splatter(src, splatter_turf, small_drip)
 
 /// Blood blown out the far side of us by a bullet, bigger for harder hits
 /mob/living/proc/add_exit_splatter(splatter_dir, damage)
-	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING))
-		return
-	// Xeno blood, oil and the like have no directional sprite
-	if(get_blood_id() != /datum/reagent/blood)
-		if(prob(33))
-			add_splatter_floor()
+	if(HAS_TRAIT(src, TRAIT_NO_BLEEDING) || can_bleed(BLOOD_COVER_TURFS) != BLEED_SPLATTER)
 		return
 	var/turf/splatter_turf = get_step(src, splatter_dir)
 	if(!splatter_turf || splatter_turf.density)
@@ -629,13 +695,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if(!isturf(splatter_turf) || isgroundlessturf(splatter_turf))
 		return
 	var/obj/effect/decal/cleanable/blood/splatter/directional/splatter = locate() in splatter_turf
-	if(splatter)
-		splatter.transfer_mob_blood_dna(src)
+	if(splatter && !splatter.dried)
+		splatter.add_mob_blood(src)
 		return
-	splatter = new(splatter_turf, get_static_viruses())
+	splatter = new(splatter_turf, get_static_viruses(), get_blood_dna_list())
 	if(QDELETED(splatter))
 		return
-	splatter.transfer_mob_blood_dna(src)
 	splatter.setDir(splatter_dir)
 	splatter.transform = matrix() * clamp(round(damage / 50, 0.2), 0.4, 1)
 
@@ -645,17 +710,137 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
  * Returns TRUE if any blood was sprayed.
  */
 /mob/living/proc/spray_blood(splatter_direction, splatter_strength)
-	if(!isturf(loc) || HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || get_blood_id() != /datum/reagent/blood)
+	if(!isturf(loc) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || can_bleed(BLOOD_COVER_TURFS) != BLEED_SPLATTER)
 		return FALSE
-	var/list/blood_dna = get_blood_dna_list()
-	if(!blood_dna)
-		return FALSE
-	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, get_static_viruses(), splatter_strength)
+	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, get_static_viruses(), get_blood_dna_list(), splatter_strength)
 	if(QDELETED(our_splatter))
 		return FALSE
-	our_splatter.add_blood_DNA(blood_dna)
 	our_splatter.fly_towards(get_ranged_target_turf(src, splatter_direction, splatter_strength), splatter_strength)
 	return TRUE
+
+/mob/living/proc/make_blood_trail(turf/target_turf, turf/start, was_facing, movement_direction)
+	if(!has_gravity() || !isturf(start) || (movement_type & THROWN))
+		return
+
+	var/base_bleed_rate = get_bleed_rate()
+	var/base_brute = getBruteLoss()
+
+	var/brute_ratio = round(base_brute / (maxHealth * 4), 0.1)
+	var/bleeding_rate = round(base_bleed_rate / 4, 0.1)
+	// We only leave a trail if we're below a certain blood threshold
+	// The more brute damage we have, or the more we're bleeding, the less blood we need to leave a trail
+	if(blood_volume < max(BLOOD_VOLUME_NORMAL * (1 - max(bleeding_rate, brute_ratio)), 0))
+		return
+
+	var/blood_to_add = BLOOD_AMOUNT_PER_DECAL * 0.1
+	if(body_position == LYING_DOWN)
+		blood_to_add += bleed_drag_amount()
+		blood_volume = max(blood_volume - blood_to_add, 0)
+	else
+		blood_to_add += base_bleed_rate
+
+	// If we're very damaged or bleeding a lot, add even more blood to the trail
+	if(base_brute >= 300 || base_bleed_rate >= BLEED_CRITICAL)
+		blood_to_add *= 2
+
+	switch (can_bleed(BLOOD_COVER_TURFS))
+		if (BLEED_NONE)
+			return
+		if (BLEED_ADD_DNA)
+			return start.add_mob_blood(src)
+
+	var/trail_dir = REVERSE_DIR(movement_direction)
+	// The mob is performing a diagonal movement so we need to make a diagonal trail
+	// This is not the same as a diagonal dir. Sorry.
+	// This is insteas denoted by a negative direction (so we don't conflict with real dirs)
+	if(movement_direction in GLOB.diagonals)
+		trail_dir = -1 * movement_direction
+		// Create a full trail on the tile we came from, and a start of a trail at the one we arrived to
+		create_blood_trail_component(start, trail_dir, blood_to_add * 0.67, FALSE)
+		create_blood_trail_component(target_turf, get_dir(start, target_turf), blood_to_add * 0.33, TRUE)
+		return
+
+	var/continuing_trail = FALSE
+	// The mob is going a direction they were not previously facing
+	// We now factor in their facing direction to make a trail that looks like they're turning
+	// This is done by creating a diagonal dir
+	if(trail_dir != was_facing && trail_dir != REVERSE_DIR(was_facing))
+		// Look a step back to see if we should be constructing a diagonal dir
+		// If there's no existing trail making a curve would look weird
+		for(var/obj/effect/decal/cleanable/blood/trail_holder/past_trail in get_step(start, REVERSE_DIR(was_facing)))
+			if(past_trail.get_trail_component(was_facing, check_reverse = TRUE, check_diagonals = TRUE, check_reverse_diagonals = TRUE))
+				trail_dir |= was_facing
+				continuing_trail = TRUE
+				// In case we produced an invalid dir: go back on relevant axis
+				if((trail_dir & (NORTH|SOUTH)) == (NORTH|SOUTH))
+					trail_dir &= ~(was_facing & (NORTH|SOUTH))
+				if((trail_dir & (EAST|WEST)) == (EAST|WEST))
+					trail_dir &= ~(was_facing & (EAST|WEST))
+				break
+
+	if (continuing_trail || (trail_dir in GLOB.diagonals))
+		create_blood_trail_component(start, trail_dir, blood_to_add * 0.67, FALSE)
+		create_blood_trail_component(target_turf, get_dir(start, target_turf), blood_to_add * 0.33, TRUE)
+		return
+
+	// If we're still moving cardinally and didn't change our dir, there's a chance that there's a half-trail on our turf
+	// in which case we want to continue it instead of doing a full trail
+	// Only scenario in which we don't have one is if we just started the trail from our tile
+	for(var/obj/effect/decal/cleanable/blood/trail_holder/trail_holder in start)
+		var/obj/effect/decal/cleanable/blood/trail/trail = trail_holder.get_trail_component(trail_dir)
+		if (trail?.half_piece) // We're moving straight, so just continue the path
+			continuing_trail = TRUE
+			break
+
+	// If we've just started moving, put a half-trail on our previous turf instead of a full one
+	create_blood_trail_component(start, trail_dir, blood_to_add * 0.67, !continuing_trail)
+	create_blood_trail_component(target_turf, get_dir(start, target_turf), blood_to_add * 0.33, TRUE)
+
+/*
+ * Locate or create a trail holder, and add a dir to it
+ * Arguments:
+ * * trail_turf - Turf on which to look for/spawn a trail
+ * * trail_dir - Direction in which the trail will be facing. Could be diagonal for a corner, or negative for a true diagonal trail
+ * * blood_to_add - How much bloodiness we should add to the trail
+ * * half_piece - Should we only create a beginning of a trail, and not a full tile trail? Does not support corners
+ */
+/mob/living/proc/create_blood_trail_component(turf/trail_turf, trail_dir, blood_to_add, half_piece)
+	var/obj/effect/decal/cleanable/blood/trail_holder/trail
+	var/check_reverse = TRUE
+	// Do not check the reverse dir if we're a diagonal corner or a half piece
+	if (trail_dir > 0 && !(trail_dir in GLOB.cardinals) || half_piece)
+		check_reverse = FALSE
+	// Pick any trail in the turf to add onto
+	for(var/obj/effect/decal/cleanable/blood/trail_holder/any_trail in trail_turf)
+		// If there exists a trail already, we will add onto the trial
+		// UNLESS that trail has the same direction component and it is already dried
+		//
+		// If that is the case we will look for another trail (or create a new one)
+		// (this will let fresh blood be laid over very dried blood)
+		var/obj/effect/decal/cleanable/blood/trail/any_trail_component = any_trail.get_trail_component(trail_dir, check_reverse = check_reverse)
+		if(isnull(any_trail_component) || !any_trail_component.dried)
+			trail = any_trail
+			break
+
+	if(!isnull(trail))
+		trail.adjust_bloodiness(blood_to_add)
+		return trail.add_dir_to_trail(trail_dir, src, blood_to_add, half_piece)
+
+	trail = new(trail_turf, get_static_viruses(), get_blood_dna_list())
+	if(QDELETED(trail))
+		return
+	trail.bloodiness = blood_to_add
+	return trail.add_dir_to_trail(trail_dir, src, blood_to_add, half_piece)
+
+/mob/living/carbon/human/make_blood_trail(turf/target_turf, turf/start, was_facing, movement_direction)
+	if(!is_bleeding())
+		return
+	return ..()
+
+/// Returns how much blood we're losing from being dragged a tile, from [/mob/living/proc/make_blood_trail]
+/mob/living/proc/bleed_drag_amount()
+	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
+	return max(1, brute_ratio * 2)
 
 /**
  * Item to represent the fact that we are covering a wound
