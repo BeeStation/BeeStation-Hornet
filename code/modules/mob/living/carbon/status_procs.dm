@@ -5,15 +5,14 @@
 /mob/living/carbon/IsParalyzed(include_stamcrit = TRUE)
 	return ..() || (include_stamcrit && HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 
-/mob/living/carbon/proc/enter_stamcrit()
-	if(check_stun_immunity(CANKNOCKDOWN))
-		return
+/mob/living/proc/stamina_stun()
+	return
 
-	to_chat(src, span_notice("You're too exhausted to keep going..."))
-	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
-	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
+/mob/living/carbon/stamina_stun()
+	var/threshold = stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER
+	var/chance = STAMINA_SCALING_STUN_BASE + STAMINA_SCALING_STUN_SCALER * (1 - stamina.current / threshold)
+	if(prob(chance))
+		apply_status_effect(/datum/status_effect/incapacitating/stamcrit)
 
 /mob/living/carbon/adjust_disgust(amount)
 	disgust = clamp(disgust+amount, 0, DISGUST_LEVEL_MAXEDOUT)

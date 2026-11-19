@@ -100,7 +100,7 @@
 		return "health-100" //what's our health? it doesn't matter, we're dead, or faking
 	var/maxi_health = M.maxHealth
 	if(iscarbon(M) && M.health < 0)
-		maxi_health = 100 //so crit shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
+		maxi_health = -M.death_threshold //crit is shown as progress toward death, so it shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
 	var/resulthealth = (M.health / maxi_health) * 100
 	switch(resulthealth)
 		if(100 to INFINITY)
