@@ -140,25 +140,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/proc/clear_connections()
-	var/another_cable_on_our_turf = FALSE
 	var/turf/our_turf = get_turf(src)
-	for(var/obj/structure/cable/other_cable in our_turf.contents - src)
-		another_cable_on_our_turf = TRUE
-		break
+	var/another_cable_on_our_turf = !!(locate(/obj/structure/cable) in our_turf.contents - src)
 
 	// This loop does the same thing as get_connected_cables()
 	for(var/cardinal in GLOB.cardinals)
 		if(!(cardinal & linked_dirs))
 			continue
 
+		var/inbetween_dir = REVERSE_DIR(cardinal)
 		for(var/obj/structure/cable/connected_cable in get_step(src, cardinal))
 			if (!omni && !connected_cable.omni && connected_cable.cable_color != cable_color)
 				continue
 
-			var/inbetween_dir = REVERSE_DIR(cardinal)
-
 			// Only clear the cable's linked dir if there isn't another cable on our turf
-			// This is only possible for omni-cables, so we can just take a shortcut if we aren't an omni-cable.
+			// This is only possible for omni-cables, so we can just take a shortcut if the connected cable isn't an omni-cable
 			if(!connected_cable.omni || !another_cable_on_our_turf)
 				connected_cable.linked_dirs &= ~inbetween_dir
 
