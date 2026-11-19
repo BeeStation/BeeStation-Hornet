@@ -1,8 +1,0 @@
-author: SunShine214, Niko432, Racc-Off, Wrill
-delete-after: true
-changes:
-  - rscadd: Added the CDR (Condensate Decay Reactor), which decays gases to make power!
-  - rscadd: Added a new PDA program to control CDRs. Check the engineering tab in
-      the NTnet store!
-  - rscadd: Added a new pump_gas_volume proc to gas_mixture, which... pumps volume!
-  - rscdel: Removed the TEG.
