@@ -1,4 +1,0 @@
-author: mrmanlikesbt, PowerfulBacon
-delete-after: true
-changes:
-  - refactor: The stack_trace() proc has been refactored to be a little more sane
