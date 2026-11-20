@@ -166,6 +166,7 @@
 /mob/living/simple_animal/bot/Initialize(mapload)
 	. = ..()
 	GLOB.bots_list += src
+	LoadComponent(/datum/component/bloodysoles/bot)
 	path_hud = new()
 	access_card = new /obj/item/card/id(src)
 	//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
@@ -265,7 +266,7 @@
 
 /mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(amount>0 && prob(10))
-		new /obj/effect/decal/cleanable/oil(loc)
+		new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..()
 
 /mob/living/simple_animal/bot/updatehealth()

@@ -433,7 +433,7 @@
 /obj/machinery/photocopier/atom_break(damage_flag)
 	. = ..()
 	if(. && toner_cartridge.charges)
-		new /obj/effect/decal/cleanable/oil(get_turf(src))
+		new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 		toner_cartridge.charges = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)

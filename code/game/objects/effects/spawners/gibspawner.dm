@@ -40,30 +40,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 		var/mob/living/temp_mob = new gib_mob_type(src) //generate a fake mob so that we pull the right type of DNA for the gibs.
 		dna_to_add = temp_mob.get_blood_dna_list()
 		qdel(temp_mob)
-	else
-		dna_to_add = list("Non-human DNA" = random_blood_type()) //else, generate a random bloodtype for it.
-
 
 	for(var/i in 1 to gibtypes.len)
 		if(gibamounts[i])
 			for(var/j in 1 to gibamounts[i])
 				var/gibType = gibtypes[i]
-				gib = new gibType(loc, diseases)
-
-				gib.add_blood_DNA(dna_to_add)
+				// Null DNA makes the gibs fall back to their own default blood type
+				if(dna_to_add)
+					gib = new gibType(loc, diseases, dna_to_add)
+				else
+					gib = new gibType(loc, diseases)
+				if(QDELETED(gib))
+					continue
 
 				var/list/directions = gibdirections[i]
-				if(isturf(loc))
-					if(directions.len)
-						if(istype(gib, /obj/effect/decal/cleanable/blood/gibs))
-							var/obj/effect/decal/cleanable/blood/gibs/G = gib
-							G.streak(directions, mapload)
-						else if(istype(gib, /obj/effect/decal/cleanable/xenoblood/xgibs))
-							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
-							G.streak(directions, mapload)
-						else if(istype(gib, /obj/effect/decal/cleanable/robot_debris))
-							var/obj/effect/decal/cleanable/robot_debris/G = gib
-							G.streak(directions, mapload)
+				if(isturf(loc) && length(directions) && istype(gib, /obj/effect/decal/cleanable/blood/gibs))
+					var/obj/effect/decal/cleanable/blood/gibs/streaking_gib = gib
+					streaking_gib.streak(directions, mapload)
 
 	return INITIALIZE_HINT_QDEL
 
@@ -110,7 +103,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 
 
 /obj/effect/gibspawner/xeno
-	gibtypes = list(/obj/effect/decal/cleanable/xenoblood/xgibs/up, /obj/effect/decal/cleanable/xenoblood/xgibs/down, /obj/effect/decal/cleanable/xenoblood/xgibs, /obj/effect/decal/cleanable/xenoblood/xgibs, /obj/effect/decal/cleanable/xenoblood/xgibs/body, /obj/effect/decal/cleanable/xenoblood/xgibs/limb, /obj/effect/decal/cleanable/xenoblood/xgibs/core)
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs/xeno/up, /obj/effect/decal/cleanable/blood/gibs/xeno/down, /obj/effect/decal/cleanable/blood/gibs/xeno, /obj/effect/decal/cleanable/blood/gibs/xeno, /obj/effect/decal/cleanable/blood/gibs/xeno/body, /obj/effect/decal/cleanable/blood/gibs/xeno/limb, /obj/effect/decal/cleanable/blood/gibs/xeno/core)
 	gibamounts = list(1, 1, 1, 1, 1, 1, 1)
 	gib_mob_type = /mob/living/carbon/alien
 
@@ -121,7 +114,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 
 
 /obj/effect/gibspawner/xeno/bodypartless //only the gibs that don't look like actual full bodyparts (except torso).
-	gibtypes = list(/obj/effect/decal/cleanable/xenoblood/xgibs, /obj/effect/decal/cleanable/xenoblood/xgibs/core, /obj/effect/decal/cleanable/xenoblood/xgibs, /obj/effect/decal/cleanable/xenoblood/xgibs/core, /obj/effect/decal/cleanable/xenoblood/xgibs, /obj/effect/decal/cleanable/xenoblood/xgibs/torso)
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs/xeno, /obj/effect/decal/cleanable/blood/gibs/xeno/core, /obj/effect/decal/cleanable/blood/gibs/xeno, /obj/effect/decal/cleanable/blood/gibs/xeno/core, /obj/effect/decal/cleanable/blood/gibs/xeno, /obj/effect/decal/cleanable/blood/gibs/xeno/torso)
 	gibamounts = list(1, 1, 1, 1, 1, 1)
 
 
@@ -133,7 +126,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 
 
 /obj/effect/gibspawner/larva
-	gibtypes = list(/obj/effect/decal/cleanable/xenoblood/xgibs/larva, /obj/effect/decal/cleanable/xenoblood/xgibs/larva, /obj/effect/decal/cleanable/xenoblood/xgibs/larva/body, /obj/effect/decal/cleanable/xenoblood/xgibs/larva/body)
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs/xeno/larva, /obj/effect/decal/cleanable/blood/gibs/xeno/larva, /obj/effect/decal/cleanable/blood/gibs/xeno/larva/body, /obj/effect/decal/cleanable/blood/gibs/xeno/larva/body)
 	gibamounts = list(1, 1, 1, 1)
 	gib_mob_type = /mob/living/carbon/alien/larva
 
@@ -143,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 	return ..()
 
 /obj/effect/gibspawner/larva/bodypartless
-	gibtypes = list(/obj/effect/decal/cleanable/xenoblood/xgibs/larva, /obj/effect/decal/cleanable/xenoblood/xgibs/larva, /obj/effect/decal/cleanable/xenoblood/xgibs/larva)
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs/xeno/larva, /obj/effect/decal/cleanable/blood/gibs/xeno/larva, /obj/effect/decal/cleanable/blood/gibs/xeno/larva)
 	gibamounts = list(1, 1, 1)
 
 /obj/effect/gibspawner/larva/bodypartless/Initialize(mapload)
@@ -155,7 +148,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 
 /obj/effect/gibspawner/robot
 	sparks = 1
-	gibtypes = list(/obj/effect/decal/cleanable/robot_debris/up, /obj/effect/decal/cleanable/robot_debris/down, /obj/effect/decal/cleanable/robot_debris, /obj/effect/decal/cleanable/robot_debris, /obj/effect/decal/cleanable/robot_debris, /obj/effect/decal/cleanable/robot_debris/limb)
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs/robot_debris/up, /obj/effect/decal/cleanable/blood/gibs/robot_debris/down, /obj/effect/decal/cleanable/blood/gibs/robot_debris, /obj/effect/decal/cleanable/blood/gibs/robot_debris, /obj/effect/decal/cleanable/blood/gibs/robot_debris, /obj/effect/decal/cleanable/blood/gibs/robot_debris/limb)
 	gibamounts = list(1, 1, 1, 1, 1, 1)
 	gib_mob_type = /mob/living/silicon
 

@@ -118,7 +118,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -147,7 +147,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)

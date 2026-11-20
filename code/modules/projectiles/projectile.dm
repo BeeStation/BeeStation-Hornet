@@ -26,8 +26,10 @@
 	var/xo = null
 	var/atom/original = null // the original target clicked
 	var/turf/starting = null // the projectile's starting turf
+	/// brute hit on mob has exit splatter
+	var/exit_splatter = TRUE
 	var/p_x = 16
-	var/p_y = 16			// the pixel location of the tile that the player clicked. Default is the center
+	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
 
 	//Fired processing vars
 	var/fired = FALSE	//Have we been fired yet
@@ -262,23 +264,17 @@
 	var/mob/living/L = target
 
 	if(blocked != 100) // not completely blocked
-		if(damage && L.blood_volume && damage_type == BRUTE)
+		if(damage && L.get_blood_volume() && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
-			if(isalien(L))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			var/obj/item/bodypart/B = L.get_bodypart(def_zone)
 			if(B && !IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
 				do_sparks(2, FALSE, target.loc)
 			else
-				var/splatter_color = null
-				if(iscarbon(L))
-					var/mob/living/carbon/carbon_target = L
-					splatter_color = carbon_target.dna.blood_type.blood_color
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
-			if(prob(33))
-				L.add_splatter_floor(target_loca)
+				L.create_splatter(splatter_dir)
+				if(exit_splatter)
+					L.add_exit_splatter(splatter_dir, damage)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 

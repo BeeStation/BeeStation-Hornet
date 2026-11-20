@@ -99,7 +99,7 @@
 	projectiletype = /obj/projectile/beam/disabler
 	ranged_cooldown_time = 10
 	projectilesound = 'sound/weapons/taser2.ogg'
-	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE
 	death_message = "explodes with a sharp pop!"
 	hud_type = /datum/hud/swarmer
@@ -240,7 +240,7 @@
 /obj/effect/swarmer_act()
 	return FALSE
 
-/obj/effect/decal/cleanable/robot_debris/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
 	qdel(src)
 	return TRUE

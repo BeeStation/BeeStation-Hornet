@@ -406,7 +406,7 @@
 /turf/open/floor/plating,
 /area/station/tcommsat/oldaisat)
 "bT" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating/airless,
 /area/station/tcommsat/oldaisat)
 "bV" = (

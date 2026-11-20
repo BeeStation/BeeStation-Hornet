@@ -513,7 +513,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "ch" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials1)
 "ci" = (
@@ -673,7 +673,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cM" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cN" = (
@@ -694,7 +694,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "cR" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power3)
 "cS" = (
@@ -717,11 +717,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power1)
 "cV" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power1)
 "cW" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "sm" = (

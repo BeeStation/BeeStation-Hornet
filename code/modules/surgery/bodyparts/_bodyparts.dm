@@ -107,10 +107,8 @@
 	var/should_draw_greyscale = TRUE
 	///An "override" color that can be applied to ANY limb, greyscale or not.
 	var/variable_color = ""
-	/// The colour of damage done to this bodypart
-	var/damage_color = ""
-	/// Should we even use a color?
-	var/use_damage_color = FALSE
+	/// The cached info about the blood this organ belongs to, set during on_removal()
+	var/list/blood_dna_info
 
 	var/px_x = 0
 	var/px_y = 0
@@ -632,6 +630,8 @@
 
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 
+	blood_dna_info = old_owner.get_blood_dna_list()
+
 	item_flags &= ~ABSTRACT
 	REMOVE_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
 
@@ -743,7 +743,6 @@
 	else if(HAS_TRAIT(human_owner, TRAIT_MUTANT_COLORS))
 		skin_tone = ""
 		var/datum/species/owner_species = human_owner.dna.species
-		use_damage_color = owner_species.use_damage_color
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
 		else
@@ -812,8 +811,7 @@
 	if(dropped && dmg_overlay_type)
 		if(brutestate)
 			var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), dir = SOUTH)
-			if(use_damage_color)
-				brute_overlay.color = damage_color
+			brute_overlay.color = get_brute_overlay_color()
 			.[brute_overlay] = NONE
 		if(burnstate)
 			var/image/burn_overlay = image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), dir = SOUTH)
@@ -936,9 +934,18 @@
 
 	return .
 
+/// TODO: fix robotic/monkey brute overlays
+/obj/item/bodypart/proc/get_brute_overlay_color()
+	if(dmg_overlay_type != "human")
+		return
+	if(owner)
+		return owner.get_bloodtype()?.get_damage_color(owner)
+	if(blood_dna_info)
+		return get_color_from_blood_list(blood_dna_info)
+
 /// Owner's blood color while attached, otherwise whatever blood is on the limb. Part of the husk cache key.
 /obj/item/bodypart/proc/get_husk_blood_color()
-	return owner?.dna?.blood_type?.blood_color || get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+	return owner?.get_bloodtype()?.get_damage_color(owner) || get_blood_dna_color()
 
 /**
  * Adds a bodypart overlay to the limb

@@ -5872,7 +5872,7 @@
 	pixel_y = 11;
 	pixel_x = 9
 	},
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "gibleg";
 	pixel_x = -18;
 	pixel_y = -3
@@ -6626,7 +6626,7 @@
 /obj/structure/filingcabinet{
 	pixel_x = -3
 	},
-/obj/effect/decal/cleanable/robot_debris/down{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/down{
 	pixel_x = 15;
 	pixel_y = -1
 	},
@@ -7744,7 +7744,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/bar)
 "bTp" = (
-/obj/effect/decal/cleanable/xenoblood{
+/obj/effect/decal/cleanable/blood/xeno{
 	pixel_x = 11;
 	color = "#808080"
 	},
@@ -10935,8 +10935,8 @@
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/trimline/black/filled/line,
 /obj/effect/turf_decal/trimline/black/filled/mid_joiner,
-/obj/effect/decal/cleanable/robot_debris,
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "remainsrobot";
 	pixel_x = -13;
 	pixel_y = -4
@@ -13697,7 +13697,7 @@
 "dlg" = (
 /obj/structure/alien/weeds,
 /obj/item/clothing/mask/facehugger/impregnated,
-/obj/effect/decal/cleanable/xenoblood,
+/obj/effect/decal/cleanable/blood/xeno,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/central)
 "dlh" = (
@@ -22727,7 +22727,7 @@
 	color = "#807e74";
 	dir = 2
 	},
-/obj/effect/decal/cleanable/oil/streak{
+/obj/effect/decal/cleanable/blood/splatter/oil{
 	pixel_y = 7;
 	pixel_x = 7
 	},
@@ -24867,7 +24867,7 @@
 /turf/open/floor/wood,
 /area/station/science/breakroom)
 "fSk" = (
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/plating/rust,
@@ -25328,7 +25328,7 @@
 /turf/open/floor/wood/big,
 /area/station/command/heads_quarters/captain)
 "fXE" = (
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -27219,7 +27219,7 @@
 /obj/item/assembly/flash/handheld/weak{
 	pixel_x = 7
 	},
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "gib7";
 	pixel_x = -12
 	},
@@ -40498,7 +40498,7 @@
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat/hallway)
 "jwX" = (
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_y = 9;
 	pixel_x = 19
 	},
@@ -41901,7 +41901,7 @@
 /turf/open/floor/iron/tiled/light,
 /area/station/medical/surgery)
 "jQW" = (
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /obj/effect/decal/cleanable/molten_object,
 /mob/living/basic/cockroach,
 /turf/open/floor/plating,
@@ -54004,7 +54004,7 @@
 /obj/effect/turf_decal/trimline/black/filled/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/robot_debris/up{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/up{
 	pixel_y = 13;
 	pixel_x = 4
 	},
@@ -59913,11 +59913,11 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/effect/decal/cleanable/robot_debris/limb{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/limb{
 	pixel_x = 2;
 	pixel_y = 4
 	},
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "gibleg";
 	pixel_x = -22;
 	pixel_y = -3
@@ -61319,7 +61319,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/central)
 "orm" = (
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_y = 5;
 	pixel_x = -9
 	},
@@ -62850,7 +62850,7 @@
 	},
 /area/station/engineering/storage_shared)
 "oHw" = (
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "gib4";
 	pixel_x = 14;
 	pixel_y = 4
@@ -68773,7 +68773,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/atmos)
 "qhI" = (
-/obj/effect/decal/cleanable/oil/streak{
+/obj/effect/decal/cleanable/blood/splatter/oil{
 	pixel_x = 6
 	},
 /turf/open/floor/iron/dark,
@@ -71340,7 +71340,7 @@
 /area/station/security/brig)
 "qLy" = (
 /mob/living/basic/cockroach,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/platform/black{
@@ -72286,7 +72286,7 @@
 /obj/effect/turf_decal/trimline/black/filled/line,
 /obj/machinery/status_display/ai/directional/south,
 /obj/effect/turf_decal/trimline/black/filled/mid_joiner,
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "gibbl1"
 	},
 /turf/open/floor/iron/dark/smooth_edge,
@@ -76924,7 +76924,7 @@
 	pixel_x = 4;
 	pixel_y = 9
 	},
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "gib3";
 	pixel_y = -1;
 	pixel_x = 13
@@ -80304,7 +80304,7 @@
 /area/station/maintenance/disposal/incinerator)
 "sQM" = (
 /obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
 /area/station/maintenance/club)
 "sQN" = (
@@ -80374,7 +80374,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
 "sRP" = (
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	icon_state = "gib3";
 	pixel_y = -8;
 	pixel_x = -8
@@ -81256,7 +81256,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/box,
 /obj/structure/bed/maint,
-/obj/effect/decal/cleanable/xenoblood,
+/obj/effect/decal/cleanable/blood/xeno,
 /turf/open/floor/iron,
 /area/station/maintenance/department/bridge)
 "tdV" = (
@@ -84321,7 +84321,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/ameridiner,
 /area/station/service/janitor)
 "tQF" = (
@@ -85851,7 +85851,7 @@
 "uig" = (
 /obj/effect/turf_decal/stripes/white,
 /obj/effect/turf_decal/stripes/white/line,
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /turf/open/floor/iron/ameridiner,
 /area/station/service/janitor)
 "uii" = (
@@ -101219,7 +101219,7 @@
 /area/station/maintenance/disposal/incinerator)
 "xPb" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /obj/item/trash/tray{
 	pixel_y = -2;
 	pixel_x = 4

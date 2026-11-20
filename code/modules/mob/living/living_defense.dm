@@ -679,7 +679,15 @@
 	var/touch_protection = (method == VAPOR) ? getarmor(null, BIO) * 0.01 : 0
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
+		if(SEND_SIGNAL(R, COMSIG_REAGENT_EXPOSE_MOB, src, method, reagents[R], show_message, touch_protection) & COMPONENT_NO_EXPOSE_REAGENTS)
+			continue
+		if(reagent_expose(R, method, reagents[R], show_message, touch_protection) & COMPONENT_NO_EXPOSE_REAGENTS)
+			continue
 		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)
+
+/// Proc used for custom reagent exposure effects, if any
+/mob/living/proc/reagent_expose(datum/reagent/chem, method = TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
+	return
 
 /// Simplified ricochet angle calculation for mobs (also the base version doesn't work on mobs)
 /mob/living/handle_ricochet(obj/projectile/ricocheting_projectile)

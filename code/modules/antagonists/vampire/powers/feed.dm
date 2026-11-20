@@ -379,14 +379,15 @@
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood)
 
 	// Alert the vampire to the target's blood level
-	if(feed_target.blood_volume <= BLOOD_VOLUME_BAD && warning_target_bloodvol > BLOOD_VOLUME_BAD)
+	var/target_blood_volume = feed_target.get_blood_volume()
+	if(target_blood_volume <= BLOOD_VOLUME_BAD && warning_target_bloodvol > BLOOD_VOLUME_BAD)
 		owner.balloon_alert(owner, "your victim's blood is fatally low!")
 		feed_fatal = TRUE
-	else if(feed_target.blood_volume <= BLOOD_VOLUME_OKAY && warning_target_bloodvol > BLOOD_VOLUME_OKAY)
+	else if(target_blood_volume <= BLOOD_VOLUME_OKAY && warning_target_bloodvol > BLOOD_VOLUME_OKAY)
 		owner.balloon_alert(owner, "your victim's blood is dangerously low.")
-	else if(feed_target.blood_volume <= BLOOD_VOLUME_SAFE && warning_target_bloodvol > BLOOD_VOLUME_SAFE)
+	else if(target_blood_volume <= BLOOD_VOLUME_SAFE && warning_target_bloodvol > BLOOD_VOLUME_SAFE)
 		owner.balloon_alert(owner, "your victim's blood is at an unsafe level.")
-	warning_target_bloodvol = feed_target.blood_volume
+	warning_target_bloodvol = target_blood_volume
 
 	// Check if full on blood
 	if(vampiredatum_power.current_vitae >= vampiredatum_power.max_vitae)
@@ -396,7 +397,7 @@
 			owner.balloon_alert(owner, "we are full on blood!")
 
 	// Check if target has an acceptable amount of blood left
-	if(feed_target.blood_volume <= 10)
+	if(target_blood_volume <= 10)
 		owner.balloon_alert(owner, "no blood left!")
 		if(feed_target.client)
 			vampiredatum_power.thirster_objective = TRUE
@@ -451,7 +452,7 @@
 		if(feed_target.stat != DEAD && silent_feed)
 			to_chat(owner, span_notice("<i>[feed_target.p_They()] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
 			to_chat(feed_target, span_awe(span_reallybig("You wake from your trance. Everything is so... hazy...")), type = MESSAGE_TYPE_INFO)
-			if(feed_target.blood_volume >= BLOOD_VOLUME_OKAY)
+			if(feed_target.get_blood_volume(apply_modifiers = TRUE) >= BLOOD_VOLUME_OKAY)
 				to_chat(feed_target, span_announce("You feel dizzy, but it will probably pass by itself!"))
 
 		if(feed_target.stat == DEAD)
@@ -512,10 +513,8 @@
 	if(!silent_feed)
 		feed_amount *= 0.3
 
-	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
-
 	// Remove target's blood
-	target.blood_volume -= blood_to_take
+	var/blood_to_take = -target.adjust_blood_volume(-feed_amount * mult)
 
 	// Shift body temperature (toward target's temp, by volume taken)
 	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)

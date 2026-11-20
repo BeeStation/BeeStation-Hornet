@@ -418,34 +418,41 @@
 	// Blood Level
 	if(target.has_dna())
 		var/mob/living/carbon/carbontarget = target
-		var/blood_id = carbontarget.get_blood_id()
-		if(blood_id)
+		var/datum/blood_type/blood_type = carbontarget.get_bloodtype()
+		if(blood_type && carbontarget.get_blood_reagent())
 			if(carbontarget.is_bleeding())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding at a rate of [round(carbontarget.get_bleed_rate(), 0.1)]/s!</b></span>\n"
 			else if (carbontarget.is_bandaged())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding (Bandaged)!</b></span>\n"
-			var/blood_percent = round((carbontarget.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
-			var/blood_type = carbontarget.dna.blood_type.name
-			if(blood_id != /datum/reagent/blood) // special blood substance
-				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
-				blood_type = R ? R.name : blood_id
+			var/cached_blood_volume = carbontarget.get_blood_volume(apply_modifiers = TRUE)
+			var/blood_percent = round((cached_blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+			var/blood_name = blood_type.get_blood_name()
 
-			// Get compatible blood type names
-			var/list/compatible_names = list()
-			for(var/compatible_type in carbontarget.dna.blood_type.compatible_types)
-				var/datum/blood_type/compatible_datum = new compatible_type()
-				compatible_names += compatible_datum.name
-				qdel(compatible_datum)
-			var/blood_info = "[blood_type] (Compatible: [jointext(compatible_names, ", ")])"
+			var/blood_info = ""
+			if(blood_type.get_type())
+				var/list/compatible_names = list()
+				for(var/datum/blood_type/compatible_type as anything in blood_type.compatible_types)
+					compatible_names |= initial(compatible_type.name)
+				blood_info = "type: [blood_type.get_type()] (Compatible: [jointext(compatible_names, ", ")])"
+
+			var/list/recommendation = list()
+			if(blood_type.restoration_chem)
+				recommendation += "[blood_type.restoration_chem::name] supplement"
+			if(blood_type.restoration_chem == /datum/reagent/iron)
+				recommendation += "[/datum/reagent/medicine/salglu_solution::name]"
+			recommendation += "[LOWER_TEXT(blood_name)] transfusion"
+			var/recommendation_text = "<span class='alert ml-1'>Recommendation: [english_list(recommendation, and_text = " or ")].</span>\n"
 
 			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
-				render_list += "<span class='info ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
-			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
-			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
+				render_list += "<span class='info ml-1'>[blood_name] level: 100 %, 560 cl,</span> [span_info(blood_info)]\n"
+			else if(cached_blood_volume <= BLOOD_VOLUME_SAFE && cached_blood_volume > BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>[blood_name] level: LOW [blood_percent] %, [cached_blood_volume] cl,</span> [span_info(blood_info)]\n"
+				render_list += recommendation_text
+			else if(cached_blood_volume <= BLOOD_VOLUME_OKAY)
+				render_list += "<span class='alert ml-1'>[blood_name] level: <b>CRITICAL [blood_percent] %</b>, [cached_blood_volume] cl,</span> [span_info(blood_info)]\n"
+				render_list += recommendation_text
 			else
-				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood_volume] cl, type: [blood_type]</span>\n"
+				render_list += "<span class='info ml-1'>[blood_name] level: [blood_percent] %, [cached_blood_volume] cl, [blood_info]</span>\n"
 
 	// Cybernetics
 	if(iscarbon(target))
@@ -482,9 +489,9 @@
 				render_block += "<span class='notice ml-2'>[round(reagent.volume, 0.001)] units of [reagent.name][reagent.overdosed ? "</span> - [span_boldannounce("OVERDOSING")]" : ".</span>"]\n"
 
 		if(!length(render_block)) //If no VISIBLY DISPLAYED reagents are present, we report as if there is nothing.
-			render_list += "<span class='notice ml-1'>Subject contains no reagents in their blood.</span>\n"
+			render_list += "<span class='notice ml-1'>Subject contains no reagents in their [LOWER_TEXT(target.get_bloodtype()?.get_blood_name() || "blood")]stream.</span>\n"
 		else
-			render_list += "<span class='notice ml-1'>Subject contains the following reagents in their blood:</span>\n"
+			render_list += "<span class='notice ml-1'>Subject contains the following reagents in their [LOWER_TEXT(target.get_bloodtype()?.get_blood_name() || "blood")]stream:</span>\n"
 			render_list += render_block //Otherwise, we add the header, reagent readouts, and clear the readout block for use on the stomach.
 			render_block.Cut()
 

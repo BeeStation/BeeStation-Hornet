@@ -7,6 +7,7 @@
 	spark_system.attach(src)
 
 	add_traits(list(TRAIT_CAN_STRIP, TRAIT_FORCED_STANDING), INNATE_TRAIT)
+	LoadComponent(/datum/component/bloodysoles/bot)
 	AddComponent(/datum/component/tippable, \
 		tip_time = 3 SECONDS, \
 		untip_time = 2 SECONDS, \
@@ -1118,3 +1119,14 @@
 		lamp_doom = !!connected_ai.doomsday_device
 	else
 		lamp_doom = FALSE
+
+/mob/living/silicon/robot/get_bloodtype()
+	RETURN_TYPE(/datum/blood_type)
+	return get_blood_type(BLOOD_TYPE_OIL)
+
+/mob/living/silicon/robot/add_splatter_floor(turf/splatter_turf, small_drip = FALSE)
+	if(!splatter_turf)
+		splatter_turf = get_turf(src)
+	if(!isturf(splatter_turf))
+		return
+	return get_bloodtype().make_blood_splatter(src, splatter_turf, small_drip)

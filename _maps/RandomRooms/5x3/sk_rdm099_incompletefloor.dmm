@@ -39,7 +39,7 @@
 	},
 /area/template_noop)
 "h" = (
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (

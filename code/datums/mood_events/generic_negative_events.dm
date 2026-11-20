@@ -62,6 +62,16 @@
 	mood_change = -10
 	timeout = 8 MINUTES
 
+/datum/mood_event/splattered_with_blood
+	description = span_warning("Eugh, I just got coated in blood!")
+	mood_change = -4
+	timeout = 4 MINUTES
+
+/datum/mood_event/splattered_with_blood/add_effects()
+	if(HAS_TRAIT(owner, TRAIT_CULT_HALO))
+		mood_change = 2
+		description = span_nicegreen("Blood, blood! The Geometer will be pleased.")
+
 /datum/mood_event/tased
 	description = span_warning("There's no \"z\" in \"taser\". It's in the zap.")
 	mood_change = -3

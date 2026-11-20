@@ -131,16 +131,7 @@
 		if(issilicon(target)  || isbot(target) || isswarmer(target) || IS_ROBOTIC_LIMB(target_part))
 			do_sparks(rand(1, 3), FALSE, target.drop_location())
 		else
-			var/splatter_dir = get_dir(chassis, target)
-
-			if(isalien(target))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_dir)
-			else
-				var/splatter_color = null
-				if(iscarbon(target))
-					var/mob/living/carbon/carbon_target = target
-					splatter_color = carbon_target.dna.blood_type.blood_color
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target.drop_location(), splatter_dir, splatter_color)
+			target.create_splatter(get_dir(chassis, target))
 
 		//organs go everywhere
 		if(target_part && prob(10 * drill_level))

@@ -58,7 +58,7 @@
 "i" = (
 /obj/structure/frame,
 /obj/machinery/light/built,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (

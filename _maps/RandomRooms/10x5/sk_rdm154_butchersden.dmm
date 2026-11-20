@@ -5,7 +5,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -43,7 +43,7 @@
 "x" = (
 /obj/machinery/gibber,
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (

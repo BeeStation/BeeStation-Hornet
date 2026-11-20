@@ -514,7 +514,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/redspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		add_blood_DNA(list("Non-human DNA" = random_blood_type()))
+		add_blood_DNA(list("Non-human DNA" = random_human_blood_type()))
 		for(var/obj/item/I in H.get_equipped_items(INCLUDE_POCKETS))
 			I.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			I.update_icon()

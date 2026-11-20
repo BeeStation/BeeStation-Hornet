@@ -89,6 +89,8 @@
 /// Empties the blood_DNA list
 /datum/forensics/proc/wipe_blood_DNA()
 	blood_DNA = null
+	parent.cached_blood_color = null
+	parent.cached_blood_emissive = null
 	return TRUE
 
 /// Empties the fibers list
@@ -258,8 +260,34 @@
 /datum/forensics/proc/add_blood_decal()
 	if(!isitem(parent) || isorgan(parent)) // organs don't spawn with blood decals by default
 		return
-	if(!length(blood_DNA))
+	var/blood_color = parent.get_blood_dna_color()
+	if(!blood_color)
 		return
-	if(isitem(parent))
-		var/obj/item/I = parent
-		I.AddElement(/datum/element/decal/blood, initial(I.icon) || I.icon, initial(I.icon_state) || I.icon_state, _color = get_blood_dna_color(blood_DNA))
+	var/obj/item/bloodied = parent
+	bloodied.AddElement(/datum/element/decal/blood, initial(bloodied.icon) || bloodied.icon, initial(bloodied.icon_state) || bloodied.icon_state, _color = blood_color, _emissive = parent.get_blood_emissive_alpha())
+
+/// Returns how many blood datums on us fit our parent's expose flags
+/datum/forensics/proc/get_visible_blood()
+	RETURN_TYPE(/list)
+	var/expose_flag = null
+	if (isturf(parent) || istype(parent, /obj/effect/decal))
+		expose_flag = BLOOD_COVER_TURFS
+	else if (ismob(parent))
+		expose_flag = BLOOD_COVER_MOBS
+	else if (isitem(parent))
+		expose_flag = BLOOD_COVER_ITEMS
+
+	if (!expose_flag)
+		return
+
+	var/visible_blood = list()
+	for (var/blood_key in blood_DNA)
+		var/datum/blood_type/blood_type = blood_DNA[blood_key]
+		if (!istype(blood_type))
+			blood_type = get_blood_type(blood_type)
+			if (!istype(blood_type))
+				continue
+		if (blood_type.blood_flags & expose_flag)
+			visible_blood[blood_key] = blood_type
+
+	return visible_blood

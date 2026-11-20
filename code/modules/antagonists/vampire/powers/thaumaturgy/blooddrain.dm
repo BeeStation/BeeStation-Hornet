@@ -115,7 +115,7 @@
 
 	if(HAS_TRAIT(owner, TRAIT_INCAPACITATED) || owner.stat)
 		//If the victim is incapacitated, drain their blood
-		owner.blood_volume -= blood_drain
+		owner.adjust_blood_volume(-blood_drain)
 	else
 		//If they aren't incapacitated yet, drain only their stamina
 		owner.stamina.adjust(-7)

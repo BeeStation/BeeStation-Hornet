@@ -112,7 +112,7 @@
 /area/shuttle/exploration)
 "gt" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "gQ" = (
@@ -406,7 +406,7 @@
 /area/shuttle/exploration)
 "Sb" = (
 /obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "SS" = (

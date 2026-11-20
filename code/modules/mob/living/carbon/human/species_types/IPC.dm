@@ -64,7 +64,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ipc
 	)
 
-	exotic_bloodtype = "Coolant"
+	exotic_bloodtype = BLOOD_TYPE_SYNTHETIC
 	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die

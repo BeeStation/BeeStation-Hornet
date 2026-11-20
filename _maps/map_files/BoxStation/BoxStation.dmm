@@ -17728,7 +17728,7 @@
 /area/station/security/prison)
 "hAY" = (
 /obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/vehicle/ridden/janicart,
 /turf/open/floor/iron/ameridiner,
 /area/station/service/janitor)
@@ -18088,7 +18088,7 @@
 	pixel_x = -3;
 	paint_colour = "#faaa22"
 	},
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /turf/open/floor/iron/tech,
 /area/station/maintenance/fore/greater)
 "hIi" = (
@@ -31485,7 +31485,7 @@
 /obj/item/clothing/suit/caution{
 	pixel_y = 3
 	},
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -45144,7 +45144,7 @@
 	pixel_y = 6;
 	pixel_x = -2
 	},
-/obj/effect/decal/cleanable/xenoblood,
+/obj/effect/decal/cleanable/blood/xeno,
 /turf/open/floor/carpet,
 /area/station/security/brig)
 "sKy" = (
@@ -45640,7 +45640,7 @@
 "sVl" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/effect/turf_decal/trimline/white/warning_offset,
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /obj/machinery/door/poddoor/shutters{
 	id = "custodialwagon";
 	name = "Custodial Bay"
@@ -47674,7 +47674,7 @@
 /obj/item/chair,
 /obj/effect/turf_decal/tile/monorust/intensity3,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /turf/open/floor/plating,
 /area/station/maintenance/fore/greater)
 "tNp" = (
@@ -48066,7 +48066,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit)
 "tUz" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -55206,7 +55206,7 @@
 /turf/open/floor/carpet/purple,
 /area/station/commons/dorms)
 "wSb" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -56523,7 +56523,7 @@
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "xuX" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},

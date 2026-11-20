@@ -24,7 +24,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	meat = /obj/item/food/meat/slab/human/mutant/lizard
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
-	exotic_bloodtype = "L"
+	exotic_bloodtype = BLOOD_TYPE_LIZARD
 	inert_mutation = /datum/mutation/firebreath
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
@@ -114,5 +114,5 @@
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	H.cauterise_wounds(0.1)
-	if (H.blood_volume < BLOOD_VOLUME_NORMAL && !H.is_bleeding())
-		H.blood_volume += 0.5
+	if (!H.is_bleeding())
+		H.adjust_blood_volume(0.5, maximum = BLOOD_VOLUME_NORMAL)

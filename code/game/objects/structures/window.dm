@@ -349,6 +349,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	. = ..()
 	local_turf.air_update_turf(TRUE, FALSE)
 
+/obj/structure/window/wash(clean_types)
+	. = ..()
+	for(var/obj/effect/decal/cleanable/splatter in src)
+		if(splatter.wash(clean_types))
+			. |= COMPONENT_CLEANED
+
 
 /obj/structure/window/Move()
 	var/turf/T = loc

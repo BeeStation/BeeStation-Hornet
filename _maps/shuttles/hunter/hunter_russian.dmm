@@ -185,7 +185,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	icon_state = "floor6"
 	},
 /obj/structure/chair/foldable{
@@ -327,7 +327,7 @@
 	reinforced = 1;
 	pixel_y = -7
 	},
-/obj/effect/decal/cleanable/robot_debris{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris{
 	pixel_x = 8
 	},
 /turf/open/floor/iron/dark,
@@ -402,7 +402,7 @@
 /area/shuttle/hunter)
 "vK" = (
 /obj/machinery/suit_storage_unit/pirate,
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot/right,
 /turf/open/floor/mineral/plastitanium,
@@ -721,7 +721,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,

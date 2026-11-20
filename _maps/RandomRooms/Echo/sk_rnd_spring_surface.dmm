@@ -1924,7 +1924,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "FW" = (
-/obj/effect/decal/cleanable/robot_debris/old{
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/old{
 	name = "Seamoth fragment";
 	pixel_x = -3;
 	pixel_y = 5

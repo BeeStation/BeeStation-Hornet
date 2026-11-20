@@ -11,7 +11,7 @@
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
-	exotic_blood = /datum/reagent/drug/mushroomhallucinogen
+	exotic_bloodtype = BLOOD_TYPE_SPORE
 	allow_numbers_in_name = TRUE
 	inert_mutation = /datum/mutation/spores
 
@@ -48,8 +48,8 @@
 	. = ..()
 	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
 		return
-	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
-		H.blood_volume += chem.volume * 15
+	if(istype(chem, /datum/reagent/drug) && H.get_blood_volume() < BLOOD_VOLUME_NORMAL)
+		H.adjust_blood_volume(chem.volume * 15)
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')
