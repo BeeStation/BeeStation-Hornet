@@ -127,6 +127,7 @@
 	add_control_flags(M, control_flags)
 	after_add_occupant(M)
 	grant_passenger_actions(M)
+	SEND_SIGNAL(src, COMSIG_VEHICLE_OCCUPANT_ADDED, M)
 	return TRUE
 
 /obj/vehicle/proc/after_add_occupant(mob/M)
@@ -145,6 +146,7 @@
 	LAZYREMOVE(occupants, M)
 	cleanup_actions_for_mob(M)
 	after_remove_occupant(M)
+	SEND_SIGNAL(src, COMSIG_VEHICLE_OCCUPANT_REMOVED, M)
 	return TRUE
 
 /obj/vehicle/proc/after_remove_occupant(mob/M)
