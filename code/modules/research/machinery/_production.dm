@@ -1,4 +1,5 @@
 /obj/machinery/rnd/production
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER

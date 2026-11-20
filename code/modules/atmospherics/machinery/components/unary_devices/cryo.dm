@@ -60,6 +60,7 @@
 		animate(src)
 
 /obj/machinery/cryo_cell
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "cryo cell"
 	icon = 'icons/obj/medical/cryogenics.dmi'
 	icon_state = "pod-off"
@@ -562,6 +563,8 @@
 				return TRUE
 
 /obj/machinery/cryo_cell/click_ctrl(mob/user)
+	if(user == occupant)
+		return CLICK_ACTION_BLOCKING
 	if(is_operational && !state_open)
 		set_on(!on)
 		balloon_alert(user, "turned [on ? "on" : "off"]")

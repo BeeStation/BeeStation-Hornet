@@ -40,10 +40,10 @@
 	. += span_notice("Can be used again to interrupt the effect early. The recharge time is the same as the time spent in desync.")
 
 /obj/item/desynchronizer/click_alt(mob/living/user)
-	var/new_duration = tgui_input_number(user, "Set the duration", "Desynchronizer", duration / 10, max_duration, 5)
-	if(!new_duration || QDELETED(user) || QDELETED(src) || !usr.can_perform_action(src, NEED_DEXTERITY))
+	var/new_duration = tgui_input_number(user, "Set the duration in seconds", "Desynchronizer", duration / 10, max_duration / 10, 5)
+	if(!new_duration || QDELETED(user) || QDELETED(src) || !user.can_perform_action(src, NEED_DEXTERITY))
 		return CLICK_ACTION_BLOCKING
-	duration = new_duration
+	duration = new_duration SECONDS
 	to_chat(user, span_notice("You set the duration to [DisplayTimeText(duration)]."))
 	return CLICK_ACTION_SUCCESS
 

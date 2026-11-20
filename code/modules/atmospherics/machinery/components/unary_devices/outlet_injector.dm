@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "inje_map-3"
 
 	name = "air injector"

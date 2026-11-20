@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/components/binary/temperature_pump
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "tpump_map-3"
 	name = "temperature pump"
 	desc = "A pump that moves heat from one pipenet to another. The input will get cooler, and the output will get hotter."

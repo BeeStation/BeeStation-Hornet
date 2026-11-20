@@ -1,6 +1,7 @@
 #define FREQ_LISTENING (1<<0)
 
 /obj/item/radio
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
 	icon_state = "walkietalkie"

@@ -11,6 +11,7 @@
 //     but overall network volume is also increased as this increases...
 
 /obj/machinery/atmospherics/components/binary/volume_pump
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "volpump_map-3"
 	name = "volumetric gas pump"
 	desc = "A pump that moves gas by volume."

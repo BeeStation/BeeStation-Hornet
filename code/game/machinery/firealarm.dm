@@ -12,6 +12,7 @@
 	pixel_shift = 26
 
 /obj/machinery/firealarm
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'

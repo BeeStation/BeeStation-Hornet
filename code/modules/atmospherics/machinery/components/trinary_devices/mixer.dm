@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/components/trinary/mixer
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "mixer_off-0"
 	density = FALSE
 

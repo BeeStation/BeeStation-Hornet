@@ -176,8 +176,7 @@
 /obj/machinery/power/apc/attack_robot_secondary(mob/living/silicon/user, list/modifiers)
 	if(get_dist(src, user) <= user.interaction_range)
 		return attack_ai_secondary(user, modifiers)
-	else
-		..()
+	return ..()
 
 /obj/machinery/turretid/BorgCtrlClick(mob/living/silicon/robot/user) //turret control on/off. Forwards to AI code.
 	if(get_dist(src, user) <= user.interaction_range)

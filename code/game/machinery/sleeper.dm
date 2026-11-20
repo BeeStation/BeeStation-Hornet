@@ -5,6 +5,7 @@
 	density = FALSE
 
 /obj/machinery/sleeper
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "sleeper"
 	desc = "An enclosed machine used to stabilize and heal patients."
 	icon = 'icons/obj/machines/sleeper.dmi'

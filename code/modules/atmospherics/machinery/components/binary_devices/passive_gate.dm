@@ -8,6 +8,7 @@ Passive gate is similar to the regular pump except:
 */
 
 /obj/machinery/atmospherics/components/binary/passive_gate
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "passgate_map-3"
 
 	name = "passive gate"

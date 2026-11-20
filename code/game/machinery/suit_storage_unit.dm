@@ -1,5 +1,6 @@
 // SUIT STORAGE UNIT /////////////////
 /obj/machinery/suit_storage_unit
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	name = "suit storage unit"
 	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
 	icon = 'icons/obj/machines/suit_storage.dmi'

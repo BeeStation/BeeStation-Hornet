@@ -6,6 +6,7 @@
  ***************************************************************************************/
 
 /mob/living/silicon/robot
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "Cyborg"
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'

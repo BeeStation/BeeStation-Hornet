@@ -1,6 +1,7 @@
 #define THERMOMACHINE_POWER_CONVERSION 0.01
 
 /obj/machinery/atmospherics/components/unary/thermomachine
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon = 'icons/obj/atmospherics/components/thermomachine.dmi'
 	icon_state = "thermo_base"
 

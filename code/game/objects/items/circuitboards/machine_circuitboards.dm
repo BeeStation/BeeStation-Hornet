@@ -1221,6 +1221,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/dish_drive
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "dish drive"
 	icon_state = "service"
 	build_path = /obj/machinery/dish_drive

@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/components/binary/pressure_valve
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "pvalve_map-3"
 	name = "pressure valve"
 	desc = "An activable one way valve that let gas pass through if the pressure on the input side is higher than the set pressure."

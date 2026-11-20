@@ -3,6 +3,7 @@
 //Used to transport little animals without having to drag them across the station.
 //Comes with a handy lock to prevent them from running off.
 /obj/item/pet_carrier
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	name = "pet carrier"
 	desc = "A big white-and-blue pet carrier. Good for carrying <s>meat to the chef</s> cute animals around."
 	icon = 'icons/obj/pet_carrier.dmi'

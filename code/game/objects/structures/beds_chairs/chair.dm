@@ -12,7 +12,7 @@
 	custom_materials = list(/datum/material/iron = 2000)
 	move_resist = MOVE_FORCE_WEAK
 	layer = OBJ_LAYER
-	interaction_flags_mouse_drop = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_mouse_drop = ALLOW_RESTING
 
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 1

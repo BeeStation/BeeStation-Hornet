@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/components/trinary/filter
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "filter_off-0"
 	density = FALSE
 	name = "gas filter"

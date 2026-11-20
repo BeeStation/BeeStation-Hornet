@@ -27,7 +27,7 @@
 /obj/item/folder/examine()
 	. = ..()
 	if(length(contents))
-		. += span_notice("Alt-click to remove [contents[1]].")
+		. += span_notice("Right-click to remove [contents[1]].")
 
 /obj/item/folder/proc/rename(mob/user)
 	if(!user.is_literate())
@@ -51,7 +51,7 @@
 		ui_update()
 
 /obj/item/folder/attack_hand(mob/user, list/modifiers)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+	if(length(contents) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		remove_item(contents[1], user)
 		return TRUE
 	. = ..()
