@@ -318,6 +318,31 @@ const ClearJobsButton = (_) => {
   );
 };
 
+const AntagRestrictionNotice = (_) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+  const job = data.antag_restricted_job;
+  if (!job) {
+    return null;
+  }
+
+  const nameShown =
+    !!data.character_preferences.non_contextual.job_estimation_name;
+
+  return (
+    <Box color="average" mt={1}>
+      <Button.Checkbox
+        checked={nameShown}
+        content="Show my name in Job Estimation"
+        onClick={() =>
+          createSetPreference(act, 'job_estimation_name')(!nameShown)
+        }
+      />{' '}
+      While shown, antagonists that can&apos;t be {job} won&apos;t pick you at
+      roundstart, even if someone else ends up as {job}.
+    </Box>
+  );
+};
+
 export const JobsPage = () => {
   return (
     <>
@@ -330,6 +355,7 @@ export const JobsPage = () => {
       >
         <JoblessRoleDropdown />
         <ClearJobsButton />
+        <AntagRestrictionNotice />
       </Box>
 
       <Stack vertical fill className="section-background" p={1}>

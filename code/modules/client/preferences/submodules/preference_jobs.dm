@@ -36,3 +36,11 @@
 			highest_pref = job_preferences[job]
 
 	return preview_job
+
+/datum/preferences/proc/get_job_name_preference(datum/job/job)
+	for(var/preference_type in GLOB.preference_entries)
+		var/datum/preference/name/name_preference = GLOB.preference_entries[preference_type]
+		if(!istype(name_preference) || isnull(name_preference.relevant_job))
+			continue
+		if(istype(job, name_preference.relevant_job))
+			return name_preference

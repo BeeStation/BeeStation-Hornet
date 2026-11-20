@@ -8,6 +8,7 @@
 	preferences.job_preferences = list()
 	preferences.character_preview_view?.update_body()
 	preferences.mark_undatumized_dirty_character()
+	SSjob.update_job_estimation(user)
 	return TRUE
 
 /datum/preference_middleware/jobs/proc/set_job_preference(list/params, mob/user)
@@ -32,8 +33,17 @@
 		return FALSE
 
 	preferences.character_preview_view?.update_body()
+	SSjob.update_job_estimation(user)
 
 	return TRUE
+
+/datum/preference_middleware/jobs/post_set_preference(mob/user, preference, previous_value, value)
+	if(preference != /datum/preference/toggle/job_estimation_name::db_key)
+		return
+	preferences.job_estimation_name_by_slot["[preferences.default_slot]"] = value
+
+/datum/preference_middleware/jobs/on_new_character(mob/user)
+	SSjob.update_job_estimation(user)
 
 /datum/preference_middleware/jobs/get_constant_data()
 	var/list/data = list()
@@ -85,7 +95,8 @@
 	var/list/data = list()
 
 	data["job_preferences"] = preferences.job_preferences
-
+	var/datum/job/antag_restricted_job = SSjob.get_antag_restricted_job(preferences)
+	data["antag_restricted_job"] = antag_restricted_job?.title
 	return data
 
 /datum/preference_middleware/jobs/get_ui_static_data(mob/user)
