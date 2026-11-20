@@ -118,17 +118,18 @@
 	data = machine.get_machine_data()
 	return data
 
-/obj/machinery/mineral/processing_unit_console/ui_act(action, params)
-	if(..())
+/obj/machinery/mineral/processing_unit_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
+
 	switch(action)
 		if("Redeem")
 			if(!machine.stored_points)
 				to_chat(usr, span_warning("No points to claim."))
 				return
 
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			var/obj/item/card/id/I = usr.get_idcard(TRUE)
 			if(!I)
 				to_chat(usr, span_warning("No ID detected."))
 				return
@@ -149,7 +150,7 @@
 
 		if("Alloy")
 			machine.selected_material = null
-			machine.selected_alloy = params["id"]
+			machine.selected_alloy = text2path(params["id"])
 
 		if("toggle_auto_shutdown")
 			machine.toggle_auto_shutdown()
@@ -292,7 +293,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	return COMPONENT_BUFFER_RECEIVED
-c
+
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))
 		return
@@ -317,17 +318,25 @@ c
 
 	data["materials"] = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	for(var/datum/material/M in materials.materials)
-		var/amount = materials.materials[M]
+	for(var/datum/material/material, amount in materials.materials)
 		var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
-		var/ref = REF(M)
-		data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount, "smelting" = (selected_material == M)))
+		data["materials"] += list(list(
+			"name" = material.name,
+			"id" = REF(material),
+			"amount" = sheet_amount,
+			"smelting" = (selected_material == material),
+		))
 
 	data["alloys"] = list()
 
-	for(var/v in stored_research.researched_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(v)
-		data["alloys"] += list(list("name" = D.name, "id" = D.id, "smelting" = (selected_alloy == D.id), "amount" = can_smelt(D)))
+	for(var/design_path in stored_research.researched_designs)
+		var/datum/design/design = SSresearch.techweb_designs[design_path]
+		data["alloys"] += list(list(
+			"name" = design.name,
+			"path" = design.type,
+			"smelting" = selected_alloy == design.type,
+			"amount" = can_smelt(design),
+		))
 
 	data["auto_shutdown"] = auto_shutdown
 	data["smelt_amount_limit"] = smelt_amount_limit
@@ -378,13 +387,13 @@ c
 					on = FALSE
 
 /obj/machinery/mineral/processing_unit/proc/smelt_alloy(delta_time = 2)
-	var/datum/design/alloy = stored_research.isDesignResearchedID(selected_alloy) //check if it's a valid design
-	if(!alloy)
+	//check if it's a valid design
+	if(!stored_research.researched_designs[selected_alloy])
 		on = FALSE
 		return
+	var/datum/design/alloy = SSresearch.techweb_designs[selected_alloy]
 
 	var/amount = can_smelt(alloy, delta_time)
-
 	if(!amount || (auto_shutdown && (amount_already_smelted >= smelt_amount_limit)))
 		on = FALSE
 		return
@@ -396,17 +405,15 @@ c
 	amount_already_smelted += amount
 
 /obj/machinery/mineral/processing_unit/proc/can_smelt(datum/design/D, delta_time = 2)
-	if(D.make_reagents.len)
+	if(LAZYLEN(D.make_reagents))
 		return FALSE
 
 	var/build_amount = auto_shutdown ? min(smelt_amount * delta_time, smelt_amount_limit - amount_already_smelted) : smelt_amount * delta_time
 
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
-	for(var/mat_cat in D.materials)
-		var/required_amount = D.materials[mat_cat]
+	for(var/mat_cat, required_amount in D.materials)
 		var/amount = materials.materials[mat_cat]
-
 		build_amount = min(build_amount, round(amount / required_amount))
 
 	return build_amount

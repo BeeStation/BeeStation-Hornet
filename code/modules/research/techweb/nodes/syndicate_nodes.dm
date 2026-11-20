@@ -1,22 +1,21 @@
 /datum/techweb_node/syndicate_basic
-	id = TECHWEB_NODE_SYNDICATE_BASIC
 	tech_tier = 4
 	display_name = "Illegal Technology"
 	description = "Dangerous research used to create dangerous objects."
-	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_ADV_WEAPONRY, TECHWEB_NODE_EXPLOSIVE_WEAPONS)
-	design_ids = list(
-		"advanced_camera",
-		"ai_cam_upgrade",
-		"arcade_amputation",
-		"borg_syndicate_module",
-		"decloner",
-		"donksoft_refill",
-		"donksofttoyvendor",
-		"largecrossbow",
-		"suppressor",
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	prerequisite_nodes = list(/datum/techweb_node/adv_engi, /datum/techweb_node/adv_weaponry, /datum/techweb_node/explosive_weapons)
+	unlocked_designs = list(
+		/datum/design/board/advanced_camera,
+		/datum/design/ai_cam_upgrade,
+		/datum/design/board/amputation_adventure,
+		/datum/design/borg_syndicate_module,
+		/datum/design/decloner,
+		/datum/design/donksoft_refill,
+		/datum/design/board/donksofttoyvendor,
+		/datum/design/largecrossbow,
+		/datum/design/suppressor,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
-	hidden = TRUE
 
 /datum/techweb_node/syndicate_basic/New() //Crappy way of making syndicate gear decon supported until there's another way.
 	. = ..()
@@ -35,37 +34,34 @@
 		required_items_to_unlock |= initial(item_path.item)
 
 /datum/techweb_node/unregulated_bluespace
-	id = TECHWEB_NODE_UNREGULATED_BLUESPACE
 	tech_tier = 5
 	display_name = "Unregulated Bluespace Research"
 	description = "Bluespace technology using unstable or unbalanced procedures, prone to damaging the fabric of bluespace. Outlawed by galactic conventions."
-	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_SYNDICATE_BASIC)
-	design_ids = list("desynchronizer")
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	prerequisite_nodes = list(/datum/techweb_node/bluespace_travel, /datum/techweb_node/syndicate_basic)
+	unlocked_designs = list(/datum/design/desynchronizer)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	hidden = TRUE
 	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/sticky_basic
-	id = TECHWEB_NODE_STICKY_BASIC
 	tech_tier = 3
 	display_name = "Basic Sticky Technology"
 	description = "The only thing left to do after researching this tech is to start printing out a bunch of 'kick me' signs."
-	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_SYNDICATE_BASIC)
-	design_ids = list("sticky_tape")
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	prerequisite_nodes = list(/datum/techweb_node/adv_engi, /datum/techweb_node/syndicate_basic)
+	unlocked_designs = list(/datum/design/sticky_tape)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	hidden = TRUE
 	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/sticky_advanced
-	id = TECHWEB_NODE_STICKY_ADVANCED
 	tech_tier = 4
 	display_name = "Advanced Sticky Technology"
 	description = "Taking a good joke too far? Nonsense!"
-	prereq_ids = list(TECHWEB_NODE_STICKY_BASIC)
-	design_ids = list(
-		"pointy_tape",
-		"super_sticky_tape",
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	prerequisite_nodes = list(/datum/techweb_node/sticky_basic)
+	unlocked_designs = list(
+		/datum/design/pointy_tape,
+		/datum/design/super_sticky_tape,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	hidden = TRUE
 	unhide_from_prereqs = TRUE

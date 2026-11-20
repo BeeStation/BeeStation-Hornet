@@ -1,65 +1,62 @@
 /datum/techweb_node/clown
-	id = TECHWEB_NODE_CLOWN
 	tech_tier = 2
 	display_name = "Clown Technology"
 	description = "Honk?!"
-	prereq_ids = list(TECHWEB_NODE_BASE)
-	design_ids = list(
-		"clown_car",
-		"air_horn",
-		"borg_transform_clown",
-		"clown_mine",
-		"honk_chassis",
-		"honk_head",
-		"honk_left_arm",
-		"honk_left_leg",
-		"honk_right_arm",
-		"honk_right_leg",
-		"honk_torso",
-		"honker_main",
-		"honker_peri",
-		"honker_targ",
-		"implant_trombone",
-		"mech_banana_mortar",
-		"mech_honker",
-		"mech_mousetrap_mortar",
-		"mech_punching_face",
-		"shotgunslughonk",
+	prerequisite_nodes = list(/datum/techweb_node/base)
+	unlocked_designs = list(
+		/datum/design/clown_car,
+		/datum/design/air_horn,
+		/datum/design/borg_transform_clown,
+		/datum/design/honkmine,
+		/datum/design/honk_chassis,
+		/datum/design/honk_head,
+		/datum/design/honk_left_arm,
+		/datum/design/honk_left_leg,
+		/datum/design/honk_right_arm,
+		/datum/design/honk_right_leg,
+		/datum/design/honk_torso,
+		/datum/design/board/honker_main,
+		/datum/design/board/honker_peri,
+		/datum/design/board/honker_targ,
+		/datum/design/implant_sadtrombone,
+		/datum/design/mech_banana_mortar,
+		/datum/design/mech_honker,
+		/datum/design/mech_mousetrap_mortar,
+		/datum/design/mech_punching_glove,
+		/datum/design/shotgun_honk_slug,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SERVICE, RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/sanitation
-	id = TECHWEB_NODE_SANITATION
 	tech_tier = 1
 	display_name = "Advanced Sanitation Technology"
 	description = "Clean things better, faster, stronger, and harder!"
-	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
-	design_ids = list(
-		"advmop",
-		"beartrap",
-		"blutrash",
-		"buffer",
-		"light_replacer_bluespace",
-		"spraybottle",
+	prerequisite_nodes = list(/datum/techweb_node/adv_engi)
+	unlocked_designs = list(
+		/datum/design/advmop,
+		/datum/design/beartrap,
+		/datum/design/blutrash,
+		/datum/design/buffer,
+		/datum/design/light_replacer_bluespace,
+		/datum/design/spraybottle,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SERVICE)
 
 /datum/techweb_node/botany
-	id = TECHWEB_NODE_BOTANY
 	tech_tier = 1
 	display_name = "Botanical Engineering"
 	description = "Botanical tools"
-	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_BIOTECH)
-	design_ids = list(
-		"biogenerator",
-		"diskplantgene",
-		"flora_gun",
-		"hydro_tray",
-		"plantgenes",
-		"portaseeder",
-		"seed_extractor",
+	prerequisite_nodes = list(/datum/techweb_node/adv_engi, /datum/techweb_node/biotech)
+	unlocked_designs = list(
+		/datum/design/board/biogenerator,
+		/datum/design/diskplantgene,
+		/datum/design/flora_gun,
+		/datum/design/board/hydroponics,
+		/datum/design/board/plantgenes,
+		/datum/design/portaseeder,
+		/datum/design/board/seed_extractor,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SERVICE)

@@ -295,18 +295,19 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 			if(!linked_techweb)
 				to_chat(usr, span_notice("No research techweb connected."))
 				return
+
+			var/tech_boosters = 0
+			for(var/design_path in linked_techweb.researched_designs)
+				if(ispath(design_path, /datum/design/surgery/healing))
+					tech_boosters++
+			if(!tech_boosters)
+				return
+
 			var/old_eff = efficiency
-			var/tech_boosters
-			for(var/i in linked_techweb.researched_designs)
-				var/datum/design/surgery/healing/D = SSresearch.techweb_design_by_id(i)
-				if(!istype(D))
-					continue
-				tech_boosters++
-			if(tech_boosters)
-				efficiency = 1+(0.075*tech_boosters) //increase efficiency by 7.5% for every surgery researched
-				if(old_eff < efficiency)
-					speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
-					window_name = "Automatic Medical Unit v[efficiency]"
+			efficiency = 1 + (0.075 * tech_boosters) //increase efficiency by 7.5% for every surgery researched
+			if(old_eff < efficiency)
+				speak("Surgical research data found! Efficiency increased by [round(efficiency / old_eff * 100)]%!")
+				window_name = "Automatic Medical Unit v[efficiency]"
 
 /mob/living/simple_animal/bot/medbot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(!istype(tool, /obj/item/reagent_containers))

@@ -167,7 +167,7 @@
 		points *= 0.25
 
 	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-	science_web.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = points))
+	science_web.adjust_points(TECHWEB_POINT_TYPE_GENERIC, points)
 
 /datum/nanite_program/researchplus
 	name = "Neural Network"
@@ -201,7 +201,7 @@
 	if(!C.client) //less brainpower
 		points *= 0.25
 	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-	science_web.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = points))
+	science_web.adjust_points(TECHWEB_POINT_TYPE_GENERIC, points)
 
 /datum/nanite_program/access
 	name = "Subdermal ID"

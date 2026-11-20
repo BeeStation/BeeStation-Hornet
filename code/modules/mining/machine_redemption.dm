@@ -21,7 +21,6 @@
 	/// Variable that holds a timer which is used for callbacks to `send_console_message()`. Used for preventing multiple calls to this proc while the ORM is eating a stack of ores.
 	var/console_notify_timer
 	var/datum/techweb/stored_research
-	var/obj/item/disk/design_disk/inserted_disk
 	var/datum/component/remote_materials/materials
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
@@ -83,13 +82,12 @@
 
 /obj/machinery/mineral/ore_redemption/proc/can_smelt_alloy(datum/design/D)
 	var/datum/component/material_container/mat_container = materials.mat_container
-	if(!mat_container || D.make_reagents.len)
+	if(!mat_container || LAZYLEN(D.make_reagents))
 		return FALSE
 
 	var/build_amount = 0
 
-	for(var/mat in D.materials)
-		var/amount = D.materials[mat]
+	for(var/mat, amount in D.materials)
 		var/datum/material/redemption_mat_amount = mat_container.materials[mat]
 
 		if(!amount || !redemption_mat_amount)
@@ -220,17 +218,24 @@
 	data["materials"] = list()
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if (mat_container)
-		for(var/mat in mat_container.materials)
-			var/datum/material/M = mat
-			var/amount = mat_container.materials[M]
+		for(var/datum/material/material as anything in mat_container.materials)
+			var/amount = mat_container.materials[material]
 			var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
-			var/ref = REF(M)
-			data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount, "value" = ore_values[M.type]))
+			data["materials"] += list(list(
+				"name" = material.name,
+				"id" = REF(material),
+				"amount" = sheet_amount,
+				"value" = ore_values[material.type],
+			))
 
 		data["alloys"] = list()
-		for(var/v in stored_research.researched_designs)
-			var/datum/design/D = SSresearch.techweb_design_by_id(v)
-			data["alloys"] += list(list("name" = D.name, "id" = D.id, "amount" = can_smelt_alloy(D)))
+		for(var/design_path in stored_research.researched_designs)
+			var/datum/design/alloy = SSresearch.techweb_designs[design_path]
+			data["alloys"] += list(list(
+				"name" = alloy.name,
+				"path" = design_path,
+				"amount" = can_smelt_alloy(alloy),
+			))
 	else
 		data["alloys"] = null // In case we lose mat_container while UI is open somehow
 
@@ -302,8 +307,11 @@
 			if(materials.on_hold())
 				to_chat(usr, span_warning("Mineral access is on hold, please contact the quartermaster."))
 				return
-			var/alloy_id = params["id"]
-			var/datum/design/alloy = stored_research.isDesignResearchedID(alloy_id)
+			var/alloy_path = text2path(params["path"])
+			if(!stored_research.researched_designs[alloy_path])
+				return
+			var/datum/design/alloy = SSresearch.techweb_designs[alloy_path]
+
 			var/mob/living/user = usr
 			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
 			if((check_access(user_id_card) || allowed(usr)) && alloy)

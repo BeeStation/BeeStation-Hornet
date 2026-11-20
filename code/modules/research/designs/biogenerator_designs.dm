@@ -4,7 +4,6 @@
 
 /datum/design/milk
 	name = "10 Milk"
-	id = "milk"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 20)
 	make_reagents = list(/datum/reagent/consumable/milk = 10)
@@ -12,7 +11,6 @@
 
 /datum/design/cream
 	name = "10 Cream"
-	id = "cream"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 30)
 	make_reagents = list(/datum/reagent/consumable/cream = 10)
@@ -20,7 +18,6 @@
 
 /datum/design/milk_carton
 	name = "Milk Carton"
-	id = "milk_carton"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 100)
 	build_path = /obj/item/reagent_containers/condiment/milk
@@ -28,7 +25,6 @@
 
 /datum/design/cream_carton
 	name = "Cream Carton"
-	id = "cream_carton"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/reagent_containers/cup/glass/bottle/juice/cream
@@ -36,7 +32,6 @@
 
 /datum/design/black_pepper
 	name = "10u Black Pepper"
-	id = "black_pepper"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 25)
 	make_reagents = list(/datum/reagent/consumable/blackpepper = 10)
@@ -44,16 +39,13 @@
 
 /datum/design/pepper_mill
 	name = "Pepper Mill"
-	id = "pepper_mill"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 50)
 	build_path = /obj/item/reagent_containers/condiment/peppermill
-	make_reagents = list()
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_FOOD)
 
 /datum/design/enzyme
 	name = "10u Universal Enzyme"
-	id = "enzyme"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 30)
 	make_reagents = list(/datum/reagent/consumable/enzyme = 10)
@@ -62,14 +54,12 @@
 
 /datum/design/flour_sack
 	name = "Flour Sack"
-	id = "flour_sack"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 150)
 	build_path = /obj/item/reagent_containers/condiment/flour
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_FOOD)
 /datum/design/sugar_sack
 	name = "Sugar Sack"
-	id = "sugar_sack"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 200)
 	build_path = /obj/item/reagent_containers/condiment/sugar
@@ -77,7 +67,6 @@
 
 /datum/design/monkey_cube
 	name = "Monkey Cube"
-	id = "mcube"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 250)
 	build_path = /obj/item/food/monkeycube
@@ -85,7 +74,6 @@
 
 /datum/design/ez_nut
 	name = "E-Z Nutrient"
-	id = "ez_nut"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 10)
 	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/ez
@@ -93,7 +81,6 @@
 
 /datum/design/l4z_nut
 	name = "Left 4 Zed"
-	id = "l4z_nut"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 20)
 	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/l4z
@@ -101,7 +88,6 @@
 
 /datum/design/rh_nut
 	name = "Robust Harvest"
-	id = "rh_nut"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 25)
 	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/rh
@@ -109,7 +95,6 @@
 
 /datum/design/weed_killer
 	name = "Weed Killer"
-	id = "weed_killer"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 50)
 	build_path = /obj/item/reagent_containers/cup/bottle/killer/weedkiller
@@ -117,7 +102,6 @@
 
 /datum/design/pest_spray
 	name = "Pest Killer"
-	id = "pest_spray"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 50)
 	build_path = /obj/item/reagent_containers/cup/bottle/killer/pestkiller
@@ -125,7 +109,6 @@
 
 /datum/design/botany_bottle
 	name = "Empty Bottle"
-	id = "botany_bottle"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 5)
 	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/empty
@@ -133,7 +116,6 @@
 
 /datum/design/cloth
 	name = "Roll of Cloth"
-	id = "cloth"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 50)
 	build_path = /obj/item/stack/sheet/cotton/cloth
@@ -141,7 +123,6 @@
 
 /datum/design/cardboard
 	name = "Sheet of Cardboard"
-	id = "cardboard"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 25)
 	build_path = /obj/item/stack/sheet/cardboard
@@ -149,7 +130,6 @@
 
 /datum/design/leather
 	name = "Sheet of Leather"
-	id = "leather"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 150)
 	build_path = /obj/item/stack/sheet/leather
@@ -157,7 +137,6 @@
 
 /datum/design/toolbelt
 	name = "Tool Belt"
-	id = "toolbelt"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/storage/belt/utility
@@ -165,7 +144,6 @@
 
 /datum/design/botanybelt
 	name = "Botanical Belt"
-	id = "botanybelt"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/storage/belt/botanical
@@ -173,7 +151,6 @@
 
 /datum/design/secbelt
 	name = "Security Belt"
-	id = "secbelt"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/storage/belt/security
@@ -181,7 +158,6 @@
 
 /datum/design/medbelt
 	name = "Medical Belt"
-	id = "medbel"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/storage/belt/medical
@@ -189,7 +165,6 @@
 
 /datum/design/janibelt
 	name = "Janitorial Belt"
-	id = "janibelt"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/storage/belt/janitor
@@ -197,7 +172,6 @@
 
 /datum/design/s_holster
 	name = "Shoulder Holster"
-	id = "s_holster"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 400)
 	build_path = /obj/item/clothing/accessory/holster
@@ -205,7 +179,6 @@
 
 /datum/design/rice_hat
 	name = "Rice Hat"
-	id = "rice_hat"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/clothing/head/costume/rice_hat
@@ -213,7 +186,6 @@
 
 /datum/design/carton_soy_milk
 	name = "Soy Milk Carton"
-	id = "soy_milk_carton"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass = 100)
 	build_path = /obj/item/reagent_containers/condiment/soymilk
@@ -221,7 +193,6 @@
 
 /datum/design/seaweed_sheet
 	name = "Seaweed Sheet"
-	id = "seaweed_sheet"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 30)
 	build_path = /obj/item/food/seaweed_sheet

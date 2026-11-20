@@ -1,17 +1,17 @@
-// Simple define to avoid copy-pasting the same code 3 times
-#define ABDUCTOR_SUBTYPE_UNLOCKS(X) \
-	##X/New() { \
-		. = ..(); \
-		required_items_to_unlock += subtypesof(/obj/item/abductor); \
-		required_items_to_unlock += subtypesof(/obj/item/circuitboard/machine/abductor); \
-	}
-
-/datum/techweb_node/alientech //AYYYYYYYYLMAOO tech
-	id = TECHWEB_NODE_ALIENTECH
+/datum/techweb_node/alien
+	abstract_type = /datum/techweb_node/alien
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
 	tech_tier = 5
+
+/datum/techweb_node/alien/New()
+	. = ..()
+	required_items_to_unlock += subtypesof(/obj/item/abductor)
+	required_items_to_unlock += subtypesof(/obj/item/circuitboard/machine/abductor)
+
+/datum/techweb_node/alien/base //AYYYYYYYYLMAOO tech
 	display_name = "Alien Technology"
 	description = "Things used by the greys."
-	prereq_ids = list(TECHWEB_NODE_BIOTECH, TECHWEB_NODE_ENGINEERING)
+	prerequisite_nodes = list(/datum/techweb_node/biotech, /datum/techweb_node/engineering)
 	required_items_to_unlock = list(
 		/obj/item/stack/sheet/mineral/abductor,
 		/obj/item/cautery/alien,
@@ -29,31 +29,26 @@
 		/obj/item/wirecutters/abductor,
 		/obj/item/wrench/abductor,
 	)
-	design_ids = list(
-		"alienalloy",
+	unlocked_designs = list(
+		/datum/design/alienalloy,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	hidden = TRUE
 
-ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
-
-/datum/techweb_node/alientech/on_station_research(atom/research_source) //Unlocks the Zeta shuttle for purchase
+/datum/techweb_node/alien/base/on_station_research(atom/research_source) //Unlocks the Zeta shuttle for purchase
 	. = ..()
 	SSshuttle.shuttle_purchase_requirements_met |= SHUTTLE_UNLOCK_ALIENTECH
 
-/datum/techweb_node/alien_bio
-	id = TECHWEB_NODE_ALIEN_BIO
-	tech_tier = 5
+/datum/techweb_node/alien/bio
 	display_name = "Alien Biological Tools"
 	description = "Advanced biological tools."
-	prereq_ids = list(TECHWEB_NODE_ADV_BIOTECH, TECHWEB_NODE_ALIENTECH)
-	design_ids = list(
-		"alien_cautery",
-		"alien_drill",
-		"alien_hemostat",
-		"alien_retractor",
-		"alien_saw",
-		"alien_scalpel",
+	prerequisite_nodes = list(/datum/techweb_node/adv_biotech, /datum/techweb_node/alien/base)
+	unlocked_designs = list(
+		/datum/design/aliencautery,
+		/datum/design/aliendrill,
+		/datum/design/alienhemostat,
+		/datum/design/alienretractor,
+		/datum/design/aliensaw,
+		/datum/design/alienscalpel,
 	)
 	required_items_to_unlock = list(
 		/obj/item/melee/baton/abductor,
@@ -72,24 +67,19 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
 		/obj/item/wrench/abductor,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	hidden = TRUE
 	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
-ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
-
-/datum/techweb_node/alien_engi
-	id = TECHWEB_NODE_ALIEN_ENGI
-	tech_tier = 5
+/datum/techweb_node/alien/engi
 	display_name = "Alien Engineering"
 	description = "Alien engineering tools"
-	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_ALIENTECH)
-	design_ids = list(
-		"alien_crowbar",
-		"alien_multitool",
-		"alien_screwdriver",
-		"alien_welder",
-		"alien_wirecutters",
-		"alien_wrench",
+	prerequisite_nodes = list(/datum/techweb_node/adv_engi, /datum/techweb_node/alien/base)
+	unlocked_designs = list(
+		/datum/design/aliencrowbar,
+		/datum/design/alienmultitool,
+		/datum/design/alienscrewdriver,
+		/datum/design/alienwelder,
+		/datum/design/alienwirecutters,
+		/datum/design/alienwrench,
 	)
 	required_items_to_unlock = list(
 		/obj/item/crowbar/abductor,
@@ -101,21 +91,16 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
 		/obj/item/wrench/abductor,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	hidden = TRUE
 	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
 
-ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
-
-/datum/techweb_node/alien_surgery
-	id = TECHWEB_NODE_ALIEN_SURGERY
-	tech_tier = 5
+/datum/techweb_node/alien/surgery
 	display_name = "Alien Surgery"
 	description = "Anything from brainwashing to reviving the dead. Alien technology."
-	prereq_ids = list(TECHWEB_NODE_ALIENTECH, TECHWEB_NODE_EXP_SURGERY)
-	design_ids = list(
-		"surgery_brainwashing",
-		"surgery_heal_combo_upgrade_femto",
-		"surgery_zombie",
+	prerequisite_nodes = list(/datum/techweb_node/alien/base, /datum/techweb_node/exp_surgery)
+	unlocked_designs = list(
+		/datum/design/surgery/brainwashing,
+		/datum/design/surgery/healing/combo_upgrade_2,
+		/datum/design/surgery/necrotic_revival,
 	)
 	required_items_to_unlock = list(
 		/obj/item/cautery/alien,
@@ -134,25 +119,17 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 		/obj/item/wrench/abductor,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
-	hidden = TRUE
 	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
-ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_surgery)
-
-/datum/techweb_node/nullspacebreaching
-	id = TECHWEB_NODE_NULLSPACEBREACHING
+/datum/techweb_node/alien/nullspacebreaching
 	display_name = "Nullspace Breaching"
 	description = "Research into voidspace tunnelling, allowing us to significantly reduce flight times."
-	prereq_ids = list(TECHWEB_NODE_ALIENTECH, TECHWEB_NODE_BASIC_SHUTTLE)
-	design_ids = list(
-		"engine_void",
-		"wingpack_ayy",
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	prerequisite_nodes = list(/datum/techweb_node/alien/base, /datum/techweb_node/basic_shuttle_tech)
+	unlocked_designs = list(
+		/datum/design/board/shuttle_void_engine,
+		/datum/design/wingpack_alien,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
-	hidden = TRUE
 	unhide_from_prereqs = TRUE
 	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SCIENCE)
-
-ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/nullspacebreaching)
-
-#undef ABDUCTOR_SUBTYPE_UNLOCKS

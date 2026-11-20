@@ -113,7 +113,7 @@
 
 /datum/component/nanites/process(delta_time)
 	if(!HAS_TRAIT(host_mob, TRAIT_STASIS))
-		var/harmonic_researched = assigned_techweb?.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC]
+		var/harmonic_researched = assigned_techweb?.researched_nodes[/datum/techweb_node/nanite_harmonic]
 		adjust_nanites(amount = (regen_rate + (harmonic_researched ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()
 		for(var/datum/nanite_program/program as anything in programs)
@@ -395,7 +395,7 @@
 	if(host_mob.stat == DEAD)
 		research_value *= 0.75
 
-	assigned_techweb?.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
+	assigned_techweb?.adjust_points(TECHWEB_POINT_TYPE_NANITES, research_value)
 
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
@@ -432,7 +432,7 @@
 
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume
-	var/has_harmonic_boost = assigned_techweb?.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC]
+	var/has_harmonic_boost = assigned_techweb?.researched_nodes[/datum/techweb_node/nanite_harmonic]
 	data["regen_rate"] = regen_rate + (has_harmonic_boost ? HARMONIC_REGEN_BOOST : 0)
 	data["safety_threshold"] = safety_threshold
 	data["cloud_id"] = cloud_id

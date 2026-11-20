@@ -16,19 +16,23 @@
 /datum/objective/download/check_completion()
 	var/datum/techweb/checking = new
 	for(var/datum/mind/owner as anything in get_owners())
-		if(ismob(owner.current))
-			var/mob/M = owner.current			//Yeah if you get morphed and you eat a quantum tech disk with the RD's latest backup good on you soldier.
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				// Check ninja MODsuit internal tech disk
-				if(H && (H.stat != DEAD) && istype(H.back, /obj/item/mod/control/pre_equipped/ninja))
-					var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = H.back
-					if(ninja_suit.internal_techdisk)
-						ninja_suit.internal_techdisk.stored_research.copy_research_to(checking)
-			var/list/otherwise = M.GetAllContents()
-			for(var/obj/item/disk/tech_disk/TD in otherwise)
-				TD.stored_research.copy_research_to(checking)
-	amount = checking.researched_nodes.len
+		if(!ismob(owner.current))
+			continue
+		var/mob/mob_owner = owner.current //Yeah if you get morphed and you eat a quantum tech disk with the RD's latest backup good on you soldier.
+
+		if(ishuman(mob_owner))
+			var/mob/living/carbon/human/human_owner = mob_owner
+			// Check ninja MODsuit internal tech disk
+			if(human_owner.stat != DEAD && istype(human_owner.back, /obj/item/mod/control/pre_equipped/ninja))
+				var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = human_owner.back
+				if(ninja_suit.internal_techdisk)
+					checking.absorb_techdisk(ninja_suit.internal_techdisk)
+
+		for(var/obj/item/disk/tech_disk/disk_in_us in mob_owner.GetAllContents())
+			checking.absorb_techdisk(disk_in_us)
+
+	amount = length(checking.researched_nodes)
+	qdel(checking)
 	return (amount >= target_amount) || ..()
 
 /datum/objective/download/admin_edit(mob/admin)

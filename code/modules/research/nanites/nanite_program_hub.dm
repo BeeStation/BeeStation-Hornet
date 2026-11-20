@@ -84,49 +84,54 @@
 /obj/machinery/nanite_program_hub/ui_static_data(mob/user)
 	var/list/data = list()
 	data["programs"] = list()
-	for(var/i in linked_techweb.researched_designs)
-		var/datum/design/nanites/D = SSresearch.techweb_design_by_id(i)
-		if(!istype(D))
+	for(var/design_path in linked_techweb.researched_designs)
+		if(!ispath(design_path, /datum/design/nanites))
 			continue
-		var/cat_name = D.category[1] //just put them in the first category fuck it
-		if(isnull(data["programs"][cat_name]))
-			data["programs"][cat_name] = list()
-		var/list/program_design = list()
-		program_design["id"] = D.id
-		program_design["name"] = D.name
-		program_design["desc"] = D.desc
-		data["programs"][cat_name] += list(program_design)
+		var/datum/design/nanites/design = SSresearch.techweb_designs[design_path]
+		var/cat_name = design.category[1] //just put them in the first category fuck it
+		data["programs"][cat_name] ||= list()
+		data["programs"][cat_name] += list(list(
+			"path" = design.type,
+			"name" = design.name,
+			"desc" = design.desc,
+		))
 
 	return data
 
-/obj/machinery/nanite_program_hub/ui_act(action, params)
-	if(..())
+/obj/machinery/nanite_program_hub/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
+
 	switch(action)
 		if("eject")
 			eject(usr)
-			. = TRUE
+			return TRUE
 		if("download")
 			if(!disk)
-				return
-			var/datum/design/nanites/downloaded = linked_techweb.isDesignResearchedID(params["program_id"]) //check if it's a valid design
-			if(!istype(downloaded))
-				return
+				return FALSE
+
+			var/design_path = text2path(params["program_id"])
+			//check if it's a valid design
+			if(!ispath(design_path, /datum/design/nanites))
+				return FALSE
+			var/datum/design/nanites/downloaded = SSresearch.techweb_designs[design_path]
+
 			if(disk.program)
 				qdel(disk.program)
 			disk.program = new downloaded.program_type
 			disk.name = "[initial(disk.name)] \[[disk.program.name]\]"
 			playsound(src, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
-			. = TRUE
+			return TRUE
 		if("refresh")
 			update_static_data(usr, bypass_cooldown = FALSE)
-			. = TRUE
+			return TRUE
 		if("toggle_details")
 			detail_view = !detail_view
-			. = TRUE
+			return TRUE
 		if("clear")
-			if(disk && disk.program)
-				qdel(disk.program)
-				disk.program = null
-				disk.name = initial(disk.name)
-			. = TRUE
+			if(!disk?.program)
+				return FALSE
+			QDEL_NULL(disk.program)
+			disk.name = initial(disk.name)
+			return TRUE

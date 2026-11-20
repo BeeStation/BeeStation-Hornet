@@ -7,14 +7,12 @@
 	should_generate_points = TRUE
 
 /datum/techweb/science/New()
-	// Start with discovery points
-	add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, TECHWEB_TIER_2_POINTS)
-	return ..()
-
-/datum/techweb/science/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE, atom/research_source) //When something is researched, triggers the proc for this techweb only
 	. = ..()
-	if(.)
-		node.on_station_research(research_source)
+	// Start with discovery points
+	adjust_points(TECHWEB_POINT_TYPE_DISCOVERY, TECHWEB_TIER_2_POINTS)
+
+/datum/techweb/science/node_added(datum/techweb_node/node, atom/research_source)
+	node.on_station_research(research_source)
 
 /datum/techweb/oldstation
 	id = "CHARLIE"
@@ -23,7 +21,7 @@
 
 /datum/techweb/oldstation/New()
 	. = ..()
-	research_node_id(TECHWEB_NODE_OLDSTATION_SURGERY, TRUE, TRUE, FALSE)
+	research_node(/datum/techweb_node/oldstation_surgery, TRUE, TRUE, FALSE)
 
 /datum/techweb/golem
 	id = "GOLEM"
@@ -39,19 +37,10 @@
 
 /datum/techweb/admin/New()
 	. = ..()
-	for(var/i in SSresearch.techweb_nodes)
-		var/datum/techweb_node/node = SSresearch.techweb_nodes[i]
-		research_node(node, TRUE, TRUE, FALSE)
-	for(var/i in SSresearch.point_types)
-		research_points[i] = INFINITY
-	hidden_nodes = list()
-
-/**
- * Techweb made through tech disks
- * Contains nothing, subtype mostly meant to make it easy for admins to see.
- */
-/datum/techweb/disk
-	id = "D1SK"
+	for(var/node_path, node in SSresearch.techweb_nodes)
+		research_node(node, TRUE, TRUE)
+	adjust_all_points(INFINITY)
+	hidden_nodes.Cut()
 
 GLOBAL_LIST_EMPTY(autounlock_techwebs)
 
@@ -61,26 +50,22 @@ GLOBAL_LIST_EMPTY(autounlock_techwebs)
  * creating new ones each time it's needed.
  */
 /datum/techweb/autounlocking
-	/// The buildtype we will automatically unlock.
+	///The buildtype we will automatically unlock.
 	var/allowed_buildtypes = ALL
-	/// Designs that are only available when the printer is hacked.
+	///Designs that are only available when the printer is hacked.
 	var/list/hacked_designs = list()
 
 /datum/techweb/autounlocking/New()
 	. = ..()
-	for(var/id in SSresearch.techweb_designs)
-		var/datum/design/design = SSresearch.techweb_designs[id]
-		if(!(design.build_type & allowed_buildtypes))
-			continue
+	for(var/design_path, _design in SSresearch.techweb_designs)
+		var/datum/design/design = _design
 		if(RND_CATEGORY_INITIAL in design.category)
-			add_design_by_id(id)
+			add_design(design)
 		if(RND_CATEGORY_HACKED in design.category)
-			add_design_by_id(id, add_to = hacked_designs)
+			add_design(design, add_to = hacked_designs)
 
-/datum/techweb/autounlocking/add_design(datum/design/design, custom = FALSE, list/add_to)
-	if(!(design.build_type & allowed_buildtypes))
-		return FALSE
-	return ..()
+/datum/techweb/autounlocking/is_valid_design(datum/design/design)
+	return (design.build_type & allowed_buildtypes)
 
 /datum/techweb/autounlocking/autolathe
 	allowed_buildtypes = AUTOLATHE

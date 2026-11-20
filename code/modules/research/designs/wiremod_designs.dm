@@ -1,7 +1,6 @@
 /datum/design/integrated_circuit
 	name = "Integrated Circuit"
 	desc = "The foundation of all circuits. All Circuitry go onto this."
-	id = "integrated_circuit"
 	build_path = /obj/item/integrated_circuit
 	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
@@ -11,7 +10,6 @@
 /datum/design/circuit_multitool
 	name = "Circuit Multitool"
 	desc = "A circuit multitool to mark entities and load them into."
-	id = "circuit_multitool"
 	build_path = /obj/item/multitool/circuit
 	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
@@ -21,7 +19,6 @@
 /datum/design/usb_cable
 	name = "USB Cable"
 	desc = "A cable that allows certain shells to connect to nearby computers and machines."
-	id = "usb_cable"
 	build_path = /obj/item/usb_cable
 	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
@@ -32,7 +29,6 @@
 /datum/design/wireless_usb
 	name = "Wireless USB transceiver"
 	desc = "A transceiver that allows certain shells to connect to computers and machines at a certain range."
-	id = "usb_wireless"
 	build_path = /obj/item/usb_cable/bluespace
 	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
@@ -40,8 +36,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/component
-	name = "Component ( NULL ENTRY )"
-	desc = "A component that goes into an integrated circuit."
+	abstract_type = /datum/design/component
 	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 500, /datum/material/copper = 150)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -55,368 +50,307 @@
 
 /datum/design/component/abs
 	name = "Absolute Component"
-	id = "comp_abs"
 	build_path = /obj/item/circuit_component/abs
 	category = list(RND_CATEGORY_MATH_COMPONENTS)
 
 /datum/design/component/arbitrary_input_amount/arithmetic
 	name = "Arithmetic Component"
-	id = "comp_arithmetic"
 	build_path = /obj/item/circuit_component/arbitrary_input_amount/arithmetic
 	category = list(RND_CATEGORY_MATH_COMPONENTS)
 
 /datum/design/component/arbitrary_input_amount/bitwise
 	name = "Bitwise Component"
-	id = "comp_bitwise"
 	build_path = /obj/item/circuit_component/arbitrary_input_amount/bitwise
 	category = list(RND_CATEGORY_MATH_COMPONENTS)
 
 /datum/design/component/bitflag
 	name = "Bitflag Component"
-	id = "comp_bitflag"
 	build_path = /obj/item/circuit_component/compare/bitflag
 	category = list(RND_CATEGORY_MATH_COMPONENTS, RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/clock
 	name = "Clock Component"
-	id = "comp_clock"
 	build_path = /obj/item/circuit_component/clock
 	category = list(RND_CATEGORY_TIME_COMPONENTS)
 
 /datum/design/component/comparison
 	name = "Comparison Component"
-	id = "comp_comparison"
 	build_path = /obj/item/circuit_component/compare/comparison
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/for_each
 	name = "For Each Component"
-	id = "comp_foreach"
 	build_path = /obj/item/circuit_component/foreach
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/logic
 	name = "Logic Component"
-	id = "comp_logic"
 	build_path = /obj/item/circuit_component/compare/logic
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/iterator
 	name = "Iterator Component"
-	id = "comp_iterator"
 	build_path = /obj/item/circuit_component/iterator
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/is_null_component
 	name = "Is Null Component"
-	id = "comp_isnull"
 	build_path = /obj/item/circuit_component/is_null
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/switch_case
 	name = "Switch Case"
-	id = "comp_switch_case"
 	build_path = /obj/item/circuit_component/switch_case
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 
 /datum/design/component/delay
 	name = "Delay Component"
-	id = "comp_delay"
 	build_path = /obj/item/circuit_component/delay
 	category = list(RND_CATEGORY_TIME_COMPONENTS)
 
 /datum/design/component/index
 	name = "Index Component"
-	id = "comp_index"
 	build_path = /obj/item/circuit_component/index
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/write
 	name = "Write Component"
-	id = "comp_write"
 	build_path = /obj/item/circuit_component/indexer/write
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/append
 	name = "Append Component"
-	id = "comp_append"
 	build_path = /obj/item/circuit_component/append
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/pop
 	name = "Pop Component"
-	id = "comp_pop"
 	build_path = /obj/item/circuit_component/pop
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/length
 	name = "Length Component"
-	id = "comp_length"
 	build_path = /obj/item/circuit_component/length
 	category = list(RND_CATEGORY_LIST_COMPONENTS, RND_CATEGORY_STRING_COMPONENTS)
 
 /datum/design/component/trim
 	name = "String Trim Component"
-	id = "comp_trim"
 	build_path = /obj/item/circuit_component/trim
 	category = list(RND_CATEGORY_STRING_COMPONENTS)
 
 /datum/design/component/light
 	name = "Light Component"
-	id = "comp_light"
 	build_path = /obj/item/circuit_component/light
 	category = list(RND_CATEGORY_OUTPUT_COMPONENTS)
 
 /datum/design/component/list_constructor
 	name = "List Constructor"
-	id = "comp_list_constructor"
 	build_path = /obj/item/circuit_component/arbitrary_input_amount/list_constructor
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/list_length_constructor
 	name = "List Length Constructor"
-	id = "comp_list_length_constructor"
 	build_path = /obj/item/circuit_component/list_length_constructor
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/not
 	name = "Not Component"
-	id = "comp_not"
 	build_path = /obj/item/circuit_component/not
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/random
 	name = "Random Component"
-	id = "comp_random"
 	build_path = /obj/item/circuit_component/random
 	category = list(RND_CATEGORY_MATH_COMPONENTS, RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/round
 	name = "Round Component"
-	id = "comp_round"
 	build_path = /obj/item/circuit_component/round
 	category = list(RND_CATEGORY_MATH_COMPONENTS)
 
 /datum/design/component/species
 	name = "Get Species Component"
-	id = "comp_species"
 	build_path = /obj/item/circuit_component/species
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS, RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/get_name
 	name = "Get Name Component"
-	id = "comp_get_name"
 	build_path = /obj/item/circuit_component/get_name
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS, RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/speech
 	name = "Speech Component"
-	id = "comp_speech"
 	build_path = /obj/item/circuit_component/speech
 	category = list(RND_CATEGORY_OUTPUT_COMPONENTS)
 
 /datum/design/component/tostring
 	name = "To String Component"
-	id = "comp_tostring"
 	build_path = /obj/item/circuit_component/tostring
 	category = list(RND_CATEGORY_STRING_COMPONENTS, RND_CATEGORY_CONVERSION_COMPONENTS)
 
 /datum/design/component/trig
 	name = "Trigonometry Component"
-	id = "comp_trig"
 	build_path = /obj/item/circuit_component/trig/trig
 	category = list(RND_CATEGORY_MATH_COMPONENTS)
 
 /datum/design/component/adv_trig
 	name = "Advanced Trigonometry Component"
-	id = "comp_adv_trig"
 	build_path = /obj/item/circuit_component/trig/adv_trig
 	category = list(RND_CATEGORY_MATH_COMPONENTS)
 
 /datum/design/component/hyper_trig
 	name = "Hyperbolic Trigonometry Component"
-	id = "comp_hyper_trig"
 	build_path = /obj/item/circuit_component/trig/hyper_trig
 	category = list(RND_CATEGORY_MATH_COMPONENTS)
 
 /datum/design/component/typecast
 	name = "Typecast Component"
-	id = "comp_typecast"
 	build_path = /obj/item/circuit_component/typecast
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/tonumber
 	name = "To Number"
-	id = "comp_tonumber"
 	build_path = /obj/item/circuit_component/tonumber
 	category = list(RND_CATEGORY_STRING_COMPONENTS, RND_CATEGORY_CONVERSION_COMPONENTS)
 
 /datum/design/component/concat
 	name = "Concatenation Component"
-	id = "comp_concat"
 	build_path = /obj/item/circuit_component/concat
 	category = list(RND_CATEGORY_STRING_COMPONENTS)
 
 /datum/design/component/textcase
 	name = "Textcase Component"
-	id = "comp_textcase"
 	build_path = /obj/item/circuit_component/textcase
 	category = list(RND_CATEGORY_STRING_COMPONENTS)
 
 /datum/design/component/hear
 	name = "Voice Activator Component"
-	id = "comp_hear"
 	build_path = /obj/item/circuit_component/hear
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/contains
 	name = "String Contains Component"
-	id = "comp_string_contains"
 	build_path = /obj/item/circuit_component/compare/contains
 	category = list(RND_CATEGORY_STRING_COMPONENTS)
 
 /datum/design/component/self
 	name = "Self Component"
-	id = "comp_self"
 	build_path = /obj/item/circuit_component/self
 	category = list(RND_CATEGORY_REFERENCE_COMPONENTS)
 
 /datum/design/component/radio
 	name = "Radio Component"
-	id = "comp_radio"
 	build_path = /obj/item/circuit_component/radio
 	category = list(RND_CATEGORY_OUTPUT_COMPONENTS)
 
 /datum/design/component/gps
 	name = "GPS Component"
-	id = "comp_gps"
 	build_path = /obj/item/circuit_component/gps
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/direction
 	name = "Direction Component"
-	id = "comp_direction"
 	build_path = /obj/item/circuit_component/direction
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/health
 	name = "Health Component"
-	id = "comp_health"
 	build_path = /obj/item/circuit_component/health
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/bci/relative_coords
 	name = "Get relative coords Component"
-	id = "comp_relative_coords"
 	build_path = /obj/item/circuit_component/relative_coords
 
 /datum/design/component/split
 	name = "Split Component"
-	id = "comp_split"
 	build_path = /obj/item/circuit_component/split
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/pull
 	name = "Pull Component"
-	id = "comp_pull"
 	build_path = /obj/item/circuit_component/pull
 	category = list(RND_CATEGORY_OUTPUT_COMPONENTS)
 
 /datum/design/component/soundemitter
 	name = "Sound Emitter Component"
-	id = "comp_soundemitter"
 	build_path = /obj/item/circuit_component/soundemitter
 	category = list(RND_CATEGORY_OUTPUT_COMPONENTS)
 
 /datum/design/component/mmi
 	name = "MMI Component"
-	id = "comp_mmi"
 	build_path = /obj/item/circuit_component/mmi
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/router
 	name = "Router Component"
-	id = "comp_router"
 	build_path = /obj/item/circuit_component/router
 	category = list(RND_CATEGORY_OUTPUT_COMPONENTS)
 
 /datum/design/component/multiplexer
 	name = "Multiplexer Component"
-	id = "comp_multiplexer"
 	build_path = /obj/item/circuit_component/router/multiplexer
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/get_column
 	name = "Get Column Component"
-	id = "comp_get_column"
 	build_path = /obj/item/circuit_component/get_column
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/index_table
 	name = "Index Table Component"
-	id = "comp_index_table"
 	build_path = /obj/item/circuit_component/index_table
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/concat_list
 	name = "Concatenate List Component"
-	id = "comp_concat_list"
 	build_path = /obj/item/circuit_component/concat_list
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
 /datum/design/component/select_query
 	name = "Select Query Component"
-	id = "comp_select_query"
 	build_path = /obj/item/circuit_component/select
 	category = list(RND_CATEGORY_CORE)
 
 /datum/design/component/pathfind
 	name = "Pathfinder"
-	id = "comp_pathfind"
 	build_path = /obj/item/circuit_component/pathfind
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/tempsensor
 	name = "Temperature Sensor Component"
-	id = "comp_tempsensor"
 	build_path = /obj/item/circuit_component/tempsensor
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/pressuresensor
 	name = "Pressure Sensor Component"
-	id = "comp_pressuresensor"
 	build_path = /obj/item/circuit_component/pressuresensor
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/module
 	name = "Module Component"
-	id = "comp_module"
 	build_path = /obj/item/circuit_component/module
 	category = list(RND_CATEGORY_CORE)
 
 /datum/design/component/ntnet_receive
 	name = "NTNet Receiver"
-	id = "comp_ntnet_receive"
 	build_path = /obj/item/circuit_component/ntnet_receive
 	category = list(RND_CATEGORY_INPUT_COMPONENTS)
 
 /datum/design/component/ntnet_send
 	name = "NTNet Transmitter"
-	id = "comp_ntnet_send"
 	build_path = /obj/item/circuit_component/ntnet_send
 	category = list(RND_CATEGORY_OUTPUT_COMPONENTS)
 
 /datum/design/component/noop
 	name = "No Operation Component"
-	id = "comp_noop"
 	build_path = /obj/item/circuit_component/noop
 	category = list(RND_CATEGORY_CIRCUITRY + RND_SUBCATEGORY_CIRCUITRY_COMPONENTS)
 
 
 /datum/design/component/list_literal
 	name = "List Literal Component"
-	id = "comp_list_literal"
 	build_path = /obj/item/circuit_component/list_literal
 	category = list(RND_CATEGORY_LIST_COMPONENTS)
 
@@ -425,71 +359,58 @@
 
 /datum/design/component/bci/bci_action
 	name = "BCI Action Component"
-	id = "comp_bci_action"
 	build_path = /obj/item/circuit_component/equipment_action/bci
 
 /datum/design/component/gate/toggle
 	name = "Toggle Gate (T Flip-Flop)"
-	id = "comp_gate_toggle"
 	build_path = /obj/item/circuit_component/gate/toggle
 
 /datum/design/component/gate/toggle
 	name = "Toggle Gate (T Flip-Flop)"
-	id = "comp_gate_toggle"
 	build_path = /obj/item/circuit_component/gate/toggle
 	category = list(RND_CATEGORY_GATE_COMPONENTS)
 
 /datum/design/component/gate/set_reset
 	name = "Set/Reset Component (RS Latch)"
-	id = "comp_gate_set_reset"
 	build_path = /obj/item/circuit_component/gate/set_reset
 	category = list(RND_CATEGORY_GATE_COMPONENTS)
 /*
 /datum/design/component/mod_action
 	name = "MOD Action Component"
-	id = "comp_mod_action"
 	build_path = /obj/item/circuit_component/equipment_action/mod
 */
 
 /datum/design/component/bci/object_overlay
 	name = "Object Overlay Component"
-	id = "comp_object_overlay"
 	build_path = /obj/item/circuit_component/object_overlay
 
 /datum/design/component/bci/bar_overlay
 	name = "Bar Overlay Component"
-	id = "comp_bar_overlay"
 	build_path = /obj/item/circuit_component/object_overlay/bar
 
 /datum/design/component/bci/target_intercept
 	name = "BCI Target Interceptor"
-	id = "comp_target_intercept"
 	build_path = /obj/item/circuit_component/target_intercept
 
 /datum/design/component/bci/counter_overlay
 	name = "Counter Overlay Component"
-	id = "comp_counter_overlay"
 	build_path = /obj/item/circuit_component/counter_overlay
 
 /datum/design/component/bci/thought_listener
 	name = "Thought Listener Component"
-	id = "comp_thought_listener"
 	build_path = /obj/item/circuit_component/thought_listener
 
 /datum/design/component/bci/install_detector
 	name = "Install Detector Component"
-	id = "comp_install_detector"
 	build_path = /obj/item/circuit_component/install_detector
 
 /datum/design/component/bci/reagent_injector
 	name = "Reagent Injector Component"
-	id = "comp_reagent_injector"
 	build_path = /obj/item/circuit_component/reagent_injector
 
 /datum/design/compact_remote_shell
 	name = "Compact Remote Shell"
 	desc = "A handheld shell with one big button."
-	id = "compact_remote_shell"
 	build_path = /obj/item/shell/compact_remote
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 5000)
 	build_type = COMPONENT_PRINTER
@@ -498,7 +419,6 @@
 /datum/design/controller_shell
 	name = "Controller Shell"
 	desc = "A handheld shell with several buttons."
-	id = "controller_shell"
 	build_path = /obj/item/shell/controller
 	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 7000)
@@ -507,7 +427,6 @@
 /datum/design/scanner_shell
 	name = "Scanner Shell"
 	desc = "A handheld scanner shell that can scan entities."
-	id = "scanner_shell"
 	build_path = /obj/item/shell/wiremod_scanner
 	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 4000, /datum/material/iron = 5000)
@@ -516,7 +435,6 @@
 /datum/design/bot_shell
 	name = "Bot Shell"
 	desc = "An immobile shell that can store more components. Has a USB port to be able to connect to computers and machines."
-	id = "bot_shell"
 	build_path = /obj/item/shell/bot
 	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 10000)
@@ -525,7 +443,6 @@
 /datum/design/money_bot_shell
 	name = "Money Bot Shell"
 	desc = "An immobile shell that is similar to a regular bot shell, but accepts monetary inputs and can also dispense money."
-	id = "money_bot_shell"
 	build_path = /obj/item/shell/money_bot
 	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 10000, /datum/material/gold = 50)
@@ -534,7 +451,6 @@
 /datum/design/drone_shell
 	name = "Drone Shell"
 	desc = "A shell with the ability to move itself around."
-	id = "drone_shell"
 	build_path = /obj/item/shell/drone
 	build_type = COMPONENT_PRINTER
 	materials = list(
@@ -547,7 +463,6 @@
 /datum/design/server_shell
 	name = "Server Shell"
 	desc = "A very large shell that cannot be moved around. Stores the most components."
-	id = "server_shell"
 	materials = list(
 		/datum/material/glass = 5000,
 		/datum/material/iron = 15000,
@@ -560,7 +475,6 @@
 /datum/design/airlock_shell
 	name = "Airlock Shell"
 	desc = "A door shell that cannot be moved around when assembled."
-	id = "door_shell"
 	materials = list(
 		/datum/material/glass = 5000,
 		/datum/material/iron = 15000,
@@ -572,7 +486,6 @@
 /datum/design/assembly_shell
 	name = "Modular Assembly Shell"
 	desc = "A shell that functions as an assembly."
-	id = "assembly_shell"
 	materials = list(
 		/datum/material/glass = 2000,
 		/datum/material/iron = 5000,
@@ -584,7 +497,6 @@
 /datum/design/bci_shell
 	name = "Brain-Computer Interface Shell"
 	desc = "An implant that can be placed in a user's head to control circuits using their brain."
-	id = "bci_shell"
 	materials = list(
 		/datum/material/glass = 2000,
 		/datum/material/iron = 8000,
@@ -596,7 +508,6 @@
 /datum/design/ipc_control
 	name = "Upgrade Control Module Shell"
 	desc = "A special FPGA that can be installed in the chest of a user to control any synth upgrades they may have."
-	id = "ipc_control"
 	materials = list(
 		/datum/material/glass = 2000,
 		/datum/material/iron = 8000,
@@ -608,7 +519,6 @@
 /datum/design/scanner_gate_shell
 	name = "Scanner Gate Shell"
 	desc = "A scanner gate shell that performs mid-depth scans on people when they pass through it."
-	id = "scanner_gate_shell"
 	materials = list(
 		/datum/material/glass = 4000,
 		/datum/material/iron = 12000,
@@ -620,7 +530,6 @@
 /datum/design/board/bci_implanter
 	name = "Brain-Computer Interface Manipulation Chamber"
 	desc = "A machine that, when given a brain-computer interface, will implant it into an occupant. Otherwise, will remove any brain-computer interfaces they already have."
-	id = "bci_implanter"
 	build_path = /obj/item/circuitboard/machine/bci_implanter
 	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
@@ -628,8 +537,81 @@
 /datum/design/mod_module_shell
 	name = "MOD Module Shell"
 	desc = "A module shell that allows a circuit to be inserted into, and interface with, a MODsuit."
-	id = "module_shell"
 	materials = list(/datum/material/glass = 2000)
 	build_path = /obj/item/mod/module/circuit
 	build_type = MECHFAB | COMPONENT_PRINTER
 	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SCIENCE, RND_CATEGORY_SHELLS)
+
+/datum/design/integrated_circuit_template
+	abstract_type = /datum/design/integrated_circuit_template
+	category = list(RND_CATEGORY_TEMPLATES)
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 3550, /datum/material/copper = 550) //Hello world costs
+	build_type = COMPONENT_PRINTER
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+// Printable at circuit fabs for ease of finding. Yes, it's not really realistic, but this is a tutorial.
+/datum/design/integrated_circuit_template/professors_notes
+	name = "0. The Professor's Notes"
+	desc = "I could use some help! Please read me!"
+	build_path = /obj/item/clipboard/preloaded/circuit_templates
+	materials = list(/datum/material/iron = 3000) //Ehh, seems about right.
+
+/datum/design/integrated_circuit_template/hello_world
+	name = "1. Hello, World!"
+	desc = "A simple \"Hello, World\" circuit."
+	build_path = /obj/item/integrated_circuit/template/hello_world
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 3550, /datum/material/copper = 650)
+
+/datum/design/integrated_circuit_template/greeter
+	name = "2. Greeter"
+	desc = "A simple circuit which greets you."
+	build_path = /obj/item/integrated_circuit/template/greeter
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 5050, /datum/material/copper = 1100)
+
+/datum/design/integrated_circuit_template/ticker
+	name = "3. Ticker"
+	desc = "Tick Tock, a circuit which keeps time."
+	build_path = /obj/item/integrated_circuit/template/ticker
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 4550, /datum/material/copper = 950)
+
+/datum/design/integrated_circuit_template/simple_math
+	name = "4. Simple Math"
+	desc = "A simple circuit which does basic math and tells you if it is greater than 5."
+	build_path = /obj/item/integrated_circuit/template/simple_math
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 4050, /datum/material/copper = 800)
+
+/datum/design/integrated_circuit_template/times_table
+	name = "5. Times Table"
+	desc = "You needed to learn your 7 times table, right?"
+	build_path = /obj/item/integrated_circuit/template/times_table
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 5550, /datum/material/copper = 1250)
+
+/datum/design/integrated_circuit_template/coin_flip
+	name = "6. Coin Flip"
+	desc = "A Simple Coin Flipper"
+	build_path = /obj/item/integrated_circuit/template/coin_flip
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 5050, /datum/material/copper = 1100)
+
+/datum/design/integrated_circuit_template/atmos_checker
+	name = "7. Atmos Safety Checker"
+	desc = "Is your air safe? Find out!"
+	build_path = /obj/item/integrated_circuit/template/atmos_checker
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 10050, /datum/material/copper = 2600)
+
+/datum/design/integrated_circuit_template/broken_translator
+	name = "A1. Broken Translator"
+	desc = "A translator that doesn't work"
+	build_path = /obj/item/integrated_circuit/template/broken_translator
+	materials = list(/datum/material/iron = 6700, /datum/material/glass = 4550, /datum/material/copper = 950)
+
+/datum/design/integrated_circuit_template/scanning_gate
+	name = "A2. NTNet Scanning Gate"
+	desc = "A wireless scanning gate"
+	build_path = /obj/item/integrated_circuit/template/scanning_gate
+	materials = list(/datum/material/iron = 13700, /datum/material/glass = 7050, /datum/material/copper = 1100)
+
+/datum/design/integrated_circuit_template/vending_circuit
+	name = "A3. Vending Circuit"
+	desc = "A simple vending machine circuit"
+	build_path = /obj/item/integrated_circuit/template/vending_circuit
+	materials = list(/datum/material/iron = 11700, /datum/material/glass = 6050, /datum/material/gold = 50, /datum/material/copper = 1400)

@@ -1,196 +1,186 @@
 /datum/techweb_node/basic_circuitry
-	id = TECHWEB_NODE_BASIC_CIRCUITRY
 	tech_tier = 0
-	starting_node = TRUE
 	display_name = "Basic Integrated Circuits"
 	description = "Research on how to fully exploit the power of integrated circuits"
-	design_ids = list(
-		"circuit_multitool",
-		"comp_arithmetic",
-		"comp_clock",
-		"comp_comparison",
-		"comp_concat_list",
-		"comp_concat",
-		"comp_delay",
-		"comp_direction",
-		"comp_iterator",
-		"comp_isnull",
-		"comp_get_column",
-		"comp_get_name",
-		"comp_gps",
-		"comp_relative_coords",
-		"comp_health",
-		"comp_hear",
-		"comp_index_table",
-		"comp_index",
-		"comp_install_detector",
-		"comp_length",
-		"comp_light",
-		"comp_list_literal",
-		"comp_logic",
-		"comp_mmi",
-		"comp_module",
-		"comp_multiplexer",
-		"comp_not",
-		"comp_noop",
-		"comp_ntnet_receive",
-		"comp_ntnet_send",
-		"comp_pathfind",
-		"comp_pressuresensor",
-		"comp_radio",
-		"comp_random",
-		"comp_reagent_injector",
-		"comp_round",
-		"comp_router",
-		"comp_select_query",
-		"comp_self",
-		"comp_soundemitter",
-		"comp_species",
-		"comp_speech",
-		"comp_split",
-		"comp_string_contains",
-		"comp_switch_case",
-		"comp_tempsensor",
-		"comp_textcase",
-		"comp_tonumber",
-		"comp_tostring",
-		"comp_trim",
-		"comp_typecast",
-		"compact_remote_shell",
-		"component_printer",
-		"integrated_circuit",
-		"module_duplicator",
-		"usb_cable",
-		"comp_gate_toggle",
-		"comp_gate_set_reset",
+	node_flags = parent_type::node_flags | TECHWEB_NODE_STARTER
+	unlocked_designs = list(
+		/datum/design/circuit_multitool,
+		/datum/design/component/arbitrary_input_amount/arithmetic,
+		/datum/design/component/clock,
+		/datum/design/component/comparison,
+		/datum/design/component/concat_list,
+		/datum/design/component/concat,
+		/datum/design/component/delay,
+		/datum/design/component/direction,
+		/datum/design/component/iterator,
+		/datum/design/component/is_null_component,
+		/datum/design/component/get_column,
+		/datum/design/component/get_name,
+		/datum/design/component/gps,
+		/datum/design/component/bci/relative_coords,
+		/datum/design/component/health,
+		/datum/design/component/hear,
+		/datum/design/component/index_table,
+		/datum/design/component/index,
+		/datum/design/component/bci/install_detector,
+		/datum/design/component/length,
+		/datum/design/component/light,
+		/datum/design/component/list_literal,
+		/datum/design/component/logic,
+		/datum/design/component/mmi,
+		/datum/design/component/module,
+		/datum/design/component/multiplexer,
+		/datum/design/component/not,
+		/datum/design/component/noop,
+		/datum/design/component/ntnet_receive,
+		/datum/design/component/ntnet_send,
+		/datum/design/component/pathfind,
+		/datum/design/component/pressuresensor,
+		/datum/design/component/radio,
+		/datum/design/component/random,
+		/datum/design/component/bci/reagent_injector,
+		/datum/design/component/round,
+		/datum/design/component/router,
+		/datum/design/component/select_query,
+		/datum/design/component/self,
+		/datum/design/component/soundemitter,
+		/datum/design/component/species,
+		/datum/design/component/speech,
+		/datum/design/component/split,
+		/datum/design/component/contains,
+		/datum/design/component/switch_case,
+		/datum/design/component/tempsensor,
+		/datum/design/component/textcase,
+		/datum/design/component/tonumber,
+		/datum/design/component/tostring,
+		/datum/design/component/trim,
+		/datum/design/component/typecast,
+		/datum/design/compact_remote_shell,
+		/datum/design/board/component_printer,
+		/datum/design/integrated_circuit,
+		/datum/design/board/module_printer,
+		/datum/design/usb_cable,
+		/datum/design/component/gate/toggle,
+		/datum/design/component/gate/set_reset,
 	)
 
 /datum/techweb_node/circuit_templates
-	id = TECHWEB_NODE_CIRCUIT_TEMPLATES
-	tech_tier = 0
-	starting_node = TRUE
 	display_name = "Professor's Circuits"
 	description = "I need some help with circuits. Can you lend a hand?"
-	design_ids = list(
-		"template_notes",
-		"template_hello_world",
-		"template_greeter",
-		"template_ticker",
-		"template_simple_math",
-		"template_times_table",
-		"template_coin_flip",
-		"template_atmos_checker",
+	node_flags = parent_type::node_flags | TECHWEB_NODE_STARTER
+	unlocked_designs = list(
+		/datum/design/integrated_circuit_template/professors_notes,
+		/datum/design/integrated_circuit_template/hello_world,
+		/datum/design/integrated_circuit_template/greeter,
+		/datum/design/integrated_circuit_template/ticker,
+		/datum/design/integrated_circuit_template/simple_math,
+		/datum/design/integrated_circuit_template/times_table,
+		/datum/design/integrated_circuit_template/coin_flip,
+		/datum/design/integrated_circuit_template/atmos_checker,
 	)
 
 /datum/techweb_node/math_circuits
-	id = TECHWEB_NODE_MATH_CIRCUITS
 	tech_tier = 1
 	display_name = "Math Circuitry"
 	description = "Development of more complex mathematical components for all your number manipulating needs"
-	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_DATATHEORY)
-	design_ids = list(
-		"comp_adv_trig",
-		"comp_bitflag",
-		"comp_bitwise",
-		"comp_hyper_trig",
-		"comp_trig",
-		"comp_abs",
+	prerequisite_nodes = list(/datum/techweb_node/basic_circuitry, /datum/techweb_node/datatheory)
+	unlocked_designs = list(
+		/datum/design/component/adv_trig,
+		/datum/design/component/bitflag,
+		/datum/design/component/arbitrary_input_amount/bitwise,
+		/datum/design/component/hyper_trig,
+		/datum/design/component/trig,
+		/datum/design/component/abs,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/list_circuits
-	id = TECHWEB_NODE_LIST_CIRCUITS
 	tech_tier = 1
 	display_name = "List Circuitry"
 	description = "Configures new integrated circuit components capable of representing one dimensional data structures such as arrays, stacks, and queues."
-	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_DATATHEORY)
-	design_ids = list(
-		"comp_append",
-		"comp_foreach",
-		"comp_index",
-		"comp_length",
-		"comp_list_constructor",
-		"comp_list_length_constructor",
-		"comp_pop",
-		"comp_write",
+	prerequisite_nodes = list(/datum/techweb_node/basic_circuitry, /datum/techweb_node/datatheory)
+	unlocked_designs = list(
+		/datum/design/component/append,
+		/datum/design/component/for_each,
+		/datum/design/component/index,
+		/datum/design/component/length,
+		/datum/design/component/list_constructor,
+		/datum/design/component/list_length_constructor,
+		/datum/design/component/pop,
+		/datum/design/component/write,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/adv_shells
-	id = TECHWEB_NODE_ADV_SHELLS
 	tech_tier = 2
 	display_name = "Advanced Shell Research"
 	description = "Grants access to more complicated shell designs."
-	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_ENGINEERING)
-	design_ids = list(
-		"assembly_shell",
-		"bot_shell",
-		"ipc_control",
-		//"comp_mod_action",
-		"controller_shell",
-		"door_shell",
-		//"module_shell",
-		"money_bot_shell",
-		"scanner_gate_shell",
-		"scanner_shell",
+	prerequisite_nodes = list(/datum/techweb_node/basic_circuitry, /datum/techweb_node/engineering)
+	unlocked_designs = list(
+		/datum/design/assembly_shell,
+		/datum/design/bot_shell,
+		/datum/design/ipc_control,
+		///datum/design/component/mod_action,
+		/datum/design/controller_shell,
+		/datum/design/airlock_shell,
+		///datum/design/mod_module_shell,
+		/datum/design/money_bot_shell,
+		/datum/design/scanner_gate_shell,
+		/datum/design/scanner_shell,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/bci_shells
-	id = TECHWEB_NODE_BCI_SHELLS
 	tech_tier = 2
 	display_name = "Brain-Computer Interfaces"
 	description = "Grants access to biocompatable shell designs and components."
-	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS)
-	design_ids = list(
-		"bci_implanter",
-		"bci_shell",
-		"comp_bci_action",
-		"comp_bar_overlay",
-		"comp_counter_overlay",
-		"comp_object_overlay",
-		"comp_target_intercept",
-		"comp_thought_listener",
+	prerequisite_nodes = list(/datum/techweb_node/adv_shells)
+	unlocked_designs = list(
+		/datum/design/board/bci_implanter,
+		/datum/design/bci_shell,
+		/datum/design/component/bci/bci_action,
+		/datum/design/component/bci/bar_overlay,
+		/datum/design/component/bci/counter_overlay,
+		/datum/design/component/bci/object_overlay,
+		/datum/design/component/bci/target_intercept,
+		/datum/design/component/bci/thought_listener,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/movable_shells_tech
-	id = TECHWEB_NODE_MOVABLE_SHELLS
 	tech_tier = 2
 	display_name = "Movable Shell Research"
 	description = "Grants access to movable shells."
-	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_ROBOTICS)
-	design_ids = list(
-		"comp_pull",
-		"drone_shell",
+	prerequisite_nodes = list(/datum/techweb_node/adv_shells, /datum/techweb_node/robotics)
+	unlocked_designs = list(
+		/datum/design/component/pull,
+		/datum/design/drone_shell,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/server_shell_tech
-	id = TECHWEB_NODE_SERVER_SHELL
 	tech_tier = 2
 	display_name = "Server Technology Research"
 	description = "Grants access to a server shell that has a very high capacity for components."
-	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_COMPUTER_HARDWARE_BASIC)
-	design_ids = list("server_shell")
+	prerequisite_nodes = list(/datum/techweb_node/adv_shells, /datum/techweb_node/computer_hardware_basic)
+	unlocked_designs = list(/datum/design/server_shell)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/advanced_circuit_templates
-	id = TECHWEB_NODE_ADVANCED_CIRCUIT_TEMPLATES
 	tech_tier = 2
 	display_name = "Advanced Circuit Templates"
 	description = "Circuit Templates. Some broken, some not very useful"
-	prereq_ids = list(TECHWEB_NODE_MATH_CIRCUITS, TECHWEB_NODE_LIST_CIRCUITS, TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_BCI_SHELLS, TECHWEB_NODE_MOVABLE_SHELLS, TECHWEB_NODE_SERVER_SHELL)
-	design_ids = list(
-		"template_broken_translator",
-		"template_scanning_gate",
-		"template_circuit_vendor"
+	prerequisite_nodes = list(/datum/techweb_node/math_circuits, /datum/techweb_node/list_circuits, /datum/techweb_node/adv_shells, /datum/techweb_node/bci_shells, /datum/techweb_node/movable_shells_tech, /datum/techweb_node/server_shell_tech)
+	unlocked_designs = list(
+		/datum/design/integrated_circuit_template/broken_translator,
+		/datum/design/integrated_circuit_template/scanning_gate,
+		/datum/design/integrated_circuit_template/vending_circuit,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)

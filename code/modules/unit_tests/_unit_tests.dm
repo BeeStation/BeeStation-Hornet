@@ -123,7 +123,6 @@
 #include "surgeries.dm"
 #include "surgery_linking.dm"
 #include "tail_wag.dm"
-#include "techweb_sanity.dm"
 #include "teleporters.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"

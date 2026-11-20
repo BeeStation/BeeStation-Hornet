@@ -461,7 +461,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			research_msg += sep
 			research_msg += node.display_name
 			sep = ", "
-	var/list/points = techweb_item_point_check(src)
+	var/list/points = SSresearch.techweb_point_items[type]
 	if (length(points))
 		sep = ", "
 		research_msg += techweb_point_display_generic(points)

@@ -197,29 +197,26 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 	)
 
 	if (t_disk)
-		data["t_disk"] = list (
-			"stored_research" = t_disk.stored_research.researched_nodes
+		data["t_disk"] = list(
+			"stored_research" = t_disk.stored_nodes
 		)
 	if (d_disk)
-		data["d_disk"] = list("blueprints" = list())
-		for (var/datum/design/D in d_disk.blueprints)
-			data["d_disk"]["blueprints"] += D.id
+		data["d_disk"] = list(
+			"blueprints" = d_disk.blueprints
+		)
 
 	// Serialize all nodes to display
-	for(var/v in stored_research.tiers)
-		var/datum/techweb_node/n = SSresearch.techweb_node_by_id(v)
-
+	for(var/node_path, node_tier in stored_research.tiers)
 		// Ensure node is supposed to be visible
-		if (stored_research.hidden_nodes[v])
+		if (stored_research.hidden_nodes[node_path])
 			continue
 
-		var/costs = n.get_price(stored_research)
-
+		var/datum/techweb_node/node = SSresearch.techweb_nodes[node_path]
 		data["nodes"] += list(list(
-			"id" = n.id,
+			"path" = node_path,
 			"can_unlock" = stored_research.can_afford(costs),
-			"tier" = stored_research.tiers[n.id],
-			"costs" = costs,
+			"tier" = node_tier,
+			"costs" = node.get_price(stored_research),
 		))
 	return data
 
@@ -239,44 +236,41 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 	// by the greatest amount that we can, as larger JSON payloads result in
 	// hanging when the user opens the UI
 	var/node_cache = list()
-	for (var/node_id in SSresearch.techweb_nodes)
-		var/datum/techweb_node/node = SSresearch.techweb_nodes[node_id] || SSresearch.error_node
-		var/compressed_id = "[compress_id(node.id)]"
+	for (var/node_path, _node in SSresearch.techweb_nodes)
+		var/datum/techweb_node/node = _node
+		var/compressed_id = "[compress_id(node.type)]"
 		node_cache[compressed_id] = list(
 			"name" = node.display_name,
 			"description" = node.description,
 			"node_tier" = node.tech_tier,
 		)
-		if (LAZYLEN(node.prereq_ids))
-			node_cache[compressed_id]["prereq_ids"] = list()
-			for (var/prerequisite_node in node.prereq_ids)
-				node_cache[compressed_id]["prereq_ids"] += compress_id(prerequisite_node)
-		if (LAZYLEN(node.design_ids))
-			node_cache[compressed_id]["design_ids"] = list()
-			for (var/unlocked_design in node.design_ids)
-				node_cache[compressed_id]["design_ids"] += compress_id(unlocked_design)
-		if (LAZYLEN(node.unlock_ids))
-			node_cache[compressed_id]["unlock_ids"] = list()
-			for (var/unlocked_node in node.unlock_ids)
-				node_cache[compressed_id]["unlock_ids"] += compress_id(unlocked_node)
+		if (LAZYLEN(node.prerequisite_nodes))
+			node_cache[compressed_id]["prerequisite_nodes"] = list()
+			for (var/prerequisite_node in node.prerequisite_nodes)
+				node_cache[compressed_id]["prerequisite_nodes"] += compress_id(prerequisite_node)
+		if (LAZYLEN(node.unlocked_designs))
+			node_cache[compressed_id]["unlocked_designs"] = list()
+			for (var/unlocked_design in node.unlocked_designs)
+				node_cache[compressed_id]["unlocked_designs"] += compress_id(unlocked_design)
+		if (LAZYLEN(node.unlocked_designs))
+			node_cache[compressed_id]["unlocked_designs"] = list()
+			for (var/unlocked_node in node.unlocked_designs)
+				node_cache[compressed_id]["unlocked_designs"] += compress_id(unlocked_node)
 
 	// Build design cache
 	var/design_cache = list()
 	var/datum/asset/spritesheet_batched/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
-	for (var/design_id in SSresearch.techweb_designs)
-		var/datum/design/design = SSresearch.techweb_designs[design_id] || SSresearch.error_design
-		var/compressed_id = "[compress_id(design.id)]"
-		var/size = spritesheet.icon_size_id(design.id)
-		design_cache[compressed_id] = list(
+	for (var/design_path, _design in SSresearch.techweb_designs)
+		var/datum/design/design = _design
+		var/size = spritesheet.icon_size_id(design.asset_id)
+		design_cache["[compress_id(design.asset_id)]"] = list(
 			design.name,
 			design.desc,
-			"["[size] "][design.id]"
+			"[size] [design.asset_id]",
 		)
 
 	// Ensure id cache is included for decompression
-	var/flat_id_cache = list()
-	for (var/id in id_cache)
-		flat_id_cache += id
+	var/flat_id_cache = assoc_to_keys(id_cache)
 
 	.["static_data"] = list(
 		"node_cache" = node_cache,
@@ -312,7 +306,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 			compact = !compact
 			return TRUE
 		if ("researchNode")
-			research_node(params["node_id"], usr)
+			research_node(text2path(params["node_path"]), usr)
 			return TRUE
 		if ("ejectDisk")
 			eject_disk(params["type"])
@@ -336,7 +330,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 					return TRUE
 				COOLDOWN_START(src, copy_cooldown, 5 SECONDS)
 				say("Uploading technology disk.")
-				t_disk.stored_research.copy_research_to(stored_research)
+				stored_research.absorb_techdisk(t_disk)
 			return TRUE
 		// Tech disk-only action
 		if ("loadTech")
@@ -348,7 +342,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 				return
 			COOLDOWN_START(src, copy_cooldown, 5 SECONDS)
 			say("Downloading to technology disk.")
-			stored_research.copy_research_to(t_disk.stored_research)
+			t_disk.stored_nodes |= stored_research.researched_nodes
 			return TRUE
 
 /obj/machinery/computer/rdconsole/proc/eject_disk(type)

@@ -665,14 +665,14 @@ const TechNode = (props) => {
               <Button.Confirm
                 icon="lightbulb"
                 disabled={!can_unlock || tier > 1}
-                onClick={() => act('researchNode', { node_id: id })}
+                onClick={() => act('researchNode', { node_path: id })}
                 content="Research"
               />
             ) : (
               <Button
                 icon="lightbulb"
                 disabled={!can_unlock || tier > 1}
-                onClick={() => act('researchNode', { node_id: id })}
+                onClick={() => act('researchNode', { node_path: id })}
               >
                 Research
               </Button>

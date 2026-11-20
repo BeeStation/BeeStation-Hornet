@@ -68,7 +68,7 @@
 	// Queue items
 
 	/// An associative list of the designs in the queue
-	/// design_queue[design_id] = list("amount" = int, "repeating" = bool, "build_mat" = something)
+	/// design_queue[design_path] = list("amount" = int, "repeating" = bool, "build_mat" = something)
 	var/list/design_queue = list()
 	/// If TRUE, once a design is processed, it will be stuck right back onto the queue again
 	var/queue_repeating = FALSE
@@ -217,9 +217,8 @@
 
 	cached_designs.Cut()
 
-	for(var/design_id in stored_research.researched_designs)
-		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
-
+	for(var/design_path in stored_research.researched_designs)
+		var/datum/design/design = SSresearch.techweb_designs[design_path]
 		if(design.build_type & allowed_buildtypes)
 			cached_designs |= design
 
@@ -313,8 +312,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 /obj/machinery/modular_fabricator/proc/merge_design_data(list/into, list/from)
 	PROTECTED_PROC(TRUE)
 
-	for(var/design_id, design_data in from)
-		into[design_id] = design_data
+	for(var/design_path, design_data in from)
+		into[design_path] = design_data
 
 /**
  * Converts the designs supported by this modular fabricator into UI data,
@@ -326,8 +325,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	PROTECTED_PROC(TRUE)
 
 	var/list/buildable = list()
-	for(var/design_id in designs)
-		var/datum/design/design = astype(design_id, /datum/design) || SSresearch.techweb_design_by_id(design_id)
+	for(var/design_path in designs)
+		var/datum/design/design = astype(design_path, /datum/design) || SSresearch.techweb_designs[design_path]
 		if(!istype(design) || !(design.build_type & allowed_buildtypes))
 			continue
 		buildable += design
@@ -344,8 +343,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	data["disk_inserted"] = !!inserted_disk
 	data["can_upload_disk"] = FALSE
 	if(inserted_disk) // A disk can only be uploaded only if it has at least one design we don't already have
-		for(var/datum/design/blueprint in inserted_disk.blueprints)
-			if(!imported_designs[blueprint.id])
+		for(var/design_path in inserted_disk.blueprints)
+			if(!imported_designs[design_path])
 				data["can_upload_disk"] = TRUE
 				break
 
@@ -357,12 +356,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	// Queue
 	data["queue_repeating"] = queue_repeating
 	data["design_queue"] = list()
-	for(var/queued_design_id, queue_data in design_queue)
-		var/datum/design/design = SSresearch.techweb_design_by_id(queued_design_id)
+	for(var/queued_design_path, queue_data in design_queue)
+		var/datum/design/design = SSresearch.techweb_designs[queued_design_path]
 		data["design_queue"] += list(list(
 			"name" = design.name,
 			"amount" = queue_data["amount"],
-			"design_id" = queued_design_id,
+			"design_path" = queued_design_path,
 		))
 
 	// Materials
@@ -372,7 +371,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	// Thing being made
 	if(being_built && total_build_time && process_completion_world_tick)
 		data["being_built"] = list(
-			"design_id" = being_built.id,
+			"design_path" = being_built.type,
 			"name" = being_built.name,
 			"progress" = 100 - (100 * ((process_completion_world_tick - world.time) / total_build_time)),
 		)
@@ -418,8 +417,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 				return
 
 			var/previous_design_count = length(imported_designs)
-			for(var/datum/design/blueprint in inserted_disk.blueprints)
-				imported_designs[blueprint.id] = TRUE
+			for(var/design_path in inserted_disk.blueprints)
+				imported_designs[design_path] = TRUE
 
 			var/design_delta = length(imported_designs) - previous_design_count
 			if(design_delta > 0)
@@ -442,10 +441,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			if(!can_print_entire_categories)
 				return
 			var/category_to_queue = params["category_name"]
-			for(var/design_id in stored_research.researched_designs)
-				var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+			for(var/design_path in stored_research.researched_designs)
+				var/datum/design/design = SSresearch.techweb_designs[design_path]
 				if(category_to_queue in design.category)
-					add_to_queue(design_id, 1)
+					add_to_queue(design_path, 1)
 			return TRUE
 
 		if("queue_repeat")
@@ -457,20 +456,20 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			return TRUE
 
 		if("queue_remove_one")
-			add_to_queue(params["design_id"], -1)
+			add_to_queue(text2path(params["design_path"]), -1)
 			return TRUE
 
 		if("clear_item")
-			var/design_id = params["design_id"]
-			design_queue -= design_id
+			var/design_path = text2path(params["design_path"])
+			design_queue -= design_path
 			return TRUE
 
 		if("queue_item")
 			if(!uses_queue)
 				return FALSE
-			var/design_id = params["design_id"]
+			var/design_path = text2path(params["design_path"])
 			var/amount = clamp(text2num(params["amount"]), 1, MAX_LATHE_PRINT_AMOUNT)
-			add_to_queue(design_id, amount)
+			add_to_queue(design_path, amount)
 			return TRUE
 
 		if("build")
@@ -481,17 +480,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 				design_queue.Cut() // This is here to prevent machines from bricking themselves.
 				wants_to_operate = FALSE
 
-			var/list/design_ids = params["designs"]
-			if(islist(design_ids))
-				for(var/build_design_id in design_ids)
-					add_to_queue(build_design_id, 1)
+			var/list/design_paths = params["designs"]
+			if(islist(design_paths))
+				for(var/build_design_path in design_paths)
+					add_to_queue(text2path(build_design_path), 1)
 				if(params["now"])
 					queue_stopped = FALSE
 					begin_process()
 				return TRUE
-			var/build_design_id = params["ref"] || params["design_id"]
+			var/build_design_path = text2path(params["ref"] || params["design_path"])
 			var/build_amount = clamp(text2num(params["amount"]), 1, 50)
-			add_to_queue(build_design_id, build_amount)
+			add_to_queue(build_design_path, build_amount)
 			queue_stopped = FALSE
 			begin_process()
 			return TRUE
@@ -514,12 +513,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			if(isnull(queue_index) || queue_index < 1)
 				return TRUE
 			var/items_passed = 0
-			for(var/design_id in design_queue)
-				var/amount = max(design_queue[design_id]["amount"], 1)
+			for(var/design_path, queue_data in design_queue)
+				var/amount = max(queue_data["amount"], 1)
 				if(queue_index > items_passed + amount)
 					items_passed += amount
 					continue
-				add_to_queue(design_id, -1)
+				add_to_queue(design_path, -1)
 				break
 			return TRUE
 
@@ -554,28 +553,28 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
  * Adds a design to the designs queue.
  *
  * Arguments:
- * * design_id - The design ID eventually fabricate
+ * * design_path - A typepath of the design to eventually fabricate
  * * amount - The amount of the design to fabricate
  * * used_material - The material that the design will be made of
  */
-/obj/machinery/modular_fabricator/proc/add_to_queue(design_id, amount, datum/material/used_material)
-	if(design_queue["[design_id]"])
-		design_queue["[design_id]"]["amount"] += amount
-		if(design_queue["[design_id]"]["amount"] <= 0)
-			design_queue -= "[design_id]"
+/obj/machinery/modular_fabricator/proc/add_to_queue(design_path, amount, datum/material/used_material)
+	if(design_queue[design_path])
+		design_queue[design_path]["amount"] += amount
+		if(design_queue[design_path]["amount"] <= 0)
+			design_queue -= design_path
 		return
 	if(amount <= 0)
 		return
 
-	var/is_valid_design = stored_research.researched_designs[design_id]
-	is_valid_design ||= imported_designs[design_id]
+	var/is_valid_design = stored_research.researched_designs[design_path]
+	is_valid_design ||= imported_designs[design_path]
 	if(hacked)
-		is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[design_id]
+		is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[design_path]
 	if(!is_valid_design)
 		return
 
 	//Check if the item uses custom materials
-	var/datum/design/requested_item = SSresearch.techweb_design_by_id(design_id)
+	var/datum/design/requested_item = SSresearch.techweb_designs[design_path]
 
 	if(!istype(used_material))
 		for(var/material_or_category in requested_item.materials)
@@ -591,7 +590,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 				if(!used_material)
 					return //Didn't pick any material, so you can't build shit either.
 
-	design_queue["[design_id]"] = list(
+	design_queue[design_path] = list(
 		"amount" = amount,
 		"repeating" = FALSE, // by default we aren't repeating
 		"build_mat" = used_material,
@@ -621,9 +620,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	if(operating || disabled || queue_stopped)
 		return
 
-	var/requested_design_id
+	var/requested_design_path
 	if(length(design_queue))
-		requested_design_id = design_queue[1]
+		requested_design_path = design_queue[1]
 	else
 		//Queue processing done
 		say("Queue processing completed.")
@@ -634,24 +633,24 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	update_use_power(ACTIVE_POWER_USE)
 
 	// Get our design
-	var/is_valid_design = stored_research.researched_designs[requested_design_id]
-	is_valid_design ||= imported_designs[requested_design_id]
+	var/is_valid_design = stored_research.researched_designs[requested_design_path]
+	is_valid_design ||= imported_designs[requested_design_path]
 	if(hacked)
-		is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[requested_design_id]
+		is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[requested_design_path]
 	if(!is_valid_design)
 		playsound(src, 'sound/machines/buzz-two.ogg', 50)
 		say("Unknown design requested, removing from queue.")
-		design_queue -= requested_design_id
+		design_queue -= requested_design_path
 		addtimer(CALLBACK(src, PROC_REF(restart_process)), 5 SECONDS)
 		return
 
-	being_built = SSresearch.techweb_design_by_id(requested_design_id)
+	being_built = SSresearch.techweb_designs[requested_design_path]
 
 	var/items_to_build = 1
 	var/is_stack = ispath(being_built.build_path, /obj/item/stack)
 	//Only items that can stack should be build en-mass, since we now have queues.
 	if(is_stack)
-		items_to_build = design_queue[requested_design_id]["amount"]
+		items_to_build = design_queue[requested_design_path]["amount"]
 	items_to_build = clamp(items_to_build, 1, MAX_STACK_SIZE)
 
 	/////////////////
@@ -674,9 +673,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		var/amount_needed = material_amount * coeff * items_to_build
 
 		if(istext(used_material)) //This means its a category
-			used_material = design_queue[requested_design_id]["build_mat"]
+			used_material = design_queue[requested_design_path]["build_mat"]
 			if(!used_material)
-				design_queue -= requested_design_id
+				design_queue -= requested_design_path
 				addtimer(CALLBACK(src, PROC_REF(restart_process)), 0.5 SECONDS)
 				return //Didn't pick any material, so you can't build shit either.
 			custom_materials[used_material] += amount_needed
@@ -708,24 +707,24 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 
 	//===Repeating mode===
 	//Remove from queue
-	var/list/queue_data = design_queue[requested_design_id]
-	design_queue[requested_design_id]["amount"] -= items_to_build
+	var/list/queue_data = design_queue[requested_design_path]
+	design_queue[requested_design_path]["amount"] -= items_to_build
 	var/removed = FALSE
-	if(design_queue[requested_design_id]["amount"] <= 0)
-		design_queue -= requested_design_id
+	if(design_queue[requested_design_path]["amount"] <= 0)
+		design_queue -= requested_design_path
 		removed = TRUE
 
 	// Requeue if necessary
 	if(queue_repeating || queue_data["repeating"])
 		stored_item_amount ++
 		if(removed)
-			add_to_queue(requested_design_id, stored_item_amount, queue_data["build_mat"])
+			add_to_queue(requested_design_path, stored_item_amount, queue_data["build_mat"])
 			stored_item_amount = 0
 
 	// Create item & restart
 	process_completion_world_tick = world.time + time
 	total_build_time = time
-	addtimer(CALLBACK(src, PROC_REF(make_item), power, materials_used, custom_materials, items_to_build, coeff, is_stack, requested_design_id, queue_data), time)
+	addtimer(CALLBACK(src, PROC_REF(make_item), power, materials_used, custom_materials, items_to_build, coeff, is_stack, requested_design_path, queue_data), time)
 	addtimer(CALLBACK(src, PROC_REF(restart_process)), time + 0.5 SECONDS)
 
 /obj/machinery/modular_fabricator/proc/restart_process()
@@ -736,7 +735,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		return
 	begin_process()
 
-/obj/machinery/modular_fabricator/proc/make_item(power, list/materials_used, list/picked_materials, items_to_build, coeff, is_stack, requested_design_id, queue_data)
+/obj/machinery/modular_fabricator/proc/make_item(power, list/materials_used, list/picked_materials, items_to_build, coeff, is_stack, requested_design_path, queue_data)
 	if(QDELETED(src))
 		return
 
@@ -747,7 +746,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		set_default_sprite()
 		print_sound.stop()
 		// requeue the item
-		add_to_queue(requested_design_id, stored_item_amount + 1, queue_data["build_mat"])
+		add_to_queue(requested_design_path, stored_item_amount + 1, queue_data["build_mat"])
 		stored_item_amount = 0
 		return
 
@@ -759,7 +758,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		set_default_sprite()
 		print_sound.stop()
 		// requeue the item
-		add_to_queue(requested_design_id, stored_item_amount + 1, queue_data["build_mat"])
+		add_to_queue(requested_design_path, stored_item_amount + 1, queue_data["build_mat"])
 		stored_item_amount = 0
 		return
 

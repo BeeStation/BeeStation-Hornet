@@ -112,7 +112,7 @@
 	// Copy research data to ninja's internal tech disk
 	var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = ninja.back
 	if(istype(ninja_suit) && ninja_suit.internal_techdisk)
-		stored_research.copy_research_to(ninja_suit.internal_techdisk.stored_research)
+		ninja_suit.internal_techdisk.stored_nodes |= stored_research.researched_nodes
 		to_chat(ninja, span_notice("Research data downloaded to MODsuit storage."))
 
 	to_chat(ninja, span_notice("Download complete. Research notes installed."))

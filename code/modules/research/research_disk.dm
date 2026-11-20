@@ -4,12 +4,13 @@
 	desc = "A disk for storing technology data for further research."
 	icon_state = "datadisk0"
 	custom_materials = list(/datum/material/iron=300, /datum/material/glass=100)
-	var/datum/techweb/stored_research
+	var/list/stored_nodes
 
 /obj/item/disk/tech_disk/Initialize(mapload)
 	. = ..()
-	if(!stored_research)
-		stored_research = new /datum/techweb/disk
+	if(!islist(stored_nodes))
+		// gotta make it assoc or else it breaks
+		stored_nodes = make_associative(SSresearch.techweb_nodes_starting)
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
@@ -19,5 +20,7 @@
 	custom_materials = null
 
 /obj/item/disk/tech_disk/debug/Initialize(mapload)
-	stored_research = locate(/datum/techweb/admin) in SSresearch.techwebs
+	var/datum/techweb/admin/admin_techweb = locate() in SSresearch.techwebs
+	admin_techweb ||= new()
+	stored_nodes = admin_techweb.researched_nodes.Copy()
 	return ..()

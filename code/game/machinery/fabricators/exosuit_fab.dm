@@ -46,12 +46,12 @@
 		))
 
 	var/queue_index = 0
-	for(var/design_id in design_queue)
-		for(var/copy in 1 to max(design_queue[design_id]["amount"], 1))
+	for(var/design_path, queue_data in design_queue)
+		for(var/copy in 1 to max(queue_data["amount"], 1))
 			queue_index++
 			data["queue"] += list(list(
-				"jobId" = "queued-[queue_index]-[design_id]",
-				"designId" = design_id,
+				"jobId" = "queued-[queue_index]-[design_path]",
+				"designPath" = design_path,
 				"processing" = FALSE,
 				"timeLeft" = 0,
 			))

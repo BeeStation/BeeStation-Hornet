@@ -145,8 +145,8 @@
 
 	cached_designs.Cut()
 
-	for(var/design_id in stored_research.researched_designs)
-		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+	for(var/design_path in stored_research.researched_designs)
+		var/datum/design/design = SSresearch.techweb_designs[design_path]
 
 		if((isnull(allowed_department_flags) || (design.departmental_flags & allowed_department_flags)) && (design.build_type & allowed_buildtypes))
 			cached_designs |= design
@@ -236,7 +236,7 @@
 			if(busy)
 				say("Warning: Fabricators busy!")
 				return
-			return user_try_print_id(params["ref"] || params["design_id"], params["amount"])
+			return user_try_print_design(text2path(params["ref"] || params["design_path"]), params["amount"])
 
 		if("dispose")
 			var/R = text2path(params["reagent_id"])
@@ -334,16 +334,17 @@
 /obj/machinery/rnd/production/proc/efficient_with(path)
 	return !ispath(path, /obj/item/stack/sheet) && !ispath(path, /obj/item/stack/ore/bluespace_crystal)
 
-/obj/machinery/rnd/production/proc/user_try_print_id(design_id, amount = 1)
-	if(!design_id)
+/obj/machinery/rnd/production/proc/user_try_print_design(design_path, amount = 1)
+	if(!stored_research.researched_designs[design_path])
 		return FALSE
+
+	var/datum/design/design = SSresearch.techweb_designs[design_path]
+	if(!istype(design))
+		return FALSE
+
 	if(istext(amount))
 		amount = text2num(amount)
 	amount = clamp(amount, 1, MAX_LATHE_PRINT_AMOUNT)
-
-	var/datum/design/design = stored_research.researched_designs[design_id] ? SSresearch.techweb_design_by_id(design_id) : null
-	if(!istype(design))
-		return FALSE
 
 	if(!(isnull(allowed_department_flags) || (design.departmental_flags & allowed_department_flags)))
 		say("This fabricator does not have the necessary keys to decrypt this design.")
@@ -366,8 +367,8 @@
 	if(!materials.mat_container.has_materials(materials_to_consume, amount))
 		say("Not enough materials to complete prototype[amount > 1 ? "s" : ""].")
 		return FALSE
-	for(var/datum/reagent/reagent as anything in design.reagents_list)
-		if(!reagents.has_reagent(reagent, design.reagents_list[reagent] * amount))
+	for(var/reagent, reagent_amount in design.reagents_list)
+		if(!reagents.has_reagent(reagent, reagent_amount * amount))
 			say("Not enough reagents to complete prototype[amount > 1 ? "s" : ""].")
 			return FALSE
 
@@ -381,8 +382,8 @@
 	// Consume materials & reagents
 	materials.mat_container.use_materials(materials_to_consume, amount)
 	materials.silo_log(src, "built", -amount, "[design.name]", materials_to_consume)
-	for(var/datum/reagent/reagent as anything in design.reagents_list)
-		reagents.remove_reagent(reagent, design.reagents_list[reagent] * amount)
+	for(var/reagent, reagent_amount in design.reagents_list)
+		reagents.remove_reagent(reagent, reagent_amount * amount)
 
 	// Start production
 	busy = TRUE

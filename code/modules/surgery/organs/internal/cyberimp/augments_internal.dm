@@ -145,11 +145,11 @@
 		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
-	for(var/i in linked_techweb.researched_designs)
-		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
-		if(!istype(D))
+	for(var/design_path in linked_techweb.researched_designs)
+		var/datum/design/surgery/design = SSresearch.techweb_designs[design_path]
+		if(!istype(design))
 			continue
-		advanced_surgeries |= D.surgery
+		advanced_surgeries |= design.surgery
 	for(var/held_item in owner.held_items)
 		if(!held_item)
 			continue
@@ -163,8 +163,8 @@
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/tech_disk))
 			var/obj/item/disk/tech_disk/tech_disk = held_item
-			for(var/D in tech_disk.stored_research.researched_designs)
-				var/datum/design/surgery/surgery_design = SSresearch.techweb_design_by_id(D)
+			for(var/design_path in tech_disk.stored_research.researched_designs)
+				var/datum/design/surgery/surgery_design = SSresearch.techweb_designs[design_path]
 				if(!istype(surgery_design))
 					continue
 				if(!(surgery_design.surgery in advanced_surgeries))

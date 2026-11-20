@@ -95,18 +95,17 @@
 			reagents.del_reagent(text2path(href_list["disposeI"]))
 
 		if(href_list["make"])
+			var/design_path = text2path(href_list["make"])
 
-			/////////////////
-			//href protection
-			being_built = stored_research.isDesignResearchedID(href_list["make"]) //check if it's a valid design
-			if(!being_built)
+			//check if it's a valid design
+			if(!stored_research.researched_designs[design_path])
 				return
+			being_built = SSresearch.techweb_designs[design_path]
 
-
-			var/synth_cost = being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff
+			var/synth_cost = being_built.reagents_list[/datum/reagent/medicine/synthflesh] * prod_coeff
 			var/power = max(active_power_usage, synth_cost/5)
 
-			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff))
+			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh] * prod_coeff))
 				busy = TRUE
 				use_power(power)
 				z_flick("limbgrower_fill",src)
@@ -190,17 +189,17 @@
 	dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><br>"
 	dat += materials_printout()
 
-	var/list/designs = stored_research.researched_designs
+	var/list/designs = stored_research.researched_designs.Copy()
 	if(obj_flags & EMAGGED)
 		designs += stored_research.hacked_designs
-	for(var/design_id in designs)
-		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+	for(var/design_path in designs)
+		var/datum/design/design = SSresearch.techweb_designs[design_path]
 		if(!(selected_category in design.category))
 			continue
 		if(disabled || !can_build(design))
-			dat += span_linkoff("[design.name]")
+			dat += span_linkoff(design.name)
 		else
-			dat += "<a href='byond://?src=[REF(src)];make=[design.id];multiplier=1'>[design.name]</a>"
+			dat += "<a href='byond://?src=[REF(src)];make=[design.type];multiplier=1'>[design.name]</a>"
 		dat += "[get_design_cost(design)]<br>"
 
 	dat += "</div>"

@@ -1,3 +1,11 @@
+// Techweb node flags
+/// Every techweb starts off with this node
+#define TECHWEB_NODE_STARTER (1<<0)
+/// This node cannot be seen in the techweb
+#define TECHWEB_NODE_HIDDEN (1<<1)
+/// This node shows up on the autowiki
+#define TECHWEB_NODE_WIKI (1<<2)
+
 #define DEPARTMENTAL_FLAG_SECURITY (1<<0)
 #define DEPARTMENTAL_FLAG_MEDICAL (1<<1)
 #define DEPARTMENTAL_FLAG_CARGO	(1<<2)
@@ -5,8 +13,6 @@
 #define DEPARTMENTAL_FLAG_ENGINEERING (1<<4)
 #define DEPARTMENTAL_FLAG_SERVICE (1<<5)
 #define DEPARTMENTAL_FLAG_ALL (1<<6) //NO THIS DOESN'T ALLOW YOU TO PRINT EVERYTHING, IT'S FOR ALL DEPARTMENTS!
-
-#define DESIGN_ID_IGNORE "IGNORE_THIS_DESIGN"
 
 /// When adding new types, update the list below!
 #define TECHWEB_POINT_TYPE_GENERIC "General Research"

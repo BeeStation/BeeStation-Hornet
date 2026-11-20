@@ -2,7 +2,7 @@
 	name = "nanite chamber control console"
 	desc = "Controls a connected nanite chamber. Can inoculate nanites, load programs, and analyze existing nanite swarms."
 	var/obj/machinery/nanite_chamber/chamber
-	icon_screen = "nanite_chamber_control"
+	icon_screen = /datum/design/board/nanite_chamber_control
 	circuit = /obj/item/circuitboard/computer/nanite_chamber_control
 
 

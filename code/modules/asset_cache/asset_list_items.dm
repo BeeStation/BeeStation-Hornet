@@ -301,21 +301,21 @@
 	name = "design"
 
 /datum/asset/spritesheet_batched/research_designs/create_spritesheets()
-	for (var/datum/design/D as anything in subtypesof(/datum/design))
+	for (var/datum/design/design_path as anything in valid_subtypesof(/datum/design))
 		var/icon_file
 		var/icon_state
 		var/datum/universal_icon/design_uni_icon = null
 
-		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
-			icon_file = initial(D.research_icon)
-			icon_state = initial(D.research_icon_state)
+		if(initial(design_path.research_icon) && initial(design_path.research_icon_state)) //If the design has an icon replacement skip the rest
+			icon_file = design_path::research_icon
+			icon_state = design_path::research_icon_state
 			design_uni_icon = uni_icon(icon_file, icon_state)
 		else
 			// construct the icon and slap it into the resource cache
-			var/atom/item = initial(D.build_path)
+			var/atom/item = initial(design_path.build_path)
 			if (!ispath(item, /atom))
 				// biogenerator outputs to beakers by default
-				if (initial(D.build_type) & BIOGENERATOR)
+				if (initial(design_path.build_type) & BIOGENERATOR)
 					item = /obj/item/reagent_containers/cup/beaker/large
 				else
 					continue  // shouldn't happen, but just in case
@@ -329,7 +329,7 @@
 					item = machine
 
 			if (initial(item.greyscale_config) && initial(item.greyscale_colors))
-				insert_icon(initial(D.id), gags_to_universal_icon(item))
+				insert_icon(get_design_id(design_path), gags_to_universal_icon(item))
 				continue
 			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
 				var/obj/item/bodypart/body_part = item
@@ -354,7 +354,11 @@
 					design_uni_icon.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
 					design_uni_icon.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
-		insert_icon(initial(D.id), design_uni_icon)
+		insert_icon(get_design_id(design_path), design_uni_icon)
+
+/datum/asset/spritesheet_batched/research_designs/proc/get_design_id(design_path)
+	var/static/base_path_len = length("/datum/design/")
+	return replacetext(splicetext("[design_path]", 1, base_path_len + 1), "/", "_")
 
 /datum/asset/spritesheet_batched/vending
 	name = "vending"

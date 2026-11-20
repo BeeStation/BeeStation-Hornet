@@ -44,11 +44,11 @@
 /obj/machinery/computer/operating/proc/sync_surgeries()
 	if(!linked_techweb)
 		return
-	for(var/i in linked_techweb.researched_designs)
-		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
-		if(!istype(D))
+	for(var/design_path in linked_techweb.researched_designs)
+		var/datum/design/surgery/design = SSresearch.techweb_designs[design_path]
+		if(!istype(design))
 			continue
-		advanced_surgeries |= D.surgery
+		advanced_surgeries |= design.surgery
 
 /obj/machinery/computer/operating/proc/find_op_table()
 	for(var/direction in GLOB.alldirs)

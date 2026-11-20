@@ -5,7 +5,6 @@
 /datum/design/basic_cell
 	name = "Basic Power Cell"
 	desc = "A basic power cell that holds 1 MJ of energy."
-	id = "basic_cell"
 	build_type = PROTOLATHE | AUTOLATHE |MECHFAB
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 50, /datum/material/copper = 100)
 	construction_time=100
@@ -16,7 +15,6 @@
 /datum/design/high_cell
 	name = "High-Capacity Power Cell"
 	desc = "A power cell that holds 10 MJ of energy."
-	id = "high_cell"
 	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 60, /datum/material/copper = 100)
 	construction_time=100
@@ -27,7 +25,6 @@
 /datum/design/super_cell
 	name = "Super-Capacity Power Cell"
 	desc = "A power cell that holds 20 MJ of energy."
-	id = "super_cell"
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 70, /datum/material/copper = 100)
 	construction_time=100
@@ -38,7 +35,6 @@
 /datum/design/hyper_cell
 	name = "Hyper-Capacity Power Cell"
 	desc = "A power cell that holds 30 MJ of energy."
-	id = "hyper_cell"
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/silver = 150, /datum/material/glass = 80, /datum/material/copper = 100)
 	construction_time=100
@@ -49,7 +45,6 @@
 /datum/design/bluespace_cell
 	name = "Bluespace Power Cell"
 	desc = "A power cell that holds 40 MJ of energy."
-	id = "bluespace_cell"
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(/datum/material/iron = 800, /datum/material/gold = 120, /datum/material/glass = 160, /datum/material/diamond = 160, /datum/material/titanium = 300, /datum/material/bluespace = 100, /datum/material/copper = 100)
 	construction_time=100
@@ -60,7 +55,6 @@
 /datum/design/light_replacer
 	name = "Light Replacer"
 	desc = "A device to automatically replace lights. Refill with working light bulbs."
-	id = "light_replacer"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 3000)
 	build_path = /obj/item/lightreplacer
@@ -70,7 +64,6 @@
 /datum/design/light_replacer_bluespace
 	name = "Bluespace Light Replacer"
 	desc = "A device to automatically replace lights from a distance. Refill with working light bulbs."
-	id = "light_replacer_bluespace"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 6000, /datum/material/bluespace = 300)
 	build_path = /obj/item/lightreplacer/bluespace
@@ -81,7 +74,6 @@
 /datum/design/inducer
 	name = "Heavy-Duty Inducer"
 	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This heavy-duty model is more potent."
-	id = "inducer"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 6000, /datum/material/glass = 2000, /datum/material/copper = 200)
 	build_path = /obj/item/inducer/eng
@@ -91,7 +83,6 @@
 /datum/design/inducer/sci
 	name = "Inducer"
 	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This civilian model is less potent."
-	id = "inducersci"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000, /datum/material/copper = 100)
 	build_path = /obj/item/inducer/sci
@@ -101,7 +92,6 @@
 /datum/design/board/pacman
 	name = "Machine Design (PACMAN-type Generator Board)"
 	desc = "The circuit board that for a PACMAN-type portable generator."
-	id = "pacman"
 	build_path = /obj/item/circuitboard/machine/pacman
 	category = list(RND_CATEGORY_ENGINEERING_MACHINERY)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
@@ -109,13 +99,11 @@
 /datum/design/board/pacman/super
 	name = "Machine Design (SUPERPACMAN-type Generator Board)"
 	desc = "The circuit board that for a SUPERPACMAN-type portable generator."
-	id = "superpacman"
 	build_path = /obj/item/circuitboard/machine/pacman/super
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/pacman/mrs
 	name = "Machine Design (MRSPACMAN-type Generator Board)"
 	desc = "The circuit board that for a MRSPACMAN-type portable generator."
-	id = "mrspacman"
 	build_path = /obj/item/circuitboard/machine/pacman/mrs
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING

@@ -230,8 +230,10 @@
 	var/monetary_reward = round(floor(((artifact.item_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate), 1)
 	//Alloctae
 	if(is_main_console)
-		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
-		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
+		linked_techweb?.adjust_multiple_points(list(
+			TECHWEB_POINT_TYPE_GENERIC = rnd_reward,
+			TECHWEB_POINT_TYPE_DISCOVERY = dp_reward,
+		))
 		budget.adjust_money(monetary_reward)
 	//Announce victory or fuck up
 	var/success_type

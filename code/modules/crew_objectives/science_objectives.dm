@@ -20,40 +20,39 @@
 	if(..())
 		return TRUE
 	var/borgcount = target_amount
-	for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
+	for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 		if(R.stat != DEAD)
 			borgcount--
 	return borgcount <= 0
 
 /datum/objective/crew/research //inspired by old hippie's research level objective.
-	var/datum/design/target_design
-	var/static/list/possible_target_designs_list
 	explanation_text = "Make sure the research for (something broke, yell on GitHub) is available on the R&D server by the end of the shift."
 	jobs = list(
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_SCIENTIST,
 	)
 
+	var/static/list/possible_target_designs_list
+	var/datum/design/target_design_type
+
 /datum/objective/crew/research/New()
 	. = ..()
 	if(!possible_target_designs_list)
 		fill_out_target_list()
-	target_design = pick(possible_target_designs_list)
+	target_design_type = pick(possible_target_designs_list)
 	update_explanation_text()
 
 /datum/objective/crew/research/proc/fill_out_target_list()
 	possible_target_designs_list = list()
-	var/list/temp_list = subtypesof(/datum/design)
-	for(var/found_design in temp_list)
-		var/datum/design/temp_design = new found_design
-		var/list/category_list = temp_design.category
-		if(!(RND_CATEGORY_INITIAL in category_list))
-			possible_target_designs_list.Add(found_design)
+	for(var/possible_design_path, _possible_design in SSresearch.techweb_designs)
+		var/datum/design/possible_design = _possible_design
+		if(!(RND_CATEGORY_INITIAL in possible_design.category))
+			possible_target_designs_list += possible_design_path
 
 /datum/objective/crew/research/update_explanation_text()
 	. = ..()
-	explanation_text = "Make sure the research for [initial(target_design.name)] is available on the R&D server by the end of the shift."
+	explanation_text = "Make sure the research for [target_design_type::name] is available on the R&D server by the end of the shift."
 
 /datum/objective/crew/research/check_completion()
 	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-	return ..() || science_web.isDesignResearchedID(initial(target_design.id))
+	return ..() || science_web.researched_designs[target_design_type]

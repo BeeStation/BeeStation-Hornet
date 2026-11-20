@@ -288,8 +288,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	/***** Give Points and $$$ *****/
 
 	var/discovery_point_gain = general_point_gain
-	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_GENERIC, general_point_gain)
-	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
+	linked_techweb.adjust_multiple_points(list(
+		TECHWEB_POINT_TYPE_GENERIC = general_point_gain,
+		TECHWEB_POINT_TYPE_DISCOVERY = discovery_point_gain,
+	))
 
 	var/datum/bank_account/science_bank = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 	science_bank?.adjust_money(money_gain)
