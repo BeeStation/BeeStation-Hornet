@@ -2,6 +2,12 @@
 		category = CATEGORY_HUMAN
 		weight = WEIGHT_MOB
 
+/datum/keybinding/mob/can_use(client/user)
+	var/atom/movable/screen/zone_sel/selector = user.mob?.hud_used?.zone_select
+	if(required_pref_type == /datum/preference/choiced/zone_select && selector?.force_precise)
+		return required_pref_value == PREFERENCE_BODYZONE_INTENT
+	return ..()
+
 
 /datum/keybinding/mob/move_north
 	keys = list("W")
