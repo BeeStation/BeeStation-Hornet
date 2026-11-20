@@ -20,6 +20,8 @@
 	var/can_be_triggered = FALSE
 	///Whether the module is currently active
 	var/active = TRUE
+	/// Whether another module of the same type cannot be installed alongside this one.
+	var/unstackable = FALSE
 	///Label used in the ui next to the Activate/Enable/Disable buttons
 	var/active_label = "Status"
 	///Chassis power cell quantity used on activation
@@ -125,12 +127,13 @@
  * * target: targetted atom for action activation
  * * user: occupant to display do after for
  * * interaction_key: interaction key to pass to [/proc/do_after]
+ * * delay_multiplier: multiplier applied to the equipment's normal activation delay
  */
-/obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target, mob/user, interaction_key)
+/obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target, mob/user, interaction_key, delay_multiplier = 1)
 	if(!chassis)
 		return FALSE
 	chassis.use_power(energy_drain)
-	return do_after(user, equip_cooldown, target, extra_checks = CALLBACK(src, PROC_REF(do_after_checks), target), interaction_key = interaction_key)
+	return do_after(user, equip_cooldown * delay_multiplier, target, extra_checks = CALLBACK(src, PROC_REF(do_after_checks), target), interaction_key = interaction_key)
 
 ///Do after wrapper for mecha equipment
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_mecha(atom/target, mob/user, delay)
@@ -157,6 +160,11 @@
 				to_chat(user, span_warning("\The [mech]'s left arm is full![mech.equip_by_category[MECHA_R_ARM] ? "" : " Try right arm!"]"))
 				return FALSE
 		return TRUE
+	if(unstackable)
+		for(var/obj/item/mecha_parts/mecha_equipment/equipment as anything in mech.equip_by_category[equipment_slot])
+			if(type == equipment.type)
+				to_chat(user, span_warning("You cannot install more than one [name]!"))
+				return FALSE
 	if(length(mech.equip_by_category[equipment_slot]) == mech.max_equip_by_category[equipment_slot])
 		to_chat(user, span_warning("This equipment slot is already full!"))
 		return FALSE

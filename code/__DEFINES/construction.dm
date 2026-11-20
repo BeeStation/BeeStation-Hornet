@@ -111,6 +111,9 @@
 /// How much less resources the RCD uses when reconstructing
 #define RCD_MEMORY_COST_BUFF 8
 
+/// How much longer reinforced walls take to deconstruct with an RCD.
+#define RCD_RWALL_DELAY_MULT 2
+
 // Frame (de/con)struction states
 /// Frame is empty, no wires no board
 #define FRAME_STATE_EMPTY 0
