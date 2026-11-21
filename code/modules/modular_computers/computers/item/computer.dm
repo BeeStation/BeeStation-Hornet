@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	integrity_failure = 0.5
 	max_integrity = 100
 	armor_type = /datum/armor/item_modular_computer
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -205,14 +206,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/proc/play_ping()
 	playsound(loc, 'sound/machines/ping.ogg', get_clamped_volume(), FALSE, -1)
 
-/obj/item/modular_computer/AltClick(mob/user)
-	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return FALSE
+/obj/item/modular_computer/click_alt(mob/user)
+	if(issilicon(user))
+		return NONE
 	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(!card_slot2?.try_eject(user))
 		return card_slot?.try_eject(user)
-	return TRUE
+	return CLICK_ACTION_SUCCESS
 
 // Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
 /obj/item/modular_computer/GetAccess()
@@ -265,11 +266,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return TRUE
 	return FALSE
 
-/obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
-	var/mob/M = usr
-	if((!istype(over_object, /atom/movable/screen)) && usr.canUseTopic(src, BE_CLOSE))
-		return attack_self(M)
-	return ..()
+/obj/item/modular_computer/mouse_drop_dragged(atom/over_object, mob/user)
+	if(!istype(over_object, /atom/movable/screen))
+		return attack_self(user)
 
 /obj/item/modular_computer/attack_silicon(mob/user)
 	return attack_self(user)

@@ -26,9 +26,11 @@ CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/gentle)
 	if(preactivate_core(user))
 		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
 
-/obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
-	if(preactivate_core(user))
-		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
+/obj/item/slimecross/gentle/click_alt(mob/living/carbon/user)
+	if(!preactivate_core(user))
+		return CLICK_ACTION_BLOCKING
+	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/slimecross/gentle/proc/preactivate_core(mob/living/carbon/user)
 	if(user.incapacitated || !iscarbon(user))

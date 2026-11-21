@@ -456,18 +456,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
 
-	if(!user.canUseTopic(src, !issilicon(user)))
+	if(!user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy!</span>")
+		to_chat(user, span_warning("[src] is busy!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	if(state_open)
-		to_chat(user, "<span class='warning'>Close the door first!</span>")
+		to_chat(user, span_warning("Close the door first!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	if(bloody_mess)
-		to_chat(user, "<span class='warning'>[src] must be cleaned up first!</span>")
+		to_chat(user, span_warning("[src] must be cleaned up first!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
-	//state_open = FALSE //close the door
 	busy = TRUE
 	update_appearance()
 	bloody_mess = FALSE

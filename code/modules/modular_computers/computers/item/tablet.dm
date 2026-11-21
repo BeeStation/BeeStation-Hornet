@@ -131,32 +131,34 @@
 	..()
 
 // Eject the PAI then pen if the ID was not ejected
-/obj/item/modular_computer/tablet/AltClick(mob/user)
-	if(..() || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+/obj/item/modular_computer/tablet/click_alt(mob/user)
+	. = ..()
+	if(. || issilicon(user))
 		return
 	if(!inserted_item && stored_pai_card)
 		usr.put_in_hands(stored_pai_card)
 		remove_pai()
 	else
 		remove_pen(user)
+	return CLICK_ACTION_SUCCESS
 
 // Always eject pen with Ctrl+Click
-/obj/item/modular_computer/tablet/CtrlClick(mob/user)
-	..()
+/obj/item/modular_computer/tablet/item_ctrl_click(mob/user)
 	// We want to allow the user to drag the tablet still
-	if(isturf(loc) || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
+	if(isturf(loc) || issilicon(user))
+		return NONE
 	remove_pen(user)
+	return CLICK_ACTION_SUCCESS
 
 // Eject Job Disk
-/obj/item/modular_computer/tablet/CtrlShiftClick(mob/user)
-	..()
-	// We want to allow the user to drag the tablet still
-	if(isturf(loc) || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/modular_computer/tablet/click_ctrl_shift(mob/user)
+	if(isturf(loc) || issilicon(user))
+		return NONE
 	var/obj/item/computer_hardware/hard_drive/role/disk = all_components[MC_HDD_JOB]
-	if(istype(disk))
-		uninstall_component(disk, user, TRUE)
+	if(!istype(disk))
+		return NONE
+	uninstall_component(disk, user, TRUE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/modular_computer/tablet/verb/verb_toggle_light()
 	set name = "Toggle Light"
@@ -171,8 +173,10 @@
 	remove_pen(usr)
 
 /obj/item/modular_computer/tablet/proc/remove_pen(mob/user)
-	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
+
+	if(issilicon(user) || !user.can_perform_action(src, FORBID_TELEKINESIS_REACH | NEED_DEXTERITY)) //TK doesn't work even with this removed but here for readability
 		return
+		
 	if(!inserted_item)
 		to_chat(user, span_warning("This tablet does not have a pen in it!"))
 		return

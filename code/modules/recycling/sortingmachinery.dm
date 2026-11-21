@@ -113,11 +113,10 @@
 			update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/pen))
-		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on the side of [src]!"))
+		if(!user.can_write(item))
 			return
-		var/str = stripped_input(user, "Label text?", "Set label", "", MAX_NAME_LEN)
-		if(!user.canUseTopic(src, BE_CLOSE))
+		var/str = tgui_input_text(user, "Label text?", "Set label", max_length = MAX_NAME_LEN)
+		if(!user.can_perform_action(src))
 			return
 		if(!str || !length(str))
 			to_chat(user, span_warning("Invalid text!"))
@@ -369,18 +368,18 @@
 	new_barcode.cut_multiplier = cut_multiplier // Also the registered percent cut.
 	user.put_in_hands(new_barcode)
 
-/obj/item/sales_tagger/CtrlClick(mob/user)
-	. = ..()
+/obj/item/sales_tagger/item_ctrl_click(mob/user)
 	payments_acc = null
 	to_chat(user, span_notice("You clear the registered account."))
+	return CLICK_ACTION_SUCCESS
 
-/obj/item/sales_tagger/AltClick(mob/user)
-	. = ..()
+/obj/item/sales_tagger/click_alt(mob/user)
 	var/potential_cut = input("How much would you like to pay out to the registered card?","Percentage Profit ([round(cut_min*100)]% - [round(cut_max*100)]%)") as num|null
 	if(!potential_cut)
 		cut_multiplier = initial(cut_multiplier)
 	cut_multiplier = clamp(round(potential_cut/100, cut_min), cut_min, cut_max)
 	to_chat(user, span_notice("[round(cut_multiplier*100)]% profit will be received if a package with a barcode is sold."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/barcode
 	name = "barcode tag"

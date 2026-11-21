@@ -242,21 +242,21 @@
 	return ..()
 
 /// Distance Check (Inside Of)
-/obj/structure/closet/crate/coffin/AltClick(mob/user)
-	. = ..()
+/obj/structure/closet/crate/coffin/click_alt(mob/user)
 	if(user in src)
 		LockMe(user, !locked)
-		return
+		return CLICK_ACTION_SUCCESS
 
-	if(user == resident && user.Adjacent(src))
-		balloon_alert(user, "unclaim coffin?")
-		var/static/list/unclaim_options = list(
-			"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
-			"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"))
-		var/unclaim_response = show_radial_menu(user, src, unclaim_options, radius = 36, require_near = TRUE)
-		switch(unclaim_response)
-			if("Yes")
-				unclaim_coffin(TRUE)
+	if(user != resident || !user.Adjacent(src))
+		return NONE
+	balloon_alert(user, "unclaim coffin?")
+	var/static/list/unclaim_options = list(
+		"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
+		"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"))
+	var/unclaim_response = show_radial_menu(user, src, unclaim_options, radius = 36, require_near = TRUE)
+	if(unclaim_response == "Yes")
+		unclaim_coffin(TRUE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/crate/proc/LockMe(mob/user, inLocked = TRUE)
 	if(user == resident)

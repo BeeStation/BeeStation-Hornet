@@ -434,11 +434,11 @@ Contains:
 
 
 /// Single Use, No Cell cover to open up.
-/obj/item/clothing/suit/space/hardsuit/skinsuit/AltClick(mob/living/user)
+/obj/item/clothing/suit/space/hardsuit/skinsuit/click_alt(mob/living/user)
 	return
 
 /// Single Use, No Cell to remove
-/obj/item/clothing/suit/space/hardsuit/skinsuit/CtrlClick(mob/living/user)
+/obj/item/clothing/suit/space/hardsuit/skinsuit/item_ctrl_click(mob/user)
 	return
 
 /obj/item/clothing/head/helmet/space/hunter

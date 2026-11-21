@@ -1,4 +1,5 @@
 /obj/machinery/dna_scannernew
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	name = "\improper DNA scanner"
 	desc = "It scans DNA structures."
 	icon = 'icons/obj/machines/cloning.dmi'
@@ -152,10 +153,8 @@
 /obj/machinery/dna_scannernew/interact(mob/user)
 	toggle_open(user)
 
-/obj/machinery/dna_scannernew/MouseDrop_T(mob/target, mob/user)
-	if(..())
-		return
-	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user) || locked)
+/obj/machinery/dna_scannernew/mouse_drop_receive(atom/target, mob/user, params)
+	if(!iscarbon(target) || locked)
 		return
 	close_machine(target)
 

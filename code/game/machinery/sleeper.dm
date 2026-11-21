@@ -5,6 +5,7 @@
 	density = FALSE
 
 /obj/machinery/sleeper
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "sleeper"
 	desc = "An enclosed machine used to stabilize and heal patients."
 	icon = 'icons/obj/machines/sleeper.dmi'
@@ -12,6 +13,7 @@
 	density = FALSE
 	obj_flags = BLOCKS_CONSTRUCTION
 	state_open = TRUE
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	circuit = /obj/item/circuitboard/machine/sleeper
 	clicksound = 'sound/machines/pda_button1.ogg'
 
@@ -158,12 +160,9 @@
 		open_machine()
 
 
-/obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
-	if(..())
+/obj/machinery/sleeper/mouse_drop_receive(atom/target, mob/user, params)
+	if(!iscarbon(target))
 		return
-	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
-		return
-
 	close_machine(target)
 
 
@@ -216,13 +215,12 @@
 		ui = new(user, src, "Sleeper")
 		ui.open()
 
-/obj/machinery/sleeper/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/machinery/sleeper/click_alt(mob/user)
 	if(state_open)
 		close_machine()
 	else
 		open_machine()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()

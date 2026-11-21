@@ -6,6 +6,7 @@
 	base_icon_state = "pdapainter"
 	max_integrity = 200
 	density = TRUE
+	interaction_flags_click = ALLOW_SILICON_REACH
 	/// Current ID card inserted into the machine.
 	var/obj/item/card/id/stored_id_card = null
 	/// Current PDA inserted into the machine.
@@ -204,15 +205,14 @@
 		else
 			to_chat(user, span_notice("[src] is empty."))
 
-/obj/machinery/pdapainter/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-	if(stored_pda || stored_id_card)
-		eject_id_card(user)
-		eject_pda()
-		to_chat(usr, span_notice("You eject the contents."))
-	else
-		to_chat(usr, span_notice("[src] is empty."))
+/obj/machinery/pdapainter/click_alt(mob/user)
+	if(!stored_pda && !stored_id_card)
+		to_chat(user, span_notice("[src] is empty."))
+		return CLICK_ACTION_BLOCKING
+	eject_id_card(user)
+	eject_pda()
+	to_chat(user, span_notice("You eject the contents."))
+	return CLICK_ACTION_SUCCESS
 
 
 /**
