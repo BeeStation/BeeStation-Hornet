@@ -1,0 +1,9 @@
+environment = "beestation.dme"
+header_path = "code/__DEFINES/spacelizard.dm"
+
+[passes]
+default = ["CBT"]
+ci_extra = [["CBT", "CIBUILDING"]]
+
+[rules]
+var_alias_escape = "warning"

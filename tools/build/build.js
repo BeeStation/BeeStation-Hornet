@@ -12,6 +12,7 @@ import { env } from 'process';
 import Juke from './juke/index.js';
 import { DreamDaemon, DreamMaker, NamedVersionFile } from './lib/byond.js';
 import { yarn } from './lib/yarn.js';
+import { resolveSpacelizard } from './lib/spacelizard.js';
 
 const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
 
@@ -292,8 +293,37 @@ export const LintTarget = new Juke.Target({
   dependsOn: [TguiLintTarget],
 });
 
+export const SpacelizardTarget = new Juke.Target({
+  parameters: [DefineParameter, CiParameter],
+  dependsOn: ({ get }) => [
+    get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
+  ],
+  executes: async ({ get }) => {
+    const ci = get(CiParameter);
+    let executable;
+    try {
+      executable = await resolveSpacelizard();
+    }
+    catch (error) {
+      // CI must run the checker; local builds (offline, unsupported platform) only warn.
+      if (ci) {
+        throw error;
+      }
+      Juke.logger.warn(`Skipping Spacelizard: ${error.message}`);
+      return;
+    }
+    const defines = get(DefineParameter).map((value) =>
+      '--define=' + value.trim().replace(/^([A-Za-z_]\w*)\s+/, '$1='));
+    await Juke.exec(executable, [
+      'check', '--verify-header',
+      ...(ci ? ['--ci', '--format=github'] : []),
+      ...defines,
+    ]);
+  },
+});
+
 export const BuildTarget = new Juke.Target({
-  dependsOn: [DmTarget, TgFontTarget, TguiTarget],
+  dependsOn: [DmTarget, SpacelizardTarget, TgFontTarget, TguiTarget],
 });
 
 export const ServerTarget = new Juke.Target({

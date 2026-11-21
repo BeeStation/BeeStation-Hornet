@@ -184,7 +184,10 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(CLONING_STRICT_ARGS(clonename, unique_identity, unique_enzymes, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental, gender, age, datum/blood_type/blood_type))
+/obj/machinery/clonepod/proc/growclone(clonename, unique_identity, unique_enzymes, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental, gender, age, datum/blood_type/blood_type)
+	SHOULD_CALL_ALL_PARAMS(TRUE)
+	SHOULD_STATE_PARAM_NAMES(TRUE)
+	SHOULD_KEEP_PARAM_ORDER(TRUE)
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
