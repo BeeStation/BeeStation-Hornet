@@ -17,9 +17,9 @@
 /obj/structure/easel/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/canvas))
 		var/obj/item/canvas/canvas = I
-		user.dropItemToGround(canvas)
+		if(!user.transfer_item_to_turf(canvas, get_turf(src), silent = FALSE))
+			return
 		painting = canvas
-		canvas.forceMove(get_turf(src))
 		canvas.layer = layer+0.1
 		user.visible_message(
 			"<span class='notice'>[user] puts \the [canvas] on \the [src].</span>",

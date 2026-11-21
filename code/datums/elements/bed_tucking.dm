@@ -36,12 +36,10 @@
 	if(!istype(target_bed))
 		return
 
-	if(!tucker.transferItemToLoc(tucked, target_bed.drop_location()))
+	if(!tucker.transfer_item_to_turf(tucked, target_bed.drop_location(), x_offset, y_offset))
 		return
 
 	to_chat(tucker, span_notice("You lay [tucked] out on [target_bed]."))
-	tucked.pixel_x = x_offset
-	tucked.pixel_y = y_offset
 	if(rotation_degree)
 		tucked.transform = turn(tucked.transform, rotation_degree)
 		RegisterSignal(tucked, COMSIG_ITEM_PICKUP, PROC_REF(untuck))

@@ -243,13 +243,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		return TRUE
 
 	if(!user.combat_mode && !(I.item_flags & ABSTRACT))
-		if(user.transferItemToLoc(I, drop_location(), silent = FALSE))
-			//Center the icon where the user clicked.
-			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
-				return
-			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
-			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+		var/x_offset = 0
+		var/y_offset = 0
+		// Items are centered by default, but we move them if click ICON_X and ICON_Y are available
+		if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
+			// Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+			x_offset = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+			y_offset = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+		if(user.transfer_item_to_turf(I, get_turf(src), x_offset, y_offset, silent = FALSE))
 			return TRUE
 	else
 		return ..()
@@ -726,7 +727,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		return .
 	if((tool.item_flags & ABSTRACT) || (user.combat_mode && !(tool.item_flags & NOBLUDGEON)))
 		return NONE
-	if(user.transferItemToLoc(tool, get_turf(src), silent = FALSE))
+	if(user.transfer_item_to_turf(tool, get_turf(src), silent = FALSE))
 		return ITEM_INTERACT_SUCCESS
 	return ITEM_INTERACT_BLOCKING
 
