@@ -2,7 +2,7 @@
 /// Four shared sparse DMI sheets gate the appearances; only one is visible to
 /// each client. This also handles nonuniform scale (long hitscan tracers), for
 /// which simply rotating the source bitmap before scaling would be incorrect.
-/datum/world_space_icon
+/datum/brandish_image_projector
 	/// Atom or an owned world overlay image (never a client.images entry).
 	var/image/owner
 	var/source_icon
@@ -26,32 +26,33 @@
 	var/last_e
 	var/last_f
 
-/datum/world_space_icon/New(image/target)
+/datum/brandish_image_projector/New(image/target)
 	owner = target
 	source_icon = target.icon
 	return ..()
 
-/datum/world_space_icon/Destroy()
+/datum/brandish_image_projector/Destroy()
 	clear_layers()
 	owner = null
 	layers = null
 	return ..()
 
-/datum/world_space_icon/proc/clear_layers()
+/datum/brandish_image_projector/proc/clear_layers()
+	layers_dirty = TRUE
 	if(isatom(owner))
 		var/atom/target = owner
 		target.cut_overlay(layers)
 	else if(owner)
 		owner.overlays -= layers
 
-/datum/world_space_icon/proc/show_layers()
+/datum/brandish_image_projector/proc/show_layers()
 	if(isatom(owner))
 		var/atom/target = owner
 		target.add_overlay(layers)
 	else
 		owner.overlays += layers
 
-/datum/world_space_icon/proc/refresh(force = FALSE)
+/datum/brandish_image_projector/proc/refresh(force = FALSE)
 	var/static/blank = 'icons/blanks/32x32.dmi'
 	if(owner.icon != blank)
 		source_icon = owner.icon
@@ -107,36 +108,39 @@
 			layer = image(dir = NORTH, layer = FLOAT_LAYER)
 			layer.appearance_flags = RESET_TRANSFORM
 			layers += layer
-		layer.icon = gates["[facing]"]
-		layer.icon_state = "[state]@[art_dir]"
+		set_layer_icon(layer, gates["[facing]"], "[state]@[art_dir]")
 		layer.transform = projection_for(facing, world_transform)
 	show_layers()
 	layers_dirty = FALSE
 	return TRUE
 
+/datum/brandish_image_projector/proc/set_layer_icon(image/layer, gate, state)
+	layer.icon = gate
+	layer.icon_state = state
+
 /// Called only for dirty inputs, before the overlay appearance is attached.
-/datum/world_space_icon/proc/projection_for(facing, matrix/world_transform)
+/datum/brandish_image_projector/proc/projection_for(facing, matrix/world_transform)
 	var/matrix/projection = matrix(world_transform)
 	projection.Turn(-dir2angle(facing))
 	return projection
 
 /atom
-	var/datum/world_space_icon/world_space_icon
+	var/datum/brandish_image_projector/brandish_image_projector
 
 /// Use for geometry whose angle/scale is defined in world coordinates. Sprite
 /// pivot corrections stay in pixel_w/z; trajectory positions stay in pixel_x/y.
-/atom/proc/set_world_transform(matrix/new_transform)
+/atom/proc/set_brandish_transform(matrix/new_transform)
 	transform = new_transform
-	if(!GLOB.brandish_assets.enabled && !world_space_icon)
+	if(!GLOB.brandish_assets.enabled && !brandish_image_projector)
 		return
-	if(!world_space_icon)
-		world_space_icon = new(src)
-	world_space_icon.refresh()
+	if(!brandish_image_projector)
+		brandish_image_projector = new(src)
+	brandish_image_projector.refresh()
 
 /// Whole world geometry, including rectangular canvases and multi-tile bounds.
 /// Keep the owner's map pixel offsets and gameplay bounds unchanged. Rotate
 /// the canvas centre with the world, then undo BYOND's native bounds anchor.
-/datum/world_space_icon/geometry
+/datum/brandish_image_projector/group
 	var/atom/movable/bounds_owner
 	var/last_bound_width
 	var/last_bound_height
@@ -146,15 +150,24 @@
 	var/centre_x
 	var/centre_y
 
-/datum/world_space_icon/geometry/New(image/target, atom/movable/footprint = target)
+/datum/brandish_image_projector/group/New(image/target, atom/movable/footprint = target)
 	bounds_owner = footprint
 	return ..()
 
-/datum/world_space_icon/geometry/Destroy()
+/datum/brandish_image_projector/group/Destroy()
 	bounds_owner = null
 	return ..()
 
-/datum/world_space_icon/geometry/refresh(force = FALSE)
+/datum/brandish_image_projector/group/show_layers()
+	if(isatom(owner))
+		var/atom/target = owner
+		// The projected sprite replaces the base. Equal-layer overlays added
+		// after it must draw above it, even when a turn refreshes the base alone.
+		target.add_overlay(layers, prepend = TRUE)
+		return
+	return ..()
+
+/datum/brandish_image_projector/group/refresh(force = FALSE)
 	var/bounds_changed = last_bound_width != bounds_owner.bound_width || last_bound_height != bounds_owner.bound_height \
 		|| last_bound_x != bounds_owner.bound_x || last_bound_y != bounds_owner.bound_y
 	last_bound_width = bounds_owner.bound_width
@@ -163,7 +176,7 @@
 	last_bound_y = bounds_owner.bound_y
 	return ..(force || bounds_changed)
 
-/datum/world_space_icon/geometry/projection_for(facing, matrix/world_transform)
+/datum/brandish_image_projector/group/projection_for(facing, matrix/world_transform)
 	if(canvas_source != source_icon)
 		canvas_source = source_icon
 		var/list/size = get_icon_dimensions(source_icon)
@@ -181,9 +194,9 @@
 
 /// Snapshot an owned geometry overlay into an ordinary appearance. Its four
 /// sparse children use the same footprint correction as the atom's body.
-/atom/movable/proc/brandish_geometry_overlay(state, overlay_layer = FLOAT_LAYER)
+/atom/movable/proc/brandish_group_overlay(state, overlay_layer = FLOAT_LAYER)
 	var/image/drawing = image(initial(icon), icon_state = state, layer = overlay_layer, dir = dir)
-	var/datum/world_space_icon/geometry/projector = new(drawing, src)
+	var/datum/brandish_image_projector/group/projector = new(drawing, src)
 	projector.refresh()
 	var/mutable_appearance/result = new(drawing.appearance)
 	qdel(projector)

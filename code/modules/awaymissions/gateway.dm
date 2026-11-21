@@ -15,11 +15,11 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	return ..()
 
 /obj/machinery/gateway
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "gateway"
 	desc = "A gateway built for quick travel between linked destinations."
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
+	brandish_image = /datum/brandish_image/group_rotate
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
@@ -56,32 +56,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	if(!isnull(bumper))
 		QDEL_NULL(bumper)
 	return ..()
-
-/obj/machinery/gateway/apply_brandish_icon()
-	if(!GLOB.brandish_assets.supports(initial(icon), BRANDISH_ASSET_VIEW_GATES))
-		return ..()
-	if(!world_space_icon)
-		brandish_screen_origin(initial(pixel_x), initial(pixel_y))
-		world_space_icon = new /datum/world_space_icon/gateway(src)
-	set_world_transform(transform)
-
-/// Keep the 3x2 collision box while drawing the complete 3x3 picture. Native
-/// rotation anchors large collision boxes at their southwest corner. Compensate
-/// that anchor separately in each sparse view overlay; no per-client objects.
-/// Ordinary overlays also survive z-mimic's appearance copy and retain our ID.
-/datum/world_space_icon/gateway/refresh(force = FALSE)
-	. = ..()
-	if(!projected)
-		return
-	var/obj/machinery/gateway/gateway = owner
-	clear_layers()
-	var/index = 0
-	for(var/facing in GLOB.cardinals)
-		var/image/drawing = layers[++index]
-		drawing.pixel_w = 0
-		drawing.pixel_z = 0
-		APPLY_BRANDISH_BOUNDS_OFFSET(drawing.pixel_w, drawing.pixel_z, gateway, facing)
-	show_layers()
 
 /obj/machinery/gateway/examine(mob/user)
 	. = ..()

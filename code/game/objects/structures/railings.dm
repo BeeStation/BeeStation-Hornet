@@ -156,7 +156,8 @@
 	update_perspective()
 
 /obj/structure/railing/perspective/proc/update_perspective()
-	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_FOREGROUND))
+	var/foreground_icon = GLOB.brandish_assets.asset_for(icon, BRANDISH_ASSET_FOREGROUND)
+	if(!foreground_icon)
 		update_perspective_original()
 		return
 
@@ -167,7 +168,7 @@
 	if(!climbable && pixel_y <= -16)
 		add_overlay(mutable_appearance(icon, icon_state, ABOVE_MOB_LAYER))
 	else
-		add_overlay(GLOB.brandish_assets.foreground_for(icon, icon_state, ABOVE_MOB_LAYER))
+		add_overlay(mutable_appearance(foreground_icon, icon_state, ABOVE_MOB_LAYER))
 
 /obj/structure/railing/setDir()
 	. = ..()

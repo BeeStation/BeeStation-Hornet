@@ -1,9 +1,9 @@
 /obj/machinery/atmospherics/gasrig
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "\improper Advanced Gas Rig"
 	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_1"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
 	layer = HIGH_OBJ_LAYER
@@ -411,10 +411,10 @@
 	gas_output.update_parents()
 
 /obj/machinery/atmospherics/components/unary/gasrig/
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
 	move_resist = INFINITY
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
 /obj/machinery/atmospherics/components/unary/gasrig/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/gas_rig)

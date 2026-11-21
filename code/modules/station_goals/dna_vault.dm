@@ -129,11 +129,11 @@
 		to_chat(user, span_notice("Humanoid data added to local storage."))
 
 /obj/machinery/dna_vault
-	brandish_icon_mode = BRANDISH_MODE_WORLD
 	name = "DNA Vault"
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
+	brandish_image = /datum/brandish_image/group_rotate
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 5000

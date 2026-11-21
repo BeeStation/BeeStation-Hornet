@@ -88,7 +88,8 @@
 
 /// The preference format concatenates modifiers in Alt/Ctrl/Shift order.
 /proc/keybinding_base_key(key)
-	for(var/modifier in list("Alt", "Ctrl", "Shift"))
+	var/static/list/modifier_keys = list("Alt", "Ctrl", "Shift")
+	for(var/modifier in modifier_keys)
 		if(length(key) > length(modifier) && findtext(key, modifier) == 1)
 			key = copytext(key, length(modifier) + 1)
 	return key

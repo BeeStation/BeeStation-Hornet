@@ -614,17 +614,18 @@
 	glass = TRUE
 	bound_width = 64 // 2x1
 	allow_repaint = FALSE
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	var/obj/effect/overlay/geometry_mask
 
 /obj/machinery/door/airlock/glass_large/Initialize(mapload)
 	// Native surface frames align to BYOND's rotated physical bounding box.
-	overlays_file = GLOB.brandish_assets.icon_for(overlays_file, BRANDISH_MODE_SURFACE, dir)
+	overlays_file = GLOB.brandish_assets.icon_for(overlays_file, BRANDISH_MODE_ROTATE, dir)
 	return ..()
 
 /obj/machinery/door/airlock/glass_large/rebuild_parts()
 	. = ..()
-	if(!GLOB.brandish_assets.supports(initial(icon), BRANDISH_ASSET_FOOTPRINT))
+	var/mask_icon = GLOB.brandish_assets.optional_icon(initial(icon), BRANDISH_ASSET_FOOTPRINT, dir)
+	if(!mask_icon)
 		if(geometry_mask)
 			vis_contents -= geometry_mask
 			QDEL_NULL(geometry_mask)
@@ -637,7 +638,7 @@
 		geometry_mask.appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 		geometry_mask.render_target = "*airlock-mask-[REF(src)]"
 		vis_contents += geometry_mask
-	geometry_mask.icon = GLOB.brandish_assets.icon_for(initial(icon), BRANDISH_ASSET_FOOTPRINT, dir)
+	geometry_mask.icon = mask_icon
 	geometry_mask.icon_state = "closed"
 	geometry_mask.dir = dir
 	remove_filter("mask_filter")

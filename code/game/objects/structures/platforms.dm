@@ -119,7 +119,7 @@
 	return TRUE
 
 /obj/structure/platform/update_icon_state()
-	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_FOREGROUND))
+	if(!GLOB.brandish_assets.asset_for(icon, BRANDISH_ASSET_FOREGROUND))
 		. = ..()
 		update_icon_state_original()
 		return .
@@ -128,13 +128,12 @@
 	layer = initial(layer)
 
 /obj/structure/platform/update_overlays()
-	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_FOREGROUND))
+	var/foreground_icon = GLOB.brandish_assets.asset_for(icon, BRANDISH_ASSET_FOREGROUND)
+	if(!foreground_icon)
 		return ..() + update_overlays_original()
 
 	. = ..()
-	var/mutable_appearance/foreground = GLOB.brandish_assets.foreground_for(icon, icon_state, ABOVE_MOB_LAYER)
-	if(foreground)
-		. += foreground
+	. += mutable_appearance(foreground_icon, icon_state, ABOVE_MOB_LAYER)
 
 /obj/structure/platform/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER

@@ -699,7 +699,7 @@
 	if(!nondirectional_sprite)
 		var/matrix/M = new
 		M.Turn(Angle)
-		set_world_transform(M)
+		set_brandish_transform(M)
 	trajectory_ignore_forcemove = TRUE
 	forceMove(starting)
 	trajectory_ignore_forcemove = FALSE
@@ -717,7 +717,7 @@
 	if(!nondirectional_sprite)
 		var/matrix/matrix = new
 		matrix.Turn(Angle)
-		set_world_transform(matrix)
+		set_brandish_transform(matrix)
 	if(trajectory)
 		trajectory.set_angle(new_angle)
 	if(fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
@@ -733,7 +733,7 @@
 	if(!nondirectional_sprite)
 		var/matrix/matrix = new
 		matrix.Turn(Angle)
-		set_world_transform(matrix)
+		set_brandish_transform(matrix)
 	if(trajectory)
 		trajectory.set_angle(new_angle)
 
@@ -813,7 +813,7 @@
 	if(!nondirectional_sprite && !hitscanning)
 		var/matrix/M = new
 		M.Turn(Angle)
-		set_world_transform(M)
+		set_brandish_transform(M)
 	if(homing)
 		process_homing()
 	var/forcemoved = FALSE
@@ -1007,7 +1007,7 @@
 		p.move_atom_to_src(thing)
 		var/matrix/M = new
 		M.Turn(original_angle)
-		thing.set_world_transform(M)
+		thing.set_brandish_transform(M)
 		thing.color = color
 		thing.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
 		QDEL_IN(thing, duration)
@@ -1017,7 +1017,7 @@
 		p.move_atom_to_src(thing)
 		var/matrix/M = new
 		M.Turn(Angle)
-		thing.set_world_transform(M)
+		thing.set_brandish_transform(M)
 		thing.color = color
 		thing.set_light(impact_light_range, impact_light_intensity, impact_light_color_override? impact_light_color_override : color)
 		QDEL_IN(thing, duration)

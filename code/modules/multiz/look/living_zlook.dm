@@ -7,6 +7,9 @@
 /// The current direction the player is trying to look.
 /mob/living/var/attempt_looking_direction = LOOKING_DIRECTION_NONE
 
+/// The turf selected by the z-look path, separate from eyes set by remote controls.
+/mob/living/var/tmp/turf/zlook_target
+
 ///Checks if the user is incapacitated and cannot look up/down
 /mob/living/proc/can_look_direction()
 	return !INCAPACITATED_IGNORING(src, INCAPABLE_RESTRAINTS)
@@ -24,6 +27,7 @@
 	// Handle none/failure
 	if(direction == LOOKING_DIRECTION_NONE || !can_look_direction(direction))
 		looking_direction = LOOKING_DIRECTION_NONE
+		zlook_target = null
 		set_mob_eye_to(MOB_EYE_SELF)
 		return
 	// Automatic attempts should not trigger the cooldown
@@ -45,6 +49,7 @@
 	// Something changed, stop looking
 	if(!can_look_direction(looking_direction))
 		set_look_direction(LOOKING_DIRECTION_NONE)
+		return FALSE
 	// Update perspective
 	var/turf/base = find_visible_hole_in_direction(looking_direction)
 	if(!isturf(base))
@@ -52,9 +57,15 @@
 			to_chat(src, span_warning("You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you."))
 		set_look_direction(LOOKING_DIRECTION_NONE)
 		return FALSE
-	client?.remember_brandish_zlook(src, base)
+	zlook_target = base
 	set_mob_eye_to(base)
 	return TRUE
+
+/// Relinquish z-look when another system takes ownership of the eye.
+/mob/living/proc/clear_zlook()
+	zlook_target = null
+	looking_direction = LOOKING_DIRECTION_NONE
+	attempt_looking_direction = LOOKING_DIRECTION_NONE
 
 /mob/living/verb/look_up_short()
 	set name = "Look Up"

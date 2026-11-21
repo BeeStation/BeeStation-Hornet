@@ -17,6 +17,7 @@
 	desc = "An energy ball."
 	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
 	icon_state = "energy_ball"
+	brandish_image = /datum/brandish_image/upright
 	anchored = TRUE
 	appearance_flags = LONG_GLIDE
 	density = TRUE
@@ -43,7 +44,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 
 /obj/anomaly/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	energy = starting_energy
 	START_PROCESSING(SSobj, src)
 	var/turf/spawned_turf = get_turf(src)

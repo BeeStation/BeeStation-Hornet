@@ -1,10 +1,11 @@
 //The necropolis gate is used to call forth Legion from the Necropolis.
 /obj/structure/necropolis_gate
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "necropolis gate"
 	desc = "A massive stone gateway."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_full"
+	brandish_image = /datum/brandish_image/upright
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	flags_1 = ON_BORDER_1
 	appearance_flags = NONE
 	layer = TABLE_LAYER
@@ -26,9 +27,6 @@
 
 /obj/structure/necropolis_gate/Initialize(mapload)
 	. = ..()
-	// The 96px canvas is centred on this one-tile collision anchor. Its
-	// centre stays on the map; only the canvas origin is screen-relative.
-	brandish_screen_origin(-32, -32)
 	setDir(SOUTH)
 	var/turf/sight_blocker_turf = get_turf(src)
 	if(sight_blocker_distance)
@@ -85,19 +83,16 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/opacity_blocker
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_blocker"
+	brandish_image = /datum/brandish_image/upright
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	layer = EDGED_TURF_LAYER
 	pixel_x = -32
 	pixel_y = -32
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	opacity = TRUE
 	anchored = TRUE
-
-/obj/structure/opacity_blocker/Initialize(mapload)
-	. = ..()
-	brandish_screen_origin(-32, -32)
 
 /obj/structure/opacity_blocker/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return 0
@@ -218,29 +213,28 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		)
 
 /obj/effect/temp_visual/necropolis
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "door_closing"
+	brandish_image = /datum/brandish_image/upright
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	appearance_flags = NONE
 	duration = 6
 	layer = EDGED_TURF_LAYER
 	pixel_x = -32
 	pixel_y = -32
 
-/obj/effect/temp_visual/necropolis/Initialize(mapload)
-	. = ..()
-	brandish_screen_origin(-32, -32)
-
 /obj/effect/temp_visual/necropolis/open
 	icon_state = "door_opening"
 	duration = 38
 
 /obj/structure/necropolis_arch
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "necropolis arch"
 	desc = "A massive arch over the necropolis gate, set into a massive tower of stone."
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "arch_full"
+	// The 160px canvas keeps a separate 24px world elevation.
+	brandish_image = /datum/brandish_image/upright/centered_160
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	appearance_flags = NONE
 	layer = TABLE_LAYER
 	anchored = TRUE
@@ -252,8 +246,6 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 /obj/structure/necropolis_arch/Initialize(mapload)
 	. = ..()
-	// Keep the extra 24px map elevation while centring the 160px canvas.
-	brandish_screen_origin(-64, -64)
 	icon_state = "arch_bottom"
 	top_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/160x160.dmi', "arch_top")
 	top_overlay.layer = EDGED_TURF_LAYER
@@ -264,10 +256,10 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 //stone tiles for boss arenas
 /obj/structure/stone_tile
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "stone tile"
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "pristine_tile1"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

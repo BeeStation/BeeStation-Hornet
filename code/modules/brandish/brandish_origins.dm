@@ -1,6 +1,7 @@
 // Permanent artwork origins share movable bookkeeping, including public base deltas.
 // Living offsets independently compose temporary world movement and screen height.
 // screen_placement temporarily converts contained items and restores all four values.
+// Image policies use this for static art; mob bases and temporary offsets keep their own lifetimes.
 /// Move an artwork-origin delta from world to screen pixels. Calls accumulate;
 /// from_base excludes the migrated portion from later world-base resets.
 /atom/proc/brandish_screen_origin(offset_x, offset_y, from_base = FALSE)
@@ -15,6 +16,11 @@
 		if(from_base)
 			movable.brandish_base_screen_x += offset_x
 			movable.brandish_base_screen_y += offset_y
+
+/// Undo any migrated screen origin before rewriting legacy canvas pixel offsets.
+/atom/movable/proc/clear_brandish_screen_origin()
+	if(brandish_origin_screen_x || brandish_origin_screen_y)
+		brandish_screen_origin(-brandish_origin_screen_x, -brandish_origin_screen_y)
 
 /atom/movable
 	/// Persistent screen origin, separate from temporary animation and offsets.

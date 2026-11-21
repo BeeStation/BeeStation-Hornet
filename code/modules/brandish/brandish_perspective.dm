@@ -36,6 +36,7 @@ GLOBAL_VAR_INIT(brandish_perspective_enabled, FALSE)
 	if(enable && !was_enabled)
 		GLOB.brandish_intro_shown.Cut()
 	if(enable != was_enabled)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_BRANDISH_PERSPECTIVE_CHANGED)
 		for(var/client/viewer in GLOB.clients)
 			viewer.queue_brandish_camera_sync()
 	return TRUE

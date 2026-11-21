@@ -80,8 +80,8 @@ SUBSYSTEM_DEF(overlays)
 
 /atom/proc/cut_overlays()
 	STAT_START_STOPWATCH
-	if(world_space_icon?.projected)
-		world_space_icon.layers_dirty = TRUE
+	if(brandish_image_projector?.projected)
+		brandish_image_projector.layers_dirty = TRUE
 	overlays = null
 	POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
@@ -96,11 +96,14 @@ SUBSYSTEM_DEF(overlays)
 /atom/proc/cut_overlay(list/remove_overlays)
 	if(!overlays)
 		return
-	if(world_space_icon?.projected)
-		world_space_icon.layers_dirty = TRUE
 	SSoverlays.context_needs_automangle = FALSE
 	STAT_START_STOPWATCH
 	overlays -= build_appearance_list(remove_overlays)
+	if(brandish_image_projector?.projected && !brandish_image_projector.layers_dirty)
+		for(var/image/projection_layer as anything in brandish_image_projector.layers)
+			if(!(projection_layer.appearance in overlays))
+				brandish_image_projector.layers_dirty = TRUE
+				break
 	POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
 	STAT_LOG_ENTRY(SSoverlays.stats, type)
@@ -129,7 +132,7 @@ SUBSYSTEM_DEF(overlays)
 	else
 		zmm_flags &= ~ZMM_AUTOMANGLE
 
-/atom/proc/add_overlay(list/add_overlays)
+/atom/proc/add_overlay(list/add_overlays, prepend = FALSE)
 	if(!overlays)
 		return
 
@@ -138,7 +141,11 @@ SUBSYSTEM_DEF(overlays)
 
 	SSoverlays.context_needs_automangle = FALSE
 	STAT_START_STOPWATCH
-	overlays += build_appearance_list(add_overlays)
+	var/list/appearances = build_appearance_list(add_overlays)
+	if(prepend)
+		overlays = appearances + overlays
+	else
+		overlays += appearances
 	VALIDATE_OVERLAY_LIMIT(src)
 	if (is_movable)
 		if (SSoverlays.context_needs_automangle)
@@ -165,8 +172,8 @@ SUBSYSTEM_DEF(overlays)
 				src:zmm_flags |= ZMM_AUTOMANGLE
 				break
 	if(cut_old)
-		if(world_space_icon?.projected)
-			world_space_icon.layers_dirty = TRUE
+		if(brandish_image_projector?.projected)
+			brandish_image_projector.layers_dirty = TRUE
 		if(cached_other)
 			overlays = cached_other
 		else

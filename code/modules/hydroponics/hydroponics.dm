@@ -1,9 +1,10 @@
 /obj/machinery/hydroponics
-	brandish_icon_mode = BRANDISH_MODE_SMOOTH
-	base_icon_state = "hoses"
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
+	base_icon_state = "hoses"
+	brandish_image = /datum/brandish_image/upright/vertical_only
+	brandish_icon_mode = BRANDISH_MODE_SMOOTH
 	density = TRUE
 	pixel_y = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
@@ -77,10 +78,6 @@
 			return
 
 	return ..()
-
-/obj/machinery/hydroponics/Initialize(mapload)
-	. = ..()
-	brandish_screen_origin(0, initial(pixel_y))
 
 /obj/machinery/hydroponics/proc/FindConnected()
 	var/list/connected = list()

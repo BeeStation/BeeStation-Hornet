@@ -92,7 +92,7 @@
 	name = "pointer"
 	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "arrow"
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	plane = POINT_PLANE
 	duration = POINT_TIME
 

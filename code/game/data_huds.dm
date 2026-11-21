@@ -462,16 +462,16 @@
 #define CACHED_HEIGHT_INDEX "height"
 
 /atom/proc/get_cached_width()
-	if (isnull(icon))
+	var/resource = brandish_image_projector?.source_icon || icon
+	if(isnull(resource))
 		return 0
-	var/resource = brandish_icon_mode == BRANDISH_MODE_WORLD ? (world_space_icon?.source_icon || icon) : icon
 	var/list/dimensions = get_icon_dimensions(resource)
 	return dimensions[CACHED_WIDTH_INDEX]
 
 /atom/proc/get_cached_height()
-	if (isnull(icon))
+	var/resource = brandish_image_projector?.source_icon || icon
+	if(isnull(resource))
 		return 0
-	var/resource = brandish_icon_mode == BRANDISH_MODE_WORLD ? (world_space_icon?.source_icon || icon) : icon
 	var/list/dimensions = get_icon_dimensions(resource)
 	return dimensions[CACHED_HEIGHT_INDEX]
 

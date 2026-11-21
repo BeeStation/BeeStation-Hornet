@@ -1,17 +1,12 @@
 //map and direction signs
 
-/obj/structure/sign/directions/Initialize(mapload)
-	. = ..()
-	// Whole-tile offsets locate the wall. Sub-tile offsets stack labels on
-	// that wall and must stay aligned with their upright lettering.
-	var/wall_x = FLOOR((pixel_x + ICON_SIZE_X / 2) / ICON_SIZE_X, 1) * ICON_SIZE_X
-	var/wall_y = FLOOR((pixel_y + ICON_SIZE_Y / 2) / ICON_SIZE_Y, 1) * ICON_SIZE_Y
-	brandish_screen_origin(pixel_x - wall_x, pixel_y - wall_y)
+/obj/structure/sign/directions
+	brandish_image = /datum/brandish_image/wall_mounted
 
 /obj/structure/sign/map
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "station map"
 	desc = "A framed picture of the station."
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	max_integrity = 500
 
 /obj/structure/sign/map/left

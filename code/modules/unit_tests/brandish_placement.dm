@@ -118,7 +118,7 @@
 /datum/unit_test/brandish_lying_float_offsets/Run()
 	var/mob/living/brandish_origin_test/actor = allocate(/mob/living/brandish_origin_test, run_loc_floor_bottom_left)
 	actor.rotate_on_lying = TRUE
-	actor.add_offsets(BRANDISH_MODE_WORLD, 7, 9, FALSE)
+	actor.add_offsets(BRANDISH_MODE_GROUP_ROTATE, 7, 9, FALSE)
 	actor.set_body_position(LYING_DOWN)
 	TEST_ASSERT_EQUAL(actor.pixel_y, 9, "Lying does not change world placement")
 	TEST_ASSERT_EQUAL(actor.has_offset(LYING_DOWN_TRAIT, PIXEL_Z_OFFSET), PIXEL_Y_OFFSET_LYING, "Lying is a screen height source")
@@ -181,7 +181,7 @@
 	actor.set_body_position(LYING_DOWN)
 	sleep(4)
 	TEST_ASSERT_EQUAL(mask_y(actor), 6, "The mask follows screen lying height")
-	actor.add_offsets(BRANDISH_MODE_WORLD, 7, 9, FALSE)
+	actor.add_offsets(BRANDISH_MODE_GROUP_ROTATE, 7, 9, FALSE)
 	TEST_ASSERT_EQUAL(mask_y(actor), 6, "Map placement cannot alter the local waterline")
 	actor.add_offsets("height", z_add = 8, animate = FALSE)
 	TEST_ASSERT_EQUAL(mask_y(actor), -2, "Changing screen height updates the waterline")
@@ -252,7 +252,7 @@
 
 /datum/unit_test/brandish_rectangular_geometry/Run()
 	var/obj/structure/shipping_container/box = allocate(/obj/structure/shipping_container, run_loc_floor_bottom_left)
-	var/datum/world_space_icon/geometry/projection = box.world_space_icon
+	var/datum/brandish_image_projector/group/projection = box.brandish_image_projector
 	TEST_ASSERT_EQUAL(box.bound_width, 96, "Rendering must retain the physical footprint")
 	TEST_ASSERT_EQUAL(box.pixel_x, 0, "Rendering must retain map offsets")
 	TEST_ASSERT_EQUAL(box.pixel_w, 0, "Geometry does not migrate map offsets into screen axes")
@@ -290,7 +290,7 @@
 	copy.appearance = box.appearance
 	TEST_ASSERT_EQUAL(length(copy.overlays), 4, "Appearance copies retain all four sparse views")
 
-/datum/unit_test/brandish_geometry_overlay/Run()
+/datum/unit_test/brandish_group_overlay/Run()
 	var/obj/machinery/power/bsa/full/cannon = allocate(/obj/machinery/power/bsa/full, run_loc_floor_bottom_left)
 	STOP_PROCESSING(SSmachines, cannon)
 	cannon.cell.charge = cannon.cell.maxcharge
@@ -315,8 +315,8 @@
 		for(var/charge in list(25, 50, 75, 100))
 			TEST_ASSERT(rendered_states["bsa_[dir2text(facing)]_capacitor_[charge]"], "Charged artwork [charge] is retained")
 		if(generated)
-			TEST_ASSERT(cannon.world_space_icon?.projected, "The cannon body retains its projected view")
-		var/image/top = cannon.brandish_geometry_overlay("top_[dir2text(facing)]", ABOVE_MOB_LAYER)
+			TEST_ASSERT(cannon.brandish_image_projector?.projected, "The cannon body retains its projected view")
+		var/image/top = cannon.brandish_group_overlay("top_[dir2text(facing)]", ABOVE_MOB_LAYER)
 		TEST_ASSERT_EQUAL(top.layer, ABOVE_MOB_LAYER, "A projected top retains its draw layer")
 		if(!generated)
 			TEST_ASSERT_EQUAL(cannon.icon, initial(cannon.icon), "Fallback retains original cannon artwork")

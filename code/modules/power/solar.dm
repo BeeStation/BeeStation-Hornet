@@ -80,7 +80,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 /obj/machinery/power/solar/proc/add_panel_overlay(icon_state, y_offset)
 	var/obj/effect/overlay/solar_panel/overlay = new(src)
-	if(!GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_VIEW_GATES))
+	var/list/gates = GLOB.brandish_assets.asset_for(icon, BRANDISH_ASSET_VIEW_GATES)
+	if(!gates)
 		overlay.vis_flags |= VIS_INHERIT_ICON
 		overlay.appearance_flags = TILE_BOUND
 		overlay.icon_state = icon_state
@@ -88,9 +89,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		vis_contents += overlay
 		return overlay
 	overlay.pixel_z = y_offset
-	GLOB.brandish_assets.prepare()
-	var/list/entry = GLOB.brandish_assets.aliases[icon]
-	var/list/gates = entry["viewGates"]
 	for(var/facing in GLOB.cardinals)
 		var/obj/effect/overlay/solar_panel_view/view = new(overlay)
 		view.camera_heading = facing

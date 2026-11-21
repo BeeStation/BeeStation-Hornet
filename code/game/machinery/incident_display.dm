@@ -18,14 +18,14 @@ GLOBAL_LIST_EMPTY(map_incident_displays)
 #define LIGHT_COLOR_SHAME "#e24e76"
 
 /obj/machinery/incident_display
-	// A connected two-tile panel: frame, content and emissive art turn together.
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
-	bound_width = 64
 	name = "delamination incident display"
 	desc = "A signs describe how long it's been since the last delamination incident. Features an advert for SAFETY MOTH."
 	icon = 'icons/obj/machines/incident_display.dmi'
-	icon_preview = "display_normal"
 	icon_state = "display_normal"
+	icon_preview = "display_normal"
+	// A connected two-tile panel: frame, content and emissive art turn together.
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
+	bound_width = 64
 	verb_say = "beeps"
 	verb_ask = "bloops"
 	verb_exclaim = "blares"

@@ -55,6 +55,7 @@
 	desc = "A towering basalt sculpture of a proud and regal drake. Its eyes are six glowing gemstones."
 	icon = 'icons/effects/64x64.dmi'
 	icon_state = "drake_statue"
+	brandish_image = /datum/brandish_image/upright
 	pixel_x = -16
 	density = TRUE
 	deconstructible = FALSE
@@ -63,11 +64,6 @@
 /obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
 	icon_state = "drake_statue_falling"
-
-/obj/structure/fluff/drake_statue/Initialize(mapload)
-	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
-
 
 /obj/structure/fluff/bus
 	name = "bus"
@@ -188,11 +184,11 @@
 	desc = "A vent nested into the wall, managing the airflow between the rooms"
 
 /obj/structure/fluff/rug
-	brandish_icon_mode = BRANDISH_MODE_WORLD
-	icon = 'icons/obj/rug.dmi'
-	icon_state = "tiger_rug"
 	name = "tiger rug"
 	desc = "A huge rug made out of tiger skin. Was this a real tiger?"
+	icon = 'icons/obj/rug.dmi'
+	icon_state = "tiger_rug"
+	brandish_image = /datum/brandish_image/group_rotate
 	pixel_x = -32
 	pixel_y = -16
 	plane = FLOOR_PLANE

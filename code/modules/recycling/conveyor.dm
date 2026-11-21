@@ -2,12 +2,12 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 #define MAX_CONVEYOR_ITEMS_MOVE 30
 
 /obj/machinery/conveyor
-	icon = 'icons/obj/recycling.dmi'
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
-	icon_state = "conveyor_map"
-	base_icon_state = "conveyor"
 	name = "conveyor belt"
 	desc = "A conveyor belt."
+	icon = 'icons/obj/recycling.dmi'
+	icon_state = "conveyor_map"
+	base_icon_state = "conveyor"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	layer = GAS_PUMP_LAYER
 	processing_flags = NONE
 	trade_flags = TRADE_NOT_SELLABLE

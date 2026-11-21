@@ -51,7 +51,7 @@
 	animate(M, pixel_w = M.get_screen_base_pixel_w() + M.has_offset(pixel = PIXEL_W_OFFSET), time = 0)
 	if(!has_buckled_mobs())
 		// Preserve the original unbuckled base anchor, including mapper offsets.
-		brandish_screen_origin(0, -brandish_origin_screen_y)
+		clear_brandish_screen_origin()
 		pixel_x = base_pixel_x
 		pixel_y = base_pixel_y
 		animate(src, pixel_w = get_screen_base_pixel_w(), pixel_z = get_screen_base_pixel_z(), time = 0)

@@ -7,11 +7,11 @@
 //ratvar
 
 /obj/structure/dead_ratvar
-	brandish_icon_mode = BRANDISH_MODE_WORLD
 	name = "hulking wreck"
 	desc = "The remains of a monstrous war machine."
 	icon = 'icons/obj/lavaland/dead_ratvar.dmi'
 	icon_state = "dead_ratvar"
+	brandish_image = /datum/brandish_image/group_rotate
 	flags_1 = ON_BORDER_1
 	appearance_flags = LONG_GLIDE
 	layer = FLY_LAYER

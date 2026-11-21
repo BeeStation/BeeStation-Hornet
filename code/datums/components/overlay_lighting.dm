@@ -54,7 +54,7 @@
 
 	///Overlay effect to cut into the darkness and provide light.
 	var/image/visible_mask
-	var/datum/world_space_icon/beam_projection
+	var/datum/brandish_image_projector/beam_projection
 	///Lazy list to track the turfs being affected by our light, to determine their visibility.
 	var/list/turf/affected_turfs
 	///Movable atom currently holding the light. Parent might be a flashlight, for example, but that might be held by a mob or something else.

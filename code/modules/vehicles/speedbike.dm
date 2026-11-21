@@ -38,6 +38,7 @@
 	desc = "Push it to the limit, walk along the razor's edge."
 	icon = 'icons/obj/car.dmi'
 	icon_state = "speedwagon"
+	brandish_image = /datum/brandish_image/upright
 	layer = LYING_MOB_LAYER
 	var/static/mutable_appearance/overlay
 	max_buckled_mobs = 4
@@ -47,7 +48,6 @@
 
 /obj/vehicle/ridden/space/speedwagon/Initialize(mapload)
 	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	if(isnull(overlay))
 		overlay = mutable_appearance(icon, "speedwagon_cover", ABOVE_MOB_LAYER)
 	add_overlay(overlay)

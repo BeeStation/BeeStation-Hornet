@@ -43,6 +43,7 @@
 	desc = "Draw out your soul on this canvas!"
 	icon = 'icons/obj/artstuff.dmi'
 	icon_state = "11x11"
+	brandish_image = /datum/brandish_image/upright
 	flags_1 = UNPAINTABLE_1
 	resistance_flags = FLAMMABLE
 	custom_price = 15
@@ -72,9 +73,6 @@
 
 /obj/item/canvas/Initialize(mapload)
 	. = ..()
-	// These offsets center a small upright canvas inside a tile; they do not
-	// locate it on another world tile like the wall mounting's pixel_x/y do.
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	reset_grid()
 
 	painting_metadata = new

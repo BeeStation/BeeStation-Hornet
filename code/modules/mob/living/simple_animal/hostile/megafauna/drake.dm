@@ -469,17 +469,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 	name = "certain death"
 	desc = "Don't just stand there, move!"
 	icon = 'icons/effects/96x96.dmi'
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	icon_state = "landing"
+	brandish_image = /datum/brandish_image/upright
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	layer = BELOW_MOB_LAYER
 	pixel_x = -32
 	pixel_y = -32
 	color = COLOR_RED
 	duration = 10
-
-/obj/effect/temp_visual/dragon_swoop/Initialize(mapload)
-	. = ..()
-	brandish_screen_origin(-32, -32)
 
 /obj/effect/temp_visual/dragon_flight
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'

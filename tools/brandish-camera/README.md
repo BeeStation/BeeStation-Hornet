@@ -138,6 +138,16 @@ The detailed table records deliberate perspective compromises and exceptions.
 Case D may tilt upright pieces to keep a composite connected; use redrawn native
 art when available. Splitting a composite's policy tears it at tile boundaries.
 
+| Case | Meaning | Mode (`brandish_icon_mode`) | Init policy (`brandish_image`) |
+| --- | --- | --- | --- |
+| `rotate` | Rotate flat ground artwork | `BRANDISH_MODE_ROTATE` | none |
+| `group_rotate` | Rotate multi-tile artwork together with its bounds | `BRANDISH_MODE_GROUP_ROTATE` | `/datum/brandish_image/group_rotate` |
+| `connected` | Orientation encoded in state names (`dir` holds connections) | `BRANDISH_MODE_ROTATE` or `BRANDISH_MODE_CONNECTED` | type's `brandish_connection_icon` |
+| `upright` | Keep art upright; move canvas origin to screen space | depends on art | `/datum/brandish_image/upright` |
+| `wall_mounted` | Separate whole-tile wall anchor from sub-tile stacking | depends on art (`BRANDISH_MODE_ROTATE` for station maps) | `/datum/brandish_image/wall_mounted` |
+| `smooth` / `corner` | Select neighbour-joined artwork | automatic from smoothing flags | none |
+| (arbitrary angle) | Projectiles, beams, etc. | none | `set_brandish_transform()` → `/datum/brandish_image_projector` |
+
 ## Asset policy and contribution path
 
 Prefix rules supply defaults. Each path has one `files[path]` options record. Surface
@@ -157,7 +167,7 @@ rotates; compactness omits other states and requires state-aware source fallback
    update_icon paths; direct icon_state writes and flick usually need full banks.
 6. Rectangular art needs explicit geometry and footprint decisions. Large upright
    art remains native. Unlisted geometry and size-limit exclusions are reported.
-7. World-angle changes use `set_world_transform()` or an owned world_space_icon;
+7. World-angle changes use `set_brandish_transform()` or an owned brandish_image_projector;
    trajectory offsets remain world coordinates and sprite origins remain screen.
 8. Add the reason to EXCEPTIONS.md and check NORTH/off plus all four camera views.
 
@@ -192,10 +202,12 @@ riding, z-look return, Observe and normal-view E/W traits in all relevant views.
 
 ## Known limitations and boundaries
 
-Asymmetric riding pose/layer tables are not viewer-relative. Riders can miss the
-visible seat or sort incorrectly after rotation, including janicart, speedbike
-and multi-seat speedwagon. Brandish remains enabled while mounted. A complete
-mounted presentation design is separate work; shared offsets cannot express it.
+With Brandish active, eligible one-tile single seats fit their four view poses
+equally across world x/y and screen w/z by least squares, rounding each fitted
+offset to whole pixels. Native and station-trait views use the existing
+placement. Wide seats and the speedwagon and dragonboat retain their legacy
+poses. Foreground masks come from the asset policy. Asymmetric artwork such as
+the janicart and speedbike can still show visible seat alignment error.
 
 Pinpointers keep existing in-hand art. Floor icons and HUD slot needles provide
 tracking; no extra in-hand needle is planned here.

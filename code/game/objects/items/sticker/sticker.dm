@@ -192,7 +192,7 @@
 	update_appearance()
 	// Surface banks turn the attachment point with the map; upright artwork
 	// keeps its attachment point in screen axes. Programmatic calls default north.
-	var/on_surface = target.brandish_icon_mode == BRANDISH_MODE_SURFACE || target.smoothing_flags
+	var/on_surface = target.has_rotated_brandish_surface()
 	var/list/click_offset = camera_click_offset(list(ICON_X = x_offset || 16, ICON_Y = y_offset || 16), on_surface ? (viewer?.dir || NORTH) : NORTH)
 	var/offset_x = clamp(click_offset[1], -(ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 	var/offset_y = clamp(click_offset[2], -(ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)

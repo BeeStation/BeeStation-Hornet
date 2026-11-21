@@ -1,6 +1,7 @@
 /// Init this specific atom
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, from_template = FALSE, list/arguments)
 	var/the_type = A.type
+	var/was_initialized = A.flags_1 & INITIALIZED_1
 	if(QDELING(A))
 		BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
 		return TRUE
@@ -38,7 +39,14 @@
 	else if(!(A.flags_1 & INITIALIZED_1))
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
 	else
+		if(!was_initialized && A.brandish_image)
+			var/datum/brandish_image/image_policy = GLOB.brandish_images[A.brandish_image]
+			if(!image_policy)
+				image_policy = new A.brandish_image
+				GLOB.brandish_images[A.brandish_image] = image_policy
+			image_policy.setup(A)
 		APPLY_BRANDISH_ICON(A)
+		A.brandish_image_projector?.refresh()
 		SEND_SIGNAL(A, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
 		var/atom/location = A.loc
 		if(location)

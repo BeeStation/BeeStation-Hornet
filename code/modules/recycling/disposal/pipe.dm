@@ -5,7 +5,7 @@
 	desc = "An underfloor disposal pipe."
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
 	// dir is the artwork's dominant direction; dpdir alone is a bitfield.
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	anchored = TRUE
 	density = FALSE
 	obj_flags = CAN_BE_HIT

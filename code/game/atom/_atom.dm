@@ -143,8 +143,8 @@
   * * clears the light object
   */
 /atom/Destroy()
-	if(world_space_icon)
-		QDEL_NULL(world_space_icon)
+	if(brandish_image_projector)
+		QDEL_NULL(brandish_image_projector)
 	if(istype(src, /mob/dead/new_player/pre_auth)) // This mob type is buggy. Only happens when a player logs in.
 		LAZYCLEARLIST(eye_mobs)
 		eye_mobs = null
@@ -561,9 +561,7 @@
 	. = dir != newdir
 	dir = newdir
 	APPLY_BRANDISH_ICON(src)
-	// World mode refreshes its projector through APPLY_BRANDISH_ICON above.
-	if(brandish_icon_mode != BRANDISH_MODE_WORLD)
-		world_space_icon?.refresh()
+	brandish_image_projector?.refresh()
 	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.

@@ -199,7 +199,7 @@
 	var/emissive = TRUE
 	var/datum/beam/owner
 	/// Owned separately because emissive art has its own render plane.
-	var/datum/world_space_icon/beam/beam_emissive_projection
+	var/datum/brandish_image_projector/beam/beam_emissive_projection
 
 /obj/effect/ebeam/Initialize(mapload, beam_owner)
 	owner = beam_owner
@@ -210,12 +210,12 @@
 	QDEL_NULL(beam_emissive_projection)
 	if(!emissive)
 		return
-	var/art = world_space_icon ? world_space_icon.source_icon : icon
+	var/art = brandish_image_projector ? brandish_image_projector.source_icon : icon
 	var/mutable_appearance/emissive_overlay = emissive_appearance(art, icon_state, layer, alpha, appearance_flags, filters)
 	emissive_overlay.transform = transform
 	emissive_overlay.alpha = alpha
-	if(istype(world_space_icon, /datum/world_space_icon/beam))
-		var/datum/world_space_icon/beam/projection = world_space_icon
+	if(istype(brandish_image_projector, /datum/brandish_image_projector/beam))
+		var/datum/brandish_image_projector/beam/projection = brandish_image_projector
 		beam_emissive_projection = new(emissive_overlay, projection.clip_length)
 		beam_emissive_projection.refresh()
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
@@ -228,35 +228,29 @@
 
 /// Beam position stays in world pixel_x/y; only its artwork is projected.
 /obj/effect/ebeam/proc/project_beam(matrix/rotation, clip_length)
-	if(!world_space_icon)
-		world_space_icon = new /datum/world_space_icon/beam(src, clip_length)
-	set_world_transform(rotation)
+	if(!brandish_image_projector)
+		brandish_image_projector = new /datum/brandish_image_projector/beam(src, clip_length)
+	set_brandish_transform(rotation)
 	update_appearance(UPDATE_OVERLAYS)
 
 /// Crop the already generated gates before applying the arbitrary world angle.
 /// This preserves the original terminal pixels/animation without 32 banks per
 /// source state or runtime bitmap rotation. Other world projections are unchanged.
-/datum/world_space_icon/beam
+/datum/brandish_image_projector/beam
 	var/clip_length
 
-/datum/world_space_icon/beam/New(image/target, clip_length)
+/datum/brandish_image_projector/beam/New(image/target, clip_length)
 	src.clip_length = clip_length
 	return ..(target)
 
-/datum/world_space_icon/beam/refresh(force = FALSE)
-	. = ..()
-	if(!projected || !clip_length)
-		return
-	clear_layers()
-	var/index = 0
-	for(var/facing in GLOB.cardinals)
-		var/image/part = layers[++index]
-		part.icon = clipped_gate(gates["[facing]"], "[owner.icon_state]@[last_dir]", clip_length)
-		// icon(file, state) retains all native dirs/frames but names the state "".
-		part.icon_state = ""
-	show_layers()
+/datum/brandish_image_projector/beam/set_layer_icon(image/part, gate, state)
+	if(!clip_length)
+		return ..()
+	// The icon constructor keeps the directions and frames but names the state "".
+	part.icon = clipped_gate(gate, state, clip_length)
+	part.icon_state = ""
 
-/datum/world_space_icon/beam/proc/clipped_gate(resource, state, clip_length)
+/datum/brandish_image_projector/beam/proc/clipped_gate(resource, state, clip_length)
 	var/static/list/clipped_gates = list()
 	var/key = "[resource]|[state]|[clip_length]"
 	if(!clipped_gates[key])

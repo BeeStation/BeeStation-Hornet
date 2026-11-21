@@ -134,12 +134,10 @@
 /datum/brandish_camera/policy_test
 	var/openings = 0
 
-/datum/brandish_camera/policy_test/New(datum/brandish_test_viewer/viewer, resumed_heading, restore_dir)
+/datum/brandish_camera/policy_test/New(datum/brandish_test_viewer/viewer)
 	owner = viewer
 	body = viewer.mob
-	previous_body_dir = isnull(restore_dir) ? body.dir : restore_dir
-	if(resumed_heading)
-		body.setDir(resumed_heading)
+	previous_body_dir = body.dir
 	viewer.brandish_camera = src
 
 /datum/brandish_camera/policy_test/ui_interact(mob/user, datum/tgui/ui)
@@ -261,29 +259,29 @@
 	var/datum/brandish_asset_registry/registry = allocate(/datum/brandish_asset_registry)
 	registry.aliases = list()
 	var/source = 'icons/obj/solar.dmi'
-	for(var/kind in list(BRANDISH_MODE_SURFACE, BRANDISH_MODE_SMOOTH, BRANDISH_MODE_CORNER, BRANDISH_MODE_BASIS, BRANDISH_ASSET_FOOTPRINT))
+	for(var/kind in list(BRANDISH_MODE_ROTATE, BRANDISH_MODE_SMOOTH, BRANDISH_MODE_CORNER, BRANDISH_MODE_BASIS, BRANDISH_ASSET_FOOTPRINT))
 		TEST_ASSERT_EQUAL(registry.icon_for(source, kind, NORTH), source, "Missing [kind] preserves original resource")
 		TEST_ASSERT(!registry.supports(source, kind), "Missing [kind] must not advertise support")
-	registry.aliases[source] = list("source" = source, BRANDISH_MODE_SURFACE = list("1" = 'icons/obj/fluff.dmi'))
+	registry.aliases[source] = list("source" = source, BRANDISH_MODE_ROTATE = list("1" = 'icons/obj/fluff.dmi'))
 	registry.enabled = FALSE
-	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH), source, "Disabled catalog preserves original resource")
-	TEST_ASSERT(!registry.supports(source, BRANDISH_MODE_SURFACE), "Disabled catalog must not advertise support")
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_ROTATE, NORTH), source, "Disabled catalog preserves original resource")
+	TEST_ASSERT(!registry.supports(source, BRANDISH_MODE_ROTATE), "Disabled catalog must not advertise support")
 
 /datum/unit_test/brandish_compact_surface_fallback/Run()
 	var/datum/brandish_asset_registry/registry = allocate(/datum/brandish_asset_registry)
 	var/source = 'icons/obj/decals.dmi'
 	var/bank = 'icons/obj/fluff.dmi'
-	var/list/entry = list("source" = source, BRANDISH_MODE_SURFACE = list("1" = bank), "surfaceStates" = list("map-left" = TRUE))
+	var/list/entry = list("source" = source, BRANDISH_MODE_ROTATE = list("1" = bank), "surfaceStates" = list("map-left" = TRUE))
 	registry.aliases = list()
 	registry.aliases[source] = entry
 	registry.aliases[bank] = entry
-	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH, state = "map-left"), bank, "Selected geometry uses its compact bank")
-	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH, state = "frame-empty"), source, "Unselected upright state uses the source")
-	TEST_ASSERT_EQUAL(registry.icon_for(bank, BRANDISH_MODE_SURFACE, NORTH, state = "frame-empty"), source, "Changing out of a compact state restores the source")
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_ROTATE, NORTH, state = "map-left"), bank, "Selected geometry uses its compact bank")
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_ROTATE, NORTH, state = "frame-empty"), source, "Unselected upright state uses the source")
+	TEST_ASSERT_EQUAL(registry.icon_for(bank, BRANDISH_MODE_ROTATE, NORTH, state = "frame-empty"), source, "Changing out of a compact state restores the source")
 	TEST_ASSERT_EQUAL(registry.source_for(bank), source, "Compact bank retains its original identity")
-	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_SURFACE, NORTH), source, "Calls without a state cannot select an incomplete bank")
+	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_ROTATE, NORTH), source, "Calls without a state cannot select an incomplete bank")
 	var/obj/probe = allocate(/obj)
-	probe.brandish_icon_mode = BRANDISH_MODE_SURFACE
+	probe.brandish_icon_mode = BRANDISH_MODE_ROTATE
 	probe.icon = bank
 	probe.icon_state = "frame-empty"
 	probe.dir = NORTH
@@ -386,7 +384,7 @@
 			continue
 		found = TRUE
 		TEST_ASSERT_EQUAL(part.dir, EAST, "Transferred floor marking follows physical shuttle rotation")
-		TEST_ASSERT_EQUAL(part.icon, GLOB.brandish_assets.icon_for(resource, BRANDISH_MODE_SURFACE, EAST, state = "warningline"), "Transferred marking retains the directional bank")
+		TEST_ASSERT_EQUAL(part.icon, GLOB.brandish_assets.icon_for(resource, BRANDISH_MODE_ROTATE, EAST, state = "warningline"), "Transferred marking retains the directional bank")
 	TEST_ASSERT(found, "Ground decal survives the shuttle transfer signal")
 	destination.RemoveElement(/datum/element/decal/ground, resource, "warningline", EAST, FALSE, null, TURF_LAYER, null, 255, TRUE, 0, 0)
 
@@ -461,7 +459,6 @@
 	viewer.mob = body
 	viewer.eye = body
 	var/datum/brandish_camera/camera = allocate(/datum/brandish_camera/policy_test, viewer)
-	var/datum/brandish_zlook_resume/resume = allocate(/datum/brandish_zlook_resume, viewer, body, run_loc_floor_bottom_left, NORTH, SOUTH)
 	for(var/mask in 0 to 1023)
 		viewer.brandish_camera_suppressed = !!(mask & 1)
 		viewer.brandish_disconnecting = !!(mask & 2)
@@ -475,13 +472,8 @@
 		GLOB.brandish_assets.enabled = !(mask & 512)
 		var/expected_body = !viewer.brandish_camera_suppressed && !viewer.brandish_disconnecting && body && viewer.mob == body && body.stat != DEAD && body.brandish_perspective_allowed() && !body.remote_control && !body.control_object
 		TEST_ASSERT_EQUAL(!!viewer.brandish_body_eligible(body), !!expected_body, "Body truth table [mask]")
-		var/expected_sync = GLOB.brandish_perspective_enabled && !viewer.brandish_camera_suppressed && !viewer.brandish_disconnecting && viewer.logged_in && viewer.mob?.brandish_perspective_allowed() && viewer.mob.stat != DEAD && viewer.mob.hud_used && viewer.brandish_has_local_eye() && !viewer.mob.remote_control && !viewer.mob.control_object
-		var/actual_sync = GLOB.brandish_perspective_enabled && viewer.logged_in && viewer.brandish_body_eligible(viewer.mob) && viewer.mob.hud_used && viewer.brandish_has_local_eye()
-		TEST_ASSERT_EQUAL(!!actual_sync, !!expected_sync, "Creation truth table [mask]")
 		var/expected_camera = GLOB.brandish_perspective_enabled && GLOB.brandish_assets.enabled && viewer.brandish_camera == camera && !viewer.brandish_camera_suppressed && !viewer.brandish_disconnecting && !QDELETED(body) && body.stat != DEAD && body.brandish_perspective_allowed() && viewer.mob == body && viewer.brandish_has_local_eye() && !body.remote_control && !body.control_object
 		TEST_ASSERT_EQUAL(!!camera.is_available(), !!expected_camera, "Active-camera truth table [mask]")
-		var/expected_resume = !viewer.brandish_disconnecting && !viewer.brandish_camera_suppressed && viewer.logged_in && GLOB.brandish_perspective_enabled && GLOB.brandish_assets.enabled && viewer.mob == body && body.stat != DEAD && body.brandish_perspective_allowed() && !body.remote_control && !body.control_object && viewer.brandish_has_local_eye()
-		TEST_ASSERT_EQUAL(!!resume.is_valid(), !!expected_resume, "Resume truth table [mask]")
 	viewer.mob = null
 	TEST_ASSERT(!viewer.brandish_body_eligible(null), "Missing bodies cannot acquire a camera")
 	viewer.brandish_disconnecting = TRUE
@@ -500,13 +492,6 @@
 // Extend the existing socket-free client fixture; native skin calls stay stubbed.
 /datum/brandish_test_viewer
 	var/logged_in = TRUE
-	var/datum/brandish_zlook_resume/brandish_zlook_resume
-
-/datum/brandish_test_viewer/proc/remember_brandish_zlook(mob/living/body, turf/target)
-	call(src, /client/proc/remember_brandish_zlook)(body, target)
-
-/datum/brandish_test_viewer/proc/take_brandish_zlook_resume()
-	return call(src, /client/proc/take_brandish_zlook_resume)()
 
 /datum/brandish_test_viewer
 	var/datum/client_camera_state/composed_camera_state

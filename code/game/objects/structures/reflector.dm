@@ -7,7 +7,7 @@
 	density = FALSE
 	var/deflector_icon_state
 	var/image/deflector_overlay
-	var/datum/world_space_icon/deflector_projection
+	var/datum/brandish_image_projector/deflector_projection
 	var/finished = FALSE
 	var/admin = FALSE //Can't be rotated or deconstructed
 	var/can_rotate = TRUE
@@ -24,7 +24,7 @@
 	allowed_projectile_typecache = typecacheof(allowed_projectile_typecache)
 	if(deflector_icon_state)
 		deflector_overlay = image(icon, deflector_icon_state)
-		if(GLOB.brandish_assets.supports(icon, BRANDISH_ASSET_VIEW_GATES))
+		if(GLOB.brandish_assets.asset_for(icon, BRANDISH_ASSET_VIEW_GATES))
 			deflector_projection = new(deflector_overlay)
 		add_overlay(deflector_overlay)
 

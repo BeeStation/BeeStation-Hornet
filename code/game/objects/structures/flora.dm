@@ -7,6 +7,7 @@
 /obj/structure/flora/tree
 	name = "tree"
 	desc = "A large tree."
+	brandish_image = /datum/brandish_image/upright
 	density = FALSE
 	pixel_x = -16
 	layer = FLY_LAYER
@@ -14,7 +15,6 @@
 
 /obj/structure/flora/tree/Initialize(mapload)
 	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -58,12 +58,9 @@
 	desc = "This represents our promise to the crew, and the station itself, to cut down as many trees as possible." //running naked through the trees
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "tree_stump"
+	brandish_image = /datum/brandish_image/upright
 	density = FALSE
 	pixel_x = -16
-
-/obj/structure/flora/stump/Initialize(mapload)
-	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 
 /obj/structure/flora/tree/pine
 	name = "pine tree"
@@ -126,13 +123,15 @@
 	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/palm
-	icon = 'icons/misc/beach2.dmi'
 	desc = "A tree straight from the tropics."
+	icon = 'icons/misc/beach2.dmi'
 	icon_state = "palm1"
+	brandish_image = null
 	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/palm/Initialize(mapload)
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	icon_state = pick("palm1","palm2")
 	pixel_x = 0
 	pixel_w = 0
@@ -221,6 +220,7 @@
 	desc = "A large potted plant."
 	icon = 'icons/obj/flora/bigplant.dmi'
 	icon_state = "bigplant1"
+	brandish_image = /datum/brandish_image/upright
 	anchored = FALSE
 	layer = ABOVE_MOB_LAYER+0.1 //because railings
 	pixel_x = -17
@@ -228,7 +228,6 @@
 /obj/structure/flora/bigplant/Initialize(mapload)
 	icon_state = "bigplant[rand(1, 2)]"
 	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 
 //newbushes
 
@@ -468,11 +467,11 @@
 	desc = "A wild plant that is found in jungles."
 	icon = 'icons/obj/flora/jungleflora.dmi'
 	icon_state = "busha"
+	brandish_image = /datum/brandish_image/upright
 
 /obj/structure/flora/junglebush/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 3)]"
 	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 
 /obj/structure/flora/junglebush/b
 	icon_state = "bushb"
@@ -489,15 +488,15 @@
 
 /obj/structure/flora/rock/pile/largejungle
 	name = "rocks"
-	icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
+	icon_state = "rocks"
+	brandish_image = /datum/brandish_image/upright
 	density = FALSE
 	pixel_x = -16
 	pixel_y = -16
 
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	icon_state = "[initial(icon_state)][rand(1,3)]"
 
 /obj/structure/flora/rock/icy

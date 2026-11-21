@@ -25,6 +25,7 @@
 #include "brandish_assets.dm"
 #include "brandish_camera.dm"
 #include "brandish_multiz.dm"
+#include "brandish_riding.dm"
 #include "brandish_placement.dm"
 #include "breath.dm"
 #include "check_adjustable_clothing.dm"

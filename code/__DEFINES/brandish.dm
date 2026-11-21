@@ -1,9 +1,9 @@
 // Registry modes and optional resource families use these manifest keys.
-#define BRANDISH_MODE_SURFACE "surface"
+#define BRANDISH_MODE_ROTATE "surface"
 #define BRANDISH_MODE_SMOOTH "smooth"
 #define BRANDISH_MODE_CORNER "corner"
-#define BRANDISH_MODE_WORLD "world"
-#define BRANDISH_MODE_FIXED_SURFACE "fixed_surface"
+#define BRANDISH_MODE_GROUP_ROTATE "world"
+#define BRANDISH_MODE_CONNECTED "fixed_surface"
 #define BRANDISH_MODE_BASIS "basis"
 #define BRANDISH_ASSET_FOOTPRINT "footprint"
 #define BRANDISH_ASSET_VIEW_GATES "viewGates"
@@ -22,8 +22,7 @@
 #define BRANDISH_RESULT_SCREEN_X 4
 #define BRANDISH_RESULT_SCREEN_Y 5
 
-#define BRANDISH_RESUME_HEADING 1
-#define BRANDISH_RESUME_RESTORE_DIR 2
+#define COMSIG_GLOB_BRANDISH_PERSPECTIVE_CHANGED "glob_brandish_perspective_changed"
 
 // Legacy corner states use d-* or one-character slot prefixes. Inline for hot overlays.
 #define BRANDISH_IS_CORNER_STATE(state) (findtext(state, "d-") == 1 || (length(state) > 2 && copytext(state, 2, 3) == "-"))

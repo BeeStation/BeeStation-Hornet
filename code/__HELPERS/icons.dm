@@ -1047,12 +1047,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
-		// Connection bitfields live in dir; their visible art is an overlay.
-		// HTML thumbnails still need the canonical pipe sheet.
-		if(istype(thing, /obj/machinery/atmospherics/pipe))
-			var/obj/machinery/atmospherics/pipe/pipe = thing
-			if(pipe.brandish_pipe_image)
-				icon2collapse = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
+		// Connection overlays replace the base icon. Thumbnails use the canonical sheet.
+		if(!icon2collapse && ismachinery(thing))
+			var/obj/machinery/machine = thing
+			if(machine.brandish_connection_image)
+				icon2collapse = machine.brandish_connection_icon
+				icon_path = get_icon_dmi_path(icon2collapse)
 		if (isnull(icon_state))
 			icon_state = thing.icon_state
 

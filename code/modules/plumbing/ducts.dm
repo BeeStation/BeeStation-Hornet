@@ -4,10 +4,11 @@ All the important duct code:
 /code/datums/ductnet.dm
 */
 /obj/machinery/duct
-	brandish_icon_mode = BRANDISH_MODE_FIXED_SURFACE
 	name = "fluid duct"
 	icon = 'icons/obj/plumbing/fluid_ducts.dmi'
 	icon_state = "nduct"
+	brandish_connection_icon = 'icons/obj/plumbing/fluid_ducts.dmi'
+	brandish_icon_mode = BRANDISH_MODE_CONNECTED
 	///bitfield with the directions we're connected in
 	var/connects
 	///set to TRUE to disable smart duct behaviour
@@ -33,8 +34,6 @@ All the important duct code:
 	var/active = TRUE
 	///track ducts we're connected to. Mainly for ducts we connect to that we normally wouldn't, like different layers and colors, for when we regenerate the ducts
 	var/list/neighbours = list()
-	/// Connection directions are encoded in icon_state, independently of dir.
-	var/image/brandish_duct_image
 	///wheter we just unanchored or drop whatever is in the variable. either is safe
 	var/drop_on_wrench = /obj/item/stack/ducts
 
@@ -261,17 +260,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 	icon_state = temp_icon
 	APPLY_BRANDISH_ICON(src)
 
-/obj/machinery/duct/apply_brandish_icon()
-	if(brandish_icon_mode != BRANDISH_MODE_FIXED_SURFACE || !GLOB.brandish_assets.enabled)
-		return ..()
-	var/image/geometry = GLOB.brandish_assets.fixed_surface_overlay(initial(icon), icon_state)
-	if(!geometry)
-		return ..()
-	if(brandish_duct_image != geometry)
-		cut_overlay(brandish_duct_image)
-		brandish_duct_image = geometry
-		add_overlay(geometry)
-	icon = null
 ///update the layer we are on
 /obj/machinery/duct/proc/handle_layer()
 	var/offset
@@ -355,10 +343,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 
 ///has a total of 5 layers and doesnt give a shit about color. its also dumb so doesnt autoconnect.
 /obj/machinery/duct/multilayered
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	name = "duct layer-manifold"
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "multiduct"
+	brandish_image = /datum/brandish_image/upright/centered_64
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	pixel_x = -15
 	pixel_y = -15
 
@@ -378,7 +367,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct/multilayered)
 
 /obj/machinery/duct/multilayered/Initialize(mapload, no_anchor, color_of_duct, layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
 	. = ..()
-	brandish_screen_origin(-16, -16)
 	update_connects()
 
 /obj/machinery/duct/multilayered/update_icon()

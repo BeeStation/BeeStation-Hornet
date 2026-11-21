@@ -168,7 +168,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	var/new_consume_range
 	// Expansion rewrites the legacy canvas offsets. Remove the previous
 	// screen origin first so repeated growth/shrink cycles cannot accumulate it.
-	brandish_screen_origin(-brandish_origin_screen_x, -brandish_origin_screen_y)
+	clear_brandish_screen_origin()
 
 	switch(temp_allowed_size)
 		if(STAGE_ONE)

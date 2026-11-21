@@ -1855,6 +1855,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	return result
 
 /mob/living/set_mob_eye_to(atom/A)
+	if(zlook_target && A != zlook_target)
+		clear_zlook()
 	. = ..()
 	update_eye_features()
 

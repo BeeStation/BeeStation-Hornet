@@ -25,6 +25,7 @@
 	if(greyscale_colors && greyscale_config)
 		icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
 	APPLY_BRANDISH_ICON(src)
+	brandish_image_projector?.refresh()
 	if(!smoothing_flags) // This is a bitfield but we're just checking that some sort of smoothing is happening
 		return
 	update_atom_colour()

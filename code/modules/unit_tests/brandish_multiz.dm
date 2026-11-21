@@ -76,74 +76,105 @@
 	SIGNAL_HANDLER
 	physical_events++
 
-/datum/unit_test/brandish_camera_policy/zlook_resume/Run()
-	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
+/datum/unit_test/brandish_multiz_direction_expression/Run()
+	var/turf/origin = run_loc_floor_bottom_left
+	var/use_east = TRUE
+	var/turf/expected = get_step(origin, EAST)
+	TEST_ASSERT(isturf(expected), "The unit test floor has an east neighbor")
+	TEST_ASSERT_EQUAL(get_step_multiz(origin, use_east ? EAST : DOWN), expected, "The step macro evaluates the whole direction expression before testing its flags")
+
+/datum/brandish_test_viewer/zlook/brandish_has_local_eye()
+	return call(src, /client/proc/brandish_has_local_eye)()
+
+/datum/brandish_test_viewer/zlook/proc/sync_camera()
+	call(src, /client/proc/sync_brandish_camera)()
+
+/mob/living/carbon/human/consistent/brandish_zlook_probe
+	var/turf/test_aperture
+
+/mob/living/carbon/human/consistent/brandish_zlook_probe/find_visible_hole_in_direction(direction)
+	return test_aperture
+
+/datum/unit_test/brandish_zlook_eye_lifecycle/Run()
+	var/mob/living/carbon/human/consistent/brandish_zlook_probe/body = allocate(/mob/living/carbon/human/consistent/brandish_zlook_probe)
+	body.test_aperture = run_loc_floor_top_right
+	body.look_down(lock = TRUE)
+	TEST_ASSERT_EQUAL(body.current_mob_eye, body.test_aperture, "Actual look-down selects the aperture")
+	TEST_ASSERT_EQUAL(body.zlook_target, body.test_aperture, "Z-look owns the aperture")
+	ADD_TRAIT(body, TRAIT_INCAPACITATED, REF(src))
+	TEST_ASSERT(!body.update_looking_move(), "Incapacitation stops z-look during movement")
+	TEST_ASSERT_EQUAL(body.current_mob_eye, body, "The eye stays on the body")
+	TEST_ASSERT_NULL(body.zlook_target, "The old aperture is released")
+	REMOVE_TRAIT(body, TRAIT_INCAPACITATED, REF(src))
+	body.look_reset()
+	body.look_down(lock = TRUE)
+	var/obj/remote_eye = allocate(/obj)
+	body.set_mob_eye_to(remote_eye)
+	TEST_ASSERT_NULL(body.zlook_target, "Taking over the eye releases the aperture")
+	TEST_ASSERT(!body.update_looking_move(), "Moving after an eye handoff does not reclaim it")
+	TEST_ASSERT_EQUAL(body.current_mob_eye, remote_eye, "The remote eye survives movement")
+
+/datum/unit_test/brandish_camera_policy/zlook_retains_camera/Run()
+	var/datum/brandish_test_viewer/zlook/viewer = allocate(/datum/brandish_test_viewer/zlook)
 	var/mob/living/carbon/human/consistent/body = allocate(/mob/living/carbon/human/consistent)
 	viewer.mob = body
 	viewer.eye = body
+	viewer.composed_camera_state = allocate(/datum/client_camera_state)
+	var/datum/brandish_camera/camera = allocate(/datum/brandish_camera/policy_test, viewer)
+	camera.register_body_signals()
 	set_default_client_dir(NORTH)
 	for(var/facing in GLOB.cardinals)
-		body.setDir(SOUTH)
-		var/datum/brandish_camera/policy_test/camera = allocate(/datum/brandish_camera/policy_test, viewer)
 		viewer.setDir(facing)
 		body.setDir(facing)
-		body.looking_direction = -1
-		viewer.remember_brandish_zlook(body, run_loc_floor_bottom_left)
-		viewer.eye = run_loc_floor_bottom_left
-		viewer.local_eye = FALSE
-		qdel(camera)
-		TEST_ASSERT_EQUAL(viewer.dir, NORTH, "While looking, existing default-heading teardown is preserved")
-		TEST_ASSERT_EQUAL(body.dir, SOUTH, "Temporary teardown still restores the previous physical facing")
-		TEST_ASSERT(viewer.brandish_zlook_resume?.is_valid(), "A matching z-look retains its resume state")
-		body.looking_direction = 0
-		viewer.eye = body
-		viewer.local_eye = TRUE
-		var/list/resumed = viewer.take_brandish_zlook_resume()
-		TEST_ASSERT_EQUAL(resumed?[1], facing, "Last camera heading survives z-look at [facing]")
-		TEST_ASSERT_EQUAL(resumed?[2], SOUTH, "A later real teardown retains the original physical facing")
-		TEST_ASSERT_EQUAL(body.dir, SOUTH, "Taking a resume record does not mutate physical direction")
-		var/datum/brandish_camera/restored = allocate(/datum/brandish_camera/policy_test, viewer, resumed?[BRANDISH_RESUME_HEADING], resumed?[BRANDISH_RESUME_RESTORE_DIR])
-		TEST_ASSERT_EQUAL(body.dir, facing, "The constructor receives the resumed heading directly")
-		TEST_ASSERT_EQUAL(restored.previous_body_dir, SOUTH, "The constructor retains the eventual teardown direction")
-		qdel(restored)
-		TEST_ASSERT(isnull(viewer.brandish_zlook_resume), "Resume is consumed exactly once")
-		TEST_ASSERT(isnull(viewer.take_brandish_zlook_resume()), "A second consume cannot restore stale state")
+		for(var/look_direction in list(1, -1))
+			body.looking_direction = look_direction
+			body.zlook_target = get_step(body, NORTH)
+			viewer.eye = body.zlook_target
+			SEND_SIGNAL(body, COMSIG_MOB_SET_MOB_EYE, viewer.eye, body)
+			TEST_ASSERT_EQUAL(viewer.brandish_camera, camera, "Entering z-look keeps the camera")
+			TEST_ASSERT_EQUAL(viewer.dir, facing, "Entering z-look keeps the heading")
+			var/list/composed = viewer.composed_camera_state.resolve(TRUE, TRUE)
+			TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_Y], 0, "The other floor's aperture stays centered")
+
+			var/turf/old_eye = viewer.eye
+			body.zlook_target = get_step(body, EAST)
+			viewer.eye = body.zlook_target
+			SEND_SIGNAL(body, COMSIG_MOB_SET_MOB_EYE, viewer.eye, old_eye)
+			TEST_ASSERT_EQUAL(viewer.brandish_camera, camera, "Changing apertures keeps the camera")
+			TEST_ASSERT_EQUAL(viewer.dir, facing, "Changing apertures keeps the heading")
+
+			body.look_reset()
+			viewer.eye = body
+			SEND_SIGNAL(body, COMSIG_MOB_SET_MOB_EYE, body, old_eye)
+			TEST_ASSERT_EQUAL(viewer.brandish_camera, camera, "Leaving z-look keeps the camera")
+			TEST_ASSERT_EQUAL(viewer.dir, facing, "Leaving z-look keeps the heading")
+			composed = viewer.composed_camera_state.resolve(TRUE, TRUE)
+			TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_Y], 2 * world.icon_size, "Returning to the body restores look-ahead")
 
 /datum/unit_test/brandish_camera_policy/zlook_invalidation/Run()
-	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
-	var/mob/living/carbon/human/consistent/body = allocate(/mob/living/carbon/human/consistent)
-	viewer.mob = body
-	viewer.eye = run_loc_floor_bottom_left
-	viewer.local_eye = FALSE
-	body.looking_direction = 1
-	var/datum/brandish_zlook_resume/state = allocate(/datum/brandish_zlook_resume, viewer, body, run_loc_floor_bottom_left, EAST, SOUTH)
-	viewer.brandish_zlook_resume = state
-	TEST_ASSERT(state.is_valid(), "Approved turf eye is a temporary z-look")
-	viewer.eye = run_loc_floor_top_right
-	TEST_ASSERT(!state.is_valid(), "An unrelated remote turf eye is not a z-look resume")
-	viewer.eye = run_loc_floor_bottom_left
-	body.remote_control = allocate(/obj)
-	TEST_ASSERT(!state.is_valid(), "Remote control invalidates z-look state")
-	body.remote_control = null
-	body.control_object = allocate(/obj)
-	TEST_ASSERT(!state.is_valid(), "Controlled objects invalidate z-look state")
-	body.control_object = null
-	viewer.brandish_camera_suppressed = TRUE
-	TEST_ASSERT(!state.is_valid(), "Opt-out invalidates z-look state")
-	viewer.brandish_camera_suppressed = FALSE
-	viewer.brandish_disconnecting = TRUE
-	TEST_ASSERT(!state.is_valid(), "Disconnect invalidates z-look state")
-	viewer.brandish_disconnecting = FALSE
-	set_brandish_perspective(FALSE)
-	TEST_ASSERT(!state.is_valid(), "Global off invalidates z-look state")
-	set_brandish_perspective(TRUE)
-	viewer.mob = allocate(/mob/living/carbon/human/consistent)
-	TEST_ASSERT(!state.is_valid(), "A new body cannot resume the old body's heading")
-	viewer.mob = body
-	SEND_SIGNAL(body, COMSIG_MOB_LOGOUT)
-	TEST_ASSERT(isnull(viewer.brandish_zlook_resume), "Logout destroys cached state before a transfer can return")
-	state = allocate(/datum/brandish_zlook_resume, viewer, body, run_loc_floor_bottom_left, WEST, SOUTH)
-	viewer.brandish_zlook_resume = state
-	body.stat = DEAD
-	SEND_SIGNAL(body, COMSIG_MOB_STATCHANGE)
-	TEST_ASSERT(isnull(viewer.brandish_zlook_resume), "Death destroys cached state")
+	var/datum/brandish_test_viewer/zlook/viewer = allocate(/datum/brandish_test_viewer/zlook)
+	viewer.composed_camera_state = allocate(/datum/client_camera_state)
+	for(var/cause in list("remote turf", "remote object", "logout", "death", "deletion", "transfer"))
+		var/mob/living/carbon/human/consistent/body = allocate(/mob/living/carbon/human/consistent)
+		viewer.mob = body
+		body.looking_direction = 1
+		body.zlook_target = run_loc_floor_bottom_left
+		viewer.eye = body.zlook_target
+		var/datum/brandish_camera/camera = allocate(/datum/brandish_camera/policy_test, viewer)
+		camera.register_body_signals()
+		TEST_ASSERT(camera.is_available(), "Z-look is local while the body is eligible")
+		switch(cause)
+			if("remote turf", "remote object")
+				viewer.eye = cause == "remote turf" ? run_loc_floor_top_right : allocate(/obj)
+				SEND_SIGNAL(body, COMSIG_MOB_SET_MOB_EYE, viewer.eye, body.zlook_target)
+			if("logout")
+				SEND_SIGNAL(body, COMSIG_MOB_LOGOUT)
+			if("death")
+				body.stat = DEAD
+				SEND_SIGNAL(body, COMSIG_MOB_STATCHANGE)
+			if("deletion")
+				qdel(body)
+			if("transfer")
+				viewer.mob = allocate(/mob/living/carbon/human/consistent)
+				viewer.sync_camera()
+		TEST_ASSERT(QDELETED(camera) && !viewer.brandish_camera, "Z-look camera is cleared on [cause]")

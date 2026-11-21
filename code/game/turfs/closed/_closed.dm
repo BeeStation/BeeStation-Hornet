@@ -1,9 +1,6 @@
 CREATION_TEST_IGNORE_SELF(/turf/closed)
 
 /turf/closed
-	// Fixed mapped wall states (including legacy abductor/shuttle walls) need
-	// the same world-art policy as neighbour-smoothed walls.
-	brandish_icon_mode = BRANDISH_MODE_SURFACE
 	abstract_type = /turf/closed
 	layer = CLOSED_TURF_LAYER
 	opacity = TRUE
@@ -13,6 +10,9 @@ CREATION_TEST_IGNORE_SELF(/turf/closed)
 	init_air = FALSE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
+	// Fixed mapped wall states (including legacy abductor/shuttle walls) need
+	// the same world-art policy as neighbour-smoothed walls.
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 
 /turf/closed/Initialize(mapload)
 	. = ..()
