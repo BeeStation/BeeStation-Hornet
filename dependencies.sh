@@ -30,4 +30,4 @@ export CUTTER_VERSION=v4.0.0
 
 # SpacelizardDMM release
 export SPACELIZARD_REPO=EvilDragonfiend/SpacelizardDMM
-export SPACELIZARD_VERSION=v0.1.0
+export SPACELIZARD_VERSION=v0.1.1
