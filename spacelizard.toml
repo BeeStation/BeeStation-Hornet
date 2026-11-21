@@ -1,5 +1,5 @@
 environment = "beestation.dme"
-header_path = "code/__DEFINES/spacelizard.dm"
+header_path = "code/__DEFINES/spacelizard_dmm.dm"
 
 [passes]
 default = ["CBT"]
