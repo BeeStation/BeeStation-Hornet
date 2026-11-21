@@ -509,7 +509,6 @@
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		return FALSE
 	REMOVE_TRAIT(src, TRAIT_DISFIGURED, "husk")
-	update_body()
 	UnregisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UNHUSKABLE))
 	return TRUE
 
@@ -518,11 +517,10 @@
 		return
 	var/was_husk = HAS_TRAIT(src, TRAIT_HUSK)
 	ADD_TRAIT(src, TRAIT_HUSK, source)
-	if (was_husk)
-		return
-	ADD_TRAIT(src, TRAIT_DISFIGURED, "husk")
-	update_body()
-	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UNHUSKABLE), PROC_REF(became_unhuskable))
+	if (!was_husk)
+		ADD_TRAIT(src, TRAIT_DISFIGURED, "husk")
+		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UNHUSKABLE), PROC_REF(became_unhuskable))
+	return TRUE
 
 /mob/living/proc/became_unhuskable()
 	SIGNAL_HANDLER
