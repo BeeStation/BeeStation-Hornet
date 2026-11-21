@@ -761,7 +761,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return NONE
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
-		if(resolve_location.loc != user || !user.can_perform_action(resolve_parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+		if(resolve_parent.loc != user || !user.can_perform_action(resolve_parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 			return NONE
 
 		if(isitem(resolve_parent))
