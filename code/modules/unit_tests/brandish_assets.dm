@@ -260,6 +260,9 @@
 	pipe.device_type = BINARY
 	pipe.initialize_directions = EAST | WEST
 	pipe.nodes = list(neighbor, null)
+	neighbor.device_type = BINARY
+	neighbor.initialize_directions = EAST | WEST
+	neighbor.nodes = list(pipe, null)
 	pipe.update_icon()
 	var/image/connected = pipe.brandish_connection_image
 	TEST_ASSERT_NOTNULL(connected, "A connected bitmask pipe draws a shared overlay")
@@ -268,14 +271,17 @@
 	pipe.update_icon()
 	var/geometry_index = pipe.overlays.Find(connected.appearance)
 	TEST_ASSERT(geometry_index && geometry_index < pipe.overlays.Find(marker.appearance), "An unchanged pipe does not reattach its connection overlay")
-	pipe.nodes[1] = null
+	pipe.nullify_node(1)
 	pipe.update_icon()
 	TEST_ASSERT(pipe.brandish_connection_image && pipe.brandish_connection_image != connected, "Disconnecting replaces the topology overlay")
 	TEST_ASSERT(!(connected.appearance in pipe.overlays), "Disconnecting removes the old connected state")
 	pipe.nodes[1] = neighbor
+	neighbor.nodes[1] = pipe
 	pipe.update_icon()
 	TEST_ASSERT_EQUAL(pipe.brandish_connection_image, connected, "Reconnecting reuses the cached connected state")
 	pipe.initialize_directions = EAST
 	pipe.update_icon()
 	TEST_ASSERT_NULL(pipe.brandish_connection_image, "A single connection retains its native rendering path")
 	TEST_ASSERT(!(connected.appearance in pipe.overlays), "Leaving the connection sheet removes its overlay")
+	qdel(pipe)
+	TEST_ASSERT_NULL(neighbor.nodes[1], "Deleting the pipe clears the neighbor's connection")
