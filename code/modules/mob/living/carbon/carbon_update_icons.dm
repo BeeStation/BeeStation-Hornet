@@ -253,7 +253,8 @@
 
 	apply_overlay(BODYPARTS_LAYER)
 	// for legacy support, head changes triggers an eye/hair update
-	if(head_update)
+	// also run hair/eyes update on mob creation and other forced data updates to apply any custom changes made
+	if(head_update || update_limb_data)
 		update_eyes()
 		update_hair()
 
@@ -300,7 +301,7 @@
 
 /obj/item/bodypart/head/generate_icon_key()
 	. = ..()
-	if(lip_style)
+	if(lip_style && !(owner?.obscured_slots & HIDEFACIALHAIR))
 		. += lip_color
 		. += lip_style
 

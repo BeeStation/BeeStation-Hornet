@@ -1,6 +1,5 @@
 // Tests debrained overlay. And also eyeless since we're here
 /datum/unit_test/screenshot_debrain
-	var/last_frame = 1
 
 /datum/unit_test/screenshot_debrain/Run()
 	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human/dummy/consistent)

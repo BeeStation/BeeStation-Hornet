@@ -105,6 +105,8 @@
 
 /obj/item/organ/eyes/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
+	organ_owner.vis_contents -= eyelid_left
+	organ_owner.vis_contents -= eyelid_right
 
 	if(ishuman(organ_owner))
 		var/mob/living/carbon/human/human_owner = organ_owner
@@ -134,6 +136,7 @@
 
 /obj/item/organ/eyes/on_bodypart_remove(obj/item/bodypart/limb, movement_flags)
 	. = ..()
+	update_appearance()
 	if(ishuman(limb.owner))
 		limb.owner.update_eyes(refresh = FALSE)
 	else

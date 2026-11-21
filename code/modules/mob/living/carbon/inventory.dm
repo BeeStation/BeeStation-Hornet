@@ -167,6 +167,7 @@
 	if(item.hair_mask)
 		LAZYADD(hair_masks, item.hair_mask)
 		update_hair()
+		update_body() // this is solely for lizard frills
 	add_item_coverage(item)
 
 /mob/living/carbon/has_unequipped(obj/item/item)
@@ -176,8 +177,12 @@
 
 	hud_used?.update_locked_slots()
 	if(item.hair_mask)
-		LAZYREMOVE(hair_masks, item.hair_mask)
+		hair_masks = null
+		for(var/obj/item/worn_item as anything in get_equipped_items())
+			if(worn_item.hair_mask)
+				LAZYADD(hair_masks, worn_item.hair_mask)
 		update_hair()
+		update_body() // this is solely for lizard frills
 	remove_item_coverage(item)
 
 /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)

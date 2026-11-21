@@ -42,6 +42,7 @@
 	parent_eyes = carbon_parent.get_organ_slot(ORGAN_SLOT_EYES)
 
 	if(!parent_eyes || IS_ROBOTIC_ORGAN(parent_eyes))
+		parent_eyes = null
 		return
 
 	START_PROCESSING(SSdcs, src)
@@ -76,7 +77,8 @@
 /datum/component/manual_blinking/proc/restart()
 	SIGNAL_HANDLER
 
-	START_PROCESSING(SSdcs, src)
+	if(parent_eyes)
+		START_PROCESSING(SSdcs, src)
 
 /datum/component/manual_blinking/proc/pause()
 	SIGNAL_HANDLER

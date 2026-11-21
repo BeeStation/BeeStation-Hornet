@@ -93,7 +93,7 @@
 		return .
 
 	var/facial_hair_gradient_color = gradient_colors[GRADIENT_FACIAL_HAIR_KEY]
-	var/image/facial_hair_gradient_overlay = get_gradient_overlay(icon(sprite_accessory.icon, sprite_accessory.icon_state), CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), GLOB.facial_hair_gradients_list[facial_hair_gradient_style], facial_hair_gradient_color, dropped)
+	var/image/facial_hair_gradient_overlay = get_gradient_overlay(icon(sprite_accessory.icon, sprite_accessory.icon_state), sprite_accessory.type, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), GLOB.facial_hair_gradients_list[facial_hair_gradient_style], facial_hair_gradient_color, dropped)
 	if (facial_hair_alpha == 255)
 		. += facial_hair_gradient_overlay
 		return .
@@ -122,7 +122,7 @@
 
 	var/list/all_hair_overlays = list()
 	// Hair masks
-	var/icon/base_icon = icon(hair_sprite_accessory.getCachedIcon(owner?.hair_masks))
+	var/icon/base_icon = hair_sprite_accessory.getCachedIcon(owner?.hair_masks)
 	// Overlay
 	all_hair_overlays += image(base_icon, layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), dir = image_dir)
 	// If we have any hair appendages (ponytails, etc.) sticking out on a particular side,
@@ -156,7 +156,7 @@
 		var/hair_gradient_style = gradient_styles[GRADIENT_HAIR_KEY]
 		if(hair_gradient_style != SPRITE_ACCESSORY_NONE)
 			var/hair_gradient_color = gradient_colors[GRADIENT_HAIR_KEY]
-			var/image/hair_gradient_overlay = get_gradient_overlay(base_icon, hair_overlay.layer, GLOB.hair_gradients_list[hair_gradient_style], hair_gradient_color, dropped)
+			var/image/hair_gradient_overlay = get_gradient_overlay(base_icon, REF(base_icon), hair_overlay.layer, GLOB.hair_gradients_list[hair_gradient_style], hair_gradient_color, dropped)
 			hair_gradient_overlay.pixel_z = hair_sprite_accessory.y_offset
 			. += hair_gradient_overlay
 
@@ -221,14 +221,19 @@
 	return eyeless_overlay
 
 /// Returns an appropriate hair/facial hair gradient overlay
-/obj/item/bodypart/head/proc/get_gradient_overlay(icon/base_icon, layer, datum/sprite_accessory/gradient, grad_color, dropped)
+/obj/item/bodypart/head/proc/get_gradient_overlay(icon/base_icon, base_key, layer, datum/sprite_accessory/gradient, grad_color, dropped)
 	RETURN_TYPE(/mutable_appearance)
+	var/static/list/gradient_icon_cache = list()
+
+	var/cache_key = "[gradient.type]|[base_key]"
+	var/icon/blended = gradient_icon_cache[cache_key]
+	if(!blended)
+		blended = icon(gradient.icon, gradient.icon_state)
+		blended.Blend(base_icon, ICON_ADD)
+		gradient_icon_cache[cache_key] = blended
 
 	var/mutable_appearance/gradient_overlay = mutable_appearance(layer = layer)
-	var/icon/temp = icon(gradient.icon, gradient.icon_state)
-	var/icon/temp_hair = icon(base_icon)
-	temp.Blend(temp_hair, ICON_ADD)
-	gradient_overlay.icon = temp
+	gradient_overlay.icon = blended
 	gradient_overlay.color = grad_color
 	if (dropped)
 		gradient_overlay = image(gradient_overlay, dir = SOUTH)
