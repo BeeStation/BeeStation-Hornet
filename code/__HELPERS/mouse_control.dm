@@ -1,52 +1,15 @@
 /proc/mouse_angle_from_client(client/client, mouseParams)
-	var/list/modifiers = params2list(mouseParams)
-	if(LAZYACCESS(modifiers, SCREEN_LOC) && client)
-		var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-		var/list/screen_loc_X = splittext(screen_loc_params[1],":")
-		var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-		var/x = (text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32)
-		var/y = (text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32)
-		var/list/screenview = getviewsize(client.view)
-		var/screenviewX = screenview[1] * ICON_SIZE_X
-		var/screenviewY = screenview[2] * ICON_SIZE_Y
-		var/ox = round(screenviewX/2) - client.pixel_x //"origin" x
-		var/oy = round(screenviewY/2) - client.pixel_y //"origin" y
-		var/angle = SIMPLIFY_DEGREES(ATAN2(y - oy, x - ox))
-		return angle
+	var/list/vector = client?.camera_click_vector(params2list(mouseParams))
+	if(vector)
+		return SIMPLIFY_DEGREES(ATAN2(vector[2], vector[1]))
 
-//Wow, specific name!
 /proc/mouse_absolute_datum_map_position_from_client(client/client, params)
-	if(!isloc(client.mob.loc))
+	var/turf/eye_turf = get_turf(client?.eye)
+	var/list/vector = client?.camera_click_vector(params2list(params), eye_turf)
+	if(!vector || !eye_turf)
 		return
-	var/list/modifiers = params2list(params)
-	var/atom/A = client.eye
-	var/turf/T = get_turf(A)
-	var/cx = T.x
-	var/cy = T.y
-	var/cz = T.z
-	if(LAZYACCESS(modifiers, SCREEN_LOC))
-		var/x = 0
-		var/y = 0
-		var/z = 0
-		var/p_x = 0
-		var/p_y = 0
-		//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-		var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-		//Split X+Pixel_X up into list(X, Pixel_X)
-		var/list/screen_loc_X = splittext(screen_loc_params[1],":")
-		//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-		var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-		var/sx = text2num(screen_loc_X[1])
-		var/sy = text2num(screen_loc_Y[1])
-		//Get the resolution of the client's current screen size.
-		var/list/screenview = getviewsize(client.view)
-		var/svx = screenview[1]
-		var/svy = screenview[2]
-		var/cox = round((svx - 1) / 2)
-		var/coy = round((svy - 1) / 2)
-		x = cx + (sx - 1 - cox)
-		y = cy + (sy - 1 - coy)
-		z = cz
-		p_x = text2num(screen_loc_X[2])
-		p_y = text2num(screen_loc_Y[2])
-		return new /datum/position(x, y, z, p_x, p_y)
+	var/x = vector[1] + ICON_SIZE_X / 2
+	var/y = vector[2] + ICON_SIZE_Y / 2
+	var/tile_x = FLOOR(x / ICON_SIZE_X, 1)
+	var/tile_y = FLOOR(y / ICON_SIZE_Y, 1)
+	return new /datum/position(eye_turf.x + tile_x, eye_turf.y + tile_y, eye_turf.z, x - tile_x * ICON_SIZE_X, y - tile_y * ICON_SIZE_Y)

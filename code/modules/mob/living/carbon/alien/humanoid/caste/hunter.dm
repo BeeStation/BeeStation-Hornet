@@ -43,7 +43,7 @@
 
 	leaping = TRUE
 	//Because the leaping sprite is bigger than the normal one
-	add_offsets(LEAPING_TRAIT, x_add = -32, y_add = -32, animate = FALSE)
+	add_offsets(LEAPING_TRAIT, w_add = -32, z_add = -32, animate = FALSE)
 	update_icons()
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPING_TRAIT) //Throwing itself doesn't protect mobs against lava (because gulag).
 	throw_at(A, MAX_ALIEN_LEAP_DIST, 1, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(leap_end)))

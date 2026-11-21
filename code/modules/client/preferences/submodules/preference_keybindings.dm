@@ -28,7 +28,10 @@
 		return FALSE
 	if(!islist(hotkeys))
 		return
+	if(brandish_keybind_conflicts(key_bindings, keybind_name, hotkeys))
+		return FALSE
 	log_preferences("[parent?.ckey]: Set keybind [keybind_name] to [english_list(hotkeys)].")
 	key_bindings[keybind_name] = hotkeys
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 	mark_undatumized_dirty_player()
+	return TRUE

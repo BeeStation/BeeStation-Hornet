@@ -641,7 +641,7 @@
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 	if(rotate_on_lying)
-		add_offsets(LYING_DOWN_TRAIT, y_add = PIXEL_Y_OFFSET_LYING)
+		add_offsets(LYING_DOWN_TRAIT, z_add = PIXEL_Y_OFFSET_LYING)
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_standing_up()
@@ -1161,7 +1161,7 @@
 				flipped_matrix.b = -flipped_matrix.b
 				flipped_matrix.e = -flipped_matrix.e
 				animate(src, transform = flipped_matrix, time = 0.5 SECONDS, easing = EASE_OUT, flags = ANIMATION_PARALLEL)
-				add_offsets(NEGATIVE_GRAVITY_TRAIT, y_add = 4)
+				add_offsets(NEGATIVE_GRAVITY_TRAIT, z_add = 4)
 		if(NEGATIVE_GRAVITY + 0.01 to 0)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/weightless))
 				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/weightless)
@@ -1200,13 +1200,15 @@
 	var/matrix/reset_matrix = matrix()
 	reset_matrix.Turn(-5)
 	// Offset animation
-	animate(src, time = 1, pixel_x = rand(-2, 2), pixel_y = rand(-1, 1), easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	var/initial_dx = rand(-2, 2)
+	var/initial_dy = rand(-1, 1)
+	animate(src, time = 1, pixel_w = initial_dx, pixel_z = initial_dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
 	for (var/i in 1 to 4)
 		var/dx = rand(-4, 2)
 		var/dy = rand(-4, 2)
-		animate(time = 1, pixel_x = dx, pixel_y = dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
-		animate(time = 0, pixel_x = -dx, pixel_y = -dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
-	animate(time = 1, pixel_x = base_pixel_x , pixel_y = base_pixel_y)
+		animate(time = 1, pixel_w = dx, pixel_z = dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+		animate(time = 0, pixel_w = -dx, pixel_z = -dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+	animate(time = 1, pixel_w = -initial_dx, pixel_z = -initial_dy, flags = ANIMATION_RELATIVE)
 	// Rotational Animation
 	animate(src, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 	animate(time = 2, flags = ANIMATION_RELATIVE)
@@ -1870,6 +1872,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	return result
 
 /mob/living/set_mob_eye_to(atom/A)
+	if(zlook_target && A != zlook_target)
+		clear_zlook()
 	. = ..()
 	update_eye_features()
 

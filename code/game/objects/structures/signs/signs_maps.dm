@@ -1,8 +1,12 @@
 //map and direction signs
 
+/obj/structure/sign/directions
+	brandish_image = /datum/brandish_image/wall_mounted
+
 /obj/structure/sign/map
 	name = "station map"
 	desc = "A framed picture of the station."
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	max_integrity = 500
 
 /obj/structure/sign/map/left

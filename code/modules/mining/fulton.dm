@@ -105,27 +105,27 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	holder_obj.appearance = target.appearance
 	target.forceMove(holder_obj)
 	var/mutable_appearance/balloon2 = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_expand", appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM | KEEP_APART)
-	balloon2.pixel_y = 10
+	balloon2.pixel_z = 10
 	holder_obj.add_overlay(balloon2)
 	addtimer(CALLBACK(src, PROC_REF(create_balloon), target, user, holder_obj, balloon2), 0.4 SECONDS)
 
 /obj/item/extraction_pack/proc/create_balloon(atom/movable/thing, mob/living/user, obj/effect/extraction_holder/holder_obj, mutable_appearance/balloon2)
 	var/mutable_appearance/balloon = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_balloon", appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM | KEEP_APART)
-	balloon.pixel_y = 10
+	balloon.pixel_z = 10
 	holder_obj.cut_overlay(balloon2)
 	holder_obj.add_overlay(balloon)
 	playsound(holder_obj.loc, 'sound/items/fultext_deploy.ogg', vol = 50, vary = TRUE, extrarange = -3)
 
-	animate(holder_obj, pixel_y = 10, time = 2 SECONDS, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(holder_obj, pixel_z = 10, time = 2 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_z = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_z = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_z = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_z = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
 
 	sleep(6 SECONDS)
 
 	playsound(holder_obj.loc, 'sound/items/fultext_launch.ogg', vol = 50, vary = TRUE, extrarange = -3)
-	animate(holder_obj, pixel_y = 1000, time = 3 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(holder_obj, pixel_z = 1000, time = 3 SECONDS, flags = ANIMATION_RELATIVE)
 
 	if(ishuman(thing))
 		var/mob/living/carbon/human/creature = thing
@@ -146,14 +146,14 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 	holder_obj.forceMove(pick(flooring_near_beacon))
 
-	animate(holder_obj, pixel_y = -990, time = 5 SECONDS, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(holder_obj, pixel_z = -990, time = 5 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_z = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_z = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
 
 	sleep(7 SECONDS)
 
 	var/mutable_appearance/balloon3 = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_retract", appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM | KEEP_APART)
-	balloon3.pixel_y = 10
+	balloon3.pixel_z = 10
 	holder_obj.cut_overlay(balloon)
 	holder_obj.add_overlay(balloon3)
 
@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	holder_obj.cut_overlay(balloon3)
 	thing.set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
 	thing.set_density(initial(thing.density))
-	animate(holder_obj, pixel_y = -10, time = 0.5 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(holder_obj, pixel_z = -10, time = 0.5 SECONDS, flags = ANIMATION_RELATIVE)
 	sleep(0.5 SECONDS)
 	thing.forceMove(holder_obj.loc)
 	qdel(holder_obj)

@@ -38,7 +38,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mecha_wreckage)
 	AI.forceMove(src) //Put the dead AI inside the wreckage for recovery
 	add_overlay(mutable_appearance('icons/obj/projectiles.dmi', "green_laser")) //Overlay for the recovery beacon
 	AI.controlled_equipment = null
-	AI.remote_control = null
+	AI.set_remote_control(null)
 
 /obj/structure/mecha_wreckage/examine(mob/user)
 	. = ..()

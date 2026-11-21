@@ -14,8 +14,8 @@
 		animal.icon_living = "[icon_prefix]_[chosen_sprite_suffix]"
 		animal.icon_dead = "[icon_prefix]_[chosen_sprite_suffix]_dead"
 		if(modify_pixels)
-			animal.pixel_x = animal.base_pixel_x + rand(-6, 6)
-			animal.pixel_y = animal.base_pixel_y + rand(0, 10)
+			animal.pixel_x = animal.get_world_base_pixel_x() + rand(-6, 6)
+			animal.pixel_y = animal.get_world_base_pixel_y() + rand(0, 10)
 		return
 
 	if(isbasicmob(target))
@@ -24,8 +24,8 @@
 		animal.icon_living = "[icon_prefix]_[chosen_sprite_suffix]"
 		animal.icon_dead = "[icon_prefix]_[chosen_sprite_suffix]_dead"
 		if(modify_pixels) // Yeah I know I didn't actually need to copy and paste this part but basicmob's entire existence is copypaste
-			animal.pixel_x = animal.base_pixel_x + rand(-6, 6)
-			animal.pixel_y = animal.base_pixel_y + rand(0, 10)
+			animal.pixel_x = animal.get_world_base_pixel_x() + rand(-6, 6)
+			animal.pixel_y = animal.get_world_base_pixel_y() + rand(0, 10)
 		return
 
 	return ELEMENT_INCOMPATIBLE
@@ -36,15 +36,15 @@
 		animal.icon_state = initial(animal.icon_state)
 		animal.icon_living = initial(animal.icon_living)
 		animal.icon_dead = initial(animal.icon_living)
-		animal.pixel_x = animal.base_pixel_x
-		animal.pixel_y = animal.base_pixel_y
+		animal.pixel_x = animal.get_world_base_pixel_x()
+		animal.pixel_y = animal.get_world_base_pixel_y()
 
 	if(isbasicmob(target))
 		var/mob/living/basic/animal = target
 		animal.icon_state = initial(animal.icon_state)
 		animal.icon_living = initial(animal.icon_living)
 		animal.icon_dead = initial(animal.icon_living)
-		animal.pixel_x = animal.base_pixel_x
-		animal.pixel_y = animal.base_pixel_y
+		animal.pixel_x = animal.get_world_base_pixel_x()
+		animal.pixel_y = animal.get_world_base_pixel_y()
 
 	return ..()

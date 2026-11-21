@@ -23,11 +23,12 @@
 	///Move the item to our target, so we can work with it, like we're a table
 	if(user.transferItemToLoc(I, target, silent = FALSE))
 		//Center the icon where the user clicked.
-		if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
+		var/list/click_offset = camera_click_offset(modifiers, user.client?.dir || NORTH, src, user.client)
+		if(!click_offset)
 			return
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
-		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+		I.pixel_x = clamp(click_offset[1], -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		I.pixel_y = clamp(click_offset[2], -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 		//Handle contents
 		if(move_inside)
 			register_contents(I)

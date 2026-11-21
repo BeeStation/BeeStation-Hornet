@@ -347,9 +347,10 @@
 	var/clickx
 	var/clicky
 
-	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
-		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
-		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+	var/list/click_offset = camera_click_offset(modifiers, user.client?.dir || NORTH, target, user.client)
+	if(click_offset)
+		clickx = clamp(click_offset[1], -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		clicky = clamp(click_offset[2], -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 
 	if(pre_noise)
 		audible_message(span_notice("You hear spraying."))

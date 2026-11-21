@@ -493,7 +493,7 @@
 	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
-	mod.wearer.add_offsets(REF(src), y_add = -4)
+	mod.wearer.add_offsets(REF(src), z_add = -4)
 	mod.wearer.SpinAnimation(1.5)
 	mod.wearer.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_HANDS_BLOCKED, TRAIT_FORCED_STANDING, TRAIT_NO_SLIP_ALL), REF(src))
 	mod.wearer.RemoveElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)

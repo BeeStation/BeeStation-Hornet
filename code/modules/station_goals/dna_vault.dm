@@ -133,6 +133,7 @@
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
+	brandish_image = /datum/brandish_image/group_rotate
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 5000

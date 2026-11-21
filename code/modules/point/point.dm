@@ -30,10 +30,10 @@
 		animate(visual, pixel_x = (tile.x - our_tile.x) * ICON_SIZE_X + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * ICON_SIZE_Y + pointed_atom.pixel_y, time = 0.17 SECONDS, easing = EASE_OUT)
 		return TRUE
 	else
-		var/list/actual_view = getviewsize(M.client ? M.client.view : world.view)
-		var/list/split_coords = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-		final_x = (text2num(splittext(split_coords[1], ":")[1]) - actual_view[1] / 2) * ICON_SIZE_X + (text2num(splittext(split_coords[1], ":")[2]) - ICON_SIZE_X)
-		final_y = (text2num(splittext(split_coords[2], ":")[1]) - actual_view[2] / 2) * ICON_SIZE_Y + (text2num(splittext(split_coords[2], ":")[2]) - ICON_SIZE_Y)
+		var/list/vector = M?.client?.camera_click_vector(modifiers, our_tile)
+		if(vector)
+			final_x = vector[1]
+			final_y = vector[2]
 	//
 
 	/// Set rotation
@@ -61,14 +61,16 @@
 	pointed_atom_appearance.layer = FLOAT_LAYER
 	pointed_atom_appearance.pixel_x = 0
 	pointed_atom_appearance.pixel_y = 0
+	pointed_atom_appearance.pixel_w = 0
+	pointed_atom_appearance.pixel_z = 0
 	thought_bubble.overlays += pointed_atom_appearance
 
 	var/hover_outline_index = pointed_atom.get_filter_index(HOVER_OUTLINE_FILTER)
 	if (!isnull(hover_outline_index))
 		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
 
-	thought_bubble.pixel_x = 16
-	thought_bubble.pixel_y = 32
+	thought_bubble.pixel_w = 16
+	thought_bubble.pixel_z = 32
 	thought_bubble.alpha = 200
 	thought_bubble.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
@@ -90,6 +92,7 @@
 	name = "pointer"
 	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "arrow"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	plane = POINT_PLANE
 	duration = POINT_TIME
 

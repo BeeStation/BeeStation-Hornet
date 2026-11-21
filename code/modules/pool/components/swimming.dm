@@ -17,7 +17,7 @@
 	if(!isliving(parent))
 		message_admins("Swimming component erroneously added to a non-living mob ([parent]).")
 		return INITIALIZE_HINT_QDEL //Only mobs can swim, like Ian...
-	var/mob/M = parent
+	var/mob/living/M = parent
 	M.visible_message(span_notice("[parent] starts splashing around in the water!"))
 	M.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/swimming, multiplicative_slowdown=slowdown)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(onMove))
@@ -82,11 +82,11 @@
 
 /datum/component/swimming/UnregisterFromParent()
 	exit_pool()
-	var/mob/M = parent
+	var/mob/living/M = parent
 	if(drowning)
 		stop_drowning(M)
 	if(bob_tick)
-		M.pixel_y = 0
+		M.pixel_z = M.get_screen_base_pixel_z() + M.has_offset(pixel = PIXEL_Z_OFFSET)
 	M.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/swimming)
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE)
@@ -97,14 +97,15 @@
 /datum/component/swimming/process()
 	var/mob/living/L = parent
 	var/floating = FALSE
+	var/rest_z = L.get_screen_base_pixel_z() + L.has_offset(pixel = PIXEL_Z_OFFSET)
 	var/obj/item/pool/helditem = L.get_active_held_item()
 	if(istype(helditem) && ISWIELDED(helditem))
 		bob_tick ++
-		animate(L, time=9.5, pixel_y = (L.pixel_y == bob_height_max) ? bob_height_min : bob_height_max)
+		animate(L, time=9.5, pixel_z = rest_z + ((L.pixel_z == rest_z + bob_height_max) ? bob_height_min : bob_height_max))
 		floating = TRUE
 	else
 		if(bob_tick)
-			animate(L, time=5, pixel_y = 0)
+			animate(L, time=5, pixel_z = rest_z)
 			bob_tick = 0
 	if(!floating && is_drowning(L))
 		if(!drowning)

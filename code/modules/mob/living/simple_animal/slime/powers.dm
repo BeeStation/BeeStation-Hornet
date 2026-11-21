@@ -115,7 +115,7 @@
 /mob/living/simple_animal/slime/proc/Feedon(mob/living/target_mob)
 	target_mob.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
 	if(target_mob.buckle_mob(src, force = TRUE))
-		add_offsets(FEEDING_OFFSET, y_add = target_mob.mob_size <= MOB_SIZE_SMALL ? 0 : 3)
+		add_offsets(FEEDING_OFFSET, z_add = target_mob.mob_size <= MOB_SIZE_SMALL ? 0 : 3)
 		layer = MOB_ABOVE_PIGGYBACK_LAYER //appear above the target mob
 		target_mob.visible_message(
 			span_danger("[name] latches onto [target_mob]!"),

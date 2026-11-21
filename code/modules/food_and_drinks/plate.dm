@@ -31,11 +31,12 @@
 		to_chat(user, span_notice("[src] can't fit more items!"))
 		return
 	//Center the icon where the user clicked.
-	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
+	var/list/click_offset = camera_click_offset(modifiers)
+	if(!click_offset)
 		return
 	if(user.transferItemToLoc(I, src, silent = FALSE))
-		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -max_x_offset, max_x_offset)
-		I.pixel_y = min(text2num(LAZYACCESS(modifiers, ICON_Y)) + placement_offset, max_height_offset)
+		I.pixel_x = clamp(click_offset[1], -max_x_offset, max_x_offset)
+		I.pixel_y = min(click_offset[2] + ICON_SIZE_Y / 2 + placement_offset, max_height_offset)
 		to_chat(user, span_notice("You place [I] on [src]."))
 		AddToPlate(I, user)
 	else
@@ -54,6 +55,8 @@
 
 ///This proc adds the food to viscontents and makes sure it can deregister if this changes.
 /obj/item/plate/proc/AddToPlate(obj/item/item_to_plate)
+	if(!item_to_plate.GetComponent(/datum/component/screen_placement))
+		item_to_plate.AddComponent(/datum/component/screen_placement)
 	vis_contents += item_to_plate
 	RegisterSignal(item_to_plate, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	RegisterSignal(item_to_plate, COMSIG_QDELETING, PROC_REF(ItemMoved))

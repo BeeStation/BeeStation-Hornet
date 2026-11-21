@@ -49,7 +49,7 @@ Passive gate is similar to the regular pump except:
 	cut_overlays()
 	icon_state = "passgate_off-[set_overlay_offset(piping_layer)]"
 	if(on)
-		add_overlay(get_pipe_image(icon, "passgate_on-[set_overlay_offset(piping_layer)]"))
+		add_overlay(get_pipe_image(icon, "passgate_on-[set_overlay_offset(piping_layer)]", dir))
 
 /obj/machinery/atmospherics/components/binary/passive_gate/process_atmos()
 	..()

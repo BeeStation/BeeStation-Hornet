@@ -5,7 +5,7 @@
 
 /obj/machinery/holopad/remove_eye_control(mob/living/user)
 	user.set_mob_eye_to(MOB_EYE_SELF)
-	user.remote_control = null
+	user.set_remote_control(null)
 
 //this datum manages it's own references
 
@@ -176,7 +176,7 @@
 	eye.eye_user = user
 	eye.name = "Camera Eye ([user.name])"
 	eye.use_static = FALSE
-	user.remote_control = eye
+	user.set_remote_control(eye)
 	user.set_mob_eye_to(eye)
 	eye.setLoc(get_turf(answering_holopad))
 

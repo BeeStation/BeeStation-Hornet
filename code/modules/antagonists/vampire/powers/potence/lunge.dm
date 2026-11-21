@@ -88,8 +88,8 @@
 	// Smoke
 	do_smoke(0, owner.loc, smoke_type = /obj/effect/particle_effect/smoke/transparent)
 	//animate them shake
-	var/base_x = owner.base_pixel_x
-	var/base_y = owner.base_pixel_y
+	var/base_x = owner.get_world_base_pixel_x()
+	var/base_y = owner.get_world_base_pixel_y()
 	animate(owner, pixel_x = base_x, pixel_y = base_y, time = 1, loop = -1)
 	for(var/i in 1 to 25)
 		var/x_offset = base_x + rand(-3, 3)

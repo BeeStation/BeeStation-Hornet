@@ -3,6 +3,7 @@
 	desc = "A standard-measure shipping container for bulk transport of goods. This one is blank, offering no clue as to its contents."
 	icon = 'icons/obj/containers.dmi'
 	icon_state = "container_blank"
+	brandish_image = /datum/brandish_image/group_rotate
 	max_integrity = 500
 	layer = ABOVE_MOB_LAYER
 	density = TRUE

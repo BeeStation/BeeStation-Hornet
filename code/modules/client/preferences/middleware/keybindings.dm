@@ -37,11 +37,14 @@
 	if (isnull(keybinding))
 		return FALSE
 
-	preferences.key_bindings[keybind_name] = keybinding.keys
+	if(!preferences.set_keybind(keybind_name, keybinding.keys.Copy()))
+		to_chat(user, span_warning("That key is already assigned to another Brandish movement action."))
+		preferences.update_static_data(user)
+		return FALSE
 
 	preferences.update_static_data(user)
 	preferences.mark_undatumized_dirty_player()
-	user.client.update_special_keybinds(src)
+	user.client.update_special_keybinds(preferences)
 	return TRUE
 
 /datum/preference_middleware/keybindings/proc/set_keybindings(list/params, mob/user)
@@ -70,8 +73,11 @@
 
 		hotkeys += hotkey
 
-	preferences.set_keybind(keybind_name, hotkeys)
-	user.client.update_special_keybinds(src)
+	if(!preferences.set_keybind(keybind_name, hotkeys))
+		to_chat(user, span_warning("That key is already assigned to another Brandish movement action."))
+		preferences.update_static_data(user)
+		return FALSE
+	user.client.update_special_keybinds(preferences)
 	return TRUE
 
 /datum/asset/json/keybindings

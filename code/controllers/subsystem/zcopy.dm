@@ -400,6 +400,7 @@ SUBSYSTEM_DEF(zcopy)
 			continue
 
 		// Actually update the overlay.
+		OO.sync_display_bounds()
 		if (OO.dir != OO.associated_atom.dir)
 			OO.dir = OO.associated_atom.dir
 

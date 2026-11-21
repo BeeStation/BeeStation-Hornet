@@ -46,6 +46,8 @@
 		I.override = TRUE
 		I.pixel_x -= owner.pixel_x
 		I.pixel_y -= owner.pixel_y
+		I.pixel_w -= owner.pixel_w
+		I.pixel_z -= owner.pixel_z
 		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic, "smallsprite", I, AA_TARGET_SEE_APPEARANCE)
 		small = TRUE
 	else

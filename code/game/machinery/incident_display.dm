@@ -7,10 +7,10 @@ GLOBAL_LIST_EMPTY(map_incident_displays)
 #define TREND_RISING "rising"
 #define TREND_FALLING "falling"
 
-#define DISPLAY_PIXEL_1_W 21
-#define DISPLAY_PIXEL_1_Z -2
-#define DISPLAY_PIXEL_2_W 16
-#define DISPLAY_PIXEL_2_Z -2
+#define DISPLAY_PIXEL_1_X 21
+#define DISPLAY_PIXEL_1_Y -2
+#define DISPLAY_PIXEL_2_X 16
+#define DISPLAY_PIXEL_2_Y -2
 #define DISPLAY_BASE_ALPHA 64
 #define DISPLAY_PIXEL_ALPHA 96
 
@@ -21,8 +21,11 @@ GLOBAL_LIST_EMPTY(map_incident_displays)
 	name = "delamination incident display"
 	desc = "A signs describe how long it's been since the last delamination incident. Features an advert for SAFETY MOTH."
 	icon = 'icons/obj/machines/incident_display.dmi'
-	icon_preview = "display_normal"
 	icon_state = "display_normal"
+	icon_preview = "display_normal"
+	// A connected two-tile panel: frame, content and emissive art turn together.
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
+	bound_width = 64
 	verb_say = "beeps"
 	verb_ask = "bloops"
 	verb_exclaim = "blares"
@@ -191,10 +194,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	var/mutable_appearance/delam_pos1_overlay = mutable_appearance(icon, "num_[delam_pos1]")
 	var/mutable_appearance/delam_pos1_emissive = emissive_appearance(icon, "num_[delam_pos1]", alpha = DISPLAY_PIXEL_ALPHA)
 	delam_pos1_overlay.color = delam_display_color
-	delam_pos1_overlay.pixel_x = DISPLAY_PIXEL_1_W
-	delam_pos1_emissive.pixel_x = DISPLAY_PIXEL_1_W
-	delam_pos1_overlay.pixel_y = DISPLAY_PIXEL_1_Z
-	delam_pos1_emissive.pixel_y = DISPLAY_PIXEL_1_Z
+	delam_pos1_overlay.pixel_x = DISPLAY_PIXEL_1_X
+	delam_pos1_emissive.pixel_x = DISPLAY_PIXEL_1_X
+	delam_pos1_overlay.pixel_y = DISPLAY_PIXEL_1_Y
+	delam_pos1_emissive.pixel_y = DISPLAY_PIXEL_1_Y
 	. += delam_pos1_overlay
 	. += delam_pos1_emissive
 
@@ -202,10 +205,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	var/mutable_appearance/delam_pos2_overlay = mutable_appearance(icon, "num_[delam_pos2]")
 	var/mutable_appearance/delam_pos2_emissive = emissive_appearance(icon, "num_[delam_pos2]", alpha = DISPLAY_PIXEL_ALPHA)
 	delam_pos2_overlay.color = delam_display_color
-	delam_pos2_overlay.pixel_x = DISPLAY_PIXEL_2_W
-	delam_pos2_emissive.pixel_x = DISPLAY_PIXEL_2_W
-	delam_pos2_overlay.pixel_y = DISPLAY_PIXEL_2_Z
-	delam_pos2_emissive.pixel_y = DISPLAY_PIXEL_2_Z
+	delam_pos2_overlay.pixel_x = DISPLAY_PIXEL_2_X
+	delam_pos2_emissive.pixel_x = DISPLAY_PIXEL_2_X
+	delam_pos2_overlay.pixel_y = DISPLAY_PIXEL_2_Y
+	delam_pos2_emissive.pixel_y = DISPLAY_PIXEL_2_Y
 	. += delam_pos2_overlay
 	. += delam_pos2_emissive
 
@@ -247,10 +250,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 #undef TREND_RISING
 #undef TREND_FALLING
 
-#undef DISPLAY_PIXEL_1_W
-#undef DISPLAY_PIXEL_1_Z
-#undef DISPLAY_PIXEL_2_W
-#undef DISPLAY_PIXEL_2_Z
+#undef DISPLAY_PIXEL_1_X
+#undef DISPLAY_PIXEL_1_Y
+#undef DISPLAY_PIXEL_2_X
+#undef DISPLAY_PIXEL_2_Y
 #undef DISPLAY_BASE_ALPHA
 #undef DISPLAY_PIXEL_ALPHA
 

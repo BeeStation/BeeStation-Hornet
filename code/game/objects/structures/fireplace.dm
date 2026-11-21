@@ -7,6 +7,7 @@
 	desc = "A large stone brick fireplace."
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "fireplace"
+	brandish_image = /datum/brandish_image/upright
 	density = FALSE
 	anchored = TRUE
 	pixel_x = -16

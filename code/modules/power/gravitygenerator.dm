@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	name = "gravitational generator"
 	desc = "A device which produces a graviton field when set up."
 	icon = 'icons/obj/machines/gravity_generator.dmi'
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	density = TRUE
 	move_resist = INFINITY
 	use_power = NO_POWER_USE

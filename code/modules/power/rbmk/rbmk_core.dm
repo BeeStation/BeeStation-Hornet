@@ -48,6 +48,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	icon = 'icons/obj/machines/power/rbmk/rbmk_reactor.dmi'
 	icon_state = "reactor"
 	base_icon_state = "reactor"
+	brandish_image = /datum/brandish_image/group_rotate
 	use_power = IDLE_POWER_USE
 	layer = NUCLEAR_REACTOR_LAYER
 	// This is to offset the entire reactor by one tile down and left, so it actually looks right.
@@ -231,7 +232,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 /obj/machinery/atmospherics/components/unary/rbmk/core/update_overlays()
 	. = ..()
 	if(ISINRANGE(length(fuel_rods), 0, 5))
-		. += mutable_appearance('icons/obj/machines/power/rbmk/rbmk_reactor.dmi', "reactor_top_[length(fuel_rods)]")
+		. += brandish_group_overlay("reactor_top_[length(fuel_rods)]")
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()

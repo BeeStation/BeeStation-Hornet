@@ -3,6 +3,7 @@
 	desc = "This state-of-the-art gas mining rig will extend a collector down to the depths of the atmosphere below to extract all the gases a station could need."
 	icon = 'icons/obj/machines/gasrig.dmi'
 	icon_state = "gasrig_1"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
 	layer = HIGH_OBJ_LAYER
@@ -65,15 +66,15 @@
 /obj/machinery/atmospherics/gasrig/core/proc/init_inputs()
 	var/turf/offset_loc = locate(x - 1, y, z)
 	shielding_input = new /obj/machinery/atmospherics/components/unary/gasrig/shielding_input(offset_loc, src)
-	shielding_input.dir = WEST
+	shielding_input.setDir(WEST)
 	shielding_input.set_init_directions()
 	offset_loc = locate(x + 1, y, z)
 	fracking_input = new /obj/machinery/atmospherics/components/unary/gasrig/fracking_input(offset_loc, src)
-	fracking_input.dir = EAST
+	fracking_input.setDir(EAST)
 	fracking_input.set_init_directions()
 	offset_loc = locate(x, y - 1, z)
 	gas_output = new /obj/machinery/atmospherics/components/unary/gasrig/gas_output(offset_loc, src)
-	gas_output.dir = SOUTH
+	gas_output.setDir(SOUTH)
 	gas_output.set_init_directions()
 
 /obj/machinery/atmospherics/gasrig/core/proc/init_dummies()
@@ -246,15 +247,15 @@
 
 /obj/machinery/atmospherics/gasrig/core/update_overlays()
 	. = ..()
-	. += mutable_appearance(initial(icon), "glass_overlay_1")	// Layers may not be working as I expect it, if not, delete layer arg and move this after last mutable
+	. += mutable_appearance(icon, "glass_overlay_1")	// Layers may not be working as I expect it, if not, delete layer arg and move this after last mutable
 	if(!active || (machine_stat & NOPOWER))
 		return
 	if(!needs_repairs)
-		. += mutable_appearance(initial(icon), "overlay_1")
-		. += emissive_appearance(initial(icon), "overlay_1", layer)
+		. += mutable_appearance(icon, "overlay_1")
+		. += emissive_appearance(icon, "overlay_1", layer)
 	if(mode == GASRIG_MODE_REPAIR)	// Whatever "broken" is
-		. += mutable_appearance(initial(icon), "overlay_1_broken")
-		. += emissive_appearance(initial(icon), "overlay_1_broken", layer)
+		. += mutable_appearance(icon, "overlay_1_broken")
+		. += emissive_appearance(icon, "overlay_1_broken", layer)
 
 /obj/machinery/atmospherics/gasrig/core/update_appearance(updates)
 	. = ..()
@@ -413,6 +414,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
 	move_resist = INFINITY
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
 /obj/machinery/atmospherics/components/unary/gasrig/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/gas_rig)
@@ -476,11 +478,11 @@
 	if(!parent.active || (machine_stat & NOPOWER))
 		return
 	if(!parent.needs_repairs)
-		. += mutable_appearance(initial(icon), "overlay_3")
-		. += emissive_appearance(initial(icon), "overlay_3", layer)
+		. += mutable_appearance(icon, "overlay_3")
+		. += emissive_appearance(icon, "overlay_3", layer)
 	if(parent.mode == GASRIG_MODE_REPAIR)
-		. += mutable_appearance(initial(icon), "overlay_3_broken")
-		. += emissive_appearance(initial(icon), "overlay_3_broken", layer)
+		. += mutable_appearance(icon, "overlay_3_broken")
+		. += emissive_appearance(icon, "overlay_3_broken", layer)
 
 /obj/machinery/atmospherics/gasrig/dummy
 	var/obj/machinery/atmospherics/gasrig/core/parent

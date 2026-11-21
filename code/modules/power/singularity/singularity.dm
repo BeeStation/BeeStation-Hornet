@@ -166,6 +166,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 
 	var/new_grav_pull
 	var/new_consume_range
+	// Expansion rewrites the legacy canvas offsets. Remove the previous
+	// screen origin first so repeated growth/shrink cycles cannot accumulate it.
+	clear_brandish_screen_origin()
 
 	switch(temp_allowed_size)
 		if(STAGE_ONE)
@@ -233,6 +236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 			new_grav_pull = 15
 			new_consume_range = 5
 			dissipate = 0
+	brandish_screen_origin(pixel_x, pixel_y)
 	var/datum/component/singularity/resolved_singularity = singularity_component.resolve()
 	if(!isnull(resolved_singularity))
 		resolved_singularity.consume_range = new_consume_range

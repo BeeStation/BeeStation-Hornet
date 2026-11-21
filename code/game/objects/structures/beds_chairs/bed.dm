@@ -189,14 +189,14 @@
 	. = ..()
 	if(length(buckled_mobs) > 1 && !goldilocks) // Push the second buckled mob a bit higher from the normal lying position
 		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(goldilocks_deleted))
-		target.pixel_y += 6
+		target.add_offsets(type, z_add = 6)
 		goldilocks = target
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	if(target == goldilocks)
 		UnregisterSignal(target, COMSIG_QDELETING)
-		target.pixel_y -= 6
+		target.remove_offsets(type)
 		goldilocks = null
 
 //Called when the signal is raised, removes the reference

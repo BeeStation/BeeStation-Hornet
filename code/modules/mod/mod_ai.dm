@@ -50,7 +50,7 @@
 	new_ai.ai_restore_power()
 	new_ai.cancel_camera()
 	new_ai.controlled_equipment = src
-	new_ai.remote_control = src
+	new_ai.set_remote_control(src)
 	new_ai.forceMove(src)
 	on_gained_assistant(new_ai)
 
@@ -123,7 +123,7 @@
 /obj/item/mod/control/proc/on_removed_assistant()
 	for(var/datum/action/action as anything in actions)
 		action.Remove(ai_assistant)
-	ai_assistant.remote_control = null
+	ai_assistant.set_remote_control(null)
 	balloon_alert(ai_assistant, "transferred to a card")
 	ai_assistant = null
 
@@ -178,7 +178,7 @@
 	if(isnull(ai))
 		return
 	ai.controlled_equipment = null
-	ai.remote_control = null
+	ai.set_remote_control(null)
 	ai.apply_damage(150, BURN)
 	INVOKE_ASYNC(ai, TYPE_PROC_REF(/mob/living/silicon/ai, death))
 	ai.forceMove(src)

@@ -148,7 +148,7 @@
 	var/origin_y = base_py
 	var/prev_x = origin_x
 	var/prev_y = origin_y
-	animate(vc_obj, pixel_x = origin_x, time = 0, loop = -1) //Just to start the animation
+	animate(vc_obj, pixel_w = origin_x, time = 0, loop = -1) //Just to start the animation
 	var/move_number = rand(3, 5) //maybe unhardcode this
 	for(var/i in 1 to move_number)
 		//If it's last movement, move back to start otherwise move to some random point
@@ -165,7 +165,7 @@
 		if(dx <= 0) //assuming default sprite is facing left here
 			dir_mx.Scale(-1, 1)
 		animate(transform = dir_mx, time = 0, loop = -1)
-		animate(pixel_x = target_x, pixel_y = target_y, time = eyeballed_time, loop = -1)
+		animate(pixel_w = target_x, pixel_z = target_y, time = eyeballed_time, loop = -1)
 
 /datum/component/aquarium_content/proc/dead_animation()
 	//Set base_py to lowest possible value
@@ -173,7 +173,7 @@
 	var/list/aq_properties = current_aquarium.get_surface_properties()
 	var/py_min = aq_properties[AQUARIUM_PROPERTIES_PY_MIN] + avg_height - 16
 	base_py = py_min
-	animate(vc_obj, pixel_y = py_min, time = 1) //flop to bottom and end current animation.
+	animate(vc_obj, pixel_z = py_min, time = 1) //flop to bottom and end current animation.
 
 #define PAUSE_BETWEEN_PHASES 15
 #define PAUSE_BETWEEN_FLOPS 2
@@ -203,8 +203,8 @@
 	for(var/_ in 1 to FLOP_COUNT)
 		jumping_right = !jumping_right
 		var/x_step = jumping_right ? JUMP_X_DISTANCE/2 : -JUMP_X_DISTANCE/2
-		animate(time = up_time, pixel_y = JUMP_Y_DISTANCE , pixel_x=x_step, loop = -1, flags= ANIMATION_RELATIVE, easing = BOUNCE_EASING | EASE_IN)
-		animate(time = up_time, pixel_y = -JUMP_Y_DISTANCE, pixel_x=x_step, loop = -1, flags= ANIMATION_RELATIVE, easing = BOUNCE_EASING | EASE_OUT)
+		animate(time = up_time, pixel_z = JUMP_Y_DISTANCE , pixel_w=x_step, loop = -1, flags= ANIMATION_RELATIVE, easing = BOUNCE_EASING | EASE_IN)
+		animate(time = up_time, pixel_z = -JUMP_Y_DISTANCE, pixel_w=x_step, loop = -1, flags= ANIMATION_RELATIVE, easing = BOUNCE_EASING | EASE_OUT)
 		animate(time = PAUSE_BETWEEN_FLOPS, loop = -1)
 #undef PAUSE_BETWEEN_PHASES
 #undef PAUSE_BETWEEN_FLOPS
@@ -240,8 +240,8 @@
 		base_px = rand(px_min,px_max)
 		base_py = rand(py_min,py_max)
 
-		vc_obj.pixel_x = base_px
-		vc_obj.pixel_y = base_py
+		vc_obj.pixel_w = base_px
+		vc_obj.pixel_z = base_py
 
 	if(base_layer)
 		current_aquarium.free_layer(base_layer)

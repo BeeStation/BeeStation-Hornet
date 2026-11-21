@@ -65,19 +65,24 @@
 	return (value - 1) * 16
 
 /**
- * Adds an offset to the mob's pixel position.
+ * Adds an offset to the mob's pixel position. x/y are world placement;
+ * w/z are alignment and height inside its upright screen artwork.
  *
  * * source: The source of the offset, a string
  * * x_add: pixel_x offset
  * * y_add: pixel_y offset
  * * animate: If TRUE, the mob will animate to the new position. If FALSE, it will instantly move.
  */
-/mob/living/proc/add_offsets(source, x_add, y_add, animate = TRUE)
+/mob/living/proc/add_offsets(source, x_add, y_add, animate = TRUE, w_add, z_add)
 	LAZYINITLIST(offsets)
 	if(isnum(x_add))
 		LAZYSET(offsets[PIXEL_X_OFFSET], source, x_add)
 	if(isnum(y_add))
 		LAZYSET(offsets[PIXEL_Y_OFFSET], source, y_add)
+	if(isnum(w_add))
+		LAZYSET(offsets[PIXEL_W_OFFSET], source, w_add)
+	if(isnum(z_add))
+		LAZYSET(offsets[PIXEL_Z_OFFSET], source, z_add)
 	update_offsets(animate)
 
 /**
@@ -101,35 +106,35 @@
  * Returns TRUE if the mob's position has changed, FALSE otherwise.
  */
 /mob/living/proc/update_offsets(animate = FALSE)
-	var/new_x = base_pixel_x
-	var/new_y = base_pixel_y
+	var/new_x = get_world_base_pixel_x()
+	var/new_y = get_world_base_pixel_y()
+	var/new_w = get_screen_base_pixel_w() + has_offset(pixel = PIXEL_W_OFFSET)
+	var/new_z = get_screen_base_pixel_z() + has_offset(pixel = PIXEL_Z_OFFSET)
 
 	for(var/offset_key in LAZYACCESS(offsets, PIXEL_X_OFFSET))
 		new_x += offsets[PIXEL_X_OFFSET][offset_key]
 	for(var/offset_key in LAZYACCESS(offsets, PIXEL_Y_OFFSET))
 		new_y += offsets[PIXEL_Y_OFFSET][offset_key]
 
-	if(new_x == pixel_x && new_y == pixel_y)
+	if(new_x == pixel_x && new_y == pixel_y && new_w == pixel_w && new_z == pixel_z)
 		return FALSE
 
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_OFFSETS, new_x, new_y, animate)
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_OFFSETS, new_x, new_y, new_w, new_z, animate)
 
-	if(!animate)
-		pixel_x = new_x
-		pixel_y = new_y
-		return TRUE
-
-	// ensures the floating animation doesn't mess with our animation
-	if(HAS_TRAIT(src, TRAIT_MOVE_FLOATING))
+	// Restart bobbing around the new canonical height, including instant moves.
+	if(movement_type & (FLOATING|FLYING))
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, UPDATE_OFFSET_TRAIT)
 		addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_NO_FLOATING_ANIM, UPDATE_OFFSET_TRAIT), 0.3 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 
-	animate(src,
-		pixel_x = new_x,
-		pixel_y = new_y,
-		flags = ANIMATION_PARALLEL,
-		time = UPDATE_TRANSFORM_ANIMATION_TIME,
-	)
+	if(!animate)
+		for(var/atom/movable/appearance_owner as anything in get_associated_mimics() + src)
+			appearance_owner.pixel_x = new_x
+			appearance_owner.pixel_y = new_y
+			appearance_owner.pixel_w = new_w
+			appearance_owner.pixel_z = new_z
+		return TRUE
+
+	z_animate(src, pixel_x = new_x, pixel_y = new_y, pixel_w = new_w, pixel_z = new_z, flags = ANIMATION_PARALLEL, time = UPDATE_TRANSFORM_ANIMATION_TIME)
 	return TRUE
 
 /**

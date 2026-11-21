@@ -181,6 +181,7 @@
 /datum/component/riding/vehicle/lavaboat/dragonboat
 	vehicle_move_delay = 1
 	keytype = null
+	brandish_fit_offsets = FALSE
 
 /datum/component/riding/vehicle/janicart
 	keytype = /obj/item/key/janitor
@@ -276,6 +277,7 @@
 
 /datum/component/riding/vehicle/speedwagon
 	vehicle_move_delay = 0
+	brandish_fit_offsets = FALSE
 
 /datum/component/riding/vehicle/speedwagon/get_rider_offsets_and_layers(pass_index, mob/offsetter)
 	switch(pass_index)

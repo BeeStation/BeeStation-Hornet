@@ -6,8 +6,6 @@
 	default_click = TRUE
 	/// The mob whose cursor we are tracking.
 	var/mob/owner
-	/// Client view size of the scoping mob.
-	var/list/view_list
 	/// Pixel x we send to the scope component.
 	var/given_x
 	/// Pixel y we send to the scope component.
@@ -20,9 +18,7 @@
 /// Links this up with a mob
 /atom/movable/screen/fullscreen/cursor_catcher/proc/assign_to_mob(mob/owner)
 	src.owner = owner
-	view_list = getviewsize(owner.client.view)
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	RegisterSignal(owner, COMSIG_VIEWDATA_UPDATE, PROC_REF(on_viewdata_update))
 	calculate_params()
 
 /// Update when the mob we're assigned to has moved
@@ -34,12 +30,6 @@
 	var/x_offset = source.loc.x - oldloc.x
 	var/y_offset = source.loc.y - oldloc.y
 	given_turf = locate(given_turf.x+x_offset, given_turf.y+y_offset, given_turf.z)
-
-/// Update when our screen size changes
-/atom/movable/screen/fullscreen/cursor_catcher/proc/on_viewdata_update(datum/source, view)
-	SIGNAL_HANDLER
-
-	view_list = getviewsize(view)
 
 /atom/movable/screen/fullscreen/cursor_catcher/MouseEntered(location, control, params)
 	. = ..()
@@ -54,14 +44,13 @@
 
 /atom/movable/screen/fullscreen/cursor_catcher/proc/calculate_params()
 	var/list/modifiers = params2list(mouse_params)
-	var/icon_x = text2num(LAZYACCESS(modifiers, VIS_X))
-	if(isnull(icon_x))
-		icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
-	var/icon_y = text2num(LAZYACCESS(modifiers, VIS_Y))
-	if(isnull(icon_y))
-		icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
-	var/our_x = round(icon_x / ICON_SIZE_X)
-	var/our_y = round(icon_y / ICON_SIZE_Y)
-	given_turf = locate(owner.x + our_x - round(view_list[1]/2), owner.y + our_y - round(view_list[2]/2), owner.z)
-	given_x = round(icon_x - ICON_SIZE_X * our_x, 1)
-	given_y = round(icon_y - ICON_SIZE_Y * our_y, 1)
+	var/list/vector = owner.client?.camera_click_vector(modifiers, owner)
+	if(!vector)
+		return
+	var/pixel_x = vector[1] + ICON_SIZE_X / 2
+	var/pixel_y = vector[2] + ICON_SIZE_Y / 2
+	var/our_x = FLOOR(pixel_x / ICON_SIZE_X, 1)
+	var/our_y = FLOOR(pixel_y / ICON_SIZE_Y, 1)
+	given_turf = locate(owner.x + our_x, owner.y + our_y, owner.z)
+	given_x = round(pixel_x - ICON_SIZE_X * our_x, 1)
+	given_y = round(pixel_y - ICON_SIZE_Y * our_y, 1)

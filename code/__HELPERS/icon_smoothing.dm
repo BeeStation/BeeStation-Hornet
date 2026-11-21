@@ -110,6 +110,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 //do not use, use QUEUE_SMOOTH(atom)
 /atom/proc/smooth_icon()
+	APPLY_BRANDISH_ICON(src)
 	smoothing_flags &= ~SMOOTH_QUEUED
 	if(!z) //nullspace are not sending their best
 		CRASH("[type] called smooth_icon() without being on a z-level")
@@ -404,6 +405,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 						if(!get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency)) //if all else fails, ask our own turf
 							underlay_appearance.icon = DEFAULT_UNDERLAY_ICON
 							underlay_appearance.icon_state = DEFAULT_UNDERLAY_ICON_STATE
+			underlay_appearance.icon = GLOB.brandish_assets.appearance_icon(underlay_appearance.icon, underlay_appearance.icon_state, underlay_appearance.dir)
 			underlays += underlay_appearance
 		else
 			icon_state = "[base_icon_state]-[smoothing_junction]"
@@ -597,6 +599,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		each.smoothing_groups = target.smoothing_groups.Copy()
 		each.canSmoothWith = target.canSmoothWith.Copy()
 	for(var/atom/each in family)
+		// This path bypasses smooth_icon(); bind the copied icon's bank first.
+		APPLY_BRANDISH_ICON(each)
 		each.bitmask_smooth()
 	if(isturf(target))
 		var/turf/T = target

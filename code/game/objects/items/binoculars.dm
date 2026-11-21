@@ -19,6 +19,7 @@
 	AddComponent(/datum/component/two_handed)
 
 /obj/item/binoculars/Destroy()
+	listeningTo?.client?.clear_camera_effect(src)
 	listeningTo = null
 	return ..()
 
@@ -44,9 +45,7 @@
 			_y = -zoom_amt
 		if(WEST)
 			_x = -zoom_amt
-	C.change_view(get_zoomed_view(world.view, zoom_out_amt))
-	C.pixel_x = ICON_SIZE_X*_x
-	C.pixel_y = ICON_SIZE_Y*_y
+	C.set_camera_effect(src, get_zoomed_view(world.view, zoom_out_amt), ICON_SIZE_X * _x, ICON_SIZE_Y * _y)
 
 /obj/item/binoculars/proc/on_unwield(obj/item/source, mob/user)
 	SIGNAL_HANDLER
@@ -63,6 +62,4 @@
 	if(user && user.client)
 		user.regenerate_icons()
 		var/client/C = user.client
-		C.change_view(CONFIG_GET(string/default_view))
-		user.client.pixel_x = 0
-		user.client.pixel_y = 0
+		C.clear_camera_effect(src)

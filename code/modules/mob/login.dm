@@ -52,6 +52,7 @@
 		. = FALSE
 		CRASH(msg)
 	add_to_player_list()
+	client.ensure_camera_state().bind_effect_body()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
@@ -165,6 +166,12 @@
 	update_mouse_pointer()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
+	if(client)
+		client.brandish_camera_suppressed = FALSE
+		// A mirrored heading from a previous ghost must not carry into this body.
+		client.clear_brandish_observe()
+		client.apply_default_client_dir()
+		client.queue_brandish_camera_sync()
 
 	return TRUE
 

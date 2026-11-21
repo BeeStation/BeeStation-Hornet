@@ -457,7 +457,7 @@ world
 			var/list/process = process_set ? appearance.overlays : appearance.underlays
 			process = process.Copy()
 			var/i = 1
-			while (i < length(process))
+			while (i <= length(process))
 				if (i > 10000)
 					CRASH("Number of overlays/underlays exceeded 10000, infinite loop possible. Aborting to avoid server crash.")
 				var/image/current = process[i]
@@ -518,17 +518,21 @@ world
 			if(!add)
 				continue
 
+			// Include sprite-space offsets, just as the native renderer does.
+			var/list/layer_offset = appearance_pixel_offset(layer_image)
+			var/layer_pixel_x = layer_offset[1]
+			var/layer_pixel_y = layer_offset[2]
 			// Find the new dimensions of the flat icon to fit the added overlay
-			addX1 = min(flatX1, layer_image.pixel_x + 1)
-			addX2 = max(flatX2, layer_image.pixel_x + add.Width())
-			addY1 = min(flatY1, layer_image.pixel_y + 1)
-			addY2 = max(flatY2, layer_image.pixel_y + add.Height())
+			addX1 = min(flatX1, layer_pixel_x + 1)
+			addX2 = max(flatX2, layer_pixel_x + add.Width())
+			addY1 = min(flatY1, layer_pixel_y + 1)
+			addY2 = max(flatY2, layer_pixel_y + add.Height())
 
 			if (
 				addX1 != flatX1 \
-				&& addX2 != flatX2 \
-				&& addY1 != flatY1 \
-				&& addY2 != flatY2 \
+				|| addX2 != flatX2 \
+				|| addY1 != flatY1 \
+				|| addY2 != flatY2 \
 			)
 				// Resize the flattened icon so the new icon fits
 				flat.Crop(
@@ -544,7 +548,7 @@ world
 				flatY2 = addY2
 
 			// Blend the overlay into the flattened icon
-			flat.Blend(add, blendMode2iconMode(curblend), layer_image.pixel_x + 2 - flatX1, layer_image.pixel_y + 2 - flatY1)
+			flat.Blend(add, blendMode2iconMode(curblend), layer_pixel_x + 2 - flatX1, layer_pixel_y + 2 - flatY1)
 
 		if(appearance.alpha < 255)
 			flat.Blend(rgb(255, 255, 255, appearance.alpha), ICON_MULTIPLY)
@@ -1043,6 +1047,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
+		// Connection overlays replace the base icon. Thumbnails use the canonical sheet.
+		if(!icon2collapse && ismachinery(thing))
+			var/obj/machinery/machine = thing
+			if(machine.brandish_connection_image)
+				icon2collapse = machine.brandish_connection_icon
+				icon_path = get_icon_dmi_path(icon2collapse)
 		if (isnull(icon_state))
 			icon_state = thing.icon_state
 
@@ -1142,6 +1152,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/list/cached_metadata = icon_metadata_cache[file_string]
 	if(islist(cached_metadata))
 		return cached_metadata
+
+	// Generated Brandish banks are compiled into the rsc, but rust-g reads from
+	// disk. Runs that omit tmp/brandish-icons use the callers' BYOND fallbacks.
+	if(findtext(file_string, "tmp/brandish-icons/") == 1 && !fexists(file_string))
+		failed_metadata[file_string] = TRUE
+		return null
 
 	// it will decode to text, trust
 	var/list/metadata_result = rustg_dmi_read_metadata(file_string)
@@ -1252,12 +1268,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// Perform a shake on an atom, resets its position afterwards
 /atom/proc/Shake(pixelshiftx = 2, pixelshifty = 2, duration = 2.5 SECONDS, shake_interval = 0.02 SECONDS)
-	var/initialpixelx = pixel_x
-	var/initialpixely = pixel_y
-	animate(src, pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixelx + rand(-pixelshifty,pixelshifty), time = shake_interval, flags = ANIMATION_PARALLEL)
+	var/initialpixelw = pixel_w
+	var/initialpixelz = pixel_z
+	animate(src, pixel_w = initialpixelw + rand(-pixelshiftx,pixelshiftx), pixel_z = initialpixelz + rand(-pixelshifty,pixelshifty), time = shake_interval, flags = ANIMATION_PARALLEL)
 	for (var/i in 3 to ((duration / shake_interval))) // Start at 3 because we already applied one, and need another to reset
-		animate(pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixely + rand(-pixelshifty,pixelshifty), time = shake_interval)
-	animate(pixel_x = initialpixelx, pixel_y = initialpixely, time = shake_interval)
+		animate(pixel_w = initialpixelw + rand(-pixelshiftx,pixelshiftx), pixel_z = initialpixelz + rand(-pixelshifty,pixelshifty), time = shake_interval)
+	animate(pixel_w = initialpixelw, pixel_z = initialpixelz, time = shake_interval)
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
@@ -1293,9 +1309,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// Fikou's fix for making toast alerts look nice - resets offsets, transforms to fit
 /proc/get_small_overlay(atom/source)
-	var/mutable_appearance/alert_overlay = new(source)
-	alert_overlay.pixel_x = 0
-	alert_overlay.pixel_y = 0
+	var/mutable_appearance/alert_overlay = copy_appearance_without_offsets(source)
 
 	var/scale = 1
 	var/list/icon_dimensions = get_icon_dimensions(source.icon)
@@ -1314,6 +1328,16 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	alert_overlay.transform = alert_overlay.transform.Scale(scale)
 
 	return alert_overlay
+
+/// A local preview owns its own origin, independent of the source's map and
+/// screen placement. Leave the live source unchanged while copying all art.
+/proc/copy_appearance_without_offsets(atom/source)
+	var/mutable_appearance/result = new(source)
+	result.pixel_x = 0
+	result.pixel_y = 0
+	result.pixel_w = 0
+	result.pixel_z = 0
+	return result
 
 /**
  * Copies the passed /appearance, returns a /mutable_appearance

@@ -109,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	current_user = user
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
-	user.remote_control = eyeobj
+	user.set_remote_control(eyeobj)
 	user.set_mob_eye_to(eyeobj)
 	eyeobj.setLoc(get_turf(eyeobj))
 	if(!QDELETED(user) && user.client)
@@ -139,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 			user.client.images -= eyeobj.user_image
 
 	eyeobj.eye_user = null
-	user.remote_control = null
+	user.set_remote_control(null)
 
 	current_user = null
 	user.unset_machine()

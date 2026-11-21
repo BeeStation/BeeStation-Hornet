@@ -204,6 +204,7 @@
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
+	brandish_image = /datum/brandish_image/group_rotate
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -64

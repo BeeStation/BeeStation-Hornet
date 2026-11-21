@@ -229,35 +229,35 @@
 
 			if (get_dist(A, D) > 1)
 				to_chat(A, "[D] is too far away!")
-				A.pixel_x = A.base_pixel_x
-				A.pixel_y = A.base_pixel_y
-				D.pixel_x = D.base_pixel_x
-				D.pixel_y = D.base_pixel_y
+				A.pixel_x = A.get_world_base_pixel_x()
+				A.pixel_y = A.get_world_base_pixel_y()
+				D.pixel_x = D.get_world_base_pixel_x()
+				D.pixel_y = D.get_world_base_pixel_y()
 				return 0
 
 			if (!isturf(A.loc) || !isturf(D.loc))
 				to_chat(A, "You can't slam [D] here!")
-				A.pixel_x = A.base_pixel_x
-				A.pixel_y = A.base_pixel_y
-				D.pixel_x = D.base_pixel_x
-				D.pixel_y = D.base_pixel_y
+				A.pixel_x = A.get_world_base_pixel_x()
+				A.pixel_y = A.get_world_base_pixel_y()
+				D.pixel_x = D.get_world_base_pixel_x()
+				D.pixel_y = D.get_world_base_pixel_y()
 				return 0
 		else
 			if (A)
-				A.pixel_x = A.base_pixel_x
-				A.pixel_y = A.base_pixel_y
+				A.pixel_x = A.get_world_base_pixel_x()
+				A.pixel_y = A.get_world_base_pixel_y()
 			if (D)
-				D.pixel_x = D.base_pixel_x
-				D.pixel_y = D.base_pixel_y
+				D.pixel_x = D.get_world_base_pixel_x()
+				D.pixel_y = D.get_world_base_pixel_y()
 			return 0
 
 		sleep(1)
 
 	if (A && D)
-		A.pixel_x = A.base_pixel_x
-		A.pixel_y = A.base_pixel_y
-		D.pixel_x = D.base_pixel_x
-		D.pixel_y = D.base_pixel_y
+		A.pixel_x = A.get_world_base_pixel_x()
+		A.pixel_y = A.get_world_base_pixel_y()
+		D.pixel_x = D.get_world_base_pixel_x()
+		D.pixel_y = D.get_world_base_pixel_y()
 
 		if (get_dist(A, D) > 1)
 			to_chat(A, "[D] is too far away!")
@@ -370,7 +370,7 @@
 		A.forceMove(ST)
 		A.visible_message(span_danger("[A] climbs onto [surface]!"), \
 						span_danger("You climb onto [surface]!"))
-		A.pixel_y = A.base_pixel_y + 10
+		A.pixel_y = A.get_world_base_pixel_y() + 10
 		falling = 1
 		sleep(10)
 
@@ -378,7 +378,7 @@
 		// These are necessary because of the sleep call.
 
 		if ((falling == 0 && get_dist(A, D) > 1) || (falling == 1 && get_dist(A, D) > 2)) // We climbed onto stuff.
-			A.pixel_y = A.base_pixel_y
+			A.pixel_y = A.get_world_base_pixel_y()
 			if (falling == 1)
 				A.visible_message(span_danger("...and dives head-first into the ground, ouch!"), \
 								span_userdanger("...and dive head-first into the ground, ouch!"))
@@ -388,7 +388,7 @@
 			return 0
 
 		if (!isturf(A.loc) || !isturf(D.loc))
-			A.pixel_y = A.base_pixel_y
+			A.pixel_y = A.get_world_base_pixel_y()
 			to_chat(A, "You can't drop onto [D] from here!")
 			return 0
 
@@ -416,11 +416,11 @@
 
 		D.Paralyze(40)
 
-		A.pixel_y = A.base_pixel_y
+		A.pixel_y = A.get_world_base_pixel_y()
 
 	else
 		if (A)
-			A.pixel_y = A.base_pixel_y
+			A.pixel_y = A.get_world_base_pixel_y()
 	log_combat(A, D, "leg-dropped", name)
 	return
 

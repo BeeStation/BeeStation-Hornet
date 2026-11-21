@@ -1,5 +1,7 @@
 /obj/machinery/atmospherics/pipe
 	icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
+	brandish_connection_icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	damage_deflection = 12
 	/// Temporary holder for gases in the absence of a pipenet
 	var/datum/gas_mixture/air_temporary

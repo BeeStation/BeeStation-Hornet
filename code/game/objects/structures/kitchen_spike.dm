@@ -87,7 +87,7 @@
 			var/matrix/m180 = matrix(L.transform)
 			m180.Turn(180)
 			animate(L, transform = m180, time = 3)
-			L.add_offsets(type, y_add = -6, animate = FALSE)
+			L.add_offsets(type, z_add = -6, animate = FALSE)
 	else if (has_buckled_mobs())
 		for(var/mob/living/L in buckled_mobs)
 			user_unbuckle_mob(L, user)

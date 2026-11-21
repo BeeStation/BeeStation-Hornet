@@ -216,7 +216,7 @@
 
 /obj/structure/guillotine/post_unbuckle_mob(mob/living/M)
 	M.regenerate_icons()
-	M.pixel_y = M.base_pixel_y // Move their body back
+	M.pixel_y = M.get_world_base_pixel_y() // Move their body back
 	M.layer = MOB_LAYER
 	..()
 

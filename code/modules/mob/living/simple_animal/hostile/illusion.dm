@@ -38,8 +38,7 @@
 	multiply_chance = replicate
 	faction -= FACTION_NEUTRAL
 	transform = initial(transform)
-	pixel_y = base_pixel_y
-	pixel_x = base_pixel_x
+	reset_pixel_origin()
 
 /mob/living/simple_animal/hostile/illusion/examine(mob/user)
 	if(parent_mob)

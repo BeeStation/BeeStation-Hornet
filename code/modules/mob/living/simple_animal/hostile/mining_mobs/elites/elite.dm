@@ -191,6 +191,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
+	brandish_screen_origin(initial(base_pixel_x), initial(base_pixel_y), from_base = TRUE)
 	AddComponent(/datum/component/gps, "Menacing Signal")
 	START_PROCESSING(SSobj, src)
 

@@ -169,3 +169,44 @@
 	report_message = "For experimental purposes, this station AI might show divergence from default lawset. Do not meddle with this experiment, we've removed \
 		access to your set of alternative upload modules because we know you're already thinking about meddling with this experiment."
 	trait_to_give = STATION_TRAIT_UNIQUE_AI
+
+/datum/station_trait/client_view_direction
+	abstract_type = /datum/station_trait/client_view_direction
+	trait_type = STATION_TRAIT_NEUTRAL
+	weight = 0
+	show_in_report = TRUE
+	var/view_direction = NORTH
+	blacklist = list(/datum/station_trait/client_view_direction/south, /datum/station_trait/client_view_direction/east, /datum/station_trait/client_view_direction/west)
+
+/datum/station_trait/client_view_direction/New()
+	if(GLOB.brandish_perspective_enabled)
+		qdel(src)
+		return
+	. = ..()
+	var/list/previous_traits = SSstation.station_traits.Copy()
+	// Track the trait before broadcasting a view update, which can yield.
+	SSstation.station_traits |= src
+	for(var/datum/station_trait/client_view_direction/previous in previous_traits)
+		previous.revert()
+	update_default_client_dir()
+
+/datum/station_trait/client_view_direction/Destroy()
+	var/was_active = (src in SSstation.station_traits)
+	. = ..()
+	if(was_active)
+		update_default_client_dir()
+
+/datum/station_trait/client_view_direction/south
+	name = "Experimental view: South"
+	report_message = "Normal camera views face south. Brandish perspective is unavailable while this trait is active."
+	view_direction = SOUTH
+
+/datum/station_trait/client_view_direction/east
+	name = "Experimental view: East"
+	report_message = "Normal camera views face east. Brandish perspective is unavailable while this trait is active."
+	view_direction = EAST
+
+/datum/station_trait/client_view_direction/west
+	name = "Experimental view: West"
+	report_message = "Normal camera views face west. Brandish perspective is unavailable while this trait is active."
+	view_direction = WEST
