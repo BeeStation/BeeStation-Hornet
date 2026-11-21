@@ -380,6 +380,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/tray/mouse_drop_receive(atom/movable/O as mob|obj, mob/user, params)
 	if(!ismovable(O) || O.anchored || O.loc == user)
 		return
+	if(isliving(user))
+		var/mob/living/living_user = user
+		if(living_user.body_position == LYING_DOWN)
+			return
 	if(!ismob(O))
 		if(!istype(O, /obj/structure/closet/body_bag))
 			return

@@ -92,7 +92,7 @@
 	strafe = !strafe
 
 	for(var/mob/occupant in occupants)
-		to_chat(occupants, "[icon2html(src, occupants)][span_notice("Toggled strafing mode [strafe?"on":"off"].")]")
+		to_chat(occupant, "[icon2html(src, occupant)][span_notice("Toggled strafing mode [strafe?"on":"off"].")]")
 		occupant.playsound_local(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 	log_message("Toggled strafing mode [strafe?"on":"off"].", LOG_MECHA)
 

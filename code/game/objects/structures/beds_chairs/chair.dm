@@ -388,6 +388,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 	if(over_object == user)
 		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
 			return
+		if(!user.can_perform_action(src, NEED_HANDS))
+			return
 		user.visible_message(
 			span_notice("[user] grabs \the [src.name]."),
 			span_notice("You grab \the [src.name].")

@@ -29,6 +29,8 @@
 	chamber_round(TRUE)
 
 /obj/item/gun/ballistic/revolver/click_alt(mob/user)
+	if(suppressed && can_unsuppress)
+		return ..()
 	spin()
 	return CLICK_ACTION_SUCCESS
 

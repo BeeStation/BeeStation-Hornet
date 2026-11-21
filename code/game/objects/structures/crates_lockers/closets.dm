@@ -439,6 +439,8 @@
 /obj/structure/closet/mouse_drop_receive(atom/movable/O, mob/living/user, params)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
+	if(!istype(user) || user.body_position == LYING_DOWN)
+		return
 	if(user == O) //try to climb onto it
 		return ..()
 	if(!opened)

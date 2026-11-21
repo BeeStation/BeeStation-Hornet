@@ -624,10 +624,10 @@
 	return total
 
 /obj/item/card/id/proc/alt_click_can_use_id(mob/living/user)
-	if(!isliving(user))
+	if(!isliving(user) || QDELETED(user) || QDELETED(src))
 		return
 
-	return TRUE
+	return user.can_perform_action(src, interaction_flags_click | FORBID_TELEKINESIS_REACH)
 
 // Returns true if new account was set.
 /obj/item/card/id/proc/set_new_account(mob/living/user)

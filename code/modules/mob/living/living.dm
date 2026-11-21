@@ -1374,11 +1374,11 @@
 		to_chat(src, span_warning("You are not conscious enough for this action!"))
 		return FALSE
 
-	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
+	if(!(target.interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
-		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
+		if(target.interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
 			ignore_flags |= INCAPABLE_RESTRAINTS
-		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
+		if(!(target.interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
 			ignore_flags |= INCAPABLE_GRAB
 
 		if(INCAPACITATED_IGNORING(src, ignore_flags))

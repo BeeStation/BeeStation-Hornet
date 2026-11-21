@@ -166,7 +166,7 @@
 
 /atom/proc/ai_click_alt(mob/living/silicon/ai/user)
 	SHOULD_CALL_PARENT(FALSE)
-	return
+	return click_alt(user)
 
 /atom/proc/AIShiftClick(mob/living/silicon/ai/user)
 	return
