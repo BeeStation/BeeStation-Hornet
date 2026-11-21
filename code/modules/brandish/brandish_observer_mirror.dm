@@ -32,4 +32,4 @@
 	if(client.dir != watched.dir)
 		client.setDir(watched.dir)
 	// Not local_only: the observer's eye is the watched body, not its own mob.
-	client.set_camera_effect(client.brandish_mirror, watched.screen_view(), local_only = FALSE, offset_z = camera.lead_tiles * world.icon_size)
+	client.set_camera_effect(client.brandish_mirror, watched.screen_view(), local_only = FALSE, offset_z = camera.lead_tiles * ICON_SIZE_Y)

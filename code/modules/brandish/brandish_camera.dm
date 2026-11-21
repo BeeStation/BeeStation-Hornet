@@ -302,7 +302,7 @@
 // by one rendered frame. Keep look-ahead entirely in screen coordinates.
 /datum/brandish_camera/proc/update_offset()
 	// A z-look eye already centers the aperture in the other floor.
-	var/lead = isturf(owner.eye) ? 0 : lead_tiles * world.icon_size
+	var/lead = isturf(owner.eye) ? 0 : lead_tiles * ICON_SIZE_Y
 	owner.set_camera_effect(src, offset_z = lead)
 
 // Keep a backpedalling character's existing NORTH/back sprite selected in the

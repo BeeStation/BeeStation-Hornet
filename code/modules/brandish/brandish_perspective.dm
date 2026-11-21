@@ -45,7 +45,7 @@ GLOBAL_VAR_INIT(brandish_perspective_enabled, FALSE)
 	set name = "Toggle Brandish Perspective"
 	set category = "Debug"
 	set desc = "Switch every living player between the normal view and the experimental Brandish perspective."
-	if(!holder || !(holder.rank.rights & (R_ADMIN | R_DEBUG)))
+	if(!check_rights_for(src, R_ADMIN | R_DEBUG))
 		return
 	var/enable = !GLOB.brandish_perspective_enabled
 	if(enable && !GLOB.brandish_assets.has_catalog())
@@ -62,8 +62,7 @@ GLOBAL_VAR_INIT(brandish_perspective_enabled, FALSE)
 	set name = "Brandish Camera"
 	set category = "Debug"
 	set desc = "Toggle relative movement and the forward-facing camera for your current body."
-	var/allowed = holder && (holder.rank.rights & (R_ADMIN | R_DEBUG))
-	if(!allowed)
+	if(!check_rights_for(src, R_ADMIN | R_DEBUG))
 		return
 	if(!GLOB.brandish_perspective_enabled)
 		to_chat(src, span_notice("The Brandish perspective is off. Use Toggle Brandish Perspective to enable it for everyone."))

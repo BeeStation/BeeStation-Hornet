@@ -15,9 +15,9 @@ GLOBAL_VAR_INIT(default_client_dir, NORTH)
 			direction_trait.revert()
 		return TRUE
 	var/static/list/direction_traits = list(
-		"2" = /datum/station_trait/client_view_direction/south,
-		"4" = /datum/station_trait/client_view_direction/east,
-		"8" = /datum/station_trait/client_view_direction/west,
+		TEXT_SOUTH = /datum/station_trait/client_view_direction/south,
+		TEXT_EAST = /datum/station_trait/client_view_direction/east,
+		TEXT_WEST = /datum/station_trait/client_view_direction/west,
 	)
 	return !!SSstation.setup_trait(direction_traits["[newdir]"])
 
@@ -40,7 +40,7 @@ GLOBAL_VAR_INIT(default_client_dir, NORTH)
 	set name = "Set Default Client Direction"
 	set category = "Debug"
 	set desc = "Set a normal-view station trait: NORTH (1) removes it; SOUTH (2), EAST (4), WEST (8). Brandish must be off."
-	if(!holder || !(holder.rank.rights & (R_ADMIN | R_DEBUG)))
+	if(!check_rights_for(src, R_ADMIN | R_DEBUG))
 		return
 	var/list/directions = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
 	if(isnull(newdir) || newdir == "")
@@ -48,11 +48,11 @@ GLOBAL_VAR_INIT(default_client_dir, NORTH)
 		if(isnull(newdir))
 			return
 	// Input yields; the caller may have lost their rights in the meantime.
-	if(!holder || !(holder.rank.rights & (R_ADMIN | R_DEBUG)))
+	if(!check_rights_for(src, R_ADMIN | R_DEBUG))
 		return
 	var/direction = directions[uppertext(trim(newdir))]
 	if(isnull(direction))
-		var/list/numeric_directions = list("1" = NORTH, "2" = SOUTH, "4" = EAST, "8" = WEST)
+		var/list/numeric_directions = list(TEXT_NORTH = NORTH, TEXT_SOUTH = SOUTH, TEXT_EAST = EAST, TEXT_WEST = WEST)
 		direction = numeric_directions[trim(newdir)]
 	if(!(direction in GLOB.cardinals))
 		to_chat(src, span_warning("Choose NORTH (1), SOUTH (2), EAST (4), or WEST (8)."))

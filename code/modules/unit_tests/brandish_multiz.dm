@@ -149,7 +149,7 @@
 			TEST_ASSERT_EQUAL(viewer.brandish_camera, camera, "Leaving z-look keeps the camera")
 			TEST_ASSERT_EQUAL(viewer.dir, facing, "Leaving z-look keeps the heading")
 			composed = viewer.composed_camera_state.resolve(TRUE, TRUE)
-			TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_Y], 2 * world.icon_size, "Returning to the body restores look-ahead")
+			TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_Y], 2 * ICON_SIZE_Y, "Returning to the body restores look-ahead")
 
 /datum/unit_test/brandish_camera_policy/zlook_invalidation/Run()
 	var/datum/brandish_test_viewer/zlook/viewer = allocate(/datum/brandish_test_viewer/zlook)

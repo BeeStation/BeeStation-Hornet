@@ -170,7 +170,7 @@
 	TEST_ASSERT_EQUAL(gate.pixel_y, -32, "The group projector retains the native canvas origin")
 	// Final screen positions from the former portal projection, including its
 	// screen origin and corrections for the native collision bounds.
-	var/list/screen_origins = list("1" = list(-32, -32), "4" = list(-32, 0), "2" = list(-32, 0), "8" = list(-64, 0))
+	var/list/screen_origins = list(TEXT_NORTH = list(-32, -32), TEXT_EAST = list(-32, 0), TEXT_SOUTH = list(-32, 0), TEXT_WEST = list(-64, 0))
 	for(var/state in list(FALSE, TRUE))
 		gate.active = state
 		gate.update_appearance()

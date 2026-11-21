@@ -262,7 +262,7 @@
 	for(var/kind in list(BRANDISH_MODE_ROTATE, BRANDISH_MODE_SMOOTH, BRANDISH_MODE_CORNER, BRANDISH_MODE_BASIS, BRANDISH_ASSET_FOOTPRINT))
 		TEST_ASSERT_EQUAL(registry.icon_for(source, kind, NORTH), source, "Missing [kind] preserves original resource")
 		TEST_ASSERT(!registry.supports(source, kind), "Missing [kind] must not advertise support")
-	registry.aliases[source] = list("source" = source, BRANDISH_MODE_ROTATE = list("1" = 'icons/obj/fluff.dmi'))
+	registry.aliases[source] = list("source" = source, BRANDISH_MODE_ROTATE = list(TEXT_NORTH = 'icons/obj/fluff.dmi'))
 	registry.enabled = FALSE
 	TEST_ASSERT_EQUAL(registry.icon_for(source, BRANDISH_MODE_ROTATE, NORTH), source, "Disabled catalog preserves original resource")
 	TEST_ASSERT(!registry.supports(source, BRANDISH_MODE_ROTATE), "Disabled catalog must not advertise support")
@@ -271,7 +271,7 @@
 	var/datum/brandish_asset_registry/registry = allocate(/datum/brandish_asset_registry)
 	var/source = 'icons/obj/decals.dmi'
 	var/bank = 'icons/obj/fluff.dmi'
-	var/list/entry = list("source" = source, BRANDISH_MODE_ROTATE = list("1" = bank), "surfaceStates" = list("map-left" = TRUE))
+	var/list/entry = list("source" = source, BRANDISH_MODE_ROTATE = list(TEXT_NORTH = bank), "surfaceStates" = list("map-left" = TRUE))
 	registry.aliases = list()
 	registry.aliases[source] = entry
 	registry.aliases[bank] = entry
@@ -483,7 +483,7 @@
 	var/source = 'icons/turf/walls.dmi'
 	var/bank = 'icons/obj/fluff.dmi'
 	registry.aliases = list()
-	registry.aliases[source] = list("source" = source, BRANDISH_MODE_CORNER = list("1" = bank))
+	registry.aliases[source] = list("source" = source, BRANDISH_MODE_CORNER = list(TEXT_NORTH = bank))
 	for(var/state in list("d-nw", "d-se-1", "1-i", "4-sw", "a-unknown"))
 		TEST_ASSERT_EQUAL(registry.appearance_icon(source, state, NORTH), bank, "Legacy corner selection is retained for [state]")
 	for(var/state in list("wall-1", "plain", "1-"))
@@ -514,5 +514,5 @@
 		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_WORLD_X], 0, "Turning adds no world X offset at [facing]")
 		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_WORLD_Y], 0, "Turning adds no world Y offset at [facing]")
 		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_X], 12, "Turning preserves the zoom's screen X at [facing]")
-		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_Y], 2 * world.icon_size + 7, "Two screen tiles compose with zoom identically at [facing]")
+		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_SCREEN_Y], 2 * ICON_SIZE_Y + 7, "Two screen tiles compose with zoom identically at [facing]")
 		TEST_ASSERT_EQUAL(composed[BRANDISH_RESULT_VIEW], "19x19", "Zoom composition stays square")
