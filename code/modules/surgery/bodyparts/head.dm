@@ -163,8 +163,8 @@
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src
 		// This is a bit of copy/paste code from eyes.dm:generate_body_overlay
 		if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
-			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
-			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", layer = CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER), dir = SOUTH)
+			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", layer = CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER), dir = SOUTH)
 			if(head_flags & HEAD_EYECOLOR)
 				if(eyes.eye_color_left)
 					eye_left.color = eyes.eye_color_left
@@ -182,7 +182,7 @@
 			. += eye_left
 			. += eye_right
 		else if(!eyes && (head_flags & HEAD_EYEHOLES))
-			var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+			var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER), dir = SOUTH)
 			worn_face_offset?.apply_offset(no_eyes)
 			. += no_eyes
 

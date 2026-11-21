@@ -35,23 +35,50 @@
 	/// How much alpha lighting has (basically, night vision)
 	var/lighting_alpha
 
-	var/eye_color_left = "" //set to a hex code to override a mob's left eye color
-	var/eye_color_right = "" //set to a hex code to override a mob's right eye color
+	var/eye_color_left = null // set to a hex code to override a mob's left eye color
+	var/eye_color_right = null // set to a hex code to override a mob's right eye color
 	/// The icon file of that eyes as its applied to the mob
 	var/eye_icon = 'icons/mob/human/human_eyes.dmi'
 	/// The icon state of that eyes as its applied to the mob
 	var/eye_icon_state = "eyes"
+	/// Do these eyes have blinking animations
+	var/blink_animation = TRUE
+	/// Do these eyes have iris overlays
+	var/iris_overlays = TRUE
+	/// Should our blinking be synchronized or can separate eyes have (slightly) separate blinking times
+	var/synchronized_blinking = TRUE
+	// A pair of abstract eyelid objects (yes, really) used to animate blinking
+	var/obj/effect/abstract/eyelid_effect/eyelid_left
+	var/obj/effect/abstract/eyelid_effect/eyelid_right
 
 	/// Glasses cannot be worn over these eyes. Currently unused
 	var/no_glasses = FALSE
 	/// indication that the eyes are undergoing some negative effect
 	var/damaged = FALSE
 
+obj/item/organ/eyes/Initialize(mapload)
+	. = ..()
+	if (blink_animation)
+		eyelid_left = new(src, "[eye_icon_state]_l")
+		eyelid_right = new(src, "[eye_icon_state]_r")
+
+/obj/item/organ/eyes/Destroy()
+	QDEL_NULL(eyelid_left)
+	QDEL_NULL(eyelid_right)
+	return ..()
+
 /obj/item/organ/eyes/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 
 	receiver.cure_blind(NO_EYES)
 	apply_damaged_eye_effects()
+	// Ensures that non-player mobs get their eye colors assigned, as players get them from prefs
+	if (ishuman(receiver))
+		var/mob/living/carbon/human/as_human = receiver
+		if (!eye_color_left)
+			eye_color_left = as_human.eye_color_left
+		if (!eye_color_right)
+			eye_color_right = as_human.eye_color_right
 	refresh(receiver, call_update = TRUE)
 
 /// Refreshes the visuals of the eyes
@@ -106,35 +133,45 @@
 	if(isnull(eye_icon_state))
 		return list()
 
-	var/mutable_appearance/eye_left = mutable_appearance(eye_icon, "[eye_icon_state]_l", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-	var/mutable_appearance/eye_right = mutable_appearance(eye_icon, "[eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+	var/mutable_appearance/eye_left = mutable_appearance(eye_icon, "[eye_icon_state]_l", CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER), parent)
+	var/mutable_appearance/eye_right = mutable_appearance(eye_icon, "[eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER), parent)
 	var/list/overlays = list(eye_left, eye_right)
 
 	if(overlay_ignore_lighting && !(parent.obscured_slots & HIDEEYES))
-		overlays += emissive_appearance(eye_left.icon, eye_left.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), alpha = eye_left.alpha)
-		overlays += emissive_appearance(eye_right.icon, eye_right.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), alpha = eye_right.alpha)
+		overlays += emissive_appearance(eye_left.icon, eye_left.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER), alpha = eye_left.alpha)
+		overlays += emissive_appearance(eye_right.icon, eye_right.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER), alpha = eye_right.alpha)
 
 	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD)
-	if(my_head)
-		if(my_head.head_flags & HEAD_EYECOLOR)
-			if(IS_ROBOTIC_ORGAN(src) || !my_head.draw_color || (parent.appears_alive() && !HAS_TRAIT(parent, TRAIT_KNOCKEDOUT)))
-				// show the eyes as open
-				eye_right.color = parent.get_right_eye_color()
-				eye_left.color = parent.get_left_eye_color()
-			else
-				// show the eyes as closed, and as such color them like eyelids wound be colored
-				var/list/base_color = rgb2num(my_head.draw_color, COLORSPACE_HSL)
-				base_color[2] *= 0.85
-				base_color[3] *= 0.85
-				var/eyelid_color = rgb(base_color[1], base_color[2], base_color[3], (length(base_color) >= 4 ? base_color[4] : null), COLORSPACE_HSL)
-				eye_right.color = eyelid_color
-				eye_left.color = eyelid_color
+	if(!my_head)
+		return overlays
 
-		if(my_head.worn_face_offset)
-			my_head.worn_face_offset.apply_offset(eye_left)
-			my_head.worn_face_offset.apply_offset(eye_right)
+	if(my_head.head_flags & HEAD_EYECOLOR)
+		eye_right.color = parent.get_right_eye_color()
+		eye_left.color = parent.get_left_eye_color()
+		var/list/eyelids = setup_eyelids(eye_left, eye_right, parent)
+		if (LAZYLEN(eyelids))
+			overlays += eyelids
+
+	if(my_head.worn_face_offset)
+		my_head.worn_face_offset.apply_offset(eye_left)
+		my_head.worn_face_offset.apply_offset(eye_right)
 
 	return overlays
+
+/obj/item/organ/eyes/update_overlays()
+	. = ..()
+	if (iris_overlays && eye_color_left && eye_color_right)
+		var/mutable_appearance/left_iris = mutable_appearance(icon, "[icon_state]_iris_l")
+		var/mutable_appearance/right_iris = mutable_appearance(icon, "[icon_state]_iris_r")
+		var/list/color_left = rgb2num(eye_color_left, COLORSPACE_HSL)
+		var/list/color_right = rgb2num(eye_color_right, COLORSPACE_HSL)
+		// Ugly as sin? Indeed it is! But otherwise eyeballs turn out to be super dark, and this way even lighter colors are mostly preserved
+		color_left[3] /= sqrt(color_left[3] * 0.01)
+		color_right[3] /= sqrt(color_right[3] * 0.01)
+		left_iris.color = rgb(color_left[1], color_left[2], color_left[3], space = COLORSPACE_HSL)
+		right_iris.color = rgb(color_right[1], color_right[2], color_right[3], space = COLORSPACE_HSL)
+		. += left_iris
+		. += right_iris
 
 #undef OFFSET_X
 #undef OFFSET_Y
@@ -184,6 +221,129 @@
 
 	damaged = TRUE
 
+#define BASE_BLINKING_DELAY 5 SECONDS
+#define RAND_BLINKING_DELAY 1 SECONDS
+#define BLINK_DURATION 0.15 SECONDS
+#define BLINK_LOOPS 5
+#define ASYNC_BLINKING_BRAIN_DAMAGE 60
+
+/// Modifies eye overlays to also act as eyelids, both for blinking and for when you're knocked out cold
+/obj/item/organ/eyes/proc/setup_eyelids(mutable_appearance/eye_left, mutable_appearance/eye_right, mob/living/carbon/human/parent)
+	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD)
+	// Robotic eyes or colorless heads don't get the privelege of having eyelids
+	if (IS_ROBOTIC_ORGAN(src) || !my_head.draw_color || HAS_TRAIT(parent, TRAIT_NO_EYELIDS))
+		return
+
+	var/list/base_color = rgb2num(my_head.draw_color, COLORSPACE_HSL)
+	base_color[2] *= 0.85
+	base_color[3] *= 0.85
+	var/eyelid_color = rgb(base_color[1], base_color[2], base_color[3], (length(base_color) >= 4 ? base_color[4] : null), COLORSPACE_HSL)
+	// If we're knocked out, just color the eyes
+	if (!parent.appears_alive() || HAS_TRAIT(parent, TRAIT_KNOCKEDOUT))
+		eye_right.color = eyelid_color
+		eye_left.color = eyelid_color
+		return
+
+	if (!blink_animation || HAS_TRAIT(parent, TRAIT_PREVENT_BLINKING))
+		return
+
+	eyelid_left.color = eyelid_color
+	eyelid_right.color = eyelid_color
+	eyelid_left.render_target = "*[REF(parent)]_eyelid_left"
+	eyelid_right.render_target = "*[REF(parent)]_eyelid_right"
+	parent.vis_contents += eyelid_left
+	parent.vis_contents += eyelid_right
+	animate_eyelids(parent)
+
+	var/mutable_appearance/left_eyelid_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER))
+	var/mutable_appearance/right_eyelid_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(EYES_LAYER))
+	left_eyelid_overlay.render_source = "*[REF(parent)]_eyelid_left"
+	right_eyelid_overlay.render_source = "*[REF(parent)]_eyelid_right"
+	return list(left_eyelid_overlay, right_eyelid_overlay)
+
+/// Animates one eyelid at a time, thanks BYOND and thanks animation chains
+/obj/item/organ/eyes/proc/animate_eyelid(obj/effect/abstract/eyelid_effect/eyelid, mob/living/carbon/human/parent, sync_blinking = TRUE, list/anim_times = null)
+	. = list()
+	var/prevent_loops = HAS_TRAIT(parent, TRAIT_PREVENT_BLINK_LOOPS)
+	animate(eyelid, alpha = 0, time = 0, loop = (prevent_loops ? 0 : -1))
+
+	var/wait_time = rand(BASE_BLINKING_DELAY - RAND_BLINKING_DELAY, BASE_BLINKING_DELAY + RAND_BLINKING_DELAY)
+	if (anim_times)
+		if (sync_blinking)
+			wait_time = anim_times[1]
+			anim_times.Cut(1, 2)
+		else
+			wait_time = rand(max(BASE_BLINKING_DELAY - RAND_BLINKING_DELAY, anim_times[1] - RAND_BLINKING_DELAY), anim_times[1])
+
+	animate(time = wait_time)
+	. += wait_time
+
+	var/cycles = (prevent_loops ? 1 : BLINK_LOOPS)
+	for (var/i in 1 to cycles)
+		if (anim_times)
+			if (sync_blinking)
+				wait_time = anim_times[1]
+				anim_times.Cut(1, 2)
+			else
+				wait_time = rand(max(BASE_BLINKING_DELAY - RAND_BLINKING_DELAY, anim_times[1] - RAND_BLINKING_DELAY), anim_times[1])
+		else
+			wait_time = rand(BASE_BLINKING_DELAY - RAND_BLINKING_DELAY, BASE_BLINKING_DELAY + RAND_BLINKING_DELAY)
+		. += wait_time
+		if (anim_times && !sync_blinking)
+			// Make sure that we're somewhat in sync with the other eye
+			animate(time = anim_times[1] - wait_time)
+			anim_times.Cut(1, 2)
+		animate(alpha = 255, time = 0)
+		animate(time = BLINK_DURATION)
+		if (i != cycles)
+			animate(alpha = 0, time = 0)
+			animate(time = wait_time)
+
+/obj/item/organ/eyes/proc/blink(duration = BLINK_DURATION, restart_animation = TRUE)
+	var/left_delayed = rand(50)
+	// Storing blink delay so mistimed blinks of lizards don't get cut short
+	var/blink_delay = synchronized_blinking ? rand(0, RAND_BLINKING_DELAY) : 0
+	animate(eyelid_left, alpha = 0, time = 0)
+	if (!synchronized_blinking && left_delayed)
+		animate(time = blink_delay)
+	animate(alpha = 255, time = 0)
+	animate(time = duration)
+	animate(alpha = 0, time = 0)
+	animate(eyelid_right, alpha = 0, time = 0)
+	if (!synchronized_blinking && !left_delayed)
+		animate(time = blink_delay)
+	animate(alpha = 255, time = 0)
+	animate(time = duration)
+	animate(alpha = 0, time = 0)
+	if (restart_animation)
+		addtimer(CALLBACK(src, PROC_REF(animate_eyelids), owner), blink_delay + duration)
+
+/obj/item/organ/eyes/proc/animate_eyelids(mob/living/carbon/human/parent)
+	var/sync_blinking = synchronized_blinking && (parent.get_organ_loss(ORGAN_SLOT_BRAIN) < ASYNC_BLINKING_BRAIN_DAMAGE)
+	// Randomize order for unsynched animations
+	if (sync_blinking || prob(50))
+		var/list/anim_times = animate_eyelid(eyelid_left, parent, sync_blinking)
+		animate_eyelid(eyelid_right, parent, sync_blinking, anim_times)
+	else
+		var/list/anim_times = animate_eyelid(eyelid_right, parent, sync_blinking)
+		animate_eyelid(eyelid_left, parent, sync_blinking, anim_times)
+
+/obj/effect/abstract/eyelid_effect
+	name = "eyelid"
+	icon = 'icons/mob/human/human_face.dmi'
+	layer = -EYES_LAYER
+	vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+
+/obj/effect/abstract/eyelid_effect/Initialize(mapload, new_state)
+	. = ..()
+	icon_state = new_state
+
+#undef BASE_BLINKING_DELAY
+#undef RAND_BLINKING_DELAY
+#undef BLINK_DURATION
+#undef BLINK_LOOPS
+#undef ASYNC_BLINKING_BRAIN_DAMAGE
+
 /obj/item/organ/eyes/feel_for_damage(self_aware)
 	// Eye damage has visual effects, so we don't really need to "feel" it when self-examining
 	return ""
@@ -223,6 +383,7 @@
 	name = "burning red eyes"
 	desc = "Even without their shadowy owner, looking at these eyes gives you a sense of dread."
 	icon_state = "burning_eyes"
+	iris_overlays = FALSE
 
 /obj/item/organ/eyes/night_vision/mushroom
 	name = "fung-eye"
@@ -232,8 +393,9 @@
 
 /obj/item/organ/eyes/robotic
 	name = "robotic eyes"
-	icon_state = "cybernetic_eyeballs"
 	desc = "A very basic set of optical sensors with no extra vision modes or functions."
+	icon_state = "cybernetic_eyeballs"
+	iris_overlays = FALSE
 	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/eyes/robotic/emp_act(severity)
@@ -579,6 +741,8 @@
 	eye_icon = 'icons/mob/human/species/moth/eyes.dmi'
 	eye_icon_state = "eyes"
 	icon_state = "eyeballs-moth"
+	blink_animation = FALSE
+	iris_overlays = FALSE
 	see_in_dark = NIGHTVISION_FOV_RANGE/2 //4 tiles compared to 8 of the apids
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 

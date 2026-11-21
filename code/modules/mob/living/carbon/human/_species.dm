@@ -532,8 +532,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/handle_body(mob/living/carbon/human/species_human)
 	species_human.remove_overlay(BODY_LAYER)
-
-	var/list/standing = list()
+	species_human.remove_overlay(EYES_LAYER)
 
 	if(!HAS_TRAIT(species_human, TRAIT_HUSK))
 		var/obj/item/bodypart/head/noggin = species_human.get_bodypart(BODY_ZONE_HEAD)
@@ -542,39 +541,59 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/eyes/eye_organ = species_human.get_organ_slot(ORGAN_SLOT_EYES)
 			if(eye_organ)
 				eye_organ.refresh(call_update = FALSE)
-				for(var/eye_overlay in eye_organ.generate_body_overlay(species_human))
-					standing += eye_overlay
+				species_human.overlays_standing[EYES_LAYER] = eye_organ.generate_body_overlay(species_human)
+				species_human.apply_overlay(EYES_LAYER)
 
-	//Underwear, Undershirts & Socks
-	if(!HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR) && !HAS_TRAIT(species_human, TRAIT_HUSK))
-		var/body_type = MALE
-		if(sexes)
-			var/obj/item/bodypart/chest/our_chest = species_human.get_bodypart(BODY_ZONE_CHEST)
-			if(our_chest?.is_dimorphic)
-				body_type = species_human.physique
+	if(HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR))
+		return
 
-		if(species_human.underwear)
-			var/datum/sprite_accessory/clothing/underwear/undie_accessory = GLOB.underwear_list[species_human.underwear]
-			var/mutable_appearance/underwear_overlay = undie_accessory?.make_appearance(species_human.underwear_color, body_type, species_human.bodyshape)
-			if(underwear_overlay)
-				standing += underwear_overlay
+	// Underwear, Undershirts & Socks
+	var/list/standing = list()
+	var/body_type = MALE
+	if(sexes)
+		var/obj/item/bodypart/chest/our_chest = species_human.get_bodypart(BODY_ZONE_CHEST)
+		if(our_chest?.is_dimorphic)
+			body_type = species_human.physique
 
-		if(species_human.undershirt)
-			var/datum/sprite_accessory/clothing/undershirt/shirt_accessory = GLOB.undershirt_list[species_human.undershirt]
-			var/mutable_appearance/shirt_overlay = shirt_accessory?.make_appearance(null, body_type, species_human.bodyshape)
-			if(shirt_overlay)
-				standing += shirt_overlay
+	if(species_human.underwear)
+		var/datum/sprite_accessory/clothing/underwear/undie_accessory = GLOB.underwear_list[species_human.underwear]
+		var/mutable_appearance/underwear_overlay = undie_accessory?.make_appearance(species_human.underwear_color, body_type, species_human.bodyshape)
+		if(underwear_overlay)
+			standing += underwear_overlay
 
-		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
-			var/datum/sprite_accessory/clothing/socks/sock_accessory = GLOB.socks_list[species_human.socks]
-			var/mutable_appearance/socks_overlay = sock_accessory?.make_appearance(null, body_type, species_human.bodyshape)
-			if(socks_overlay)
-				standing += socks_overlay
+	if(species_human.undershirt)
+		var/datum/sprite_accessory/clothing/undershirt/shirt_accessory = GLOB.undershirt_list[species_human.undershirt]
+		var/mutable_appearance/shirt_overlay = shirt_accessory?.make_appearance(null, body_type, species_human.bodyshape)
+		if(shirt_overlay)
+			standing += shirt_overlay
+
+	if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
+		var/datum/sprite_accessory/clothing/socks/sock_accessory = GLOB.socks_list[species_human.socks]
+		var/mutable_appearance/socks_overlay = sock_accessory?.make_appearance(null, body_type, species_human.bodyshape)
+		if(socks_overlay)
+			standing += socks_overlay
 
 	if(standing.len)
 		species_human.overlays_standing[BODY_LAYER] = standing
 
 	species_human.apply_overlay(BODY_LAYER)
+
+/// Updates face (as of now, only eye) offsets
+/datum/species/proc/update_face_offset(mob/living/carbon/human/species_human)
+	var/list/eye_overlays = species_human.overlays_standing[EYES_LAYER]
+	species_human.remove_overlay(EYES_LAYER)
+
+	if(HAS_TRAIT(species_human, TRAIT_INVISIBLE_MAN) || HAS_TRAIT(species_human, TRAIT_HUSK) || !length(eye_overlays))
+		return
+
+	var/obj/item/bodypart/head/noggin = species_human.get_bodypart(BODY_ZONE_HEAD)
+	for (var/mutable_appearance/overlay as anything in eye_overlays)
+		overlay.pixel_w = 0
+		overlay.pixel_z = 0
+		noggin.worn_face_offset.apply_offset(overlay)
+
+	species_human.overlays_standing[EYES_LAYER] = eye_overlays
+	species_human.apply_overlay(EYES_LAYER)
 
 ///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob,
 /// but will not update the body right away.
