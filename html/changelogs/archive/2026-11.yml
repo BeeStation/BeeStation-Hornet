@@ -214,3 +214,18 @@
   - bugfix: fixed cargo crate export values being 1 credit. crates are now all recyclable
       through exports again
   - bugfix: xenoartifact pearls can be extracted again
+2026-11-19:
+  SunShine214, Niko432, Racc-Off, Wrill:
+  - rscadd: Added the CDR (Condensate Decay Reactor), which decays gases to make power!
+  - rscadd: Added a new PDA program to control CDRs. Check the engineering tab in
+      the NTnet store!
+  - rscadd: Added a new pump_gas_volume proc to gas_mixture, which... pumps volume!
+  - rscdel: Removed the TEG.
+  Ucksus:
+  - balance: discovery scanner now returns a reasonable amount of discovery points
+      from artifacts.
+  mrmanlikesbt:
+  - bugfix: Fixed various TGUI text inputs crashing when pressing Enter
+2026-11-20:
+  mrmanlikesbt, PowerfulBacon:
+  - refactor: The stack_trace() proc has been refactored to be a little more sane

@@ -47,14 +47,18 @@
 /mob/living/proc/ctrl_click_grab(atom/target)
 	if(!isliving(target))
 		return FALSE
+	var/upgrading = pulling == target
+	var/grabbed = FALSE
 	if(ishuman(src) && ishuman(target))
 		var/mob/living/carbon/human/human_user = src
-		if(human_user.dna.species.grab(human_user, target, mind?.martial_art))
-			return TRUE
+		grabbed = human_user.dna.species.grab(human_user, target, mind?.martial_art)
 	else if(iscarbon(src) && iscarbon(target))
 		var/mob/living/carbon/carbon_user = src
-		if(carbon_user.grab(carbon_user, target, mind?.martial_art))
-			return TRUE
+		grabbed = carbon_user.grab(carbon_user, target, mind?.martial_art)
+	if(grabbed)
+		if(upgrading)
+			animate_interact(target, INTERACT_GRAB)
+		return TRUE
 	return apply_martial_art(target, null, is_grab = TRUE) == MARTIAL_ATTACK_SUCCESS
 
 /**
