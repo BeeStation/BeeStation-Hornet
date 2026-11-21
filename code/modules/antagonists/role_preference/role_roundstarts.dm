@@ -96,7 +96,7 @@
 
 /datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/equipped, visuals_only)
 	equipped.set_eye_color(BLOODCULT_EYE)
-	equipped.update_body()
+	equipped.update_eyes()
 
 /datum/role_preference/roundstart/clock_cultist
 	name = "Clock Cultist"

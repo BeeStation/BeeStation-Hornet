@@ -5,7 +5,9 @@
 	var/warn_grace = FALSE
 	var/warn_dying = FALSE
 	var/last_blink
-	var/check_every = 20 SECONDS
+	/// How long can you not blink before you get a warning?
+	var/warning_delay = 20 SECONDS
+	/// Delay between getting a warning and you starting to take eye damage
 	var/grace_period = 6 SECONDS
 	/// Organ damage taken per tick
 	var/damage_rate = 1
@@ -25,18 +27,18 @@
 /datum/action/blink/on_activate(mob/user, atom/target)
 	owner.emote("blink")
 
-/datum/component/manual_blinking/Initialize(damage_rate = 1, check_every = 20 SECONDS, grace_period = 6 SECONDS, display_message = TRUE)
+/datum/component/manual_blinking/Initialize(damage_rate = 1, warning_delay = 20 SECONDS, grace_period = 6 SECONDS, display_message = TRUE)
 	if(!iscarbon(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.damage_rate = damage_rate
-	src.check_every = check_every
+	src.warning_delay = warning_delay
 	src.grace_period = grace_period
 	src.display_message = display_message
 
 	var/mob/living/carbon/carbon_parent = parent
 	ADD_TRAIT(carbon_parent, TRAIT_PREVENT_BLINK_LOOPS, REF(src))
-	carbon_parent.update_body()
+	carbon_parent.update_eyes()
 	parent_eyes = carbon_parent.get_organ_slot(ORGAN_SLOT_EYES)
 
 	if(!parent_eyes || IS_ROBOTIC_ORGAN(parent_eyes))
@@ -56,7 +58,7 @@
 		to_chat(parent, span_notice("You revert back to automatic blinking."))
 	var/mob/living/carbon/carbon_parent = parent
 	carbon_parent.cure_blind(REF(src))
-	carbon_parent.update_body()
+	carbon_parent.update_eyes()
 	button.Remove()
 	return ..()
 
@@ -82,12 +84,12 @@
 	STOP_PROCESSING(SSdcs, src)
 
 /datum/component/manual_blinking/process(delta_time)
-	if(world.time > (last_blink + check_every + grace_period))
+	if(world.time > (last_blink + warning_delay + grace_period))
 		if(!warn_dying)
 			to_chat(parent, span_userdanger("Your eyes begin to wither, you need to blink!"))
 			warn_dying = TRUE
 		parent_eyes.apply_organ_damage(damage_rate * delta_time)
-	else if(world.time > (last_blink + check_every))
+	else if(world.time > (last_blink + warning_delay))
 		if(!warn_grace)
 			to_chat(parent, span_danger("You feel a need to blink!"))
 			warn_grace = TRUE
