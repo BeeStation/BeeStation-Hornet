@@ -55,10 +55,12 @@
 	antag_datum = /datum/antagonist/vampire
 
 /datum/role_preference/supplementary/vampire/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
-	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-	return finish_preview_icon(icon)
+	return finish_preview_icon(render_preview_outfit(/datum/outfit/vampire))
 
 /datum/outfit/vampire
 	name = "Vampire outfit (Preview only)"
 	suit = /obj/item/clothing/suit/costume/dracula
+
+/datum/outfit/vampire/post_equip(mob/living/carbon/human/H)
+	H.wear_suit.add_mob_blood(H)
+	H.regenerate_icons()

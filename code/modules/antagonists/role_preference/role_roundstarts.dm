@@ -257,9 +257,7 @@
 	antag_datum = /datum/antagonist/vampire
 
 /datum/role_preference/roundstart/vampire/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
-	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-	return finish_preview_icon(icon)
+	return finish_preview_icon(render_preview_outfit(/datum/outfit/vampire))
 
 /datum/role_preference/roundstart/malfunctioning_ai
 	name = "Malfunctioning AI"
