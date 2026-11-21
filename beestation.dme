@@ -384,7 +384,6 @@
 #include "code\__HELPERS\screen_objs.dm"
 #include "code\__HELPERS\shell.dm"
 #include "code\__HELPERS\spatial_info.dm"
-#include "code\__HELPERS\stack_trace.dm"
 #include "code\__HELPERS\stat_helpers.dm"
 #include "code\__HELPERS\stat_tracking.dm"
 #include "code\__HELPERS\stoplag.dm"
