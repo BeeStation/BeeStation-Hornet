@@ -76,6 +76,48 @@
 	TEST_ASSERT_NULL(host.get_cortical_borer(BODY_ZONE_L_ARM), "Migration left a borer in the old zone.")
 	TEST_ASSERT_EQUAL(host.get_cortical_borer(BODY_ZONE_CHEST), borer, "Migration did not register the borer in the new zone.")
 
+/// Infestation and migration must not displace an existing borer, including a newly occupied destination.
+/datum/unit_test/borer_occupied_bodypart
+
+/datum/unit_test/borer_occupied_bodypart/Run()
+	var/mob/living/carbon/human/host = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/simple_animal/borer/first = allocate(/mob/living/simple_animal/borer)
+	var/mob/living/simple_animal/borer/second = allocate(/mob/living/simple_animal/borer)
+	var/obj/item/organ/borer_cyst/arm_cyst = allocate(/obj/item/organ/borer_cyst)
+	arm_cyst.configure(first, BODY_ZONE_L_ARM)
+	TEST_ASSERT(arm_cyst.Insert(host), "First infestation failed.")
+	TEST_ASSERT(!second.infest_human(host, BODY_ZONE_L_ARM), "A second borer could infest an occupied arm.")
+	TEST_ASSERT_NULL(second.host, "Rejected infestation still bound the second borer to the host.")
+	TEST_ASSERT_EQUAL(host.get_cortical_borer(BODY_ZONE_L_ARM), first, "Rejected infestation displaced the original borer.")
+	TEST_ASSERT_EQUAL(arm_cyst.owner, host, "Rejected infestation removed the original cyst.")
+
+	var/obj/item/organ/borer_cyst/chest_cyst = allocate(/obj/item/organ/borer_cyst)
+	chest_cyst.configure(second, BODY_ZONE_L_ARM)
+	TEST_ASSERT(!chest_cyst.Insert(host), "Direct cyst insertion replaced an occupied arm's cyst.")
+	TEST_ASSERT_NULL(chest_cyst.owner, "Rejected direct insertion still assigned an owner.")
+	TEST_ASSERT_EQUAL(arm_cyst.owner, host, "Direct insertion evicted the original cyst.")
+	chest_cyst.configure(second, BODY_ZONE_CHEST)
+	TEST_ASSERT(chest_cyst.Insert(host), "Infestation of a different bodypart failed.")
+	var/datum/borer_evolution/active_ability/internal_migration/migration = locate(/datum/borer_evolution/active_ability/internal_migration) in second.available_evolutions
+	var/obj/item/bodypart/chest = host.get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/bodypart/left_arm = host.get_bodypart(BODY_ZONE_L_ARM)
+	var/obj/item/bodypart/right_arm = host.get_bodypart(BODY_ZONE_R_ARM)
+	TEST_ASSERT(!migration.can_migrate(second, host, chest_cyst, chest, left_arm), "Migration accepted an occupied arm.")
+	second._set_zone_selected(BODY_ZONE_L_ARM)
+	TEST_ASSERT(!migration.use_ability(second), "Migration began toward an occupied arm.")
+	TEST_ASSERT_EQUAL(chest_cyst.bodypart_owner, chest, "Rejected migration moved the cyst.")
+	TEST_ASSERT_EQUAL(host.get_cortical_borer(BODY_ZONE_L_ARM), first, "Rejected migration displaced the first borer.")
+	TEST_ASSERT(migration.can_migrate(second, host, chest_cyst, chest, right_arm), "Migration rejected a healthy, unoccupied arm.")
+
+	// Another borer arrives after the initial check, as can happen during the migration delay.
+	var/mob/living/simple_animal/borer/third = allocate(/mob/living/simple_animal/borer)
+	var/obj/item/organ/borer_cyst/other_arm_cyst = allocate(/obj/item/organ/borer_cyst)
+	other_arm_cyst.configure(third, BODY_ZONE_R_ARM)
+	TEST_ASSERT(other_arm_cyst.Insert(host), "Could not occupy the migration destination.")
+	TEST_ASSERT(!migration.can_migrate(second, host, chest_cyst, chest, right_arm), "Migration's repeated check missed a newly occupied destination.")
+	TEST_ASSERT_EQUAL(chest_cyst.owner, host, "The repeated check removed the migrating borer's cyst.")
+	TEST_ASSERT_EQUAL(host.get_cortical_borer(BODY_ZONE_R_ARM), third, "The repeated check displaced the new occupant.")
+
 /// Possession must not grant the host the borer's role or antagonist information.
 /datum/unit_test/borer_host_control
 

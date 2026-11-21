@@ -48,14 +48,17 @@
 	banning_key = ROLE_BORER
 	required_living_playtime = 4
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
-	/// Text shown in the antagonist popup and info panel.
+	/// Full guide shown in the antagonist info panel.
 	var/static/list/briefing = list(
 		"You are a cortical borer!",
 		"You are a \"symbiotic\" organism that thrives in the bodies of organic humanoids. You should endeavour to infest a host and ensure they stay safe at least long enough for you to reproduce - by any means necessary. You do not need to be friends; if push comes to shove, you might even take over temporarily, but you DO need your host to live.",
 		"Select a bodypart on your targeting doll (or use the numpad targeting keys), then activate Infest Host and click an adjacent human to burrow into that bodypart. If you evolve Internal Migration, the selected bodypart also determines where you move inside your host.",
-		"While inside a host, speaking normally communicates privately with them. Prefix a message with :& to speak over the Cortical Link to every cortical borer.",
+		"Neural Domination takes five seconds and drains chemicals while normal regeneration continues. Hosts can use Resist to begin a twelve-second mental struggle during takeover, or once your reserve falls below 35% or possession lasts over two minutes. A successful struggle, or releasing a resisting host early, prevents another takeover for 45 seconds.",
+		"While inside a host, speaking normally communicates privately with them. Prefix a message with [MODE_TOKEN_CORTICAL_LINK] (w for worm) to speak over the Cortical Link to every cortical borer.",
+		"The Cortical Link outlines other living borers and their living hosts in lilac when you can see them. While venting, your enhanced senses also reveal nearby creatures through walls.",
 		"Build a full chemical reserve while inside a host, then leave them and use Reproduce. Laying an egg takes five seconds and consumes your entire chemical reserve. The egg must mature in an atmosphere containing both oxygen and plasma before it can hatch.",
 	)
+	var/static/popup_briefing = "Infest a human, keep them alive, reproduce, and survive. Select a bodypart on the targeting doll, then use Infest Host. Inside a host, normal speech is private; [MODE_TOKEN_CORTICAL_LINK] reaches the Cortical Link. Open your antagonist info button for the full guide."
 	/// The borer body used for objectives and round-end reporting.
 	var/datum/weakref/borer_ref
 	var/borer_name = "Cortical Borer"
@@ -105,9 +108,9 @@
 
 /datum/antagonist/borer/greet()
 	to_chat(owner.current, span_boldnotice("You are a cortical borer!"))
-	to_chat(owner.current, span_boldnotice("While inside a host, speak normally to communicate privately with them. Prefix your message with :& to speak over the Cortical Link to every cortical borer."))
+	to_chat(owner.current, span_boldnotice("While inside a host, speak normally to communicate privately with them. Prefix your message with [MODE_TOKEN_CORTICAL_LINK] (w for worm) to speak over the Cortical Link to every cortical borer."))
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Cortical Borer", briefing.Join("\n\n"))
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Cortical Borer", popup_briefing)
 
 /datum/antagonist/borer/ui_static_data(mob/user)
 	. = ..()
@@ -150,6 +153,13 @@
 	zone = check_zone(new_zone)
 	// Organ slots must be unique per body zone.
 	slot = "borer_cyst_[zone]"
+
+/obj/item/organ/borer_cyst/Insert(mob/living/carbon/receiver, special = FALSE, movement_flags)
+	// Unlike replacement organs, a second cyst must never evict an existing occupant.
+	if(iscarbon(receiver) && receiver.get_organ_slot(slot))
+		borer?.warn_occupied_bodypart(zone)
+		return FALSE
+	return ..()
 
 /obj/item/organ/borer_cyst/on_mob_insert(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
 	. = ..()
@@ -239,6 +249,13 @@
 	var/controlling_host = FALSE
 	/// Holds the host's mind while the borer controls their body.
 	var/mob/living/borer_host/host_backseat
+	var/control_attempt_ends_at = 0
+	var/control_started_at = 0
+	var/control_resist_ends_at = 0
+	var/next_host_control = 0
+	var/control_weak_notice_sent = FALSE
+	var/datum/progressbar/control_attempt_progress
+	var/datum/progressbar/control_resist_progress
 	var/host_actions_suspended = FALSE
 	var/hiding = FALSE
 	var/camera_hidden = FALSE
@@ -306,6 +323,7 @@
 	assume_control_action = new(src)
 	release_control_action = new(src)
 	update_borer_actions()
+	update_cortical_link()
 
 /mob/living/simple_animal/borer/mind_initialize()
 	. = ..()
@@ -315,11 +333,13 @@
 /mob/living/simple_animal/borer/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	update_camera_hiding()
+	update_cortical_link()
 	if(!host)
 		return
 	if(host.stat == DEAD && controlling_host)
 		release_host_control()
 	if(host.stat == DEAD)
+		clear_host_control_state()
 		if(!host_actions_suspended)
 			host_actions_suspended = TRUE
 			for(var/datum/borer_evolution/evolution as anything in available_evolutions)
@@ -336,19 +356,24 @@
 			chemical_change -= delta_time * control_chemical_drain
 		adjust_chemicals(chemical_change)
 		if(controlling_host && chemicals <= 0)
-			to_chat(host, span_warning("Your chemical reserve is exhausted, forcing you to relinquish control!"))
+			to_chat(host, span_warning("Your chemical reserve is exhausted. Your control slips!"))
 			release_host_control()
 			return
 		for(var/datum/borer_evolution/evolution as anything in available_evolutions)
 			if(evolution.purchased && evolution.is_active(src))
 				evolution.on_life(src, delta_time)
+		process_host_control()
 		if(world.time >= next_evolution_point)
 			adjust_evolution_points(1)
 			next_evolution_point = world.time + 2 MINUTES
 
 /mob/living/simple_animal/borer/Destroy()
+	update_cortical_link()
 	if(controlling_host)
 		release_host_control()
+	clear_host_control_state()
+	if(host)
+		UnregisterSignal(host, list(COMSIG_QDELETING, COMSIG_LIVING_RESIST))
 	if(camera_hidden)
 		RemoveElement(/datum/element/digital_camo/borer_hiding)
 		camera_hidden = FALSE
@@ -374,15 +399,21 @@
 	set_hiding(FALSE, TRUE)
 	if(controlling_host)
 		release_host_control()
+	clear_host_control_state()
 	deactivate_evolutions(host)
-	return ..()
+	. = ..()
+	update_pipe_vision()
+	update_cortical_link()
 
 /mob/living/simple_animal/borer/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	update_camera_hiding()
+	update_cortical_link()
 
 /mob/living/simple_animal/borer/update_sight()
 	lighting_alpha = initial(lighting_alpha)
+	if(HAS_TRAIT_FROM(src, TRAIT_NIGHT_VISION, VENTCRAWLING_TRAIT))
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
 	return ..()
 
 /mob/living/simple_animal/borer/get_combat_bodyzone(atom/target = null, precise = FALSE, zone_context = BODYZONE_CONTEXT_COMBAT)
@@ -396,13 +427,15 @@
 		return
 	return ..()
 
-/// Lets borers see from vents without the usual lighting tint.
+/// Borers sense nearby creatures through vibrations in the pipes.
 /mob/living/simple_animal/borer/update_pipe_vision(full_refresh = FALSE)
 	. = ..()
-	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !istype(loc, /obj/machinery/atmospherics) || !(movement_type & VENTCRAWLING))
-		return
-	var/atom/movable/screen/plane_master/lighting = hud_used?.get_plane_master(LIGHTING_PLANE)
-	lighting?.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#4d4d4d")
+	var/static/list/vent_senses = list(TRAIT_THERMAL_VISION, TRAIT_NIGHT_VISION)
+	if(stat != DEAD && HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) && istype(loc, /obj/machinery/atmospherics) && (movement_type & VENTCRAWLING))
+		add_traits(vent_senses, VENTCRAWLING_TRAIT)
+	else
+		remove_traits(vent_senses, VENTCRAWLING_TRAIT)
+	update_sight()
 
 /// Updates the borer's hiding layer.
 /mob/living/simple_animal/borer/proc/set_hiding(new_hiding, silent = FALSE)
@@ -436,11 +469,14 @@
 	if(!ishuman(new_host))
 		return FALSE
 	if(host)
-		UnregisterSignal(host, COMSIG_QDELETING)
+		UnregisterSignal(host, list(COMSIG_QDELETING, COMSIG_LIVING_RESIST))
+	if(!controlling_host)
+		clear_host_control_state()
 	host = new_host
 	cyst = new_cyst
 	severed_limb = null
 	RegisterSignal(host, COMSIG_QDELETING, PROC_REF(on_host_qdeleting))
+	RegisterSignal(host, COMSIG_LIVING_RESIST, PROC_REF(on_host_resist))
 	host_actions_suspended = FALSE
 	if(!next_evolution_point)
 		next_evolution_point = world.time + 2 MINUTES
@@ -455,10 +491,11 @@
 /mob/living/simple_animal/borer/proc/on_limb_severed(obj/item/bodypart/limb)
 	if(controlling_host)
 		release_host_control()
+	clear_host_control_state()
 	severed_limb = limb
 	host_actions_suspended = FALSE
 	deactivate_evolutions(host)
-	UnregisterSignal(host, COMSIG_QDELETING)
+	UnregisterSignal(host, list(COMSIG_QDELETING, COMSIG_LIVING_RESIST))
 	host = null
 	forceMove(limb)
 	// Follow the limb container when it moves.
@@ -469,10 +506,11 @@
 /mob/living/simple_animal/borer/proc/detach(atom/drop_location)
 	if(controlling_host)
 		release_host_control()
+	clear_host_control_state()
 	var/mob/living/carbon/human/old_host = host
 	var/obj/item/organ/borer_cyst/old_cyst = cyst
 	if(old_host)
-		UnregisterSignal(old_host, COMSIG_QDELETING)
+		UnregisterSignal(old_host, list(COMSIG_QDELETING, COMSIG_LIVING_RESIST))
 	host = null
 	host_actions_suspended = FALSE
 	deactivate_evolutions(old_host)
@@ -501,7 +539,7 @@
 		return FALSE
 	target_zone = check_zone(target_zone)
 	if(target.get_cortical_borer(target_zone))
-		to_chat(src, span_warning("Another borer already occupies that bodypart."))
+		warn_occupied_bodypart(target_zone)
 		return FALSE
 	if(!target.can_inject(src, target_zone, INJECT_TRY_SHOW_ERROR_MESSAGE))
 		return FALSE
@@ -515,9 +553,13 @@
 	target.Knockdown(1 SECONDS)
 	return TRUE
 
+/mob/living/simple_animal/borer/proc/warn_occupied_bodypart(zone)
+	to_chat(src, span_warning("We try to burrow into the [parse_zone(zone)], but it is already occupied by one of our kind!"))
+
 /mob/living/simple_animal/borer/proc/release_host_control()
 	if(!controlling_host || !host)
 		controlling_host = FALSE
+		clear_host_control_state()
 		update_borer_actions()
 		return FALSE
 	if(!transfer_host_control())
@@ -528,13 +570,7 @@
 	return TRUE
 
 /mob/living/simple_animal/borer/proc/take_host_control()
-	if(controlling_host || !host || cyst?.zone != BODY_ZONE_HEAD || host.stat == DEAD || !has_evolution(/datum/borer_evolution/neural_domination))
-		return FALSE
-	if(!client || !host.client)
-		to_chat(src, span_warning("Both you and your host must be conscious players to exchange control."))
-		return FALSE
-	if(chemicals < control_activation_cost)
-		to_chat(src, span_warning("You need [control_activation_cost] chemicals to seize control of your host."))
+	if(!can_take_host_control(feedback = TRUE))
 		return FALSE
 	adjust_chemicals(-control_activation_cost)
 	if(!transfer_host_control())
@@ -542,7 +578,7 @@
 		return FALSE
 	update_borer_actions()
 	to_chat(host, span_userdanger("You seize control of your host's body. Your chemical reserve begins to drain."))
-	to_chat(host_backseat, span_userdanger("Your cortical borer has seized control of your body! You can only observe until it releases control."))
+	to_chat(host_backseat, span_userdanger("Your cortical borer has seized control of your body! You can fight back with Resist while its control is weak."))
 	return TRUE
 
 /// Moves the host into a passive backseat instead of the borer's body.
@@ -554,6 +590,7 @@
 			return FALSE
 		var/datum/mind/borer_mind = host.mind
 		var/datum/mind/host_mind = host_backseat.mind
+		clear_host_control_state()
 		borer_mind.transfer_to(src)
 		host_mind.transfer_to(host)
 		controlling_host = FALSE
@@ -564,10 +601,17 @@
 	// Vacate each destination before transferring the other mind and its UIs.
 	var/datum/mind/borer_body_mind = mind
 	var/datum/mind/host_body_mind = host.mind
+	control_attempt_ends_at = 0
+	QDEL_NULL(control_attempt_progress)
+	QDEL_NULL(control_resist_progress)
 	host_backseat = new(host)
+	RegisterSignal(host_backseat, COMSIG_LIVING_RESIST, PROC_REF(on_host_resist))
 	host_body_mind.transfer_to(host_backseat)
 	borer_body_mind.transfer_to(host)
 	controlling_host = TRUE
+	control_started_at = world.time
+	control_weak_notice_sent = FALSE
+	update_control_resistance_progress()
 	return TRUE
 
 /mob/living/simple_animal/borer/proc/has_evolution(evolution_type)
@@ -680,7 +724,7 @@
 	update_evolution_hud()
 
 /mob/living/simple_animal/borer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof = FALSE, message_range = 7, datum/saymode/saymode, list/message_mods = list())
-	if(stat == DEAD || (!host && findtext(trim(message), ":&") != 1))
+	if(stat == DEAD || (!host && !get_cortical_link_prefix(trim(message))))
 		return ..()
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
@@ -688,9 +732,8 @@
 		return
 	if(!try_speak(message, ignore_spam, forced, filterproof))
 		return
-	if(findtext(message, ":&") == 1)
-		// Sanitization encodes the ampersand in the channel prefix.
-		var/link_prefix = findtext(message, ":&amp;") == 1 ? ":&amp;" : ":&"
+	var/link_prefix = get_cortical_link_prefix(message)
+	if(link_prefix)
 		var/linked_message = trim_left(copytext_char(message, length_char(link_prefix) + 1))
 		if(!linked_message)
 			return
@@ -710,21 +753,19 @@
 	send_to_observers(span_notice("<b>[real_name]</b> speaks within <b>[host.real_name]</b>: \"[message]\""), src)
 	return TRUE
 
+/mob/living/simple_animal/borer/proc/get_cortical_link_prefix(message)
+	if(findtext(message, MODE_TOKEN_CORTICAL_LINK) == 1)
+		return MODE_TOKEN_CORTICAL_LINK
+	if(findtext(message, MODE_TOKEN_CORTICAL_LINK_ALT) == 1)
+		return MODE_TOKEN_CORTICAL_LINK_ALT
+	return null
+
 /mob/living/simple_animal/borer/proc/leave_host()
 	if(controlling_host)
 		return
 	if(!cyst)
 		return
 	detach(get_turf(host) || get_turf(severed_limb))
-
-/mob/living/simple_animal/borer/proc/assume_host_control()
-	if(controlling_host)
-		return
-	if(!host || cyst?.zone != BODY_ZONE_HEAD)
-		to_chat(src, span_warning("Only a borer in a host's head can take control."))
-		return
-	if(do_after(src, 5 SECONDS, host))
-		take_host_control()
 
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
 	if(controlling_host || stat != CONSCIOUS)

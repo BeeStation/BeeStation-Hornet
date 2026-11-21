@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
-import { Objective, ObjectivesSection } from './common/Objectives';
+import { Objective, ObjectivePrintout } from './common/Objectives';
 
 type Info = {
   antag_name: string;
@@ -14,9 +14,9 @@ export const AntagInfoBorer = (_props) => {
   const { data } = useBackend<Info>();
   const { antag_name, briefing, objectives } = data;
   return (
-    <Window width={620} height={480} theme="neutral">
-      <Window.Content>
-        <Stack vertical fill>
+    <Window width={720} height={700} theme="neutral">
+      <Window.Content scrollable>
+        <Stack vertical>
           <Stack.Item>
             <AntagInfoHeader name={antag_name || 'Cortical Borer'} />
           </Stack.Item>
@@ -29,8 +29,10 @@ export const AntagInfoBorer = (_props) => {
               </Stack>
             </Section>
           </Stack.Item>
-          <Stack.Item grow>
-            <ObjectivesSection objectives={objectives} />
+          <Stack.Item>
+            <Section title="Objectives">
+              <ObjectivePrintout objectives={objectives} />
+            </Section>
           </Stack.Item>
         </Stack>
       </Window.Content>

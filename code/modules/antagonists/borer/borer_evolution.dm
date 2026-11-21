@@ -97,7 +97,7 @@
 		return FALSE
 	var/target_zone = borer.get_combat_bodyzone(human_target, zone_context = BODYZONE_CONTEXT_INJECTION)
 	if(human_target.get_cortical_borer(target_zone))
-		to_chat(borer, span_warning("Another borer already occupies that bodypart."))
+		borer.warn_occupied_bodypart(target_zone)
 		return FALSE
 	if(!human_target.can_inject(borer, target_zone, INJECT_TRY_SHOW_ERROR_MESSAGE))
 		return FALSE
@@ -203,7 +203,7 @@
 /datum/action/innate/borer_assume_control
 	parent_type = /datum/action/innate/borer_core
 	name = "Assume Host Control"
-	desc = "Spend 10 chemicals to seize control of your head host. Your reserve continuously drains until you release control or it reaches zero."
+	desc = "Take five seconds and spend 10 chemicals to seize control of your head host. Normal regeneration continues during chemical upkeep. Hosts can Resist during takeover, below 35% reserve, or after two minutes. Their twelve-second struggle ends control and prevents another takeover for 45 seconds."
 	button_icon_state = "mindshield"
 
 /datum/action/innate/borer_assume_control/on_activate()
@@ -314,6 +314,9 @@
 	if(new_part == old_part)
 		to_chat(borer, span_warning("You already occupy that bodypart. Select another destination on the targeting doll."))
 		return FALSE
+	if(new_part && host.get_organ_slot("borer_cyst_[new_part.body_zone]"))
+		borer.warn_occupied_bodypart(new_part.body_zone)
+		return FALSE
 	if(!can_migrate(borer, host, cyst, old_part, new_part))
 		to_chat(borer, span_warning("You need an unoccupied organic bodypart and a host healthy enough to survive the migration."))
 		return FALSE
@@ -328,7 +331,13 @@
 		return FALSE
 	migrating = FALSE
 	if(!completed || !can_migrate(borer, host, cyst, old_part, new_part))
-		to_chat(borer, span_warning("Your migration is interrupted."))
+		var/obj/item/organ/occupant
+		if(!QDELETED(host) && !QDELETED(new_part))
+			occupant = host.get_organ_slot("borer_cyst_[new_part.body_zone]")
+		if(occupant && occupant != cyst)
+			borer.warn_occupied_bodypart(new_part.body_zone)
+		else
+			to_chat(borer, span_warning("Your migration is interrupted."))
 		return FALSE
 	borer.deactivate_evolutions(host)
 	cyst.Remove(host, special = TRUE)
@@ -558,7 +567,7 @@
 /datum/borer_evolution/neural_domination
 	name = "Neural Domination"
 	desc = "Develop control filaments capable of briefly taking over a host's body."
-	helptext = "Head cyst only. Costs 10 chemicals to begin and continuously drains your reserve; control ends when it reaches zero."
+	helptext = "Head cyst only. Five-second takeover, unaffected by host movement. Costs 10 chemicals, then drains 2.5 per second while normal regeneration continues. Hosts can Resist during takeover, below 35% reserve, or after two minutes; a twelve-second struggle frees them and prevents another takeover for 45 seconds."
 	cost = 2
 	required_zone = BODY_ZONE_HEAD
 
