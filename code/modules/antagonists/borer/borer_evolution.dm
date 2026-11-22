@@ -172,57 +172,52 @@
 		return FALSE
 	return borer.set_hiding(!borer.hiding)
 
-/datum/action/innate/borer_secrete
-	parent_type = /datum/action/innate/borer_core
+/datum/action/innate/borer_core/secrete
 	name = "Secrete Chemicals"
 	desc = "Release a synthesized chemical into your host's bloodstream."
 	button_icon_state = "panacea"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/borer_secrete/on_activate()
+/datum/action/innate/borer_core/secrete/on_activate()
 	borer?.secrete_chemicals()
 
-/datum/action/innate/borer_leave
-	parent_type = /datum/action/innate/borer_core
+/datum/action/innate/borer_core/leave
 	name = "Leave Host"
 	desc = "Emerge from your host or the severed limb carrying you."
 	button_icon_state = "lesser_form"
 
-/datum/action/innate/borer_leave/on_activate()
+/datum/action/innate/borer_core/leave/on_activate()
 	borer?.leave_host()
 
-/datum/action/innate/borer_reproduce
-	parent_type = /datum/action/innate/borer_core
+/datum/action/innate/borer_core/reproduce
 	name = "Reproduce"
 	desc = "Consume a full chemical reserve to produce a borer egg."
 	button_icon_state = "spread_infestation"
 
-/datum/action/innate/borer_reproduce/on_activate()
+/datum/action/innate/borer_core/reproduce/on_activate()
 	borer?.reproduce()
 
-/datum/action/innate/borer_assume_control
-	parent_type = /datum/action/innate/borer_core
+/datum/action/innate/borer_core/assume_control
 	name = "Assume Host Control"
 	desc = "Seize control of your head host."
 	button_icon_state = "mindshield"
 
-/datum/action/innate/borer_assume_control/New(mob/living/simple_animal/borer/new_borer)
+/datum/action/innate/borer_core/assume_control/New(mob/living/simple_animal/borer/new_borer)
 	. = ..(new_borer)
 	if(borer)
 		var/datum/borer_evolution/neural_domination/domination = locate(/datum/borer_evolution/neural_domination) in borer.available_evolutions
 		if(domination)
 			desc = domination.get_helptext(borer)
 
-/datum/action/innate/borer_assume_control/on_activate()
+/datum/action/innate/borer_core/assume_control/on_activate()
 	borer?.assume_host_control()
 
-/datum/action/innate/borer_release_control
-	parent_type = /datum/action/innate/borer_core
+/datum/action/innate/borer_core/release_control
 	name = "Release Host Control"
 	desc = "Return control of the body to your host."
 	button_icon_state = "human_form"
 
-/datum/action/innate/borer_release_control/on_activate()
+/datum/action/innate/borer_core/release_control/on_activate()
 	borer?.release_host_control()
 
 /datum/borer_evolution
@@ -820,15 +815,14 @@
 
 // Active evolutions
 
-/datum/borer_evolution/taste_blood
-	parent_type = /datum/borer_evolution/active_ability
+/datum/borer_evolution/active_ability/taste_blood
 	name = "Taste Blood"
 	desc = "Develop sensory filaments capable of identifying chemicals in a host's bloodstream."
 	helptext = "Any host zone. Reports every reagent currently present in the host."
 	cost = 1
 	button_icon_state = "sting_extract"
 
-/datum/borer_evolution/taste_blood/use_ability(mob/living/simple_animal/borer/borer, atom/target)
+/datum/borer_evolution/active_ability/taste_blood/use_ability(mob/living/simple_animal/borer/borer, atom/target)
 	if(!borer?.host?.reagents)
 		return FALSE
 	if(!length(borer.host.reagents.reagent_list))
@@ -841,8 +835,7 @@
 	to_chat(borer, span_notice("<b>Chemical profile for [borer.host]:</b><br>[formatted_readout]"))
 	return TRUE
 
-/datum/borer_evolution/chest/brute_resistance
-	parent_type = /datum/borer_evolution/toggle_ability
+/datum/borer_evolution/toggle_ability/brute_resistance
 	name = "Brute Resistance"
 	desc = "Reinforce your host's tissues against physical trauma."
 	helptext = "Chest cyst only."
@@ -852,11 +845,11 @@
 	chemical_drain = 1
 	var/resistance_multiplier = 0.7
 
-/datum/borer_evolution/chest/brute_resistance/get_helptext(mob/living/simple_animal/borer/borer)
+/datum/borer_evolution/toggle_ability/brute_resistance/get_helptext(mob/living/simple_animal/borer/borer)
 	. = ..()
 	. += " Reduces incoming brute damage by [round((1 - resistance_multiplier) * 100, 0.1)]%."
 
-/datum/borer_evolution/chest/brute_resistance/activate_effect()
+/datum/borer_evolution/toggle_ability/brute_resistance/activate_effect()
 	if(!active_host?.physiology)
 		return FALSE
 	active_host.physiology.brute_mod *= resistance_multiplier
@@ -864,13 +857,12 @@
 	to_chat(active_host, span_notice("Your flesh tightens into a dense protective lattice."))
 	return TRUE
 
-/datum/borer_evolution/chest/brute_resistance/deactivate_effect()
+/datum/borer_evolution/toggle_ability/brute_resistance/deactivate_effect()
 	if(active_host?.physiology)
 		active_host.physiology.brute_mod /= resistance_multiplier
 		to_chat(active_host, span_notice("The protective tension in your flesh subsides."))
 
-/datum/borer_evolution/chest/burn_resistance
-	parent_type = /datum/borer_evolution/toggle_ability
+/datum/borer_evolution/toggle_ability/burn_resistance
 	name = "Burn Resistance"
 	desc = "Saturate your host's tissues against heat and corrosive trauma."
 	helptext = "Chest cyst only."
@@ -880,11 +872,11 @@
 	chemical_drain = 1
 	var/resistance_multiplier = 0.7
 
-/datum/borer_evolution/chest/burn_resistance/get_helptext(mob/living/simple_animal/borer/borer)
+/datum/borer_evolution/toggle_ability/burn_resistance/get_helptext(mob/living/simple_animal/borer/borer)
 	. = ..()
 	. += " Reduces incoming burn damage by [round((1 - resistance_multiplier) * 100, 0.1)]%."
 
-/datum/borer_evolution/chest/burn_resistance/activate_effect()
+/datum/borer_evolution/toggle_ability/burn_resistance/activate_effect()
 	if(!active_host?.physiology)
 		return FALSE
 	active_host.physiology.burn_mod *= resistance_multiplier
@@ -892,7 +884,7 @@
 	to_chat(active_host, span_notice("A cool, protective film spreads beneath your skin."))
 	return TRUE
 
-/datum/borer_evolution/chest/burn_resistance/deactivate_effect()
+/datum/borer_evolution/toggle_ability/burn_resistance/deactivate_effect()
 	if(active_host?.physiology)
 		active_host.physiology.burn_mod /= resistance_multiplier
 		to_chat(active_host, span_notice("The protective film beneath your skin recedes."))
@@ -960,8 +952,7 @@
 	manifested_item = null
 	force_deactivate()
 
-/datum/borer_evolution/arm/bone_blade
-	parent_type = /datum/borer_evolution/toggle_ability/arm_manifestation
+/datum/borer_evolution/toggle_ability/arm_manifestation/bone_blade
 	name = "Bone Blade"
 	desc = "Grow a large organic blade from the arm containing you."
 	helptext = "Either arm. Requires that arm's hand to be empty."
@@ -969,11 +960,10 @@
 	button_icon_state = "armblade"
 	manifest_name = "a serrated blade of bone"
 
-/datum/borer_evolution/arm/bone_blade/create_manifest(mob/living/carbon/human/manifest_host)
+/datum/borer_evolution/toggle_ability/arm_manifestation/bone_blade/create_manifest(mob/living/carbon/human/manifest_host)
 	return new /obj/item/melee/borer_bone_blade(manifest_host)
 
-/datum/borer_evolution/arm/bone_shield
-	parent_type = /datum/borer_evolution/toggle_ability/arm_manifestation
+/datum/borer_evolution/toggle_ability/arm_manifestation/bone_shield
 	name = "Bone Shield"
 	desc = "Grow an interlocking organic shield from the arm containing you."
 	helptext = "Either arm. Mutually exclusive with Bone Blade."
@@ -981,7 +971,7 @@
 	button_icon_state = "organic_suit"
 	manifest_name = "an interlocking shield of bone"
 
-/datum/borer_evolution/arm/bone_shield/create_manifest(mob/living/carbon/human/manifest_host)
+/datum/borer_evolution/toggle_ability/arm_manifestation/bone_shield/create_manifest(mob/living/carbon/human/manifest_host)
 	return new /obj/item/shield/borer_bone(manifest_host)
 
 /obj/item/melee/borer_bone_blade
@@ -1027,8 +1017,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-/datum/borer_evolution/arm/electromagnetic_pulse
-	parent_type = /datum/borer_evolution/active_ability
+/datum/borer_evolution/active_ability/electromagnetic_pulse
 	name = "Electromagnetic Pulse"
 	desc = "Discharge stored bioelectricity through your host and nearby electronics."
 	helptext = "Either arm. Produces the same EMP radius as a changeling's Dissonant Shriek."
@@ -1039,7 +1028,7 @@
 	button_icon_state = "dissonant_shriek"
 	ability_cooldown = 30 SECONDS
 
-/datum/borer_evolution/arm/electromagnetic_pulse/use_ability(mob/living/simple_animal/borer/borer, atom/target)
+/datum/borer_evolution/active_ability/electromagnetic_pulse/use_ability(mob/living/simple_animal/borer/borer, atom/target)
 	if(!borer?.host || borer.chemicals < activation_cost)
 		to_chat(borer, span_warning("You need [activation_cost] chemicals to produce an electromagnetic pulse."))
 		return FALSE
@@ -1051,8 +1040,7 @@
 /datum/movespeed_modifier/borer_leg_overdrive
 	variable = TRUE
 
-/datum/borer_evolution/leg/muscular_overdrive
-	parent_type = /datum/borer_evolution/toggle_ability
+/datum/borer_evolution/toggle_ability/muscular_overdrive
 	name = "Muscular Overdrive"
 	desc = "Drive your host's leg beyond its ordinary muscular limits."
 	helptext = "Either leg. Provides an additional speed boost."
@@ -1062,19 +1050,18 @@
 	button_icon_state = "strained_muscles"
 	chemical_drain = 1
 
-/datum/borer_evolution/leg/muscular_overdrive/activate_effect()
+/datum/borer_evolution/toggle_ability/muscular_overdrive/activate_effect()
 	active_host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/borer_leg_overdrive, multiplicative_slowdown = -0.25)
 	to_chat(active_borer, span_notice("You drive [active_host]'s leg muscles into overdrive."))
 	to_chat(active_host, span_notice("Your legs surge with unnatural power."))
 	return TRUE
 
-/datum/borer_evolution/leg/muscular_overdrive/deactivate_effect()
+/datum/borer_evolution/toggle_ability/muscular_overdrive/deactivate_effect()
 	active_host?.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_overdrive)
 	if(active_host && !QDELETED(active_host))
 		to_chat(active_host, span_notice("The unnatural power in your legs fades."))
 
-/datum/borer_evolution/leg/hooking_talons
-	parent_type = /datum/borer_evolution/active_ability
+/datum/borer_evolution/active_ability/hooking_talons
 	name = "Hooking Talons"
 	desc = "Grow subtle hooks through your host's foot for sudden leg sweeps."
 	helptext = "Either leg. Target an adjacent standing creature to knock it down."
@@ -1087,7 +1074,7 @@
 	requires_target = TRUE
 	target_prompt = "<span class='notice'>Click an adjacent creature to sweep its legs.</span>"
 
-/datum/borer_evolution/leg/hooking_talons/use_ability(mob/living/simple_animal/borer/borer, atom/target)
+/datum/borer_evolution/active_ability/hooking_talons/use_ability(mob/living/simple_animal/borer/borer, atom/target)
 	if(!borer?.host || !isliving(target) || target == borer.host || !borer.host.Adjacent(target))
 		to_chat(borer, span_warning("You must target an adjacent living creature."))
 		return FALSE

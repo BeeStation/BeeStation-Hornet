@@ -240,11 +240,11 @@
 	var/datum/action/innate/borer_infest/infest_action
 	var/datum/action/innate/borer_stun/stun_action
 	var/datum/action/innate/borer_core/hide/hide_action
-	var/datum/action/innate/borer_secrete/secrete_action
-	var/datum/action/innate/borer_leave/leave_action
-	var/datum/action/innate/borer_reproduce/reproduce_action
-	var/datum/action/innate/borer_assume_control/assume_control_action
-	var/datum/action/innate/borer_release_control/release_control_action
+	var/datum/action/innate/borer_core/secrete/secrete_action
+	var/datum/action/innate/borer_core/leave/leave_action
+	var/datum/action/innate/borer_core/reproduce/reproduce_action
+	var/datum/action/innate/borer_core/assume_control/assume_control_action
+	var/datum/action/innate/borer_core/release_control/release_control_action
 	/// Whether the borer mind is controlling the host body.
 	var/controlling_host = FALSE
 	/// Holds the host's mind while the borer controls their body.
@@ -267,25 +267,25 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	var/static/list/evolution_types = list(
-		/datum/borer_evolution/taste_blood,
+		/datum/borer_evolution/active_ability/taste_blood,
 		/datum/borer_evolution/active_ability/internal_migration,
 		/datum/borer_evolution/neural_domination,
 		/datum/borer_evolution/head/night_vision,
 		/datum/borer_evolution/head/thermal_vision,
 		/datum/borer_evolution/chest/thermal_regulation,
 		/datum/borer_evolution/chest/metabolic_purge,
-		/datum/borer_evolution/chest/brute_resistance,
-		/datum/borer_evolution/chest/burn_resistance,
+		/datum/borer_evolution/toggle_ability/brute_resistance,
+		/datum/borer_evolution/toggle_ability/burn_resistance,
 		/datum/borer_evolution/arm/shock_dampening,
 		/datum/borer_evolution/arm/regenerative_tissue,
-		/datum/borer_evolution/arm/bone_blade,
-		/datum/borer_evolution/arm/bone_shield,
-		/datum/borer_evolution/arm/electromagnetic_pulse,
+		/datum/borer_evolution/toggle_ability/arm_manifestation/bone_blade,
+		/datum/borer_evolution/toggle_ability/arm_manifestation/bone_shield,
+		/datum/borer_evolution/active_ability/electromagnetic_pulse,
 		/datum/borer_evolution/leg/motile_fibers,
 		/datum/borer_evolution/leg/grounding_tendrils,
 		/datum/borer_evolution/leg/zero_g_tendons,
-		/datum/borer_evolution/leg/muscular_overdrive,
-		/datum/borer_evolution/leg/hooking_talons,
+		/datum/borer_evolution/toggle_ability/muscular_overdrive,
+		/datum/borer_evolution/active_ability/hooking_talons,
 		/datum/borer_evolution/expanded_glands,
 		/datum/borer_evolution/efficient_glands,
 		/datum/borer_evolution/chemical/head/genetic_restoration,
