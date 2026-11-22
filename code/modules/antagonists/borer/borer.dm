@@ -152,8 +152,7 @@
 /obj/item/organ/borer_cyst/proc/configure(mob/living/simple_animal/borer/new_borer, new_zone)
 	borer = new_borer
 	zone = check_zone(new_zone)
-	// Organ slots must be unique per body zone.
-	slot = "borer_cyst_[zone]"
+	slot = ORGAN_SLOT_BORER_CYST(zone)
 
 /obj/item/organ/borer_cyst/Insert(mob/living/carbon/receiver, special = FALSE, movement_flags)
 	// Unlike replacement organs, a second cyst must never evict an existing occupant.

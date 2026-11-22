@@ -314,7 +314,7 @@
 	if(new_part == old_part)
 		to_chat(borer, span_warning("You already occupy that bodypart. Select another destination on the targeting doll."))
 		return FALSE
-	if(new_part && host.get_organ_slot("borer_cyst_[new_part.body_zone]"))
+	if(new_part && host.get_organ_slot(ORGAN_SLOT_BORER_CYST(new_part.body_zone)))
 		borer.warn_occupied_bodypart(new_part.body_zone)
 		return FALSE
 	if(!can_migrate(borer, host, cyst, old_part, new_part))
@@ -333,7 +333,7 @@
 	if(!completed || !can_migrate(borer, host, cyst, old_part, new_part))
 		var/obj/item/organ/occupant
 		if(!QDELETED(host) && !QDELETED(new_part))
-			occupant = host.get_organ_slot("borer_cyst_[new_part.body_zone]")
+			occupant = host.get_organ_slot(ORGAN_SLOT_BORER_CYST(new_part.body_zone))
 		if(occupant && occupant != cyst)
 			borer.warn_occupied_bodypart(new_part.body_zone)
 		else
@@ -359,7 +359,7 @@
 		return FALSE
 	if(old_part == new_part || old_part.owner != host || new_part.owner != host || cyst.zone != old_part.body_zone || !IS_ORGANIC_LIMB(new_part))
 		return FALSE
-	if(host.get_organ_slot("borer_cyst_[new_part.body_zone]"))
+	if(host.get_organ_slot(ORGAN_SLOT_BORER_CYST(new_part.body_zone)))
 		return FALSE
 	var/expected_damage = CONFIG_GET(number/damage_multiplier) * (30 * old_part.brute_modifier * old_part.body_damage_coeff + 16 * new_part.brute_modifier * new_part.body_damage_coeff)
 	return host.health > host.crit_threshold + expected_damage + 10

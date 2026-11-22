@@ -123,6 +123,9 @@
 #define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
 #define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
 
+/// Each body zone can contain one cortical borer cyst.
+#define ORGAN_SLOT_BORER_CYST(zone) ("borer_cyst_" + (zone))
+
 /// Xenomorph organ slots
 #define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
 #define ORGAN_SLOT_XENO_EGGSAC "eggsac"
