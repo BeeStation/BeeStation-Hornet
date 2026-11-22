@@ -166,6 +166,7 @@
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
+	update_limb(TRUE)
 	update_icon_dropped()
 
 /obj/item/bodypart/Destroy()
@@ -730,7 +731,7 @@
 		draw_color = null
 
 	if(!is_creating || !ishuman(owner))
-		return
+		return FALSE
 
 	// There should technically to be an ishuman(owner) check here, but it is absent because no basetype carbons use bodyparts
 	// No, xenos don't actually use bodyparts. Don't ask.
@@ -1129,7 +1130,7 @@
 
 	bodyshape &= ~old_shape
 	owner?.synchronize_bodyshapes()
-	
+
 /obj/item/bodypart/proc/get_offset(direction)
 	return null
 

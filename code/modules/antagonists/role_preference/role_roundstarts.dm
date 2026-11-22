@@ -94,10 +94,9 @@
 	r_hand = /obj/item/melee/blood_magic/stun
 	l_hand = /obj/item/shield/mirror
 
-/datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.eye_color_left = BLOODCULT_EYE
-	H.eye_color_right = BLOODCULT_EYE
-	H.update_body()
+/datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/equipped, visuals_only)
+	equipped.set_eye_color(BLOODCULT_EYE)
+	equipped.update_eyes()
 
 /datum/role_preference/roundstart/clock_cultist
 	name = "Clock Cultist"
@@ -258,11 +257,7 @@
 	antag_datum = /datum/antagonist/vampire
 
 /datum/role_preference/roundstart/vampire/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
-	var/icon/icon_blood = icon('icons/effects/blood.dmi', "uniformblood")
-	icon_blood.Blend(BLOOD_COLOR_RED, ICON_MULTIPLY)
-	icon.Blend(icon_blood, ICON_OVERLAY)
-	return finish_preview_icon(icon)
+	return finish_preview_icon(render_preview_outfit(/datum/outfit/vampire))
 
 /datum/role_preference/roundstart/malfunctioning_ai
 	name = "Malfunctioning AI"
