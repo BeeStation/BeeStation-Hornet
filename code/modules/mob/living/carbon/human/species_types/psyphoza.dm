@@ -305,7 +305,7 @@
 	icon = 'icons/hud/fullscreen/psychic.dmi'
 	render_target = ""
 	plane = FULLSCREEN_PLANE
-	layer = 4.1
+	layer = BLIND_LAYER + 0.1
 	///Index for visual setting - Useful if we add more presets
 	var/visual_index = 1
 	///Index for texture setting - Useful if we add more presets
