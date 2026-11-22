@@ -261,6 +261,8 @@
 	var/host_actions_suspended = FALSE
 	var/hiding = FALSE
 	var/camera_hidden = FALSE
+	/// Each living borer contributes one outline: its host, or its own body while unhosted.
+	var/datum/atom_hud/alternate_appearance/basic/cortical_link/link_outline
 
 /mob/living/simple_animal/borer/Initialize(mapload)
 	. = ..()

@@ -1,7 +1,3 @@
-/// Each living borer contributes one outline: its host, or its own body while unhosted.
-/mob/living/simple_animal/borer
-	var/datum/atom_hud/alternate_appearance/basic/cortical_link/link_outline
-
 /mob/living/simple_animal/borer/proc/update_cortical_link()
 	var/mob/living/target
 	if(!QDELING(src) && stat != DEAD)
