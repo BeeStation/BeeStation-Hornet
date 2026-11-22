@@ -745,25 +745,20 @@
 	update_evolution_hud()
 
 /mob/living/simple_animal/borer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof = FALSE, message_range = 7, datum/saymode/saymode, list/message_mods = list())
-	if(stat == DEAD || (!host && !get_cortical_link_prefix(trim(message))))
+	if(stat == DEAD || !host)
+		return ..()
+	var/trimmed_message = trim(message)
+	if(!trimmed_message)
+		return
+	var/list/parsed_mods = list()
+	get_message_mods(trimmed_message, parsed_mods)
+	if(SSradio.get_available_say_mode(src, parsed_mods[RADIO_KEY]))
 		return ..()
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return
 	if(!try_speak(message, ignore_spam, forced, filterproof))
-		return
-	var/link_prefix = get_cortical_link_prefix(message)
-	if(link_prefix)
-		var/linked_message = trim_left(copytext_char(message, length_char(link_prefix) + 1))
-		if(!linked_message)
-			return
-		var/list/borer_recipients = list()
-		for(var/mob/living/simple_animal/borer/other_borer in GLOB.mob_living_list)
-			borer_recipients += other_borer
-		var/rendered_link = span_corticallink("<b>Cortical Link:</b> [real_name] says, \"[linked_message]\"")
-		log_talk(linked_message, LOG_SAY, tag = "cortical link")
-		relay_to_list_and_observers(rendered_link, borer_recipients, src)
 		return
 	to_chat(host, span_borerhost("<b>A voice in your mind:</b> \"[message]\""))
 	for(var/mob/living/simple_animal/borer/other_borer in host.get_cortical_borers())
@@ -774,12 +769,13 @@
 	send_to_observers(span_notice("<b>[real_name]</b> speaks within <b>[host.real_name]</b>: \"[message]\""), src)
 	return TRUE
 
-/mob/living/simple_animal/borer/proc/get_cortical_link_prefix(message)
-	if(findtext(message, MODE_TOKEN_CORTICAL_LINK) == 1)
-		return MODE_TOKEN_CORTICAL_LINK
-	if(findtext(message, MODE_TOKEN_CORTICAL_LINK_ALT) == 1)
-		return MODE_TOKEN_CORTICAL_LINK_ALT
-	return null
+/mob/living/simple_animal/borer/proc/cortical_link_talk(message, list/message_mods = list())
+	var/list/borer_recipients = list()
+	for(var/mob/living/simple_animal/borer/other_borer in GLOB.mob_living_list)
+		borer_recipients += other_borer
+	var/rendered_link = span_corticallink("<b>Cortical Link:</b> [real_name] says, \"[message]\"")
+	log_sayverb_talk(message, message_mods, tag = "cortical link")
+	relay_to_list_and_observers(rendered_link, borer_recipients, src)
 
 /mob/living/simple_animal/borer/proc/leave_host()
 	if(controlling_host)

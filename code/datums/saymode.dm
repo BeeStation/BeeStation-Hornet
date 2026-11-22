@@ -136,3 +136,21 @@
 	if(!istype(user) || !user.mind || !length(message) || (!isholopara(user) && !user.has_holoparasites()))
 		return TRUE
 	user.holoparasite_telepathy(message, sanitize = FALSE) // sanitize = FALSE is used because say() sanitizes the message before passing it to any saymodes, even early saymodes.
+
+/datum/saymode/cortical_link
+	key = MODE_KEY_CORTICAL_LINK
+	mode = MODE_CORTICAL_LINK
+
+/datum/saymode/cortical_link/can_be_used_by(mob/living/user)
+	return istype(user, /mob/living/simple_animal/borer) && user.stat != DEAD
+
+/datum/saymode/cortical_link/handle_message(
+	mob/living/user,
+	message,
+	list/spans = list(),
+	datum/language/language,
+	list/message_mods = list()
+)
+	var/mob/living/simple_animal/borer/borer = user
+	borer.cortical_link_talk(message, message_mods)
+	return SAYMODE_MESSAGE_HANDLED
