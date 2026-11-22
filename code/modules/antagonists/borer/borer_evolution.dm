@@ -695,9 +695,6 @@
 	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	required_zone_label = "Either arm"
 
-/datum/borer_evolution/arm/shock_dampening/is_active(mob/living/simple_animal/borer/borer)
-	return borer.host && is_active_in_zone(borer.cyst?.zone)
-
 /datum/borer_evolution/arm/shock_dampening/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	ADD_TRAIT(host, TRAIT_SHOCKIMMUNE, REF(src))
 
@@ -730,9 +727,6 @@
 	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
 
-/datum/borer_evolution/leg/motile_fibers/is_active(mob/living/simple_animal/borer/borer)
-	return borer.host && is_active_in_zone(borer.cyst?.zone)
-
 /datum/borer_evolution/leg/motile_fibers/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/borer_leg_fibers, multiplicative_slowdown = -0.15)
 
@@ -745,9 +739,6 @@
 	helptext = "Prevents slipping while a leg cyst is attached."
 	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
-
-/datum/borer_evolution/leg/grounding_tendrils/is_active(mob/living/simple_animal/borer/borer)
-	return borer.host && is_active_in_zone(borer.cyst?.zone)
 
 /datum/borer_evolution/leg/grounding_tendrils/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	ADD_TRAIT(host, TRAIT_NO_SLIP_ALL, REF(src))
