@@ -203,7 +203,7 @@
 /datum/action/innate/borer_assume_control
 	parent_type = /datum/action/innate/borer_core
 	name = "Assume Host Control"
-	desc = "Take five seconds and spend 10 chemicals to seize control of your head host. Normal regeneration continues during chemical upkeep. Hosts can Resist during takeover, below 35% reserve, or after two minutes. Their twelve-second struggle ends control and prevents another takeover for 45 seconds."
+	desc = "Take five seconds (twenty-five against a mindshield) and spend 10 chemicals to seize control of your head host. Organic-host regeneration continues during chemical upkeep. Hosts can Resist during takeover, below 35% reserve, or after two minutes. Their twelve-second struggle ends control and prevents another takeover for 45 seconds."
 	button_icon_state = "mindshield"
 
 /datum/action/innate/borer_assume_control/on_activate()
@@ -567,7 +567,7 @@
 /datum/borer_evolution/neural_domination
 	name = "Neural Domination"
 	desc = "Develop control filaments capable of briefly taking over a host's body."
-	helptext = "Head cyst only. Five-second takeover, unaffected by host movement. Costs 10 chemicals, then drains 2.5 per second while normal regeneration continues. Hosts can Resist during takeover, below 35% reserve, or after two minutes; a twelve-second struggle frees them and prevents another takeover for 45 seconds."
+	helptext = "Head cyst only. Five-second takeover, or twenty-five seconds against a mindshield; unaffected by host movement. Costs 10 chemicals, then drains 2.5 per second while organic-host regeneration continues. Hosts can Resist during takeover, below 35% reserve, or after two minutes; a twelve-second struggle frees them and prevents another takeover for 45 seconds."
 	cost = 2
 	required_zone = BODY_ZONE_HEAD
 
@@ -783,7 +783,7 @@
 /datum/borer_evolution/efficient_glands
 	name = "Efficient Glands"
 	desc = "Optimise the conversion of host nutrients into secretion reserves."
-	helptext = "Increases hosted chemical regeneration by 1 per second."
+	helptext = "Increases chemical regeneration in living organic hosts by 1 per second. IPC hosts provide no regeneration."
 	cost = 1
 
 /datum/borer_evolution/efficient_glands/on_purchase(mob/living/simple_animal/borer/borer)
@@ -871,7 +871,7 @@
 
 /// Offsets chemical regeneration and drains one additional point per second.
 /datum/borer_evolution/toggle_ability/arm_manifestation/get_chemical_drain(mob/living/simple_animal/borer/borer)
-	return 2 + borer.chemical_regen_bonus
+	return 1 + borer.get_chemical_regeneration()
 
 /datum/borer_evolution/toggle_ability/arm_manifestation/proc/create_manifest(mob/living/carbon/human/manifest_host)
 	return

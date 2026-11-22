@@ -1,4 +1,5 @@
 #define BORER_CONTROL_WINDUP (5 SECONDS)
+#define BORER_MINDSHIELD_WINDUP_MULTIPLIER 5
 #define BORER_CONTROL_RESIST_DURATION (12 SECONDS)
 #define BORER_CONTROL_RESIST_COOLDOWN (45 SECONDS)
 #define BORER_CONTROL_WEAK_AFTER (2 MINUTES)
@@ -24,10 +25,30 @@
 /mob/living/simple_animal/borer/proc/assume_host_control()
 	if(control_attempt_ends_at || !can_take_host_control(feedback = TRUE))
 		return
-	control_attempt_ends_at = world.time + BORER_CONTROL_WINDUP
-	control_attempt_progress = new(src, BORER_CONTROL_WINDUP, host)
+	control_attempt_duration = get_host_control_windup()
+	control_attempt_ends_at = world.time + control_attempt_duration
+	control_attempt_progress = new(src, control_attempt_duration, host)
 	to_chat(src, span_notice("You begin threading your influence into your host's mind."))
+	if(HAS_TRAIT(host, TRAIT_MINDSHIELD))
+		to_chat(src, span_warning("Your host's mindshield obstructs your influence. Forcing your will past the implant will take twenty-five seconds."))
 	to_chat(host, span_userdanger("Something presses against your thoughts, trying to seize control of your body! Use RESIST now to fight back!"))
+
+/mob/living/simple_animal/borer/proc/get_host_control_windup()
+	return BORER_CONTROL_WINDUP * (HAS_TRAIT(host, TRAIT_MINDSHIELD) ? BORER_MINDSHIELD_WINDUP_MULTIPLIER : 1)
+
+/// Implanting or removing a mindshield during takeover preserves elapsed time.
+/mob/living/simple_animal/borer/proc/update_control_windup()
+	if(!control_attempt_ends_at)
+		return
+	var/required_duration = get_host_control_windup()
+	if(required_duration == control_attempt_duration)
+		return
+	if(required_duration > control_attempt_duration)
+		to_chat(src, span_warning("A mindshield pushes back against your influence, slowing your takeover."))
+	control_attempt_ends_at += required_duration - control_attempt_duration
+	control_attempt_duration = required_duration
+	QDEL_NULL(control_attempt_progress)
+	control_attempt_progress = new(src, control_attempt_duration, host)
 
 /// Resisting during the windup carries through into possession.
 /mob/living/simple_animal/borer/proc/is_host_control_weak()
@@ -54,26 +75,29 @@
 
 /// Uses an absolute deadline so movement, stuns and the mind transfer do not reset the struggle.
 /mob/living/simple_animal/borer/proc/process_host_control()
-	if(control_attempt_ends_at)
-		if(!can_take_host_control())
-			to_chat(host, span_notice("The pressure against your thoughts recedes."))
-			clear_host_control_state()
-			return
-		control_attempt_progress?.update(BORER_CONTROL_WINDUP - max(0, control_attempt_ends_at - world.time))
-		if(world.time >= control_attempt_ends_at && !take_host_control())
-			clear_host_control_state()
-			return
 	if(!controlling_host && !control_attempt_ends_at)
 		return
 	if(control_resist_ends_at)
 		update_control_resistance_progress()
 		if(world.time >= control_resist_ends_at)
-			to_chat(controlling_host ? host_backseat : host, span_usernotice("You wrench the foreign presence from your thoughts and reclaim control of your body!"))
-			to_chat(controlling_host ? host : src, span_userdanger("Your host fights through your influence. Your control slips!"))
 			if(controlling_host)
+				to_chat(host_backseat, span_usernotice("You wrench the foreign presence from your thoughts and reclaim control of your body!"))
+				to_chat(host, span_userdanger("Your host fights through your influence. Your control slips!"))
 				release_host_control()
 			else
+				to_chat(host, span_usernotice("You drive the foreign presence from your thoughts before it can seize control!"))
+				to_chat(src, span_userdanger("Your host repels your takeover attempt!"))
 				clear_host_control_state()
+			return
+	if(control_attempt_ends_at)
+		if(!can_take_host_control())
+			to_chat(host, span_notice("The pressure against your thoughts recedes."))
+			clear_host_control_state()
+			return
+		update_control_windup()
+		control_attempt_progress?.update(control_attempt_duration - max(0, control_attempt_ends_at - world.time))
+		if(world.time >= control_attempt_ends_at && !take_host_control())
+			clear_host_control_state()
 			return
 	if(controlling_host && !control_resist_ends_at && !control_weak_notice_sent && is_host_control_weak())
 		control_weak_notice_sent = TRUE
@@ -93,6 +117,7 @@
 		next_host_control = world.time + BORER_CONTROL_RESIST_COOLDOWN
 		assume_control_action?.start_cooldown(BORER_CONTROL_RESIST_COOLDOWN)
 	control_attempt_ends_at = 0
+	control_attempt_duration = 0
 	control_started_at = 0
 	control_resist_ends_at = 0
 	control_weak_notice_sent = FALSE
@@ -100,6 +125,7 @@
 	QDEL_NULL(control_resist_progress)
 
 #undef BORER_CONTROL_WINDUP
+#undef BORER_MINDSHIELD_WINDUP_MULTIPLIER
 #undef BORER_CONTROL_RESIST_DURATION
 #undef BORER_CONTROL_RESIST_COOLDOWN
 #undef BORER_CONTROL_WEAK_AFTER

@@ -53,7 +53,8 @@
 		"You are a cortical borer!",
 		"You are a \"symbiotic\" organism that thrives in the bodies of organic humanoids. You should endeavour to infest a host and ensure they stay safe at least long enough for you to reproduce - by any means necessary. You do not need to be friends; if push comes to shove, you might even take over temporarily, but you DO need your host to live.",
 		"Select a bodypart on your targeting doll (or use the numpad targeting keys), then activate Infest Host and click an adjacent human to burrow into that bodypart. If you evolve Internal Migration, the selected bodypart also determines where you move inside your host.",
-		"Neural Domination takes five seconds and drains chemicals while normal regeneration continues. Hosts can use Resist to begin a twelve-second mental struggle during takeover, or once your reserve falls below 35% or possession lasts over two minutes. A successful struggle, or releasing a resisting host early, prevents another takeover for 45 seconds.",
+		"Neural Domination takes five seconds, or twenty-five seconds against a mindshield. Infestation is still possible with a mindshield. Possession drains chemicals while organic-host regeneration continues. Hosts can use Resist to begin a twelve-second mental struggle during takeover, or once your reserve falls below 35% or possession lasts over two minutes. A successful struggle, or releasing a resisting host early, prevents another takeover for 45 seconds.",
+		"IPCs can shelter you, but provide no chemical regeneration, even with Efficient Glands. You slowly recover one health point every ten seconds inside a living host, or while on the ground in an atmosphere suitable for hatching eggs. These healing conditions do not stack.",
 		"While inside a host, speaking normally communicates privately with them. Prefix a message with [MODE_TOKEN_CORTICAL_LINK] (w for worm) to speak over the Cortical Link to every cortical borer.",
 		"The Cortical Link outlines other living borers and their living hosts in lilac when you can see them. While venting, your enhanced senses also reveal nearby creatures through walls.",
 		"Build a full chemical reserve while inside a host, then leave them and use Reproduce. Laying an egg takes five seconds and consumes your entire chemical reserve. The egg must mature in an atmosphere containing both oxygen and plasma before it can hatch.",
@@ -250,6 +251,7 @@
 	/// Holds the host's mind while the borer controls their body.
 	var/mob/living/borer_host/host_backseat
 	var/control_attempt_ends_at = 0
+	var/control_attempt_duration = 0
 	var/control_started_at = 0
 	var/control_resist_ends_at = 0
 	var/next_host_control = 0
@@ -334,6 +336,7 @@
 	. = ..()
 	update_camera_hiding()
 	update_cortical_link()
+	regenerate_health(delta_time)
 	if(!host)
 		return
 	if(host.stat == DEAD && controlling_host)
@@ -351,7 +354,7 @@
 		host_actions_suspended = FALSE
 		update_borer_actions()
 	if(host.stat != DEAD)
-		var/chemical_change = delta_time * (1 + chemical_regen_bonus)
+		var/chemical_change = delta_time * get_chemical_regeneration()
 		if(controlling_host)
 			chemical_change -= delta_time * control_chemical_drain
 		adjust_chemicals(chemical_change)
@@ -366,6 +369,21 @@
 		if(world.time >= next_evolution_point)
 			adjust_evolution_points(1)
 			next_evolution_point = world.time + 2 MINUTES
+
+/mob/living/simple_animal/borer/proc/get_chemical_regeneration()
+	if(!host || host.stat == DEAD || isipc(host))
+		return 0
+	return 1 + chemical_regen_bonus
+
+/mob/living/simple_animal/borer/proc/regenerate_health(delta_time)
+	if(stat == DEAD || health >= maxHealth || delta_time <= 0)
+		return
+	if(host)
+		if(host.stat == DEAD)
+			return
+	else if(!borer_hatching_atmosphere(loc))
+		return
+	adjustHealth(-0.1 * delta_time)
 
 /mob/living/simple_animal/borer/Destroy()
 	update_cortical_link()
@@ -486,6 +504,8 @@
 	activate_evolutions()
 	update_borer_actions()
 	to_chat(src, span_notice("You settle into [host]'s [parse_zone(cyst.zone)]."))
+	if(isipc(host))
+		to_chat(src, span_warning("Your synthetic host can shelter you, but cannot replenish your chemical reserve."))
 	return TRUE
 
 /mob/living/simple_animal/borer/proc/on_limb_severed(obj/item/bodypart/limb)
@@ -602,6 +622,7 @@
 	var/datum/mind/borer_body_mind = mind
 	var/datum/mind/host_body_mind = host.mind
 	control_attempt_ends_at = 0
+	control_attempt_duration = 0
 	QDEL_NULL(control_attempt_progress)
 	QDEL_NULL(control_resist_progress)
 	host_backseat = new(host)
@@ -868,12 +889,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/borer_host)
 	if(!hatching && can_hatch())
 		hatch()
 
-/obj/item/food/borer_egg/proc/can_hatch()
-	if(!grown || !isturf(loc))
+/proc/borer_hatching_atmosphere(atom/location)
+	if(!isturf(location))
 		return FALSE
-	var/turf/egg_turf = get_turf(src)
+	var/turf/egg_turf = location
 	var/datum/gas_mixture/air = egg_turf.return_air()
 	return air?.has_gas(/datum/gas/plasma, 0.1) && air.has_gas(/datum/gas/oxygen, 0.1)
+
+/obj/item/food/borer_egg/proc/can_hatch()
+	return grown && borer_hatching_atmosphere(loc)
 
 /obj/item/food/borer_egg/proc/hatch()
 	if(hatching || !grown)
