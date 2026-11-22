@@ -32,7 +32,7 @@
 			"name" = evolution.name,
 			"desc" = evolution.desc,
 			"path" = evolution.type,
-			"helptext" = evolution.helptext,
+			"helptext" = evolution.get_helptext(borer),
 			"cost" = evolution.cost,
 			"owned" = evolution.purchased,
 			"can_purchase" = evolution.can_purchase(borer),
@@ -203,8 +203,15 @@
 /datum/action/innate/borer_assume_control
 	parent_type = /datum/action/innate/borer_core
 	name = "Assume Host Control"
-	desc = "Take five seconds (twenty-five against a mindshield) and spend 10 chemicals to seize control of your head host. Organic-host regeneration continues during chemical upkeep. Hosts can Resist during takeover, below 35% reserve, or after two minutes. Their twelve-second struggle ends control and prevents another takeover for 45 seconds."
+	desc = "Seize control of your head host."
 	button_icon_state = "mindshield"
+
+/datum/action/innate/borer_assume_control/New(mob/living/simple_animal/borer/new_borer)
+	. = ..(new_borer)
+	if(borer)
+		var/datum/borer_evolution/neural_domination/domination = locate(/datum/borer_evolution/neural_domination) in borer.available_evolutions
+		if(domination)
+			desc = domination.get_helptext(borer)
 
 /datum/action/innate/borer_assume_control/on_activate()
 	borer?.assume_host_control()
@@ -224,10 +231,20 @@
 	var/desc = ""
 	var/helptext = ""
 	var/cost = 1
+	/// Chemicals spent when activating the evolution, separate from its evolution point cost.
+	var/activation_cost = 0
+	var/ability_cooldown = 0
 	var/required_zone = null
 	var/list/required_zones
 	var/required_zone_label = null
 	var/purchased = FALSE
+
+/datum/borer_evolution/proc/get_helptext(mob/living/simple_animal/borer/borer)
+	. = helptext || desc
+	if(activation_cost)
+		. += " Costs [activation_cost] chemicals to activate."
+	if(ability_cooldown)
+		. += " Cooldown: [DisplayTimeText(ability_cooldown)]."
 
 /datum/borer_evolution/proc/can_purchase(mob/living/simple_animal/borer/borer)
 	if(purchased || !borer?.host || borer.evolution_points < cost)
@@ -263,7 +280,6 @@
 /// Base for purchased active abilities.
 /datum/borer_evolution/active_ability
 	var/button_icon_state
-	var/ability_cooldown = 0
 	var/requires_target = FALSE
 	var/target_prompt
 	var/datum/action/innate/borer_evolution_ability/ability_action
@@ -297,7 +313,7 @@
 /datum/borer_evolution/active_ability/internal_migration
 	name = "Internal Migration"
 	desc = "Tear through your host's tissue to settle into another bodypart."
-	helptext = "Select a destination on the targeting doll, then activate. Takes two seconds and knocks your host down. Deals 30 brute damage to your old bodypart, 16 to your destination, and causes light bleeding. Cannot be used if your host is too injured. Cooldown: 240 seconds."
+	helptext = "Select a destination on the targeting doll, then activate. Takes two seconds and knocks your host down. Deals 30 brute damage to your old bodypart, 16 to your destination, and causes light bleeding. Cannot be used if your host is too injured."
 	cost = 1
 	button_icon_state = "lesser_form"
 	ability_cooldown = 240 SECONDS
@@ -375,7 +391,7 @@
 	. = ..(new_evolution)
 	evolution = new_evolution
 	name = evolution.name
-	desc = evolution.helptext || evolution.desc
+	desc = evolution.get_helptext()
 	button_icon_state = evolution.button_icon_state
 	cooldown_time = evolution.ability_cooldown
 	requires_target = evolution.requires_target
@@ -398,12 +414,19 @@
 /// Base for toggled abilities with a chemical drain.
 /datum/borer_evolution/toggle_ability
 	var/button_icon_state
-	var/activation_cost = 0
 	var/chemical_drain = 0
 	var/active = FALSE
 	var/mob/living/simple_animal/borer/active_borer
 	var/mob/living/carbon/human/active_host
 	var/datum/action/innate/borer_toggle_evolution/toggle_action
+
+/datum/borer_evolution/toggle_ability/get_helptext(mob/living/simple_animal/borer/borer)
+	. = ..()
+	if(chemical_drain)
+		. += " [get_upkeep_description()]"
+
+/datum/borer_evolution/toggle_ability/proc/get_upkeep_description()
+	return "Drains [chemical_drain] chemical\s per second."
 
 /datum/borer_evolution/toggle_ability/Destroy()
 	force_deactivate()
@@ -505,7 +528,7 @@
 	evolution = new_evolution
 	name = evolution.name
 	inactive_name = evolution.name
-	desc = evolution.helptext || evolution.desc
+	desc = evolution.get_helptext()
 	button_icon_state = evolution.button_icon_state
 
 /datum/action/innate/borer_toggle_evolution/Destroy()
@@ -567,9 +590,14 @@
 /datum/borer_evolution/neural_domination
 	name = "Neural Domination"
 	desc = "Develop control filaments capable of briefly taking over a host's body."
-	helptext = "Head cyst only. Five-second takeover, or twenty-five seconds against a mindshield; unaffected by host movement. Costs 10 chemicals, then drains 2.5 per second while organic-host regeneration continues. Hosts can Resist during takeover, below 35% reserve, or after two minutes; a twelve-second struggle frees them and prevents another takeover for 45 seconds."
+	helptext = "Head cyst only. Five-second takeover, or twenty-five seconds against a mindshield; unaffected by host movement. Hosts can Resist during takeover, below 35% reserve, or after two minutes; a twelve-second struggle frees them and prevents another takeover for 45 seconds."
 	cost = 2
 	required_zone = BODY_ZONE_HEAD
+
+/datum/borer_evolution/neural_domination/get_helptext(mob/living/simple_animal/borer/borer)
+	. = ..()
+	if(borer)
+		. += " Costs [borer.control_activation_cost] chemicals, then drains [borer.control_chemical_drain] per second while organic-host regeneration continues."
 
 /datum/borer_evolution/head/night_vision
 	name = "Night Vision"
@@ -628,13 +656,14 @@
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
 	button_icon_state = "panacea"
 	background_icon_state = "bg_changeling"
-	cooldown_time = 60 SECONDS
 	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/borer_evolution/chest/metabolic_purge/evolution
 
 /datum/action/innate/borer_metabolic_purge/New(datum/borer_evolution/chest/metabolic_purge/new_evolution)
 	. = ..()
 	evolution = new_evolution
+	cooldown_time = evolution.ability_cooldown
+	desc = evolution.get_helptext()
 
 /datum/action/innate/borer_metabolic_purge/Destroy()
 	evolution = null
@@ -647,8 +676,10 @@
 /datum/borer_evolution/chest/metabolic_purge
 	name = "Metabolic Purge"
 	desc = "Develop a filtering organ that can flush all chemicals from a host's bloodstream."
-	helptext = "Chest cyst only. Costs 30 chemicals and has a 60-second cooldown. Removes helpful reagents too."
+	helptext = "Chest cyst only. Removes helpful reagents too."
 	cost = 2
+	activation_cost = 30
+	ability_cooldown = 60 SECONDS
 	required_zone = BODY_ZONE_CHEST
 	var/datum/action/innate/borer_metabolic_purge/purge_action
 
@@ -674,15 +705,15 @@
 /datum/borer_evolution/chest/metabolic_purge/proc/purge(mob/living/simple_animal/borer/borer)
 	if(!borer?.host || borer.stat != CONSCIOUS || borer.host.stat == DEAD || borer.cyst?.zone != BODY_ZONE_CHEST || !borer.host.reagents)
 		return FALSE
-	if(borer.chemicals < 30)
-		to_chat(borer, span_warning("You need 30 chemicals to purge your host."))
+	if(borer.chemicals < activation_cost)
+		to_chat(borer, span_warning("You need [activation_cost] chemicals to purge your host."))
 		return FALSE
 	if(!borer.host.reagents.total_volume)
 		to_chat(borer, span_notice("Your host has no reagents to purge."))
 		return FALSE
 	var/removed_volume = borer.host.reagents.total_volume
 	borer.host.reagents.clear_reagents()
-	borer.adjust_chemicals(-30)
+	borer.adjust_chemicals(-activation_cost)
 	to_chat(borer, span_notice("You purge [round(removed_volume, 0.1)] units of reagents from [borer.host]'s bloodstream."))
 	to_chat(borer.host, span_warning("A sudden internal flush clears every chemical from your bloodstream!"))
 	return TRUE
@@ -763,23 +794,29 @@
 /datum/borer_evolution/expanded_glands
 	name = "Expanded Glands"
 	desc = "Grow additional reservoirs for chemical secretion."
-	helptext = "Increases maximum chemicals by 50."
 	cost = 1
+	var/capacity_bonus = 50
+
+/datum/borer_evolution/expanded_glands/get_helptext(mob/living/simple_animal/borer/borer)
+	return "Increases maximum chemicals by [capacity_bonus]."
 
 /datum/borer_evolution/expanded_glands/on_purchase(mob/living/simple_animal/borer/borer)
 	..()
-	borer.max_chemicals += 50
+	borer.max_chemicals += capacity_bonus
 	borer.update_chemical_hud()
 
 /datum/borer_evolution/efficient_glands
 	name = "Efficient Glands"
 	desc = "Optimise the conversion of host nutrients into secretion reserves."
-	helptext = "Increases chemical regeneration in living organic hosts by 1 per second. IPC hosts provide no regeneration."
 	cost = 1
+	var/regeneration_bonus = 1
+
+/datum/borer_evolution/efficient_glands/get_helptext(mob/living/simple_animal/borer/borer)
+	return "Increases chemical regeneration in living organic hosts by [regeneration_bonus] per second. IPC hosts provide no regeneration."
 
 /datum/borer_evolution/efficient_glands/on_purchase(mob/living/simple_animal/borer/borer)
 	..()
-	borer.chemical_regen_bonus += 1
+	borer.chemical_regen_bonus += regeneration_bonus
 
 // Active evolutions
 
@@ -808,12 +845,16 @@
 	parent_type = /datum/borer_evolution/toggle_ability
 	name = "Brute Resistance"
 	desc = "Reinforce your host's tissues against physical trauma."
-	helptext = "Chest cyst only. Toggle 30% brute resistance for 1 chemical per second."
+	helptext = "Chest cyst only."
 	cost = 2
 	required_zone = BODY_ZONE_CHEST
 	button_icon_state = "chitinous_armor"
 	chemical_drain = 1
 	var/resistance_multiplier = 0.7
+
+/datum/borer_evolution/chest/brute_resistance/get_helptext(mob/living/simple_animal/borer/borer)
+	. = ..()
+	. += " Reduces incoming brute damage by [round((1 - resistance_multiplier) * 100, 0.1)]%."
 
 /datum/borer_evolution/chest/brute_resistance/activate_effect()
 	if(!active_host?.physiology)
@@ -832,12 +873,16 @@
 	parent_type = /datum/borer_evolution/toggle_ability
 	name = "Burn Resistance"
 	desc = "Saturate your host's tissues against heat and corrosive trauma."
-	helptext = "Chest cyst only. Toggle 30% burn resistance for 1 chemical per second."
+	helptext = "Chest cyst only."
 	cost = 2
 	required_zone = BODY_ZONE_CHEST
 	button_icon_state = "organic_suit"
 	chemical_drain = 1
 	var/resistance_multiplier = 0.7
+
+/datum/borer_evolution/chest/burn_resistance/get_helptext(mob/living/simple_animal/borer/borer)
+	. = ..()
+	. += " Reduces incoming burn damage by [round((1 - resistance_multiplier) * 100, 0.1)]%."
 
 /datum/borer_evolution/chest/burn_resistance/activate_effect()
 	if(!active_host?.physiology)
@@ -860,9 +905,12 @@
 	var/obj/item/manifested_item
 	var/manifest_name = "growth"
 
-/// Offsets chemical regeneration and drains one additional point per second.
+/// Offsets chemical regeneration to preserve the configured net drain.
 /datum/borer_evolution/toggle_ability/arm_manifestation/get_chemical_drain(mob/living/simple_animal/borer/borer)
-	return 1 + borer.get_chemical_regeneration()
+	return chemical_drain + borer.get_chemical_regeneration()
+
+/datum/borer_evolution/toggle_ability/arm_manifestation/get_upkeep_description()
+	return "Drains chemicals at a net rate of [chemical_drain] per second."
 
 /datum/borer_evolution/toggle_ability/arm_manifestation/proc/create_manifest(mob/living/carbon/human/manifest_host)
 	return
@@ -916,7 +964,7 @@
 	parent_type = /datum/borer_evolution/toggle_ability/arm_manifestation
 	name = "Bone Blade"
 	desc = "Grow a large organic blade from the arm containing you."
-	helptext = "Either arm. Costs 10 chemicals to form, then drains chemicals at a net rate of 1 per second. Requires that arm's hand to be empty."
+	helptext = "Either arm. Requires that arm's hand to be empty."
 	cost = 2
 	button_icon_state = "armblade"
 	manifest_name = "a serrated blade of bone"
@@ -928,7 +976,7 @@
 	parent_type = /datum/borer_evolution/toggle_ability/arm_manifestation
 	name = "Bone Shield"
 	desc = "Grow an interlocking organic shield from the arm containing you."
-	helptext = "Either arm. Costs 10 chemicals to form, then drains chemicals at a net rate of 1 per second. Mutually exclusive with Bone Blade."
+	helptext = "Either arm. Mutually exclusive with Bone Blade."
 	cost = 2
 	button_icon_state = "organic_suit"
 	manifest_name = "an interlocking shield of bone"
@@ -983,18 +1031,19 @@
 	parent_type = /datum/borer_evolution/active_ability
 	name = "Electromagnetic Pulse"
 	desc = "Discharge stored bioelectricity through your host and nearby electronics."
-	helptext = "Either arm. Costs 25 chemicals. Produces the same EMP radius as a changeling's Dissonant Shriek."
+	helptext = "Either arm. Produces the same EMP radius as a changeling's Dissonant Shriek."
 	cost = 2
+	activation_cost = 25
 	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	required_zone_label = "Either arm"
 	button_icon_state = "dissonant_shriek"
 	ability_cooldown = 30 SECONDS
 
 /datum/borer_evolution/arm/electromagnetic_pulse/use_ability(mob/living/simple_animal/borer/borer, atom/target)
-	if(!borer?.host || borer.chemicals < 25)
-		to_chat(borer, span_warning("You need 25 chemicals to produce an electromagnetic pulse."))
+	if(!borer?.host || borer.chemicals < activation_cost)
+		to_chat(borer, span_warning("You need [activation_cost] chemicals to produce an electromagnetic pulse."))
 		return FALSE
-	borer.adjust_chemicals(-25)
+	borer.adjust_chemicals(-activation_cost)
 	borer.host.visible_message(span_warning("[borer.host] convulses as a wave of electromagnetic energy erupts outward!"), span_userdanger("A violent bioelectric pulse erupts from inside you!"))
 	empulse(get_turf(borer.host), 2, 3, TRUE)
 	return TRUE
@@ -1006,7 +1055,7 @@
 	parent_type = /datum/borer_evolution/toggle_ability
 	name = "Muscular Overdrive"
 	desc = "Drive your host's leg beyond its ordinary muscular limits."
-	helptext = "Either leg. Provides an additional speed boost for 1 chemical per second."
+	helptext = "Either leg. Provides an additional speed boost."
 	cost = 2
 	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
@@ -1028,8 +1077,9 @@
 	parent_type = /datum/borer_evolution/active_ability
 	name = "Hooking Talons"
 	desc = "Grow subtle hooks through your host's foot for sudden leg sweeps."
-	helptext = "Either leg. Target an adjacent standing creature to knock it down. Costs 15 chemicals."
+	helptext = "Either leg. Target an adjacent standing creature to knock it down."
 	cost = 2
+	activation_cost = 15
 	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
 	button_icon_state = "strained_muscles"
@@ -1045,10 +1095,10 @@
 	if(victim.stat == DEAD || victim.body_position == LYING_DOWN)
 		to_chat(borer, span_warning("[victim] cannot be swept off [victim.p_their()] feet."))
 		return FALSE
-	if(borer.chemicals < 15)
-		to_chat(borer, span_warning("You need 15 chemicals to perform a leg sweep."))
+	if(borer.chemicals < activation_cost)
+		to_chat(borer, span_warning("You need [activation_cost] chemicals to perform a leg sweep."))
 		return FALSE
-	borer.adjust_chemicals(-15)
+	borer.adjust_chemicals(-activation_cost)
 	borer.host.do_attack_animation(victim, ATTACK_EFFECT_KICK)
 	playsound(victim, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 	victim.Knockdown(3 SECONDS)

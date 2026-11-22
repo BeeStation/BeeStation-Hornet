@@ -35,6 +35,8 @@ type BorerChemicalsData = {
   can_analyze_host: boolean;
   can_purge: boolean;
   purge_ready: boolean;
+  purge_cost: number;
+  purge_cooldown: number;
   host_reagents?: HostReagent[];
   host_current_volume?: number;
   host_max_volume?: number;
@@ -53,6 +55,8 @@ export const BorerChemicals = () => {
     can_analyze_host,
     can_purge,
     purge_ready,
+    purge_cost,
+    purge_cooldown,
     host_reagents = [],
     host_current_volume = 0,
     host_max_volume = 0,
@@ -124,9 +128,9 @@ export const BorerChemicals = () => {
               <Button
                 icon="filter"
                 color="bad"
-                content="Purge (30 chemicals)"
-                disabled={!purge_ready || chemicals < 30}
-                tooltip="Removes ALL host reagents, including medicine. Shares the Metabolic Purge action's 60-second cooldown."
+                content={`Purge (${purge_cost} chemicals)`}
+                disabled={!purge_ready || chemicals < purge_cost}
+                tooltip={`Removes ALL host reagents, including medicine. Shares the Metabolic Purge action's ${purge_cooldown}-second cooldown.`}
                 onClick={() => act('purge')}
               />
             )

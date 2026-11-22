@@ -47,6 +47,8 @@
 			continue
 		data["can_purge"] = TRUE
 		data["purge_ready"] = purge_evolution.purge_action?.is_available()
+		data["purge_cost"] = purge_evolution.activation_cost
+		data["purge_cooldown"] = purge_evolution.ability_cooldown / (1 SECONDS)
 	var/can_analyze_host = borer.has_active_evolution(/datum/borer_evolution/taste_blood)
 	data["can_analyze_host"] = can_analyze_host
 	if(can_analyze_host && borer.host?.reagents)
