@@ -181,9 +181,11 @@
 
 	ui_update()
 
-/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/_label, sold)
+/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/_label, sold, dry_run)
 	SIGNAL_HANDLER
 
+	if(dry_run)
+		return
 	var/obj/item/sticker/xenoartifact_label/label = _label
 	if(!istype(label))
 		return
