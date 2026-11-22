@@ -96,7 +96,7 @@
 	closeToolTip(usr)
 	return ..()
 
-/atom/movable/screen/movable/action_button/MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
+/atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	last_hovored_ref = null
 	if(!can_use(usr))
 		return
@@ -121,11 +121,8 @@
 		our_hud.position_action_relative(src, button)
 		save_position()
 		return
-	// Keep the destination separate from screen_loc while the HUD removes the old placement.
-	var/position = mouse_params_to_position(params)
-	if(!position)
-		return
-	our_hud.position_action(src, position)
+	. = ..()
+	our_hud.position_action(src, screen_loc)
 	save_position()
 
 /atom/movable/screen/movable/action_button/proc/save_position()
