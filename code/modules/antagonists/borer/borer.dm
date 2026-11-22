@@ -8,9 +8,9 @@
 #define FORMAT_BORER_CHEMICALS_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#b8e06c'>[round(charges)]</font></div>")
 #define FORMAT_BORER_EVOLUTION_TEXT(points) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#c792ea'>[round(points)]</font></div>")
 
-/// Hides borers from silicon cameras without displaying digital camouflage's examine message.
-/datum/element/digital_camo/borer_hiding
-	show_examine_message = FALSE
+/// Suppress digital camouflage's skin-shifting examine message for hidden borers.
+/datum/element/digital_camo/borer_hiding/on_examine(datum/source, mob/user, list/examine_list)
+	return
 
 /atom/movable/screen/ling/borer_evolution
 	name = "borer evolution points"
