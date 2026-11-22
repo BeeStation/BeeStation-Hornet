@@ -14,7 +14,7 @@
 
 	var/mob/living/simple_animal/slime/slime_owner = owner
 
-	if(needs_growth == TRUE)
+	if(needs_growth)
 		if(slime_owner.amount_grown >= SLIME_EVOLUTION_THRESHOLD)
 			return TRUE
 		return FALSE
@@ -301,5 +301,3 @@
 	var/power = rand(1,powerlevel)
 	do_teleport(src, get_turf(src), power, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 	powerlevel -= power
-
-#undef TRUE
