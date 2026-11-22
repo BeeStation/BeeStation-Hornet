@@ -64,7 +64,7 @@
 		if(OFFSET_HEAD)
 			update_worn_head()
 		if(OFFSET_FACE)
-			dna?.species?.handle_body(src) // updates eye icon
+			update_face_offset() // updates eye and lipstick icon
 			update_worn_mask()
 		if(OFFSET_BELT)
 			update_worn_belt()
@@ -127,9 +127,6 @@
 
 ///Updates every part of a carbon's body. Including parts, mutant parts, lips, underwear, and socks.
 /mob/proc/update_body()
-	return
-
-/mob/proc/update_hair()
 	return
 
 ///Updates the glasses overlay & HUD element.

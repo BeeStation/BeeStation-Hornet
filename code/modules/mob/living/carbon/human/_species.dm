@@ -525,57 +525,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
-/*
- * Handles lipstick, having no eyes, eye color, undergarnments like underwear, undershirts, and socks, and body layers.
- * Arguments:
- * * species_human - Human, whoever we're handling the body for
- */
-/datum/species/proc/handle_body(mob/living/carbon/human/species_human)
-	species_human.remove_overlay(BODY_LAYER)
-
-	var/list/standing = list()
-
-	if(!HAS_TRAIT(species_human, TRAIT_HUSK))
-		var/obj/item/bodypart/head/noggin = species_human.get_bodypart(BODY_ZONE_HEAD)
-		if(noggin?.head_flags & HEAD_EYESPRITES)
-			// eyes (missing eye sprites get handled by the head itself, but sadly we have to do this stupid shit here, for now)
-			var/obj/item/organ/eyes/eye_organ = species_human.get_organ_slot(ORGAN_SLOT_EYES)
-			if(eye_organ)
-				eye_organ.refresh(call_update = FALSE)
-				for(var/eye_overlay in eye_organ.generate_body_overlay(species_human))
-					standing += eye_overlay
-
-	//Underwear, Undershirts & Socks
-	if(!HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR) && !HAS_TRAIT(species_human, TRAIT_HUSK))
-		var/body_type = MALE
-		if(sexes)
-			var/obj/item/bodypart/chest/our_chest = species_human.get_bodypart(BODY_ZONE_CHEST)
-			if(our_chest?.is_dimorphic)
-				body_type = species_human.physique
-
-		if(species_human.underwear)
-			var/datum/sprite_accessory/clothing/underwear/undie_accessory = GLOB.underwear_list[species_human.underwear]
-			var/mutable_appearance/underwear_overlay = undie_accessory?.make_appearance(species_human.underwear_color, body_type, species_human.bodyshape)
-			if(underwear_overlay)
-				standing += underwear_overlay
-
-		if(species_human.undershirt)
-			var/datum/sprite_accessory/clothing/undershirt/shirt_accessory = GLOB.undershirt_list[species_human.undershirt]
-			var/mutable_appearance/shirt_overlay = shirt_accessory?.make_appearance(null, body_type, species_human.bodyshape)
-			if(shirt_overlay)
-				standing += shirt_overlay
-
-		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
-			var/datum/sprite_accessory/clothing/socks/sock_accessory = GLOB.socks_list[species_human.socks]
-			var/mutable_appearance/socks_overlay = sock_accessory?.make_appearance(null, body_type, species_human.bodyshape)
-			if(socks_overlay)
-				standing += socks_overlay
-
-	if(standing.len)
-		species_human.overlays_standing[BODY_LAYER] = standing
-
-	species_human.apply_overlay(BODY_LAYER)
-
 ///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob,
 /// but will not update the body right away.
 /datum/species/proc/randomize_active_underwear_only(mob/living/carbon/human/human_mob)
