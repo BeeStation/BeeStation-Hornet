@@ -93,7 +93,7 @@
 ##typepath/New(...) {\
 		elements = args.Copy();\
 	}\
-##typepath/Destroy(force, ...) {\
+##typepath/Destroy(force) {\
 		for(var/i in elements) {\
 			qdel(i);\
 		}\

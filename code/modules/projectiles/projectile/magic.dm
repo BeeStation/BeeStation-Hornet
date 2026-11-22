@@ -162,13 +162,16 @@
 	id = "life_drain"
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 0.3 SECONDS
+	tick_interval = 0.4 SECONDS
 	duration = 10 SECONDS
 	var/datum/beam/drain_beam
 	var/mob/living/carbon/wizard
 	var/obj/item/gun/magic/wand/drain/wand
 
 /datum/status_effect/life_drain/on_creation(mob/living/new_owner, mob/living/firer, fired_from, duration_override)
+	. = ..()
+	if(!.)
+		return
 	if(isnull(firer) || isnull(fired_from) || !iscarbon(firer) || !iscarbon(new_owner))
 		qdel(src)
 		return
@@ -178,7 +181,6 @@
 	drain_beam = wizard.Beam(new_owner, icon = 'icons/effects/beam.dmi', icon_state = "lifedrain", time = 12 SECONDS, maxdistance = 7, beam_color = COLOR_RED)
 	RegisterSignal(drain_beam, COMSIG_QDELETING, PROC_REF(end_drain))
 	new_owner.visible_message(span_warningbold("[wizard] begins draining the life force from [new_owner]!"), span_warningbold("[wizard] is draining your life force! You need to get away from them to stop it!"))
-	. = ..()
 
 /datum/status_effect/life_drain/on_apply()
 	. = ..()
@@ -198,13 +200,15 @@
 
 	if(HAS_TRAIT(owner, TRAIT_INCAPACITATED) || owner.stat)
 		//If the victim is incapacitated, drain their health
-		owner.take_overall_damage(1, 1, 5, updating_health = TRUE)
+		owner.take_overall_damage(1, 1)
+		owner.stamina.adjust(-5)
 	else
 		//If they aren't incapacitated yet, drain only their stamina
-		owner.take_overall_damage(0, 0, 7, updating_health = TRUE)
+		owner.stamina.adjust(-7)
 
 	//Wizard heals at a steady rate over the duration of the spell regardless of the victim's state
-	wizard.heal_overall_damage(1, 1, 5, updating_health = TRUE)
+	wizard.heal_overall_damage(1, 1)
+	wizard.stamina.adjust(5)
 
 	//Weird beam visuals if it isn't redrawn due to the beam sending players into crit
 	drain_beam.redrawing()
@@ -283,7 +287,7 @@
 	target.adjustFireLoss(-amount_healed)
 	target.adjustToxLoss(-amount_healed)
 	target.adjustCloneLoss(-amount_healed)
-	target.adjustStaminaLoss(-amount_healed*2)
+	target.stamina.adjust(amount_healed*2)
 	target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
 
 /obj/projectile/magic/potential
@@ -660,8 +664,8 @@
 	var/datum/brain_trauma/special/imaginary_friend/trapped_owner/trauma = M.gain_trauma(/datum/brain_trauma/special/imaginary_friend/trapped_owner)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
-	if(M.mind?.assigned_role)
-		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
+	if(M.mind && !is_unassigned_job(M.mind.assigned_role))
+		poll_message = "[poll_message] Job:[M.mind.assigned_role.title]."
 	if(M.mind?.special_role)
 		poll_message = "[poll_message] Status:[M.mind.special_role]."
 	else if(M.mind)
@@ -687,7 +691,6 @@
 		M.key = candidate.key
 
 		trauma.friend.key = oldkey
-		trauma.friend.reset_perspective(null)
 		trauma.friend.Show()
 		trauma.friend_initialized = TRUE
 
@@ -731,7 +734,7 @@
 		return FALSE
 	return ..()
 
-/obj/projectile/magic/aoe/Moved(atom/OldLoc, Dir)
+/obj/projectile/magic/aoe/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(trail)
 		create_trail()
@@ -830,7 +833,7 @@
 
 	if(isliving(target))
 		var/mob/living/target_mob = target
-		target_mob.fire_stacks += 5 //One stop drop and roll can put this out, two if it spreads during the knockdown
+		target_mob.adjust_fire_stacks(5) //One stop drop and roll can put this out, two if it spreads during the knockdown
 		target_mob.ignite_mob()
 
 	explosion(
@@ -875,7 +878,7 @@
 	knockdown = 50
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	ignored_factions = list("cult")
 	range = 15
 	speed = 7

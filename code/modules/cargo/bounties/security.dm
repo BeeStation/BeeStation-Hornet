@@ -1,3 +1,6 @@
+/datum/bounty/item/security
+	abstract_type = /datum/bounty/item/security
+
 /datum/bounty/item/security/riotshotgun
 	name = "Riot Shotguns"
 	description = "Hooligans have boarded CentCom! Ship riot shotguns quick, or things are going to get dirty."

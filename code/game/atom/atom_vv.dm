@@ -17,6 +17,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_IRRADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
+	VV_DROPDOWN_OPTION(VV_HK_TEST_MATRIXES, "Test Matrices")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify Armor")
 	if(greyscale_colors)
@@ -80,7 +81,16 @@
 		for (var/i in armorlist)
 			pickerlist += list(list("value" = armorlist[i], "name" = i))
 
-		var/list/result = presentpicker(usr, "Modify armor", "Modify armor: [src]", Button1="Save", Button2 = "Cancel", Timeout=FALSE, inputtype = "text", values = pickerlist)
+		var/list/result = present_picker(
+			user = usr,
+			message = "Modify armor",
+			title = "Modify armor: [src]",
+			button_1 = "Save",
+			button_2 = "Cancel",
+			timeout = 0,
+			values = pickerlist,
+			input_type = "text",
+		)
 		var/list/armor_all = ARMOR_LIST_ALL
 
 		if (islist(result))
@@ -97,24 +107,38 @@
 				log_admin(span_notice("[message]"))
 				message_admins(span_notice("[message]"))
 
-	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
-		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")
+	if(href_list[VV_HK_MODIFY_TRANSFORM])
+		if(!check_rights(R_VAREDIT))
+			return
+		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate","Shear")
 		var/matrix/M = transform
+		if(!result)
+			return
 		switch(result)
 			if("Scale")
 				var/x = input(usr, "Choose x mod","Transform Mod") as null|num
 				var/y = input(usr, "Choose y mod","Transform Mod") as null|num
-				if(!isnull(x) && !isnull(y))
-					transform = M.Scale(x,y)
+				if(isnull(x) || isnull(y))
+					return
+				transform = M.Scale(x,y)
 			if("Translate")
+				var/x = input(usr, "Choose x mod (negative = left, positive = right)","Transform Mod") as null|num
+				var/y = input(usr, "Choose y mod (negative = down, positive = up)","Transform Mod") as null|num
+				if(isnull(x) || isnull(y))
+					return
+				transform = M.Translate(x,y)
+			if("Shear")
 				var/x = input(usr, "Choose x mod","Transform Mod") as null|num
 				var/y = input(usr, "Choose y mod","Transform Mod") as null|num
-				if(!isnull(x) && !isnull(y))
-					transform = M.Translate(x,y)
+				if(isnull(x) || isnull(y))
+					return
+				transform = M.Shear(x,y)
 			if("Rotate")
 				var/angle = input(usr, "Choose angle to rotate","Transform Mod") as null|num
-				if(!isnull(angle))
-					transform = M.Turn(angle)
+				if(isnull(angle))
+					return
+				transform = M.Turn(angle)
+		SEND_SIGNAL(src, COMSIG_ATOM_VV_MODIFY_TRANSFORM)
 
 	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_ADMIN))
 		var/newname = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
@@ -131,12 +155,13 @@
 		ai_controller = new result(src)
 
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
-		var/client/C = usr.client
-		C?.open_filter_editor(src)
+		usr.client?.open_filter_editor(src)
 
 	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
-		var/client/C = usr.client
-		C?.open_color_matrix_editor(src)
+		usr.client?.open_color_matrix_editor(src)
+
+	if(href_list[VV_HK_TEST_MATRIXES] && check_rights(R_VAREDIT))
+		usr.client?.open_matrix_tester(src)
 
 /atom/vv_get_header()
 	. = ..()
@@ -157,14 +182,24 @@
  */
 /atom/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if(NAMEOF(src, base_pixel_x))
-			set_base_pixel_x(var_value)
+		if(NAMEOF(src, light_range))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
 			. = TRUE
-		if(NAMEOF(src, base_pixel_y))
-			set_base_pixel_y(var_value)
+		if(NAMEOF(src, light_power))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
 			. = TRUE
-		if (NAMEOF(src, _emissive_count))
-			. = FALSE
+		if(NAMEOF(src, light_color))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			. = TRUE
 		if(NAMEOF(src, light_height))
 			if(light_system == STATIC_LIGHT)
 				set_light(l_height = var_value)
@@ -178,6 +213,20 @@
 		if(NAMEOF(src, light_flags))
 			set_light_flags(var_value)
 			. = TRUE
+		if(NAMEOF(src, smoothing_junction))
+			set_smoothed_icon_state(var_value)
+			. = TRUE
+		if(NAMEOF(src, opacity))
+			set_opacity(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+		if (NAMEOF(src, _emissive_count))
+			. = FALSE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED

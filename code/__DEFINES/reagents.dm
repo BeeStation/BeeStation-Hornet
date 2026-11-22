@@ -2,11 +2,11 @@
 #define LIQUID 2
 #define GAS 3
 
+// Flags to interact with reagents in the holder
 /// Makes it possible to add reagents through droppers and syringes.
 #define INJECTABLE (1<<0)
 /// Makes it possible to remove reagents through syringes.
 #define DRAWABLE (1<<1)
-
 /// Makes it possible to add reagents through any reagent container.
 #define REFILLABLE (1<<2)
 /// Makes it possible to remove reagents through any reagent container.
@@ -14,16 +14,23 @@
 /// Allows items to be dunked into this container for transfering reagents. Used in conjunction with the dunkable component.
 #define DUNKABLE (1<<4)
 
-// Used on containers which you want to be able to see the reagents off.
+// Flags to examine reagents in the container
+/// Used on containers which you want to be able to see the reagents of.
 #define TRANSPARENT (1<<5)
-// For non-transparent containers that still have the general amount of reagents in them visible.
+/// For non-transparent containers that still have the general amount of reagents in them visible.
 #define AMOUNT_VISIBLE (1<<6)
-// Applied to a reagent holder, the contents will not react with each other.
+
+// Reaction flags
+/// Applied to a reagent holder, the contents will not react with each other.
 #define NO_REACT (1<<7)
 
+// Special properties
 /// Used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
 #define ABSOLUTELY_GRINDABLE (1<<8)
-
+/// If the holder is a sealed container - Used if you don't want reagent contents boiling out (plasma, specifically, in which case it only bursts out when at ignition temperatures)
+#define SEALED_CONTAINER (1<<9)
+/// Prevents splashing for open reagent containers
+#define NO_SPLASH (1<<10)
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER (REFILLABLE | DRAINABLE | TRANSPARENT)
 
@@ -92,9 +99,14 @@
 //Used in holder.dm/equlibrium.dm to set values and volume limits
 ///the minimum volume of reagents than can be operated on.
 #define CHEMICAL_QUANTISATION_LEVEL 0.0001
+///Sanity check limit to clamp chems to sane amounts and prevent rounding errors during transfer.
+#define CHEMICAL_VOLUME_ROUNDING 0.01
 /// the default temperature at which chemicals are added to reagent holders at
 #define DEFAULT_REAGENT_TEMPERATURE 300
 
+//reagent bitflags, used for altering how they works
+///allows on_mob_dead() if present in a dead body
+#define REAGENT_DEAD_PROCESS (1<<0)
 /// If present, when metabolizing out of a mob, we divide by the mob's metabolism rather than multiply.
 /// Without this flag: Higher metabolism means the reagent exits the system faster.
 /// With this flag: Higher metabolism means the reagent exits the system slower.
@@ -109,11 +121,19 @@
 
 // RNG part - having this flag will allow the RNG system to put in.
 // if a reagent hasn't a relevant flag, it wouldn't come out from RNG theme - i.e.) maint pill
-#define CHEMICAL_BASIC_ELEMENT (1<<1)  // basic chemicals in chemistry - currently used in botany RNG (not yet - refactored for prepration)
-#define CHEMICAL_BASIC_DRINK (1<<2)  // basic chemicals in bartending - currently used in botany RNG (not yet - refactored for prepration)
-#define CHEMICAL_RNG_GENERAL (1<<3)  // it spawns in general stuff - i.e.) vent, abductor gland
-#define CHEMICAL_RNG_FUN (1<<4)  // it spawns in maint pill or something else nasty. This usually has a dramatically interesting list including admin stuff minus some lame ones.
-#define CHEMICAL_RNG_BOTANY (1<<5)  // it spawns in botany strange seeds
+
+// basic chemicals in chemistry - currently used in botany RNG (not yet - refactored for prepration)
+#define CHEMICAL_BASIC_ELEMENT (1<<1)
+// basic chemicals in bartending - currently used in botany RNG (not yet - refactored for prepration)
+#define CHEMICAL_BASIC_DRINK (1<<2)
+/// it spawns in general stuff - i.e: vent, abductor gland
+#define CHEMICAL_RNG_GENERAL (1<<3)
+/// it spawns in maint pill or something else nasty. This usually has a dramatically interesting list including admin stuff minus some lame ones.
+#define CHEMICAL_RNG_FUN (1<<4)
+/// it spawns in botany strange seeds
+#define CHEMICAL_RNG_BOTANY (1<<5)
+/// Does this reagent clean things?
+#define REAGENT_CLEANS (1<<6)
 
 // crew objective part - having this flag will allow an objective having a reagent
 // Note: to be not disruptive for adding another rng define, goal flags starts at (1<<23) and reversed. (because 23 is max)

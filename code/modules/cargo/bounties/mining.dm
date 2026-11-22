@@ -1,3 +1,6 @@
+/datum/bounty/item/mining
+	abstract_type = /datum/bounty/item/mining
+
 /datum/bounty/item/mining/goliath_steaks
 	name = "Lava-Cooked Goliath Steaks"
 	description = "Admiral Pavlov has gone on hunger strike ever since the canteen started serving only monkey and monkey byproducts. She is demanding lava-cooked Goliath steaks."

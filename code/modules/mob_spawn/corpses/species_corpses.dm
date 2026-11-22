@@ -11,7 +11,7 @@
 	icon_state = "remains"
 	short_desc = "By unknown powers, your skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plane and terrorize all living adventurers who dare cross your path."
-	assignedrole = "Skeleton"
+	spawner_job_path = /datum/job/skeleton
 	use_cooldown = TRUE
 	banType = ROLE_SKELETAL_REMAINS
 

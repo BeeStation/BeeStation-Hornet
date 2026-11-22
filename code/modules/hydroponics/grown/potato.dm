@@ -34,8 +34,8 @@
 	icon_state = "potato_wedges"
 	bite_consumption_mod = 100
 
-/obj/item/food/grown/potato/attackby(obj/item/W, mob/user, params)
-	if(W.get_sharpness())
+/obj/item/food/grown/potato/attackby(obj/item/W, mob/user, list/modifiers)
+	if(W.sharpness)
 		to_chat(user, span_notice("You cut the potato into wedges with [W]."))
 		var/obj/item/food/grown/potato/wedges/Wedges = new /obj/item/food/grown/potato/wedges
 		remove_item_from_storage(user)
@@ -62,4 +62,4 @@
 	desc = "It's sweet."
 	icon_state = "sweetpotato"
 	distill_reagent = /datum/reagent/consumable/ethanol/sbiten
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

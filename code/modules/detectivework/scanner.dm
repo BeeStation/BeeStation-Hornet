@@ -12,7 +12,7 @@
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	var/scanning = 0
@@ -59,11 +59,11 @@
 	log = list()
 	scanning = 0
 
-/obj/item/detective_scanner/pre_attack_secondary(atom/A, mob/user, params)
+/obj/item/detective_scanner/pre_attack_secondary(atom/A, mob/user, list/modifiers)
 	scan(A, user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/item/detective_scanner/afterattack(atom/A, mob/user, params)
+/obj/item/detective_scanner/afterattack(atom/A, mob/user, list/modifiers)
 	. = ..()
 	scan(A, user)
 	return FALSE

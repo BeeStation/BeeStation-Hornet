@@ -1,4 +1,5 @@
 /obj/item/melee
+	abstract_type = /obj/item/melee
 	item_flags = NEEDS_PERMIT | ISWEAPON
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
@@ -17,7 +18,7 @@
 	worn_icon_state = "whip"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	action_slots = ALL
 	force = 10
@@ -61,8 +62,7 @@
 	inhand_icon_state = "sabre"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
-	obj_flags = UNIQUE_RENAME
+	obj_flags = CONDUCTS_ELECTRICITY | UNIQUE_RENAME
 	force = 15
 	canblock = TRUE
 
@@ -105,7 +105,7 @@
 		var/list/legs = list()
 		var/obj/item/bodypart/bodypart
 
-		for(bodypart in Cuser.bodyparts)
+		for(bodypart in Cuser.get_bodyparts())
 			if(bodypart == holding_bodypart)
 				continue
 			if(bodypart.body_part & ARMS)
@@ -136,39 +136,18 @@
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
-/obj/item/melee/sabre/carbon_fiber
-	name = "carbon fiber sabre"
-	desc = "A sabre made of a sleek carbon fiber polymer with a reinforced blade."
-	icon_state = "sabre_fiber"
-	inhand_icon_state = "sabre_fiber"
-	force = 15
-	armour_penetration = 25
-	sharpness = SHARP //No dismembering for security sabre without direct intent
-
 /obj/item/melee/sabre/mime
 	name = "Bread Blade"
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
 	force = 25
 	icon_state = "rapier"
-	inhand_icon_state = "rapier"
-	lefthand_file = null
-	righthand_file = null
+	inhand_icon_state = "sabre"
 	block_power = 75
 	armor_type = /datum/armor/sabre_mime
 
 /datum/armor/sabre_mime
 	fire = 100
 	acid = 100
-
-/obj/item/melee/sabre/mime/on_exit_storage(datum/storage/container)
-	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
-	if(istype(sabre))
-		playsound(sabre, 'sound/items/unsheath.ogg', 25, TRUE)
-
-/obj/item/melee/sabre/on_enter_storage(datum/storage/container)
-	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
-	if(istype(sabre))
-		playsound(sabre, 'sound/items/sheath.ogg', 25, TRUE)
 
 // Supermatter Sword
 /obj/item/melee/supermatter_sword
@@ -522,6 +501,7 @@
 	var/non_harm_force = 3
 	/// Stamina damage dealt
 	var/stamina_force = 25
+	stamina_damage = 0
 
 // #11200 Review - TEMP: Hacky code to deal with force string for this item.
 /obj/item/melee/tonfa/openTip(location, control, params, mob/living/user)
@@ -538,7 +518,7 @@
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, span_danger("You hit yourself over the head."))
-		user.adjustStaminaLoss(stamina_force)
+		user.stamina.adjust(-stamina_force)
 
 		// Deal full damage
 		force = initial(force)
@@ -571,8 +551,8 @@
 		log_combat(user, target, "attacked", src)
 
 		// If the target has a lot of stamina loss, knock them down
-		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.getStaminaLoss() > 22)
-			var/effectiveness = CLAMP01((target.getStaminaLoss() - 22) / 50)
+		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.stamina.loss_as_percent > 22)
+			var/effectiveness = CLAMP01((target.stamina.loss_as_percent - 22) / 50)
 			log_combat(user, target, "knocked-down", src, "(additional effect)")
 			// Move the target back upon knockdown, to give them some time to recover
 			var/shove_dir = get_dir(user.loc, target.loc)
@@ -612,13 +592,13 @@
 	embedding = list(
 		"embed_chance" = 100,
 		"fall_chance" = 0,
-		"rip_time" = 5 SECONDS, // this is actually 10 seconds because it gets multiplied by the w_class
+		"rip_time" = 2.5 SECONDS, // this is actually 5 seconds because it gets multiplied by the w_class
 	)
 
 	///Time it takes to embed the stake into someone's chest.
-	var/staketime = 12 SECONDS
+	var/staketime = 4 SECONDS
 
-/obj/item/stake/attack(mob/living/target, mob/living/user, params)
+/obj/item/stake/attack(mob/living/target, mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -663,7 +643,7 @@
 	if(!tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE))
 		return
 
-	target.apply_damage(force * 5, BRUTE, BODY_ZONE_CHEST)
+	target.apply_damage(force * 2, BRUTE, BODY_ZONE_CHEST)
 
 	playsound(target, 'sound/effects/splat.ogg', 40, 1)
 	user.visible_message(
@@ -674,6 +654,11 @@
 	if(IS_VAMPIRE(target))
 		to_chat(target, span_userdanger("You have been staked! Your powers are useless while it's in your chest!"))
 		target.balloon_alert(target, "you have been staked!")
+
+/obj/item/stake/examine(mob/user)
+	. = ..()
+	. += span_notice("To stake someone: Target the chest, activate combat mode, and hit them.")
+	. += span_notice("* Hunter Tip: Remember that they can just pull it out if they are awake. Cuff them or kill them. A stake will stop them from reviving, not from regenerating. It will also stop all of their abilities.")
 
 ///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
 /obj/item/stake/proc/can_be_staked(mob/living/carbon/target)
@@ -691,7 +676,7 @@
 	force = 8
 	throwforce = 12
 	armour_penetration = 10
-	staketime = 8 SECONDS
+	staketime = 3 SECONDS
 
 /obj/item/stake/hardened/silver
 	name = "silver stake"
@@ -701,4 +686,4 @@
 	siemens_coefficient = 1
 	force = 9
 	armour_penetration = 25
-	staketime = 6 SECONDS
+	staketime = 2 SECONDS

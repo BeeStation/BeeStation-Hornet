@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "b" = (
 /obj/docking_port/stationary{
 	dheight = 0;
@@ -14,7 +14,7 @@
 	json_key = "whiteship"
 	},
 /turf/open/space,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 a

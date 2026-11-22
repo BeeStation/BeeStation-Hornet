@@ -8,10 +8,14 @@
 	obj_flags = BLOCKS_CONSTRUCTION
 	can_buckle = TRUE
 	buckle_lying = 90
+	buckle_dir = SOUTH
 	circuit = /obj/item/circuitboard/machine/stasis
-	idle_power_usage = 50
-	active_power_usage = 500
 	fair_market_price = 10
+	use_power = IDLE_POWER_USE
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 3
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+	// You cannot be *more* stasis'd, so power draw scales down
+	part_power_scaling = MACHINE_POWER_SCALES_DOWN
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0
@@ -19,15 +23,12 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
-// dir check for buckle_lying state
 /obj/machinery/stasis/Initialize(mapload)
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
-	dir_changed(new_dir = dir)
 	. = ..()
 	initial_link()
+	update_buckle_vars(dir)
 
 /obj/machinery/stasis/Destroy()
-	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	. = ..()
 	if(op_computer?.sbed == src)
 		op_computer.sbed = null
@@ -39,6 +40,13 @@
 		. += span_notice("[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, op_computer))].")
 	else
 		. += span_notice("[src] is <b>NOT linked</b> to an operating computer.")
+
+/obj/machinery/stasis/setDir(newdir)
+	. = ..()
+	update_buckle_vars(newdir)
+
+/obj/machinery/stasis/proc/update_buckle_vars(newdir)
+	buckle_lying = newdir & NORTHEAST ? 270 : 90
 
 /obj/machinery/stasis/proc/initial_link()
 	if(!QDELETED(op_computer))
@@ -75,7 +83,7 @@
 /obj/machinery/stasis/Exited(atom/movable/gone, direction)
 	if(gone == occupant)
 		var/mob/living/L = gone
-		if(IS_IN_STASIS(L))
+		if(HAS_TRAIT(L, TRAIT_STASIS))
 			thaw_them(L)
 	return ..()
 
@@ -154,9 +162,10 @@
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())
-		if(!IS_IN_STASIS(L_occupant))
+		if(!HAS_TRAIT(L_occupant, TRAIT_STASIS))
 			chill_out(L_occupant)
-	else if(IS_IN_STASIS(L_occupant))
+
+	else if(HAS_TRAIT(L_occupant, TRAIT_STASIS))
 		thaw_them(L_occupant)
 
 /obj/machinery/stasis/screwdriver_act(mob/living/user, obj/item/I)
@@ -183,14 +192,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
 		to_chat(user, span_notice("\The [src] is too heavy to rotate while someone is buckled to it!"))
 		return TRUE
 	. = default_change_direction_wrench(user, I, 2)
-
-/obj/machinery/stasis/proc/dir_changed(datum/source, old_dir, new_dir)
-	SIGNAL_HANDLER
-	switch(new_dir)
-		if(WEST, NORTH)
-			buckle_lying = 270
-		if(EAST, SOUTH)
-			buckle_lying = 90
 
 /obj/machinery/stasis/nap_violation(mob/violator)
 	unbuckle_mob(violator, TRUE)

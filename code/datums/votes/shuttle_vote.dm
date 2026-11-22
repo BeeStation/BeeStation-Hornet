@@ -27,10 +27,10 @@
 		if(SSshuttle.emergency.mode == SHUTTLE_RECALL)
 			SSshuttle.emergency.mode = SHUTTLE_IDLE
 			//This is slightly hacky, but shuttles cannot be called while in recall
-			//All other modes prevent calling as well, but this is because the shuttle is already doing its thing and emergencyNoRecall ensures it succeeds
+			//All other modes prevent calling as well, but this is because the shuttle is already doing its thing and emergency_no_recall ensures it succeeds
 
-		SSshuttle.requestEvac(null, "Crew Transfer Requested.")
-		SSshuttle.emergencyNoRecall = TRUE
+		SSshuttle.call_evac_shuttle("Crew Transfer Requested.")
+		SSshuttle.emergency_no_recall = TRUE
 		SSautotransfer.can_fire = FALSE
 		return
 

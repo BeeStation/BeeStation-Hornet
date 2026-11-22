@@ -88,12 +88,12 @@
 		if("summon")
 			if(!selected_bot)
 				return
-			selected_bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
+			selected_bot.bot_control(action, current_user, id_card ? id_card.GetAccess() : current_access)
 		if("ejectcard")
 			if(!computer || !card_slot)
 				return
 			if(id_card)
-				GLOB.manifest.modify(id_card.registered_name, id_card.assignment, id_card.hud_state)
+				id_card.sync_manifest()
 				card_slot.try_eject(current_user)
 			else
 				playsound(get_turf(computer.ui_host()) , 'sound/machines/buzz-sigh.ogg', 25, FALSE)
@@ -105,6 +105,6 @@
 	else if(id_card && !selected_bot.bot_core.check_access(id_card))
 		access_okay = FALSE
 	if (access_okay && (action in standard_actions))
-		selected_bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
+		selected_bot.bot_control(action, current_user, id_card ? id_card.GetAccess() : current_access)
 	if (access_okay && (action in MULE_actions))
-		selected_bot.bot_control(action, current_user, id_card ? id_card.access : current_access, TRUE)
+		selected_bot.bot_control(action, current_user, id_card ? id_card.GetAccess() : current_access, TRUE)

@@ -1,18 +1,27 @@
 /datum/surgery/organ_extraction
 	name = "experimental organ replacement"
-	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/incise, /datum/surgery_step/extract_organ, /datum/surgery_step/gland_insert)
 	possible_locs = list(BODY_ZONE_CHEST)
-	ignore_clothes = 1
+	surgery_flags = SURGERY_IGNORE_CLOTHES | SURGERY_REQUIRE_RESTING | SURGERY_REQUIRE_LIMB
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/clamp_bleeders,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/incise,
+		/datum/surgery_step/extract_organ,
+		/datum/surgery_step/gland_insert,
+	)
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target)
 	if(!ishuman(user))
-		return 0
-	var/mob/living/carbon/human/H = user
-	if(H.dna.species.id == "abductor")
-		return 1
-	for(var/obj/item/implant/abductor/A in H.implants)
-		return 1
-	return 0
+		return FALSE
+	if(!..())
+		return FALSE
+	if(isabductor(user))
+		return TRUE
+	var/mob/living/non_abductor = user
+	if(locate(/obj/item/implant/abductor) in non_abductor.implants)
+		return TRUE
+	return FALSE
 
 
 /datum/surgery_step/extract_organ
@@ -51,5 +60,5 @@
 	user.visible_message("[user] inserts [tool] into [target].", span_notice("You insert [tool] into [target]."))
 	user.temporarilyRemoveItemFromInventory(tool, TRUE)
 	var/obj/item/organ/heart/gland/gland = tool
-	gland.Insert(target, 2)
-	return 1
+	gland.Insert(target, special = TRUE, movement_flags = FROM_ABDUCTOR_SURGERY)
+	return TRUE

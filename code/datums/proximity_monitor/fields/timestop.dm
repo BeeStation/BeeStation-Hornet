@@ -108,7 +108,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		return FALSE
 	var/frozen = TRUE
 	if(isliving(A))
-		freeze_mob(A)
+		if(!freeze_mob(A))
+			return FALSE
 	else if(istype(A, /obj/projectile))
 		freeze_projectile(A)
 	else if(istype(A, /obj/vehicle/sealed/mecha))
@@ -121,15 +122,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		freeze_throwing(A)
 		frozen = TRUE
 	if(!frozen)
-		return
-
+		return FALSE
 	frozen_things[A] = A.move_resist
 	A.move_resist = INFINITY
 	global_frozen_atoms[A] = src
 	into_the_negative_zone(A)
 	RegisterSignal(A, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(unfreeze_atom))
 	RegisterSignal(A, COMSIG_ITEM_PICKUP, PROC_REF(unfreeze_atom))
-
 	SEND_SIGNAL(A, COMSIG_ATOM_TIMESTOP_FREEZE, src)
 
 	return TRUE
@@ -211,10 +210,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	P.paused = FALSE
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/victim)
+	if(victim.can_block_magic(MAGIC_RESISTANCE))
+		immune[victim] = TRUE
+		if(channelled)
+			RegisterSignal(victim, COMSIG_MOVABLE_MOVED, PROC_REF(atom_broke_channel), override = TRUE)
+		return FALSE
 	frozen_mobs += victim
-	if(victim.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
-		immune += victim
-		return
 	victim.Stun(20, ignore_canstun = TRUE)
 	SSmove_manager.stop_looping(victim) //stops them mid pathing even if they're stunimmune //This is really dumb
 	if(isanimal(victim))
@@ -229,6 +230,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	if(ishostile(victim))
 		var/mob/living/simple_animal/hostile/H = victim
 		H.LoseTarget()
+	return TRUE
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/victim)
 	victim.AdjustStun(-20, ignore_canstun = TRUE)

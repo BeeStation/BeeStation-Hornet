@@ -101,7 +101,7 @@
 
 	QDEL_NULL(attached_circuit)
 
-/datum/component/shell/Destroy(force, silent)
+/datum/component/shell/Destroy(force)
 	QDEL_LIST(unremovable_circuit_components)
 	return ..()
 
@@ -210,10 +210,10 @@
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
 		source.balloon_alert(user, "it's locked!")
-		return COMPONENT_BLOCK_TOOL_ATTACK
+		return ITEM_INTERACT_BLOCKING
 
 	attached_circuit.interact(user)
-	return COMPONENT_BLOCK_TOOL_ATTACK
+	return ITEM_INTERACT_BLOCKING
 
 /**
  * Called when a screwdriver is used on the parent. Removes the circuitboard from the component.
@@ -227,12 +227,12 @@
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
 		source.balloon_alert(user, "it's locked!")
-		return COMPONENT_BLOCK_TOOL_ATTACK
+		return ITEM_INTERACT_BLOCKING
 
 	tool.play_tool_sound(parent)
 	source.balloon_alert(user, "you unscrew [attached_circuit] from [parent].")
 	remove_circuit()
-	return COMPONENT_BLOCK_TOOL_ATTACK
+	return ITEM_INTERACT_BLOCKING
 
 /**
  * Checks for when the circuitboard moves. If it moves, removes it from the component.
@@ -323,7 +323,11 @@
 	))
 	if(attached_circuit.loc == parent)
 		var/atom/parent_atom = parent
-		attached_circuit.forceMove(parent_atom.drop_location())
+		var/drop_location = parent_atom.drop_location()
+		if(drop_location)
+			attached_circuit.forceMove(drop_location)
+		else
+			attached_circuit.moveToNullspace()
 
 	for(var/obj/item/circuit_component/to_remove as anything in unremovable_circuit_components)
 		attached_circuit.remove_component(to_remove)

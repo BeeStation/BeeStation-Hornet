@@ -1,36 +1,52 @@
 /datum/surgery/healing
+	target_mobtypes = list(/mob/living)
+	requires_bodypart_type = NONE
+	replaced_by = /datum/surgery
+	surgery_flags = SURGERY_IGNORE_CLOTHES | SURGERY_REQUIRE_RESTING
+	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/incise,
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/heal,
-		/datum/surgery_step/close
+		/datum/surgery_step/close,
 	)
 
-	target_mobtypes = list(/mob/living/carbon)
-	possible_locs = list(BODY_ZONE_CHEST)
-	requires_bodypart_type = FALSE
-	replaced_by = /datum/surgery
-	ignore_clothes = TRUE
 	var/healing_step_type
 	var/antispam = FALSE
+
+/datum/surgery/healing/can_start(mob/user, mob/living/patient)
+	. = ..()
+	if(!.)
+		return .
+	if(!(patient.mob_biotypes & (MOB_ORGANIC|MOB_HUMANOID)))
+		return FALSE
+	return .
 
 /datum/surgery/healing/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(healing_step_type)
-		steps = list(/datum/surgery_step/incise/nobleed,
-					healing_step_type, //hehe cheeky
-					/datum/surgery_step/close)
+		steps = list(
+			/datum/surgery_step/incise/nobleed,
+			healing_step_type, //hehe cheeky
+			/datum/surgery_step/close
+		)
 
 /datum/surgery_step/heal
-	name = "repair body"
-	implements = list(TOOL_HEMOSTAT = 100, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15)
+	name = "repair body (hemostat)"
+	implements = list(
+		TOOL_HEMOSTAT = 100,
+		TOOL_SCREWDRIVER = 65,
+		/obj/item/pen = 55)
 	repeatable = TRUE
 	time = 25
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 	var/brutehealing = 0
 	var/burnhealing = 0
-	var/missinghpbonus = 0 //heals an extra point of damager per X missing damage of type (burn damage for burn healing, brute for brute). Smaller Number = More Healing!
+	var/brute_multiplier = 0 //multiplies the damage that the patient has. if 0 the patient wont get any additional healing from the damage he has.
+	var/burn_multiplier = 0
 
 /datum/surgery_step/heal/proc/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
 	return
@@ -46,56 +62,67 @@
 	if(istype(surgery,/datum/surgery/healing))
 		var/datum/surgery/healing/the_surgery = surgery
 		if(!the_surgery.antispam)
-			display_results(user, target, span_notice("You attempt to patch some of [target]'s [woundtype]."),
-		"[user] attempts to patch some of [target]'s [woundtype].",
-		"[user] attempts to patch some of [target]'s [woundtype].")
-
+			display_results(
+				user,
+				target,
+				span_notice("You attempt to patch some of [target]'s [woundtype]."),
+				span_notice("[user] attempts to patch some of [target]'s [woundtype]."),
+				span_notice("[user] attempts to patch some of [target]'s [woundtype]."),
+			)
 
 /datum/surgery_step/heal/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
-	if(..())
-		while((brutehealing && target.getBruteLoss()) || (burnhealing && target.getFireLoss()))
-			if(!..())
-				break
+	if(!..())
+		return
+	while((brutehealing && target.getBruteLoss()) || (burnhealing && target.getFireLoss()))
+		if(!..())
+			break
 
 /datum/surgery_step/heal/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
-	var/umsg = "You succeed in fixing some of [target]'s wounds" //no period, add initial space to "addons"
-	var/tmsg = "[user] fixes some of [target]'s wounds" //see above
-	var/urhealedamt_brute = brutehealing
-	var/urhealedamt_burn = burnhealing
-	if(missinghpbonus)
-		if(target.stat != DEAD)
-			urhealedamt_brute += round((target.getBruteLoss()/ missinghpbonus),0.1)
-			urhealedamt_burn += round((target.getFireLoss()/ missinghpbonus),0.1)
-		else //less healing bonus for the dead since they're expected to have lots of damage to begin with (to make TW into defib not TOO simple)
-			urhealedamt_brute += round((target.getBruteLoss()/ (missinghpbonus*5)),0.1)
-			urhealedamt_burn += round((target.getFireLoss()/ (missinghpbonus*5)),0.1)
+	var/user_msg = "You succeed in fixing some of [target]'s wounds" //no period, add initial space to "addons"
+	var/target_msg = "[user] fixes some of [target]'s wounds" //see above
+	var/brute_healed = brutehealing
+	var/burn_healed = burnhealing
+	if(target.stat == DEAD) //dead patients get way less additional heal from the damage they have.
+		brute_healed += round((target.getBruteLoss() * (brute_multiplier * 0.2)),0.1)
+		burn_healed += round((target.getFireLoss() * (burn_multiplier * 0.2)),0.1)
+	else
+		brute_healed += round((target.getBruteLoss() * brute_multiplier),0.1)
+		burn_healed += round((target.getFireLoss() * burn_multiplier),0.1)
 	if(!get_location_accessible(target, target_zone))
-		urhealedamt_brute *= 0.55
-		urhealedamt_burn *= 0.55
-		umsg += " as best as you can while [target.p_they()] [target.p_have()] clothing on"
-		tmsg += " as best as [user.p_they()] can while [target] has clothing on"
-	target.heal_bodypart_damage(urhealedamt_brute,urhealedamt_burn)
-	umsg += get_progress(user, target, urhealedamt_brute, urhealedamt_burn)
+		brute_healed *= 0.55
+		burn_healed *= 0.55
+		user_msg += " as best as you can while [target.p_they()] [target.p_have()] clothing on"
+		target_msg += " as best as [user.p_they()] can while [target.p_they()] [target.p_have()] clothing on"
+	target.heal_bodypart_damage(brute_healed,burn_healed)
 
-	display_results(user, target, span_notice("[umsg]."),
-		"[tmsg].",
-		"[tmsg].")
+	user_msg += get_progress(user, target, brute_healed, burn_healed)
+
+	display_results(
+		user,
+		target,
+		span_notice("[user_msg]."),
+		span_notice("[target_msg]."),
+		span_notice("[target_msg]."),
+	)
 	if(istype(surgery, /datum/surgery/healing))
 		var/datum/surgery/healing/the_surgery = surgery
 		the_surgery.antispam = TRUE
 	return TRUE
 
 /datum/surgery_step/heal/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_warning("You screwed up!"),
+	display_results(
+		user,
+		target,
+		span_warning("You screwed up!"),
 		span_warning("[user] screws up!"),
-		span_notice("[user] fixes some of [target]'s wounds."), TRUE)
-	var/urdamageamt_burn = brutehealing * 0.8
-	var/urdamageamt_brute = burnhealing * 0.8
-	if(missinghpbonus)
-		urdamageamt_brute += round((target.getBruteLoss()/ (missinghpbonus*2)),0.1)
-		urdamageamt_burn += round((target.getFireLoss()/ (missinghpbonus*2)),0.1)
-
-	target.take_bodypart_damage(urdamageamt_brute, urdamageamt_burn)
+		span_notice("[user] fixes some of [target]'s wounds."),
+		target_detailed = TRUE,
+	)
+	var/brute_dealt = brutehealing * 0.8
+	var/burn_dealt = burnhealing * 0.8
+	brute_dealt += round((target.getBruteLoss() * (brute_multiplier * 0.5)),0.1)
+	burn_dealt += round((target.getFireLoss() * (burn_multiplier * 0.5)),0.1)
+	target.take_bodypart_damage(brute_dealt, burn_dealt)
 	return FALSE
 
 /***************************BRUTE***************************/
@@ -152,26 +179,17 @@
 	return progress_text
 
 /datum/surgery_step/heal/brute/basic
-	name = "tend bruises"
+	name = "tend bruises (hemostat)"
 	brutehealing = 5
-	missinghpbonus = 15
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	brute_multiplier = 0.07
 
 /datum/surgery_step/heal/brute/upgraded
 	brutehealing = 5
-	missinghpbonus = 10
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	brute_multiplier = 0.1
 
 /datum/surgery_step/heal/brute/upgraded/femto
 	brutehealing = 5
-	missinghpbonus = 5
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	brute_multiplier = 0.2
 
 /***************************BURN***************************/
 /datum/surgery/healing/burn
@@ -226,26 +244,17 @@
 	return progress_text
 
 /datum/surgery_step/heal/burn/basic
-	name = "tend burn wounds"
+	name = "tend burn wounds (hemostat)"
 	burnhealing = 5
-	missinghpbonus = 15
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	burn_multiplier = 0.07
 
 /datum/surgery_step/heal/burn/upgraded
 	burnhealing = 5
-	missinghpbonus = 10
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	burn_multiplier = 0.1
 
 /datum/surgery_step/heal/burn/upgraded/femto
 	burnhealing = 5
-	missinghpbonus = 5
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	burn_multiplier = 0.2
 
 /***************************COMBO***************************/
 /datum/surgery/healing/combo
@@ -303,33 +312,32 @@
 	return progress_text
 
 /datum/surgery_step/heal/combo
-	name = "tend physical wounds"
+	name = "tend physical wounds (hemostat)"
 	brutehealing = 3
 	burnhealing = 3
-	missinghpbonus = 15
+	brute_multiplier = 0.07
+	burn_multiplier = 0.07
 	time = 10
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/combo/upgraded
 	brutehealing = 3
 	burnhealing = 3
-	missinghpbonus = 10
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	brute_multiplier = 0.1
+	burn_multiplier = 0.1
 
 /datum/surgery_step/heal/combo/upgraded/femto
 	brutehealing = 1
 	burnhealing = 1
-	missinghpbonus = 2.5
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
+	brute_multiplier = 0.4
+	burn_multiplier = 0.4
 
 /datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_warning("You screwed up!"),
+	display_results(
+		user,
+		target,
+		span_warning("You screwed up!"),
 		span_warning("[user] screws up!"),
-		span_notice("[user] fixes some of [target]'s wounds."), TRUE)
+		span_notice("[user] fixes some of [target]'s wounds."),
+		target_detailed = TRUE,
+	)
 	target.take_bodypart_damage(5,5)

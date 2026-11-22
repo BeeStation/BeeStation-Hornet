@@ -1,9 +1,10 @@
 /* Clown Items
  * Contains:
- *		Soap
- *		Bike Horns
- *		Air Horns
- *		Canned Laughter
+ * Soap
+ * Bike Horns
+ * Air Horns
+ * Canned Laughter
+ * Balloon Mallet
  */
 
 /*
@@ -13,6 +14,7 @@
 /obj/item/soap
 	name = "soap"
 	desc = "A cheap bar of soap. Doesn't smell."
+	gender = PLURAL
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "soap"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
@@ -23,13 +25,14 @@
 	throw_speed = 3
 	throw_range = 7
 	grind_results = list(/datum/reagent/lye = 10)
-	var/cleanspeed = 35 //slower than mop
 	force_string = "robust... against germs"
+	var/cleanspeed = 3.5 SECONDS //slower than mop
 	var/uses = 100
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/slippery, 80)
+	AddComponent(/datum/component/slippery, 8 SECONDS)
+	AddComponent(/datum/component/cleaner, cleanspeed, pre_clean_callback=CALLBACK(src, PROC_REF(should_clean)), on_cleaned_callback=CALLBACK(src, PROC_REF(decrease_uses)))
 
 /obj/item/soap/examine(mob/user)
 	. = ..()
@@ -50,22 +53,58 @@
 				msg = "It's seen some light use, but it's still pretty fresh."
 	. += span_notice("[msg]")
 
+/obj/item/soap/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
+	if(!check_allowed_items(atom_to_clean))
+		return CLEAN_NO_WASH
+	return CLEAN_ALLOWED
+
+/**
+ * Decrease the number of uses the bar of soap has.
+ *
+ * The higher the cleaning skill, the less likely the soap will lose a use.
+ * Arguments
+ * * source - the source of the cleaning
+ * * target - The atom that is being cleaned
+ * * user - The mob that is using the soap to clean.
+ */
+/obj/item/soap/proc/decrease_uses(datum/source, atom/target, mob/living/user, clean_succeeded)
+	if(!clean_succeeded)
+		return
+	uses--
+	if(uses <= 0)
+		no_uses(user)
+
+/obj/item/soap/proc/no_uses(mob/user)
+	to_chat(user, span_warning("[src] crumbles into tiny bits!"))
+	qdel(src)
+
 /obj/item/soap/nanotrasen
 	desc = "A heavy duty bar of Nanotrasen brand soap. Smells of plasma."
 	grind_results = list(/datum/reagent/toxin/plasma = 10, /datum/reagent/lye = 10)
 	icon_state = "soapnt"
-	cleanspeed = 28 //janitor gets this
+	cleanspeed = 2.8 SECONDS //janitor gets this
 	uses = 300
+
+/obj/item/soap/nanotrasen/cyborg
+	name = "built-in soap"
+
+/obj/item/soap/nanotrasen/cyborg/no_uses(mob/user)
+	to_chat(user, span_warning("[src] has ran out of chemicals! Head to a recharger to refill it."))
+
+/obj/item/soap/nanotrasen/cyborg/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
+	if(uses <= 0)
+		return CLEAN_BLOCKED
+	return ..()
 
 /obj/item/soap/homemade
 	desc = "A homemade bar of soap. Smells of... well...."
 	icon_state = "soapgibs"
-	cleanspeed = 30 // faster to reward chemists for going to the effort
+	cleanspeed = 3 SECONDS // faster to reward chemists for going to the effort
 
 /obj/item/soap/deluxe
 	desc = "A deluxe Waffle Co. brand bar of soap. Smells of high-class luxury."
 	icon_state = "soapdeluxe"
-	cleanspeed = 20 //captain gets one of these
+	cleanspeed = 2 SECONDS //captain gets one of these
 
 /obj/item/soap/syndie
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
@@ -79,58 +118,6 @@
 	user.visible_message(span_suicide("[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_They()]'ll never get that BB gun now!"))
 	new /obj/effect/particle_effect/foam(loc)
 	return TOXLOSS
-
-/obj/item/soap/proc/decreaseUses(mob/user)
-	uses--
-	if(uses <= 0)
-		to_chat(user, span_warning("[src] crumbles into tiny bits!"))
-		qdel(src)
-
-/obj/item/soap/afterattack(atom/target, mob/user, proximity)
-	. = ..()
-	if(!proximity || !check_allowed_items(target))
-		return
-	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
-	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
-	if(user.client && ((target in user.client.screen) && !user.is_holding(target)))
-		to_chat(user, span_warning("You need to take that [target.name] off before cleaning it!"))
-	else if(istype(target, /obj/effect/decal/cleanable))
-		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", span_warning("You begin to scrub \the [target.name] out with [src]..."))
-		if(do_after(user, src.cleanspeed, target = target))
-			to_chat(user, span_notice("You scrub \the [target.name] out."))
-			qdel(target)
-			decreaseUses(user)
-
-	else if(ishuman(target) && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
-		var/mob/living/carbon/human/H = user
-		user.visible_message(span_warning("\the [user] washes \the [target]'s mouth out with [src.name]!"), span_notice("You wash \the [target]'s mouth out with [src.name]!")) //washes mouth out with soap sounds better than 'the soap' here			if(user.zone_selected == "mouth")
-		H.lip_style = null //removes lipstick
-		H.update_body()
-		decreaseUses(user)
-		return
-	else if(istype(target, /obj/structure/window))
-		user.visible_message("[user] begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."))
-		if(do_after(user, src.cleanspeed, target = target))
-			to_chat(user, span_notice("You clean \the [target.name]."))
-			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			target.set_opacity(initial(target.opacity))
-			decreaseUses(user)
-	else
-		user.visible_message("[user] begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."))
-		if(do_after(user, src.cleanspeed, target = target))
-			to_chat(user, span_notice("You clean \the [target.name]."))
-			if(isclothing(target) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
-				var/obj/item/clothing/C = target
-				var/mob/living/carbon/human/H = user
-				C.flash_protect -= 1
-				C.tint -= 2
-				H.update_tint()
-				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
-			target.wash(CLEAN_SCRUB)
-			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			decreaseUses(user)
-	return
-
 
 /*
  * Bike Horns

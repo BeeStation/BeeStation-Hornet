@@ -1,8 +1,19 @@
-/mob/living/silicon/ai/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
-	if(parent && istype(parent) && parent.stat != DEAD) //If there is a defined "parent" AI, it is actually an AI, and it is alive, anything the AI tries to say is said by the parent instead.
-		parent.say(message, language)
-		return
-	..(message)
+/mob/living/silicon/ai/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
+	if(istype(parent) && parent.stat != DEAD) //If there is a defined "parent" AI, it is actually an AI, and it is alive, anything the AI tries to say is said by the parent instead.
+		return parent.say(arglist(args))
+	return ..()
 
 /mob/living/silicon/ai/compose_track_href(atom/movable/speaker, namepart)
 	var/mob/M = speaker.GetSource()
@@ -10,11 +21,11 @@
 		return "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	return ""
 
-/mob/living/silicon/ai/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
+/mob/living/silicon/ai/compose_job(atom/movable/speaker, message_language, raw_message, radio_freq)
 	//Also includes the </a> for AI hrefs, for convenience.
 	return "[radio_freq ? " (" + speaker.GetJob() + ")" : ""]" + "[speaker.GetSource() ? "</a>" : ""]"
 
-/mob/living/silicon/ai/try_speak(message, ignore_spam = FALSE, forced = FALSE)
+/mob/living/silicon/ai/try_speak(message, ignore_spam = FALSE, forced = null, filterproof = FALSE)
 	// AIs cannot speak if silent AI is on.
 	// Unless forced is set, as that's probably stating laws or something.
 	if(!forced && CONFIG_GET(flag/silent_ai))
@@ -32,7 +43,7 @@
 	..()
 
 //For holopads only. Usable by AI.
-/mob/living/silicon/ai/proc/holopad_talk(message, language)
+/mob/living/silicon/ai/proc/holopad_talk(message, list/spans = list(), language, list/message_mods = list())
 	message = trim(message)
 
 	if (!message)
@@ -41,32 +52,39 @@
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 
-	if(!QDELETED(ai_hologram))
-		ai_hologram.say(message, language = language, source=current_holopad)
-		src.log_talk(message, LOG_SAY, tag="Hologram in [AREACOORD(ai_hologram)]")
-		ai_hologram.create_private_chat_message(
-			message = message,
-			message_language = language,
-			hearers = list(src),
-			includes_ghosts = FALSE) // ghosts already see this except for you...
+	// Only continue if there is a hologram and its master is the user.
+	if(!istype(current_holopad) || !current_holopad.masters[src])
+		to_chat(src, span_alert("No holopad connected."))
+		return
 
-		// duplication part from `game/say.dm` to make a language icon
-		var/language_icon = ""
-		var/datum/language/D = GLOB.language_datum_instances[language]
-		if(istype(D) && D.display_icon(src))
-			language_icon = "[D.get_icon()] "
+	var/obj/effect/overlay/holo_pad_hologram/ai_holo = current_holopad.masters[src]
+	var/turf/pad_turf = get_turf(current_holopad)
+	var/pad_loc = pad_turf ? AREACOORD(pad_turf) : "(UNKNOWN)"
 
-		message = span_robot(say_emphasis(lang_treat(src, language, message)))
-		message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(real_name)]</b> [message]")
-		to_chat(src, message)
+	log_sayverb_talk(message, message_mods, tag = "HOLOPAD in [pad_loc]")
+	ai_holo.say(message, spans = spans, sanitize = FALSE, language = language, message_mods = message_mods, source = current_holopad)
+	ai_holo.create_private_chat_message(
+		message = message,
+		message_language = language,
+		hearers = list(src),
+		includes_ghosts = FALSE
+	) // ghosts already see this except for you...
 
-		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
-			if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
-				continue
-			var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_hologram)
-			to_chat(each_ghost, "[follow_link] [message]")
-	else
-		to_chat(src, "No holopad connected.")
+	// duplication part from `game/say.dm` to make a language icon
+	var/language_icon = ""
+	var/datum/language/D = GLOB.language_datum_instances[language]
+	if(istype(D) && D.display_icon(src))
+		language_icon = "[D.get_icon()] "
+
+	message = span_robot(apply_message_emphasis(generate_messagepart(message)))
+	message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(real_name)]</b> [message]")
+	to_chat(src, message)
+
+	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
+		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
+			continue
+		var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_holo)
+		to_chat(each_ghost, "[follow_link] [message]")
 
 
 // Make sure that the code compiles with AI_VOX undefined
@@ -144,35 +162,46 @@
 
 	announcing_vox = world.time + VOX_DELAY
 
-	log_game("[key_name(src)] made a vocal announcement with the following message: [message].")
+	log_message("made a vocal announcement with the following message: [message].", LOG_GAME)
+	log_talk(message, LOG_SAY, tag = "VOX Announcement")
 	message_admins("[key_name(src)] made a vocal announcement with the following message: [message].")
 
+	var/turf/ai_turf = get_turf(src)
 	for(var/word in words)
-		play_vox_word(word, src.get_virtual_z_level(), null)
+		play_vox_word(word, ai_turf)
 
-
-/proc/play_vox_word(word, z_level, mob/only_listener)
-
+/proc/play_vox_word(word, turf/ai_turf, mob/only_listener)
 	word = LOWER_TEXT(word)
 
-	if(GLOB.vox_sounds[word])
+	var/sound_file = GLOB.vox_sounds[word]
+	if(isnull(sound_file))
+		return FALSE
 
-		var/sound_file = GLOB.vox_sounds[word]
-		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
+	// If there is no single listener, broadcast to everyone in the same z-level
+	if(!only_listener)
+		for(var/mob/player_mob as anything in GLOB.player_list)
+			if(!player_mob.can_hear())
+				continue
+
+			var/turf/player_turf = get_turf(player_mob)
+			if(!is_valid_z_level(ai_turf, player_turf))
+				continue
+
+			player_mob.client?.sound_channel_initial_volumes["[CHANNEL_VOX]"] = 100
+
+			var/pref_volume = player_mob.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ai_vox_volume)
+			var/sound/voice = sound(sound_file, wait = TRUE, channel = CHANNEL_VOX, volume = pref_volume)
+			voice.status = SOUND_STREAM
+			SEND_SOUND(player_mob, voice)
+	else
+		only_listener.client?.sound_channel_initial_volumes["[CHANNEL_VOX]"] = 100
+
+		var/pref_volume = only_listener.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ai_vox_volume)
+		var/sound/voice = sound(sound_file, wait = TRUE, channel = CHANNEL_VOX, volume = pref_volume)
 		voice.status = SOUND_STREAM
+		SEND_SOUND(only_listener, voice)
 
-		// If there is no single listener, broadcast to everyone in the same z level
-		if(!only_listener)
-			// Play voice for all mobs in the z level
-			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.can_hear() && M.client.prefs.read_player_preference(/datum/preference/toggle/sound_vox))
-					var/turf/T = get_turf(M)
-					if(T.get_virtual_z_level() == z_level)
-						SEND_SOUND(M, voice)
-		else
-			SEND_SOUND(only_listener, voice)
-		return 1
-	return 0
+	return TRUE
 
 #undef VOX_DELAY
 #endif

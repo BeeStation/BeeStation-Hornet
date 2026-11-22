@@ -1,0 +1,4 @@
+/obj/item/clothing/under/rank/civilian/head_of_personnel : /obj/item/clothing/under/rank/civilian/hop{@OLD}
+/obj/item/clothing/under/rank/civilian/head_of_personnel/skirt : /obj/item/clothing/under/rank/civilian/hop/skirt{@OLD}
+/obj/item/clothing/under/rank/civilian/head_of_personnel/alt : /obj/item/clothing/under/rank/civilian/hop/formal{@OLD}
+/obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt : /obj/item/clothing/under/rank/civilian/hop/dress{@OLD}

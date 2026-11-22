@@ -44,7 +44,7 @@ Alright, so we've already made the [script](#tried-and-true---part-one). So, let
 	name = "RD Airlock"
 	},
 /turf/open/floor/iron,
-/area/science/rd),
+/area/station/science/rd),
 ```
 
 Now, after you drag and drop your script onto the `Update Paths.bat` file, it will look like this:
@@ -56,7 +56,7 @@ Now, after you drag and drop your script onto the `Update Paths.bat` file, it wi
 	name = "RD Airlock"
 	},
 /turf/open/floor/iron,
-/area/science/rd),
+/area/station/science/rd),
 ```
 
 It worked! Great!
@@ -81,7 +81,7 @@ On this example map key:
 	name = "RD Airlock"
 	},
 /turf/open/floor/iron,
-/area/science/rd),
+/area/station/science/rd),
 ```
 You will then result the following:
 
@@ -90,7 +90,7 @@ You will then result the following:
 "a" = (
 /obj/structure/door/airlock/science/closed/rd,
 /turf/open/floor/iron,
-/area/science/rd),
+/area/station/science/rd),
 ```
 
 As expected, all variables were discarded. This is only really useful in certain edgecases, and you shouldn't do something like this trivially in case someone has lovably named a variable special since it'll just nuke it.
@@ -343,6 +343,39 @@ You would then get the following output:
 ```
 
 As an addendum, you don't have to use both `@ANY` and `@OLD:prop_name` together. I'm merely providing a single example for the both of them and their most practical usage.
+
+### Counters
+
+In some cases you may want to replace a path if it occurs multiple times on the same tile. For this you can use counters.
+
+- Counters are per-typepath and per-tile.
+- Counters only matter for the exact typepath. **They will not count subtypes or parent types in their counter.**
+
+Counter can be checked in 3 ways, `>`, `=`, `<`
+
+An example is provided below:
+
+```
+/obj/item/example{>1} : @DELETE
+```
+
+This will delete every `/obj/item/example` except for the first one.
+
+When the update path `/obj/item/example/@SUBTYPES{>1}` is executed against the following:
+
+```
+/obj/item/example/1
+/obj/item/example/1
+/obj/item/example/2
+/obj/item/example/2
+```
+
+Then the output is as follows:
+
+```
+/obj/item/example/1
+/obj/item/example/2
+```
 
 ### Blend it all together
 

@@ -3,7 +3,7 @@
 	name = "ammo box (null_reference_exception)"
 	desc = "A box of ammo."
 	icon = 'icons/obj/ammo.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	inhand_icon_state = "syringe_kit"
 	worn_icon_state = "ammobox"
@@ -115,7 +115,7 @@
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return TRUE
 
-/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = FALSE)
+/obj/item/ammo_box/attackby(obj/item/A, mob/user, list/modifiers, silent = FALSE)
 	var/num_loaded = 0
 	if(!can_load(user))
 		return

@@ -12,27 +12,21 @@
 	antagpanel_category = "Revolution"
 	banning_key = ROLE_REV
 	antag_moodlet = /datum/mood_event/revolution
-	var/hud_type = "rev"
-	var/datum/team/revolution/rev_team
+	antag_hud_name = "rev"
 	required_living_playtime = 0
+	var/datum/team/revolution/rev_team
 
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
-	. = ..()
-	if(.)
-		if(new_owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			return FALSE
-		if(new_owner.unconvertable)
-			return FALSE
-		if(new_owner.current && HAS_TRAIT(new_owner.current, TRAIT_MINDSHIELD))
-			return FALSE
+	if(new_owner.assigned_role.job_flags & JOB_HEAD_OF_STAFF)
+		return FALSE
+	if(new_owner.unconvertable)
+		return FALSE
+	if(new_owner.current && HAS_TRAIT(new_owner.current, TRAIT_MINDSHIELD))
+		return FALSE
+	return ..()
 
 /datum/antagonist/rev/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_rev_icons_added(M)
-
-/datum/antagonist/rev/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_rev_icons_removed(M)
+	add_team_hud(mob_override || owner.current)
 
 /datum/antagonist/rev/on_mindshield(mob/implanter)
 	remove_revolutionary(FALSE, implanter)
@@ -62,7 +56,7 @@
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
 	if(!new_team)
 		//For now only one revolution at a time
-		for(var/datum/antagonist/rev/head/H in GLOB.antagonists)
+		for(var/datum/antagonist/rev/head/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.rev_team)
@@ -163,7 +157,7 @@
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
-	hud_type = "rev_head"
+	antag_hud_name = "rev_head"
 	banning_key = ROLE_REV_HEAD
 	required_living_playtime = 8
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
@@ -176,16 +170,6 @@
 
 /datum/antagonist/rev/head/antag_listing_name()
 	return ..() + "(Leader)"
-
-/datum/antagonist/rev/proc/update_rev_icons_added(mob/living/M)
-	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
-	revhud.join_hud(M)
-	set_antag_hud(M,hud_type)
-
-/datum/antagonist/rev/proc/update_rev_icons_removed(mob/living/M)
-	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
-	revhud.leave_hud(M)
-	set_antag_hud(M, null)
 
 /datum/antagonist/rev/proc/can_be_converted(mob/living/candidate)
 	if(!candidate.mind)
@@ -259,20 +243,20 @@
 
 	if(give_flash)
 		var/obj/item/assembly/flash/handheld/T = new(H)
-		var/list/slots = list (
-			"backpack" = ITEM_SLOT_BACKPACK,
-			"left pocket" = ITEM_SLOT_LPOCKET,
-			"right pocket" = ITEM_SLOT_RPOCKET
+		var/list/slots = list(
+			LOCATION_BACKPACK,
+			LOCATION_LPOCKET,
+			LOCATION_RPOCKET,
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
 		if (!where)
 			to_chat(H, "The Syndicate were unfortunately unable to get you a flash.")
 		else
-			to_chat(H, "The flash in your [where] will help you to persuade the crew to join your cause.")
+			to_chat(H, "The flash [where] will help you to persuade the crew to join your cause.")
 
 	if(give_hud)
 		var/obj/item/organ/cyberimp/eyes/hud/security/syndicate/S = new(H)
-		S.Insert(H, special = FALSE, drop_if_replaced = FALSE)
+		S.Insert(H)
 		to_chat(H, "Your eyes have been implanted with a cybernetic security HUD which will help you keep track of who is mindshield-implanted, and therefore unable to be recruited.")
 
 /datum/team/revolution

@@ -9,6 +9,7 @@ import {
   Flex,
   Input,
   LabeledList,
+  NoticeBox,
   NumberInput,
   Section,
   Stack,
@@ -29,6 +30,7 @@ export const BanningPanel = (props) => {
     cid_enabled,
     cid,
     applies_to_admins,
+    target_is_admin,
     can_supress,
     suppressed,
     duration_type,
@@ -47,6 +49,7 @@ export const BanningPanel = (props) => {
   const hasValidIp = ip_enabled && ip && ip.trim() !== '';
   const hasValidCid = cid_enabled && cid && cid.trim() !== '';
   const canSubmit = hasValidKey || hasValidIp || hasValidCid;
+  const blockedAdminBan = !!target_is_admin && !applies_to_admins;
 
   return (
     <Window
@@ -57,6 +60,12 @@ export const BanningPanel = (props) => {
       resizable
     >
       <Window.Content>
+        {blockedAdminBan && (
+          <NoticeBox danger style={{ whiteSpace: 'normal' }}>
+            This CKEY belongs to an ADMIN. You may not ban another admin unless
+            you tick &quot;Applies to admins&quot;.
+          </NoticeBox>
+        )}
         <Section title="Player Information">
           <Stack>
             <Flex direction="column">
@@ -246,8 +255,14 @@ export const BanningPanel = (props) => {
           content="Submit"
           onClick={() => act('submit_ban')}
           // Disabled if no key OR no IP OR no CID. Look at the checkbox too so some wiseguy doesn't fuck it up by inputting then unchecking either
-          disabled={!canSubmit}
-          tooltip={!canSubmit ? 'CKEY/IP/CID is required' : null}
+          disabled={!canSubmit || blockedAdminBan}
+          tooltip={
+            blockedAdminBan
+              ? 'Tick "Applies to admins" to ban an admin'
+              : !canSubmit
+                ? 'CKEY/IP/CID is required'
+                : null
+          }
           m={0.5}
           width={7}
           height={2}

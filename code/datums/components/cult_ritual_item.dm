@@ -28,7 +28,7 @@
 	else if(ispath(turfs_that_boost_us))
 		src.turfs_that_boost_us = list(turfs_that_boost_us)
 
-/datum/component/cult_ritual_item/Destroy(force, silent)
+/datum/component/cult_ritual_item/Destroy(force)
 	cleanup_shields()
 	return ..()
 
@@ -122,7 +122,7 @@
  * Signal proc for [COMSIG_ITEM_ATTACK_EFFECT].
  * Allows the ritual items to remove runes.
  */
-/datum/component/cult_ritual_item/proc/try_clear_rune(datum/source, obj/effect/target, mob/living/cultist, params)
+/datum/component/cult_ritual_item/proc/try_clear_rune(datum/source, obj/effect/target, mob/living/cultist, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!isliving(cultist) || !IS_CULTIST(cultist))
@@ -272,7 +272,7 @@
 	if(!can_scribe_rune(tool, cultist))
 		return FALSE
 
-	if(ispath(rune_to_scribe, /obj/effect/rune/summon) && (!is_station_level(our_turf.z) || istype(get_area(cultist), /area/space)))
+	if(ispath(rune_to_scribe, /obj/effect/rune/summon) && (!is_station_level(our_turf.z) || istype(get_area(cultist), /area/misc/space)))
 		to_chat(cultist, span_cultitalic("The veil is not weak enough here to summon a cultist, you must be on station!"))
 		return
 
@@ -344,16 +344,28 @@
 	if(summon_objective.check_completion())
 		to_chat(cultist, span_cultlarge("\"I am already here. There is no need to try to summon me now.\""))
 		return FALSE
-	var/confirm_final = alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", "My life for Nar'Sie!", "No")
+	var/confirm_final = tgui_alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", list("My life for Nar'Sie!", "No"))
 	if(confirm_final == "No" || !confirm_final)
 		to_chat(cultist, span_cult("You decide to prepare further before scribing the rune."))
 		return
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
-	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
-
+	var/static/cult_music_played = FALSE
+	priority_announce(
+		"Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!",
+		sender_override = "[command_name()] Higher Dimensional Affairs",
+		sound = cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/effects/antag/bloodcult/bloodcult_scribe.ogg',
+	)
+	cult_music_played = TRUE
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/sanguine(shielded_turf))
+
+	notify_ghosts(
+		"[cultist] has begun scribing a Nar'Sie rune!",
+		source = cultist,
+		header = "Maranax Infirmux!",
+		notify_flags = NOTIFY_CATEGORY_NOFLASH,
+	)
 
 	return TRUE
 
@@ -422,7 +434,7 @@
 		return FALSE
 
 	var/area/our_area = get_area(target)
-	if((!is_station_level(target.z) && !is_mining_level(target.z)) || (our_area && !(our_area.area_flags & BLOBS_ALLOWED)))
+	if((!is_station_level(target.z) && !is_mining_level(target.z)) || (our_area && !(our_area.area_flags & CULT_PERMITTED)))
 		to_chat(cultist, span_warning("The veil is not weak enough here."))
 		return FALSE
 

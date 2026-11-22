@@ -6,7 +6,7 @@
 	var/last_blood_state = BLOOD_STATE_NOT_BLOODY
 
 	/// How much of each grubby type we have on our feet
-	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0,BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0, "LE" = 0)
 
 	/// The ITEM_SLOT_* slot the item is equipped on, if it is.
 	var/equipped_slot
@@ -43,7 +43,20 @@
   * Returns true if the parent item is obscured by something else that the wielder is wearing
   */
 /datum/component/bloodysoles/proc/is_obscured()
-	return equipped_slot in wielder.check_obscured_slots(TRUE)
+	return (hidden_slots_to_inventory_slots(wielder.covered_slots) & equipped_slot) || is_under_feet_covered()
+
+/**
+ * Returns true if the parent item is worn in the ITEM_SLOT_ICLOTHING slot and the
+ * wielder is wearing something on their shoes.
+ *
+ * Allows for jumpsuits to cover feet without getting all bloodied when their wearer
+ * is wearing shoes.
+ */
+/datum/component/bloodysoles/proc/is_under_feet_covered()
+	if(!(equipped_slot & ITEM_SLOT_ICLOTHING))
+		return FALSE
+
+	return !isnull(wielder.shoes)
 
 /**
   * Run to update the icon of the parent
@@ -213,7 +226,7 @@
 	if(!(clean_types & CLEAN_TYPE_BLOOD) || last_blood_state == BLOOD_STATE_NOT_BLOODY)
 		return
 
-	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0, "LE" = 0)
 	last_blood_state = BLOOD_STATE_NOT_BLOODY
 	update_icon()
 	return TRUE
@@ -237,15 +250,14 @@
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD, PROC_REF(on_step_blood))
-	RegisterSignal(parent, COMSIG_CARBON_UNEQUIP_SHOECOVER, PROC_REF(unequip_shoecover))
-	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER, PROC_REF(equip_shoecover))
+	RegisterSignals(parent, list(COMSIG_MOB_EQUIPPED_ITEM, COMSIG_MOB_UNEQUIPPED_ITEM), PROC_REF(shoecover))
 
 /datum/component/bloodysoles/feet/update_icon()
 	. = list()
-	if(!ishuman(wielder))
+	if(!ishuman(wielder) || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
 		return
 	if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
-		bloody_feet.color = bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
+		bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
 		. += bloody_feet
 	if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
 		wielder.remove_overlay(SHOES_LAYER)
@@ -264,18 +276,12 @@
 		return
 
 	// Find any leg of our human and add that to the footprint, instead of the default which is to just add the human type
-	for(var/X in wielder.bodyparts)
-		var/obj/item/bodypart/affecting = X
-		if(affecting.body_part == LEG_RIGHT || affecting.body_part == LEG_LEFT)
-			if(!affecting.bodypart_disabled)
-				FP.species_types |= affecting.limb_id
-				break
+	for(var/obj/item/bodypart/leg/affecting in wielder.get_bodyparts())
+		if(!affecting.bodypart_disabled)
+			FP.species_types |= affecting.limb_id
 
-
-/datum/component/bloodysoles/feet/is_obscured()
-	if(wielder.shoes)
-		return TRUE
-	return ITEM_SLOT_FEET in wielder.check_obscured_slots(TRUE)
+/datum/component/bloodysoles/feet/is_under_feet_covered()
+	return wielder.shoes?.item_flags & IN_INVENTORY
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
 	if(wielder.num_legs < 2)
@@ -289,12 +295,7 @@
 
 	..()
 
-/datum/component/bloodysoles/feet/proc/unequip_shoecover(datum/source)
+/datum/component/bloodysoles/feet/proc/shoecover(datum/source, obj/item/item)
 	SIGNAL_HANDLER
-
-	update_icon()
-
-/datum/component/bloodysoles/feet/proc/equip_shoecover(datum/source)
-	SIGNAL_HANDLER
-
-	update_icon()
+	if ((item.body_parts_covered & FEET) || (item.flags_inv & HIDESHOES))
+		update_icon()

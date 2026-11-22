@@ -78,6 +78,16 @@
 		steps++
 	return TRUE
 
+/// Draws a line of turfs between two atoms and determines if there's dense objects or turfs in the way.
+/proc/clear_line_of_sight(atom/source, atom/target)
+	for(var/turf/checked_turf in get_line(source, target))
+		if(checked_turf.density)
+			return FALSE
+		for(var/obj/blocking_object in checked_turf)
+			if(blocking_object.density)
+				return FALSE
+	return TRUE
+
 ///Get the cardinal direction between two atoms
 /proc/get_cardinal_dir(atom/start, atom/end)
 	var/dx = abs(end.x - start.x)
@@ -95,7 +105,7 @@
 		return 0
 	. = bounds_dist(start, end) + sqrt((((start.pixel_x + end.pixel_x) ** 2) + ((start.pixel_y + end.pixel_y) ** 2)))
 	if(centered)
-		. += world.icon_size
+		. += ICON_SIZE_ALL
 
 /**
  * Check if there is already a wall item on the turf loc
@@ -283,8 +293,8 @@
 
 ///Creates new items inside an atom based on a list
 /proc/generate_items_inside(list/items_list, where_to)
-	for(var/each_item in items_list)
-		for(var/i in 1 to items_list[each_item])
+	for(var/each_item, item_amount in items_list)
+		for(var/i = 1 to item_amount)
 			new each_item(where_to)
 
 ///Returns the atom type in the specified loc
@@ -355,8 +365,8 @@
 	var/icon_width = icon_dimensions["width"]
 	var/icon_height = icon_dimensions["height"]
 	return list(
-		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
-		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
+		"x" = icon_width > ICON_SIZE_X && pixel_x != 0 ? (icon_width - ICON_SIZE_X) * 0.5 : 0,
+		"y" = icon_height > ICON_SIZE_Y && pixel_y != 0 ? (icon_height - ICON_SIZE_Y) * 0.5 : 0,
 	)
 
 #define set_base_luminosity(target, new_value)\

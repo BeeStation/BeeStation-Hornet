@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25) //done for balance reasons, making them high value for research, but harder to get
 	armor_type = /datum/armor/item_powertool
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
 	//Forgot to set your tool?
@@ -30,7 +30,9 @@
 		throwforce_on = throwforce, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+		inhand_icon_change = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 	tool_behaviour = tool_act_off
 
@@ -101,7 +103,7 @@
 
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
+	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 
 /obj/item/powertool/jaws_of_life/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_CROWBAR)

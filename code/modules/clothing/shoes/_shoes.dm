@@ -1,10 +1,10 @@
 /obj/item/clothing/shoes
+	abstract_type = /obj/item/clothing/shoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	var/chained = 0
-	dying_key = DYE_REGISTRY_SNEAKERS
 
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
@@ -38,19 +38,20 @@
 		return BRUTELOSS
 
 /obj/item/clothing/shoes/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
+	. = ..()
+	if(isinhands)
+		return
 
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe", item_layer)
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-			var/mutable_appearance/bloody_shoes
-			bloody_shoes = mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
-			bloody_shoes.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
-			. += bloody_shoes
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe", item_layer)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+		var/mutable_appearance/bloody_shoes
+		bloody_shoes = mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
+		bloody_shoes.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		. += bloody_shoes
 
 /obj/item/clothing/shoes/visual_equipped(mob/user, slot)
-	..()
+	. = ..()
 	if(offset && (slot_flags & slot))
 		user.pixel_y += offset
 		worn_y_dimension -= (offset * 2)
@@ -60,7 +61,7 @@
 /obj/item/clothing/shoes/proc/restore_offsets(mob/user)
 	equipped_before_drop = FALSE
 	user.pixel_y -= offset
-	worn_y_dimension = world.icon_size
+	worn_y_dimension = ICON_SIZE_Y
 
 /obj/item/clothing/shoes/dropped(mob/user)
 	..()
@@ -72,3 +73,6 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_worn_shoes()
+
+/obj/item/clothing/shoes/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	return icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "boots_worn")

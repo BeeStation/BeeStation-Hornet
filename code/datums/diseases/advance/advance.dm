@@ -112,7 +112,7 @@
 /datum/disease/advance/proc/on_mob_death()
 	SIGNAL_HANDLER
 
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as anything in symptoms)
 		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
@@ -141,7 +141,7 @@
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
 	..()
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as anything in symptoms)
 		S.on_stage_change(src)
 
 // Compares type then ID.
@@ -157,7 +157,7 @@
 /datum/disease/advance/Copy()
 	var/datum/disease/advance/A = ..()
 	QDEL_LIST(A.symptoms)
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as anything in symptoms)
 		A.symptoms += S.Copy()
 	if(!CONFIG_GET(flag/biohazards_allowed))
 		A.dormant = dormant
@@ -272,12 +272,12 @@
 	var/c1sev
 	var/c2sev
 	var/c3sev
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as anything in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as anything in symptoms)
 		S.severityset(src)
 		if(S.neutered)
 			continue
@@ -304,7 +304,7 @@
 		visibility_flags &= ~HIDDEN_SCANNER
 
 	SetSpread()
-	spreading_modifier = max(CEILING(0.4 * transmission, 1), 1)
+	spreading_modifier = max(ceil(0.4 * transmission), 1)
 	cure_chance = clamp(7.5 - (0.5 * resistance), 5, 10) // can be between 5 and 10
 	stage_prob = max(stage_rate, 1)
 	SetDanger(severity)
@@ -717,7 +717,7 @@
 			if(/obj/item/organ/lungs)
 				prefixes += "Miasmic "
 				bodies += list("Stench", "Lung")
-	for(var/datum/symptom/Symptom as() in symptoms)
+	for(var/datum/symptom/Symptom as anything in symptoms)
 		if(!Symptom.neutered)
 			prefixes += Symptom.prefixes
 			bodies += Symptom.bodies

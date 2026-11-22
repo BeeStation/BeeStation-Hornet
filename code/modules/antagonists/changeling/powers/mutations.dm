@@ -68,6 +68,7 @@
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
+	abstract_type = /datum/action/changeling/suit
 	name = "Organic Suit"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at Miauw and/or Perakp"
@@ -99,7 +100,7 @@
 		H.temporarilyRemoveItemFromInventory(H.wear_suit, TRUE)
 		H.update_worn_oversuit()
 		H.update_worn_head()
-		H.update_hair()
+		H.update_body_parts()
 
 		if(blood_on_castoff)
 			H.add_splatter_floor()
@@ -256,9 +257,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("The [name] is not ready yet."))
 
-/obj/item/gun/magic/tentacle/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/magic/tentacle/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	var/obj/projectile/tentacle/tentacle_shot = chambered.BB //Gets the actual projectile we will fire
-	tentacle_shot.fire_modifiers = params2list(params)
+	tentacle_shot.fire_modifiers = modifiers
 	. = ..()
 	if(charges == 0)
 		qdel(src)
@@ -318,7 +319,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 		C.grabbedby(H)
 		C.grippedby(H, instant = TRUE) //instant aggro grab
 		for(var/obj/item/I in H.held_items)
-			if(I.get_sharpness())
+			if(I.sharpness >= SHARP)
 				C.visible_message(span_danger("[H] impales [C] with [H.p_their()] [I.name]!"), span_userdanger("[H] impales you with [H.p_their()] [I.name]!"))
 				C.apply_damage(I.force, BRUTE, BODY_ZONE_CHEST)
 				H.do_item_attack_animation(C, used_item = I)

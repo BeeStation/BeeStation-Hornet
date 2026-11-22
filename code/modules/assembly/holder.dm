@@ -5,7 +5,7 @@
 	inhand_icon_state = "assembly"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -15,7 +15,7 @@
 
 /obj/item/assembly_holder/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/item/assembly_holder/Destroy()
 	QDEL_LAZYLIST(assemblies)
@@ -39,7 +39,7 @@
 			var/obj/item/assembly/timer/timer = assembly
 			. += span_notice("The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
 
-/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	on_move(old_loc, movement_dir)
 
@@ -151,15 +151,12 @@
 	for(var/obj/item/assembly/assembly as anything in assemblies)
 		assembly.attack_hand(user, modifiers) // Note override in assembly.dm to prevent side effects here
 
-/obj/item/assembly_holder/attackby(obj/item/weapon, mob/user, params)
+/obj/item/assembly_holder/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if(isassembly(weapon))
 		try_add_assembly(weapon, user)
 		return
 
 	return ..()
-
-/obj/item/assembly_holder/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/tool)
 	if(..())

@@ -4,7 +4,13 @@
 	icon_state = "chemg"
 	inhand_icon_state = "flashbang"
 	w_class = WEIGHT_CLASS_SMALL
+
 	force = 2
+	stamina_damage = 0
+	stamina_cost = 0
+	stamina_critical_chance = 0
+
+	/// Which stage of construction this grenade is currently at.
 	var/stage = GRENADE_EMPTY
 	/// The set of reagent containers that have been added to this grenade casing.
 	var/list/obj/item/reagent_containers/cup/beakers = list()
@@ -19,7 +25,6 @@
 	var/affected_area = 3
 	var/ignition_temp = 10 // The amount of heat added to the reagents when this grenade goes off.
 	var/threatscale = 1 // Used by advanced grenades to make them slightly more worthy.
-	var/no_splash = FALSE //If the grenade deletes even if it has no reagents to splash with. Used for slime core reactions.
 	var/casedesc = "This basic model accepts both beakers and bottles. It heats contents by 10 K upon ignition." // Appears when examining empty casings.
 	var/obj/item/assembly/prox_sensor/landminemode = null
 
@@ -65,7 +70,7 @@
 	else
 		wires.interact(user)
 
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, list/modifiers)
 	if (active)
 		return ..()
 	if(dud_flags & GRENADE_USED)
@@ -276,7 +281,7 @@
 	atom_integrity = 1
 
 	for(var/obj/item/slime_extract/S in beakers)
-		if(S.Uses)
+		if(S.extract_uses)
 			for(var/obj/item/reagent_containers/cup/G in beakers)
 				G.reagents.trans_to(src, G.reagents.total_volume)
 
@@ -290,7 +295,6 @@
 						S.reagents.trans_to(G, S.reagents.total_volume)
 				else
 					S.forceMove(get_turf(src))
-					no_splash = TRUE
 
 	reagents.flags |= NO_REACT
 
@@ -335,7 +339,7 @@
 	icon_state = "timeg"
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
-/obj/item/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		switch(unit_spread)
 			if(0 to 24)

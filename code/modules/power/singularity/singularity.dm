@@ -37,7 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 /obj/anomaly/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
 	START_PROCESSING(SSsinguloprocess, src)
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 	GLOB.singularities |= src
 
 	var/datum/component/singularity/new_component = AddComponent(
@@ -48,15 +48,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	)
 
 	singularity_component = WEAKREF(new_component)
-
+	energy = starting_energy
 	expand(current_size)
 
-	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
+	for(var/obj/machinery/power/singularity_beacon/singubeacon as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/singularity_beacon))
 		if(singubeacon.active)
 			new_component.target = singubeacon
 			break
 	if(!mapload)
-		notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
+		notify_ghosts(
+			"IT'S LOOSE",
+			source = src,
+			header = "IT'S LOOSE",
+			ghost_sound = 'sound/machines/warning-buzzer.ogg',
+			notify_volume = 75
+		)
 
 /obj/anomaly/singularity/Destroy()
 	STOP_PROCESSING(SSsinguloprocess, src)
@@ -433,11 +439,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
 /obj/anomaly/singularity/stationary
 	move_self = FALSE
 
-/obj/anomaly/singularity/stationary/Initialize(mapload)
+/obj/anomaly/singularity/stationary/tiny/Initialize(mapload)
 	. = ..()
 	var/datum/component/singularity/singularity = singularity_component.resolve()
 	singularity?.grav_pull = TRUE
 
-/obj/anomaly/singularity/stationary/process(delta_time)
+/obj/anomaly/singularity/stationary/tiny/process(delta_time)
 	if(DT_PROB(0.5, delta_time))
 		mezzer()
+
+/obj/anomaly/singularity/stationary/temporary/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(end_life)), 30 SECONDS)
+
+/obj/anomaly/singularity/stationary/temporary/proc/end_life()
+	explosion(get_turf(src), 3, 7, 12, 40)
+	qdel(src)

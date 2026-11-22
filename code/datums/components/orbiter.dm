@@ -1,8 +1,16 @@
 /datum/component/orbiter
 	can_transfer = TRUE
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
+	/// Assoc list of all orbiters -> their initial matrix
 	var/list/current_orbiters
+	/// Assoc list of orbiters -> their orbiting parameters
+	var/list/orbiter_params
+	/// Movement tracker used to check when our owner moves
 	var/datum/movement_detector/tracker
+	/// when 'send_observers_back_to_original_orbit()' proc is called, ghost will go back to this weakref.
+	var/datum/weakref/back_to
+	/// The next registration completes a component transfer, rather than initial construction.
+	var/transferring = FALSE
 
 //radius: range to orbit at, radius of the circle formed by orbiting (in pixels)
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -14,8 +22,9 @@
 		return COMPONENT_INCOMPATIBLE
 
 	current_orbiters = list()
+	orbiter_params = list()
 
-	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
+	return begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
@@ -25,6 +34,12 @@
 		tracker = new(target, CALLBACK(src, PROC_REF(move_react)))
 
 	RegisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(orbiter_glide_size_update))
+	if(transferring)
+		transferring = FALSE
+		for(var/atom/movable/orbiter as anything in current_orbiters)
+			orbiter.orbit_target = target
+			SEND_SIGNAL(target, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
+	move_react(target)
 
 /datum/component/orbiter/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE)
@@ -39,6 +54,7 @@
 	for(var/i in current_orbiters)
 		end_orbit(i)
 	current_orbiters = null
+	orbiter_params = null
 	return ..()
 
 /datum/component/orbiter/InheritComponent(datum/component/orbiter/newcomp, original, atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
@@ -52,13 +68,25 @@
 		// It is important to transfer the signals so we don't get locked to the new orbiter component for all time
 		newcomp.UnregisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED)
 		RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
-	current_orbiters += newcomp.current_orbiters
+
+	var/list/incoming_orbiters = newcomp.current_orbiters
+	current_orbiters += incoming_orbiters
+	orbiter_params += newcomp.orbiter_params
 	newcomp.current_orbiters = null
+	newcomp.orbiter_params = null
+	for(var/atom/movable/incoming_orbiter as anything in incoming_orbiters)
+		incoming_orbiter.orbit_target = parent
+		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, incoming_orbiter)
+	move_react(parent)
+
+/datum/component/orbiter/PreTransfer(datum/new_parent)
+	for(var/atom/movable/orbiter as anything in current_orbiters)
+		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
 /datum/component/orbiter/PostTransfer()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
 		return COMPONENT_INCOMPATIBLE
-	move_react(parent)
+	transferring = TRUE
 
 /datum/component/orbiter/proc/begin_orbit(atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 	if(orbiter.orbiting)
@@ -66,8 +94,14 @@
 			orbiter.orbiting.end_orbit(orbiter, TRUE)
 		else
 			orbiter.orbiting.end_orbit(orbiter)
+
+	if(QDELETED(orbiter))
+		return COMPONENT_REDUNDANT
+
+	orbiter_params[orbiter] = args.Copy(2)
 	current_orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
+	orbiter.orbit_target = parent
 
 	ADD_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
@@ -111,6 +145,8 @@
 	if(istype(current_orbiters[orbiter],/matrix)) //This is ugly.
 		orbiter.transform = current_orbiters[orbiter]
 	current_orbiters -= orbiter
+	if(!refreshing)
+		orbiter_params -= orbiter
 	orbiter.stop_orbit(src)
 	orbiter.orbiting = null
 
@@ -118,6 +154,10 @@
 		var/mob/orbiter_mob = orbiter
 		orbiter_mob.updating_glide_size = TRUE
 		orbiter_mob.glide_size = 8
+
+		if(isobserver(orbiter))
+			var/mob/dead/observer/ghostie = orbiter
+			ghostie.orbiting_ref = null
 
 	REMOVE_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
 
@@ -147,6 +187,7 @@
 	SEND_SIGNAL(new_target, COMSIG_ATOM_ORBIT_BEGIN, incoming_orbiter)
 
 	incoming_orbiter.orbiting = new_target.orbit_datum
+	incoming_orbiter.orbit_target = new_target
 	new_target.orbit_datum.current_orbiters[incoming_orbiter] = current_orbiters[incoming_orbiter]
 	current_orbiters -= incoming_orbiter
 
@@ -191,27 +232,31 @@
 		return
 	if(A.orbit_datum?.parent == A) // orbiting what you're orbiting causes runtime
 		return
-	var/icon/I = icon(A.icon, A.icon_state, A.dir)
-	var/orbitsize = (I.Width()+I.Height())*0.5
-	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	var/orbitsize = (A.get_cached_width() + A.get_cached_height()) * 0.5
+	orbitsize -= (orbitsize/ICON_SIZE_X)*(ICON_SIZE_Y*0.25)
 	orbit(A, orbitsize)
 
 /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE)
-	if(!istype(A) || !get_turf(A) || A == src)
+	if(QDELETED(src) || !istype(A) || !get_turf(A) || A == src)
 		return
 	if (HAS_TRAIT(A, TRAIT_ORBITING_FORBIDDEN))
-		// Stealth-mins have an empty name, don't want "You cannot orbit   at this time."
-		to_chat(src, "<span class='notice'>You cannot orbit ["[A]" || "them"] at this time.</span>")
+		// Stealth-mins have an empty name, don't want "You cannot orbit x at this time."
+		to_chat(src, span_notice("You cannot orbit ["[A]" || "them"] at this time."))
 		return
-
+	if(orbiting && orbiting.parent != A)
+		orbiting.end_orbit(src)
+		if(QDELETED(src))
+			return
 	return A.AddComponent(/datum/component/orbiter, src, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 
 /atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)
+	orbit_target = null
 	return // We're just a simple hook
 
-/// includes_everyone=FALSE: when an orbitted mob is a camera eye or something. That shouldn't transfer revenants.
-/// includes_everyone=TRUE: when an orbitted mob is a mob who is being transformed(monkeyize). They should keep orbiters.
-/atom/proc/transfer_observers_to(atom/target, includes_everyone=FALSE)
+/// * [includes_everyone=FALSE]: when an orbitted mob is a camera eye or something. That shouldn't transfer revenants.
+/// * [includes_everyone=TRUE]: when an orbitted mob is a mob who is being transformed(monkeyize). They should keep orbiters.
+/// * [temporary=TRUE]: when 'send_observers_back_to_original_orbit()' proc is called, they'll go back to a mob where they came from.
+/atom/proc/transfer_observers_to(atom/target, includes_everyone = FALSE, temporary = FALSE)
 	if(!orbit_datum || !istype(target) || !get_turf(target) || target == src)
 		return
 	if(includes_everyone)
@@ -220,4 +265,18 @@
 	for(var/each in orbit_datum.current_orbiters)
 		if(!isobserver(each))
 			continue
+		if(temporary)
+			orbit_datum.back_to = WEAKREF(src)
 		orbit_datum.transfer_orbiter_to(each, target)
+
+/// returns ghosts to a mob where they came from when they are sent through 'transfer_observers_to()'
+/atom/proc/send_observers_back_to_original_orbit(atom/desired_target)
+	if(!orbit_datum)
+		return
+	for(var/each_ghost in orbit_datum.current_orbiters)
+		if(!isobserver(each_ghost))
+			continue
+		var/atom/back_to = orbit_datum.back_to?.resolve()
+		if(back_to && (isnull(desired_target) || back_to == desired_target))
+			orbit_datum.transfer_orbiter_to(each_ghost, back_to)
+			orbit_datum.back_to = null

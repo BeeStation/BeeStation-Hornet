@@ -1,4 +1,5 @@
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { useBackend, useLocalState } from 'tgui/backend';
 import {
   Box,
@@ -29,7 +30,7 @@ export const SecurityRecordTabs = (props) => {
 
   const sorted = sortBy(
     filter(records, (record) => isRecordMatch(record, search)),
-    (record) => record.name,
+    [(record) => record.name],
   );
 
   return (
@@ -96,6 +97,15 @@ const CrewTab = (props: { record: SecurityRecord }) => {
     if (selectedRecord?.record_ref === record_ref) {
       setSelectedRecord(undefined);
     } else {
+      // See MedicalRecords/RecordTabs.tsx for explanation
+      if (selectedRecord === undefined) {
+        setTimeout(() => {
+          act('view_record', {
+            character_preview_view: character_preview_view,
+            record_ref: record_ref,
+          });
+        });
+      }
       setSelectedRecord(record);
       act('view_record', {
         character_preview_view: character_preview_view,

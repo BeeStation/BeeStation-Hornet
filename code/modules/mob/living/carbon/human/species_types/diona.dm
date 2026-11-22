@@ -2,17 +2,9 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
-	sexes = 0 //no sex for bug/plant people!
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		AGENDER,
-		NOHUSK,
-		NO_UNDERWEAR,
-		NOSOCKS,
-		NOEYESPRITES,
-	)
+	sexes = FALSE //no sex for bug/plant people!
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_BEEFRIEND,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
@@ -20,21 +12,36 @@
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_AGENDER,
+		TRAIT_NO_SOCKS,
+		TRAIT_UNHUSKABLE,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
-	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
-	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
+	move_intents = list(/datum/move_intent/walk, /datum/move_intent/run)
+	mutant_organs = list(
+		/obj/item/organ/nymph_organ/r_arm,
+		/obj/item/organ/nymph_organ/l_arm,
+		/obj/item/organ/nymph_organ/l_leg,
+		/obj/item/organ/nymph_organ/r_leg,
+		/obj/item/organ/nymph_organ/chest,
+		/obj/item/organ/diona_growth/leaves = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/thorns = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/flowers = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/moss = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/pbody = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/mushroom = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/antennae = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/eyes = SPRITE_ACCESSORY_NONE,
+	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
-	attack_verb = "slash"
-	attack_sound = 'sound/emotes/diona/hit.ogg'
 	heatmod = 1.5
+	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
-	speedmod = 1.2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
@@ -67,10 +74,11 @@
 	var/informed_nymph = FALSE //If the user was informed that they can release a nymph via food.
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)
-		H.take_overall_damage(1,0)
+		H.take_overall_damage(brute = 1, required_bodytype = BODYTYPE_ORGANIC)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(/datum/status_effect/planthealing)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
@@ -98,7 +106,8 @@
 				return
 			H.apply_status_effect(/datum/status_effect/planthealing)
 
-/datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
+/datum/species/diona/proc/drone_state_check(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.trigger() //Bring them home.
@@ -111,24 +120,20 @@
 		source.adjustToxLoss(-2 * delta_time)
 		source.adjustOxyLoss(-1 * delta_time)
 
-/datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/diona/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		affected.adjustToxLoss(1.5 * REM * delta_time)
 	if(chem.type == /datum/reagent/toxin/mutagen)
-		H.adjustToxLoss(-3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		affected.adjustToxLoss(-1.5 * REM * delta_time)
 	if(chem.type == /datum/reagent/plantnutriment)
-		H.adjustBruteLoss(-1)
-		H.adjustFireLoss(-1)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+		affected.adjustBruteLoss(-0.5 * REM * delta_time)
+		affected.adjustFireLoss(-0.5 * REM * delta_time)
 
 /datum/species/diona/on_hit(obj/projectile/P, mob/living/carbon/human/H)
-	if(P.type == (/obj/projectile/energy/floramut || /obj/projectile/energy/florayield))
+	if(istype(P, /obj/projectile/energy/floramut) || istype(P, /obj/projectile/energy/florayield))
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
@@ -151,17 +156,29 @@
 	split_ability.Grant(H)
 	partition_ability = new
 	partition_ability.Grant(H)
+	RegisterSignal(H, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(drone_state_check))
+	RegisterSignal(H, COMSIG_CARBON_POST_REMOVE_LIMB, PROC_REF(on_limb_removed))
 
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
+/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species)
 	. = ..()
 	split_ability.Remove(H)
 	QDEL_NULL(split_ability)
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
-	qdel(drone_ref)
-	for(var/status_effect as anything in H.status_effects)
-		if(status_effect == /datum/status_effect/planthealing)
-			H.remove_status_effect(/datum/status_effect/planthealing)
+	qdel(drone_ref?.resolve())
+	drone_ref = null
+	H.remove_status_effect(/datum/status_effect/planthealing)
+
+	UnregisterSignal(H, list(COMSIG_LIVING_HEALTH_UPDATE, COMSIG_CARBON_POST_REMOVE_LIMB))
+
+/// removing a limb dumps nymph
+/datum/species/diona/proc/on_limb_removed(mob/living/carbon/human/source, obj/item/bodypart/limb, special, dismembered)
+	SIGNAL_HANDLER
+	if(special || limb.limb_id != SPECIES_DIONA || !(locate(/obj/item/organ/nymph_organ) in limb))
+		return
+	new /mob/living/simple_animal/hostile/retaliate/nymph(source.drop_location())
+	// delete next tick
+	QDEL_IN(limb, 0)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
@@ -237,7 +254,7 @@
 		gambling_nymph.adjustBruteLoss(50) // Aw dangit.
 		alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
 
-	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
+	if(nymph.stat == DEAD && length(alive_nymphs)) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
 		nymph = pick(alive_nymphs)
 	for(var/obj/item/I in H.contents) //Drop the player's items on the ground
 		H.dropItemToGround(I, TRUE)
@@ -282,25 +299,20 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "nymph"
 
-/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
+/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
+	// Being deleted is not a nymph leaving
+	if(special || QDELING(src) || !isdiona(organ_owner) || istype(organ_owner, /mob/living/carbon/human/dummy))
 		return
+	// delete next tick
+	QDEL_IN(src, 0)
 	var/obj/item/bodypart/body_part = organ_owner.get_bodypart(zone)
-	for(var/datum/surgery/organ_manipulation/surgery in organ_owner.surgeries)
-		surgery.Destroy()
 	if(istype(body_part, /obj/item/bodypart/chest)) //Does the same things as removing the brain would, since the torso is what keeps the diona together.
-		organ_owner.dna.species.spec_death(FALSE, src)
-		QDEL_NULL(src)
+		organ_owner.dna.species.spec_death(FALSE, organ_owner)
 		return
 	new /mob/living/simple_animal/hostile/retaliate/nymph(organ_owner.loc)
-	QDEL_NULL(body_part)
-	QDEL_NULL(src)
+	qdel(body_part)
 	organ_owner.update_body()
-
-/obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
-	Remove(C, FALSE)
-	forceMove(LB)
 
 /obj/item/organ/nymph_organ/r_arm
 	zone = BODY_ZONE_R_ARM
@@ -362,6 +374,12 @@
 			SPECIES_PERK_DESC = "When you're about to die, you explode into a pile of bugs to escape, but you are very vulnerable in this state!",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "shield-alt",
+			SPECIES_PERK_NAME = "Fibrous",
+			SPECIES_PERK_DESC = "Your tough plant fibres shrug off 30% of stamina damage.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "leaf",
 			SPECIES_PERK_NAME = "Planty",
@@ -377,7 +395,7 @@
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "weight-hanging",
 			SPECIES_PERK_NAME = "Bulky",
-			SPECIES_PERK_DESC = "As a plant, you aren't very nimble, walking takes more time for you.",
+			SPECIES_PERK_DESC = "As a plant, you aren't very nimble. Walking is slower, and you can't sprint.",
 		),
 	)
 	return to_add

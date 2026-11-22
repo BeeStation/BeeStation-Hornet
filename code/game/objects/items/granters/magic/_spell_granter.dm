@@ -83,11 +83,9 @@
 
 	var/static/list/spell_options
 	if(!spell_options)
-		spell_options = subtypesof(/datum/action/cooldown/spell)
+		spell_options = valid_subtypesof(/datum/action/cooldown/spell)
 		for(var/datum/action/cooldown/spell/spell as anything in spell_options)
 			if(initial(spell.school) in blacklisted_schools)
-				spell_options -= spell
-			if(initial(spell.name) == "Spell") // Abstract types
 				spell_options -= spell
 
 	granted_action = pick(spell_options)

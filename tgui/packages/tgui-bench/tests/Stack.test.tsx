@@ -1,7 +1,5 @@
 import { Stack } from 'tgui/components';
-import { createRenderer } from 'tgui/renderer';
-
-const render = createRenderer();
+import { render } from 'tgui/renderer';
 
 export const Default = () => {
   const node = (

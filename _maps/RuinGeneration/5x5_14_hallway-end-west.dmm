@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "g" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "y" = (
 /turf/template_noop,
 /area/template_noop)
@@ -14,14 +14,14 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 y

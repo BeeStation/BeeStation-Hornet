@@ -5,6 +5,7 @@
  * To use this template, all that's needed is for cast() to be implemented.
  */
 /datum/action/cooldown/spell/charged
+	abstract_type = /datum/action/cooldown/spell/charged
 	active_overlay_icon_state = "bg_spell_border_active_yellow"
 
 	/// What message do we display when we start chanelling?
@@ -117,6 +118,7 @@
  * If no targets are nearby, cancels the spell and refunds the cooldown.
  */
 /datum/action/cooldown/spell/charged/beam
+	abstract_type = /datum/action/cooldown/spell/charged/beam
 	/// The radius around the caster to find a target.
 	var/target_radius = 5
 	/// The maximum number of bounces the beam will go before stopping.

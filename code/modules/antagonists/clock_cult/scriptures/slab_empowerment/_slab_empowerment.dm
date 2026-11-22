@@ -80,7 +80,7 @@
 
 /**
  * Make sure we can interact with the target and then apply effects
- * Called from /datum/action/cooldown/spell/pointed/slab/InterceptClickOn()
+ * Called from /datum/action/cooldown/spell/pointed/slab/proc/InterceptClickOn()
  */
 /datum/clockcult/scripture/slab/proc/click_on(atom/clicked_on)
 	if(!invoker.can_interact_with(clicked_on))
@@ -135,6 +135,7 @@
 	return TRUE
 
 /datum/action/cooldown/spell/pointed/slab
+	name = "Slab Spell"
 	/// The scripture that this action will invoke
 	var/datum/clockcult/scripture/slab/parent_scripture
 

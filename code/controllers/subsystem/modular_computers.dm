@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(modular_computers)
 	name = "Modular Computers"
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 	///List of all ModPC logging
 	var/list/logs = list()

@@ -103,7 +103,7 @@
 			continue
 		potential_targets[potential_target] = next_removal_time
 		updated += potential_target
-	for(var/mob/living/potential_target as() in potential_targets - updated)
+	for(var/mob/living/potential_target as anything in potential_targets - updated)
 		if(world.time >= potential_targets[potential_target] || istype(potential_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			potential_targets -= potential_target
 	if(length(potential_targets) != original_length)

@@ -96,9 +96,10 @@
 		turbine.locate_machinery()
 
 /obj/machinery/power/compressor/RefreshParts()
+	. = ..()
 	var/E = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		E += M.tier
 	efficiency = E / 6
 
 /obj/machinery/power/compressor/examine(mob/user)
@@ -106,7 +107,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Efficiency at <b>[efficiency*100]%</b>.")
 
-/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return
 
@@ -185,9 +186,10 @@
 	connect_to_network()
 
 /obj/machinery/power/turbine/RefreshParts()
+	. = ..()
 	var/P = 0
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		P += C.rating
+	for(var/datum/stock_part/capacitor/C in component_parts)
+		P += C.tier
 	productivity = P / 6
 
 /obj/machinery/power/turbine/examine(mob/user)
@@ -239,7 +241,7 @@
 	if(lastgen > 100)
 		add_overlay(mutable_appearance(icon, "turb-o", FLY_LAYER))
 
-/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return
 
@@ -319,15 +321,15 @@
 
 /obj/machinery/computer/turbine_computer/locate_machinery()
 	if(id)
-		for(var/obj/machinery/power/compressor/C in GLOB.machines)
+		for(var/obj/machinery/power/compressor/C as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/compressor))
 			if(C.comp_id == id)
 				compressor = C
 				return
 	// Couldn't find compressor, time to do search indiscriminately
 	compressor = locate(/obj/machinery/power/compressor) in range(7, src)
 
-/obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "TurbineComputer")

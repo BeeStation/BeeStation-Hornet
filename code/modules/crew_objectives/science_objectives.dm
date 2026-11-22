@@ -47,7 +47,7 @@
 	for(var/found_design in temp_list)
 		var/datum/design/temp_design = new found_design
 		var/list/category_list = temp_design.category
-		if(!("initial" in category_list))
+		if(!(RND_CATEGORY_INITIAL in category_list))
 			possible_target_designs_list.Add(found_design)
 
 /datum/objective/crew/research/update_explanation_text()
@@ -55,4 +55,5 @@
 	explanation_text = "Make sure the research for [initial(target_design.name)] is available on the R&D server by the end of the shift."
 
 /datum/objective/crew/research/check_completion()
-	return ..() || SSresearch.science_tech.isDesignResearchedID(initial(target_design.id))
+	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+	return ..() || science_web.isDesignResearchedID(initial(target_design.id))

@@ -1,34 +1,34 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "h" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "o" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "x" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "N" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 N

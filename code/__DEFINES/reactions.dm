@@ -129,8 +129,10 @@
 
 /// The number of moles of hyper-noblium required to prevent reactions.
 #define REACTION_OPPRESSION_THRESHOLD 5
+/// Minimum temperature required for hypernoblium to prevent reactions.
+#define REACTION_OPPRESSION_MIN_TEMP 20
 
-#define STIM_BALL_GAS_AMOUNT				5
+#define STIM_BALL_GAS_AMOUNT 5
 #define PLUOXIUM_TEMP_CAP 200
 
 // Plasmic Fusion:

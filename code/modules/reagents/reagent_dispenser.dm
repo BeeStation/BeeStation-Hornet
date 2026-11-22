@@ -1,4 +1,5 @@
 /obj/structure/reagent_dispensers
+	abstract_type = /obj/structure/reagent_dispensers
 	name = "Dispenser"
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
@@ -52,7 +53,7 @@
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom()
 
-/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
+/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.is_refillable())
 		return 0 //so we can refill them via their afterattack.
 	if(istype(W, /obj/item/assembly_holder) && accepts_rig)
@@ -142,7 +143,7 @@
 				explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 6, flame_range = 8)
 	qdel(src)
 
-/obj/structure/reagent_dispensers/Moved(atom/old_loc, movement_dir)
+/obj/structure/reagent_dispensers/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(rig)
 		rig.on_move(old_loc, movement_dir)
@@ -199,7 +200,7 @@
 			log_bomber(P.firer, "detonated a", src, "via projectile")
 			boom()
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(!reagents.has_reagent(/datum/reagent/fuel))
 			to_chat(user, span_warning("[src] is out of fuel!"))
@@ -303,9 +304,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/peppertank, 30)
 	default_unfasten_wrench(user, I)
 	return TRUE
 
-/obj/structure/reagent_dispensers/plumbed/storage/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
 /obj/structure/reagent_dispensers/plumbed/storage
 	name = "stationairy storage tank"
 	icon_state = "tank_stationairy"
@@ -313,5 +311,5 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/peppertank, 30)
 
 /obj/structure/reagent_dispensers/plumbed/storage/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 	AddComponent(/datum/component/plumbing/tank)

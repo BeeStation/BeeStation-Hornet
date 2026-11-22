@@ -17,7 +17,7 @@
 		var/mob/living/carbon/carbon_weraer = item_parent.loc
 		register_touch_signals(carbon_weraer)
 
-/datum/component/transfer_reagents/Destroy(force, silent)
+/datum/component/transfer_reagents/Destroy(force)
 	. = ..()
 	QDEL_NULL(reagents)
 

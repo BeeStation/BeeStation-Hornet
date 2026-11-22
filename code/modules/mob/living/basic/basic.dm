@@ -1,5 +1,6 @@
 ///Simple animals 2.0, This time, let's really try to keep it simple. This basetype should purely be used as a base-level for implementing simplified behaviours for things such as damage and attacks. Everything else should be in components or AI behaviours.
 /mob/living/basic
+	abstract_type = /mob/living/basic
 	name = "basic mob"
 	icon = 'icons/mob/animal.dmi'
 	health = 20
@@ -13,8 +14,6 @@
 
 	///Defines how fast the basic mob can move. This is a multiplier
 	var/speed = 1
-	///How much stamina the mob recovers per second
-	var/stamina_recovery = 5
 
 	///how much damage this basic mob does to objects, if any.
 	var/obj_damage = 0
@@ -125,15 +124,9 @@
 	if(unsuitable_cold_damage != 0 && unsuitable_heat_damage != 0)
 		AddElement(/datum/element/basic_body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
 
-/mob/living/basic/Life(delta_time = SSMOBS_DT, times_fired)
-	. = ..()
-	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, forced = TRUE)
 
-/mob/living/basic/say_mod(input, list/message_mods = list())
-	if(length(speak_emote))
-		verb_say = pick(speak_emote)
-	return ..()
+/mob/living/basic/get_default_say_verb()
+	return length(speak_emote) ? pick(speak_emote) : ..()
 
 /mob/living/basic/death(gibbed)
 	. = ..()
@@ -174,7 +167,7 @@
 	. = ..()
 	if(stat != DEAD)
 		return
-	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_MIND_TRAIT(user, TRAIT_NAIVE) ? "asleep" : "dead"].")
+	. += generate_death_examine_text()
 
 /mob/living/basic/proc/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
@@ -220,9 +213,12 @@
 /mob/living/basic/compare_sentience_type(compare_type)
 	return sentience_type == compare_type
 
+/*
 /// Updates movement speed based on stamina loss
-/mob/living/basic/update_stamina()
-	set_varspeed(initial(speed) + (staminaloss * 0.06))
+/mob/living/basic/on_stamina_update()
+	. = ..()
+	set_varspeed(initial(speed) + (stamina.loss * 0.06))
+*/
 
 /mob/living/basic/on_fire_stack(delta_time, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	adjust_bodytemperature((maximum_survivable_temperature + (fire_handler.stacks * 12)) * 0.5 * delta_time)

@@ -41,7 +41,7 @@
 /obj/structure/aquarium/Initialize(mapload)
 	. = ..()
 	update_icon()
-	RegisterSignal(src,COMSIG_ATOM_ATTACKBY, PROC_REF(feed_feedback))
+	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(feed_feedback))
 
 
 /obj/structure/aquarium/proc/request_layer(layer_type)
@@ -100,7 +100,7 @@
 	if(default_unfasten_wrench(user,I))
 		return TRUE
 
-/obj/structure/aquarium/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/aquarium/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(broken)
 		var/obj/item/stack/sheet/glass/glass = I
 		if(istype(glass))
@@ -127,7 +127,7 @@
 			return ..()
 	return ..()
 
-/obj/structure/aquarium/proc/feed_feedback(datum/source, obj/item/thing, mob/user, params)
+/obj/structure/aquarium/proc/feed_feedback(datum/source, obj/item/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 	if(istype(thing, /obj/item/fish_feed))
 		to_chat(user,span_notice("You feed the fish."))

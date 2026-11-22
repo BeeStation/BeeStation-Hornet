@@ -19,39 +19,43 @@
 
 /// Gets the current manifest.
 /datum/manifest/proc/get_manifest()
-	/// assoc-ing to head names, so that we give their name an officer mark on crew manifest
-	var/static/list/heads
-	if(!heads) // do not do this in pre-runtime.
-		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-	/// Takes a result of each crew data in a format
+	// Pre-build the categories in manifest sort order (Command first, Misc last).
 	var/list/manifest_out = list()
-
-	for(var/datum/record/crew/person_record in GLOB.manifest.general)
-		var/name = person_record.name
-		var/rank = person_record.rank
-		var/hud = person_record.hud
-		var/dept_bitflags = person_record.active_department
-		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
-		if(dept_bitflags)
-			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
-				LAZYINITLIST(manifest_out[department.dept_id])
-				// Append to beginning of list if captain or department head
-				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPT_NAME_COMMAND && heads[rank])
-				var/list/_internal = manifest_out[department.dept_id]
-				_internal.Insert(put_at_top, list(entry))
-		else
-			LAZYINITLIST(manifest_out["Misc"])
-			var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (heads[rank])
-			var/list/_internal = manifest_out["Misc"]
-			_internal.Insert(put_at_top, list(entry))
-
-	// 'manifest_out' is not sorted.
-	var/list/sorted_out = list()
+	var/list/dept_to_category = list()
 	for(var/datum/department_group/department as anything in SSdepartment.sorted_department_for_manifest)
-		if(isnull(manifest_out[department.dept_id]))
+		manifest_out[department.manifest_category_name] = list()
+		dept_to_category[department.dept_id] = department.manifest_category_name
+
+	for(var/datum/record/crew/person_record as anything in GLOB.manifest.general)
+		var/name = person_record.name
+		var/rank = person_record.rank // user-visible job
+		var/hud = person_record.hud
+		var/datum/job/job = SSjob.name_occupations[person_record.job_title || rank]
+		// Skip jobs that aren't flagged for the crew manifest.
+		if(job && !(job.job_flags & JOB_CREW_MANIFEST))
 			continue
-		sorted_out[department.manifest_category_name] = manifest_out[department.dept_id] // this also changes a department name.
-	return sorted_out
+		// Append to beginning of list if captain or acting captain, regardless of department.
+		var/is_captain = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN)
+		var/list/entry = list(
+			"name" = name,
+			"rank" = rank,
+			"hud" = hud,
+		)
+		var/list/placements = list()
+		add_job_placements(placements, job, is_captain, dept_to_category)
+		add_job_placements(placements, person_record.get_acting_job(), is_captain, dept_to_category)
+		if(!length(placements) && (!job || !LAZYLEN(job.departments_list)))
+			placements[dept_to_category[DEPARTMENT_NAME_UNASSIGNED]] = is_captain
+		for(var/category in placements)
+			var/list/department_list = manifest_out[category]
+			department_list.Insert(placements[category] ? 1 : 0, list(entry))
+
+	// Trim empty categories.
+	for(var/category in manifest_out)
+		if(!length(manifest_out[category]))
+			manifest_out -= category
+
+	return manifest_out
 
 /// Returns the manifest as an html.
 /datum/manifest/proc/get_html(monochrome = FALSE)
@@ -84,71 +88,106 @@
 
 /datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal = FALSE)
 	set waitfor = FALSE
+	var/datum/job/job = person.mind?.assigned_role
+	if(!job || !(job.job_flags & JOB_CREW_MANIFEST))
+		return
 
-	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
-	COMPILE_OVERLAYS(person)
+	var/assignment = person.mind?.assigned_role?.title || "None"
+	var/obj/item/card/id/id_card = person.get_idcard(hand_first = FALSE)
+	var/datum/access_grant/acting_head/acting_head = id_card?.acting_head
+
 	var/mutable_appearance/character_appearance = new(person.appearance)
 	var/datum/dna/stored/record_dna = new()
-	person.dna.copy_dna(record_dna)
+	person.dna.copy_dna_to(record_dna)
 	var/gender_string = "Other"
 	if(person.gender == MALE)
 		gender_string = "Male"
 	if(person.gender == FEMALE)
 		gender_string = "Female"
-	var/assignment = person.mind?.assigned_role
-	if(isnull(assignment))
-		assignment = "None"
 	var/datum/bank_account/bank_account = person.get_bank_account()
 
 	var/datum/record/locked/lockfile = new(
-		age = person.age,
-		blood_type = record_dna.blood_type,
-		character_appearance = character_appearance,
-		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.unique_identity),
-		gender = gender_string,
-		initial_rank = assignment,
-		name = person.real_name,
-		rank = assignment,
-		species = record_dna.species,
-		hud = person.get_job_id(),
+		RECORD_GENERAL_STRICT_ARGS(
+			age = person.age,
+			blood_type = record_dna.blood_type,
+			character_appearance = character_appearance,
+			unique_enzymes = record_dna.unique_enzymes,
+			unique_identity = record_dna.unique_identity,
+			fingerprint = md5(record_dna.unique_identity),
+			gender = gender_string,
+			initial_rank = assignment,
+			name = person.real_name,
+			rank = assignment,
+			species = record_dna.species,
+			hud = person.get_job_id(),
+			active_department = bank_account.active_departments),
 		// Locked specifics
-		weakref_dna = WEAKREF(record_dna),
-		weakref_mind = WEAKREF(person.mind),
+		RECORD_LOCK_STRICT_ARGS(
+			weakref_dna = WEAKREF(record_dna),
+			weakref_mind = WEAKREF(person.mind),
+			datum_dna = record_dna)
 	)
 
-	new /datum/record/crew(
-		age = person.age,
-		blood_type = record_dna.blood_type,
-		character_appearance = character_appearance,
-		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.unique_identity),
-		gender = gender_string,
-		initial_rank = assignment,
-		name = person.real_name,
-		rank = assignment,
-		species = record_dna.species,
-		active_department = bank_account.active_departments,
+	var/datum/record/crew/crew_record = new(
+		RECORD_GENERAL_STRICT_ARGS(
+			age = person.age,
+			blood_type = record_dna.blood_type,
+			character_appearance = character_appearance,
+			unique_enzymes = record_dna.unique_enzymes,
+			unique_identity = record_dna.unique_identity,
+			fingerprint = md5(record_dna.unique_identity),
+			gender = gender_string,
+			initial_rank = assignment,
+			name = person.real_name,
+			rank = acting_head ? id_card.get_assignment() : assignment,
+			species = record_dna.species,
+			hud = person.get_job_id(),
+			active_department = bank_account.active_departments),
 		// Crew specific
-		lock_ref = FAST_REF(lockfile),
-		major_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE),
-		major_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MAJOR_DISABILITY),
-		minor_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, from_scan = TRUE),
-		minor_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY),
-		quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
-		hud = person.get_job_id(),
+		RECORD_CREW_STRICT_ARGS(
+			lock_ref = FAST_REF(lockfile),
+			medical_notes = null,
+			major_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE),
+			major_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MAJOR_DISABILITY),
+			minor_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, from_scan = TRUE),
+			minor_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY),
+			physical_status = null,
+			mental_status = null,
+			quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
+			security_note = null,
+			wanted_status = null)
 	)
+	crew_record.job_title = assignment
 	if(!nosignal)
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
+/// Adds the job's manifest categories to placements, each mapped to whether the entry goes at the top
+/datum/manifest/proc/add_job_placements(list/placements, datum/job/job, is_captain, list/dept_to_category)
+	if(!job)
+		return
+	for(var/department_type in job.departments_list)
+		// Jobs under multiple departments only display under their first department, plus command for command jobs.
+		if(job.departments_list[1] != department_type && !(job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND))
+			continue
+		var/datum/department_group/department = SSdepartment.department_datums_by_type[department_type]
+		if(!department)
+			stack_trace("get_manifest() failed to get job department for [department_type] of [job.type]")
+			continue
+		var/category = dept_to_category[department.dept_id]
+		if(isnull(category)) // department has jobs but isn't shown on the crew manifest
+			continue
+		// Goes at the top for the captain, acting captain, or this department's head.
+		placements[category] = placements[category] || is_captain || istype(job, department.department_head)
+
 /// Edits the rank of the found record.
-/datum/manifest/proc/modify(name, assignment, hud_state)
+/datum/manifest/proc/modify(name, assignment, hud_state, job_title)
 	var/datum/record/crew/target = find_record(name, GLOB.manifest.general)
 	if(!target)
 		return
 
 	target.rank = assignment
 	target.hud = hud_state
+	target.job_title = job_title
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /**

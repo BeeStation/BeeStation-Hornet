@@ -110,6 +110,8 @@
   * * text - The text content of the overlay
   * * target - The target atom to display the overlay at
   * * owner - The mob that owns this overlay, only this mob will be able to view it
+  * * hearers - The clients that can see this message
+  * * language - The language this message was spoken in
   * * extra_classes - Extra classes to apply to the span that holds the text
   * * lifespan - The lifespan of the message in deciseconds
   */
@@ -122,7 +124,7 @@
 	generate_image( text, target, hearers, language_icon, extra_classes, lifespan)
 
 /datum/chatmessage/Destroy()
-	for (var/datum/chatmessage_group/group as() in groups)
+	for (var/datum/chatmessage_group/group as anything in groups)
 		group.clients = null
 	if (hearers_to_groups)
 		for(var/client/C in hearers_to_groups)
@@ -156,7 +158,7 @@
 
 	var/client/first_hearer = hearers[1]
 
-	for(var/client/C as() in hearers)
+	for(var/client/C as anything in hearers)
 		if(C)
 			RegisterSignal(C, COMSIG_QDELETING, PROC_REF(client_deleted))
 
@@ -178,7 +180,7 @@
 				if(H.wear_id?.GetID())
 					var/obj/item/card/id/idcard = H.wear_id.GetID()
 					if(idcard)
-						tgt_color = get_chatcolor_by_hud(idcard.hud_state)
+						tgt_color = get_chatcolor_by_hud(idcard.get_hud_state())
 				else
 					tgt_color = COLOR_PERSON_UNKNOWN
 			else
@@ -232,7 +234,7 @@
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
 	// Approximate text height
-	complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
+	complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.apply_message_emphasis(text)]</span>"
 	approx_lines = length(text) / MESSAGE_LINE_LENGTH_ESTIMATE
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
@@ -242,8 +244,8 @@
 	if (current_z_idx >= CHAT_LAYER_MAX_Z)
 		current_z_idx = 0
 
-	var/bound_height = world.icon_size
-	var/bound_width = world.icon_size
+	var/bound_height = ICON_SIZE_Y
+	var/bound_width = ICON_SIZE_X
 	if(ismovable(message_loc))
 		var/atom/movable/AM = message_loc
 		bound_height = AM.bound_height
@@ -270,7 +272,7 @@
 	group.clients = hearers
 
 	// Show the message to clients
-	for(var/client/C as() in hearers)
+	for(var/client/C as anything in hearers)
 		C?.images |= group.message
 		if (!C)
 			continue
@@ -310,9 +312,9 @@
 		// message_loc.chat_messages will be in the range 0-4
 		// Hearers will likely be in the range of 2-8 (actually it could be higher depending on ghosts)
 		// Groups will likely be in the range of 1-4 per message
-		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
+		for(var/datum/chatmessage/m as anything in message_loc.chat_messages)
 			// Find the clients that we share listeners with
-			for (var/datum/chatmessage_group/group as() in m.groups)
+			for (var/datum/chatmessage_group/group as anything in m.groups)
 				// Subdivide into 2 groups, the original group and
 				// a new group representing people that can see this
 				// new message
@@ -325,7 +327,7 @@
 				// group's client list (explained below).
 				var/reset = FALSE
 				// Find all the people in our group that should be a part of the new group
-				// Not using as() since this one has a higher probability of getting messed
+				// Not using as anything since this one has a higher probability of getting messed
 				// up by hard-dels
 				for (var/client/client in group.clients)
 					// Since we are looping on a copy internally, lets wipe the group
@@ -368,7 +370,7 @@
 			// scheduled time once the EOL has been executed.
 			if (!m.isFading)
 				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
-				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
+				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** ceil(combined_height))
 				if (remaining_time)
 					deltimer(m.fadertimer, SSrunechat)
 					m.fadertimer = addtimer(CALLBACK(m, PROC_REF(end_of_life)), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
@@ -392,7 +394,7 @@
   */
 /datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
 	isFading = TRUE
-	for (var/datum/chatmessage_group/group as() in groups)
+	for (var/datum/chatmessage_group/group as anything in groups)
 		animate(group.message, alpha = 0, pixel_y = group.message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
@@ -442,7 +444,7 @@
  * * raw_message - The text content of the message
  * * spans - Additional classes to be added to the message
  */
-/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
+/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods, runechat_flags = NONE)
 	if(!length(hearers))
 		return
 
@@ -458,8 +460,8 @@
 	var/handled_message = raw_message
 
 	// Message language override, if no language was spoken emote 'makes a strange noise'
-	if(!message_language && !message_mods[CHATMESSAGE_EMOTE])
-		message_mods[CHATMESSAGE_EMOTE] = TRUE
+	if(!message_language && !(runechat_flags & EMOTE_MESSAGE))
+		runechat_flags |= EMOTE_MESSAGE
 		handled_message = "makes a strange sound."
 
 	// Check for virtual speakers (aka hearing a message through a radio)
@@ -476,9 +478,9 @@
 		spans -= "italics"
 
 	// Display visual above source
-	if(message_mods.Find(CHATMESSAGE_EMOTE))
+	if(runechat_flags & EMOTE_MESSAGE)
 		var/list/clients = list()
-		for(var/mob/M as() in hearers)
+		for(var/mob/M as anything in hearers)
 			if(M?.should_show_chat_message(speaker, message_language, TRUE))
 				clients += M.client
 		new /datum/chatmessage(handled_message, speaker, clients, message_language, list("emote"))
@@ -492,7 +494,7 @@
 		var/list/client/hide_icon_understand
 		var/list/client/show_icon_scrambled
 		var/list/client/hide_icon_scrambled
-		for(var/mob/M as() in hearers)
+		for(var/mob/M as anything in hearers)
 			switch(M?.should_show_chat_message(speaker, message_language, FALSE))
 				if(CHATMESSAGE_HEAR)
 					if(!message_language || M.has_language(message_language))
@@ -573,7 +575,7 @@
 
 /datum/chatmessage/balloon_alert/end_of_life(fadetime = BALLOON_TEXT_FADE_TIME)
 	isFading = TRUE
-	for (var/datum/chatmessage_group/group as() in groups)
+	for (var/datum/chatmessage_group/group as anything in groups)
 		animate(group.message, alpha = 0, pixel_y = group.message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
@@ -581,7 +583,7 @@
 	// Register client who owns this message
 	var/client/owned_by = owner.client
 
-	var/bound_width = world.icon_size
+	var/bound_width = ICON_SIZE_X
 	if (ismovable(target))
 		var/atom/movable/movable_source = target
 		bound_width = movable_source.bound_width
@@ -592,7 +594,7 @@
 		message_loc = get_atom_on_turf(target)
 
 	if(LAZYLEN(message_loc.balloon_alerts))
-		for(var/datum/chatmessage/balloon_alert/m as() in message_loc.balloon_alerts)  //We get rid of old alerts so it doesn't clutter up the screen
+		for(var/datum/chatmessage/balloon_alert/m as anything in message_loc.balloon_alerts)  //We get rid of old alerts so it doesn't clutter up the screen
 			if (!m.isFading)
 				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
 				if (sched_remaining)
@@ -627,7 +629,7 @@
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + world.icon_size) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
+	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + ICON_SIZE_Y) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
 	LAZYADD(message_loc.balloon_alerts, src)
 
@@ -636,7 +638,7 @@
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
 /atom/proc/transfer_messages_to(atom/new_location)
-	for (var/datum/chatmessage/message as() in chat_messages)
+	for (var/datum/chatmessage/message as anything in chat_messages)
 		message.transfer_to(new_location)
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN

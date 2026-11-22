@@ -17,4 +17,4 @@
 	jungle_decoration = list(/obj/structure/geyser/random = 30, null = 60, /mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = 6)
 
 /area/planet/lavaland
-	lighting_overlay_colour = "#cfb793"
+	base_lighting_color = "#cfb793"

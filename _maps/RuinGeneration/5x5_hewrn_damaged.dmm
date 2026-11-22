@@ -4,35 +4,35 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "A" = (
 /turf/template_noop,
 /area/template_noop)
 "G" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Q" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
 "Z" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 Q

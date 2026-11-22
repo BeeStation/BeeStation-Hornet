@@ -1,4 +1,5 @@
 /obj/item/restraints
+	abstract_type = /obj/item/restraints
 	breakouttime = 1 MINUTES
 	item_flags = ISWEAPON
 
@@ -18,7 +19,7 @@
 	worn_icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -43,6 +44,8 @@
 		return
 
 	SEND_SIGNAL(C, COMSIG_CARBON_CUFF_ATTEMPTED, user)
+
+	user.do_item_attack_animation(C, used_item = src)
 
 	if(iscarbon(user) && (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50)))
 		to_chat(user, span_warning("Uh... how do those things work?!"))
@@ -110,20 +113,14 @@
 /obj/item/restraints/handcuffs/cable/yellow
 	color = COLOR_YELLOW
 
-/obj/item/restraints/handcuffs/cable/blue
-	color = "#1919c8"
-
 /obj/item/restraints/handcuffs/cable/green
-	color = "#00aa00"
+	color = COLOR_DARK_LIME
 
 /obj/item/restraints/handcuffs/cable/pink
-	color = "#ff3ccd"
+	color = COLOR_LIGHT_PINK
 
 /obj/item/restraints/handcuffs/cable/orange
-	color = "#ff8000"
-
-/obj/item/restraints/handcuffs/cable/cyan
-	color = COLOR_CYAN
+	color = COLOR_MOSTLY_PURE_ORANGE
 
 /obj/item/restraints/handcuffs/cable/white
 	color = null
@@ -150,7 +147,7 @@
 	custom_price = 10
 	max_demand = 10
 
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
@@ -210,7 +207,7 @@
 	icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	slowdown = 7
@@ -327,6 +324,7 @@
 	breakouttime = 2 SECONDS // Cyborgs shouldn't have a strong restraint
 
 /obj/item/restraints/legcuffs/beartrap/energy/emp_act(severity)
+	. = ..()
 	do_sparks(1, TRUE, src)
 	qdel(src)
 

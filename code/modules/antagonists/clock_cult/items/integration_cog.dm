@@ -5,7 +5,7 @@
 	clockwork_desc = span_brass("A sharp cog that can cut through and be inserted into APCs to extract power for the gateway.")
 	item_flags = ISWEAPON
 
-/obj/item/clockwork/integration_cog/attack_atom(atom/attacked_atom, mob/living/user, params)
+/obj/item/clockwork/integration_cog/attack_atom(atom/attacked_atom, mob/living/user, list/modifiers)
 	if(!IS_SERVANT_OF_RATVAR(user))
 		return ..()
 	if(!istype(attacked_atom, /obj/machinery/power/apc))

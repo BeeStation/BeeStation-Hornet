@@ -4,7 +4,7 @@
 
 PROCESSING_SUBSYSTEM_DEF(quirks)
 	name = "Quirks"
-	flags = SS_BACKGROUND
+	ss_flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME
 	wait = 1 SECONDS
 
@@ -36,7 +36,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 	// Sort by Positive, Negative, Neutral; and then by name
 	var/list/quirk_list = sort_list(subtypesof(/datum/quirk), GLOBAL_PROC_REF(cmp_quirk_asc))
 
-	for(var/datum/quirk/T as() in quirk_list)
+	for(var/datum/quirk/T as anything in quirk_list)
 		quirks[initial(T.name)] = T
 		quirk_points[initial(T.name)] = initial(T.quirk_value)
 

@@ -6,7 +6,6 @@
 	They are used with the client/screen list and the screen_loc var.
 	For more information, see the byond documentation on the screen_loc and screen vars.
 */
-
 /atom/movable/screen
 	name = ""
 	icon = 'icons/hud/screen_gen.dmi'
@@ -33,14 +32,32 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+
 	///Can we throw things at this
 	var/can_throw_target = FALSE
+	/// If TRUE, clicking the screen element will fall through and perform a default "Click" call
+	/// Obviously this requires your Click override, if any, to call parent on their own.
+	/// This is set to FALSE to default to dissade you from doing this.
+	/// Generally we don't want default Click stuff, which results in bugs like using Telekinesis on a screen element
+	/// or trying to point your gun at your screen.
+	var/default_click = FALSE
 
 /atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
 		return
 	set_new_hud(hud_owner)
+
+/atom/movable/screen/Destroy()
+	master_ref = null
+	hud = null
+	return ..()
+
+/atom/movable/screen/Click(location, control, params)
+	if(flags_1 & INITIALIZED_1)
+		SEND_SIGNAL(src, COMSIG_SCREEN_ELEMENT_CLICK, location, control, params, usr)
+	if(default_click)
+		return ..()
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -151,6 +168,16 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
+	// At this point in client Click() code we have passed the 1/10 sec check and little else
+	// We don't even know if it's a middle click
+	if(world.time <= usr.next_move)
+		return TRUE
+
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_STASIS))
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
+
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
@@ -211,7 +238,7 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
+	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		item_overlay.color = COLOR_RED
 	else
 		item_overlay.color = COLOR_VIBRANT_LIME
@@ -229,7 +256,7 @@
 	. = ..()
 
 	if(!handcuff_overlay)
-		var/state = (!(held_index % 2)) ? "markus" : "gabrielle"
+		var/state = IS_RIGHT_INDEX(held_index) ? "markus" : "gabrielle"
 		handcuff_overlay = mutable_appearance('icons/hud/screen_gen.dmi', state)
 
 	if(!hud?.mymob)
@@ -245,7 +272,7 @@
 				. += blocked_overlay
 
 	if(held_index == hud.mymob.active_hand_index)
-		. += (held_index % 2) ? "lhandactive" : "rhandactive"
+		. += IS_LEFT_INDEX(held_index) ? "lhandactive" : "rhandactive"
 
 /atom/movable/screen/inventory/hand/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -360,22 +387,44 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "running"
 	mouse_over_pointer = MOUSE_HAND_POINTER
+	var/tip_timer
 
 /atom/movable/screen/mov_intent/Click()
 	toggle(usr)
 
+/atom/movable/screen/mov_intent/MouseEntered(location, control, params)
+	. = ..()
+	if(!isliving(usr) || QDELETED(src))
+		return
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay) / 100
+		tip_timer = addtimer(CALLBACK(src, PROC_REF(open_tip), params, usr), timedelay, TIMER_STOPPABLE)
+
+/atom/movable/screen/mov_intent/proc/open_tip(params, mob/living/user)
+	var/content = "Click to switch between walking and running."
+	if(user.get_move_intent_by_flag(MOVE_INTENT_QUICK))
+		var/list/sprint_keys = user.client?.prefs.key_bindings["Sprint"]
+		content += "<br>[length(sprint_keys) ? "Hold [english_list(sprint_keys, and_text = " or ")]" : "Bind a sprint key"] to sprint. Sprinting burns stamina."
+	openToolTip(user, src, params, title = "Walk/Run", content = content)
+
+/atom/movable/screen/mov_intent/MouseExited(location, control, params)
+	. = ..()
+	deltimer(tip_timer)
+	closeToolTip(usr)
+
 /atom/movable/screen/mov_intent/update_icon_state()
-	switch(hud?.mymob?.m_intent)
-		if(MOVE_INTENT_WALK)
-			icon_state = "walking"
-		if(MOVE_INTENT_RUN)
-			icon_state = "running"
+	if(!hud || !hud.mymob || !isliving(hud.mymob))
+		return
+	var/mob/living/living_hud_owner = hud.mymob
+	icon_state = living_hud_owner.move_intent.hud_icon_state
+	//There's no sprint icon in the UI styles, so sprinting lights up the running one
+	color = MOVING_QUICKLY(living_hud_owner) ? list(1,0,0, 0,1,0, 0,0,1, 0.25,0.25,0.25) : null
 	return ..()
 
-/atom/movable/screen/mov_intent/proc/toggle(mob/user)
-	if(isobserver(user))
+/atom/movable/screen/mov_intent/proc/toggle(mob/living/user)
+	if(!istype(user))
 		return
-	user.toggle_move_intent(user)
+	user.set_next_usable_move_intent()
 
 /atom/movable/screen/pull
 	name = "stop pulling"
@@ -435,8 +484,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon_state = "block"
 	screen_loc = "7,7 to 10,8"
 	plane = HUD_PLANE
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/storage/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
@@ -444,10 +491,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	. = ..()
 	master_ref = WEAKREF(new_master)
 
-/atom/movable/screen/storage/attackby(location, control, params)
+/atom/movable/screen/storage/Click(location, control, params)
 	var/datum/storage/storage_master = master_ref?.resolve()
 	if(!istype(storage_master))
 		return FALSE
+
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.incapacitated)
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)
@@ -573,6 +627,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if(choice != selecting)
 		selecting = choice
 		update_icon()
+		SEND_SIGNAL(user, COMSIG_MOB_SELECTED_ZONE_SET, choice)
 
 	return TRUE
 
@@ -643,17 +698,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "corehealth"
 	screen_loc = ui_blobbernaut_overmind_health
-
-/atom/movable/screen/healths/clock
-	icon = 'icons/hud/actions/action_generic.dmi'
-	icon_state = "bg_clock"
-	screen_loc = ui_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/clock/gear
-	icon = 'icons/mob/clockwork_mobs.dmi'
-	icon_state = "bg_gear"
-	screen_loc = ui_internal
 
 /atom/movable/screen/healths/revenant
 	name = "essence"
@@ -784,5 +828,69 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 
 /atom/movable/screen/stamina
 	name = "stamina"
-	icon_state = "stamina0"
+	icon_state = "stamina_full"
 	screen_loc = ui_stamina
+	///Are we pulsing to warn that exhaustion is close?
+	var/warning = FALSE
+	var/tip_timer
+
+/atom/movable/screen/stamina/proc/set_warning(new_warning)
+	if(warning == new_warning)
+		return
+	warning = new_warning
+	if(warning)
+		animate(src, color = "#ff4040", time = 0.4 SECONDS, loop = -1, easing = SINE_EASING)
+		animate(color = null, time = 0.4 SECONDS)
+	else
+		animate(src)
+		color = null
+
+/atom/movable/screen/stamina/Click(location, control, params)
+	if (iscarbon(usr))
+		var/mob/living/carbon/C = usr
+		var/status = "You have [round(C.stamina.current)]/[C.stamina.maximum] stamina, and are regenerating [round(C.stamina.regen_rate, 0.1)] per second"
+		if(HAS_TRAIT(C, TRAIT_STAMINA_DRAINS_POWER))
+			status = "You have [round(C.get_stamina_power() * 100)]% charge"
+			if(C.stamina.current < C.stamina.maximum)
+				status += " and [round(C.stamina.current)]/[C.stamina.maximum] stamina"
+		var/content = {"
+		<div class='notice'>
+			[span_boldnotice("[status]. [exhaustion_text(C)].")]
+		</div>
+		"}
+		to_chat(C, content)
+
+/atom/movable/screen/stamina/MouseEntered(location, control, params)
+	. = ..()
+	if(!isliving(usr) || QDELETED(src))
+		return
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay) / 100
+		tip_timer = addtimer(CALLBACK(src, PROC_REF(open_tip), params, usr), timedelay, TIMER_STOPPABLE)
+
+/atom/movable/screen/stamina/proc/open_tip(params, mob/living/user)
+	if(iscarbon(user) && HAS_TRAIT(user, TRAIT_STAMINA_DRAINS_POWER))
+		var/mob/living/carbon/carbon_user = user
+		var/tip = "Charge: [round(carbon_user.get_stamina_power() * 100)]%<br>"
+		if(user.stamina.current < user.stamina.maximum)
+			tip += "Stamina: [round(user.stamina.current)]/[user.stamina.maximum]<br>"
+		openToolTip(user, src, params, title = "Charge", content = "[tip][exhaustion_text(user)]")
+		return
+	var/content = {"
+		Stamina: [round(user.stamina.current)]/[user.stamina.maximum]<br>
+		Regen: [round(user.stamina.regen_rate, 0.1)]/s<br>
+		[exhaustion_text(user)]
+	"}
+	openToolTip(user, src, params, title = "Stamina", content = content)
+
+/atom/movable/screen/stamina/MouseExited(location, control, params)
+	. = ..()
+	deltimer(tip_timer)
+	closeToolTip(usr)
+
+/atom/movable/screen/stamina/proc/exhaustion_text(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_EXHAUSTED))
+		return "Exhausted until [round(user.stamina.maximum * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER)] stamina"
+	if(HAS_TRAIT(user, TRAIT_STAMINA_DRAINS_POWER))
+		return "Low power below [round(ETHEREAL_CHARGE_LOWPOWER / ETHEREAL_CHARGE_FULL * 100)]%"
+	return "Exhausted below [round(user.stamina.maximum * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER)] stamina"

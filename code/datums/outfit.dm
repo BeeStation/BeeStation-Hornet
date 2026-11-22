@@ -14,6 +14,8 @@
   * that can be restored at a later date
   */
 /datum/outfit
+	abstract_type = /datum/outfit
+
 	///Name of the outfit (shows up in the equip admin verb)
 	var/name = "Naked"
 
@@ -98,6 +100,11 @@
 	  */
 	var/list/implants = null
 
+	/// Any undershirt. While on humans it is a string, here we use paths to stay consistent with the rest of the equips.
+	var/datum/sprite_accessory/clothing/undershirt = null
+	var/datum/sprite_accessory/clothing/underwear = null
+	var/datum/sprite_accessory/clothing/socks = null
+
 	/// Any clothing accessory item
 	var/accessory = null
 
@@ -161,7 +168,20 @@
   */
 /datum/outfit/proc/equip(mob/living/carbon/human/user, visuals_only = FALSE)
 	pre_equip(user, visuals_only)
+	return finish_equip(user, visuals_only)
 
+/**
+  * Equips all defined types and paths to the mob passed in, minus the pre_equip() step
+  *
+  * Split out from equip() so callers (like the loadout system) can insert overrides
+  * between pre_equip() and the actual slot equipping.
+  *
+  * Extra Arguments
+  * * visuals_only true if this is only for display (in the character setup screen)
+  *
+  * If visuals_only is true, you can omit any work that doesn't visually appear on the character sprite
+  */
+/datum/outfit/proc/finish_equip(mob/living/carbon/human/user, visuals_only = FALSE)
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
 		EQUIP_OUTFIT_ITEM(uniform, ITEM_SLOT_ICLOTHING)
@@ -187,8 +207,6 @@
 		EQUIP_OUTFIT_ITEM(back, ITEM_SLOT_BACK)
 	if(id)
 		EQUIP_OUTFIT_ITEM(id, ITEM_SLOT_ID)
-	if(suit_store)
-		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
 
 	if(!visuals_only && user.wear_id)
 		var/obj/item/card/id/id_card = user.wear_id
@@ -197,6 +215,18 @@
 
 		if(istype(id_card)) //Make sure that we actually found an ID to modify, otherwise this runtimes and cancels equipping the outfit
 			id_card.registered_age = user.age
+
+	if(suit_store)
+		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
+
+	if(undershirt)
+		user.undershirt = initial(undershirt.name)
+
+	if(underwear)
+		user.underwear = initial(underwear.name)
+
+	if(socks)
+		user.socks = initial(socks.name)
 
 	if(accessory)
 		var/obj/item/clothing/under/U = user.w_uniform
@@ -225,10 +255,10 @@
 		if(backpack_contents)
 			for(var/path in backpack_contents)
 				var/number = backpack_contents[path]
-				if(!isnum_safe(number))//Default to 1
+				if(!IS_FINITE(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
-					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)
+					user.equip_to_storage(SSwardrobe.provide_type(path, user), ITEM_SLOT_BACK, del_on_fail = TRUE)
 
 	if(!user.head && toggle_helmet && istype(user.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = user.wear_suit

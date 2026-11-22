@@ -36,6 +36,11 @@
 		COMSIG_MOB_STATCHANGE,
 	))
 
+/// Named pets don't get overrided. Earn your keep, unique_pet.
+/datum/element/wears_collar/proc/is_renameable(mob/living/source)
+	var/mob/living/basic/pet/pet_source = source
+	return !istype(pet_source) || !pet_source.unique_pet
+
 /datum/element/wears_collar/proc/on_stat_change(mob/living/source)
 	SIGNAL_HANDLER
 
@@ -47,6 +52,8 @@
 
 	if(!istype(moved, /obj/item/clothing/neck/petcollar))
 		return
+	if(!is_renameable(source))
+		return
 	source.fully_replace_character_name(null, source::name)
 	if(collar_icon_state)
 		source.update_appearance()
@@ -56,12 +63,14 @@
 
 	if(!istype(new_collar) || !new_collar.tagname)
 		return
+	if(!is_renameable(source))
+		return
 
 	source.fully_replace_character_name(null, "\proper [new_collar.tagname]")
 	if(collar_icon_state)
 		source.update_appearance()
 
-/datum/element/wears_collar/proc/attach_collar(atom/source, atom/movable/attacking_item, atom/user, params)
+/datum/element/wears_collar/proc/attach_collar(atom/source, atom/movable/attacking_item, atom/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!istype(attacking_item, /obj/item/clothing/neck/petcollar))

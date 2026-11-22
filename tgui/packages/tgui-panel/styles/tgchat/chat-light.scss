@@ -669,6 +669,15 @@ h2.alert {
   color: hsl(240, 100%, 50%);
 }
 
+.subtlenotice {
+  color: hsl(219, 90%, 50%);
+}
+
+.hear {
+  color: hsl(240, 100%, 30%);
+  font-style: italic;
+}
+
 .adminhelp {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
@@ -729,6 +738,11 @@ h2.alert {
 .green {
   color: hsl(132.9, 100%, 50.6%);
 }
+
+.grey {
+  color: hsl(0, 0%, 51.4%);
+}
+
 .red {
   color: hsl(0, 100%, 50%);
 }
@@ -738,6 +752,12 @@ h2.alert {
 .nicegreen {
   color: hsl(132.6, 78.7%, 36.9%);
 }
+
+.boldnicegreen {
+  color: hsl(132.6, 78.7%, 36.9%);
+  font-weight: bold;
+}
+
 .shadowling {
   color: hsl(258.2, 45.8%, 28.2%);
 }
@@ -765,6 +785,7 @@ h2.alert {
   font-weight: bold;
   font-size: 24px;
 }
+
 .narsie {
   color: hsl(2, 43.8%, 41.2%);
   font-weight: bold;
@@ -837,6 +858,21 @@ h2.alert {
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
+}
+
+.awe {
+  color: hsl(240, 100%, 30%);
+  animation: aweGlow 2s ease-in-out infinite;
+}
+
+@keyframes aweGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgb(255, 131, 197);
+  }
+  50% {
+    text-shadow: 0 0 16px rgb(255, 0, 136);
+  }
 }
 
 .deconversion_message {

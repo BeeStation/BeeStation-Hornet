@@ -10,7 +10,7 @@
 	var/static/warn_once = TRUE
 	for(var/turf/each_turf in get_affected_turfs(T))
 		each_turf.holodeck_compatible = TRUE
-		if(warn_once && !istype(get_area(each_turf), /area/holodeck))
+		if(warn_once && !istype(get_area(each_turf), /area/station/holodeck))
 			message_admins("Holodeck template '[name]' does not have /area/template_noop")
 			stack_trace("Holodeck template '[name]' does not have /area/template_noop")
 			warn_once = FALSE

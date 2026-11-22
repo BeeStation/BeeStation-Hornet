@@ -112,7 +112,7 @@
 	if(installed_bin.rating < 4)
 		. += "You could increase the capacity with a better matter bin..."
 
-/obj/item/ammo_box/magazine/pipem9mm/attackby(obj/item/A, mob/user, params, silent = FALSE)
+/obj/item/ammo_box/magazine/pipem9mm/attackby(obj/item/A, mob/user, list/modifiers, silent = FALSE)
 	if(istype(A, /obj/item/stock_parts/matter_bin))
 		var/obj/item/stock_parts/B = A
 		if(B.rating <= installed_bin.rating)

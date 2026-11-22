@@ -19,7 +19,7 @@
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(handle_examine))
 	RegisterSignals(target, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)), PROC_REF(secondary_tool_act))
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
-	target.update_icon()
+	target.update_appearance()
 
 /datum/element/rust/Detach(atom/source)
 	. = ..()
@@ -27,7 +27,7 @@
 	UnregisterSignal(source, COMSIG_ATOM_EXAMINE)
 	UnregisterSignal(source, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)))
 	REMOVE_TRAIT(source, TRAIT_RUSTY, REF(src))
-	source.update_icon()
+	source.update_appearance()
 
 /datum/element/rust/proc/handle_examine(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
@@ -35,13 +35,14 @@
 
 /datum/element/rust/proc/apply_rust_overlay(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER
-	overlays += rust_overlay
+	if(rust_overlay)
+		overlays += rust_overlay
 
 /// Because do_after sleeps we register the signal here and defer via an async call
 /datum/element/rust/proc/secondary_tool_act(atom/source, mob/user, obj/item/item)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(handle_tool_use), source, user, item)
-	return COMPONENT_BLOCK_TOOL_ATTACK
+	return ITEM_INTERACT_BLOCKING
 
 /// We call this from secondary_tool_act because we sleep with do_after
 /datum/element/rust/proc/handle_tool_use(atom/source, mob/user, obj/item/item)
@@ -49,14 +50,14 @@
 		if(TOOL_WELDER)
 			if(item.use(5))
 				user.balloon_alert(user, "You start burning off the rust...")
-				if(!do_after(user, 5 SECONDS * item.toolspeed, target = source))
+				if(!do_after(user, 5 SECONDS * item.get_toolspeed(user), target = source))
 					return
 				user.balloon_alert(user, "Sucessfully burned off the rust!")
 				Detach(source)
 				return
 		if(TOOL_RUSTSCRAPER)
 			user.balloon_alert(user, "You start scraping off the rust...")
-			if(!do_after(user, 2 SECONDS * item.toolspeed, target = source))
+			if(!do_after(user, 2 SECONDS * item.get_toolspeed(user), target = source))
 				return
 			if(istype(item, /obj/item/wirebrush/advanced))
 				var/obj/item/wirebrush/advanced/brush = item

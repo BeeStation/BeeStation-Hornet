@@ -4,7 +4,7 @@
  * A simple base for an modular behavior attached to atom or datum.
  */
 /datum/action
-	var/abstract_type = /datum/action
+	abstract_type = /datum/action
 	/// The name of the action
 	var/name = "Generic Action"
 	/// The description of what the action does, shown in button tooltips
@@ -105,7 +105,7 @@
 
 	// Register some signals based on our check_flags
 	// so that our button icon updates when relevant
-	if(check_flags & AB_CHECK_CONSCIOUS)
+	if(check_flags & (AB_CHECK_CONSCIOUS|AB_CHECK_DEAD))
 		RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_INCAPACITATED)
 		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
@@ -183,6 +183,10 @@
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
 		if (feedback)
 			owner.balloon_alert(owner, "[owner.stat == DEAD ? "dead" : "unconscious"]!")
+		return FALSE
+	if((check_flags & AB_CHECK_DEAD) && owner.stat == DEAD)
+		if (feedback)
+			owner.balloon_alert(owner, "dead!")
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		if (feedback)

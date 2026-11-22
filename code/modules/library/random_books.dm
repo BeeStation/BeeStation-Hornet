@@ -32,7 +32,7 @@
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	if(books_to_load && isnum_safe(books_to_load))
+	if(books_to_load && IS_FINITE(books_to_load))
 		books_to_load += pick(-1,-1,0,1,1)
 	if(books_to_load && prob(15)) // as long as the bookshelf is not meant to be empty, it has a small chance of having manuscript
 		new /obj/item/book/manuscript(src)
@@ -40,7 +40,7 @@
 
 /proc/create_random_books(amount, location, fail_loud = FALSE, category = null, obj/item/book/existing_book)
 	. = list()
-	if(!isnum_safe(amount) || amount<1)
+	if(!IS_FINITE(amount) || amount<1)
 		return
 	if (!SSdbcore.Connect())
 		if(existing_book && (fail_loud || prob(5)))

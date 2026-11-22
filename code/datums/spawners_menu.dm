@@ -17,7 +17,11 @@
 		this["flavor_text"] = ""
 		this["important_warning"] = ""
 		this["refs"] = list()
-		for(var/spawner_obj in GLOB.mob_spawners[spawner])
+		var/amount_left = 0
+		for(var/datum/spawner_obj in GLOB.mob_spawners[spawner])
+			if(QDELETED(spawner_obj))
+				continue
+			amount_left++
 			this["refs"] += "[REF(spawner_obj)]"
 			if(!this["desc"])
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
@@ -37,7 +41,9 @@
 					else
 						this["desc"] = O.desc
 
-		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
+		if(!amount_left)
+			continue
+		this["amount_left"] = amount_left
 		data["spawners"] += list(this)
 
 	return data
@@ -55,21 +61,22 @@
 	var/list/spawnerlist = GLOB.mob_spawners[group_name]
 	if(!LAZYLEN(spawnerlist))
 		return
-	var/atom/movable/MS = pick(spawnerlist)
-	if(!istype(MS) || !(MS in GLOB.poi_list))
-		if (istype(MS, /datum/candidate_poll) && action == "spawn")
-			var/datum/candidate_poll/poll = MS
+	var/datum/spawner = pick(spawnerlist)
+	if(istype(spawner, /datum/candidate_poll))
+		if(action == "spawn")
+			var/datum/candidate_poll/poll = spawner
 			poll.sign_up(usr, FALSE, skip_confirmation = TRUE)
 			return TRUE
 		return
+
+	var/atom/movable/mob_spawner = spawner
+	if(!istype(mob_spawner) || !SSpoints_of_interest.is_valid_poi(mob_spawner))
+		return
+
 	switch(action)
 		if("jump")
-			if(MS)
-				if (!isatom(MS))
-					return
-				usr.forceMove(get_turf(MS))
-				. = TRUE
+			usr.forceMove(get_turf(mob_spawner))
+			return TRUE
 		if("spawn")
-			if(MS)
-				MS.attack_ghost(usr)
-				. = TRUE
+			mob_spawner.attack_ghost(usr)
+			return TRUE

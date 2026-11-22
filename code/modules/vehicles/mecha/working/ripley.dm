@@ -131,7 +131,7 @@
 /obj/vehicle/sealed/mecha/ripley/mining/Initialize(mapload)
 	. = ..()
 	if(cell)
-		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
+		cell.charge = floor(cell.charge * 0.25) //Starts at very low charge
 	if(prob(70)) //Maybe add a drill
 		if(prob(15)) //Possible diamond drill... Feeling lucky?
 			var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new
@@ -157,7 +157,7 @@
 	cell = new /obj/item/stock_parts/cell/high(src)
 	//No scanmod for Big Bess
 	capacitor = new /obj/item/stock_parts/capacitor(src)
-	servo = new /obj/item/stock_parts/manipulator(src)
+	manipulator = new /obj/item/stock_parts/manipulator(src)
 	update_part_values()
 
 /obj/item/mecha_parts/mecha_equipment/ejector
@@ -248,3 +248,5 @@
 		movedelay = slow_pressure_step_in
 		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in flat_equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)
+	if(overclock_mode)
+		movedelay /= overclock_coeff

@@ -4,25 +4,25 @@
 	pixel_y = 32
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "bB" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "cy" = (
 /obj/structure/door_assembly/door_assembly_cult/unruned,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "cU" = (
 /obj/effect/mapping_helpers/dead_body_placer/ruin_morgue,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "fw" = (
 /obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
 /turf/open/floor/iron/chapel,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "fx" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
@@ -30,7 +30,7 @@
 /turf/open/floor/iron/chapel{
 	dir = 9
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "gk" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
@@ -38,50 +38,50 @@
 /turf/open/floor/iron/chapel{
 	dir = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "gn" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet/royalblack,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "hf" = (
 /turf/open/floor/iron/chapel{
 	dir = 6
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "il" = (
 /obj/structure/chair/office{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "iE" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "iR" = (
 /obj/structure/window/spawner/directional/east,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/grass/fakebasalt,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "kh" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "kY" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "lV" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp{
 	pixel_y = 10
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "nn" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -90,17 +90,17 @@
 	},
 /obj/item/storage/crayons,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "oM" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "pp" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qg" = (
 /obj/structure/chair/fancy/bench/pew{
 	dir = 1
@@ -108,39 +108,39 @@
 /turf/open/floor/iron/chapel{
 	dir = 1
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qz" = (
 /turf/open/floor/iron/chapel,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qE" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qO" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qZ" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "rh" = (
 /obj/structure/table/wood,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "rj" = (
 /obj/structure/sacrificealtar,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "rS" = (
 /obj/machinery/door/airlock/hatch,
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "rW" = (
 /obj/structure/chair/fancy/bench/pew{
 	dir = 1
@@ -148,29 +148,29 @@
 /turf/open/floor/iron/chapel{
 	dir = 8
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "sk" = (
 /obj/structure/window/spawner/directional/east,
 /obj/structure/flora/rock,
 /turf/open/floor/grass/fakebasalt,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "sI" = (
 /turf/open/floor/iron/chapel{
 	dir = 4
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tQ" = (
 /turf/open/floor/carpet/royalblack,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "us" = (
 /obj/structure/bodycontainer/morgue,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "vs" = (
 /obj/structure/window/spawner/directional/west,
 /obj/item/toy/plush/bubbleplush,
 /turf/open/floor/grass/fakebasalt,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "xP" = (
 /obj/item/stock_parts/cell/potato,
 /obj/item/bot_assembly/secbot,
@@ -179,31 +179,31 @@
 /turf/open/floor/iron/chapel{
 	dir = 9
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "yP" = (
 /obj/item/cult_shift,
 /turf/open/floor/cult,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "zh" = (
 /turf/closed/wall/mineral/cult,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "CU" = (
 /obj/structure/window/spawner/directional/west,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/grass/fakebasalt,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Dy" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "EP" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Fb" = (
 /obj/item/toy/figure/miner,
 /turf/open/floor/grass/fakebasalt,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Gz" = (
 /obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
@@ -211,61 +211,61 @@
 /turf/open/floor/iron/chapel{
 	dir = 5
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "GC" = (
 /turf/open/floor/iron/chapel{
 	dir = 9
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "JU" = (
 /obj/structure/table/wood,
 /turf/open/floor/cult,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Kd" = (
 /obj/structure/frame/machine,
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Lc" = (
 /turf/open/floor/iron/chapel{
 	dir = 1
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "LT" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel"
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ma" = (
 /turf/open/floor/cult,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "MF" = (
 /turf/open/floor/iron/chapel{
 	dir = 8
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ni" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/iron/chapel,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Os" = (
 /obj/structure/flora/rock,
 /turf/open/floor/grass/fakebasalt,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ou" = (
 /obj/structure/dresser,
 /turf/open/floor/cult,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "PI" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 9
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ry" = (
 /obj/structure/chair/fancy/bench/pew{
 	dir = 1
@@ -273,7 +273,7 @@
 /turf/open/floor/iron/chapel{
 	dir = 4
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "TA" = (
 /obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
@@ -281,7 +281,7 @@
 /turf/open/floor/iron/chapel{
 	dir = 8
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "TD" = (
 /obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
@@ -289,7 +289,7 @@
 /turf/open/floor/iron/chapel{
 	dir = 6
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "UA" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
@@ -297,14 +297,14 @@
 /turf/open/floor/iron/chapel{
 	dir = 4
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "VV" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Xv" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/grass/fakebasalt,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Yh" = (
 /obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
@@ -312,36 +312,36 @@
 /turf/open/floor/iron/chapel{
 	dir = 1
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Yi" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lantern{
 	pixel_y = 5
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Yv" = (
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "YA" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "YV" = (
 /turf/open/floor/iron/chapel{
 	dir = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Zy" = (
 /turf/open/floor/iron/chapel{
 	dir = 5
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ZU" = (
 /obj/item/bedsheet/cult,
 /obj/structure/bed,
 /turf/open/floor/cult,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 VV

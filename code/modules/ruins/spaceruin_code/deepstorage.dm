@@ -1,4 +1,4 @@
-///////////	deepstorage items
+/////////// deepstorage items
 
 /obj/item/paper/fluff/ruins/deepstorage/water_concern
 	name = "water concerns"

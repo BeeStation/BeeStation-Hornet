@@ -241,12 +241,8 @@ GLOBAL_LIST_EMPTY(uplinks)
 			if(I.murderbone_type)
 				if(!user.mind.is_murderbone()) // this is a damn proc to check a variable of every objective in you. DO NOT put it into the `if` above, or you call this proc needlessly.
 					continue
-			if(I.restricted_roles.len && I.discounted == FALSE)
-				var/is_inaccessible = TRUE
-				for(var/R in I.restricted_roles)
-					if(R == user.mind.assigned_role || debug)
-						is_inaccessible = FALSE
-				if(is_inaccessible)
+			if(length(I.restricted_roles) && I.discounted == FALSE)
+				if(!debug && !(user.mind.assigned_role.title in I.restricted_roles))
 					continue
 			if(I.restricted_species && I.discounted == FALSE)
 				if(ishuman(user))
@@ -397,6 +393,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	unlock()
 	interact(null, user)
 	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
+	return COMPONENT_CANNOT_USE_RADIO
 
 // Pen signal responses
 
@@ -424,7 +421,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	if(istype(parent,/obj/item/modular_computer/tablet))
 		unlock_note = "<B>Uplink Passcode:</B> [unlock_code] ([P.name])."
 	else if(istype(parent,/obj/item/radio))
-		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name] on the :d channel)."
+		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name], :d channel)."
 	else if(istype(parent,/obj/item/pen))
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 

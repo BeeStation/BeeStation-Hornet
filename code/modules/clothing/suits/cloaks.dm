@@ -120,6 +120,9 @@
 	custom_price = 10000
 	max_demand = 10
 
+/obj/item/clothing/suit/hooded/cloak/drake/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/drake)
 
 /datum/armor/cloak_drake
 	melee = 70
@@ -143,6 +146,9 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	high_pressure_multiplier = 0.4
 
+/obj/item/clothing/head/hooded/cloakhood/drake/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/drake)
 
 /datum/armor/cloakhood_drake
 	melee = 70
@@ -224,7 +230,7 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "fakehalo"
 
-/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/carbon_wearer = M
 		if(carbon_wearer.overlays_standing[HALO_LAYER])
@@ -239,7 +245,7 @@
 			if(carbon_user.overlays_standing[HALO_LAYER])
 				to_chat(carbon_user, span_warning("You already have a halo!"))
 				return
-			carbon_user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
+			carbon_user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/mob/effects/halo.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
 			carbon_user.apply_overlay(HALO_LAYER)
 	return ..()
 
@@ -250,3 +256,56 @@
 		var/datum/antagonist/cult/cultist = IS_CULTIST(carbon_user)
 		if(!cultist?.cult_team?.cult_ascendent && carbon_user.overlays_standing[HALO_LAYER])
 			carbon_user.remove_overlay(HALO_LAYER)
+
+///Mantles
+/obj/item/clothing/neck/cloak/mantle
+	name = "mantle"
+	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
+	icon_state = "mantle"
+
+/obj/item/clothing/neck/cloak/regal
+	name = "regal shawl"
+	desc = "A fancy shawl for nobility, made from high quality materials."
+	icon_state = "regal_mantle"
+
+/obj/item/clothing/neck/cloak/old
+	name = "old wrap"
+	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
+	icon_state = "old_mantle"
+
+/obj/item/clothing/neck/cloak/captain_mantle
+	name = "captain's mantle"
+	desc = "A piece of fashion for the ruling elite."
+	icon_state = "capmantle"
+
+/obj/item/clothing/neck/cloak/hos_mantle
+	name = "head of security's shawl"
+	desc = "An unarmored shawl, worn by the Head of Security. Do you dare take up their mantle?"
+	icon_state = "hosmantle"
+
+/obj/item/clothing/neck/cloak/hop_mantle
+	name = "head of personnel's shawl"
+	desc = "A shawl for the Head of Personnel. It's remarkably well kept."
+	icon_state = "hopmantle"
+
+/obj/item/clothing/neck/cloak/ce_mantle
+	name = "chief engineer's mantle"
+	desc = "A slick, authoritative mantle designed for the Chief Engineer."
+	icon_state = "cemantle"
+
+/obj/item/clothing/neck/cloak/cmo_mantle
+	name = "chief medical officer's mantle"
+	desc = "An absorbent, clean cover found around the neck of the Chief Medical Officer."
+	icon_state = "cmomantle"
+
+/obj/item/clothing/neck/cloak/qm_mantle
+	name = "quartermaster's mantle"
+	desc = "A shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
+	icon_state = "qmmantle"
+	inhand_icon_state = "mantle"
+
+/obj/item/clothing/neck/cloak/rd_mantle
+	name = "research director's mantle"
+	desc = "A tweed mantle, worn by the Research Director. Smells like science."
+	icon_state = "rdmantle"
+

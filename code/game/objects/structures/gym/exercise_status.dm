@@ -12,13 +12,13 @@
 /datum/status_effect/exercised
 	id = "exericsed"
 	status_type = STATUS_EFFECT_MERGE
-	tick_interval = ((1 SECONDS) * EXERCISE_VISUAL_DELTA) / EXERCISE_STEP
+	tick_interval = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/exercised
 	var/applied_amount = 0
 	var/exercise_amount = 0
 
 /datum/status_effect/exercised/on_creation(mob/living/new_owner, exercise_amount)
-	src.exercise_amount = exercise_amount * EXERCISE_INCREMENT
+	src.exercise_amount = min(exercise_amount * EXERCISE_INCREMENT, EXERCISE_LIMIT)
 	return ..()
 
 /datum/status_effect/exercised/merge(exercise_amount)
@@ -33,9 +33,10 @@
 	if (ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology.stun_add += applied_amount
+		human_owner.physiology.stamina_mod /= (1 - applied_amount)
 		applied_amount = 0
 
-/datum/status_effect/exercised/tick()
+/datum/status_effect/exercised/tick(seconds_between_ticks)
 	exercise_amount -= EXERCISE_VISUAL_DELTA
 	update_exercise()
 	return ..()
@@ -48,7 +49,7 @@
 		var/delta = exercise_amount - applied_amount
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology.stun_add -= delta
-		human_owner.physiology.stamina_mod -= delta
+		human_owner.physiology.stamina_mod *= (1 - exercise_amount) / (1 - applied_amount)
 		applied_amount = exercise_amount
 
 /datum/status_effect/exercised/get_examine_text()

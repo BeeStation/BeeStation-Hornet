@@ -1,6 +1,7 @@
 #define TRANSFORM_STING_COOLDOWN 2 MINUTES
 
 /datum/action/changeling/sting//parent path, not meant for users afaik
+	abstract_type = /datum/action/changeling/sting
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
 	var/stealthy = FALSE
@@ -133,7 +134,7 @@
 /obj/item/melee/arm_blade/false
 	desc = "A grotesque mass of flesh that used to be your arm. Although it looks dangerous at first, you can tell it's actually quite dull and useless."
 	sharpness = BLUNT //Not actually sharp
-	force = 5 //Basically as strong as a punch
+	force = 10 //This is still going to do more than a fist
 	fake = TRUE
 
 /datum/action/changeling/sting/false_armblade/can_sting(mob/user, mob/target)
@@ -217,7 +218,7 @@
 /datum/action/changeling/sting/blind
 	name = "Blind Sting"
 	desc = "We temporarily blind our victim. Costs 25 chemicals."
-	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
+	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time. Does not work if target has robotic or missing eyes."
 	button_icon_state = "sting_blind"
 	chemical_cost = 25
 	dna_cost = 1
@@ -236,7 +237,7 @@
 	log_combat(user, target, "stung", "blind sting")
 	to_chat(target, span_danger("Your eyes burn horrifically!"))
 	eyes.apply_organ_damage(eyes.maxHealth * 0.8)
-	target.adjust_blindness(20)
+	target.adjust_temp_blindness(40 SECONDS)
 	target.set_eye_blur_if_lower(80 SECONDS)
 	return TRUE
 

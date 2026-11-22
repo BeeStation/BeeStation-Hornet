@@ -39,21 +39,18 @@
 	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
 		if(enriched_spawns && prob(enriched_spawn_prob))
 			using_enriched_spawn = TRUE
-		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+		notify_ghosts(
+			"[src] is ready to hatch!",
+			header = "Spider Infestation",
+			click_interact = TRUE,
+			ignore_key = POLL_IGNORE_SPIDER,
+		)
 		ghost_ready = TRUE
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 		AddElement(/datum/element/point_of_interest)
 	if(amount_grown >= grow_time *3)
 		make_AI_spider()
-
-/obj/structure/spider/eggcluster/Topic(href, href_list)
-	if(..())
-		return
-	if(href_list["activate"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
-			attack_ghost(ghost)
 
 /obj/structure/spider/eggcluster/attack_ghost(mob/user)
 	. = ..()

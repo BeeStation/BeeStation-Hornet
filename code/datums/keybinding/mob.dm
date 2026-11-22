@@ -275,47 +275,6 @@
 		user.mob.dropItemToGround(I)
 	return TRUE
 
-/datum/keybinding/mob/toggle_move_intent
-	keys = list("Alt")
-	name = "toggle_move_intent"
-	full_name = "Hold to toggle move intent"
-	description = "Held down to cycle to the other move intent, release to cycle back"
-	keybind_signal = COMSIG_KB_MOB_TOGGLEMOVEINTENT_DOWN
-
-/datum/keybinding/mob/toggle_move_intent/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.toggle_move_intent()
-	return TRUE
-
-/datum/keybinding/mob/toggle_move_intent/up(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob)
-		return
-	var/mob/M = user.mob
-	M.toggle_move_intent()
-	return TRUE
-
-/datum/keybinding/mob/toggle_move_intent_alternative
-	keys = list("Unbound")
-	name = "toggle_move_intent_alt"
-	full_name = "press to cycle move intent"
-	description = "Pressing this cycle to the opposite move intent, does not cycle back"
-	keybind_signal = COMSIG_KB_MOB_TOGGLEMOVEINTENTALT_DOWN
-
-/datum/keybinding/mob/toggle_move_intent_alternative/down(client/user)
-	. = ..()
-	if(.)
-		return
-	var/mob/M = user.mob
-	M.toggle_move_intent()
-	return TRUE
-
 /datum/keybinding/mob/prevent_movement
 	keys = list("Ctrl")
 	name = "block_movement"

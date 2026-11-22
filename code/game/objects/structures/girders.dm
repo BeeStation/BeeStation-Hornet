@@ -43,7 +43,7 @@
 		if(GIRDER_DISASSEMBLED)
 			. += span_notice("[src] is disassembled! You probably shouldn't be able to see this examine message.")
 
-/obj/structure/girder/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/attackby(obj/item/W, mob/user, list/modifiers)
 	var/platingmodifier = 1
 	if(HAS_TRAIT(user, TRAIT_QUICK_BUILD))
 		platingmodifier = 0.7
@@ -102,7 +102,7 @@
 						return
 					S.use(amount)
 					var/turf/T = get_turf(src)
-					T.PlaceOnTop(/turf/closed/wall/mineral/iron)
+					T.place_on_top(/turf/closed/wall/mineral/iron)
 					transfer_fingerprints_to(T)
 					qdel(src)
 				return
@@ -139,7 +139,7 @@
 						return
 					sheets.use(amount)
 					var/turf/T = get_turf(src)
-					T.PlaceOnTop(/turf/closed/wall)
+					T.place_on_top(/turf/closed/wall)
 					transfer_fingerprints_to(T)
 					qdel(src)
 				return
@@ -169,7 +169,7 @@
 						return
 					sheets.use(amount)
 					var/turf/T = get_turf(src)
-					T.PlaceOnTop(/turf/closed/wall/r_wall)
+					T.place_on_top(/turf/closed/wall/r_wall)
 					transfer_fingerprints_to(T)
 					qdel(src)
 				return
@@ -221,9 +221,9 @@
 					sheets.use(amount)
 					var/turf/T = get_turf(src)
 					if(sheets.walltype)
-						T.PlaceOnTop(sheets.walltype)
+						T.place_on_top(sheets.walltype)
 					else
-						var/turf/newturf = T.PlaceOnTop(/turf/closed/wall/material)
+						var/turf/newturf = T.place_on_top(/turf/closed/wall/material)
 						var/list/material_list = list()
 						material_list[SSmaterials.GetMaterialRef(sheets.material_type)] = MINERAL_MATERIAL_AMOUNT * 2
 						if(material_list)
@@ -373,7 +373,7 @@
 	canSmoothWith = null
 	can_displace = FALSE
 
-/obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/cult/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(!W.tool_start_check(user, amount=0))
@@ -413,7 +413,7 @@
 			user.visible_message(span_notice("[user] plates [src] with runed metal."), span_notice("You construct a runed wall."))
 			R.use(1)
 			var/turf/T = get_turf(src)
-			T.PlaceOnTop(/turf/closed/wall/mineral/cult)
+			T.place_on_top(/turf/closed/wall/mineral/cult)
 			qdel(src)
 
 	else
@@ -447,7 +447,7 @@
 			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
 			if(overlapping_lattice)
 				qdel(overlapping_lattice) // Don't need lattice burried under the wall, or in the case of catwalk - on top of it.
-			T.PlaceOnTop(/turf/closed/wall)
+			T.place_on_top(/turf/closed/wall)
 			qdel(src)
 			return TRUE
 		if(RCD_DECONSTRUCT)
@@ -469,7 +469,7 @@
 	can_displace = FALSE
 
 /*
-/obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 
 	if(W.tool_behaviour == TOOL_WELDER)
@@ -508,7 +508,7 @@
 			user.visible_message(span_notice("[user] plates [src] with bronze!"), span_notice("You construct a bronze wall."))
 			B.use(2)
 			var/turf/T = get_turf(src)
-			T.PlaceOnTop(/turf/closed/wall/mineral/bronze)
+			T.place_on_top(/turf/closed/wall/mineral/bronze)
 			qdel(src)
 
 	else

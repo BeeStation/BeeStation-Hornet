@@ -1,5 +1,6 @@
 /// Inert structures, such as girders, machine frames, and crates/lockers.
 /obj/structure
+	abstract_type = /obj/structure
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
 	max_integrity = 300
@@ -8,8 +9,10 @@
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.5
 	pass_flags_self = PASSSTRUCTURE
-	var/broken = FALSE
 	armor_type = /datum/armor/obj_structure
+	burning_particles = /particles/smoke/burning
+	var/broken = FALSE
+	var/radiation_shield = FALSE   // Blocks rads in containers - see morgue.dm for proc
 
 /datum/armor/obj_structure
 	fire = 50
@@ -51,15 +54,15 @@
 			. += examine_status
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
-	var/healthpercent = (atom_integrity/max_integrity) * 100
-	switch(healthpercent)
+	var/health_percent = (atom_integrity / max_integrity) * 100
+	switch(health_percent)
 		if(50 to 99)
-			return  "It looks slightly damaged."
+			return "It looks slightly damaged."
 		if(25 to 50)
-			return  "It appears heavily damaged."
+			return "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				return  span_warning("It's falling apart!")
+				return span_warning("It's falling apart!")
 
 /obj/structure/examine_descriptor(mob/user)
 	return "structure"

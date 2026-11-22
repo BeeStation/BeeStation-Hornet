@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	cure_chance = 2.5 //like hell are you getting out of hell
 	desc = "A rare highly transmissible virulent virus. Few samples exist, rumoured to be carefully grown and cultured by clandestine bio-weapon specialists. Causes fever, blood vomiting, lung damage, weight loss, and fatigue."
-	required_organs = list(/obj/item/organ/lungs)
+	required_organ = ORGAN_SLOT_LUNGS
 	danger = DISEASE_BIOHAZARD
 	bypasses_immunity = TRUE // TB primarily impacts the lungs; it's also bacterial or fungal in nature; viral immunity should do nothing.
 
@@ -47,16 +47,16 @@
 			var/need_mob_update = FALSE
 			if(DT_PROB(1, delta_time))
 				to_chat(affected_mob, span_userdanger("[pick("You feel your heart slowing...", "You relax and slow your heartbeat.")]"))
-				need_mob_update += affected_mob.adjustStaminaLoss(70, updating_stamina = FALSE)
+				affected_mob.stamina.adjust(-70)
 			if(DT_PROB(5, delta_time))
-				need_mob_update += affected_mob.adjustStaminaLoss(100, updating_stamina = FALSE)
+				affected_mob.stamina.adjust(-100)
 				affected_mob.visible_message(span_warning("[affected_mob] faints!"), span_userdanger("You surrender yourself and feel at peace..."))
 				affected_mob.AdjustSleeping(10 SECONDS)
 			if(DT_PROB(1, delta_time))
 				to_chat(affected_mob, span_userdanger("You feel your mind relax and your thoughts drift!"))
 				affected_mob.adjust_confusion_up_to(8 SECONDS, 100 SECONDS)
 			if(DT_PROB(5, delta_time))
-				affected_mob.vomit(lost_nutrition = 20)
+				affected_mob.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 			if(DT_PROB(1.5, delta_time))
 				to_chat(affected_mob, span_warning("<i>[pick("Your stomach silently rumbles...", "Your stomach seizes up and falls limp, muscles dead and lifeless.", "You could eat a crayon")]</i>"))
 				affected_mob.overeatduration = max(affected_mob.overeatduration - (200 SECONDS), 0)

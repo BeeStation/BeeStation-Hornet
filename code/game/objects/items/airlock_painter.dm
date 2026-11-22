@@ -17,7 +17,7 @@
 
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	usesound = 'sound/effects/spray2.ogg'
@@ -159,7 +159,7 @@
 	. += span_notice("Its ink levels look [ink_level].")
 
 
-/obj/item/airlock_painter/attackby(obj/item/W, mob/user, params)
+/obj/item/airlock_painter/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/toner))
 		if(ink)
 			to_chat(user, span_notice("[src] already contains \a [ink]."))

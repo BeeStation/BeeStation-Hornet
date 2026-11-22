@@ -26,7 +26,7 @@ Slimecrossing Armor
 	if(slot == ITEM_SLOT_MASK)
 		ADD_TRAIT(user, TRAIT_NOBREATH, "breathmask_[REF(src)]")
 		user.failed_last_breath = FALSE
-		user.clear_alert("not_enough_oxy")
+		user.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		user.apply_status_effect(/datum/status_effect/rebreathing)
 
 /obj/item/clothing/mask/nobreath/dropped(mob/living/carbon/human/user)
@@ -105,7 +105,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	slot_flags = ITEM_SLOT_HEAD
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE
-	dynamic_hair_suffix = ""
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -140,6 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
 	clothing_flags = THICKMATERIAL
+	texture_type = /datum/bodypart_texture/mesh/biosuit_dark
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/heavy/adamantine/equipped(mob/user, slot)

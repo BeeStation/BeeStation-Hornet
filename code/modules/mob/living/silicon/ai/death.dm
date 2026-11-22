@@ -10,12 +10,12 @@
 
 	cut_overlays() //remove portraits
 	var/old_icon = icon_state
-	if("[icon_state]_dead" in icon_states(icon))
+	if(icon_exists(icon, "[icon_state]_dead"))
 		icon_state = "[icon_state]_dead"
 	else
 		icon_state = "ai_dead"
-	if("[old_icon]_death_transition" in icon_states(icon))
-		flick("[old_icon]_death_transition", src)
+	if(icon_exists(icon, "[old_icon]_death_transition"))
+		z_flick("[old_icon]_death_transition", src)
 
 	if(ai_tracking_target)
 		ai_stop_tracking()
@@ -46,6 +46,7 @@
 
 /mob/living/silicon/ai/proc/ShutOffDoomsdayDevice()
 	if(nuking)
+		stop_soundtrack_music()
 		SSsecurity_level.set_level(SEC_LEVEL_RED)
 		nuking = FALSE
 		for(var/obj/item/pinpointer/nuke/P in GLOB.pinpointer_list)

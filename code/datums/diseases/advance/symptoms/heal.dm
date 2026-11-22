@@ -1,6 +1,7 @@
 #define TELEPORT_COOLDOWN 60 SECONDS
 
 /datum/symptom/heal
+	abstract_type = /datum/symptom/heal
 	name = "Basic Healing (does nothing)" //warning for adminspawn viruses
 	desc = "You should not be seeing this."
 	stealth = 0
@@ -45,6 +46,7 @@
 
 /datum/symptom/heal/chem
 	name = "Toxolysis"
+	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
 	stealth = 0
 	resistance = -2
 	stage_speed = 2
@@ -52,10 +54,10 @@
 	level = 6
 	power = 2
 	prefixes = list("Toxo")
-	var/food_conversion = FALSE
-	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
+	required_organ = ORGAN_SLOT_HEART
 	threshold_desc = "<b>Resistance 7:</b> Increases chem removal speed.<br>\
 						<b>Stage Speed 6:</b> Consumed chemicals nourish the host."
+	var/food_conversion = FALSE
 
 /datum/symptom/heal/chem/Start(datum/disease/advance/A)
 	if(!..())
@@ -154,13 +156,13 @@
 /datum/symptom/heal/coma/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/heal_amt = 4 * actual_power
 
-	var/list/parts = M.get_damaged_bodyparts(1,1)
+	var/list/parts = M.get_damaged_bodyparts(brute = 1, burn = 1, required_bodytype = BODYTYPE_ORGANIC)
 
 	if(!parts.len)
 		return
 
-	for(var/obj/item/bodypart/bodypart in parts)
-		if(bodypart.heal_damage(heal_amt/parts.len, heal_amt/parts.len, required_bodytype = BODYTYPE_ORGANIC))
+	for(var/obj/item/bodypart/bodypart as anything in parts)
+		if(bodypart.heal_damage(brute = heal_amt/parts.len, burn = heal_amt/parts.len, required_bodytype = BODYTYPE_ORGANIC))
 			M.update_damage_overlays()
 
 	if(active_coma && M.getBruteLoss() + M.getFireLoss() == 0)
@@ -228,19 +230,20 @@
 
 /datum/symptom/heal/metabolism
 	name = "Metabolic Boost"
+	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
+		but also causing increased hunger."
 	stealth = -1
 	resistance = -2
 	stage_speed = 2
 	transmission = 1
 	level = 6
+	required_organ = ORGAN_SLOT_STOMACH
 	prefixes = list("Metabolic ", "Junkie's ", "Chemical ")
 	bodies = list("Hunger")
-	var/triple_metabolism = FALSE
-	var/reduced_hunger = FALSE
-	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
-		but also causing increased hunger."
 	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
 						<b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+	var/triple_metabolism = FALSE
+	var/reduced_hunger = FALSE
 
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())
@@ -519,8 +522,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	ownermind = M.mind
 	if(!A.carrier && !A.dormant)
 		sizemult = clamp((0.5 + A.stage_rate / 10), 1.1, 1.5)
-		M.resize = sizemult
-		M.update_transform()
+		M.update_transform(sizemult)
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())
@@ -582,8 +584,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	var/mob/living/carbon/M = A.affected_mob
 	to_chat(M, span_notice("You lose your balance and stumble as you shrink, and your legs come out from underneath you!"))
-	M.resize = 1/sizemult
-	M.update_transform()
+	M.update_transform(1/sizemult)
 
 #undef TELEPORT_COOLDOWN
 
@@ -640,7 +641,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = /datum/blood_type/universal
+		H.set_blood_type(/datum/blood_type/universal)
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -689,7 +690,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 	if(bloodtypearchive && ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
-		H.dna.blood_type = bloodtypearchive
+		H.set_blood_type(bloodtypearchive)
 
 /datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need to have blood, or at least a shared blood reagent, for most of the other uses
 	var/gainedpoints = 0
@@ -986,7 +987,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.emote("twitch")
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
-			M.adjustStaminaLoss((-5 * power), 0)
+			M.stamina.adjust(-(-5 * power))
 			M.set_drowsiness_if_lower(4 SECONDS * power)
 			M.AdjustSleeping(-10 * power)
 			M.AdjustUnconscious(-10 * power)

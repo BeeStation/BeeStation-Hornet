@@ -53,7 +53,7 @@
 	stealth = TRUE
 
 /datum/orbital_object/shuttle/Destroy()
-	var/z_level = port?.z
+	var/z_level = port?.virtual_z
 	port = null
 	can_dock_with = null
 	docking_target = null

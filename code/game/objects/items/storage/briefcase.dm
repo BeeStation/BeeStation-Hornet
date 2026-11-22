@@ -5,11 +5,15 @@
 	icon_state = "briefcase"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
-	flags_1 = CONDUCT_1
-	force = 8
-	hitsound = "swing_hit"
+	obj_flags = CONDUCTS_ELECTRICITY
+
 	throw_speed = 2
 	throw_range = 4
+	force = 8
+	stamina_cost = 17
+	stamina_critical_chance = 10
+	stamina_damage = 40
+
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")

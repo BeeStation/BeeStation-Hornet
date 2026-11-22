@@ -365,8 +365,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		. += observer_desc
 		. += "It is activated by [activation_method]."
 
-/obj/machinery/anomalous_crystal/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
-	..()
+/obj/machinery/anomalous_crystal/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, spans, list/message_mods = list(), message_range)
+	. = ..()
 	if(isliving(speaker))
 		ActivationReaction(speaker, ACTIVATE_SPEECH)
 
@@ -376,7 +376,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		return
 	ActivationReaction(user, ACTIVATE_TOUCH)
 
-/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.get_temperature())
 		ActivationReaction(user, ACTIVATE_HEAT)
 	else
@@ -416,12 +416,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
 	if(..() && ishuman(user) && !(user in affected_targets))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/W in H)
-			H.dropItemToGround(W)
-		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
-		C.equip(H)
-		affected_targets.Add(H)
+		var/mob/living/carbon/human/new_clown = user
+		for(var/obj/item/to_strip in new_clown)
+			new_clown.dropItemToGround(to_strip)
+		new_clown.dress_up_as_job(SSjob.get_job_type(/datum/job/clown))
+		affected_targets.Add(new_clown)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	observer_desc = "This crystal warps the area around it to a theme."
@@ -557,9 +556,15 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
-		AddElement(/datum/element/point_of_interest)
+		SSpoints_of_interest.make_point_of_interest(src)
 		ready_to_deploy = TRUE
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href='byond://?src=[REF(src)];ghostjoin=1'>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
+		notify_ghosts(
+			"An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.",
+			source = src,
+			header = "Anomalous crystal activated",
+			click_interact = TRUE,
+			ghost_sound = 'sound/effects/ghost2.ogg',
+		)
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	. = ..()
@@ -570,13 +575,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		if(be_helper == "Yes" && !QDELETED(src) && isobserver(user))
 			var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 			W.key = user.key
-
-
-/obj/machinery/anomalous_crystal/helpers/Topic(href, href_list)
-	if(href_list["ghostjoin"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
-			attack_ghost(ghost)
 
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"
@@ -623,10 +621,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	. = ..()
 	remove_verb(/mob/living/verb/pulled)
 	remove_verb(/mob/verb/me_verb)
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
-
-	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	add_traits(list(TRAIT_MEDICAL_HUD, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()
@@ -714,13 +709,13 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isanimal_or_basicmob(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/L = arrived
-		L.notransform = 1
-		L.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
+		L.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		L.mind.transfer_to(holder_animal)
 		var/datum/action/exit_possession/P = new /datum/action/exit_possession
 		P.Grant(holder_animal)
@@ -729,8 +724,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.remove_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
-		L.notransform = 0
+		L.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		if(holder_animal)
 			var/datum/action/exit_possession/P = new /datum/action/exit_possession
 			P.Remove(holder_animal)
@@ -739,9 +733,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			L.investigate_log("has died from [src].", INVESTIGATE_DEATHS)
 			L.death(FALSE)
 	..()
-
-/obj/structure/closet/stasis/emp_act()
-	return
 
 /obj/structure/closet/stasis/ex_act()
 	return

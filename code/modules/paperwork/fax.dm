@@ -63,11 +63,8 @@
 
 /obj/machinery/fax/Initialize(mapload)
 	. = ..()
-	GLOB.fax_machines += src
-	if(!fax_id)
-		fax_id = assign_random_name()
-	if(!fax_name)
-		fax_name = "Unregistered Fax Machine " + fax_id
+	fax_id ||= assign_random_name()
+	fax_name ||= "Unregistered Fax Machine [fax_id]"
 	wires = new /datum/wires/fax(src)
 
 	radio = new(src)
@@ -79,7 +76,7 @@
 	// Mapping Error checking
 	if(!mapload)
 		return
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if(fax == src) // skip self
 			continue
 		if(fax.fax_name == fax_name)
@@ -87,7 +84,6 @@
 			CRASH("Duplicate fax_name [fax.fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
 
 /obj/machinery/fax/Destroy()
-	GLOB.fax_machines -= src
 	QDEL_NULL(loaded_item_ref)
 	QDEL_NULL(wires)
 	QDEL_NULL(radio)
@@ -146,7 +142,7 @@
 /obj/machinery/fax/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * Open and close the wire panel.
@@ -165,18 +161,18 @@
 		return
 	var/new_fax_name = stripped_input(user, "Enter a new name for the fax machine.", "New Fax Name", max_length=128)
 	if(!new_fax_name)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if(new_fax_name != fax_name)
 		if(fax_name_exist(new_fax_name))
 			// Being able to set the same name as another fax machine will give a lot of gimmicks for the traitor.
 			if(syndicate_network != TRUE && obj_flags != EMAGGED)
 				to_chat(user, span_warning("There is already a fax machine with this name on the network."))
-				return TOOL_ACT_TOOLTYPE_SUCCESS
+				return ITEM_INTERACT_SUCCESS
 		user.log_message("renamed [fax_name] (fax machine) to [new_fax_name]", LOG_GAME)
 		fax_name = new_fax_name
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
-/obj/machinery/fax/attackby(obj/item/item, mob/user, params)
+/obj/machinery/fax/attackby(obj/item/item, mob/user, list/modifiers)
 	if(jammed && clear_jam(item, user))
 		return
 	if(panel_open)
@@ -205,7 +201,7 @@
 		user.visible_message(span_notice("[user] cleans \the [src]."), span_notice("You clean \the [src]."))
 		jammed = FALSE
 		return TRUE
-	if(istype(item, /obj/item/soap) || istype(item, /obj/item/reagent_containers/cup/rag))
+	if(istype(item, /obj/item/soap) || istype(item, /obj/item/rag))
 		var/cleanspeed = 50
 		if(istype(item, /obj/item/soap))
 			var/obj/item/soap/used_soap = item
@@ -251,7 +247,7 @@
 /obj/machinery/fax/ui_data(mob/user)
 	var/list/data = list()
 	//Record a list of all existing faxes.
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if(fax.fax_id == fax_id) //skip yourself
 			continue
 		if(!fax.visible_to_network) //skip invisible fax machines
@@ -321,7 +317,7 @@
 			log_fax(fax_paper, params["id"], params["name"])
 			loaded_item_ref = null
 
-			for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+			for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 				if(fax.radio_channel == RADIO_CHANNEL_CENTCOM)
 					fax.receive(fax_paper, fax_name)
 					break
@@ -356,7 +352,7 @@
  * * id - The network ID of the fax machine you want to send the item to.
  */
 /obj/machinery/fax/proc/send(obj/item/loaded, id)
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if(fax.fax_id != id)
 			continue
 		if(!fax.visible_to_network) //skip fax machines meant to be invisible
@@ -483,7 +479,7 @@
  * * new_fax_name - The text of the name to be checked for a match.
  */
 /obj/machinery/fax/proc/fax_name_exist(new_fax_name)
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if (fax.fax_name == new_fax_name)
 			return TRUE
 	return FALSE

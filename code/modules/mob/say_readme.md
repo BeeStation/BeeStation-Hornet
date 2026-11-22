@@ -66,7 +66,7 @@ global procs
 		Checks that our atom can vocally speak at all.
 		Does not (and should not) include any feedback on its own.
 
-	Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans)
+	Hear(atom/movable/speaker, message_language, raw_message, radio_freq, spans)
 		This proc handles hearing. What it does varies. For mobs, it treats the message with hearer-specific things
 		like language and deafness, then outputs it to the hearer.
 
@@ -77,10 +77,10 @@ global procs
 		Message treatment or composition of output are not done by this proc, these are handled by the rest of
 		say() and the hearer respectively.
 
-	lang_treat(message, atom/movable/speaker, message_langs, raw_message, spans, list/message_mods)
+	translate_language(atom/movable/speaker, datum/language/language, raw_message, spans, list/message_mods)
 		Modifies the message by comparing the languages of the speaker with the languages of the hearer.
+		If the hearer doesn't have the language, scrambles the message.
 		Called on the hearer.
-		Passes message_mods to say_quote.
 
 	say_quote(input, spans, list/message_mods)
 		Adds a verb and quotes to a message. Also attaches span classes to a message.
@@ -98,13 +98,13 @@ global procs
 	say_dead(message)
 		Sends a message to all dead people. Does not use Hear().
 
-	compose_message(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods)
+	compose_message(message, atom/movable/speaker, message_language, raw_message, radio_freq, spans, list/message_mods)
 		Composes the message mobs see on their screen when they hear something.
 
-	compose_track_href(message, atom/movable/speaker, message_langs, raw_message, radio_freq)
+	compose_track_href(message, atom/movable/speaker, message_language, raw_message, radio_freq)
 		Composes the href tags used by the AI for tracking. Returns "" for all mobs except AIs.
 
-	compose_job(message, atom/movable/speaker, message_langs, raw_message, radio_freq)
+	compose_job(message, atom/movable/speaker, message_language, raw_message, radio_freq)
 		Composes the job and the end tag for tracking hrefs. Returns "" for all mobs except AIs.
 
 	hivecheck()

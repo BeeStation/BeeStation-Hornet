@@ -1,4 +1,5 @@
 /obj/item/clothing/suit/armor
+	abstract_type = /obj/item/clothing/suit/armor
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	allowed = null
@@ -179,6 +180,13 @@
 	armor_type = /datum/armor/capcarapace_jacket
 	clothing_flags = NONE
 
+/obj/item/clothing/suit/armor/vest/hop
+	name = "head of personnel's coat"
+	desc = "A big coat for the Head of Personnel who wants to make a fashion statement. Has armour woven within the fabric."
+	icon_state = "hopcoat"
+	inhand_icon_state = "b_suit"
+	body_parts_covered = CHEST|GROIN|ARMS
+	dog_fashion = null
 
 /datum/armor/capcarapace_jacket
 	melee = 40
@@ -205,6 +213,8 @@
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/heretic
 
 /datum/armor/armor_riot
 	melee = 50
@@ -215,6 +225,10 @@
 	acid = 80
 	stamina = 50
 	bleed = 70
+
+/obj/item/clothing/suit/armor/riot/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, texture_type)
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -233,6 +247,10 @@
 		/obj/item/knife/combat/bone,
 		/obj/item/gun/ballistic/bow/ashen,
 	)
+
+/obj/item/clothing/suit/armor/bone/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/drake)
 
 /datum/armor/armor_bone
 	melee = 35
@@ -322,7 +340,12 @@
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
 	clothing_flags = THICKMATERIAL
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/black
 
+/obj/item/clothing/suit/armor/heavy/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, texture_type)
 
 /datum/armor/armor_heavy
 	melee = 80
@@ -392,9 +415,17 @@
 	name = "plate armour"
 	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
 	icon_state = "knight_green"
-	inhand_icon_state = "knight_green"
+	inhand_icon_state = null
 	move_sound = null
 	slowdown = 0.08
+	texture_type = /datum/bodypart_texture/mesh/biosuit_dark
+	allowed = list(
+		/obj/item/banner,
+		/obj/item/claymore,
+		/obj/item/nullrod,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
@@ -484,7 +515,6 @@
 	inhand_icon_state = "centcom"
 	body_parts_covered = CHEST|GROIN|ARMS
 	armor_type = /datum/armor/armor_centcom_formal
-
 
 /datum/armor/armor_centcom_formal
 	melee = 35

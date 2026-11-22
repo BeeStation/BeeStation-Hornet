@@ -8,6 +8,7 @@
  * The cast_on atom is the person who was clicked on.
  */
 /datum/action/cooldown/spell/pointed
+	abstract_type = /datum/action/cooldown/spell/pointed
 	click_to_activate = TRUE
 
 	/// Message showing to the spell owner upon activating pointed spell.
@@ -100,6 +101,7 @@
  * will instead fire a projectile pointed at the target's direction.
  */
 /datum/action/cooldown/spell/pointed/projectile
+	abstract_type = /datum/action/cooldown/spell/pointed/projectile
 	/// What projectile we create when we shoot our spell.
 	var/obj/projectile/magic/projectile_type = /obj/projectile/magic/teleport
 	/// How many projectiles we can fire per cast. Not all at once, per click, kinda like charges

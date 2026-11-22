@@ -31,7 +31,7 @@
 				positive_result = TRUE,\
 				use_large_steam_sprite = TRUE)
 
-/obj/item/food/pancakes/raw/attackby(obj/item/garnish, mob/living/user, params)
+/obj/item/food/pancakes/raw/attackby(obj/item/garnish, mob/living/user, list/modifiers)
 	var/newresult
 	if(istype(garnish, /obj/item/food/grown/berries))
 		newresult = /obj/item/food/pancakes/blueberry
@@ -118,7 +118,7 @@
 			ingredients_listed += "[ING.name], "
 		. += "It contains [contents.len?"[ingredients_listed]":"no ingredient, "]on top of a [initial(name)]."
 
-/obj/item/food/pancakes/attackby(obj/item/item, mob/living/user, params)
+/obj/item/food/pancakes/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(istype(item, /obj/item/food/pancakes))
 		var/obj/item/food/pancakes/pancake = item
 		if(!user.transferItemToLoc(pancake, src))
@@ -138,7 +138,7 @@
 		return
 	else if(contents.len)
 		var/obj/O = contents[contents.len]
-		return O.attackby(item, user, params)
+		return O.attackby(item, user, modifiers)
 	..()
 
 /obj/item/food/pancakes/proc/update_snack_overlays(obj/item/food/pancakes/pancake)
@@ -148,9 +148,9 @@
 	add_overlay(pancake_visual)
 	update_appearance()
 
-/obj/item/food/pancakes/attack(mob/target, mob/living/user, params, stacked = TRUE)
+/obj/item/food/pancakes/attack(mob/target, mob/living/user, list/modifiers, stacked = TRUE)
 	if(user.combat_mode || !contents.len || !stacked)
 		return ..()
 	var/obj/item/item = contents[contents.len]
-	. = item.attack(target, user, params, FALSE)
+	. = item.attack(target, user, modifiers, FALSE)
 	update_appearance()

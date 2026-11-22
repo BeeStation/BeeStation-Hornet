@@ -103,7 +103,7 @@
 	current_run = stage
 
 /datum/async_map_generator/map_place/get_name()
-	return placing_template?.original_path || "Unkown map"
+	return placing_template?.original_path || "Unknown map"
 
 //======================================
 // COORDINATE BUILDING

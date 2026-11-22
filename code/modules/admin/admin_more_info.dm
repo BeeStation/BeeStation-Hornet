@@ -18,7 +18,7 @@
 
 	//Job + antagonist
 	if(subject.mind)
-		special_role_description = "Role: <b>[subject.mind.assigned_role]</b>; Antagonist: <font color='red'><b>"
+		special_role_description = "Role: <b>[subject.mind.assigned_role.title]</b>; Antagonist: <font color='red'><b>"
 
 		if(subject.mind.antag_datums)
 			var/iterable = 0
@@ -49,7 +49,7 @@
 				status = "<font color='red'><b>Dead</b></font>"
 		health_description = "Status: [status]"
 		health_description += "<br>Brute: [lifer.getBruteLoss()] - Burn: [lifer.getFireLoss()] - Toxin: [lifer.getToxLoss()] - Suffocation: [lifer.getOxyLoss()]"
-		health_description += "<br>Clone: [lifer.getCloneLoss()] - Brain: [lifer.getOrganLoss(ORGAN_SLOT_BRAIN)] - Stamina: [lifer.getStaminaLoss()]"
+		health_description += "<br>Clone: [lifer.getCloneLoss()] - Brain: [lifer.getOrganLoss(ORGAN_SLOT_BRAIN)] - Stamina: [lifer.stamina.current]"
 	else
 		health_description = "This mob type has no health to speak of."
 

@@ -6,6 +6,8 @@
 #define MOVABLE_LIGHT 2
 ///Light made by masking the lighting darkness plane, and is directional.
 #define MOVABLE_LIGHT_DIRECTIONAL 3
+///Light made by masking the lighting darkness plane, and is a directionally focused beam.
+#define MOVABLE_LIGHT_BEAM 4
 
 ///Is a movable light source attached to another movable (its loc), meaning that the lighting component should go one level deeper.
 #define LIGHT_ATTACHED (1<<0)
@@ -45,7 +47,7 @@
 #define LIGHT_RANGE_FIRE		3 //! How many tiles standard fires glow.
 
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_MAX 255
-#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 128
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 77
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
@@ -54,15 +56,13 @@
 #define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128 //! For lighting alpha, small amounts lead to big changes. even at 128 its hard to figure out what is dark and what is light, at 64 you almost can't even tell.
 #define LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
-//lighting area defines
-#define DYNAMIC_LIGHTING_DISABLED 0 //! dynamic lighting disabled (area stays at full brightness)
-#define DYNAMIC_LIGHTING_ENABLED 1 //! dynamic lighting enabled
-#define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
-
 // Fullbright lighting defines
-#define FULLBRIGHT_NONE 0		//! Do not use fullbright (Only applies to turfs)
-#define FULLBRIGHT_DEFAULT 1	//! Use the default fullbright overlay of just 100% lighting
-#define FULLBRIGHT_STARLIGHT 2	//! Use the starlight brightness overlay
+/// Use the default fullbright overlay of just 100% lighting
+#define FULLBRIGHT_DEFAULT 0
+/// Use the starlight brightness overlay
+#define FULLBRIGHT_STARLIGHT 1
+/// Do not use fullbright
+#define FULLBRIGHT_NONE 2
 
 /// The amount of lumcount on a tile for it to be considered dark (used to determine reading and nyctophobia)
 #define LIGHTING_TILE_IS_DARK 0.2
@@ -87,7 +87,7 @@
 /// A globaly cached version of [EMISSIVE_COLOR] for quick access. Indexed by alpha value
 GLOBAL_LIST_INIT(emissive_color, new(256))
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
-#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|RESET_COLOR|NO_CLIENT_COLOR|PIXEL_SCALE)
+#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR)
 
 /// Colour matrix used to convert items into blockers. The only thing that should be taken into account is the alpha value, and
 /// alpha of 1 should be fully black and an alpha of 0 should be black but transparent
@@ -97,9 +97,11 @@ GLOBAL_LIST_INIT(emissive_color, new(256))
 /// Blue = 0
 /// Green = 0
 /// Alpha = alpha
-#define EM_BLOCKER_MATRIX list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-/// A globaly cached version of [EM_BLOCKER_MATRIX] for quick access.
-GLOBAL_LIST_INIT(em_blocker_matrix, EM_BLOCKER_MATRIX)
+#define _EM_BLOCK_COLOR(val) list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,val, 0,0,0,0)
+/// The color matrix applied to all emissive blockers. Should be solely dependent on alpha and not have RGB overlap with [EMISSIVE_COLOR].
+#define EM_BLOCK_COLOR _EM_BLOCK_COLOR(1)
+/// A globaly cached version of [EM_BLOCK_COLOR] for quick access.
+GLOBAL_LIST_INIT(em_block_color, EM_BLOCK_COLOR)
 
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \
@@ -115,20 +117,6 @@ do { \
 		source.lum_b = 1; \
 	}; \
 } while (FALSE)
-
-GLOBAL_DATUM_INIT(fullbright_overlay, /image, create_fullbright_overlay())
-
-/proc/create_fullbright_overlay()
-	var/image/lighting_effect = new()
-	lighting_effect.appearance = /obj/effect/fullbright
-	return lighting_effect
-
-GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
-
-/proc/create_starlight_overlay()
-	var/image/lighting_effect = new()
-	lighting_effect.appearance = /obj/effect/fullbright/starlight
-	return lighting_effect
 
 /// Innate lum source that cannot be removed
 #define LUM_SOURCE_INNATE (1 << 4)

@@ -3,6 +3,7 @@
 // **********************
 
 /obj/item/grown // Grown weapons
+	abstract_type = /obj/item/grown
 	name = "grown_weapon"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
@@ -39,7 +40,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown)
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 
-/obj/item/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/grown/attackby(obj/item/O, mob/user, list/modifiers)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
 		var/msg = "[span_info("This is \a [span_name(src)]")]\n"

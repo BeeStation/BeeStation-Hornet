@@ -3,6 +3,7 @@
 //Unlike regular traumas this can affect the victim's body and surroundings
 
 /datum/brain_trauma/magic
+	abstract_type = /datum/brain_trauma/magic
 	resilience = TRAUMA_RESILIENCE_LOBOTOMY
 
 /datum/brain_trauma/magic/lumiphobia
@@ -60,17 +61,14 @@
 	lose_text = span_notice("You realize that magic might be real.")
 
 /datum/brain_trauma/magic/antimagic/on_gain()
-	owner.AddComponent(/datum/component/anti_magic, \
-	_source = TRAUMA_TRAIT, \
-	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND), \
-	)
-	..()
+	owner.AddComponent(/datum/component/anti_magic, source = TRAUMA_TRAIT, antimagic_flags = MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND)
+	return ..()
 
 /datum/brain_trauma/magic/antimagic/on_lose()
 	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == TRAUMA_TRAIT)
 			qdel(anti_magic)
-	..()
+	return ..()
 
 /datum/brain_trauma/magic/stalker
 	name = "Stalking Phantom"

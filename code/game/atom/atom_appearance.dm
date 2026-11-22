@@ -34,6 +34,9 @@
 	if (ismovable(src))
 		UPDATE_OO_IF_PRESENT
 
+	//Reset our blind_appearance whenever we update our appearance so it gets rebuilt *when* and only when it's called to action
+	blind_appearance = null
+
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
@@ -63,9 +66,13 @@
 		REMOVE_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 		// Update the overlays where any luminous things get added again
 		var/list/new_overlays = update_overlays(updates)
-		if(managed_overlays)
-			cut_overlay(managed_overlays)
-			managed_overlays = null
+		if (managed_overlays)
+			if (length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1))
+				overlays = null
+				POST_OVERLAY_CHANGE(src)
+			else
+				cut_overlay(managed_overlays)
+				managed_overlays = null
 		if(length(new_overlays))
 			if (length(new_overlays) == 1)
 				managed_overlays = new_overlays[1]

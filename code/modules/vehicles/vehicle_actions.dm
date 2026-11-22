@@ -154,7 +154,7 @@
 //ACTION DATUMS
 
 /datum/action/vehicle
-	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_vehicle.dmi'
 	button_icon_state = null
 	var/obj/vehicle/vehicle_target
@@ -164,7 +164,7 @@
 	return ..()
 
 /datum/action/vehicle/sealed
-	check_flags = AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
 
 /datum/action/vehicle/sealed/Destroy()
@@ -298,8 +298,8 @@
 	var/multiplier = 1
 	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	rider.adjustStaminaLoss(vehicle.instability * multiplier * 2)
-	if (rider.getStaminaLoss() >= 100)
+	rider.stamina.adjust(-vehicle.instability * multiplier * 2)
+	if (HAS_TRAIT(rider, TRAIT_EXHAUSTED))
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		vehicle.unbuckle_mob(rider)
 		rider.throw_at(landing_turf, 2, 2)
@@ -311,8 +311,10 @@
 		vehicle.icon_state = "[vehicle.board_icon]-grind"
 		addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, grind)), 0.2 SECONDS)
 	rider.spin(spintime = 4, speed = 1)
-	animate(rider, pixel_y = -6, time = 4)
-	animate(vehicle, pixel_y = -6, time = 3)
+	animate(rider, pixel_y = 6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_y = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(vehicle, pixel_y = 6, time = 0.3 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_y = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 	playsound(vehicle, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
 	passtable_on(rider, VEHICLE_TRAIT)
 	passtable_on(vehicle, VEHICLE_TRAIT)
@@ -336,8 +338,8 @@
 	var/multiplier = 1
 	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	rider.adjustStaminaLoss(board.instability * multiplier)
-	if (rider.getStaminaLoss() >= 100)
+	rider.stamina.adjust(-board.instability * multiplier)
+	if (HAS_TRAIT(rider, TRAIT_EXHAUSTED))
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		board.unbuckle_mob(rider)
 		rider.Paralyze(50 * multiplier)
@@ -361,7 +363,9 @@
 	)
 	playsound(board, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
 	rider.spin(spintime = 4, speed = 1)
-	animate(rider, pixel_y = -6, time = 0.4 SECONDS)
-	animate(board, pixel_y = -6, time = 0.3 SECONDS)
+	animate(rider, pixel_z = 6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_z = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(board, pixel_z = 6, time = 0.3 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_z = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 	board.unbuckle_mob(rider)
 	addtimer(CALLBACK(board, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, pick_up_board), rider), 1 SECONDS)

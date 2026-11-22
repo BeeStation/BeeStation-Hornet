@@ -9,13 +9,17 @@
 	if(loc)
 		loc.on_log(FALSE)
 
-	if(client)
-		for(var/foo in client.player_details.post_logout_callbacks)
-			var/datum/callback/CB = foo
-			CB.Invoke()
-
 	for (var/datum/component/comp in GetComponents(/datum/component/moved_relay))
 		qdel(comp)
 
-	clear_important_client_contents(client)
+	// Unset the click abilities when logging out
+	if(istype(click_intercept, /datum/action/cooldown))
+		var/datum/action/cooldown/click_action = click_intercept
+		click_action.unset_click_ability(src, refund_cooldown = TRUE)
+	else if(istype(click_intercept, /datum/action/innate))
+		var/datum/action/innate/click_action = click_intercept
+		click_action.unset_ranged_ability(src)
+
+	become_uncliented()
+
 	return TRUE

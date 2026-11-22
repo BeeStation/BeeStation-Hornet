@@ -61,7 +61,7 @@
 	for(var/mob/living/living_mob in range(damage_radius, target_turf))
 		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == owner)
 			continue
-		if(living_mob.can_block_magic(antimagic_flags))
+		if(living_mob.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
 			continue
 		living_mob.apply_damage(40, BRUTE)
 

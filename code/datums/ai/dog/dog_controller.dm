@@ -48,6 +48,5 @@
 		/datum/ai_planning_subtree/random_speech/dog,
 		/datum/ai_planning_subtree/pet_planning,
 		/datum/ai_planning_subtree/dog_harassment,
-		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/flee_target,
 	)

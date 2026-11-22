@@ -3,53 +3,53 @@
 /turf/open/floor/iron/airless{
 	broken = 1
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "c" = (
 /obj/structure/table,
 /obj/item/stock_parts/cell,
 /turf/open/floor/iron/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "e" = (
 /obj/machinery/computer/teleporter{
 	dir = 4
 	},
 /turf/open/floor/iron/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "g" = (
 /turf/open/floor/iron/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /turf/template_noop,
 /area/template_noop)
 "y" = (
 /obj/machinery/teleport/station,
 /turf/open/floor/iron/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "z" = (
 /obj/machinery/door/airlock/vault,
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/iron/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /obj/machinery/teleport/hub,
 /turf/open/floor/iron/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "L" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Q" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
 "X" = (
 /turf/open/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 q

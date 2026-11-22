@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(trash_loot, list(//junk: useless, very easy to get, or ghetto c
 		/obj/item/rack_parts = 1,
 		/obj/item/shard = 1,
 
-		/obj/item/reagent_containers/pill/floorpill = 3,
+		/obj/item/reagent_containers/applicator/pill/floorpill = 3,
 		/obj/item/toy/eightball = 1,
 		) = 8,
 
@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 	list(//medical and chemicals
 		/obj/item/grenade/chem_grenade/cleaner = 1,
 		/obj/item/reagent_containers/cup/beaker = 1,
-		/obj/item/reagent_containers/cup/rag = 1,
+		/obj/item/rag = 1,
 		/obj/item/reagent_containers/syringe = 1,
 		/obj/item/storage/box/matches = 1,
 		/obj/item/storage/fancy/cigarettes/dromedaryco = 1,

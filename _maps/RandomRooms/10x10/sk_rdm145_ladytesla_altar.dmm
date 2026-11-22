@@ -44,7 +44,7 @@
 	},
 /area/template_noop)
 "n" = (
-/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "o" = (
@@ -69,7 +69,7 @@
 "s" = (
 /obj/item/stack/sheet/wood,
 /obj/structure/table_frame/wood,
-/obj/item/stack/cable_coil/cyan,
+/obj/item/stack/cable_coil,
 /obj/machinery/light/small/built{
 	dir = 4
 	},
@@ -139,20 +139,16 @@
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "F" = (
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/carpet/royalblue,
-/area/template_noop)
-"I" = (
-/obj/item/stack/cable_coil/cyan,
+/obj/item/stack/cable_coil/cut,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "J" = (
-/obj/item/stack/cable_coil/cyan,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/oil,
-/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
@@ -274,7 +270,7 @@ a
 (5,1,1) = {"
 m
 i
-I
+n
 y
 n
 m

@@ -109,7 +109,7 @@
 			armorval += inventory_back.get_armor_rating(type)
 	return armorval * 0.5
 
-/mob/living/basic/pet/dog/corgi/attackby(obj/item/attacking_item, mob/user, params)
+/mob/living/basic/pet/dog/corgi/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/razor))
 		if(shaved)
 			to_chat(user, span_warning("You can't shave this corgi, [p_they()] has already been shaved!"))
@@ -292,7 +292,7 @@
 			possible_headwear += item
 	if(!length(possible_headwear))
 		for(var/obj/item/item in orange(1))
-			if(ispath(item.dog_fashion, /datum/dog_fashion/head) && CanReach(item))
+			if(ispath(item.dog_fashion, /datum/dog_fashion/head) && item.IsReachableBy(src))
 				possible_headwear += item
 	if(!length(possible_headwear))
 		return
@@ -389,13 +389,21 @@
 
 /mob/living/basic/pet/dog/corgi/ian/Destroy()
 	LAZYREMOVE(SSticker.round_end_events, i_will_survive) //cleanup the survival callback
-	QDEL_NULL(i_will_survive)
+	i_will_survive = null
 	return ..()
 
 /mob/living/basic/pet/dog/corgi/ian/death()
 	if(!memory_saved)
 		write_memory(TRUE)
 	return ..()
+
+/mob/living/basic/pet/dog/corgi/ian/revive(full_heal_flags, excess_healing, force_grab_ghost)
+	. = ..()
+	if (!.)
+		return
+	if (!istype(inventory_head, /obj/item/clothing/glasses/eyepatch))
+		inventory_head?.forceMove(drop_location())
+	place_on_head(new /obj/item/clothing/glasses/eyepatch)
 
 /mob/living/basic/pet/dog/corgi/ian/narsie_act()
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)

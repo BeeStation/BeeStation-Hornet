@@ -95,18 +95,6 @@
 	new /obj/item/clothing/suit/chaplainsuit/armor/ancient(src)
 	new /obj/item/clothing/head/helmet/chaplain/ancient(src)
 
-/obj/item/storage/box/holy/witchhunter
-	name = "Witchhunter Kit"
-	item_icon_state = "witchhunter"
-	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n" + span_notice("The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.")
-
-/obj/item/storage/box/holy/witchhunter/PopulateContents()
-	new /obj/item/clothing/suit/chaplainsuit/armor/witchhunter(src)
-	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
-	new /obj/item/clothing/neck/crucifix(src)
-
-
-
 /obj/item/storage/box/holy/graverobber
 	name = "Grave Robber Kit"
 	item_icon_state = "graverobber"
@@ -163,7 +151,7 @@
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, \
-		_source = INNATE_TRAIT, \
+		source = INNATE_TRAIT, \
 		antimagic_flags = MAGIC_RESISTANCE | MAGIC_RESISTANCE_HOLY \
 	)
 	AddComponent(/datum/component/effect_remover, \
@@ -326,7 +314,7 @@
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=5, block_power_unwielded=100, block_power_wielded=100)
 
 /obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(ISWIELDED(src))
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
 
@@ -655,7 +643,7 @@
 		return
 	if(prob(30) && ishuman(A))
 		var/mob/living/carbon/human/H = A
-		user.reagents.trans_to(H, user.reagents.total_volume, 1, 1, 0, transfered_by = user)
+		user.reagents.trans_to(H, user.reagents.total_volume, transfered_by = user)
 		to_chat(user, span_notice("Your pride reflects on [H]."))
 		to_chat(H, span_userdanger("You feel insecure, taking on [user]'s burden."))
 

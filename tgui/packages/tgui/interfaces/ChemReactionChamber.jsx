@@ -1,5 +1,5 @@
-import { map } from 'common/collections';
 import { classes } from 'common/react';
+import { map } from 'es-toolkit/compat';
 
 import { useBackend, useLocalState } from '../backend';
 import {

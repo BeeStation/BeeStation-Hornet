@@ -13,7 +13,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NO_PIXEL_RANDOM_DROP
 	throwforce = 5
 	throw_speed = 1
@@ -67,7 +67,7 @@
 	update_appearance()
 	set_light(0)
 
-/obj/item/powersink/attackby(obj/item/I, mob/user, params)
+/obj/item/powersink/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(mode == DISCONNECTED)
 			var/turf/T = loc

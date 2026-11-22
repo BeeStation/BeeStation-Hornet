@@ -8,7 +8,12 @@
 	max_amount = 12
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
+
 	throw_speed = 3
+	stamina_damage = 0
+	stamina_cost = 0
+	stamina_critical_chance = 0
+
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	novariants = FALSE
@@ -204,15 +209,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	max_amount = 12
 	merge_type = /obj/item/stack/medical/gauze
 
-/obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.get_sharpness())
+/obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, list/modifiers)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || (I.sharpness >= SHARP))
 		if(get_amount() < 2)
 			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return
 		new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
-		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					span_notice("You cut [src] into pieces of cloth with [I]."), \
-					span_italics("You hear cutting."))
+		if(IsReachableBy(user))
+			user.visible_message(
+				span_notice("[user] cuts [src] into pieces of cloth with [I]."),
+				span_notice("You cut [src] into pieces of cloth with [I]."),
+				span_hear("You hear cutting.")
+			)
+		else //telekinesis
+			visible_message(
+				span_notice("[I] cuts [src] into pieces of cloth."),
+				blind_message = span_hear("You hear cutting.")
+			)
 		use(2)
 	else
 		return ..()

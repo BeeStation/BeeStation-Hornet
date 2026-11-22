@@ -1,6 +1,6 @@
-// Look up levels[z].traits[trait]
+/// Look up levels[z].traits[trait]
 /datum/controller/subsystem/mapping/proc/level_trait(z, trait)
-	if (!isnum_safe(z) || z < 1)
+	if (!IS_FINITE(z) || z < 1)
 		return null
 	if (z_list)
 		if (z > z_list.len)
@@ -30,7 +30,7 @@
 	return FALSE
 
 /// Get a list of all z which have the specified trait
-/datum/controller/subsystem/mapping/proc/levels_by_trait(trait)
+/datum/controller/subsystem/mapping/proc/levels_by_trait(trait) as /list
 	return z_trait_levels[trait] || list()
 
 /// Get a list of all z which have any of the specified traits

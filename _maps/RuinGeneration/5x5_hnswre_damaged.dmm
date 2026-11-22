@@ -4,7 +4,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "n" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -14,29 +14,29 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "x" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "D" = (
 /turf/template_noop,
 /area/template_noop)
 "G" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "S" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Z" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 G

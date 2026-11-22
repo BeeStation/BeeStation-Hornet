@@ -8,7 +8,7 @@
 	var/check_every = 12 SECONDS
 	var/grace_period = 6 SECONDS
 	var/damage_rate = 0.5 // organ damage taken per second
-	var/datum/emote/next_breath_type = /datum/emote/inhale
+	var/datum/emote/next_breath_type = /datum/emote/living/inhale
 	var/datum/action/breathe/button = new
 
 /datum/action/breathe
@@ -47,7 +47,7 @@
 		button.Grant(C)
 		to_chat(C, span_userdanger("You suddenly realize you're breathing manually."))
 
-/datum/component/manual_breathing/Destroy(force, silent)
+/datum/component/manual_breathing/Destroy(force)
 	L = null
 	STOP_PROCESSING(SSdcs, src)
 	to_chat(parent, span_userdanger("You revert back to automatic breathing."))
@@ -115,11 +115,11 @@
 	SIGNAL_HANDLER
 
 	if(emote.type == next_breath_type)
-		if(next_breath_type == /datum/emote/inhale)
-			next_breath_type = /datum/emote/exhale
+		if(next_breath_type == /datum/emote/living/inhale)
+			next_breath_type = /datum/emote/living/exhale
 			button.update_status("exhale")
 		else
-			next_breath_type = /datum/emote/inhale
+			next_breath_type = /datum/emote/living/inhale
 			button.update_status("inhale")
 
 		warn_grace = FALSE

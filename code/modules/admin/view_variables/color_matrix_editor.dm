@@ -1,55 +1,7 @@
-INITIALIZE_IMMEDIATE(/atom/movable/screen/color_matrix_proxy_view)
-
-/atom/movable/screen/color_matrix_proxy_view
-	name = "color_matrix_proxy_view"
-	del_on_map_removal = FALSE
-	layer = GAME_PLANE
-	plane = GAME_PLANE
-
-	var/list/plane_masters = list()
-
-	/// The client that is watching this view
-	var/client/client
-
-/atom/movable/screen/color_matrix_proxy_view/Initialize(mapload)
-	. = ..()
-
-	assigned_map = "color_matrix_proxy_[REF(src)]"
-	set_position(1, 1)
-
-/atom/movable/screen/color_matrix_proxy_view/Destroy()
-	for (var/plane_master in plane_masters)
-		client?.screen -= plane_master
-		qdel(plane_master)
-
-	client?.clear_map(assigned_map)
-
-	client = null
-	plane_masters = null
-
-	return ..()
-
-/atom/movable/screen/color_matrix_proxy_view/proc/register_to_client(client/client)
-	QDEL_LIST(plane_masters)
-
-	src.client = client
-
-	if (!client)
-		return
-
-	for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-		var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
-		plane_master.screen_loc = "[assigned_map]:CENTER"
-		client?.screen |= plane_master
-
-		plane_masters += plane_master
-
-	client?.register_map_obj(src)
-
 /datum/color_matrix_editor
 	var/client/owner
 	var/datum/weakref/target
-	var/atom/movable/screen/color_matrix_proxy_view/proxy_view
+	var/atom/movable/screen/map_view/proxy_view
 	var/list/current_color
 	var/closed
 
@@ -69,14 +21,14 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/color_matrix_proxy_view)
 		proxy_view.appearance = image('icons/misc/colortest.dmi', "colors")
 
 	proxy_view.color = current_color
-	proxy_view.register_to_client(owner)
+	proxy_view.generate_view("color_matrix_proxy_[REF(proxy_view)]")
 
-/datum/color_matrix_editor/Destroy(force, ...)
+/datum/color_matrix_editor/Destroy(force)
 	QDEL_NULL(proxy_view)
 	return ..()
 
 /datum/color_matrix_editor/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/color_matrix_editor/ui_static_data(mob/user)
 	var/list/data = list()
@@ -95,6 +47,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/color_matrix_proxy_view)
 	if(!ui)
 		ui = new(user, src, "ColorMatrixEditor")
 		ui.open()
+		proxy_view.display_to(user, ui.window)
 
 /datum/color_matrix_editor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()

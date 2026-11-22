@@ -28,6 +28,7 @@
 
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
@@ -46,7 +47,7 @@
 	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
 	icon_state = "debug"
 
-/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/cotton))
 		var/obj/item/stack/S = I
 		if(S.amount< 3)
@@ -96,7 +97,7 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon()
 
-/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/cup))
 		if(I.reagents)
 			if(I.reagents.total_volume <= 0)
@@ -108,7 +109,7 @@
 				to_chat(user, span_notice("You fill the balloon with the contents of [I]."))
 				I.reagents.trans_to(src, 10, transfered_by = user)
 				update_icon()
-	else if(I.get_sharpness())
+	else if(I.sharpness)
 		balloon_burst()
 	else
 		return ..()
@@ -217,7 +218,7 @@
 	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=10)
@@ -229,7 +230,7 @@
 	. = ..()
 	. += "There [bullets == 1 ? "is" : "are"] [bullets] cap\s left."
 
-/obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, params)
+/obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, list/modifiers)
 
 	if(istype(A, /obj/item/toy/ammo/gun))
 		if (src.bullets >= 7)
@@ -268,6 +269,9 @@
 	user.visible_message(span_danger("[user] fires [src] at [target]!"), \
 						span_danger("You fire [src] at [target]!"), \
 						span_italics("You hear a gunshot!"))
+
+/obj/item/toy/ammo
+	abstract_type = /obj/item/toy/ammo
 
 /obj/item/toy/ammo/gun
 	name = "capgun ammo"
@@ -357,7 +361,7 @@
 	update_appearance(UPDATE_ICON)
 
 // Copied from /obj/item/melee/energy/sword/attackby
-/obj/item/toy/sword/attackby(obj/item/weapon, mob/living/user, params)
+/obj/item/toy/sword/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(istype(weapon, /obj/item/toy/sword))
 		var/obj/item/toy/sword/attatched_sword = weapon
 		if(HAS_TRAIT(weapon, TRAIT_NODROP))
@@ -490,7 +494,7 @@
 
 /obj/item/dualsaber/toy/impale(mob/living/user)//Stops Toy Dualsabers from injuring clowns
 	to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on [src]."))
-	user.adjustStaminaLoss(25)
+	user.stamina.adjust(-25)
 
 /obj/item/toy/katana
 	name = "replica katana"
@@ -501,7 +505,7 @@
 	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 15
 	throwforce = 5
@@ -556,7 +560,7 @@
 	SIGNAL_HANDLER
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
+		if(issilicon(H) || !MOVING_DELIBERATELY(M))
 			to_chat(M, span_danger("You step on the snap pop!"))
 			pop_burst(2, 0)
 
@@ -595,6 +599,7 @@
 /obj/item/toy/mecha/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/series, /obj/item/toy/mecha, "Mini-Mecha action figures")
+	AddElement(/datum/element/toy_talk)
 
 //all credit to skasi for toy mech fun ideas
 /obj/item/toy/mecha/attack_self(mob/user)
@@ -908,6 +913,7 @@
 /obj/item/toy/cards/deck/Initialize(mapload)
 	. = ..()
 	populate_deck()
+	AddElement(/datum/element/drag_pickup)
 
 ///Generates all the cards within the deck.
 /obj/item/toy/cards/deck/proc/populate_deck()
@@ -942,7 +948,6 @@
 	var/O = src
 	H.apply_card_vars(H,O)
 	popleft(cards)
-	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message(span_notice("[user] draws a card from the deck."), span_notice("You draw a card from the deck."))
 	update_icon()
@@ -967,7 +972,7 @@
 		user.visible_message(span_notice("[user] shuffles the deck."), span_notice("You shuffle the deck."))
 		cooldown = world.time
 
-/obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/cards/singlecard))
 		var/obj/item/toy/cards/singlecard/SC = I
 		if(SC.parentdeck == src)
@@ -994,26 +999,6 @@
 		update_icon()
 	else
 		return ..()
-
-/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/M = usr
-	if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
-		return
-	if(Adjacent(usr))
-		if(over_object == M && loc != M)
-			M.put_in_hands(src)
-			to_chat(usr, span_notice("You pick up the deck."))
-
-		else if(istype(over_object, /atom/movable/screen/inventory/hand))
-			var/atom/movable/screen/inventory/hand/H = over_object
-			if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-				to_chat(usr, span_notice("You pick up the deck."))
-
-	else
-		to_chat(usr, span_warning("You can't reach it from here!"))
-
-
 
 /obj/item/toy/cards/cardhand
 	name = "hand of cards"
@@ -1046,7 +1031,6 @@
 	C.parentdeck = parentdeck
 	C.cardname = choice
 	C.apply_card_vars(C,O)
-	C.pickup(cardUser)
 	cardUser.put_in_hands(C)
 	cardUser.visible_message(span_notice("[cardUser] draws a card from [cardUser.p_their()] hand."), span_notice("You take the [C.cardname] from your hand."))
 
@@ -1058,11 +1042,10 @@
 		N.cardname = currenthand[1]
 		N.apply_card_vars(N,O)
 		qdel(src)
-		N.pickup(cardUser)
 		cardUser.put_in_hands(N)
 		to_chat(cardUser, span_notice("You also take [currenthand[1]] and hold it."))
 
-/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, list/modifiers)
 	if(istype(C))
 		if(C.parentdeck == src.parentdeck)
 			src.currenthand += C.cardname
@@ -1161,7 +1144,7 @@
 		src.name = "card"
 		src.pixel_x = -5
 
-/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == src.parentdeck)
@@ -1173,7 +1156,6 @@
 			to_chat(user, span_notice("You combine the [C.cardname] and the [src.cardname] into a hand."))
 			qdel(C)
 			qdel(src)
-			H.pickup(user)
 			user.put_in_active_hand(H)
 		else
 			to_chat(user, span_warning("You can't mix cards from other decks!"))
@@ -1468,6 +1450,7 @@
 /obj/item/toy/figure/Initialize(mapload)
 	. = ..()
 	desc = "A \"Space Life\" brand [src]."
+	AddElement(/datum/element/toy_talk)
 
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown <= world.time)
@@ -1672,7 +1655,7 @@
 	name = "\improper Virologist action figure"
 	icon_state = "virologist"
 	toysay = "It's beneficial! Mostly."
-	toysound = 'sound/ambience/antag/ling_aler.ogg'
+	toysound = 'sound/effects/antag/ling_aler.ogg'
 
 /obj/item/toy/figure/warden
 	name = "\improper Warden action figure"
@@ -1701,15 +1684,11 @@
 	to_chat(user, "You name the dummy as \"[doll_name]\"")
 	name = "[initial(name)] - [doll_name]"
 
-/obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language, list/message_mods)
-	var/mob/M = A
-	if (istype(M))
-		M.log_talk(message, LOG_SAY, tag="dummy toy")
+/obj/item/toy/dummy/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/toy_talk)
 
-	say(message, language)
-	return NOPASS
-
-/obj/item/toy/dummy/GetVoice()
+/obj/item/toy/dummy/get_voice()
 	return doll_name
 
 /*

@@ -101,3 +101,6 @@
 	background_icon = 'icons/hud/actions/actions_items.dmi'
 	background_icon_state = "storage_gather_switch"
 	overlay_icon_state = "bg_tech_border"
+
+/datum/action/item_action/call_link
+	name = "Call MODlink"

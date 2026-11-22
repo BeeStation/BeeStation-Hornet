@@ -63,7 +63,8 @@
 
 	You can also generate a new list on the fly using a selector array. @[] will generate a list of objects based off the selector provided.
 
-	"SELECT /mob/living IN (@[/area/crew_quarters/bar MAP contents])[1]"
+	"SELECT /mob/living IN (@[
+/area/station/service/bar MAP contents])[1]"
 
 	What if some dumbass admin spawned a bajillion spiders and you need to kill them all?
 	Oh yeah you'd rather not delete all the spiders in maintenace. Only that one room the spiders were
@@ -356,7 +357,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 			output += "[key]"
 
 		//print the value
-		var/is_value = (!isnum_safe(key) && !isnull(input[key]))
+		var/is_value = (!IS_FINITE(key) && !isnull(input[key]))
 		if(is_value)
 			var/value = input[key]
 			if(islist(value))
@@ -730,7 +731,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 				text_list += ", "
 			first = FALSE
 			SDQL_print(x, text_list)
-			if (!isnull(x) && !isnum_safe(x) && L[x] != null)
+			if (!isnull(x) && !IS_FINITE(x) && L[x] != null)
 				text_list += " -> "
 				SDQL_print(L[L[x]])
 		text_list += "]<br>"
@@ -873,7 +874,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 	else if(expression[i] == "null")
 		val = null
 
-	else if(isnum_safe(expression[i]))
+	else if(IS_FINITE(expression[i]))
 		val = expression[i]
 
 	else if(ispath(expression[i]))
@@ -969,7 +970,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 		else
 			to_chat(usr, "[spaces][item]")
 
-		if(!isnum_safe(item) && query_tree[item])
+		if(!IS_FINITE(item) && query_tree[item])
 
 			if(istype(query_tree[item], /list))
 				to_chat(usr, "[spaces][whitespace](")
@@ -1060,7 +1061,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 		else if(expression[start + 1] == "\[" && islist(v))
 			var/list/L = v
 			var/index = query.SDQL_expression(source, expression[start + 2])
-			if(isnum_safe(index) && (!ISINTEGER(index) || L.len < index))
+			if(IS_FINITE(index) && (!ISINTEGER(index) || L.len < index))
 				to_chat(usr, span_danger("Invalid list index: [index]"))
 				return null
 			return L[index]

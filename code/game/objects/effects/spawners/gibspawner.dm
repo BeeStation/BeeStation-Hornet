@@ -1,5 +1,6 @@
 
 /obj/effect/gibspawner
+	icon_state = "gibspawner"// For the map editor
 	var/sparks = 0 //whether sparks spread
 	var/virusProb = 20 //the chance for viruses to spread on the gibs
 	var/gib_mob_type  //generate a fake mob to transfer DNA from if we weren't passed a mob.
@@ -23,7 +24,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 
 	var/obj/effect/decal/cleanable/blood/gib = null
 
-	if(sound_to_play && isnum_safe(sound_vol))
+	if(sound_to_play && IS_FINITE(sound_vol))
 		playsound(src, sound_to_play, sound_vol, TRUE)
 
 	if(sparks)

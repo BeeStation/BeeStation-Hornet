@@ -27,7 +27,7 @@
 	return values
 
 /datum/preference/choiced/species/apply_to_human(mob/living/carbon/human/target, value)
-	target.set_species(value, icon_update = FALSE, pref_load = TRUE)
+	target.set_species(value, icon_update = FALSE)
 
 /datum/preference/choiced/species/compile_constant_data()
 	var/list/data = list()
@@ -41,7 +41,7 @@
 		data[species_id]["desc"] = species.get_species_description()
 		data[species_id]["lore"] = species.get_species_lore()
 		data[species_id]["icon"] = sanitize_css_class_name(species.name)
-		data[species_id]["use_skintones"] = species.use_skintones
+		data[species_id]["use_skintones"] = (TRAIT_USES_SKINTONES in species.inherent_traits)
 		data[species_id]["sexes"] = species.sexes
 		data[species_id]["enabled_features"] = species.get_features()
 		data[species_id]["perks"] = species.get_species_perks()

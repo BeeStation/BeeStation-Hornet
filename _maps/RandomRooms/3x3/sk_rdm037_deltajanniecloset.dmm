@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/mop,
 /turf/open/floor/plating,
@@ -10,10 +10,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating,

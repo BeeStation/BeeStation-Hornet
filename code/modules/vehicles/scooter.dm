@@ -20,7 +20,7 @@
 		qdel(src)
 	return TRUE
 
-/obj/vehicle/ridden/scooter/Moved()
+/obj/vehicle/ridden/scooter/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
@@ -93,9 +93,9 @@
 	var/multiplier = 1
 	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	rider.adjustStaminaLoss(multiplier * instability * 6)
+	rider.stamina.adjust(-multiplier * instability * 6)
 	playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
-	if(!iscarbon(rider) || rider.getStaminaLoss() >= 100 || grinding || world.time < next_crash)
+	if(!iscarbon(rider) || HAS_TRAIT(rider, TRAIT_EXHAUSTED) || grinding || world.time < next_crash)
 		var/atom/throw_target = get_edge_target_turf(rider, pick(GLOB.cardinals))
 		unbuckle_mob(rider)
 		rider.throw_at(throw_target, 3, 2)
@@ -124,8 +124,8 @@
 	var/multiplier = 1
 	if(HAS_TRAIT(L, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	L.adjustStaminaLoss(multiplier * instability * 0.5)
-	if (L.getStaminaLoss() >= 100)
+	L.stamina.adjust(-multiplier * instability * 0.5)
+	if(HAS_TRAIT(L, TRAIT_EXHAUSTED))
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		unbuckle_mob(L)
 		var/atom/throw_target = get_edge_target_turf(src, pick(GLOB.cardinals))
@@ -179,7 +179,7 @@
 /obj/vehicle/ridden/scooter/skateboard/hoverboard/screwdriver_act(mob/living/user, obj/item/I)
 	return FALSE
 
-/obj/vehicle/ridden/scooter/skateboard/hoverboard/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/scooter/skateboard/hoverboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		return
 	else
@@ -201,7 +201,7 @@
 	icon_state = "scooter_frame"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
+/obj/item/scooter_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/iron))
 		if(!I.tool_start_check(user, amount=5))
 			return
@@ -220,7 +220,7 @@
 	qdel(src)
 	return TRUE
 
-/obj/vehicle/ridden/scooter/skateboard/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/scooter/skateboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		if(!I.tool_start_check(user, amount=2))
 			return

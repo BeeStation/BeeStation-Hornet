@@ -1,10 +1,14 @@
 
 /mob/living/carbon/get_eye_protection()
 	. = ..()
-	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
-	if(!E)
+	if(is_blind() && !is_blind_from(UNCONSCIOUS_TRAIT))
+		return INFINITY //For all my homies that can not see in the world
+
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
+	if(eyes)
+		. += eyes.flash_protect
+	else
 		return INFINITY //Can't get flashed without eyes
-	. += E.flash_protect
 	if(isclothing(head)) //Adds head protection
 		. += head.flash_protect
 	if(isclothing(glasses)) //Glasses
@@ -14,6 +18,8 @@
 
 /mob/living/carbon/get_ear_protection()
 	. = ..()
+	if(HAS_TRAIT(src, TRAIT_DEAF))
+		return INFINITY //For all my homies that can not hear in the world
 	var/obj/item/organ/ears/E = get_organ_slot(ORGAN_SLOT_EARS)
 	if(!E)
 		return INFINITY
@@ -26,17 +32,23 @@
 		var/obj/item/radio/headset/headset_in_ear = ears
 		. += headset_in_ear.bang_protect
 
-/mob/living/carbon/is_mouth_covered(head_only = 0, mask_only = 0)
-	if( (!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)) )
-		return TRUE
-
-/mob/living/carbon/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
-	if(check_head && head && (head.flags_cover & HEADCOVERSEYES))
+/mob/living/carbon/is_mouth_covered(check_flags = ALL)
+	if((check_flags & ITEM_SLOT_HEAD) && head && (head.flags_cover & HEADCOVERSMOUTH))
 		return head
-	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSEYES))
+	if((check_flags & ITEM_SLOT_MASK) && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
 		return wear_mask
-	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
+
+	return null
+
+/mob/living/carbon/is_eyes_covered(check_flags = ALL)
+	if((check_flags & ITEM_SLOT_HEAD) && head && (head.flags_cover & HEADCOVERSEYES))
+		return head
+	if((check_flags & ITEM_SLOT_MASK) && wear_mask && (wear_mask.flags_cover & MASKCOVERSEYES))
+		return wear_mask
+	if((check_flags & ITEM_SLOT_EYES) && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
 		return glasses
+
+	return null
 
 /mob/living/carbon/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
@@ -72,7 +84,9 @@
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
-	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
+	send_item_attack_message(I, user, affecting.plaintext_zone)
+	if(I.force && I.stamina_damage && I.damtype != STAMINA)
+		stamina.adjust(-1 * (I.stamina_damage * (prob(I.stamina_critical_chance) ? I.stamina_critical_modifier : 1)))
 	if (I.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
 		var/hit_amount = (100 - armour_block) / 100
@@ -184,11 +198,13 @@
 		if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 			ContactContractDisease(D)
 
-	for(var/datum/surgery/S in surgeries)
-		if(body_position == LYING_DOWN || !S.lying_required)
-			if(!user.combat_mode)
-				if(S.next_step(user, modifiers))
-					return TRUE
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(body_position != LYING_DOWN && (operations.surgery_flags & SURGERY_REQUIRE_RESTING))
+			continue
+		if(operations.next_step(user, modifiers))
+			return TRUE
 
 	return FALSE
 
@@ -262,8 +278,12 @@
  * src is the attacker
 */
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
+	///Consume stamina to disarm
+	src.stamina_swing(STAMINA_DISARM_COST)
+
 	do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
 	if (ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		human_target.w_uniform?.add_fingerprint(src)
@@ -271,7 +291,7 @@
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, src, get_combat_bodyzone(target))
 	target.disarm_effect(src)
 
-/mob/living/carbon/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
+/mob/living/carbon/is_shove_knockdown_blocked()
 	for (var/obj/item/clothing/clothing in get_equipped_items())
 		if(clothing.clothing_flags & BLOCKS_SHOVE_KNOCKDOWN)
 			return TRUE
@@ -348,6 +368,8 @@
 		M.visible_message(span_notice("[M] hugs [src] to make [p_them()] feel better!"), \
 					span_notice("You hug [src] to make [p_them()] feel better!"))
 
+		SEND_SIGNAL(M, COMSIG_LIVING_HUG_CARBON, src)
+
 		// Warm them up with hugs
 		share_bodytemperature(M)
 		if(bodytemperature > M.bodytemperature)
@@ -406,27 +428,29 @@
 		return
 
 	var/embeds = FALSE
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/LB = X
-		for(var/obj/item/I in LB.embedded_objects)
+	for(var/obj/item/bodypart/limb as anything in get_bodyparts())
+		for(var/obj/item/weapon as anything in limb.embedded_objects)
 			if(!embeds)
 				embeds = TRUE
 				// this way, we only visibly try to examine ourselves if we have something embedded, otherwise we'll still hug ourselves :)
-				visible_message(span_notice("[src] examines [p_them()]self."), \
-					span_notice("You check yourself for shrapnel."))
-			if(I.isEmbedHarmless())
-				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
-			else
-				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
-
+				visible_message(
+					span_notice("[src] examines [p_them()]self."),
+					span_notice("You check yourself for shrapnel.")
+				)
+			var/harmless = weapon.isEmbedHarmless()
+			var/stuck_wordage = harmless ? "stuck to" : "embedded in"
+			var/embed_class = harmless ? "notice italics" : "boldwarning"
+			to_chat(src, "\t<a class='[embed_class]' href='byond://?src=[REF(src)];embedded_object=[REF(weapon)];embedded_limb=[REF(limb)]'>There is [icon2html(weapon, src)] \a [weapon] [stuck_wordage] your [limb.plaintext_zone]!</a>")
 	return embeds
 
 /mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
-	if(NOFLASH in dna?.species?.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOFLASH))
 		return
+
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
-	if(!eyes || (!override_blindness_check && HAS_TRAIT(src, TRAIT_BLIND))) //can't flash what can't see!
+	if(!eyes || (!override_blindness_check && is_blind())) //can't flash what can't see!
 		return
+
 	. = ..()
 
 	var/damage = intensity - get_eye_protection()
@@ -434,40 +458,39 @@
 		if(visual)
 			return
 
-		if (damage == 1)
-			to_chat(src, span_warning("Your eyes sting a little."))
-			if(prob(40))
-				eyes.apply_organ_damage(1)
+		switch(damage)
+			if(1)
+				to_chat(src, span_warning("Your eyes sting a little."))
+				if(prob(40))
+					eyes.apply_organ_damage(1)
 
-		else if (damage == 2)
-			to_chat(src, span_warning("Your eyes burn."))
-			eyes.apply_organ_damage(rand(2, 4))
+			if(2)
+				to_chat(src, span_warning("Your eyes burn."))
+				eyes.apply_organ_damage(rand(2, 4))
 
-		else if( damage >= 3)
-			to_chat(src, span_warning("Your eyes itch and burn severely!"))
-			eyes.apply_organ_damage(rand(12, 16))
+			if(3 to INFINITY)
+				to_chat(src, span_warning("Your eyes itch and burn severely!"))
+				eyes.apply_organ_damage(rand(12, 16))
 
 		if(eyes.damage > 10)
-			adjust_blindness(damage)
+			adjust_temp_blindness(damage * 2 SECONDS)
 			set_eye_blur_if_lower(damage * rand(6 SECONDS, 12 SECONDS))
 
-			if(eyes.damage > 20)
-				if(prob(eyes.damage - 20))
-					if(!HAS_TRAIT(src, TRAIT_NEARSIGHT))
-						to_chat(src, span_warning("Your eyes start to burn badly!"))
-					become_nearsighted(EYE_DAMAGE)
+			if(eyes.damage > eyes.low_threshold)
+				if(!is_nearsighted_from(EYE_DAMAGE) && prob(eyes.damage - eyes.low_threshold))
+					to_chat(src, span_warning("Your eyes start to burn badly!"))
+					eyes.apply_organ_damage(eyes.low_threshold)
 
-				else if(prob(eyes.damage - 25))
-					if(!is_blind())
-						to_chat(src, span_warning("You can't see anything!"))
+				else if(!is_blind() && prob(eyes.damage - eyes.high_threshold))
+					to_chat(src, span_warning("You can't see anything!"))
 					eyes.apply_organ_damage(eyes.maxHealth)
 
 			else
 				to_chat(src, span_warning("Your eyes are really starting to hurt. This can't be good for you!"))
-		return 1
-	else if(damage == 0) // just enough protection
-		if(prob(20))
-			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
+		return TRUE
+
+	else if(damage == 0 && prob(20)) // just enough protection
+		to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/list/reflist = list(intensity) // Need to wrap this in a list so we can pass a reference
@@ -545,7 +568,7 @@
 
 /mob/living/carbon/get_organic_health()
 	. = health
-	for (var/obj/item/bodypart/limb as anything in bodyparts)
+	for (var/obj/item/bodypart/limb as anything in get_bodyparts())
 		if (!IS_ORGANIC_LIMB(limb))
 			. += (limb.brute_dam * limb.body_damage_coeff) + (limb.burn_dam * limb.body_damage_coeff)
 

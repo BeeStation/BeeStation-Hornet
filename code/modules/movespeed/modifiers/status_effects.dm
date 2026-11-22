@@ -40,3 +40,8 @@
 
 /datum/movespeed_modifier/status_effect/tired_post_charge/lesser
 	multiplicative_slowdown = 2
+/datum/movespeed_modifier/medbeam_heal
+	multiplicative_slowdown = 0.7
+
+/datum/movespeed_modifier/status_effect/disorient
+	multiplicative_slowdown = 1

@@ -4,10 +4,13 @@
 	var/account_holder = "Rusty Venture"
 	var/account_balance = 0
 	var/custom_currency = list(ACCOUNT_CURRENCY_MINING = 0)
+	///If there are things effecting how much income a player will get, it's reflected here 1 is standard for humans.
+	var/payday_modifier
+	///The job datum of the account owner.
 	var/datum/job/account_job
 	/// List of physical cards that bound to this account
 	var/list/bank_cards = list()
-	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts`
+	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts_by_id`
 	var/add_to_accounts = TRUE
 	var/account_id
 	var/withdrawDelay = 0
@@ -20,20 +23,16 @@
 	var/list/payment_per_department = list()
 	/// bonus from each department.
 	var/list/bonus_per_department = list()
+	/// Command pay from before acting head appointments raised it. Null while there are none
+	var/base_command_pay
 
-/datum/bank_account/New(newname, job)
+/datum/bank_account/New(newname, job, modifier = 1)
 	account_holder = newname
 	account_job = job
-	account_id = rand(111111,999999)
-	for(var/i in 1 to ACCOUNT_CREATION_MAX_ATTEMPT)
-		if(!SSeconomy.get_bank_account_by_id(account_id)) // Don't get the same account ID
-			break
-		account_id = rand(111111,999999)
-		if(i == ACCOUNT_CREATION_MAX_ATTEMPT)
-			CRASH("Something's wrong on creating a bank account")
+	payday_modifier = modifier
 
 	// initialising payment data into an account for each department including non-station
-	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
+	for(var/datum/bank_account/department/each as anything in subtypesof(/datum/bank_account/department))
 		payment_per_department += list("[initial(each.department_id)]"=0)
 		bonus_per_department += list("[initial(each.department_id)]"=0)
 
@@ -41,13 +40,41 @@
 	for(var/D in account_job.payment_per_department)
 		payment_per_department[D] = account_job.payment_per_department[D]
 
-	if(add_to_accounts)
-		SSeconomy.bank_accounts += src // this should be added when New() is finished
+	setup_unique_account_id()
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
-		SSeconomy.bank_accounts -= src
+		SSeconomy.bank_accounts_by_id -= "[account_id]"
 	return ..()
+
+/// Generates a unique account_id and registers it in SSeconomy.bank_accounts_by_id.
+/datum/bank_account/proc/setup_unique_account_id()
+	if(account_id && !SSeconomy.bank_accounts_by_id["[account_id]"])
+		if(add_to_accounts)
+			SSeconomy.bank_accounts_by_id["[account_id]"] = src
+		return
+	for(var/i in 1 to ACCOUNT_CREATION_MAX_ATTEMPT)
+		account_id = rand(111111, 999999)
+		if(!SSeconomy.bank_accounts_by_id["[account_id]"])
+			break
+	if(SSeconomy.bank_accounts_by_id["[account_id]"])
+		stack_trace("Unable to find a unique account ID, substituting currently existing account of id [account_id].")
+	if(add_to_accounts)
+		SSeconomy.bank_accounts_by_id["[account_id]"] = src
+
+/datum/bank_account/vv_edit_var(var_name, var_value)
+	var/old_id = account_id
+	. = ..()
+	switch(var_name)
+		if(NAMEOF(src, account_id))
+			if(add_to_accounts)
+				SSeconomy.bank_accounts_by_id -= "[old_id]"
+				setup_unique_account_id()
+		if(NAMEOF(src, add_to_accounts))
+			if(add_to_accounts)
+				setup_unique_account_id()
+			else
+				SSeconomy.bank_accounts_by_id -= "[account_id]"
 
 /datum/bank_account/proc/_adjust_money(amt)
 	account_balance += amt
@@ -72,16 +99,32 @@
 		return TRUE
 	return FALSE
 
+/datum/bank_account/proc/refresh_acting_pay()
+	var/top_pay = 0
+	for(var/datum/access_grant/acting_head/acting_head as anything in SSjob.acting_heads)
+		if(acting_head.card?.registered_account == src)
+			top_pay = max(top_pay, acting_head.job.payment_per_department[ACCOUNT_COM_ID])
+	if(!top_pay)
+		if(!isnull(base_command_pay))
+			payment_per_department[ACCOUNT_COM_ID] = base_command_pay
+			base_command_pay = null
+		return
+	if(isnull(base_command_pay))
+		base_command_pay = payment_per_department[ACCOUNT_COM_ID]
+	payment_per_department[ACCOUNT_COM_ID] = max(base_command_pay, top_pay)
+
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
+	if(!account_job)
+		return FALSE
 	if(suspended)
 		bank_card_talk("ERROR: Payday aborted, account closed by Nanotrasen Space Finance.")
-		return
+		return FALSE
 
 	for(var/D in payment_per_department)
 		if(payment_per_department[D] <= 0 && bonus_per_department[D] <= 0)
 			continue
 
-		var/money_to_transfer = payment_per_department[D] * amt_of_paychecks
+		var/money_to_transfer = round(payment_per_department[D] * payday_modifier * amt_of_paychecks)
 		if((money_to_transfer + bonus_per_department[D]) < 0) //Check if the bonus is docking more pay than possible
 			bonus_per_department[D] -= money_to_transfer //Remove the debt with the payday
 			money_to_transfer = 0 //No money for you
@@ -93,47 +136,29 @@
 			log_econ("[money_to_transfer] credits were given to [src.account_holder]'s account from income.")
 			if(bonus_per_department[D] > 0) //Get rid of bonus if we have one
 				bonus_per_department[D] = 0
-		else
-			var/datum/bank_account/B = SSeconomy.get_budget_account(D)
-			if(!B)
-				bank_card_talk("ERROR: Payday aborted, unable to query [D] departmental account.")
-			else
-				if(!transfer_money(B, money_to_transfer))
-					bank_card_talk("ERROR: Payday aborted, [D] departmental funds insufficient.")
-					bonus_per_department[D] += (money_to_transfer-bonus_per_department[D]) // you'll get paid someday
-					continue
-				else
-					bank_card_talk("Payday processed, account now holds $[account_balance], paid with $[money_to_transfer] from [D] budget.")
-					//The bonus only resets once it goes through.
-					if(bonus_per_department[D] > 0) //And we're not getting rid of debt
-						bonus_per_department[D] = 0
+			continue
+		var/datum/bank_account/B = SSeconomy.get_budget_account(D)
+		if(!B)
+			bank_card_talk("ERROR: Payday aborted, unable to query [D] departmental account.")
+			continue
+		if(!transfer_money(B, money_to_transfer))
+			bank_card_talk("ERROR: Payday aborted, [D] departmental funds insufficient.")
+			bonus_per_department[D] += (money_to_transfer-bonus_per_department[D]) // you'll get paid someday
+			continue
+		bank_card_talk("Payday processed, account now holds [account_balance] cr, paid with [money_to_transfer] cr from [D] budget.")
+		//The bonus only resets once it goes through.
+		if(bonus_per_department[D] > 0) //And we're not getting rid of debt
+			bonus_per_department[D] = 0
 
+/**
+ * This sends a local chat message to the owner of a bank account, on all ID cards registered to the bank_account.
+ * If not held, sends out a message to all nearby players.
+ */
 /datum/bank_account/proc/bank_card_talk(message, force)
-	if(!message || !bank_cards.len)
+	if(!message)
 		return
-	for(var/obj/A in bank_cards)
-		var/mob/card_holder = recursive_loc_check(A, /mob)
-		if(ismob(card_holder)) //If on a mob
-			if(card_holder.client && !card_holder.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)
-				return
-
-			card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
-			if(card_holder.can_hear())
-				to_chat(card_holder, "[icon2html(A, card_holder)] *[message]*")
-		else if(isturf(A.loc)) //If on the ground
-			for(var/mob/M as() in hearers(1,get_turf(A)))
-				if(M.client && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)
-					return
-				playsound(A, 'sound/machines/twobeep_high.ogg', 50, TRUE)
-				A.audible_message("[icon2html(A, hearers(A))] *[message]*", null, 1)
-				break
-		else
-			for(var/mob/M in A.loc) //If inside a container with other mobs (e.g. locker)
-				if(M.client && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)
-					return
-				M.playsound_local(get_turf(M), 'sound/machines/twobeep_high.ogg', 50, TRUE)
-				if(M.can_hear())
-					to_chat(M, "[icon2html(A, M)] *[message]*")
+	for(var/obj/item/card/id/card in bank_cards)
+		card.card_talk(message, check_pref = !force)
 
 /datum/bank_account/proc/_adjust_currency(type, amt)
 	custom_currency[type] += amt

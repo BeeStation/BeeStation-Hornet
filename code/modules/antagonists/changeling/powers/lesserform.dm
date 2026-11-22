@@ -9,7 +9,7 @@
 
 //Transform into a monkey.
 /datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
-	if(!user || user.notransform)
+	if(!user || HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
 		return FALSE
 	to_chat(user, span_warning("Our genes cry out!"))
 	..()

@@ -135,7 +135,7 @@
 		)
 	. = ..()
 
-/obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if (chambered && chambered.caliber == "357")
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
@@ -222,8 +222,8 @@
 	. = ..()
 	spun = TRUE
 
-/obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, params)
-	..()
+/obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, list/modifiers)
+	. = ..()
 	if(get_ammo() > 0)
 		spin()
 	update_icon()
@@ -235,12 +235,15 @@
 		spin()
 		spun = TRUE
 		return
-	..()
+	return ..()
 
-/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
-	. = ..(null, user, flag, params)
+/// No, we don't parent call. Because guncode is stupid and trash. Enjoy
+/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, modifiers)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, modifiers)
 
-	if(flag)
+	if(proximity_flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.combat_mode) // Flogging action
 				return
@@ -277,7 +280,7 @@
 		user.visible_message(span_danger("*click*"))
 		playsound(src, dry_fire_sound, 30, TRUE)
 
-/obj/item/gun/ballistic/revolver/russian/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/revolver/russian/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	add_fingerprint(user)
 	playsound(src, dry_fire_sound, 30, TRUE)
 	user.visible_message(span_danger("[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot."), span_danger("\The [src]'s anti-combat mechanism prevents you from firing it at the same time!"))
@@ -304,7 +307,7 @@
 	clumsy_check = 0
 
 /obj/item/gun/ballistic/revolver/reverse/can_trigger_gun(mob/living/user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY)) || (user.mind && user.mind.assigned_role == JOB_NAME_CLOWN))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) || is_clown_job(user.mind?.assigned_role))
 		return ..()
 	if(process_fire(user, user, FALSE, null, BODY_ZONE_HEAD))
 		user.visible_message(span_warning("[user] somehow manages to shoot [user.p_them()]self in the face!"), span_userdanger("You somehow shoot yourself in the face! How the hell?!"))

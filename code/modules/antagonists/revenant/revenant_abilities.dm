@@ -50,7 +50,7 @@
 	if(isobserver(A) || isrevenant(A))
 		to_chat(src, span_revenwarning("You can't orbit a ghost!"))
 		return
-	if(notransform || inhibited || !incorporeal_move_check(A))
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM) || inhibited || !incorporeal_move_check(A))
 		return
 	..()
 
@@ -178,7 +178,7 @@
 	overlay_icon_state = "bg_revenant_border"
 	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	spell_requirements = NONE
 
 	/// If it's locked, and needs to be unlocked before use
@@ -284,7 +284,7 @@
 		addtimer(CALLBACK(src, PROC_REF(overload_shock), light, caster), 20)
 
 /datum/action/cooldown/spell/aoe/revenant/overload/proc/overload_shock(obj/machinery/light/to_shock, mob/living/simple_animal/revenant/caster)
-	flick("[to_shock.base_state]2", to_shock)
+	z_flick("[to_shock.base_state]2", to_shock)
 	for(var/mob/living/carbon/human/human_mob in view(shock_range, to_shock))
 		if(human_mob == caster)
 			continue
@@ -408,7 +408,7 @@
 		if(iscarbon(mob))
 			if(ishuman(mob))
 				var/mob/living/carbon/human/H = mob
-				//H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
+				H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
 				var/blightfound = FALSE
 				for(var/datum/disease/revblight/blight in H.diseases)
 					blightfound = TRUE
@@ -480,7 +480,7 @@
 				to_chat(owner, span_warning("[salt] blocks your way to spirit realm!"))
 				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
 				return
-			if(stepTurf.flags_1 & NOJAUNT_1)
+			if(stepTurf.turf_flags & NOJAUNT)
 				to_chat(owner, span_warning("Some strange aura blocks your way to spirit realm."))
 				return
 			if(stepTurf.is_holy())

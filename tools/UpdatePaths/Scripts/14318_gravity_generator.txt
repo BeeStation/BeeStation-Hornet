@@ -1,0 +1,1 @@
+/obj/machinery/gravity_generator/main/station/@SUBTYPES : /obj/machinery/gravity_generator/main/@SUBTYPES{@OLD}

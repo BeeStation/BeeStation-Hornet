@@ -32,7 +32,7 @@
 /mob/proc/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof)
 	if(!message)
 		return
-	say(message, language) //only living mobs actually whisper, everything else just talks
+	say(message, language = language) //only living mobs actually whisper, everything else just talks
 
 ///The me emote verb
 /mob/verb/me_verb(message as text)
@@ -41,13 +41,48 @@
 	set desc = "Perform a custom emote. Leave blank to pick between an audible or a visible emote (Defaults to visible)."
 	if(isnewplayer(src))
 		return
+
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
-	usr.emote("me",EMOTE_VISIBLE|EMOTE_AUDIBLE,message,TRUE)
+	usr.emote("me", NONE, message, TRUE)
+
+/mob/try_speak(message, ignore_spam = FALSE, forced = null, filterproof = null)
+	if((client && !forced && CHAT_FILTER_CHECK(message)) && filterproof != TRUE)
+		//The filter warning message shows the sanitized message though.
+		to_chat(src, span_warning("That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[message]\""))
+		return
+
+	if(client && !(ignore_spam || forced))
+		if(client.prefs && (client.player_details.muted & MUTE_IC))
+			to_chat(src, span_danger("You cannot speak IC (muted)."))
+			return FALSE
+		if(client.handle_spam_prevention(message, MUTE_IC))
+			return FALSE
+
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message, ignore_spam, forced)
+	if(sigreturn & COMPONENT_IGNORE_CAN_SPEAK)
+		return TRUE
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
+
+	if(!..()) // the can_speak check
+		if(HAS_MIND_TRAIT(src, TRAIT_MIMING))
+			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
+		else
+			to_chat(src, span_warning("You find yourself unable to speak!"))
+		return FALSE
+
+	return TRUE
+
+/mob/can_speak(allow_mimes = FALSE)
+	if(!allow_mimes && HAS_MIND_TRAIT(src, TRAIT_MIMING))
+		return FALSE
+
+	return ..()
 
 ///Speak as a dead person (ghost etc)
 /mob/proc/say_dead(message)
@@ -65,8 +100,6 @@
 	if(jb)
 		to_chat(src, span_danger("You have been banned from deadchat."))
 		return
-
-
 
 	if (src.client)
 		if(src.client.player_details.muted & MUTE_DEADCHAT)
@@ -86,19 +119,22 @@
 			name = real_name
 		if(name != real_name)
 			alt_name = " (died as [real_name])"
+
 	if(OOC_FILTER_CHECK(message))
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
-	var/spanned = say_quote(say_emphasis(message))
-	var/rendered = span_gamedeadsay("[span_prefix("DEAD:")] [span_name("[name]")][alt_name] [span_message("[emoji_parse(spanned)]")]")
+
+	var/spanned = generate_messagepart(message)
+	var/source = "<span class='game'><span class='prefix'>DEAD:</span> <span class='name'>[name]</span>[alt_name]"
+	var/rendered = " <span class='message'>[emoji_parse(spanned)]</span></span>"
 	send_chat_to_discord(CHAT_TYPE_DEADCHAT, name, spanned)
 	log_talk(message, LOG_SAY, tag="DEAD")
 	if(SEND_SIGNAL(src, COMSIG_MOB_DEADSAY, message) & MOB_DEADSAY_SIGNAL_INTERCEPT)
 		return
 	var/displayed_key = key
-	if(client.holder?.fakekey)
+	if(client?.holder?.fakekey)
 		displayed_key = null
-	deadchat_broadcast(rendered, follow_target = src, speaker_key = displayed_key)
+	deadchat_broadcast(rendered, source, follow_target = src, speaker_key = displayed_key)
 
 ///Check if this message is an emote
 /mob/proc/check_emote(message, forced)
@@ -108,7 +144,7 @@
 
 ///Check if the mob has a hivemind channel
 /mob/proc/hivecheck()
-	return 0
+	return FALSE
 
 ///The amount of items we are looking for in the message
 #define MESSAGE_MODS_LENGTH 6
@@ -129,14 +165,14 @@
 	var/customsaypos = findtext(message, "|")
 	if(!customsaypos)
 		return message
-	if(is_banned_from(ckey, "Emote"))
+	if (!isnull(ckey) && is_banned_from(ckey, "Emote"))
 		return copytext(message, customsaypos + 1)
 	mods[MODE_CUSTOM_SAY_EMOTE] = trim_right(copytext(message, 1, customsaypos))
 	message = trim_left(copytext(message, customsaypos + 1))
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
 		mods[MODE_CUSTOM_SAY_EMOTE] = punctuate(mods[MODE_CUSTOM_SAY_EMOTE])
-		message = ""
+		message = "an interesting thing to say"
 	return message
 
 /**
@@ -154,14 +190,19 @@
   */
 /mob/proc/get_message_mods(message, list/mods)
 	for(var/I in 1 to MESSAGE_MODS_LENGTH)
+		// Prevents "...text" from being read as a radio message
+		if (length(message) > 1 && message[2] == message[1])
+			continue
+
 		var/key = message[1]
 		var/chop_to = 2 //By default we just take off the first char
 		if((key == "#" && !mods[WHISPER_MODE]))
 			mods[WHISPER_MODE] = MODE_WHISPER
 		else if(key == "%" && !mods[MODE_SING])
 			mods[MODE_SING] = TRUE
-		else if(key == ";" && !mods[MODE_HEADSET] && stat == CONSCIOUS)
-			mods[MODE_HEADSET] = TRUE
+		else if(key == ";" && !mods[MODE_HEADSET])
+			if(stat == CONSCIOUS) //necessary indentation so it gets stripped of the semicolon anyway.
+				mods[MODE_HEADSET] = TRUE
 		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
 			key = LOWER_TEXT(message[1 + length(key)])
 			var/valid_extension = GLOB.department_radio_keys[key]
@@ -192,19 +233,5 @@
 		if(!message)
 			return
 	return message
-
-/mob/try_speak(message, ignore_spam = FALSE, forced = null)
-	SHOULD_CALL_PARENT(TRUE)
-	if(!..())
-		return FALSE
-
-	if(client && !(ignore_spam || forced))
-		if(client.prefs && (client.player_details.muted & MUTE_IC))
-			to_chat(src, span_danger("You cannot speak IC (muted)."))
-			return FALSE
-		if(client.handle_spam_prevention(message, MUTE_IC))
-			return FALSE
-	// Including can_speak() here would ignore COMPONENT_CAN_ALWAYS_SPEAK in /mob/living/try_speak()
-	return TRUE
 
 #undef MESSAGE_MODS_LENGTH

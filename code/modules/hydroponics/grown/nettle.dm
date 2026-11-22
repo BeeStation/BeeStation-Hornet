@@ -40,7 +40,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
 	damtype = BURN
-	force = 15
+	force = 5 //These should be doing damage through their ability to sting, not hardcoded damage.
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -62,11 +62,7 @@
 		return FALSE
 	if(HAS_TRAIT(C, TRAIT_PIERCEIMMUNE))
 		return FALSE
-	var/hit_zone = (C.held_index_to_dir(C.active_hand_index) == "l" ? "l_":"r_") + "arm"
-	var/obj/item/bodypart/affecting = C.get_bodypart(hit_zone)
-	if(affecting)
-		if(affecting.receive_damage(0, force))
-			C.update_damage_overlays()
+	user.apply_damage(force, damtype, user.get_active_hand())
 	to_chat(C, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 
@@ -97,7 +93,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
 	bite_consumption_mod = 4 // I guess if you really wanted to
 	force = 25
 	throwforce = 12
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/death)
 

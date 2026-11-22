@@ -48,7 +48,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	custom_price = 25
@@ -73,7 +73,7 @@
 	. = ..()
 	. += status_string()
 
-/obj/item/lightreplacer/attackby(obj/item/W, mob/user, params)
+/obj/item/lightreplacer/attackby(obj/item/W, mob/user, list/modifiers)
 
 	if(istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
@@ -275,6 +275,14 @@
 
 /obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names
 	icon_state = "lightreplacer_blue[(obj_flags & EMAGGED ? 1 : 0)]"
+
+
+/obj/item/lightreplacer/bluespace/cyborg
+	name = "cyborg bluespace light replacer"
+	desc = "A modified light replacer that zaps lights into place designed for a cyborg."
+	icon_state = "lightreplacer_blue0"
+	bluespace_toggle = TRUE
+	emaggable = FALSE
 
 #undef LIGHT_OK
 #undef LIGHT_EMPTY

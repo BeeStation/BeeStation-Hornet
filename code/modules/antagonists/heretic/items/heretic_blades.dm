@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_LARGE
@@ -40,7 +40,7 @@
 	playsound(src, "shatter", 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
 	qdel(src)
 
-/obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!isliving(target))
 		return

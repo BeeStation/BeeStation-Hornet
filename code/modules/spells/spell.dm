@@ -41,6 +41,7 @@
  * for use in updating the button name / spell name.
  */
 /datum/action/cooldown/spell
+	abstract_type = /datum/action/cooldown/spell
 	name = "Spell"
 	desc = "A wizard spell."
 	background_icon_state = "bg_spell"

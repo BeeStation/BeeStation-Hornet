@@ -27,8 +27,8 @@
 	/// When mutiple subsystems need to run in the same tick, higher priority subsystems will run first and be given a higher share of the tick before MC_TICK_CHECK triggers a sleep
 	var/priority = FIRE_PRIORITY_DEFAULT
 
-	/// [Subsystem Flags][SS_NO_INIT] to control binary behavior. Flags must be set at compile time or before preinit finishes to take full effect. (You can also restart the mc to force them to process again)
-	var/flags = NONE
+	/// [Subsystem flags][SS_NO_INIT] to control binary behavior. Flags must be set at compile time or before preinit finishes to take full effect. (You can also restart the mc to force them to process again)
+	var/ss_flags = NONE
 
 	/// Which stage does this subsystem init at. Earlier stages can fire while later stages init.
 	var/init_stage = INITSTAGE_MAIN
@@ -43,9 +43,15 @@
 	///Bitmap of what game states can this subsystem fire at. See [RUNLEVELS_DEFAULT] for more details.
 	var/runlevels = RUNLEVELS_DEFAULT //points of the game at which the SS can fire
 
+	/// Names of list vars on this subsystem checked before queueing it. See [SS_HIBERNATE].
+	var/list/hibernate_checks
+
 	/*
 	 * The following variables are managed by the MC and should not be modified directly.
 	 */
+
+	/// The subsystem had no work during CheckQueue and was not queued
+	var/hibernating = FALSE
 
 	/// Last world.time the subsystem completed a run (as in wasn't paused by [MC_TICK_CHECK])
 	var/last_fire = 0
@@ -133,13 +139,13 @@
 //fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
 //Sleeping in here prevents future fires until returned.
 /datum/controller/subsystem/proc/fire(resumed = 0)
-	flags |= SS_NO_FIRE
+	ss_flags |= SS_NO_FIRE
 	CRASH("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
 
 /datum/controller/subsystem/Destroy()
 	dequeue()
 	can_fire = 0
-	flags |= SS_NO_FIRE
+	ss_flags |= SS_NO_FIRE
 	if (Master)
 		Master.subsystems -= src
 	return ..()
@@ -148,7 +154,7 @@
  *  reset_time (bool) - Ignore things that would normally alter the next fire, like tick_overrun, and last_fire. (also resets postpone)
  */
 /datum/controller/subsystem/proc/update_nextfire(reset_time = FALSE)
-	var/queue_node_flags = flags
+	var/queue_node_flags = ss_flags
 
 	if (reset_time)
 		postponed_fires = 0
@@ -171,15 +177,16 @@
 //	(we loop thru a linked list until we get to the end or find the right point)
 //	(this lets us sort our run order correctly without having to re-sort the entire already sorted list)
 /datum/controller/subsystem/proc/enqueue()
+	hibernating = FALSE
 	var/SS_priority = priority
-	var/SS_flags = flags
+	var/SS_flags = ss_flags
 	var/datum/controller/subsystem/queue_node
 	var/queue_node_priority
 	var/queue_node_flags
 
 	for (queue_node = Master.queue_head; queue_node; queue_node = queue_node.queue_next)
 		queue_node_priority = queue_node.queued_priority
-		queue_node_flags = queue_node.flags
+		queue_node_flags = queue_node.ss_flags
 
 		if (queue_node_flags & (SS_TICKER|SS_BACKGROUND) == SS_TICKER)
 			if ((SS_flags & (SS_TICKER|SS_BACKGROUND)) != SS_TICKER)
@@ -263,7 +270,7 @@
 /datum/controller/subsystem/stat_entry(msg)
 	var/list/tab_data = list()
 
-	if(can_fire && !(SS_NO_FIRE & flags) && init_stage <= Master.init_stage_completed)
+	if(can_fire && !(SS_NO_FIRE & ss_flags) && init_stage <= Master.init_stage_completed)
 		msg = "[round(cost,1)]ms|[round(tick_usage,1)]%([round(tick_overrun,1)]%)|[round(ticks,0.1)]\t[msg]"
 	else
 		msg = "OFFLINE\t[msg]"
@@ -284,6 +291,8 @@
 	return tab_data
 
 /datum/controller/subsystem/proc/state_letter()
+	if (hibernating)
+		return "H"
 	switch (state)
 		if (SS_RUNNING)
 			. = "R"

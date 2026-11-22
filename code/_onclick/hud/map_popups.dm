@@ -7,15 +7,6 @@
 /client/var/list/screen_maps = list()
 
 /**
- * A screen object, which acts as a container for turfs and other things
- * you want to show on the map, which you usually attach to "vis_contents".
- */
-/atom/movable/screen/map_view
-	// Map view has to be on the lowest plane to enable proper lighting
-	layer = GAME_PLANE
-	plane = GAME_PLANE
-
-/**
  * A generic background object.
  * It is also implicitly used to allocate a rectangle on the map, which will
  * be used for auto-scaling the map.
@@ -70,12 +61,17 @@
 /client/proc/clear_map(map_name)
 	if(!map_name || !screen_maps[map_name])
 		return FALSE
+	var/list/atom/movable/screen/map_view/map_views = list()
 	for(var/atom/movable/screen/screen_obj in screen_maps[map_name])
 		screen_maps[map_name] -= screen_obj
 		screen -= screen_obj
+		if(istype(screen_obj, /atom/movable/screen/map_view))
+			map_views += screen_obj
 		if(screen_obj.del_on_map_removal)
 			qdel(screen_obj)
 	screen_maps -= map_name
+	for(var/atom/movable/screen/map_view/map_view as anything in map_views)
+		map_view.hide_from_client(src)
 
 /**
  * Clears all the maps of registered screen objects.
@@ -120,8 +116,8 @@
 	if(!popup_name)
 		return
 	clear_map("[popup_name]_map")
-	var/x_value = world.icon_size * tilesize * width
-	var/y_value = world.icon_size * tilesize * height
+	var/x_value = ICON_SIZE_X * tilesize * width
+	var/y_value = ICON_SIZE_Y * tilesize * height
 	var/map_name = create_popup(popup_name, x_value, y_value)
 
 	var/atom/movable/screen/background/background = new

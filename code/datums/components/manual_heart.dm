@@ -158,7 +158,7 @@
 	name = "Pump your blood"
 	cooldown_time = 2 SECONDS
 	check_flags = NONE
-	button_icon = 'icons/obj/surgery.dmi'
+	button_icon = 'icons/obj/medical/organs/organs.dmi'
 	button_icon_state = "cursedheart-off"
 
 /datum/action/cooldown/manual_heart/Activate(atom/atom_target)

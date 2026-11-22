@@ -14,6 +14,7 @@
 	invocation_type = INVOCATION_SHOUT
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
+	antimagic_flags = (MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE)
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
@@ -45,7 +46,7 @@
 
 	carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
 	carbon_hit.AdjustKnockdown(5 SECONDS)
-	carbon_hit.adjustStaminaLoss(80)
+	carbon_hit.stamina.adjust(-80)
 
 	return TRUE
 

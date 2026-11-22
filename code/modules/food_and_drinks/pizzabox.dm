@@ -96,14 +96,16 @@
 			add_overlay(tag_overlay)
 
 /obj/item/pizzabox/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	var/current_offset = 2
-	if(isinhands)
-		for(var/V in boxes) //add EXTRA BOX per box
-			var/mutable_appearance/M = mutable_appearance(icon_file, inhand_icon_state, item_layer)
-			M.pixel_y = current_offset
-			current_offset += 2
-			. += M
+	if(!isinhands)
+		return
+
+	for(var/V in boxes) //add EXTRA BOX per box
+		var/mutable_appearance/M = mutable_appearance(icon_file, inhand_icon_state, item_layer)
+		M.pixel_y = current_offset
+		current_offset += 2
+		. += M
 
 /obj/item/pizzabox/attack_self(mob/user)
 	if(boxes.len > 0)
@@ -140,7 +142,7 @@
 				if (isnull(bomb_timer))
 					return
 
-				bomb_timer = clamp(CEILING(bomb_timer, 1), bomb_timer_min, bomb_timer_max)
+				bomb_timer = clamp(ceil(bomb_timer), bomb_timer_min, bomb_timer_max)
 				bomb_defused = FALSE
 				wires.ui_update()
 
@@ -158,7 +160,7 @@
 		update_icon()
 		user.regenerate_icons()
 
-/obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
+/obj/item/pizzabox/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/pizzabox))
 		var/obj/item/pizzabox/newbox = I
 		if(!open && !newbox.open)
@@ -368,7 +370,7 @@
 			var/list/pineapple_pizza_liker = pizza_types.Copy()
 			pineapple_pizza_liker -= /obj/item/food/pizza/pineapple
 			pizza_preferences[nommer.ckey] = pick_weight(pineapple_pizza_liker)
-		else if(nommer.mind && nommer.mind.assigned_role == JOB_NAME_BOTANIST)
+		else if(nommer.mind?.assigned_role.title == /datum/job/botanist)
 			pizza_preferences[nommer.ckey] = /obj/item/food/pizza/dank
 		else
 			pizza_preferences[nommer.ckey] = pick_weight(pizza_types)

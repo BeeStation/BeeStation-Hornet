@@ -1,6 +1,7 @@
-import { filter, uniqBy } from 'common/collections';
 import { classes } from 'common/react';
 import { capitalize } from 'common/string';
+import { uniqBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { Dropdown } from 'tgui-core/components';
 
 import { resolveAsset } from '../assets';
@@ -85,7 +86,7 @@ export const DnaConsole = (props) => {
   const { isPulsing, timeToPulse, subjectUNI, subjectUF } = data;
   const { consoleMode } = data.view;
   return (
-    <Window title="DNA Console" width={539} height={710} resizable>
+    <Window title="DNA Console" width={565} height={700} resizable>
       {!!isPulsing && (
         <Dimmer fontSize="14px" textAlign="center">
           <Icon mr={1} name="spinner" spin />

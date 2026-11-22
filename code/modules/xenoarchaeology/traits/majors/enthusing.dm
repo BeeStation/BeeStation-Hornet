@@ -20,7 +20,7 @@
 	emote = pick(possible_emotes)
 	emote = new emote()
 
-/datum/xenoartifact_trait/major/emote/Destroy(force, ...)
+/datum/xenoartifact_trait/major/emote/Destroy(force)
 	QDEL_NULL(emote)
 	return ..()
 

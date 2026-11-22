@@ -160,7 +160,7 @@
 		"failed lick"
 	)
 
-/datum/component/supermatter_crystal/proc/attackby_hit(datum/source, obj/item/item, mob/living/user, params)
+/datum/component/supermatter_crystal/proc/attackby_hit(datum/source, obj/item/item, mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/atom/atom_source = source
@@ -168,8 +168,8 @@
 		return
 	if(is_type_in_typecache(item, sm_item_whitelist))
 		return FALSE
-	if(istype(item, /obj/item/clothing/mask/cigarette))
-		var/obj/item/clothing/mask/cigarette/cig = item
+	if(istype(item, /obj/item/cigarette))
+		var/obj/item/cigarette/cig = item
 		var/clumsy = HAS_TRAIT(user, TRAIT_CLUMSY)
 		if(clumsy)
 			var/obj/item/bodypart/dust_arm = user.get_active_hand()
@@ -220,11 +220,9 @@
 
 /datum/component/supermatter_crystal/proc/tool_hit(datum/source, mob/user, obj/item/tool)
 	SIGNAL_HANDLER
-
 	if(tool_act_callback)
 		tool_act_callback.Invoke(user, tool)
-		return
-
+		return ITEM_INTERACT_BLOCKING
 	attackby_hit(source, tool, user)
 
 /datum/component/supermatter_crystal/proc/bumped_hit(datum/source, atom/movable/hit_object)
@@ -341,7 +339,7 @@
 
 		consumed_mob.dust(force = TRUE)
 		matter_increase += 100 * object_size * 2
-		if(consumed_mob.mind?.assigned_role == JOB_NAME_CLOWN)
+		if(is_clown_job(consumed_mob.mind?.assigned_role))
 			damage_increase += rand(-30, 30) * 2 // HONK
 		effects_calculated = TRUE
 	else if(isobj(consumed_object))

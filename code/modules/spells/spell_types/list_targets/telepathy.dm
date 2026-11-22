@@ -1,3 +1,6 @@
+/datum/action/cooldown/spell/list_target
+	abstract_type = /datum/action/cooldown/spell/list_target
+
 /datum/action/cooldown/spell/list_target/telepathy
 	name = "Telepathy"
 	desc = "Telepathically transmits a message to the target."

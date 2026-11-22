@@ -10,7 +10,7 @@
 	opacity = FALSE
 	var/deconstructible = TRUE
 
-/obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/fluff/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH && deconstructible)
 		user.visible_message(span_notice("[user] starts disassembling [src]..."), span_notice("You start disassembling [src]..."))
 		I.play_tool_sound(src)
@@ -49,12 +49,6 @@
 	desc = "Although comfortable, this sleeper won't function as anything but a bed ever again."
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper_open"
-
-/obj/structure/fluff/broken_flooring
-	name = "broken tiling"
-	desc = "A segment of broken flooring."
-	icon = 'icons/obj/brokentiling.dmi'
-	icon_state = "corner"
 
 /obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
 	name = "drake statue"
@@ -199,3 +193,11 @@
 	plane = FLOOR_PLANE
 	anchored = FALSE
 	deconstructible = FALSE
+
+/obj/structure/fluff/broken_canister_frame
+	name = "broken canister frame"
+	desc = "A torn apart canister. It looks like some metal can be salvaged with a wrench."
+	icon_state = "broken_canister"
+	anchored = FALSE
+	density = TRUE
+	deconstructible = TRUE

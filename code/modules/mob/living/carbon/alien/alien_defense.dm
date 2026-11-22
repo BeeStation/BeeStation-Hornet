@@ -16,7 +16,7 @@ As such, they can either help or harm other aliens. Help works like the human he
 In all, this is a lot like the monkey code. /N
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/user, list/modifiers)
-	if(isturf(loc) && istype(loc.loc, /area/start))
+	if(isturf(loc) && istype(loc.loc, /area/misc/start))
 		to_chat(user, "No attacking people at spawn, you jackass.")
 		return
 
@@ -78,7 +78,10 @@ In all, this is a lot like the monkey code. /N
 		visible_message(span_danger("[user] punches [src]!"), \
 				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-		apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
+
+		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+		var/damage = active_arm.unarmed_damage
+		apply_damage(damage, active_arm.attack_type, affecting)
 		log_combat(user, src, "attacked", user)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		return TRUE
@@ -105,7 +108,7 @@ In all, this is a lot like the monkey code. /N
 		if(CLONE)
 			adjustCloneLoss(damage)
 		if(STAMINA)
-			adjustStaminaLoss(damage)
+			CRASH("attack_animal tried to modify stamina!")
 
 /mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(!..())

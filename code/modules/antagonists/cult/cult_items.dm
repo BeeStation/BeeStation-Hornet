@@ -50,7 +50,7 @@ Striking a noncultist, however, will tear their flesh."}
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
@@ -71,7 +71,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(!IS_CULTIST(user))
 		user.visible_message(span_warning("[user] cringes as they strike [target]!"), \
 							span_userdanger("Your arm throbs and your brain hurts!"))
-		user.adjustStaminaLoss(rand(force/2,force))
+		user.stamina.adjust(-1 * (rand(force/2,force)))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
 	if (target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		force = 15
@@ -199,12 +199,20 @@ Striking a noncultist, however, will tear their flesh."}
 	icon_state = "cult_hoodalt"
 	inhand_icon_state = null
 
+/obj/item/clothing/head/hooded/cult_hoodie/alt/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/cult)
+
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	name = "cultist robes"
 	desc = "An armored set of robes worn by the followers of Nar'Sie."
 	icon_state = "cultrobesalt"
 	inhand_icon_state = null
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/alt
+
+/obj/item/clothing/suit/hooded/cultrobes/alt/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/cult)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	item_flags = DROPDEL
@@ -355,7 +363,8 @@ Striking a noncultist, however, will tear their flesh."}
 	armor_type = /datum/armor/cultrobes_berserker
 	slowdown = -0.4
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
-
+	/// Keeps track of whether we've given forced gravity or not
+	var/gave_gravity = FALSE
 
 /datum/armor/cultrobes_berserker
 	melee = 10
@@ -378,30 +387,73 @@ Striking a noncultist, however, will tear their flesh."}
 	bleed = 20
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
-	..()
-	if(!IS_CULTIST(user))
-		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
-		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
-		user.dropItemToGround(src, TRUE)
-		user.set_dizzy_if_lower(1 MINUTES)
-		user.Paralyze(100)
+	. = ..()
+	if(!(slot_flags & slot))
+		return
+	START_PROCESSING(SSprocessing, src)
+
+/obj/item/clothing/suit/hooded/cultrobes/berserker/dropped(mob/living/user)
+	STOP_PROCESSING(SSprocessing, src)
+	if(gave_gravity)
+		gave_gravity = FALSE
+		if(isliving(user))
+			user.RemoveElement(/datum/element/forced_gravity, 6, TRUE, FALSE)
+	return ..()
+
+/obj/item/clothing/suit/hooded/cultrobes/berserker/process(delta_time)
+	var/mob/living/carbon/wearer = loc
+	if(!istype(wearer))
+		return
+
+	if(IS_CULTIST(wearer))
+		if(!gave_gravity)
+			return
+		wearer.RemoveElement(/datum/element/forced_gravity, 6, TRUE, FALSE)
+		gave_gravity = FALSE
+		return
+
+	if(gave_gravity)
+		return
+
+	gave_gravity = TRUE
+	wearer.AddElement(/datum/element/forced_gravity, 6, TRUE, FALSE)
+	to_chat(wearer, span_warning("As you equip [src], everything begins to feel a whole lot heavier!"))
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
-	desc = "may Nar'Sie guide you through the darkness and shield you from the light."
+	desc = "May Nar'Sie guide you through the darkness and shield you from the light."
 	name = "zealot's blindfold"
 	icon_state = "blindfold"
 	inhand_icon_state = "blindfold"
 	flash_protect = FLASH_PROTECTION_FLASH
-	vision_correction = 1
+	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_NEARSIGHTED_CORRECTED)
+
+/obj/item/clothing/glasses/hud/health/night/cultblind/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF) // There's nothing to EMP here.. why would it work?
+
+/obj/item/clothing/glasses/hud/health/night/cultblind/should_emag(mob/user)
+	return FALSE // There's nothing to EMAG you madman, it's magic
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
-	..()
-	if(!IS_CULTIST(user))
-		to_chat(user, span_cultlarge("\"You want to be blind, do you?\""))
-		user.dropItemToGround(src, TRUE)
-		user.set_dizzy_if_lower(1 MINUTES)
-		user.Paralyze(100)
-		user.adjust_blindness(30)
+	. = ..()
+	if(slot_flags & slot)
+		START_PROCESSING(SSprocessing, src)
+
+/obj/item/clothing/glasses/hud/health/night/cultblind/dropped(mob/living/user)
+	. = ..()
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/item/clothing/glasses/hud/health/night/cultblind/process(delta_time)
+	var/mob/living/carbon/wearer = loc
+	if(!istype(wearer) || IS_CULTIST(wearer))
+		return
+	var/obj/item/organ/eyes/eyes = wearer.get_organ_slot(ORGAN_SLOT_EYES)
+	if(!eyes)
+		return
+	if(!eyes.apply_organ_damage(1))
+		return
+	if(DT_PROB(3, delta_time))
+		to_chat(wearer, span_danger("You feel [src] digging into your eyes, burning [eyes.p_them()] up!"))
 
 /obj/item/shuttle_curse
 	name = "cursed orb"
@@ -419,7 +471,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(curselimit > 1)
 		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
 		return
-	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
+	if(locate(/obj/eldritch/narsie) in SSpoints_of_interest.narsies)
 		to_chat(user, span_warning("Nar'Sie is already on this plane, there is no delaying the end of all things."))
 		return
 
@@ -435,7 +487,7 @@ Striking a noncultist, however, will tear their flesh."}
 				set_coefficient = 1
 			else
 				set_coefficient = 0.5
-		var/surplus = timer - (SSshuttle.emergencyCallTime * set_coefficient)
+		var/surplus = timer - (SSshuttle.emergency_call_time * set_coefficient)
 		SSshuttle.emergency.setTimer(timer)
 		if(surplus > 0)
 			SSshuttle.block_recall(surplus)
@@ -520,7 +572,7 @@ Striking a noncultist, however, will tear their flesh."}
 	color = COLOR_RED
 	on_damage = 15
 	slot_flags = null
-	on = TRUE
+	start_on = TRUE
 	var/charges = 5
 
 /obj/item/flashlight/flare/culttorch/afterattack(atom/movable/A, mob/user, proximity)
@@ -727,7 +779,7 @@ Striking a noncultist, however, will tear their flesh."}
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
-/obj/item/blood_beam/afterattack(atom/A, mob/living/user, flag, params)
+/obj/item/blood_beam/afterattack(atom/A, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(firing || charging)
 		return
@@ -741,7 +793,7 @@ Striking a noncultist, however, will tear their flesh."}
 	INVOKE_ASYNC(src, PROC_REF(charge), user)
 	if(do_after(user, 90, target = user))
 		firing = TRUE
-		INVOKE_ASYNC(src, PROC_REF(pewpew), user, params)
+		INVOKE_ASYNC(src, PROC_REF(pewpew), user)
 		var/obj/structure/emergency_shield/invoker/N = new(user.loc)
 		if(do_after(user, 90, target = user))
 			user.Paralyze(40)
@@ -768,7 +820,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(O)
 		qdel(O)
 
-/obj/item/blood_beam/proc/pewpew(mob/user, params)
+/obj/item/blood_beam/proc/pewpew(mob/user)
 	var/turf/targets_from = get_turf(src)
 	var/spread = 40
 	var/second = FALSE

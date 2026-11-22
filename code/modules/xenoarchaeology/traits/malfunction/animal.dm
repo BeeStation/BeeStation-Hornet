@@ -56,7 +56,7 @@
 /datum/xenoartifact_trait/malfunction/animal/twin
 	label_name = "M.B.C."
 	alt_label_name = "Mirrored Bluespace Collapse"
-	label_desc = "Mirrored Bluespace Collapse: The Artifact produces an arguably maleviolent clone of target."
+	label_desc = "Mirrored Bluespace Collapse: The Artifact produces an arguably malevolent clone of target."
 	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 
@@ -93,7 +93,7 @@
 	health = 10
 	melee_damage = 5
 	attack_sound = 'sound/weapons/punch1.ogg'
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	faction = list("evil_clone")
 	status_flags = CANPUSH

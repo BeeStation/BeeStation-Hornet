@@ -4,6 +4,7 @@
  * Teleports the caster to a turf selected by get_destinations().
  */
 /datum/action/cooldown/spell/teleport
+	abstract_type = /datum/action/cooldown/spell/teleport
 	sound = 'sound/weapons/zapbang.ogg'
 
 	school = SCHOOL_TRANSLOCATION
@@ -49,6 +50,7 @@
  * to a random turf within a radius of themselves.
  */
 /datum/action/cooldown/spell/teleport/radius_turf
+	abstract_type = /datum/action/cooldown/spell/teleport/radius_turf
 	/// The inner radius around the caster that we can teleport to
 	var/inner_tele_radius = 1
 	/// The outer radius around the caster that we can teleport to
@@ -90,6 +92,7 @@
  * to a random turf within a selected (or random) area.
  */
 /datum/action/cooldown/spell/teleport/area_teleport
+	abstract_type = /datum/action/cooldown/spell/teleport/area_teleport
 	force_teleport = TRUE // Forced, as the Wizard Den is TELEPORT_ALLOW_NONE and wizards couldn't escape otherwise.
 	destination_flags = TELEPORT_SPELL_SKIP_BLOCKED
 	/// The last area we chose to teleport / where we're currently teleporting to, if mid-cast

@@ -53,7 +53,7 @@
 	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)
 	if(get_buyer_id(user))
-		if((ACCESS_QM in id_card.access) || (ACCESS_HEADS in id_card.access))
+		if((ACCESS_QM in id_card.GetAccess()) || (ACCESS_HEADS in id_card.GetAccess()))
 			requestonly = FALSE
 			buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE
@@ -105,7 +105,7 @@
 	var/message = "Remember to stamp and send back the supply manifests."
 	if(SSshuttle.centcom_message)
 		message = SSshuttle.centcom_message
-	if(SSshuttle.supplyBlocked)
+	if(SSshuttle.supply_blocked)
 		message = blockade_warning
 	data["message"] = message
 	data["cart"] = list()
@@ -140,7 +140,7 @@
 			if(!SSshuttle.supply.canMove())
 				computer.say(safety_warning)
 				return
-			if(SSshuttle.supplyBlocked)
+			if(SSshuttle.supply_blocked)
 				computer.say(blockade_warning)
 				return
 			if(SSshuttle.supply.getDockedId() == "supply_home")
@@ -156,7 +156,7 @@
 		if("loan")
 			if(!SSshuttle.shuttle_loan)
 				return
-			if(SSshuttle.supplyBlocked)
+			if(SSshuttle.supply_blocked)
 				computer.say(blockade_warning)
 				return
 			else if(SSshuttle.supply.mode != SHUTTLE_IDLE)

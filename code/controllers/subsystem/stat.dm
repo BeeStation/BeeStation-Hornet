@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(stat)
 	wait = 1 SECONDS
 	priority = FIRE_PRIORITY_STAT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME	//RUNLEVEL_INIT doesn't work, so the stat panel will not auto update during this time (But that is good since we don't want to waste processing time during that phase).
-	flags = SS_NO_INIT | SS_BACKGROUND
+	ss_flags = SS_NO_INIT | SS_BACKGROUND
 
 	var/list/flat_icon_cache = list()	//Assoc list, datum = flat icon
 
@@ -126,7 +126,7 @@ SUBSYSTEM_DEF(stat)
 	if(istype(A, /mob))
 		var/mob/M = A
 		var/overlay_hash = ""
-		for(var/image/I as() in M.overlays)
+		for(var/image/I as anything in M.overlays)
 			if(istext(I.icon_state) && length(I.icon_state) >= 1)
 				overlay_hash = "[overlay_hash][I.icon_state[1]]"
 			else

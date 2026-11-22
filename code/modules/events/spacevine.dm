@@ -9,7 +9,7 @@
 	fakeable = FALSE
 
 /datum/round_event/spacevine/start()
-	var/list/turfs = get_area_turfs(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1], TRUE)
+	var/list/turfs = get_area_turfs(/area/station/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1], TRUE)
 
 	var/obj/structure/spacevine/SV = new()
 
@@ -25,6 +25,7 @@
 		message_admins("Event spacevine has been spawned in [ADMIN_VERBOSEJMP(T)].")
 
 /datum/spacevine_mutation
+	abstract_type = /datum/spacevine_mutation
 	var/name = ""
 	var/severity = 1
 	var/hue
@@ -154,7 +155,7 @@
 
 /// What happens if an aggr spreading vine buckles a mob.
 /datum/spacevine_mutation/aggressive_spread/on_buckle(obj/structure/spacevine/holder, mob/living/buckled)
-		aggrospread_act(holder, buckled)
+	aggrospread_act(holder, buckled)
 
 /// Hurts mobs. To be used when a vine with aggressive spread mutation spreads into the mob's tile or buckles them.
 /datum/spacevine_mutation/aggressive_spread/aggrospread_act(obj/structure/spacevine/S, mob/living/M)
@@ -203,53 +204,49 @@
 	holder.set_opacity(0)
 	holder.alpha = 125
 
-/datum/spacevine_mutation/oxy_eater
+/datum/spacevine_mutation/gas_eater
+	abstract_type = /datum/spacevine_mutation/gas_eater
+	/// Type of gas consumed by this mutation
+	var/datum/gas/gas_type = null
+
+/datum/spacevine_mutation/gas_eater/process_mutation(obj/structure/spacevine/holder)
+	var/turf/open/floor/turf = holder.loc
+	if(!istype(turf))
+		return
+
+	var/datum/gas_mixture/gas_mix = turf.air
+	if(!gas_mix.moles[gas_type])
+		return
+
+	gas_mix.adjust_gas(gas_type, -severity * holder.energy)
+
+/datum/spacevine_mutation/gas_eater/oxy_eater
 	name = "oxygen consuming"
 	hue = "#ffff88"
 	severity = 3
 	quality = NEGATIVE
+	gas_type = /datum/gas/oxygen
 
-/datum/spacevine_mutation/oxy_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		SET_MOLES(/datum/gas/oxygen, GM, max(GET_MOLES(/datum/gas/oxygen, GM) - severity * holder.energy, 0))
-
-/datum/spacevine_mutation/nitro_eater
+/datum/spacevine_mutation/gas_eater/nitro_eater
 	name = "nitrogen consuming"
 	hue = "#8888ff"
 	severity = 3
 	quality = NEGATIVE
+	gas_type = /datum/gas/nitrogen
 
-/datum/spacevine_mutation/nitro_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		SET_MOLES(/datum/gas/nitrogen, GM, max(GET_MOLES(/datum/gas/nitrogen, GM) - severity * holder.energy, 0))
-
-/datum/spacevine_mutation/carbondioxide_eater
+/datum/spacevine_mutation/gas_eater/carbondioxide_eater
 	name = "CO2 consuming"
 	hue = COLOR_CYAN
 	severity = 3
 	quality = POSITIVE
+	gas_type = /datum/gas/carbon_dioxide
 
-/datum/spacevine_mutation/carbondioxide_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		REMOVE_MOLES(/datum/gas/carbon_dioxide, GM, severity * holder.energy - GET_MOLES(/datum/gas/carbon_dioxide, GM))
-
-/datum/spacevine_mutation/plasma_eater
+/datum/spacevine_mutation/gas_eater/plasma_eater
 	name = "toxins consuming"
 	hue = "#ffbbff"
 	severity = 3
 	quality = POSITIVE
-
-/datum/spacevine_mutation/plasma_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		SET_MOLES(/datum/gas/plasma, GM, max(GET_MOLES(/datum/gas/plasma, GM) - severity * holder.energy, 0))
+	gas_type = /datum/gas/plasma
 
 /datum/spacevine_mutation/thorns
 	name = "thorny"
@@ -280,8 +277,8 @@
 		holder.set_density(TRUE)
 	holder.modify_max_integrity(100)
 
-/datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
-	if(I?.get_sharpness())
+/datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
+	if(item?.sharpness >= SHARP)
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -363,16 +360,16 @@
 	if(!override)
 		qdel(src)
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
-	var/damage_dealt = I.force
-	if(I.get_sharpness())
+/obj/structure/spacevine/attacked_by(obj/item/item, mob/living/user)
+	var/damage_dealt = item.force
+	if(item.sharpness >= SHARP)
 		damage_dealt *= 4
-	if(I.damtype == BURN)
+	if(item.damtype == BURN)
 		damage_dealt *= 4
 
 	for(var/datum/spacevine_mutation/SM in mutations)
-		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-	take_damage(damage_dealt, I.damtype, MELEE, 1)
+		damage_dealt = SM.on_hit(src, user, item, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
+	take_damage(damage_dealt, item.damtype, MELEE, 1)
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -418,10 +415,14 @@
 	vines = list()
 	growth_queue = list()
 	spawn_spacevine_piece(location, null, muts)
-	notify_ghosts("Kudzu has been deployed!", source=location, header="Kudzu")
+	notify_ghosts(
+		"Kudzu has been deployed!",
+		source=location,
+		header="Kudzu"
+	)
 	START_PROCESSING(SSobj, src)
 	vine_mutations_list = list()
-	init_subtypes(/datum/spacevine_mutation/, vine_mutations_list)
+	init_subtypes(/datum/spacevine_mutation, vine_mutations_list)
 	if(potency != null)
 		mutativeness = potency / 10
 	if(production != null && production <= 10) //Prevents runtime in case production is set to 11.

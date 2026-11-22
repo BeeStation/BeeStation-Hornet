@@ -1,7 +1,7 @@
 /obj/item/wallframe
 	icon = 'icons/obj/wallframe.dmi'
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT*2)
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	inhand_icon_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -63,7 +63,7 @@
 	var/turf/T = get_step(get_turf(user), user.dir)
 	if(iswallturf(T))
 		T.attackby(src, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/wallframe/wrench_act(mob/living/user, obj/item/tool)
 	var/iron_amt = round(custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)]/MINERAL_MATERIAL_AMOUNT) //Replace this shit later
@@ -77,7 +77,7 @@
 	if(glass_amt)
 		new /obj/item/stack/sheet/glass(get_turf(src), glass_amt)
 	qdel(src)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/electronics
 	desc = "Looks like a circuit. Probably is."
@@ -86,7 +86,7 @@
 	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = 20
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)

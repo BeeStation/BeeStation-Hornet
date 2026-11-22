@@ -1,7 +1,7 @@
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot.  He looks less than thrilled."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "secbot"
 	density = FALSE
 	anchored = FALSE
@@ -18,7 +18,7 @@
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v1.6"
 	allow_pai = 0
-	data_hud_type = DATA_HUD_SECURITY_ADVANCED
+	data_hud_type = TRAIT_SECURITY_HUD
 	path_image_color = COLOR_RED
 	boot_delay = 8 SECONDS
 
@@ -45,12 +45,7 @@
 /mob/living/simple_animal/bot/secbot/beepsky/jr
 	name = "Officer Pipsqueak"
 	desc = "It's Officer Beep O'sky's smaller, just-as aggressive cousin, Pipsqueak."
-
-/mob/living/simple_animal/bot/secbot/beepsky/jr/Initialize(mapload)
-	. = ..()
-	resize = 0.8
-	update_transform()
-
+	initial_size = 0.8
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/atom/Tsec = drop_location()
@@ -68,13 +63,13 @@
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
 	update_icon()
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_DETECTIVE)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -168,7 +163,7 @@
 
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/living/user, list/modifiers)
 	..()
 	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		return
@@ -211,7 +206,7 @@
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
-		var/mob/thrown_by = I.thrownby?.resolve()
+		var/mob/thrown_by = throwingdatum?.get_thrower()
 		if(I.throwforce < src.health && thrown_by && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
@@ -229,7 +224,6 @@
 		return
 	if(!C.handcuffed)
 		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
-		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()
 
@@ -252,7 +246,8 @@
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
+	if(C.takes_stamina_damage())
+		C.Disorient(6 SECONDS, 130, paralyze = 8 SECONDS, stack_status = FALSE, protection = armor_block, electrical = TRUE)
 	C.set_stutter(10 SECONDS)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\
@@ -303,8 +298,8 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
-			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) ||  target.getStaminaLoss() < 100)
+			// see if he got away. If he's no longer adjacent or inside a closet or about to get up, we hunt again.
+			if( !Adjacent(target) || !isturf(target.loc) || !target.IsParalyzed())
 				back_to_hunt()
 				return
 
@@ -331,7 +326,7 @@
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.getStaminaLoss() < 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && !target.IsParalyzed())) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			else //Try arresting again if the target escapes.

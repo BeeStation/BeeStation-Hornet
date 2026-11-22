@@ -1,4 +1,5 @@
 /datum/disease/transformation
+	abstract_type = /datum/disease/transformation
 	name = "Transformation"
 	max_stages = 5
 	spread_text = "Acute"
@@ -59,9 +60,9 @@
 			to_chat(affected_mob, pick(stage5))
 		if(QDELETED(affected_mob))
 			return
-		if(affected_mob.notransform)
+		if(HAS_TRAIT_FROM(affected_mob, TRAIT_NO_TRANSFORM, REF(src)))
 			return
-		affected_mob.notransform = 1
+		ADD_TRAIT(affected_mob, TRAIT_NO_TRANSFORM, REF(src))
 		affected_mob.unequip_everything()
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))
@@ -83,24 +84,26 @@
 /datum/disease/transformation/proc/replace_banned_player(mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
-	affected_mob.playable_bantype = bantype
-	affected_mob.ghostize(TRUE,SENTIENCE_FORCE)
-	to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
-
 	var/datum/poll_config/config = new(
 		check_jobban = bantype,
 		poll_time = 10 SECONDS,
-		jump_target = affected_mob,
-		alert_pic = affected_mob,
-		role_name_text = affected_mob.name,
+		jump_target = new_mob,
+		alert_pic = new_mob,
+		role_name_text = affected_mob.real_name,
 		amount_to_pick = 1,
 	)
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, affected_mob)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, new_mob)
+	if(QDELETED(new_mob))
+		return
 	if(candidate)
-		affected_mob.key = candidate.key
-		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
+		to_chat(new_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
+		new_mob.ghostize(FALSE)
+		new_mob.key = candidate.key
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(new_mob)]) to replace a jobbanned player.")
 	else
 		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
+		new_mob.playable_bantype = bantype
+		new_mob.ghostize(FALSE, SENTIENCE_FORCE)
 
 /datum/disease/transformation/robot
 
@@ -200,13 +203,12 @@
 
 	switch(stage)
 		if(1)
-			if(ishuman(affected_mob) && affected_mob.dna)
-				if(affected_mob.dna.species.id == "slime" || affected_mob.dna.species.id == "stargazer" || affected_mob.dna.species.id == "lum")
-					stage = 5
+			if(isjellyperson(affected_mob))
+				stage = 5
 		if(3)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
-				if(human.dna.species.id != "slime" && affected_mob.dna.species.id != "stargazer" && affected_mob.dna.species.id != "lum")
+				if(!ismonkey(human) && !isjellyperson(human))
 					human.set_species(/datum/species/oozeling/slime)
 
 /datum/disease/transformation/corgi
@@ -251,7 +253,7 @@
 	stage4	= list(span_danger("You're ravenous."))
 	stage5	= list(span_danger("You have become a morph."))
 	new_form = /mob/living/simple_animal/hostile/morph
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD //magic!
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD //magic!
 
 /datum/disease/transformation/gondola
 	name = "Gondola Transformation"
@@ -316,7 +318,7 @@
 	stage3	= list(span_danger("You feel the need to cough out something fluffy."), span_danger("You feel the need to scratch your neck with your foot."), span_danger("You think you should adopt a cat."))
 	stage4	= list(span_danger("You start thinking that felinids are not that bad after all!"), span_danger("You feel scared at the thought of eating chocolate."))
 	stage5	= list(span_danger("You have become a catperson."))
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD //Nothing evades the curse!
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD //Nothing evades the curse!
 	new_form = /mob/living/carbon/human/species/felinid
 
 /datum/disease/transformation/felinid/stage_act()
@@ -417,7 +419,7 @@
 	stage4	= list(span_userdanger("The planet's core calls to you... Lavaland is your home."), span_danger("A thousand voices beckon you to join them."))
 	stage5	= list(span_userdanger("You have become one of Legion. You are one with the Necropolis now, and have no other loyalties. Serve well."))
 	new_form = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD
 
 /datum/disease/transformation/psyphoza
 	name = "Acute Fungal Infection"
@@ -437,5 +439,5 @@
 	stage3	= list(span_danger("Your vision dims briefly."))
 	stage4	= list(span_danger("You sense something you can't see."))
 	stage5	= list(span_danger("Your head sprouts a cap, and your eyes rupture."))
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD
 	new_form = /mob/living/carbon/human/species/psyphoza

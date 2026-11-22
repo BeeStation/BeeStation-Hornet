@@ -14,7 +14,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/human/H = target
 		if(H.can_inject())
-			H.adjustStaminaLoss(40)
+			H.stamina.adjust(-40)
 	return ..()
 
 /obj/projectile/neurotoxin/damaging //for ai controlled aliums

@@ -32,8 +32,6 @@
 #define BREAKDOWN_FLAGS_SHEETIFIER (BREAKDOWN_ALLOYS)
 /// Breakdown flags used by the ore processor.
 #define BREAKDOWN_FLAGS_ORE_PROCESSOR (BREAKDOWN_ALLOYS)
-/// Breakdown flags used by the drone dispenser.
-#define BREAKDOWN_FLAGS_DRONE_DISPENSER (BREAKDOWN_ALLOYS)
 
 /// Whether a material's mechanical effects should apply to the atom. This is necessary for other flags to work.
 #define MATERIAL_EFFECTS (1<<0)

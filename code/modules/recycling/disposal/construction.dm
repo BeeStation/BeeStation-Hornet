@@ -37,13 +37,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
 
 	pipename = initial(pipe_type.name)
 
-	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(post_rotation))
 	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidden under floor tiles
 		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
+	// this only gets used by pipes created by RPDs or pipe dispensers
 	if(flip)
-		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
-		rotcomp.Rotate(usr, ROTATION_FLIP) // this only gets used by pipes created by RPDs or pipe dispensers
+		// Rotate, bypassing simple_rotation for 180 degrees at once
+		setDir(turn(dir, ROTATION_FLIP))
+		post_rotation(usr, ROTATION_FLIP)
 
 	update_appearance(UPDATE_ICON)
 
@@ -92,7 +94,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
 			dpdir |= turn(dir, 180)
 	return dpdir
 
-/obj/structure/disposalconstruct/proc/AfterRotation(mob/user, degrees)
+/obj/structure/disposalconstruct/proc/post_rotation(mob/user, degrees)
 	if(degrees == ROTATION_FLIP)
 		var/obj/structure/disposalpipe/temp = pipe_type
 		if(initial(temp.flip_type))
@@ -100,9 +102,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
 				setDir(turn(dir, 45))
 			pipe_type = initial(temp.flip_type)
 	update_appearance()
-
-/obj/structure/disposalconstruct/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 // construction/deconstruction
 // wrench: (un)anchor

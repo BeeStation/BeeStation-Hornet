@@ -18,7 +18,7 @@
 	load_sound = "sound/weapons/shotguninsert.ogg"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	weapon_weight = WEAPON_MEDIUM
@@ -33,7 +33,7 @@
 	recoil = 1
 	pb_knockback = 2
 
-/obj/item/gun/ballistic/shotgun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/shotgun/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(chambered && chambered.caliber == ".50")
 		user.log_message("fired a p50 round from [src] at [target ? target : "unknown target"]. Catastrophic failure imminent.", LOG_ATTACK, color="red")
 		if(prob(20))
@@ -130,14 +130,18 @@
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	//semi_auto = TRUE
 
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
-	. = ..()
-	. += span_notice("Alt-click to pump it.")
-
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
 	if (!alternate_magazine)
 		alternate_magazine = new mag_type(src)
+
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/Destroy()
+	QDEL_NULL(alternate_magazine)
+	return ..()
+
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
+	. = ..()
+	. += span_notice("Alt-click to pump it.")
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/attack_self(mob/living/user)
 	if(!chambered && magazine.contents.len)
@@ -206,12 +210,11 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	force = 10
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | UNIQUE_RENAME
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	can_sawoff = TRUE
 	sawn_desc = "Omar's coming!"
-	obj_flags = UNIQUE_RENAME
 	rack_sound_volume = 0
 	unique_reskin_icon = list("Default" = "dshotgun",
 						"Dark Red Finish" = "dshotgun_d",
@@ -266,7 +269,7 @@
 	var/reinforced = FALSE
 	var/barrel_stress = 0
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(chambered.BB && !reinforced)
 		var/obj/item/ammo_casing/shotgun/S = chambered
 		if (S.high_power)
@@ -284,7 +287,7 @@
 
 	return ..()
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, list/modifiers)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
@@ -299,10 +302,10 @@
 		else
 			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling!"))
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/update_icon()
-	..()
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/update_overlays()
+	. = ..()
 	if(slung)
-		add_overlay("improvised_sling")
+		. += "improvised_sling"
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
@@ -351,7 +354,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	weapon_weight = WEAPON_MEDIUM
 	semi_auto = TRUE
-	flags_1 = CONDUCT_1
 	force = 18 //it has a hook on it
 	sharpness = SHARP //it does in fact, have a hook on it
 	attack_verb_continuous = list("slashes", "hooks", "stabs")
@@ -368,12 +370,12 @@
 	. = ..()
 	. += "<span class='notice'>Right-click to shoot the hook.</span>"
 
-/obj/item/gun/ballistic/shotgun/hook/ranged_attack_secondary(atom/target, mob/living/user, params)
-	hook.pull_trigger(target, user, params)
+/obj/item/gun/ballistic/shotgun/hook/ranged_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	hook.pull_trigger(target, user, modifiers)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/item/gun/ballistic/shotgun/hook/pre_attack_secondary(atom/target, mob/living/user, params)
-	hook.pull_trigger(target, user, params)
+/obj/item/gun/ballistic/shotgun/hook/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	hook.pull_trigger(target, user, modifiers)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 ///Lever action shotgun, formerly on thefactory.dm

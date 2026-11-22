@@ -10,7 +10,7 @@
 	C.icon = H.ui_style
 	H.static_inventory += C
 	CL.screen += C
-	RegisterSignal(C, COMSIG_CLICK, PROC_REF(component_ui_interact))
+	RegisterSignal(C, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(component_ui_interact))
 
 #define COOKING TRUE
 #define CRAFTING FALSE
@@ -78,17 +78,16 @@
 		if(!machines[machinery_path])//We don't care for volume with machines, just if one is there or not
 			return FALSE
 
-	for(var/required_structure_path in R.structures)
+	for(var/required_structure_path, needed_amount in R.structures)
 		// Check for the presence of the required structure. Allow for subtypes to be used if not blacklisted
-		var/needed_amount = R.structures[required_structure_path]
-		for(var/structure_path in structures)
+		for(var/structure_path, structure_amount in structures)
 			if(!ispath(structure_path, required_structure_path) || R.blacklist.Find(structure_path))
 				continue
 
-				needed_amount -= structures[required_structure_path]
-				requirements_list[required_structure_path] = structures[structure_path] // Store an instance of what we are using for check_requirements
-				if(needed_amount <= 0)
-					break
+			needed_amount -= structures[required_structure_path]
+			requirements_list[required_structure_path] = structure_amount // Store an instance of what we are using for check_requirements
+			if(needed_amount <= 0)
+				break
 
 		// We didn't find the required item
 		if(needed_amount > 0)
@@ -105,10 +104,14 @@
 	for(var/atom/movable/AM in range(radius_range, a))
 		if(blacklist && (AM.type in blacklist))
 			continue
-		else if(istype(get_area(AM), /area/holodeck/prison)) //don't prevent crafting in the prison workshop
+		else if(istype(get_area(AM), /area/station/holodeck/prison)) //don't prevent crafting in the prison workshop
 			. += AM
 		else if(AM.flags_1 & HOLOGRAM_1)
 			continue
+		if(isitem(AM))
+			var/obj/item/item = AM
+			if(item.item_flags & ABSTRACT) //let's not tempt fate, shall we?
+				continue
 		. += AM
 
 

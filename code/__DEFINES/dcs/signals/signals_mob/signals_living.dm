@@ -73,7 +73,11 @@
 	#define COMPONENT_CANT_TRACK 1
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
-///(NOT on humans) from mob/living/*/UnarmedAttack(): (atom/target, proximity, modifiers)
+/// from /mob/living/UnarmedAttack(), before sending [COMSIG_LIVING_UNARMED_ATTACK]: (mob/living/source, atom/target, proximity, list/modifiers)
+/// The only reason this exists is so hulk can fire before Fists of the North Star.
+/// Note that this is called before [/mob/living/proc/can_unarmed_attack] is called, so be wary of that.
+#define COMSIG_LIVING_EARLY_UNARMED_ATTACK "human_pre_attack_hand"
+/// from mob/living/UnarmedAttack(): (mob/living/source, atom/target, proximity, list/modifiers)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
@@ -90,29 +94,58 @@
 #define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
-	#define COMPONENT_NO_STUN (1<<0)		//For all of them
+/// from mob/living/check_stun_immunity(): (check_flags)
+#define COMSIG_LIVING_GENERIC_STUN_CHECK "living_check_stun"
+	#define COMPONENT_NO_STUN (1<<0) //For all of them
 ///from end of fully_heal(): (heal_flags)
 #define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
 
-#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
+///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
+#define COMSIG_LIVING_SLAPPED "living_slapped"
 
-#define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
-#define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.
+///from base of mob/living/Stagger() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"
+
+#define COMSIG_LIVING_ENTER_STASIS "living_enter_stasis" //! sent when a mob is put into stasis.
+#define COMSIG_LIVING_EXIT_STASIS "living_exit_stasis" //! sent when a mob exits stasis.
 
 // basic mob signals
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
 #define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
 
+///from base of mob/living/update_transform()
+#define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
+
+/// from /datum/status_effect/incapacitating/stamcrit/on_apply()
+#define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
+	#define STAMCRIT_CANCELLED (1<<0)
+///from stamina loss and stuns on a mob with TRAIT_STAMINA_DRAINS_POWER: (amount, electrical)
+#define COMSIG_LIVING_DRAIN_STAMINA_POWER "living_drain_stamina_power"
+	///Returned when the mob still has power after the drain, otherwise stun
+	#define COMPONENT_STAMINA_POWERED (1<<0)
+///from /obj/structure/door/crush(): (mob/living/crushed, /obj/machinery/door/crushing_door)
+#define COMSIG_LIVING_DOORCRUSHED "living_doorcrush"
 ///sent when items with siemen coeff. of 0 block a shock: (power_source, source, siemens_coeff, dist_check)
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
 	/// Block the electrocute_act() proc from proceeding
 	#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
 ///sent by stuff like stunbatons and tasers: ()
+/// Sent to a mob being injected with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
+/// Sent to a mob being withdrawn from with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_WITHDRAW "living_try_syringe_withdraw"
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
 /// from base of mob/living/Life() (seconds, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
+
+/// From base of /mob/living/simple_animal/attack_hand() and /mob/living/basic/attack_hand() when petting (non-combat): (mob/living/pet)
+#define COMSIG_LIVING_PET_ANIMAL "living_pet_animal"
+/// From base of carbon_defense.dm when hugging: (mob/living/carbon/hugged)
+#define COMSIG_LIVING_HUG_CARBON "living_hug_carbon"
+/// From base of /datum/element/art when appraising art: (atom/art_piece)
+#define COMSIG_LIVING_APPRAISE_ART "living_appraise_art"
 
 ///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
@@ -123,9 +156,9 @@
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
 
 /// From mob/living/try_speak(): (message, ignore_spam, forced)
-#define COMSIG_LIVING_TRY_SPEECH "living_vocal_speech"
-	/// Return if the mob can speak the message, regardless of any other signal returns or checks.
-	#define COMPONENT_CAN_ALWAYS_SPEAK (1<<0)
+#define COMSIG_MOB_TRY_SPEECH "living_vocal_speech"
+	/// Return to skip can_speak check, IE, forcing success. Overrides below.
+	#define COMPONENT_IGNORE_CAN_SPEAK (1<<0)
 	/// Return if the mob cannot speak.
 	#define COMPONENT_CANNOT_SPEAK (1<<1)
 
@@ -155,6 +188,9 @@
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
 
+/// From /mob/living/update_offsets(animate) : (new_x, new_y, new_w, new_z, animate)
+#define COMSIG_LIVING_UPDATE_OFFSETS "living_update_offsets"
+
 ///from mob/living/befriend()
 #define COMSIG_LIVING_MADE_NEW_FRIEND "made_new_friend"
 /// From /mob/living/befriend() : (mob/living/new_friend)
@@ -166,6 +202,8 @@
 #define COMSIG_MOB_PRE_EAT "mob_pre_eat"
 	///cancel eating attempt
 	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+/// From mob/living/proc/on_fall
+#define COMSIG_LIVING_THUD "living_thud"
 
 /// From /datum/element/basic_eating/finish_eating()
 #define COMSIG_MOB_ATE "mob_ate"

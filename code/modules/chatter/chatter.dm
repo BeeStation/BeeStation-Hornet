@@ -27,7 +27,7 @@
 					sleep(6)
 				continue
 
-			if(isnum_safe(item))
+			if(IS_FINITE(item))
 				var/length = min(item, 10)
 				if (length == 0)
 					// "verbalise" long spaces

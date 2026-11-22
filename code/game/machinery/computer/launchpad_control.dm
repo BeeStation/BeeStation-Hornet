@@ -60,7 +60,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 	var/turf/pad_turf = get_turf(pad)
 	if(pad_turf && is_centcom_level(pad_turf.z))
 		return "ERROR: Launchpad not operative. Heavy area shielding makes teleporting impossible."
-	for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+	for (var/obj/machinery/bluespace_anchor/anchor as anything in GLOB.active_bluespace_anchors)
 		//Not nearby
 		if (anchor.get_virtual_z_level() != src.get_virtual_z_level() || get_dist(src, anchor) > anchor.range)
 			continue
@@ -85,11 +85,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 	var/obj/machinery/launchpad/pad = launchpads[number]
 	return pad
 
-
-/obj/machinery/computer/launchpad/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/computer/launchpad/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "LaunchpadConsole")
@@ -143,10 +140,16 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 		if("move_pos")
 			var/plus_x = text2num(params["x"])
 			var/plus_y = text2num(params["y"])
-			current_pad.set_offset(
-				x = current_pad.x_offset + plus_x,
-				y = current_pad.y_offset + plus_y
-			)
+			if(plus_x || plus_y)
+				current_pad.set_offset(
+					x = current_pad.x_offset + plus_x,
+					y = current_pad.y_offset + plus_y,
+				)
+			else
+				current_pad.set_offset(
+					x = 0,
+					y = 0,
+				)
 			. = TRUE
 		if("set_recall")
 			var/recall_timer = tgui_input_number(usr, "How long until the machine automatically recalls? (0 to disable)", "Recall time", 0, 300, 0)

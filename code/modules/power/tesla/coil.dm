@@ -39,11 +39,12 @@
 	return ..()
 
 /obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
+	. = ..()
 	var/power_multiplier = 0
 	cooldown_time = 10 SECONDS
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		power_multiplier += capacitor.rating
-		cooldown_time -= capacitor.rating * 2 SECONDS
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		power_multiplier += capacitor.tier
+		cooldown_time -= capacitor.tier * 2 SECONDS
 	input_power_multiplier = max(power_multiplier / 8, 0.25) //Max out at 50% efficency.
 
 /obj/machinery/power/energy_accumulator/tesla_coil/examine(mob/user)
@@ -71,7 +72,7 @@
 		else
 			disconnect_from_network()
 
-/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", W))
 		return
 
@@ -93,7 +94,7 @@
 
 	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
-	flick("coilhit", src)
+	z_flick("coilhit", src)
 
 	if(!(zap_flags & ZAP_GENERATES_POWER)) //Prevent infinite recursive power
 		return 0
@@ -142,13 +143,14 @@
 /obj/machinery/power/energy_accumulator/tesla_coil/research/anchored
 	anchored = TRUE
 
-/obj/machinery/power/energy_accumulator/tesla_coil/research/Initialize(mapload)
+/obj/machinery/power/energy_accumulator/tesla_coil/research/LateInitialize()
 	. = ..()
-	linked_techweb = SSresearch.science_tech
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/machinery/power/energy_accumulator/tesla_coil/research/Destroy()
 	linked_techweb = null
-	. = ..()
+	return ..()
 
 /obj/machinery/power/energy_accumulator/tesla_coil/research/zap_act(power, zap_flags)
 	if(!anchored || panel_open)
@@ -156,7 +158,7 @@
 
 	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
-	flick("rpcoilhit", src)
+	z_flick("rpcoilhit", src)
 
 	zap_buckle_check(power)
 
@@ -168,8 +170,8 @@
 	engineering_bank?.adjust_money(min(power_removed, 3)*2)
 
 	if(linked_techweb)
-		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_removed, 3)*2)
-		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min(power_removed, 3)*2) // x4 coils with a pulse per second or so = ~744/m point bonus for R&D
+		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_GENERIC, min(power_removed, 3) / 4)
+		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min(power_removed, 3) / 4)
 
 	return max(power - power_removed, 0)
 
@@ -181,7 +183,7 @@
 		else
 			icon_state = "rpcoil[anchored]"
 
-/obj/machinery/power/energy_accumulator/tesla_coil/research/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/research/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "rpcoil_open[anchored]", "rpcoil[anchored]", W))
 		return
 	return ..()
@@ -234,7 +236,7 @@
 
 /obj/machinery/power/energy_accumulator/grounding_rod/zap_act(energy, zap_flags)
 	if(anchored && !panel_open)
-		flick("grounding_rodhit", src)
+		z_flick("grounding_rodhit", src)
 		zap_buckle_check(energy)
 		stored_energy += energy
 		return 0

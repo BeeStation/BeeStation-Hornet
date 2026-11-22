@@ -1,9 +1,9 @@
 /datum/antagonist/space_dragon
-	name = "Space Dragon"
+	name = "\improper Space Dragon"
 	roundend_category = "space dragons"
-	antagpanel_category = "Space Dragon"
+	antagpanel_category = ANTAG_GROUP_LEVIATHANS
 	banning_key = ROLE_SPACE_DRAGON
-	show_in_antagpanel = TRUE
+	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	required_living_playtime = 0
@@ -37,31 +37,31 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Dragon",
 		"You've existed for so long, you have forgotten your purpose. The sight of an intruder in your endless claim of the void of space re-kindles the magic within you. Place rifts and summon an army to snuff out another light intruding in your domain.")
 
-/datum/antagonist/space_dragon/proc/forge_objectives()
+/datum/antagonist/space_dragon/forge_objectives()
 	var/static/list/area/allowed_areas
 	if(!allowed_areas)
 		// Areas that will prove challenging for the dragon and provocative to the crew.
 		allowed_areas = typecacheof(list(
-			/area/crew_quarters/heads/captain,
-			/area/crew_quarters/heads/hop,
-			/area/bridge,
-			/area/engine,
-			/area/security,
-			/area/science,
+			/area/station/command/heads_quarters/captain,
+			/area/station/command/heads_quarters/hop,
+			/area/station/command,
+			/area/station/engineering,
+			/area/station/security,
+			/area/station/science,
 		))
 	// Things included above that we do NOT want
 	var/list/area/blocked_areas = typecacheof(list(
-		/area/bridge/showroom,
-		/area/science/test_area,
-		/area/science/misc_lab,
-		/area/science/research/abandoned,
-		/area/science/shuttledock,
-		/area/engine/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
-		/area/engine/transit_tube,
-		/area/engine/engine_room/external,
-		/area/security/prison/asteroid,
-		/area/security/checkpoint,
-		/area/security/courtroom,
+		/area/station/command/corporate_showroom,
+		/area/station/science/test_area,
+		/area/station/science/misc_lab,
+		/area/station/science/research/abandoned,
+		/area/station/science/shuttledock,
+		/area/station/engineering/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
+		/area/station/engineering/transit_tube,
+		/area/station/engineering/supermatter,
+		/area/station/security/prison/asteroid,
+		/area/station/security/checkpoint,
+		/area/station/security/courtroom,
 	))
 
 	var/list/possible_areas = GLOB.areas.Copy()
@@ -78,14 +78,16 @@
 		area_names += initial(chosen_rift_area.name)
 
 	var/datum/objective/summon_carp/summon = new
-	objectives += summon
 	summon.owner = owner
 	summon.update_explanation_text()
+	add_objective(summon)
 
 /datum/antagonist/space_dragon/on_gain()
-	forge_objectives()
+	if(give_objectives)
+		forge_objectives()
 	rift_ability = new
 	owner.special_role = ROLE_SPACE_DRAGON
+	owner.set_assigned_role(SSjob.get_job_type(/datum/job/space_dragon))
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
 		S.can_summon_rifts = TRUE
@@ -110,6 +112,7 @@
 
 /datum/antagonist/space_dragon/on_removal()
 	owner.special_role = null
+	owner.set_assigned_role(SSjob.get_job_type(/datum/job/unassigned))
 	return ..()
 
 /datum/antagonist/space_dragon/remove_innate_effects(mob/living/mob_override)

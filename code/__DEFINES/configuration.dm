@@ -18,8 +18,8 @@
 /// Folder directory for data
 #define DATA_DIRECTORY "data"
 
-/// Folder directory for maps
-#define MAP_DIRECTORY "_maps"
+/// List of directories we can load map .json files from
+#define MAP_DIRECTORY_MAPS "_maps/map_jsons"
 
 /// Folder directory for config
 #define CONFIG_DIRECTORY "config"
@@ -27,7 +27,6 @@
 /// File defines, most of them are loaded from STRING_DIRECTORY
 #define DSAY_NICKNAME_FILE "admin_nicknames.json"	//loaded from CONFIG_DIRECTORY
 #define PHOBIA_FILE "phobia.json"
-#define ION_LAWS_FILE "ion_laws.json"
 #define OWO_TALK_FILE "owo_talk.json"
 #define GONGOLA_TALK_FILE "spurdo_replacement.json"
 /// File location for brain damage traumas
@@ -55,16 +54,31 @@
 #define APPROVED_CIRCUITS_FILE "approved_circuits.json"
 /// File location for hallucination lines
 #define HALLUCINATION_FILE "hallucination.json"
+/// File location for ninja lines
+#define NINJA_FILE "ninja.json"
 
 /// Accent files
-#define MEDIEVAL_SPEECH_FILE "accent_medieval.json"
-#define ROADMAN_TALK_FILE "accent_roadman.json"
-#define CANADIAN_TALK_FILE "accent_canadian.json"
-#define FRENCH_TALK_FILE "accent_french.json"
-#define ITALIAN_TALK_FILE "accent_italian.json"
-#define BRITISH_TALK_FILE "accent_british.json"
-#define SCOTTISH_TALK_FILE "accent_scottish.json"
-#define SWEDISH_TALK_FILE "accent_swedish.json"
+#define MEDIEVAL_SPEECH_FILE 'strings/accent_medieval.json'
+#define ROADMAN_TALK_FILE 'strings/accent_roadman.json'
+#define CANADIAN_TALK_FILE 'strings/accent_canadian.json'
+#define FRENCH_TALK_FILE 'strings/accent_french.json'
+#define ITALIAN_TALK_FILE 'strings/accent_italian.json'
+#define BRITISH_TALK_FILE 'strings/accent_british.json'
+#define SCOTTISH_TALK_FILE 'strings/accent_scottish.json'
+#define SWEDISH_TALK_FILE 'strings/accent_swedish.json'
+#define CAJUN_TALK_FILE 'strings/accent_cajun.json'
+#define TEXAN_TALK_FILE 'strings/accent_texan.json'
+#define SOUTHMETRO_TALK_FILE 'strings/accent_southmetro.json'
+#define RUSSIAN_TALK_FILE 'strings/accent_russian.json'
+#define DUTCH_TALK_FILE 'strings/accent_dutch.json'
+#define FINNISH_TALK_FILE 'strings/accent_finnish.json'
+#define IRISH_TALK_FILE 'strings/accent_irish.json'
+#define BIGAPPLE_TALK_FILE 'strings/accent_bigapple.json'
+
+//not-accent accents
+#define ELVIS_TALK_FILE 'strings/accent_elvis.json'
+#define SPURDO_TALK_FILE 'strings/accent_spurdo.json'
+#define LUCHADOR_TALK_FILE 'strings/accent_luchador.json'
 
 /// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
@@ -74,8 +88,8 @@
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 // Defib stats
-/// The time (in deciseconds) in which a fresh body can be defibbed
-#define DEFIB_TIME_LIMIT 900
+/// The time in which a fresh body can be defibbed
+#define DEFIB_TIME_LIMIT (15 MINUTES)
 
 #define VALUE_MODE_NUM 0
 #define VALUE_MODE_TEXT 1

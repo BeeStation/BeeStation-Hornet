@@ -38,6 +38,6 @@
 		return FALSE
 
 	to_chat(cast_on, span_warning("Your eyes cry out in pain!"))
-	cast_on.set_blindness(eye_blind_duration)
+	cast_on.adjust_temp_blindness(eye_blind_duration)
 	cast_on.set_eye_blur_if_lower(eye_blur_duration)
 	return TRUE

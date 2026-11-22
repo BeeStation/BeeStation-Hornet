@@ -127,8 +127,12 @@
 		return
 	return ..()
 
+/datum/action/item_action/mod/pinnable/Destroy()
+	pinner = null
+	return ..()
+
 /// If the guy whose UI we are pinned to got deleted
-/datum/action/item_action/mod/pinnable/proc/pinner_deleted()
+/datum/action/item_action/mod/pinnable/proc/pinner_deleted(datum/source)
 	SIGNAL_HANDLER
 	pinner = null
 	qdel(src)
@@ -170,14 +174,13 @@
 	))
 	module.pinned_to -= REF(pinner)
 	module = null
-	pinner = null
 	return ..()
 
 /datum/action/item_action/mod/pinnable/module/do_effect(trigger_flags)
 	. = ..()
 	if(!.)
 		return
-	module.on_select(owner)
+	module.on_select()
 
 /datum/action/item_action/mod/pinnable/module/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
 	current_button.cut_overlays()

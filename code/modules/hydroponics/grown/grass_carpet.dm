@@ -58,7 +58,7 @@
 	icon_state = "fairygrassclump"
 	bite_consumption_mod = 1
 	stacktype = /obj/item/stack/tile/fairygrass
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/grass/fairy/attack_self(mob/user)
 	var/datum/plant_gene/trait/glow/G = null

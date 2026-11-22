@@ -1,39 +1,22 @@
 
 /* EMOTE DATUMS */
 /datum/emote/living
+	abstract_type = /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
-	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
-
-/// The time it takes for the blush visual to be removed
-#define BLUSH_DURATION 5.2 SECONDS
+	mob_type_blacklist_typecache = list(/mob/living/brain)
 
 /datum/emote/living/blush
 	key = "blush"
 	key_third_person = "blushes"
 	message = "blushes"
 	emote_type = EMOTE_VISIBLE
-	/// Timer for the blush visual to wear off
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(ishuman(user)) // Give them a visual blush effect if they're human
-		var/mob/living/carbon/human/human_user = user
-		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-		human_user.update_body()
-
-		// Use a timer to remove the blush effect after the BLUSH_DURATION has passed
-		var/list/key_emotes = GLOB.emote_list["blush"]
-		for(var/datum/emote/living/blush/living_emote in key_emotes)
-
-			// The existing timer restarts if it is already running
-			addtimer(CALLBACK(living_emote, PROC_REF(end_blush), human_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-/datum/emote/living/blush/proc/end_blush(mob/living/carbon/human/human_user)
-	if(!QDELETED(human_user))
-		REMOVE_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-		human_user.update_body()
-
-#undef BLUSH_DURATION
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	human_user.show_emote_overlay(/datum/bodypart_overlay/simple/emote/blush, 5.2 SECONDS)
 
 /datum/emote/living/bow
 	key = "bow"
@@ -103,6 +86,8 @@
 	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
+	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
+		return
 	var/custom_message = user.death_message
 	if(custom_message)
 		message_animal_or_basic = custom_message
@@ -143,14 +128,24 @@
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(H.Togglewings())
-			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
-		// play moth flutter noise if moth wing
-		if(istype(wings, /obj/item/organ/wings/moth))
-			playsound(H, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/wings/wings = human_user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+
+	// play a flapping noise if the wing has this implemented
+	if(!istype(wings))
+		return
+	wings.make_flap_sound(human_user)
+
+	if(!wings.can_open())
+		return
+	var/open = wings.wings_open
+	if(open)
+		wings.close_wings()
+	else
+		wings.open_wings()
+	addtimer(CALLBACK(wings, open ? TYPE_PROC_REF(/obj/item/organ/wings, open_wings) : TYPE_PROC_REF(/obj/item/organ/wings, close_wings)), wing_time)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -316,11 +311,11 @@
 #define SHIVER_LOOP_DURATION (1 SECONDS)
 /datum/emote/living/shiver/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	animate(user, pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
+	animate(user, pixel_x = 1, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
 	for(var/i in 1 to SHIVER_LOOP_DURATION / (0.2 SECONDS)) //desired total duration divided by the iteration duration to give the necessary iteration count
-		animate(pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
-		animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
-	animate(pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
+		animate(pixel_x = -2, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_CONTINUE)
+		animate(pixel_x = 2, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_CONTINUE)
+	animate(pixel_x = -1, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 #undef SHIVER_LOOP_DURATION
 
 /datum/emote/living/sit
@@ -379,12 +374,14 @@
 	key_third_person = "surrenders"
 	message = "puts their hands on their head and falls to the ground, surrendering"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	stat_allowed = SOFT_CRIT
 
-/datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/surrender/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
 	if(isliving(user) && intentional)
 		var/mob/living/living = user
 		living.Paralyze(20 SECONDS)
+		living.set_combat_mode(FALSE)
 
 /datum/emote/living/sway
 	key = "sway"
@@ -394,11 +391,11 @@
 
 /datum/emote/living/sway/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	animate(user, pixel_x = user.pixel_x + 2, time = 0.5 SECONDS)
+	animate(user, pixel_x = 2, time = 0.5 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
 	for(var/i in 1 to 2)
-		animate(pixel_x = user.pixel_x - 4, time = 1.0 SECONDS)
-		animate(pixel_x = user.pixel_x + 4, time = 1.0 SECONDS)
-	animate(pixel_x = user.pixel_x - 2, time = 0.5 SECONDS)
+		animate(pixel_x = -6, time = 1.0 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_CONTINUE)
+		animate(pixel_x = 6, time = 1.0 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_CONTINUE)
+	animate(pixel_x = -2, time = 0.5 SECONDS, flags = ANIMATION_RELATIVE)
 
 /datum/emote/living/tremble
 	key = "tremble"
@@ -407,13 +404,15 @@
 	emote_type = EMOTE_VISIBLE
 
 #define TREMBLE_LOOP_DURATION (4.4 SECONDS)
+
 /datum/emote/living/tremble/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	animate(user, pixel_x = user.pixel_x + 2, time = 0.2 SECONDS)
+	animate(user, pixel_x = 2, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
 	for(var/i in 1 to TREMBLE_LOOP_DURATION / (0.4 SECONDS)) //desired total duration divided by the iteration duration to give the necessary iteration count
-		animate(pixel_x = user.pixel_x - 2, time = 0.2 SECONDS)
-		animate(pixel_x = user.pixel_x + 2, time = 0.2 SECONDS)
-	animate(pixel_x = user.pixel_x - 2, time = 0.2 SECONDS)
+		animate(pixel_x = -4, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_CONTINUE)
+		animate(pixel_x = 4, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_CONTINUE)
+	animate(pixel_x = -2, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
+
 #undef TREMBLE_LOOP_DURATION
 
 /datum/emote/living/twitch
@@ -424,11 +423,11 @@
 
 /datum/emote/living/twitch/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	animate(user, pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
-	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
+	animate(user, pixel_x = 1, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -2, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 	animate(time = 0.1 SECONDS)
-	animate(pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
-	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
+	animate(pixel_x = 2, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = -1, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 
 /datum/emote/living/twitch_s
 	key = "twitch_s"
@@ -438,8 +437,8 @@
 
 /datum/emote/living/twitch_s/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	animate(user, pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
-	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
+	animate(user, pixel_x = -1, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = 1, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 
 /datum/emote/living/wave
 	key = "wave"
@@ -465,6 +464,10 @@
 	key = "yawn"
 	key_third_person = "yawns"
 	message = "yawns"
+	message_mime = "acts out an exaggerated silent yawn"
+	message_robot = "symphathetically yawns"
+	message_AI = "symphathetically yawns"
+	message_ipc = "symphathetically yawns"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/custom
@@ -480,64 +483,53 @@
 		return FALSE
 
 	if(!isnull(user.ckey) && is_banned_from(user.ckey, "Emote"))
-		to_chat(user, "You cannot send custom emotes (banned).")
+		to_chat(user, span_boldwarning("You cannot send custom emotes (banned)."))
 		return FALSE
 
 	if(QDELETED(user))
 		return FALSE
 
 	if(user.client && (user.client.player_details.muted & MUTE_IC))
-		to_chat(user, "You cannot send IC messages (muted).")
+		to_chat(user, span_boldwarning("You cannot send IC messages (muted)."))
 		return FALSE
 
-/datum/emote/living/custom/proc/check_invalid(mob/user, input)
+/datum/emote/living/custom/proc/emote_is_valid(mob/user, input)
+	// We're assuming clientless mobs custom emoting is something codebase-driven and not player-driven.
+	// If players ever get the ability to force clientless mobs to emote, we'd need to reconsider this.
+	if(!user.client)
+		return TRUE
+
+	if(!isnull(user?.client?.holder))
+		return TRUE
+
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, span_danger("Invalid emote."))
-		return TRUE
-	return FALSE
+		return FALSE
+
+	var/list/filter_result = CHAT_FILTER_CHECK(input)
+
+	if(filter_result)
+		to_chat(user, span_warning("That emote contained a word prohibited in IC emotes! Consider reviewing the server rules."))
+		to_chat(user, span_warning("\"[input]\""))
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, LOWER_TEXT(config.ic_filter_regex.match))
+		return FALSE
+
+	return TRUE
+
+/datum/emote/living/custom/get_message_flags(intentional)
+	. = ..()
+	return .|WITH_EMPHASIS_MESSAGE
 
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
-	if(params && type_override)
-		emote_type = type_override
-	message = params
-	. = ..()
-	message = null
-	emote_type = null
+	if(!emote_is_valid(user, params))
+		return FALSE
+	. = ..(user = user, params = params, type_override = type_override, intentional = intentional)
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
 
-/datum/emote/living/help
-	key = "help"
-
-/datum/emote/living/help/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	var/list/keys = list()
-	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
-
-	for(var/key in GLOB.emote_list)
-		for(var/datum/emote/P in GLOB.emote_list[key])
-			if(P.key in keys)
-				continue
-			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
-				keys += P.key
-
-	keys = sort_list(keys)
-
-	for(var/emote in keys)
-		if(LAZYLEN(message) > 1)
-			message += ", [emote]"
-		else
-			message += "[emote]"
-
-	message += "." // Note that this is adding extras on emotes that already had punctuation
-
-	message = jointext(message, "")
-
-	to_chat(user, message)
-
-/datum/emote/beep
+/datum/emote/living/beep
 	key = "beep"
 	key_third_person = "beeps"
 	message = "beeps"
@@ -713,7 +705,7 @@
 		return FALSE
 	if(islizard(user))
 		var/mob/living/carbon/human/H = user
-		return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+		return istype(H?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 
@@ -752,12 +744,38 @@
 	key_third_person = "gasps"
 	message = "gasps"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE // You can see a person gasping.
+	stat_allowed = SOFT_CRIT
 
 /datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	return H?.dna?.species?.get_gasp_sound(H)
+	. = H.dna?.species?.get_gasp_sound(H)
+	if(!.)
+		return
+	//Dying gasps
+	if(H.undergoing_cardiac_arrest())
+		if(H.gender == FEMALE)
+			return pick(
+				'goon/sounds/voice/gasp/female_gasp_1.ogg',
+				'goon/sounds/voice/gasp/female_gasp_2.ogg',
+				'goon/sounds/voice/gasp/female_gasp_3.ogg',
+			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_1.ogg',
+			'goon/sounds/voice/gasp/male_gasp_2.ogg',
+			'goon/sounds/voice/gasp/male_gasp_3.ogg',
+		)
+	if(H.health <= H.crit_threshold)
+		if(H.gender == FEMALE)
+			return pick(
+				'goon/sounds/voice/gasp/female_gasp_4.ogg',
+				'goon/sounds/voice/gasp/female_gasp_5.ogg',
+			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_4.ogg',
+			'goon/sounds/voice/gasp/male_gasp_5.ogg',
+		)
 
 /datum/emote/living/must_breathe/huff
 	key = "huff"

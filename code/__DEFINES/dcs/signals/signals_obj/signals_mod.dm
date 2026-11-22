@@ -10,7 +10,7 @@
 /// Called when a MOD retracts a part. (mob/user, datum/mod_part/part)
 //#define COMSIG_MOD_PART_RETRACTED "mod_part_retracted"
 /// Called when a MOD seals/unseals a part. (datum/mod_part/part)
-//#define COMSIG_MOD_PART_SEALED "mod_part_sealed"
+#define COMSIG_MOD_PART_SEALED "mod_part_sealed"
 /// Called when a MOD is finished toggling itself.
 #define COMSIG_MOD_TOGGLED "mod_toggled"
 /// Called when a MOD activation is called from toggle_activate(mob/user)
@@ -45,3 +45,6 @@
 #define COMSIG_MOD_GET_VISOR_OVERLAY "mod_get_visor_overlay"
 /// Called when the MOD control unit updates its parts speed
 #define COMSIG_MOD_UPDATE_SPEED "mod_update_speed"
+
+/// Called when a MOD module generats its worn overlay
+#define COMSIG_MODULE_GENERATE_WORN_OVERLAY "mod_module_generate_worn_overlay"

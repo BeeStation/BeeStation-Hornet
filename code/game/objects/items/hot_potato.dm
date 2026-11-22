@@ -71,12 +71,8 @@
 	if(stimulant)
 		if(isliving(loc))
 			var/mob/living/L = loc
-			L.SetStun(0)
-			L.SetKnockdown(0)
 			L.SetSleeping(0)
-			L.SetImmobilized(0)
-			L.SetParalyzed(0)
-			L.SetUnconscious(0)
+			L.SetAllImmobility(0)
 			L.reagents.add_reagent(/datum/reagent/medicine/muscle_stimulant, clamp(5 - L.reagents.get_reagent_amount(/datum/reagent/medicine/muscle_stimulant), 0, 5))	//If you don't have legs or get bola'd, tough luck!
 			colorize(L)
 
@@ -92,7 +88,7 @@
 	if(active)
 		to_chat(user, span_userdanger("You have a really bad feeling about [src]!"))
 
-/obj/item/hot_potato/afterattack(atom/target, mob/user, adjacent, params)
+/obj/item/hot_potato/afterattack(atom/target, mob/user, adjacent, list/modifiers)
 	. = ..()
 	if(!adjacent || !ismob(target))
 		return
@@ -146,6 +142,12 @@
 	else
 		log_bomber(null, null, src, "was primed for detonation (Timer:[delay],Explosive:[detonate_explosion],Range:[detonate_dev_range]/[detonate_heavy_range]/[detonate_light_range]/[detonate_fire_range])")
 	active = TRUE
+	if(detonate_explosion) //doesn't send a notification unless it's a genuine, exploding hot potato.
+		notify_ghosts(
+			"[user] has primed a Hot Potato!",
+			source = src,
+			header = "Hot Hot Hot!",
+		)
 
 /obj/item/hot_potato/proc/deactivate()
 	update_icon()

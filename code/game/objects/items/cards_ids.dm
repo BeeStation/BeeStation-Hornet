@@ -6,6 +6,11 @@
  *	FINGERPRINT CARD
  */
 
+/**
+ * x1, y1, x2, y2 - Represents the bounding box for the ID card's non-transparent portion of its various icon_states.
+ * Used to crop the ID card's transparency away when chaching the icon for better use in tgui chat.
+ */
+#define ID_ICON_BORDERS 1, 9, 32, 24
 
 
 /*
@@ -15,6 +20,9 @@
 	name = "card"
 	desc = "Does card things."
 	icon = 'icons/obj/card.dmi'
+	inhand_icon_state = "card-id"
+	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 
@@ -33,38 +41,11 @@
 /obj/item/card/proc/get_displayed_name(honorifics = FALSE)
 	return null
 
-/obj/item/card/data
-	name = "data card"
-	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has a stripe running down the middle."
-	icon_state = "data_1"
-	obj_flags = UNIQUE_RENAME
-	var/function = "storage"
-	var/data = "null"
-	var/special = null
-	inhand_icon_state = "card-id"
-	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	var/detail_color = COLOR_ASSEMBLY_ORANGE
-
-/obj/item/card/data/Initialize(mapload)
-	.=..()
-	update_icon()
-
-/obj/item/card/data/update_overlays()
-	. = ..()
-	if(detail_color == COLOR_FLOORTILE_GRAY)
-		return
-	var/mutable_appearance/detail_overlay = mutable_appearance('icons/obj/card.dmi', "[icon_state]-color")
-	detail_overlay.color = detail_color
-	. += detail_overlay
-
-/obj/item/card/data/full_color
-	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has the entire card colored."
-	icon_state = "data_2"
-
-/obj/item/card/data/disk
-	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one inexplicibly looks like a floppy disk."
-	icon_state = "data_3"
+/obj/item/card/proc/get_cached_flat_icon()
+	if(!cached_flat_icon)
+		cached_flat_icon = getFlatIcon(src)
+		cached_flat_icon.Crop(ID_ICON_BORDERS)
+	return cached_flat_icon
 
 /*
  * ID CARDS
@@ -176,7 +157,8 @@
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	trade_flags = TRADE_NOT_SELLABLE
-
+	flags_1 = UNPAINTABLE_1
+	
 	/// The name registered on the card (for example: Dr Bryan See)
 	var/registered_name = null
 	/// Registered owner's age.
@@ -187,15 +169,27 @@
 	/// Linked holopay.
 	var/obj/machinery/paystand/my_store
 
-	/// The job name registered on the card (for example: Assistant).
+	/// The job name registered on the card (for example: Assistant). Use get_assignment() to include an acting role
 	var/assignment
+	/// Title of the card's real job. Never a custom or acting title. Null when unassigned
+	var/job_title
+	var/datum/access_grant/acting_head/acting_head
+
+	/// Icons to be displayed in the orbit ui. Source: FontAwesome v6 Free Edition.
+	var/orbit_icon
 
 	/// Access levels held by this card.
 	var/list/access = list()
 	/// Mapping aid for access
 	var/access_txt
+	/// Temporary access grants (/datum/access_grant). Use GetAccess() to include them
+	var/list/access_grants
+	/// Skeleton crew access removed at a console
+	var/list/withheld_skeleton_access
+	/// SSjob.job_assignment_count when the card got its job
+	var/job_assignment_id = 0
 
-	/// The HUD given to our wearer
+	/// The HUD given to our wearer. Use get_hud_state() to include an acting role
 	var/hud_state = JOB_HUD_UNKNOWN
 
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
@@ -217,7 +211,21 @@
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
+	if(LAZYLEN(access_grants))
+		var/list/temporary = get_non_skeleton_access() - access
+		if(length(temporary))
+			log_card("destroyed with temporary access to [get_access_desc(temporary)]")
+	QDEL_LAZYLIST(access_grants)
+	acting_head = null
 	return ..()
+
+/obj/item/card/id/proc/get_assignment()
+	return acting_head ? "Acting [acting_head.job.title]" : assignment
+
+/obj/item/card/id/proc/get_hud_state()
+	if(!acting_head)
+		return hud_state
+	return get_hud_by_jobname("Acting [acting_head.job.title]", returns_unknown = FALSE) || get_hud_by_jobname(acting_head.job.title)
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
@@ -225,6 +233,277 @@
 		if(temp != JOB_HUD_UNKNOWN)
 			hud_state = temp
 	// This is needed for some irregular jobs
+
+/obj/item/card/id/proc/add_access(list/access_to_add, source, mob/user)
+	if(isnull(access_to_add))
+		return FALSE
+	if(!islist(access_to_add))
+		access_to_add = list(access_to_add)
+	var/list/added = access_to_add - access
+	access |= access_to_add
+	if(source && length(added))
+		log_access_change(added, source, user, granting = TRUE)
+	return TRUE
+
+/obj/item/card/id/proc/remove_access(list/access_to_remove, source, mob/user)
+	if(isnull(access_to_remove))
+		return FALSE
+	var/list/removed = get_non_skeleton_access() & access_to_remove
+	access -= access_to_remove
+	for(var/datum/access_grant/grant as anything in access_grants)
+		grant.access -= access_to_remove
+		if(length(grant.access))
+			continue
+		if(grant == acting_head)
+			acting_head.revoke(user = user)
+		else
+			qdel(grant)
+	if(source && length(removed))
+		log_access_change(removed, source, user, granting = FALSE)
+	return TRUE
+
+/// Head-only access goes on as a temporary grant
+/// Remaining are added permanently, including crew access the card only held temporarily! (dont fuck that part up)
+/obj/item/card/id/proc/add_console_access(list/access_to_add, source, mob/user)
+	var/list/head_only = get_head_only(access_to_add)
+	LAZYREMOVE(withheld_skeleton_access, access_to_add)
+	_restore_acting_head_access(head_only, source, user)
+	add_access(access_to_add - head_only, source, user)
+	// leave alone head access the card has already
+	var/list/temporary = head_only - GetAccess()
+	if(length(temporary))
+		grant_temporary_access(temporary, source, user)
+
+/// Also withholds any skeleton crew access in the list
+/obj/item/card/id/proc/remove_console_access(list/access_to_remove, source, mob/user)
+	// Logged here since withheld skeleton access is gone from GetAccess() before remove_access() runs
+	var/list/removed = GetAccess() & access_to_remove
+	var/list/skeleton_removed = get_skeleton_access() & access_to_remove
+	if(length(skeleton_removed))
+		LAZYOR(withheld_skeleton_access, skeleton_removed)
+	remove_access(access_to_remove, user = user)
+	log_access_change(removed, source, user, granting = FALSE)
+
+/// Gives the acting head back access its job grants that a console removed
+/obj/item/card/id/proc/_restore_acting_head_access(list/access_list, source, mob/user)
+	PRIVATE_PROC(TRUE)
+	if(!acting_head)
+		return
+	var/list/restored = access_list & (acting_head.job.get_access() - acting_head.access)
+	if(length(restored))
+		log_access_change(restored, "[source] (restored to acting [acting_head.job.title] appointment)", user, granting = TRUE)
+		acting_head.access |= restored
+
+/// Accesses that consoles can only grant temporarily
+/obj/item/card/id/proc/get_head_only(list/access_list)
+	. = access_list & SSdepartment.get_head_only_access()
+	var/datum/job/own_job = SSjob.get_job(job_title)
+	if(own_job)
+		. -= own_job.get_access()
+
+/// Whether assigning this head job only makes the card acting. Goes by the bank account's starting job, otherwise the manifest
+/obj/item/card/id/proc/needs_acting_head_for(datum/job/target_job)
+	SHOULD_BE_PURE(TRUE)
+	if(!(target_job.job_flags & JOB_HEAD_OF_STAFF) || target_job.title == job_title)
+		return FALSE
+	if(registered_account)
+		return registered_account.account_job?.type != target_job.type
+	var/datum/record/crew/record = find_record(registered_name, GLOB.manifest.general)
+	return !record || record.initial_rank != target_job.title
+
+/// Check needs_acting_head_for() first
+/obj/item/card/id/proc/assign_job(datum/job/new_job, mob/user)
+	var/same_job = job_title == new_job.title
+	unassign_job("reassigned", user)
+	access |= new_job.get_access()
+	// Reprinting the same job isn't a new hire, so it stays covered by any handover
+	if(same_job)
+		job_title = new_job.title
+	else
+		set_job_title(new_job)
+	assignment = new_job.title
+	update_label()
+
+/obj/item/card/id/proc/set_job_title(datum/job/new_job)
+	job_title = new_job.title
+	job_assignment_id = ++SSjob.job_assignment_count
+
+/// Strips job access and temporary access. Callers set the new assignment
+/obj/item/card/id/proc/unassign_job(reason = "unassigned", mob/user)
+	clear_temporary_access(reason, user)
+	access -= get_all_accesses()
+	withheld_skeleton_access = null
+	job_title = null
+
+/// Replaces any current acting role. null if existing acting head on that job
+/obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, announce = TRUE)
+	RETURN_TYPE(/datum/access_grant/acting_head)
+	// Replacing it would restart skeleton crew handovers for this job
+	if(acting_head?.job.type == head_job.type && !acting_head.revoking)
+		return acting_head
+	if(acting_head?.job.type != head_job.type && SSjob.has_acting_head(head_job.title))
+		return null
+	acting_head?.revoke("replaced", user)
+	var/list/held_before = GetAccess()
+	new /datum/access_grant/acting_head(src, head_job, source)
+	var/list/gained = acting_head.access - held_before
+	var/adding = length(gained) ? ", adding [get_access_desc(gained)]" : ""
+	if(user)
+		log_card("made [src] acting [head_job.title] using [source][adding]", user)
+	else
+		log_card("made acting [head_job.title] via [source][adding]")
+	if(announce)
+		card_talk("Appointed Acting [head_job.title].")
+	return acting_head
+
+/obj/item/card/id/proc/end_acting_head(cause, mob/user)
+	if(!acting_head)
+		return
+	if(cause)
+		acting_head.cause = cause
+	acting_head.revoke(user = user)
+
+/obj/item/card/id/proc/clear_temporary_access(reason = "revoked", mob/user)
+	for(var/datum/access_grant/grant as anything in access_grants)
+		grant.revoke(reason, user)
+
+/obj/item/card/id/proc/sync_manifest()
+	// The manifest goes by name, so another acting card with this name keeps its entry
+	var/obj/item/card/id/source = acting_head ? src : (SSjob.get_acting_head_for(registered_name)?.card || src)
+	GLOB.manifest.modify(registered_name, source.get_assignment(), source.get_hud_state(), source.job_title)
+
+/// Renaming ends an acting appointment, since it belongs to the person named
+/obj/item/card/id/proc/set_registered_name(new_name, mob/user)
+	if(new_name == registered_name)
+		return
+	end_acting_head("registered name changed", user)
+	registered_name = new_name
+	update_label()
+
+/obj/item/card/id/proc/set_registered_account(datum/bank_account/account)
+	var/datum/bank_account/old_account = registered_account
+	old_account?.bank_cards -= src
+	registered_account = account
+	account?.bank_cards += src
+	acting_head?.on_account_changed(old_account)
+
+/obj/item/card/id/proc/assignment_changed(old_assignment)
+	update_label()
+	refresh_holder(old_assignment)
+	sync_manifest()
+
+/obj/item/card/id/proc/refresh_holder(old_assignment)
+	var/list/computers = list()
+	var/mob/living/carbon/holder = get(src, /mob/living/carbon)
+	if(holder)
+		astype(holder, /mob/living/carbon/human)?.sec_hud_set_ID()
+		for(var/obj/item/modular_computer/computer in holder.get_all_gear())
+			computers += computer
+	var/obj/item/modular_computer/container = get(src, /obj/item/modular_computer)
+	if(container)
+		computers |= container
+	for(var/obj/item/modular_computer/computer as anything in computers)
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		if(card_slot?.stored_card == src)
+			card_slot.current_job = get_assignment()
+		if(computer.saved_identification == registered_name && computer.saved_job == old_assignment)
+			computer.saved_job = get_assignment()
+			computer.update_id_display()
+
+/obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
+	if(!length(changed_access))
+		return
+	var/access_desc = get_access_desc(changed_access)
+	if(user)
+		if(granting)
+			log_card("added [access_desc] to [src] using [source]", user)
+		else
+			log_card("removed [access_desc] from [src] using [source]", user)
+	else
+		if(granting)
+			log_card("gained [access_desc] via [source]")
+		else
+			log_card("lost [access_desc] via [source]")
+
+/// With a user, text should name the card, like other log_id calls. Without one, the line starts with the card
+/obj/item/card/id/proc/log_card(text, mob/user)
+	if(user)
+		log_id("[key_name(user)] [text] at [AREACOORD(user)].")
+		return
+	var/turf/card_turf = get_turf(src)
+	log_id("[src] at [AREACOORD(card_turf)]: [text].")
+
+/**
+ * Returns the grant, so the caller can revoke() it early (e.g. on a condition change)
+ * Arguments:
+ * * duration - lifespan in deciseconds. 0 or null means indefinite
+ */
+/obj/item/card/id/proc/grant_temporary_access(list/access_to_grant, source, mob/user, duration)
+	RETURN_TYPE(/datum/access_grant)
+	var/list/new_access = access_to_grant - GetAccess()
+	var/datum/access_grant/grant = new(src, access_to_grant, source, duration)
+	var/access_desc = get_access_desc(grant.access)
+	if(duration)
+		log_access_change(new_access, "[source] (temporary, expires in [DisplayTimeText(duration)])", user, granting = TRUE)
+		card_talk("Temporary [access_desc] access authorized, expiring in [DisplayTimeText(duration)].")
+	else
+		log_access_change(new_access, "[source] (temporary)", user, granting = TRUE)
+		card_talk("Temporary [access_desc] access authorized.")
+	return grant
+
+/obj/item/card/id/proc/card_talk(message, warning = FALSE, check_pref = FALSE, boxed = FALSE)
+	var/list/listeners
+	var/atom/sound_source
+	var/mob/holder = recursive_loc_check(src, /mob)
+	if(holder)
+		listeners = list(holder)
+		sound_source = holder
+	else if(isturf(loc))
+		listeners = hearers(1, loc)
+		sound_source = loc
+	else
+		listeners = list()
+		for(var/mob/inside in loc)
+			listeners += inside
+		sound_source = drop_location()
+	var/sound_file = warning ? 'sound/machines/twobeep.ogg' : 'sound/machines/twobeep_high.ogg'
+	for(var/mob/listener in listeners)
+		if(!listener.client || !listener.can_hear())
+			continue
+		if(check_pref && !listener.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard))
+			continue
+		listener.playsound_local(get_turf(sound_source), sound_file, 50, TRUE)
+		var/text = "[icon2html(get_cached_flat_icon(), listener)] [warning ? span_warning(message) : span_notice(message)]"
+		to_chat(listener, boxed ? examine_block(text) : text)
+
+/// Waits until roundstart so the roundstart text doesn't bury it
+/obj/item/card/id/proc/queue_spawn_briefing()
+	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(start_spawn_briefing)))
+
+/obj/item/card/id/proc/start_spawn_briefing()
+	if(!QDELETED(src))
+		addtimer(CALLBACK(src, PROC_REF(spawn_briefing)), 3 SECONDS)
+
+/obj/item/card/id/proc/spawn_briefing()
+	var/list/lines = list()
+	if(acting_head && !acting_head.revoking)
+		lines += "Appointed Acting [acting_head.job.title]."
+	var/list/skeleton_lines = list()
+	var/list/listed = list()
+	for(var/datum/skeleton_access/rule as anything in get_skeleton_rules())
+		if(!rule.notifies(job_title) || rule.revoking)
+			continue
+		var/list/gained = get_skeleton_gain(rule.access) - listed
+		if(!length(gained))
+			continue
+		listed |= gained
+		var/areas = span_tooltip(get_access_desc(gained), "[length(gained)] extra area\s")
+		skeleton_lines += "&bull; [rule.covering_text(TRUE)]: [areas] ([rule.timing_text()])"
+	if(length(skeleton_lines))
+		lines += "<b>Skeleton crew protocol in effect</b>"
+		lines += skeleton_lines
+	if(length(lines))
+		card_talk(jointext(lines, "\n"), boxed = TRUE)
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
@@ -247,6 +526,8 @@
 		return TRUE
 
 /obj/item/card/id/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, registered_name) && var_value != registered_name)
+		end_acting_head("registered name changed", usr)
 	. = ..()
 	if(.)
 		switch(var_name)
@@ -277,7 +558,7 @@
 		else
 			to_chat(usr, "Success: [target_value] points have been added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
-/obj/item/card/id/attackby(obj/item/W, mob/user, params)
+/obj/item/card/id/attackby(obj/item/W, mob/user, list/modifiers)
 	if(iscash(W))
 		insert_money(W, user)
 		return
@@ -295,7 +576,10 @@
 
 /obj/item/card/id/get_id_examine_strings(mob/user)
 	. = ..()
-	. += list("[icon2html(src, user, extra_classes = "hugeicon idicon")]")
+	. += list("[icon2html(get_cached_flat_icon(), user, extra_classes = "hugeicon idicon")]")
+
+/obj/item/card/id/get_examine_icon(mob/user)
+	return icon2html(get_cached_flat_icon(), user)
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
@@ -314,7 +598,7 @@
 	else
 		to_chat(user, span_notice("You insert [I] into [src], adding [cash_money] credits to the linked account."))
 
-	to_chat(user, span_notice("The linked account now reports a balance of $[registered_account.account_balance]."))
+	to_chat(user, span_notice("The linked account now reports a balance of [registered_account.account_balance] cr."))
 	qdel(I)
 
 /obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
@@ -349,7 +633,6 @@
 // Returns true if new account was set.
 /obj/item/card/id/proc/set_new_account(mob/living/user)
 	. = FALSE
-	var/datum/bank_account/old_account = registered_account
 
 	var/new_bank_id = input(user, "Enter your account ID number.", "Account Reclamation", 111111) as num
 
@@ -362,17 +645,12 @@
 		to_chat(user, span_warning("The account ID was already assigned to this card."))
 		return
 
-	for(var/A in SSeconomy.bank_accounts)
-		var/datum/bank_account/B = A
-		if(B.account_id == new_bank_id)
-			if (old_account)
-				old_account.bank_cards -= src
+	var/datum/bank_account/B = SSeconomy.bank_accounts_by_id["[new_bank_id]"]
+	if(B)
+		set_registered_account(B)
+		to_chat(user, span_notice("The provided account has been linked to this ID card."))
 
-			B.bank_cards += src
-			registered_account = B
-			to_chat(user, span_notice("The provided account has been linked to this ID card."))
-
-			return TRUE
+		return TRUE
 
 	to_chat(user, span_warning("The account ID number provided is invalid."))
 	return
@@ -407,19 +685,63 @@
 		var/difference = amount_to_remove - registered_account.account_balance
 		registered_account.bank_card_talk(span_warning("ERROR: The linked account requires [difference] more credit\s to perform that withdrawal."), TRUE)
 
+/obj/item/card/id/proc/get_temporary_access_examine()
+	. = list()
+	if(acting_head)
+		var/list/role_access = acting_head.access - access
+		var/timing = capitalize(acting_head.timing_text())
+		var/role_tip
+		if(length(role_access))
+			role_tip = "Adds [get_access_desc(role_access)] access. [timing]."
+		else
+			role_tip = "[timing]."
+		var/role_text = span_tooltip(role_tip, "Acting [acting_head.job.title]")
+		. += span_notice("<b>Appointment:</b> [acting_head.revoking ? span_warning(role_text) : role_text]")
+	var/list/listed_elsewhere = get_authority_access()
+	var/list/entries = list()
+	var/list/entry_ending = list()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		if(grant != acting_head)
+			_add_access_entries(entries, entry_ending, grant.access - listed_elsewhere, grant.get_examine_reason(), grant.timing_text(), grant.revoking)
+	var/list/skeleton_access = get_skeleton_access()
+	for(var/datum/skeleton_access/rule as anything in get_skeleton_rules())
+		_add_access_entries(entries, entry_ending, (rule.access & skeleton_access) - listed_elsewhere, rule.covering_text(), rule.timing_text(), rule.revoking, rule.get_color_class())
+	if(length(entries))
+		var/list/entry_texts = list()
+		for(var/key in entries)
+			entry_texts += entries[key]
+		. += span_notice("<b>Temporary access:</b> [jointext(entry_texts, ", ")]")
+
+/obj/item/card/id/proc/_add_access_entries(list/entries, list/entry_ending, list/access_ids, reason, timing, ending, color_class)
+	PRIVATE_PROC(TRUE)
+	for(var/access_id in access_ids)
+		var/key = "[access_id]"
+		if(entries[key] && !entry_ending[key])
+			continue
+		var/entry = span_tooltip("[reason]. [capitalize(timing)].", get_access_desc(access_id))
+		if(ending)
+			entry = span_warning(entry)
+		else if(color_class)
+			entry = "<span class='[color_class]'>[entry]</span>"
+		entries[key] = entry
+		entry_ending[key] = ending
+
 /obj/item/card/id/examine(mob/user)
 	. = ..()
+	if(!user.can_read(src))
+		return
+	. += get_temporary_access_examine()
 	if(!electric)  // forces off bank info for paper slip
 		return .
 	if(registered_account)
 		if(registered_account.report_currency(ACCOUNT_CURRENCY_MINING))
 			. += "There's [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)] mining equipment redemption point\s loaded onto the account of this card."
-		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
+		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of [registered_account.account_balance] cr."
 		if(!istype(src, /obj/item/card/id/departmental_budget))
 			var/list/payment_result = list()
 			for(var/D in registered_account.payment_per_department)
 				if(registered_account.payment_per_department[D] > 0)
-					payment_result += "[D]: $[registered_account.payment_per_department[D]]"
+					payment_result += "[D]: [registered_account.payment_per_department[D]] cr"
 			if(length(payment_result))
 				. += "The payment of this account is -"
 				for(var/each in payment_result)
@@ -428,11 +750,11 @@
 				for(var/datum/bank_account/department/D in SSeconomy.budget_accounts)
 					if(D.department_bitflag & registered_account.active_departments)
 						if(D.show_budget_information)
-							. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+							. += "The [D.account_holder] reports a balance of [D.account_balance] cr."
 			else
 				var/datum/bank_account/B = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 				if(B)
-					. += "The [B.account_holder] reports a balance of $[B.account_balance]."
+					. += "The [B.account_holder] reports a balance of [B.account_balance] cr."
 
 
 		. += span_info("Alt-Click the ID to pull money from the linked account in the form of holochips.")
@@ -443,7 +765,58 @@
 		. += span_info("There is no registered account linked to this card. Alt-Click to add one.")
 
 /obj/item/card/id/GetAccess()
-	return access
+	RETURN_TYPE(/list)
+	if(!LAZYLEN(access_grants) && (!job_title || !length(SSjob.enabled_skeleton_rules)))
+		return access
+	return get_non_skeleton_access() | get_skeleton_access()
+
+/obj/item/card/id/proc/get_skeleton_access()
+	RETURN_TYPE(/list)
+	. = list()
+	if(!job_title)
+		return
+	for(var/datum/skeleton_access/rule as anything in SSjob.enabled_skeleton_rules)
+		if(rule.gives_to(src))
+			. |= rule.access
+	if(withheld_skeleton_access)
+		. -= withheld_skeleton_access
+
+/// Skeleton crew rules giving this card access, in rule order
+/obj/item/card/id/proc/get_skeleton_rules()
+	RETURN_TYPE(/list)
+	. = list()
+	for(var/datum/skeleton_access/rule as anything in SSjob.skeleton_rules)
+		if(rule.enabled && rule.gives_to(src))
+			. += rule
+
+/// Permanent access plus temporary grants, without the except grant
+/obj/item/card/id/proc/get_non_skeleton_access(datum/access_grant/except)
+	RETURN_TYPE(/list)
+	. = access.Copy()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		if(grant != except)
+			. |= grant.access
+
+/obj/item/card/id/proc/get_skeleton_gain(list/rule_access)
+	RETURN_TYPE(/list)
+	return rule_access - get_non_skeleton_access() - withheld_skeleton_access
+
+/// Access that counts for editing IDs. Skeleton crew and console grants only open doors
+/obj/item/card/id/proc/get_authority_access()
+	RETURN_TYPE(/list)
+	if(!acting_head)
+		return access
+	return access | acting_head.access
+
+/// Departments this card can edit at an ID console, as a region bitflag
+/obj/item/card/id/proc/get_accessible_regions(console_departments)
+	. = NONE
+	var/list/authority = get_authority_access()
+	for(var/datum/department_group/department as anything in SSdepartment.department_datums)
+		if(department.manager_access && (department.manager_access in authority))
+			. |= department.department_bitflags
+	if(console_departments)
+		. &= console_departments
 
 /obj/item/card/id/GetID()
 	return src
@@ -461,20 +834,13 @@
 			powergaming.update_label()
 			powergaming.update_appearance()
 
-/*
-Usage:
-update_label()
-	Sets the id name to whatever registered_name and assignment is
+/// Updates the name based on the card's vars and state.
+/obj/item/card/id/proc/update_label()
+	var/name_string = registered_name ? "[registered_name]'s ID Card" : initial(name)
+	var/assignment_string = " ([get_assignment()])"
 
-update_label("John Doe", "Clowny")
-	Properly formats the name and occupation and sets the id name to the arguments
-*/
-/obj/item/card/id/proc/update_label(newname, newjob)
-	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
-		return
-
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[name_string][assignment_string]"
+	update_in_wallet()
 
 /obj/item/card/id/silver
 	name = "silver identification card"
@@ -527,150 +893,96 @@ update_label("John Doe", "Clowny")
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
 	trade_flags = TRADE_NOT_SELLABLE | TRADE_CONTRABAND
+	actions_types = list(/datum/action/item_action/chameleon/change/id)
 	action_slots = ALL
-	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	/// Can we forge the card right now? Modified by our chameleon action
+	var/forge_disabled = FALSE
+	/// Can anyone forge the ID or just syndicate?
+	var/anyone = FALSE
 
-/obj/item/card/id/syndicate/Initialize(mapload)
-	. = ..()
-	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/card/id
-	chameleon_action.chameleon_name = "ID Card"
-	chameleon_action.chameleon_blacklist = typecacheof(list(
-		/obj/item/card,
-		/obj/item/card/data,
-		/obj/item/card/data/full_color,
-		/obj/item/card/data/disk,
-		/obj/item/card/emag,
-		/obj/item/card/emag/bluespace,
-		/obj/item/card/emag/halloween,
-		/obj/item/card/emagfake,
-		/obj/item/card/id/pass/deputy,
-		/obj/item/card/id/pass/mining_access_card,
-		/obj/item/card/mining_point_card,
-		/obj/item/card/id,
-		/obj/item/card/id/gulag/one,
-		/obj/item/card/id/gulag/two,
-		/obj/item/card/id/gulag/three,
-		/obj/item/card/id/gulag/four,
-		/obj/item/card/id/gulag/five,
-		/obj/item/card/id/gulag/six,
-		/obj/item/card/id/gulag/seven,
-		/obj/item/card/id/departmental_budget,
-		/obj/item/card/id/syndicate/anyone,
-		/obj/item/card/id/syndicate/nuke_leader,
-		/obj/item/card/id/syndicate/debug,
-		/obj/item/card/id/syndicate/broken,
-		/obj/item/card/id/away/old/apc,
-		/obj/item/card/id/away/deep_storage,
-		/obj/item/card/id/changeling,
-		/obj/item/card/id/golem,
-		/obj/item/card/id/pass,
-	), only_root_path = TRUE)
-	chameleon_action.initialize_disguises()
-	add_item_action(chameleon_action)
-
-/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/attacking_item, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(O, /obj/item/card/id))
-		var/obj/item/card/id/I = O
-		src.access |= I.access
-		log_id("[key_name(user)] copied all avaliable access from [I] to agent ID [src] at [AREACOORD(user)].")
-		if(isliving(user) && user.mind)
-			if(user.mind.special_role || anyone)
-				to_chat(usr, span_notice("The card's microscanners activate as you pass it over the ID, copying its access."))
+	if(!isidcard(attacking_item))
+		return ..()
+
+	var/obj/item/card/id/other_id = attacking_item
+	access |= other_id.GetAccess()
+	log_id("[key_name(user)] copied all avaliable access from [other_id] to agent ID [src] at [AREACOORD(user)].")
+	if(isliving(user) && user.mind && (user.mind.special_role || anyone))
+		to_chat(usr, span_notice("The card's microscanners activate as you pass it over the ID, copying its access."))
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
-	if(chameleon_action.hidden)
+	if(forge_disabled || !isliving(user) || !user.mind)
 		return ..()
-	if(isliving(user) && user.mind)
-		var/first_use = registered_name ? FALSE : TRUE
-		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
-			if(first_use) //If a non-syndie is the first to forge an unassigned agent ID, then anyone can forge it.
-				anyone = TRUE
-			else
-				return ..()
 
-		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
-		if(user.incapacitated)
-			return
-		if(popup_input == "Forge/Reset")
-			if(!assignment)
-				assignment = "Assistant"
-
-			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
-			input_name = reject_bad_name(input_name, allow_numbers = TRUE)
-			if(!input_name)
-				// Invalid/blank names give a randomly generated one.
-				if(user.gender == MALE)
-					input_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
-				else if(user.gender == FEMALE)
-					input_name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
-				else
-					input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
-
-			var/target_id_style = "-"
-			while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
-				target_id_style = input(user, "Select an ID skin (Cancel to change nothing)\nCard HUD icon will follow the job you choose.", "Chameleon card shape") as null|anything in get_card_style_list(TRUE)
-				if(!target_id_style)
-					break
-
-			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", !(assignment in get_card_style_list(TRUE)) ? assignment : target_id_style, MAX_MESSAGE_LEN) // ternary operator means you keep custom title if your title is special(not in standard job titles). if that is in job title list, you just get new job title.
-			if(!target_occupation)
-				target_occupation = assignment ? assignment : "Assistant"
-
-			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation][target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
-			registered_name = input_name
-			assignment = capitalize(target_occupation)
-			if(target_id_style)
-				icon_state = get_cardstyle_by_jobname(target_id_style)
-				hud_state = get_hud_by_jobname(target_id_style)
-				var/mob/living/carbon/human/H = user
-				H.sec_hud_set_ID()
-			update_label()
-			to_chat(user, span_notice("You successfully forge the ID card."))
-			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
-
-			// First time use automatically sets the account id to the user.
-			if (first_use && !registered_account)
-				if(ishuman(user))
-					var/mob/living/carbon/human/accountowner = user
-
-					for(var/bank_account in SSeconomy.bank_accounts)
-						var/datum/bank_account/account = bank_account
-						if(account.account_id == accountowner.mind?.account_id)
-							account.bank_cards += src
-							registered_account = account
-							to_chat(user, span_notice("Your account number has been automatically assigned."))
-			return
-		else if (popup_input == "Change Account ID")
-			set_new_account(user)
-			return
-	return ..()
-
-/obj/item/card/id/syndicate/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chameleon_action.emp_randomise()
-
-/obj/item/card/id/syndicate/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(chameleon_action.hidden)
-			chameleon_action.hidden = FALSE
-			actions += chameleon_action
-			chameleon_action.Grant(user)
-			log_game("[key_name(user)] has removed the disguise lock on the agent ID ([name]) with [W]")
-			return
+	var/first_use = !registered_name
+	if(!user.mind.special_role && !anyone) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
+		if(first_use) //If a non-syndie is the first to forge an unassigned agent ID, then anyone can forge it.
+			anyone = TRUE
 		else
-			chameleon_action.hidden = TRUE
-			actions -= chameleon_action
-			chameleon_action.Remove(user)
-			log_game("[key_name(user)] has locked the disguise of the agent ID ([name]) with [W]")
-			return
-	. = ..()
+			return ..()
+
+	var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
+	if(isnull(popup_input) || QDELETED(src) || user.incapacitated)
+		return
+
+	if(popup_input == "Change Account ID")
+		set_new_account(user)
+		return
+	if(popup_input == "Show")
+		return ..()
+
+	// if we've gotten to this point, it's going to be "Forge/Reset"
+
+	assignment ||= "Assistant"
+
+	var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
+	input_name = reject_bad_name(input_name, allow_numbers = TRUE)
+	if(!input_name)
+		// Invalid/blank names give a randomly generated one.
+		if(user.gender == MALE)
+			input_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+		else if(user.gender == FEMALE)
+			input_name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
+		else
+			input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
+
+	var/target_id_style = "-"
+	while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
+		target_id_style = input(user, "Select an ID skin (Cancel to change nothing)\nCard HUD icon will follow the job you choose.", "Chameleon card shape") as null|anything in get_card_style_list(TRUE)
+		if(!target_id_style)
+			break
+
+	var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", !(assignment in get_card_style_list(TRUE)) ? assignment : target_id_style, MAX_MESSAGE_LEN) // ternary operator means you keep custom title if your title is special(not in standard job titles). if that is in job title list, you just get new job title.
+	target_occupation ||= (assignment || JOB_NAME_ASSISTANT)
+
+	log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] [target_id_style ? "with [target_id_style] card style" : "with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
+	set_registered_name(input_name, user)
+	assignment = capitalize(target_occupation)
+	if(target_id_style)
+		icon_state = get_cardstyle_by_jobname(target_id_style)
+		hud_state = get_hud_by_jobname(target_id_style)
+		astype(user, /mob/living/carbon/human)?.sec_hud_set_ID()
+
+	update_label()
+	to_chat(user, span_notice("You successfully forge the ID card."))
+	log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
+
+	// First time use automatically sets the account id to the user.
+	if (first_use && !registered_account && ishuman(user))
+		var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
+		if(account)
+			set_registered_account(account)
+			to_chat(user, span_notice("Your account number has been automatically assigned."))
+
+#define BREAK_CHAMELEON_ACTION(item) \
+do { \
+	var/datum/action/item_action/chameleon/change/_action = locate() in item.actions; \
+	_action?.emp_randomise(INFINITY); \
+	item.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF); \
+} while(FALSE)
 
 // broken chameleon agent card
 /obj/item/card/id/syndicate/broken
@@ -681,7 +993,9 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/syndicate/broken/Initialize(mapload)
 	. = ..()
-	chameleon_action.emp_randomise(INFINITY)
+	BREAK_CHAMELEON_ACTION(src)
+
+#undef BREAK_CHAMELEON_ACTION
 
 /obj/item/card/id/syndicate/anyone
 	anyone = TRUE
@@ -897,8 +1211,7 @@ update_label("John Doe", "Clowny")
 	. = ..()
 	if(need_setup)
 		if(isgolem(user))
-			registered_name = user.name // automatically change registered name if it's picked up by a golem at first time
-			update_label()
+			set_registered_name(user.name) // automatically change registered name if it's picked up by a golem at first time
 		need_setup = FALSE
 		// if non-golem picks it up, the renaming feature will be disabled
 
@@ -919,10 +1232,10 @@ update_label("John Doe", "Clowny")
 /datum/armor/id_paper
 	acid = 50
 
-/obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
+/obj/item/card/id/paper/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
-		registered_name = target_name || registered_name  // in case they hit cancel
+		set_registered_name(target_name || registered_name, user)  // in case they hit cancel
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
 		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
 		assignment = target_job || assignment
@@ -938,27 +1251,31 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/paper/GetAccess()
 	return list()
 
+/obj/item/card/id/paper/get_authority_access()
+	return list()
+
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
 	hud_state = JOB_HUD_UNKNOWN
+	icon_state = "retro"
+	registered_age = null
 	access = list(ACCESS_AWAY_GENERAL)
 
 /obj/item/card/id/away/hotel
 	name = "Staff ID"
 	desc = "A staff ID used to access the hotel's doors."
 	hud_state = JOB_HUD_RAWSERVICE
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINTENANCE)
 
 /obj/item/card/id/away/hotel/securty
 	name = "Officer ID"
 	hud_state = JOB_HUD_RAWSECURITY
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT, ACCESS_AWAY_SEC)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINTENANCE, ACCESS_AWAY_SEC)
 
 /obj/item/card/id/away/old
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
-	icon_state = "centcom"
 	hud_state = JOB_HUD_RAWCENTCOM
 
 /obj/item/card/id/away/old/sec
@@ -973,20 +1290,25 @@ update_label("John Doe", "Clowny")
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Scientist\"."
 	assignment = "Charlie Station Scientist"
 	hud_state = JOB_HUD_RAWSCIENCE
-	access = list(ACCESS_AWAY_GENERAL)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_SCIENCE)
 
 /obj/item/card/id/away/old/eng
 	name = "Charlie Station Engineer's ID card"
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Station Engineer\"."
 	assignment = "Charlie Station Engineer"
 	hud_state = JOB_HUD_RAWENGINEERING
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINE)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINEERING)
 
-/obj/item/card/id/away/old/apc
-	name = "APC Access ID"
-	desc = "A special ID card that allows access to APC terminals."
+/obj/item/card/id/away/old/equipment
+	name = "Engineering Equipment Access"
+	desc = "A special ID card that allows access to engineering equipment."
 	hud_state = JOB_HUD_UNKNOWN
-	access = list(ACCESS_ENGINE_EQUIP)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINEERING, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP)
+
+/obj/item/card/id/away/old/robo
+	name = "Delta Station Roboticist's ID card"
+	desc = "An ID card that allows access to bots maintenance protocols."
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_ROBOTICS, ACCESS_TOX)
 
 /obj/item/card/id/away/deep_storage //deepstorage.dmm space ruin
 	name = "bunker access ID"
@@ -1384,8 +1706,7 @@ update_label("John Doe", "Clowny")
 		if(!idcard.electric)
 			to_chat(user, to_chat(user, span_warning("You swipe the id card. Nothing happens. ")))
 			return
-		for(var/give_access in access)
-			idcard.access |= give_access
+		idcard.add_access(access)
 		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
 		if(name!=initial(name))
@@ -1397,3 +1718,5 @@ update_label("John Doe", "Clowny")
 	to_chat(user, "You upgrade your [idcard] with the [name].")
 	log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
 	qdel(src)
+
+#undef ID_ICON_BORDERS

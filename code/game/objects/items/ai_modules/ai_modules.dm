@@ -9,7 +9,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	desc = "An AI Module for programming laws to an AI."
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
@@ -158,6 +158,7 @@
 
 /obj/item/ai_module/core/full/handle_unique_ai()
 	var/datum/ai_laws/default_laws = get_round_default_lawset()
+
 	if(law_id == initial(default_laws.id))
 		return
 	return SHOULD_QDEL_MODULE
@@ -171,6 +172,7 @@
 /obj/effect/spawner/round_default_module/Initialize(mapload)
 	. = ..()
 	var/datum/ai_laws/default_laws = get_round_default_lawset()
+
 	//try to spawn a law board, since they may have special functionality (asimov setting subjects)
 	for(var/obj/item/ai_module/core/full/potential_lawboard as anything in subtypesof(/obj/item/ai_module/core/full))
 		if(initial(potential_lawboard.law_id) != initial(default_laws.id))
@@ -187,7 +189,15 @@
 /obj/item/ai_module/core/round_default_fallback/Initialize(mapload)
 	. = ..()
 	var/datum/ai_laws/default_laws = get_round_default_lawset()
-	default_laws = new default_laws()
+	// get_round_default_lawset() can return an instance if an admin set it to a custom lawset
+	if(ispath(default_laws))
+		default_laws = new default_laws()
+	else if(istype(default_laws))
+		default_laws = default_laws.copy_lawset()
+	else
+		stack_trace("Invalid round default lawset, falling back to Asimov.")
+		default_laws = new /datum/ai_laws/default/asimov()
+
 	name = "'[default_laws.name]' Core AI Module"
 	laws = default_laws.inherent
 

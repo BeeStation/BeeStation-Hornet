@@ -30,7 +30,7 @@
 	if(!station_target)
 		CRASH("Meteor failed to locate a target.")
 
-/datum/round_event/meteor_wave/Destroy(force, ...)
+/datum/round_event/meteor_wave/Destroy(force)
 	station_target = null
 	. = ..()
 

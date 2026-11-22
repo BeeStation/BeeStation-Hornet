@@ -17,7 +17,7 @@
 
 /datum/action/innate/cult/comm
 	name = "Communion"
-	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
+	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b> Nearby non-cultists can still hear you chanting."
 	button_icon_state = "cult_comms"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
@@ -40,12 +40,14 @@
 	var/my_message
 	if(!message || !user.mind)
 		return
+	// The message itself is never spoken aloud, so gate on the same speech checks whispering it used to apply.
+	if(!user.try_speak(html_decode(message), filterproof = TRUE))
+		return
 	user.whisper("O bidai nabora se[pick("'","`")]sma!", language = /datum/language/common, forced = "cult invocation")
-	user.whisper(html_decode(message), filterproof = TRUE)
 	var/title = "Acolyte"
 	var/span = "srt_radio cult italic"
 	var/datum/antagonist/cult/cult_datum = user.mind.has_antag_datum(/datum/antagonist/cult)
-	if(cult_datum.is_cult_leader())
+	if(cult_datum?.is_cult_leader())
 		span = "cultlarge"
 		title = "Master"
 	else if(!ishuman(user))
@@ -157,23 +159,20 @@
 				if(!B.current.incapacitated)
 					to_chat(B.current, span_cultlarge("[nominee] could not win the cult's support and shall continue to serve as an acolyte."))
 		return FALSE
-	team.cult_master = nominee
-	nominee.mind.remove_antag_datum(/datum/antagonist/cult)
-	nominee.mind.add_antag_datum(/datum/antagonist/cult/master)
-	for(var/datum/mind/B in team.members)
-		if(B.current)
-			for(var/datum/action/innate/cult/mastervote/vote in B.current.actions)
-				qdel(vote)
-			if(!B.current.incapacitated)
-				to_chat(B.current,span_cultlarge("[nominee] has won the cult's support and is now their master. Follow [nominee.p_their()] orders to the best of your ability!"))
+	var/datum/antagonist/cult/cult_datum = nominee.mind.has_antag_datum(/datum/antagonist/cult)
+	if(!cult_datum.make_cult_leader())
+		CRASH("[nominee] was supposed to turn into the cult's leader, but they didn't for some reason. This isn't supposed to happen unless an admin messed with it.")
 	return TRUE
 
 /datum/action/innate/cult/master
 	abstract_type = /datum/action/innate/cult/master
 
 /datum/action/innate/cult/master/is_available(feedback = FALSE)
-	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.narsie)
-		return 0
+	if(!owner.mind || GLOB.narsie)
+		return FALSE
+	var/datum/antagonist/cult/cult_datum = owner.mind.has_antag_datum(/datum/antagonist/cult)
+	if(!cult_datum?.is_cult_leader())
+		return FALSE
 	return ..()
 
 /datum/action/innate/cult/master/finalreck
@@ -189,7 +188,7 @@
 	for(var/i in 1 to 4)
 		chant(i)
 		var/list/destinations = list()
-		for(var/turf/T as() in (RANGE_TURFS(1, owner) - get_turf(owner)))
+		for(var/turf/T as anything in (RANGE_TURFS(1, owner) - get_turf(owner)))
 			if(!T.is_blocked_turf(TRUE))
 				destinations += T
 		if(!LAZYLEN(destinations))
@@ -296,6 +295,7 @@
 	name = "Mark a Blood Target for the Cult"
 	desc = "Marks whatever you are orbiting for the entire cult to track."
 	button_icon_state = "cult_mark"
+	check_flags = NONE
 	/// The duration of the mark on the target
 	var/cult_mark_duration = 60 SECONDS
 	/// The cooldown between marks - the ability can be used in between cooldowns, but can't mark (only clear)
@@ -418,7 +418,7 @@
 
 		var/turf/throwee_turf = get_turf(throwee)
 
-		playsound(throwee_turf, 'sound/magic/exit_blood.ogg')
+		playsound(throwee_turf, 'sound/magic/exit_blood.ogg', 50)
 		new /obj/effect/temp_visual/cult/sparks(throwee_turf, clicker.dir)
 		throwee.visible_message(
 			span_warning("A pulse of magic whisks [throwee] away!"),
@@ -453,8 +453,8 @@
 		var/mob/living/living_clicked = clicked_on
 		if(!IS_CULTIST(living_clicked))
 			return FALSE
-		SEND_SOUND(clicker, sound('sound/weapons/thudswoosh.ogg'))
-		to_chat(clicker, span_cultbold("You reach through the veil with your mind's eye and seize [clicked_on]! <b>Click anywhere nearby to teleport [clicked_on.p_them()]!</b>"))
+		clicker.playsound_local(null, 'sound/weapons/thudswoosh.ogg', 100)
+		to_chat(clicker, span_cultbold("You reach through the veil with your mind's eye and seize [clicked_on]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
 		throwee_ref = WEAKREF(clicked_on)
 		return TRUE
 

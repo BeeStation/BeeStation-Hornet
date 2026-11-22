@@ -1,4 +1,7 @@
 /datum/bounty/genetics
+	abstract_type = /datum/bounty/genetics
+
+/datum/bounty/genetics
 	reward = 1000
 	var/shipped = FALSE
 	var/datum/mutation/bounty_mutation
@@ -8,8 +11,8 @@
 		/datum/mutation/laser_eyes,
 		/datum/mutation/thermal,
 		/datum/mutation/stoner, //Stoner is locked behind beach bums and will probably never be seen
-		/datum/mutation/human,
-		/datum/mutation/human/thermal)
+		/datum/mutation,
+		/datum/mutation/thermal)
 
 /datum/bounty/genetics/New()
 	. = ..()

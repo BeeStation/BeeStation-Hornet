@@ -1,4 +1,5 @@
 /obj/item/clothing/under/costume
+	abstract_type = /obj/item/clothing/under/costume
 	icon = 'icons/obj/clothing/under/costume.dmi'
 	worn_icon = 'icons/mob/clothing/under/costume.dmi'
 
@@ -89,7 +90,7 @@
 
 /obj/item/clothing/under/costume/kilt/highlander/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER_TRAIT)
 
 /obj/item/clothing/under/costume/gladiator
 	name = "gladiator uniform"
@@ -117,8 +118,7 @@
 
 /obj/item/clothing/under/costume/maid/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/accessory/maidapron/A = new (src)
-	attach_accessory(A)
+	attach_accessory(new /obj/item/clothing/accessory/maidapron())
 
 /obj/item/clothing/under/costume/geisha
 	name = "geisha suit"

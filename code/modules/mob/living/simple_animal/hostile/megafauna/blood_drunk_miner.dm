@@ -89,17 +89,16 @@ Difficulty: Medium
 	if(get_dist(src, target) > 4 && dash_attack.is_available())
 		dash_attack.trigger(target = target)
 	else
-		kinetic_accelerator.trigger(target)
-	transform_weapon.trigger(target)
+		kinetic_accelerator.trigger(target = target)
+	transform_weapon.trigger(target = target)
 
 /obj/item/melee/cleaving_saw/miner //nerfed saw because it is very murdery
 	force = 6
 	open_force = 10
 
 /obj/item/melee/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_stun_absorption("miner", 10, INFINITY)
-	. = ..()
-	target.stun_absorption -= "miner"
+	target.add_stun_absorption(source = "miner", duration = 1 SECONDS, priority = INFINITY)
+	return ..()
 
 /obj/projectile/kinetic/miner
 	damage = 20
@@ -124,7 +123,7 @@ Difficulty: Medium
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
-	if(dash.trigger(target))
+	if(dash.trigger(target = target))
 		return FALSE
 	return ..()
 

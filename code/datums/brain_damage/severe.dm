@@ -3,6 +3,7 @@
 //They cannot be cured with chemicals, and require brain recalibration to solve.
 
 /datum/brain_trauma/severe
+	abstract_type = /datum/brain_trauma/severe
 	resilience = TRAUMA_RESILIENCE_SURGERY
 
 /datum/brain_trauma/severe/mute
@@ -130,7 +131,9 @@
 
 	var/sleep_chance = 1
 	var/drowsy = !!owner.has_status_effect(/datum/status_effect/drowsiness)
-	if(owner.m_intent == MOVE_INTENT_RUN)
+	if(MOVING_QUICKLY(owner))
+		sleep_chance += 5
+	else if(!MOVING_DELIBERATELY(owner))
 		sleep_chance += 2
 	if(drowsy)
 		sleep_chance += 3
@@ -168,9 +171,10 @@
 		stress = max(stress - (2 * delta_time), 0)
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
+	var/check_radius = 7
 	if(owner.is_blind())
-		return TRUE
-	for(var/mob/living/M in oview(7, owner))
+		check_radius = 1
+	for(var/mob/living/M in oview(check_radius, owner))
 		if(istype(M, /mob/living/simple_animal/pet) || istype(M, /mob/living/basic/pet) || M.ckey)
 			return FALSE
 	return TRUE
@@ -190,7 +194,7 @@
 		if(2)
 			if(high_stress)
 				to_chat(owner, span_warning("You feel weak and scared! If only you weren't alone..."))
-				owner.adjustStaminaLoss(50)
+				owner.stamina.adjust(-50)
 			else
 				to_chat(owner, span_warning("You can't stop shaking..."))
 

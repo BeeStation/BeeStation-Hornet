@@ -35,7 +35,7 @@
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
-		if(istype(place, /area/maintenance))
+		if(istype(place, /area/station/maintenance))
 			playlist[place] = /datum/looping_sound/rad_alert_inside
 		else
 			playlist[place] = /datum/looping_sound/rad_alert_outside

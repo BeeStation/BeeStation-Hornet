@@ -7,6 +7,7 @@
  * Allows the caster to transform to and from a different mob type.
  */
 /datum/action/cooldown/spell/shapeshift
+	abstract_type = /datum/action/cooldown/spell/shapeshift
 	name = "Shapeshift Base"
 	button_icon_state = "shapeshift"
 	school = SCHOOL_TRANSMUTATION

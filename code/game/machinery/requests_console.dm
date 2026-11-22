@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp_off"
 	base_icon_state = "req_comp"
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.15
 	layer = ABOVE_WINDOW_LAYER
 	var/area/area // Reference to our area
 	var/areastring = null // Mapper helper to tie an apc to another area
@@ -328,11 +329,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			return
 		if(isliving(usr))
 			var/mob/living/L = usr
-			message = L.treat_message(message)
+			message = L.treat_message(message)["message"]
+
 		minor_announce(message, "[department] Announcement:", html_encode = FALSE, sound_override = 'sound/misc/announce_dig.ogg')
 		GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
+		deadchat_broadcast(" made a station announcement from [span_name("[get_area_name(usr, TRUE)]")].", span_name("[usr.real_name]"), usr, message_type=DEADCHAT_ANNOUNCEMENT)
+
 		announceAuth = FALSE
 		message = ""
 		screen = REQ_SCREEN_MAIN
@@ -466,7 +470,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		Radio.set_frequency(radio_freq)
 		Radio.talk_into(src, "[alert]: <i>[message]</i>", radio_freq)
 
-/obj/machinery/requests_console/attackby(obj/item/O, mob/user, params)
+/obj/machinery/requests_console/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		if(open)
 			to_chat(user, span_notice("You close the maintenance panel."))
@@ -492,12 +496,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 
 	if(ID)
-		auth_id = "[ID.registered_name] ([ID.assignment])"
+		auth_id = "[ID.registered_name] ([ID.get_assignment()])"
 		if(screen == REQ_SCREEN_AUTHENTICATE)
-			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.assignment])</b></font>"
+			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.get_assignment()])</b></font>"
 			updateUsrDialog()
 		if(screen == REQ_SCREEN_ANNOUNCE)
-			if(ACCESS_RC_ANNOUNCE in ID.access)
+			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
 				announceAuth = TRUE
 			else
 				announceAuth = FALSE

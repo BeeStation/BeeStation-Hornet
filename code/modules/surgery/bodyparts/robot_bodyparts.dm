@@ -1,6 +1,6 @@
 #define ROBOTIC_LIGHT_BRUTE_MSG "marred"
 #define ROBOTIC_MEDIUM_BRUTE_MSG "dented"
-#define ROBOTIC_HEAVY_BRUTE_MSG "falling apart"
+#define ROBOTIC_HEAVY_BRUTE_MSG "like its falling apart"
 
 #define ROBOTIC_LIGHT_BURN_MSG "scorched"
 #define ROBOTIC_MEDIUM_BURN_MSG "charred"
@@ -19,11 +19,12 @@
 	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_l_arm"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -37,6 +38,8 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/right/robot
 	name = "cyborg right arm"
@@ -47,11 +50,12 @@
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_r_arm"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -65,6 +69,8 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/robot
 	name = "cyborg left leg"
@@ -75,11 +81,12 @@
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_l_leg"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -93,6 +100,8 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/right/robot
 	name = "cyborg right leg"
@@ -103,11 +112,12 @@
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_r_leg"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -121,6 +131,8 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/chest/robot
 	name = "cyborg torso"
@@ -129,11 +141,12 @@
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_chest"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -148,64 +161,64 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
-
-/obj/item/bodypart/chest/robot/get_cell()
-	return cell
-
-/obj/item/bodypart/chest/robot/handle_atom_del(atom/A)
-	if(A == cell)
-		cell = null
-	return ..()
 
 /obj/item/bodypart/chest/robot/Destroy()
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/item/bodypart/chest/robot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		if(cell)
-			to_chat(user, span_warning("You have already inserted a cell!"))
-			return
-		else
-			if(!user.transferItemToLoc(W, src))
-				return
-			cell = W
-			to_chat(user, span_notice("You insert the cell."))
-	else if(istype(W, /obj/item/stack/cable_coil))
-		if(wired)
-			to_chat(user, span_warning("You have already inserted wire!"))
-			return
-		var/obj/item/stack/cable_coil/coil = W
-		if (coil.use(1))
-			wired = TRUE
-			to_chat(user, span_notice("You insert the wire."))
-		else
-			to_chat(user, span_warning("You need one length of coil to wire it!"))
-	else
-		return ..()
+/obj/item/bodypart/chest/robot/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == cell)
+		cell = null
 
-/obj/item/bodypart/chest/robot/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/bodypart/chest/robot/get_cell()
+	return cell
+
+/obj/item/bodypart/chest/robot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/stock_parts/cell))
+		if(cell)
+			to_chat(user, span_warning("A cell is already present in [src]!"))
+			return ITEM_INTERACT_BLOCKING
+		if(!user.transferItemToLoc(tool, src))
+			return ITEM_INTERACT_BLOCKING
+		cell = tool
+		to_chat(user, span_notice("You insert [cell] into [src]."))
+		return ITEM_INTERACT_SUCCESS
+
+	if(istype(tool, /obj/item/stack/cable_coil))
+		if(wired)
+			to_chat(user, span_warning("[src] is already wired up!"))
+			return ITEM_INTERACT_BLOCKING
+		var/obj/item/stack/cable_coil/coil = tool
+		if (!coil.use(1))
+			to_chat(user, span_warning("You need one length of coil to wire it!"))
+			return ITEM_INTERACT_BLOCKING
+		wired = TRUE
+		to_chat(user, span_notice("You wire the cell inside of [src]."))
+		return ITEM_INTERACT_SUCCESS
+	return NONE
+
+/obj/item/bodypart/chest/robot/wirecutter_act(mob/living/user, obj/item/tool)
 	if(!wired)
 		return
-	. = TRUE
-	I.play_tool_sound(src)
+	tool.play_tool_sound(src)
 	to_chat(user, span_notice("You cut the wires out of [src]."))
 	new /obj/item/stack/cable_coil(drop_location(), 1)
 	wired = FALSE
+	return ITEM_INTERACT_SUCCESS
 
-/obj/item/bodypart/chest/robot/screwdriver_act(mob/living/user, obj/item/I)
-	..()
-	. = TRUE
+/obj/item/bodypart/chest/robot/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!cell)
 		to_chat(user, span_warning("There's no power cell installed in [src]!"))
-		return
-	I.play_tool_sound(src)
+		return ITEM_INTERACT_BLOCKING
+	tool.play_tool_sound(src)
 	to_chat(user, span_notice("Remove [cell] from [src]."))
 	cell.forceMove(drop_location())
-	cell = null
-
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/bodypart/chest/robot/examine(mob/user)
 	. = ..()
@@ -225,24 +238,22 @@
 	if(wired)
 		new /obj/item/stack/cable_coil(drop_loc, 1)
 		wired = FALSE
-	if(cell)
-		cell.forceMove(drop_loc)
-		cell = null
+	cell?.forceMove(drop_loc)
 	return ..()
-
 
 /obj/item/bodypart/head/robot
 	name = "cyborg head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
+	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
-	icon = null
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_head"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	w_class = WEIGHT_CLASS_NORMAL
 	dmg_overlay_type = "robotic"
@@ -258,16 +269,11 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	head_flags = HEAD_EYESPRITES
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
-
-
-/obj/item/bodypart/head/robot/handle_atom_del(atom/A)
-	if(A == flash1)
-		flash1 = null
-	if(A == flash2)
-		flash2 = null
-	return ..()
 
 /obj/item/bodypart/head/robot/Destroy()
 	QDEL_NULL(flash1)
@@ -288,53 +294,52 @@
 			. += "It has two eye sockets occupied by flashes."
 		. += span_notice("You can remove the seated flash[single_flash ? "":"es"] with a <b>crowbar</b>.")
 
-/obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/assembly/flash/handheld))
-		var/obj/item/assembly/flash/handheld/F = W
-		if(flash1 && flash2)
-			to_chat(user, span_warning("You have already inserted the eyes!"))
-			return
-		else if(F.burnt_out || !F.bulb)
-			to_chat(user, span_warning("You need a functional flash!"))
-			return
-		else
-			if(!user.transferItemToLoc(F, src))
-				return
-			if(flash1)
-				flash2 = F
-			else
-				flash1 = F
-			to_chat(user, span_notice("You insert the flash into the eye socket."))
-			return
-	return ..()
+/obj/item/bodypart/head/robot/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == flash1)
+		flash1 = null
+	if(gone == flash2)
+		flash2 = null
 
-/obj/item/bodypart/head/robot/crowbar_act(mob/living/user, obj/item/I)
-	if(flash1 || flash2)
-		I.play_tool_sound(src)
-		to_chat(user, span_notice("You remove the flash from [src]."))
-		if(flash1)
-			flash1.forceMove(drop_location())
-			flash1 = null
-		if(flash2)
-			flash2.forceMove(drop_location())
-			flash2 = null
+/obj/item/bodypart/head/robot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/assembly/flash/handheld))
+		return NONE
+
+	var/obj/item/assembly/flash/handheld/flash = tool
+	if(flash1 && flash2)
+		to_chat(user, span_warning("[src] already has both flash-eyes present!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(flash.burnt_out)
+		to_chat(user, span_warning("You can't use a broken flash!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(!user.transferItemToLoc(flash, src))
+		return ITEM_INTERACT_BLOCKING
+
+	if(flash1)
+		flash2 = flash
 	else
-		to_chat(user, span_warning("There is no flash to remove from [src]."))
-	return TRUE
+		flash1 = flash
+	to_chat(user, span_notice("You insert the flash into the eye socket."))
+	return ITEM_INTERACT_SUCCESS
 
+/obj/item/bodypart/head/robot/crowbar_act(mob/living/user, obj/item/tool)
+	if(!flash1 && !flash2)
+		to_chat(user, span_warning("There is no flash to remove from [src]."))
+		return ITEM_INTERACT_BLOCKING
+
+	tool.play_tool_sound(src)
+	to_chat(user, span_notice("You remove the flash[flash1 && flash2 ? "es" : ""] from [src]."))
+	var/atom/drop_loc = drop_location()
+	flash1?.forceMove(drop_loc)
+	flash2?.forceMove(drop_loc)
 
 /obj/item/bodypart/head/robot/drop_organs(mob/user, violent_removal)
 	var/atom/drop_loc = drop_location()
-	if(flash1)
-		flash1.forceMove(drop_loc)
-		flash1 = null
-	if(flash2)
-		flash2.forceMove(drop_loc)
-		flash2 = null
+	flash1?.forceMove(drop_loc)
+	flash2?.forceMove(drop_loc)
 	return ..()
-
-
-
 
 /obj/item/bodypart/arm/left/robot/surplus
 	name = "surplus prosthetic left arm"
@@ -368,25 +373,23 @@
 	burn_reduction = 0
 	max_damage = 20
 
-
-
 /obj/item/bodypart/head/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/chest/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/arm/left/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/arm/right/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/leg/left/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/leg/right/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 #undef ROBOTIC_LIGHT_BRUTE_MSG
 #undef ROBOTIC_MEDIUM_BRUTE_MSG

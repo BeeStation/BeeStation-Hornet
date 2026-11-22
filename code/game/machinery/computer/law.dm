@@ -8,11 +8,6 @@
 	if(!mapload)
 		log_game("A [name] was created at [AREACOORD(src)].")
 		message_admins("A [name] was created at [ADMIN_VERBOSEJMP(src)].")
-	GLOB.uploads_list += src
-
-/obj/machinery/computer/upload/Destroy()
-	GLOB.uploads_list -= src
-	return ..()
 
 /obj/machinery/computer/upload/examine(mob/user)
 	. = ..()
@@ -21,7 +16,7 @@
 	else
 		. += "Currently selected silicon: [current.name]."
 
-/obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/upload/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/ai_module))
 		var/obj/item/ai_module/M = O
 		if(machine_stat & (NOPOWER|BROKEN|MAINT))

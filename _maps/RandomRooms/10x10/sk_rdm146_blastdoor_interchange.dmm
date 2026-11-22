@@ -182,7 +182,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "vl" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/template_noop)
 "vq" = (

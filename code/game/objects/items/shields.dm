@@ -1,4 +1,5 @@
 /obj/item/shield
+	abstract_type = /obj/item/shield
 	name = "shield"
 	icon = 'icons/obj/shields.dmi'
 	canblock = TRUE
@@ -31,7 +32,7 @@
 	. = ..()
 	if(QDELETED(src))
 		return FALSE
-	if(owner.getStaminaLoss() >= 45 && !is_energy_shield)
+	if(owner.stamina.loss_as_percent >= 45 && !is_energy_shield)
 		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			shatter(owner)
@@ -46,7 +47,7 @@
 			owner.visible_message(span_danger("[owner]'s [src] is sent flying from thier hands!"))
 			return FALSE
 
-/obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
+/obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, list/modifiers)
 	if(istype(W))
 		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
@@ -101,7 +102,7 @@
 	transparent = TRUE
 	custom_price = 100
 
-/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
+/obj/item/shield/riot/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/sheet/mineral/titanium))
 		if (atom_integrity >= max_integrity)
 			to_chat(user, span_notice("[src] is already in perfect condition."))

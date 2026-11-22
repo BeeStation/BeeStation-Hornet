@@ -153,7 +153,7 @@
 			if(QDELETED(src))
 				return FALSE
 			// Retrieve cached antag token count
-			get_antag_token_count_db()
+			get_antag_token_count_db(ckey)
 			if(QDELETED(src))
 				return FALSE
 		else
@@ -234,15 +234,15 @@
 		if(QDELETED(src))
 			return FALSE
 		// The following is only relevant to BYOND accounts.
-		if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
+		if (IS_FINITE(cached_player_age) && cached_player_age == -1) //first connection
 			player_age = 0
 		var/nnpa = CONFIG_GET(number/notify_new_player_age)
-		if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
+		if (IS_FINITE(cached_player_age) && cached_player_age == -1) //first connection
 			if (nnpa >= 0)
 				message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
 				if (CONFIG_GET(flag/irc_first_connection_alert))
 					send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
-		else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
+		else if (IS_FINITE(cached_player_age) && cached_player_age < nnpa)
 			message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
 #ifndef DISABLE_BYOND_AUTH
 		if(!src.key_is_external)
@@ -292,7 +292,9 @@
 		if(QDELETED(src))
 			return FALSE
 	if(authenticated && !is_guest)
-		to_chat(src, get_message_output("message", ckey))
+		var/user_messages = get_message_output("message", ckey)
+		if(user_messages)
+			to_chat(src, user_messages)
 	if(first_run)
 		if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 			to_chat(src, span_warning("Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you."))
@@ -411,7 +413,7 @@
 				else
 					new /datum/admins(autorank, ckey)
 	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin && is_localhost())
-		if(Debugger?.enabled)
+		if(Debugger?.enabled || CONFIG_GET(flag/mimic_debugger))
 			to_chat_immediate(src, span_userdanger("Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab."))
 		var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 		new /datum/admins(localhost_rank, ckey, 1, 1)
@@ -419,7 +421,9 @@
 /client/proc/init_admin_if_present()
 	if(holder)
 		holder.associate(src)
-		to_chat(src, get_message_output("memo"))
+		var/memo_message = get_message_output("memo")
+		if(memo_message)
+			to_chat(src, memo_message)
 		admin_greet()
 
 /client/proc/set_client_age_from_db()

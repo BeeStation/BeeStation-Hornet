@@ -15,12 +15,12 @@
 	desc = "An unfinished covered turret frame."
 	anchored = FALSE
 	density = TRUE
-	use_power = NO_POWER_USE //why would it use power if its not even connected yet
+	use_power = NO_POWER_USE
 	var/build_step = PTURRET_UNSECURED //the current step in the building process
 	var/finish_name = "turret"	//the name applied to the product turret
 	var/obj/item/gun/installed_gun = null
 
-/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user, list/modifiers)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(PTURRET_UNSECURED)	//first step

@@ -48,6 +48,14 @@
 		return
 	if (isnewplayer(user))
 		return
+
+	// Handle mouse prefs
+	var/should_show_tips = client.show_screentips
+
+	//Show screentips
+	if (!should_show_tips)
+		return
+
 	// =====================================================
 	// Initialise data
 	// =====================================================

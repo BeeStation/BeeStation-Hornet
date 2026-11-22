@@ -16,14 +16,14 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Prepare module
         run: |
           # This is needed because node-fetch needs import and doesn't work with require :/
           echo "{\"type\": \"module\"}" > package.json
           npm install node-fetch
       - name: Show screenshot test results
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           script: |
             const { showScreenshotTestResults } = await import('${{ github.workspace }}/tools/ci/show_screenshot_test_results.js')

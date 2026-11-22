@@ -16,7 +16,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage
 	automatic = TRUE
 
-/obj/item/gun/magic/wand/arcane_barrage/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/magic/wand/arcane_barrage/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override = "", aimed = FALSE)
 	. = ..()
 	if(!.)
 		return

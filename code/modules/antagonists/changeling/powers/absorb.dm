@@ -48,7 +48,7 @@
 		owner.set_nutrition(min((owner.nutrition + target.nutrition), NUTRITION_LEVEL_WELL_FED))
 
 	// Absorb a lizard, speak Draconic.
-	owner.copy_languages(target, LANGUAGE_ABSORB)
+	owner.copy_languages(target, LANGUAGE_ABSORB, blocked = FALSE)
 
 	var/mind_ref = target.mind ? REF(target.mind) : null
 	if(target.mind && owner.mind && !(mind_ref in changeling.absorbed_minds))//if the victim and owner have minds
@@ -65,6 +65,8 @@
 
 	changeling.adjust_chemicals(10)
 	changeling.can_respec = TRUE
+	if(target.mind)
+		changeling.absorbed_people++
 
 	if(target.stat != DEAD)
 		target.investigate_log("has died from being changeling absorbed.", INVESTIGATE_DEATHS)

@@ -39,6 +39,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 32)
 	name = "\improper NanoMed Lite"
 	desc = "Wall-mounted Medical Equipment dispenser with less items than usual."
 	products = list(/obj/item/reagent_containers/syringe = 3,
-					/obj/item/reagent_containers/pill/patch/styptic = 1,
-					/obj/item/reagent_containers/pill/patch/silver_sulf = 1,
+					/obj/item/reagent_containers/applicator/patch/styptic = 1,
+					/obj/item/reagent_containers/applicator/patch/silver_sulf = 1,
 					/obj/item/reagent_containers/medspray/sterilizine = 1)

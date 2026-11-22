@@ -24,11 +24,10 @@
 	// First let's set up the gasmix and base gases for this template
 	// We make the string from a gasmix in this proc because gases need to calculate their pressure
 	var/datum/gas_mixture/gasmix = new
-	var/list/gaslist = gasmix.gases
 	gasmix.temperature = rand(minimum_temp, maximum_temp)
-	for(var/i in base_gases)
-		ADD_GAS(i, gaslist)
-		gaslist[i][MOLES] = base_gases[i]
+	var/list/cached_moles = gasmix.moles
+	for(var/i, value in base_gases)
+		cached_moles[i] = value
 
 	// Now let the random choices begin
 	var/datum/gas/gastype
@@ -46,18 +45,18 @@
 		amount *= pressure_scalar		// If we pick a really small target pressure we want roughly the same mix but less of it all
 		amount = CEILING(amount, 0.1)
 
-		ADD_MOLES_LIST(gastype, gaslist, amount)
+		cached_moles[gastype] += amount
 
 	// That last one put us over the limit, remove some of it
 	while(gasmix.return_pressure() > target_pressure)
-		gaslist[gastype][MOLES] -= gaslist[gastype][MOLES] * 0.1
-	gaslist[gastype][MOLES] = FLOOR(gaslist[gastype][MOLES], 0.1)
+		cached_moles[gastype] -= cached_moles[gastype] * 0.1
+	cached_moles[gastype] = FLOOR(cached_moles[gastype], 0.1)
 	gasmix.garbage_collect()
 
 	// Now finally lets make that string
 	var/list/gas_string_builder = list()
-	for(var/i in gasmix.gases)
-		var/list/gas = gaslist[i]
-		gas_string_builder += "[gas[GAS_META][META_GAS_ID]]=[gas[MOLES]]"
+	var/list/cached_gas_id = GAS_META[META_GAS_ID]
+	for(var/gas_id, gas_amount in cached_moles)
+		gas_string_builder += "[cached_gas_id[gas_id]]=[gas_amount]"
 	gas_string_builder += "TEMP=[gasmix.temperature]"
 	gas_string = gas_string_builder.Join(";")

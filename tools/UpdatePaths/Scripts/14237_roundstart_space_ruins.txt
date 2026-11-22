@@ -1,0 +1,22 @@
+# misc
+
+/obj/item/codespeak_manual : /obj/item/language_manual/codespeak_manual{@OLD}
+/obj/structure/sign/departments/science{icon_state="science2"} : /obj/structure/sign/departments/science/alt{@OLD;icon_state=@SKIP}
+/obj/machinery/door/airlock/arrivals_external : /obj/machinery/door/airlock/external/arrivals{@OLD}
+/obj/effect/landmark/prisonspawn : @DELETE
+
+# broken flooring
+
+/obj/structure/fluff/broken_flooring{dir=1} : /obj/structure/broken_flooring/directional/north{@OLD;dir=@SKIP}
+/obj/structure/fluff/broken_flooring{dir=2} : /obj/structure/broken_flooring/directional/south{@OLD;dir=@SKIP}
+/obj/structure/fluff/broken_flooring{dir=@UNSET} : /obj/structure/broken_flooring/directional/south{@OLD;dir=@SKIP}
+/obj/structure/fluff/broken_flooring{dir=4} : /obj/structure/broken_flooring/directional/east{@OLD;dir=@SKIP}
+/obj/structure/fluff/broken_flooring{dir=8} : /obj/structure/broken_flooring/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/broken_flooring/@SUBTYPES{icon_state="corner"} : /obj/structure/broken_flooring/corner/@SUBTYPES{@OLD;icon_state=@SKIP}
+/obj/structure/broken_flooring/@SUBTYPES{icon_state="side"} : /obj/structure/broken_flooring/side/@SUBTYPES{@OLD;icon_state=@SKIP}
+/obj/structure/broken_flooring/@SUBTYPES{icon_state="singular"} : /obj/structure/broken_flooring/singular/@SUBTYPES{@OLD;icon_state=@SKIP}
+/obj/structure/broken_flooring/@SUBTYPES{icon_state="pile"} : /obj/structure/broken_flooring/pile/@SUBTYPES{@OLD;icon_state=@SKIP}
+/obj/structure/broken_flooring/@SUBTYPES{icon_state="plating"} : /obj/structure/broken_flooring/plating/@SUBTYPES{@OLD;icon_state=@SKIP}
+
+/obj/structure/broken_flooring/directional/@SUBTYPES : /obj/structure/broken_flooring/corner/directional/@SUBTYPES{@OLD}

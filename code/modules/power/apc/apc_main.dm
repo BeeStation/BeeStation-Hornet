@@ -24,13 +24,9 @@
 
 	light_power = 0.85
 
-
-
 	FASTDMM_PROP(\
-		set_instance_vars(\
-			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
-			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
-		),\
+		pixel_x = (dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT)),\
+		pixel_y = (dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)),\
 		dir_amount = 4\
 	)
 
@@ -47,6 +43,8 @@
 	var/cell_type = /obj/item/stock_parts/cell/high/plus	//Base cell has 150 kW. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	///State of the cover (closed, opened, removed)
 	var/opened = APC_COVER_CLOSED
+	/// Whether closing the replacement cover should restart the APC.
+	var/restart_on_cover_close = FALSE
 	///Is the APC shorted and not working?
 	var/shorted = 0
 	///State of the lighting channel (off, auto off, on, auto on)
@@ -61,6 +59,10 @@
 	var/charging = APC_NOT_CHARGING
 	///Can the APC charge?
 	var/chargemode = TRUE
+	///Ticks of sustained surplus thus far. gates the start of a charge cycle
+	var/chargecount = 0
+	///Load buffer
+	var/longtermpower = 10
 	///Is the apc interface locked?
 	var/locked = TRUE
 	///Is the apc cover locked?
@@ -95,8 +97,6 @@
 	var/mob/living/silicon/ai/occupier = null
 	///Is there an AI being transferred out of us?
 	var/transfer_in_progress = FALSE
-	///buffer state that makes apcs not shut off channels immediately as long as theres some power left, effect visible in apcs only slowly losing power
-	var/longtermpower = 10
 	///Automatically name the APC after the area is in
 	var/auto_name = FALSE
 	///Time to allow the APC to regain some power and to turn the channels back online
@@ -154,8 +154,7 @@
 	acid = 50
 
 /obj/machinery/power/apc/New(turf/loc, ndir, building=0)
-	..()
-	GLOB.apcs_list += src
+	. = ..()
 
 	wires = new /datum/wires/apc(src)
 	if (building)
@@ -190,12 +189,10 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	prepare_huds()
-	for(var/datum/atom_hud/hacked_apc/apc_hud in GLOB.huds)
-		apc_hud.add_to_hud(src)
+	var/datum/atom_hud/hacked_apc/apc_hud = GLOB.huds[DATA_HUD_HACKED_APC]
+	apc_hud.add_atom_to_hud(src)
 
 /obj/machinery/power/apc/Destroy()
-	GLOB.apcs_list -= src
-
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	disconnect_from_area()
@@ -208,6 +205,9 @@
 		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
+	if(cell)
+		component_parts -= cell
+		QDEL_NULL(cell)
 	return ..()
 
 /obj/machinery/power/apc/proc/assign_to_area(area/target_area = get_area(src))
@@ -251,7 +251,7 @@
 
 /obj/machinery/power/apc/handle_atom_del(atom/A)
 	if(A == cell)
-		cell = null
+		set_cell(null)
 		charging = APC_NOT_CHARGING
 		update_appearance()
 		updateUsrDialog()
@@ -259,14 +259,15 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	alarm_manager = new(src)
+	component_parts = list()
 
 	if(!mapload)
 		return
 	has_electronics = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
-		cell = new cell_type
-		cell.charge = start_charge * cell.maxcharge / 100	// (convert percentage to actual value)
+		set_cell(new cell_type)
+		cell.charge = start_charge * cell.maxcharge / 100
 
 	var/area/our_area = loc.loc
 
@@ -300,9 +301,24 @@
 	if (context.accept_silicons())
 		context.add_ctrl_click_action("Toggle Power")
 
+	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			context.add_left_click_tool_action("Pry Off Cover", TOOL_CROWBAR)
+	else
+		if(has_electronics && opened != APC_COVER_REMOVED && get_integrity() < max_integrity)
+			context.add_left_click_tool_action("Repair Cover", TOOL_WELDER)
+		if(opened == APC_COVER_REMOVED && has_electronics && terminal)
+			context.add_left_click_item_action("Replace Cover", /obj/item/wallframe/apc)
+		if(opened == APC_COVER_OPENED && !integration_cog && has_electronics != APC_ELECTRONICS_INSTALLED)
+			context.add_left_click_tool_action("Close Cover", TOOL_CROWBAR)
+
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			. += "The broken cover can be pried off with a crowbar."
+		else if(has_electronics && terminal)
+			. += "The missing cover can be replaced using a new APC frame."
 		return
 	if(opened)
 		if(has_electronics && terminal)
@@ -326,7 +342,7 @@
 		else
 			. += "The cover is closed."
 
-	. += span_notice("Alt-Click the APC to [ locked ? "unlock" : "lock"] the interface.")
+	. += span_notice("Alt-Click the APC to [locked ? "unlock" : "lock"] the interface.")
 
 	if(issilicon(user))
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")
@@ -420,6 +436,13 @@
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"
 
+/obj/machinery/power/apc/proc/set_cell(obj/item/stock_parts/cell/new_cell)
+	if(cell)
+		component_parts -= cell
+	cell = new_cell
+	if(cell)
+		component_parts |= cell
+
 /// Used for unlocked apc helper, which unlocks the apc.
 /obj/machinery/power/apc/proc/unlock()
 	locked = FALSE
@@ -468,12 +491,15 @@
 				else
 					locked = !locked
 					update_appearance()
+					usr.animate_interact(src)
 					. = TRUE
 		if("cover")
 			coverlocked = !coverlocked
+			usr.animate_interact(src)
 			. = TRUE
 		if("breaker")
 			toggle_breaker(usr)
+			usr.animate_interact(src)
 			. = TRUE
 		if("toggle_nightshift")
 			toggle_nightshift_lights()
@@ -483,6 +509,7 @@
 			if(!chargemode)
 				charging = APC_NOT_CHARGING
 				update_appearance()
+			usr.animate_interact(src)
 			. = TRUE
 		if("channel")
 			if(params["eqp"])
@@ -499,10 +526,12 @@
 				update()
 			else
 				return FALSE
+			usr.animate_interact(src)
 			. = TRUE
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
 				overload_lighting()
+				usr.animate_interact(src)
 				. = TRUE
 		if("hack")
 			if(get_malf_status(usr))
@@ -518,6 +547,7 @@
 				. = TRUE
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
+			usr.animate_interact(src)
 			for(var/obj/machinery/light/L in area)
 				if(!initial(L.no_emergency)) //If there was an override set on creation, keep that override
 					L.no_emergency = emergency_lights
@@ -569,37 +599,58 @@
 	var/last_en = environ
 	var/last_ch = charging
 
+	// Resolve external power state every tick
 	if(!avail())
 		main_status = APC_NO_POWER
+	else if(!surplus())
+		main_status = APC_LOW_POWER
+	else
+		main_status = APC_HAS_POWER
+
+	// Charging builds the load buffer
+	if(charging && longtermpower < APC_LONGTERM_POWER_MAX)
+		longtermpower += 1
+	else if(longtermpower > APC_LONGTERM_POWER_MIN)
+		longtermpower -= 2
 
 	// The following math salad handles channel activation based on cell percent and if its charge plus surplus can meet the channels demand
-	// TODO: Not having it require cell
-	lighting = update_channel(lighting, light_power_req,
-		(cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
-		(environ_power_req + equip_power_req),
-		TRUE) // only lighting triggers alarms
+	if (cell)
+		lighting = update_channel(lighting, light_power_req,
+			(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
+			(environ_power_req + equip_power_req),
+			TRUE) // only lighting triggers alarms
 
-	equipment = update_channel(equipment, equip_power_req,
-		(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
+		equipment = update_channel(equipment, equip_power_req,
+			(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
 
-	environ = update_channel(environ, environ_power_req,
-		(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+		environ = update_channel(environ, environ_power_req,
+			(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+	else
+		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+		environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
 		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
 		var/remaining_load = lastused_total - surplus_used
 		add_load(surplus_used)
-		if(surplus())	// If no external power don't update the charge status
-			main_status = APC_HAS_POWER
 		if(remaining_load)	// Here we're using cell charge to meet demand (if any and whatever is left even if all)
 			charging = APC_NOT_CHARGING
+			chargecount = 0
 			main_status = APC_LOW_POWER
 			cell.use(min(remaining_load, cell.charge))
 
 		else if(surplus() >= cell.chargerate && cell.charge != cell.maxcharge && chargemode) // Here we're charging the cell (if theres enough power to do so)
-			charging = APC_CHARGING
-			cell.give(cell.chargerate)
-			add_load(cell.chargerate) // add the load used to recharge the cell
+			// Wait for the surplus to hold
+			if(chargecount < APC_CHARGE_CONFIRM_TICKS)
+				chargecount++
+				charging = APC_NOT_CHARGING
+			else
+				charging = APC_CHARGING
+				cell.give(cell.chargerate)
+				add_load(cell.chargerate) // add the load used to recharge the cell
+		else
+			chargecount = 0
 		update_appearance()
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
@@ -645,6 +696,10 @@
 		if(alarm_channel)
 			alarm_manager.clear_alarm(ALARM_POWER)
 		return autoset(current, AUTOSET_ON)
+
+	// Threshold not met, rely on buffer
+	if(longtermpower >= 0)
+		return current
 
 	// Otherwise - OFF
 	if(alarm_channel)

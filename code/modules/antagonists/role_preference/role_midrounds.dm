@@ -26,9 +26,9 @@
 	use_icon = /datum/role_preference/roundstart/malfunctioning_ai
 
 /datum/role_preference/midround/vampire
-	name = "Vampiric Accident"
-	description = "After your death, you awaken to see yourself as an undead monster. \n\
-		Scrape by Space Station 13, or take it over, vassalizing your way!"
+	name = "Vampire (Midround)"
+	description = "You are offered to awaken as a lone Vampire partway through the round. \n\
+		Choose a Clan, feed on the crew, and pursue your objectives solo."
 	antag_datum = /datum/antagonist/vampire
 	use_icon = /datum/role_preference/supplementary/vampire
 
@@ -41,9 +41,8 @@
 
 /datum/role_preference/midround/obsessed/get_preview_icon()
 	var/mob/living/carbon/human/dummy/consistent/victim_dummy = new
-	victim_dummy.hair_color = "#bb9966" // Brown
-	victim_dummy.hair_style = "Messy"
-	victim_dummy.update_hair()
+	victim_dummy.set_hairstyle( "Messy", update = FALSE)
+	victim_dummy.set_haircolor("#bb9966", update = TRUE)
 
 	var/icon/obsessed_icon = render_preview_outfit(/datum/outfit/obsessed)
 	//obsessed_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)

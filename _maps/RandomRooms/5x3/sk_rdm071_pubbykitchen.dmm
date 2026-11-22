@@ -12,9 +12,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

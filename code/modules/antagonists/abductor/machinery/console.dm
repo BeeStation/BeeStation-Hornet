@@ -1,5 +1,5 @@
 /proc/get_abductor_console(team_number)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/abductor/console))
 		if(C.team_number == team_number)
 			return C
 
@@ -190,17 +190,17 @@
 	if(!team_number)
 		return
 
-	for(var/obj/machinery/abductor/pad/p in GLOB.machines)
+	for(var/obj/machinery/abductor/pad/p as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/abductor/pad))
 		if(p.team_number == team_number)
 			pad = p
 			break
 
-	for(var/obj/machinery/abductor/experiment/e in GLOB.machines)
+	for(var/obj/machinery/abductor/experiment/e as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/abductor/experiment))
 		if(e.team_number == team_number)
 			experiment = e
 			e.console = src
 
-	for(var/obj/machinery/computer/camera_advanced/abductor/c in GLOB.machines)
+	for(var/obj/machinery/computer/camera_advanced/abductor/c as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/camera_advanced/abductor))
 		if(c.team_number == team_number)
 			camera = c
 			c.console = src
@@ -235,7 +235,7 @@
 	if(vest == V)
 		return FALSE
 
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/abductor/console))
 		if(C.vest == V)
 			C.vest = null
 			break
@@ -243,7 +243,7 @@
 	vest = V
 	return TRUE
 
-/obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
+/obj/machinery/abductor/console/attackby(obj/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
 		to_chat(user, span_notice("You link the tool to the console."))
 	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
@@ -257,7 +257,7 @@
 		say("Incoming supply!")
 		var/drop_location = loc
 		if(pad)
-			flick("alien-pad", pad)
+			z_flick("alien-pad", pad)
 			drop_location = pad.loc
 		new item(drop_location)
 

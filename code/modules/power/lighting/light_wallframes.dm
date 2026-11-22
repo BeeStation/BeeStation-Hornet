@@ -16,8 +16,8 @@
 /obj/item/wallframe/light_fixture/try_build(turf/on_wall, user)
 	if(!..())
 		return
-	var/area/A = get_area(user)
-	if(!IS_DYNAMIC_LIGHTING(A))
+	var/area/local_area = get_area(user)
+	if(!local_area.static_lighting)
 		to_chat(user, span_warning("You cannot place [src] in this area!"))
 		return
 	return TRUE

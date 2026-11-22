@@ -29,6 +29,9 @@
 	/// Amount of blood to heal over a second
 	var/blood_heal = 0
 
+	/// Amount of bleeding to suppress (bandage) per second.
+	var/bleed_suppression = 0
+
 	/// Map of organ (such as ORGAN_SLOT_BRAIN) to damage heal over a second
 	var/list/organ_healing = null
 
@@ -40,9 +43,6 @@
 
 	/// The color to give the healing visual
 	var/healing_color = COLOR_GREEN
-
-	/// If the aura also heals the owner of the component
-	var/self_heal = TRUE
 
 	/// A list of being healed to active alerts
 	var/list/mob/living/current_alerts = list()
@@ -59,11 +59,11 @@
 	suffocation_heal = 0,
 	stamina_heal = 0,
 	blood_heal = 0,
+	bleed_suppression = 0,
 	organ_healing = null,
 	simple_heal = 0,
 	limit_to_trait = null,
 	healing_color = COLOR_GREEN,
-	self_heal = TRUE,
 )
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -78,11 +78,11 @@
 	src.suffocation_heal = suffocation_heal
 	src.stamina_heal = stamina_heal
 	src.blood_heal = blood_heal
+	src.bleed_suppression = bleed_suppression
 	src.organ_healing = organ_healing
 	src.simple_heal = simple_heal
 	src.limit_to_trait = limit_to_trait
 	src.healing_color = healing_color
-	src.self_heal = self_heal
 
 /datum/component/aura_healing/Destroy(force)
 	STOP_PROCESSING(SSaura, src)
@@ -131,10 +131,13 @@
 			candidate.adjustToxLoss(-toxin_heal * seconds_per_tick, updating_health = FALSE, forced = TRUE)
 
 			candidate.adjustOxyLoss(-suffocation_heal * seconds_per_tick, updating_health = FALSE)
-			candidate.adjustStaminaLoss(-stamina_heal * seconds_per_tick, updating_stamina = FALSE)
+			candidate.stamina.adjust(stamina_heal * seconds_per_tick)
 
 			for (var/organ in organ_healing)
 				candidate.adjustOrganLoss(organ, -organ_healing[organ] * seconds_per_tick)
+			if (bleed_suppression)
+				var/mob/living/carbon/carbidate = candidate
+				carbidate.suppress_bloodloss(bleed_suppression * seconds_per_tick)
 
 		else if (isanimal(candidate))
 			var/mob/living/simple_animal/animal_candidate = candidate

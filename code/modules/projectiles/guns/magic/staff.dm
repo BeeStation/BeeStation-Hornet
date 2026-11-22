@@ -71,7 +71,7 @@
 		/obj/projectile/temp/chill,
 	)
 
-/obj/item/gun/magic/staff/chaos/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/magic/staff/chaos/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	chambered.projectile_type = pick(allowed_projectile_types)
 	return ..()
 

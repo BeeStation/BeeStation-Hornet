@@ -3,7 +3,7 @@
 	desc = "It's weird and gooey. Perhaps it's the chef's cooking?"
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "floor1"
-	color = COLOR_BLOOD
+	color = BLOOD_COLOR_RED
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
@@ -54,6 +54,8 @@
 		var/list/temp_color = rgb2hsv(color || COLOR_WHITE)
 		temp_color[3] = max(temp_color[3] - 100, min(temp_color[3], 10))
 		color = hsv2rgb(temp_color)
+		if(blood_state == "LE")
+			set_light(0)   // remove glow when dry
 		STOP_PROCESSING(SSobj, src)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
@@ -107,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 /obj/effect/decal/cleanable/blood/trail_holder/glowy
 	light_power = 0.5
 	light_range = 0.25
-	light_color = "#7fff7f"
+	light_color = BLOOD_COLOR_ETHEREAL
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
@@ -311,17 +313,25 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 /obj/effect/decal/cleanable/blood/footprints/update_overlays()
 	. = ..()
+	var/print_state = blood_state
+	if(BODYPART_ID_DIGITIGRADE in species_types)
+		print_state += "claw"
+	else if(SPECIES_MONKEY in species_types)
+		print_state += "paw"
+	if(!icon_exists(icon, "[print_state]1"))
+		print_state = blood_state
+
 	for(var/Ddir in GLOB.cardinals)
 		if(entered_dirs & Ddir)
-			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"]
+			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["entered-[print_state]-[Ddir]"]
 			if(!bloodstep_overlay)
-				GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]1", dir = Ddir)
+				GLOB.bloody_footprints_cache["entered-[print_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[print_state]1", dir = Ddir)
 			. += bloodstep_overlay
 
 		if(exited_dirs & Ddir)
-			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"]
+			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["exited-[print_state]-[Ddir]"]
 			if(!bloodstep_overlay)
-				GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]2", dir = Ddir)
+				GLOB.bloody_footprints_cache["exited-[print_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[print_state]2", dir = Ddir)
 			. += bloodstep_overlay
 
 

@@ -14,11 +14,11 @@ mkdir -p \
 	$1/auxtools \
 	$1/code/datums/greyscale/json_configs \
 	$1/data/spritesheets \
+	$1/goon/icons \
 	$1/icons \
     $1/sound/runtime \
     $1/strings \
     $1/tgui/public \
-    $1/tgui/packages/tgfont/dist
 
 if [ -d ".git" ]; then
   mkdir -p $1/.git/logs
@@ -28,11 +28,11 @@ fi
 cp beestation.dmb beestation.rsc $1/
 cp -r _maps/* $1/_maps/
 cp -r code/datums/greyscale/json_configs/* $1/code/datums/greyscale/json_configs/
+cp -r goon/icons/* $1/goon/icons/
 cp -r icons/* $1/icons/
 cp -r sound/runtime/* $1/sound/runtime/
 cp -r strings/* $1/strings/
 cp -r tgui/public/* $1/tgui/public/
-cp -r tgui/packages/tgfont/dist/* $1/tgui/packages/tgfont/dist/
 
 #remove .dm files from _maps
 

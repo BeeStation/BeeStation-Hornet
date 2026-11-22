@@ -1,0 +1,34 @@
+# fixes auxiliary typo
+
+/area/shuttle/auxillary_base : /area/shuttle/auxiliary_base{@OLD}
+/obj/machinery/computer/auxillary_base : /obj/machinery/computer/auxiliary_base{@OLD}
+/obj/item/circuitboard/computer/auxillary_base : /obj/item/circuitboard/computer/auxiliary_base{@OLD}
+/obj/docking_port/mobile/auxillary_base : /obj/docking_port/mobile/auxiliary_base{@OLD}
+
+# snake_case
+
+/obj/structure/mopbucket : /obj/structure/mop_bucket{@OLD}
+/obj/structure/AIcore : /obj/structure/ai_core{@OLD}
+/obj/item/reagent_containers/blood/APlus : /obj/item/reagent_containers/blood/a_plus{@OLD}
+/obj/item/reagent_containers/blood/AMinus : /obj/item/reagent_containers/blood/a_minus{@OLD}
+/obj/item/reagent_containers/blood/BPlus : /obj/item/reagent_containers/blood/b_plus{@OLD}
+/obj/item/reagent_containers/blood/BMinus : /obj/item/reagent_containers/blood/b_minus{@OLD}
+/obj/item/reagent_containers/blood/OPlus : /obj/item/reagent_containers/blood/o_plus{@OLD}
+/obj/item/reagent_containers/blood/OMinus : /obj/item/reagent_containers/blood/o_minus{@OLD}
+/obj/structure/sign/warning/securearea : /obj/structure/sign/warning/secure_area{@OLD}
+/obj/structure/sign/warning/electricshock : /obj/structure/sign/warning/electric_shock{@OLD}
+/obj/structure/sign/warning/nosmoking/@SUBTYPES : /obj/structure/sign/warning/no_smoking/@SUBTYPES{@OLD}
+/obj/structure/sign/warning/enginesafety : /obj/structure/sign/warning/engine_safety{@OLD}
+/obj/structure/sign/departments/examroom : /obj/structure/sign/departments/exam_room{@OLD}
+
+# all access freezer
+
+/obj/structure/closet/secure_closet/freezer/kitchen/mining : /obj/structure/closet/secure_closet/freezer/kitchen/all_access{@OLD}
+
+# horrible debug lockers & crates
+
+/obj/structure/closet/crate/secure/gear/debug : @DELETE
+/obj/structure/closet/crate/secure/gear/debug/cyborg : @DELETE
+/obj/structure/closet/crate/secure/gear/debug/mech : /obj/structure/closet/crate/secure/gear/debug_mech{@OLD}
+/obj/structure/closet/crate/science/debug/obj/structure/closet/crate/science/debug : @DELETE
+/obj/structure/closet/crate/science/debug : @DELETE

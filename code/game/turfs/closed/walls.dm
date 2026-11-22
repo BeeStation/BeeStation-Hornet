@@ -49,6 +49,8 @@
 		underlays += underlay_appearance
 
 /turf/closed/wall/MouseDrop_T(atom/dropping, mob/user, params)
+	if(..())
+		return
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of walls & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 
@@ -150,11 +152,6 @@
 		if(F.try_build(src, user))
 			F.attach(src, user)
 			return TRUE
-		return FALSE
-	//Poster stuff
-	else if(istype(W, /obj/item/poster) && Adjacent(user)) //no tk memes.
-		return place_poster(W,user)
-
 	return FALSE
 
 /turf/closed/wall/try_decon(obj/item/I, mob/user, turf/T)

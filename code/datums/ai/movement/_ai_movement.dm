@@ -1,4 +1,4 @@
-///This datum is an abstract class that can be overriden for different types of movement
+///This datum is an abstract class that can be overridden for different types of movement
 /datum/ai_movement
 	///Assoc list ist of controllers that are currently moving as key, and what they are moving to as value
 	var/list/moving_controllers = list()
@@ -49,6 +49,9 @@
 		// That proc should probably be moved onto the mob instead of clients
 		if(INCAPACITATED_IGNORING(pawn_mob, INCAPABLE_STASIS) && pawn.pulledby)
 			return FALSE
+
+	if(HAS_TRAIT(pawn, TRAIT_NO_TRANSFORM))
+		return FALSE
 
 	return TRUE
 

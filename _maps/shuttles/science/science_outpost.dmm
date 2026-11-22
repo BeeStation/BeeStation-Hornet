@@ -47,7 +47,7 @@
 /obj/item/circuitboard/computer/shuttle/science_shuttle,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
-/obj/item/stack/cable_coil/orange,
+/obj/item/stack/cable_coil,
 /obj/item/storage/toolbox/electrical,
 /obj/effect/turf_decal/box,
 /obj/item/pickaxe/emergency,
@@ -64,9 +64,7 @@
 	port_direction = 4;
 	width = 9
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
@@ -84,9 +82,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "x" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "y" = (

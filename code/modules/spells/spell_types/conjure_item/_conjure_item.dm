@@ -1,4 +1,5 @@
 /datum/action/cooldown/spell/conjure_item
+	abstract_type = /datum/action/cooldown/spell/conjure_item
 	school = SCHOOL_CONJURATION
 	invocation_type = INVOCATION_NONE
 

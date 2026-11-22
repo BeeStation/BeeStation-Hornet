@@ -135,7 +135,7 @@
 			else // it means: icon_state=""
 				if(!dmi_nullstate_checklist[icon_filename_text])
 					dmi_nullstate_checklist[icon_filename_text] = ICON_STATE_CHECKED
-					if("" in icon_states(image_object.icon))
+					if(icon_exists(image_object.icon, ""))
 						// this dmi has nullstate. We'll allow "icon_state=null" to show image.
 						dmi_nullstate_checklist[icon_filename_text] = ICON_STATE_NULL
 

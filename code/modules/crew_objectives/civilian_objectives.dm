@@ -98,7 +98,7 @@
 	. = ..()
 	if(prob(1))
 		hardmode = TRUE
-	var/list/blacklistnormal = list(typesof(/area/space) - - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/maintenance) - typesof(/area/ai_monitored/turret_protected) - typesof(/area/tcommsat))
+	var/list/blacklistnormal = list(typesof(/area/misc/space) - - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/station/maintenance) - typesof(/area/station/ai_monitored/turret_protected) - typesof(/area/station/tcommsat))
 	var/list/blacklisthard = list(typesof(/area/lavaland) - typesof(/area/mine))
 	var/list/possibleareas = list()
 	if(hardmode)
@@ -318,7 +318,7 @@
 		return FALSE
 	if(!(H.get_assignment() == JOB_NAME_ASSISTANT) && !(H.get_assignment() == "No id") && !(H.get_assignment() == "No job"))
 		return TRUE
-	if(theID.hud_state != JOB_HUD_ASSISTANT) // non-assistant HUD counts too
+	if(theID.get_hud_state() != JOB_HUD_ASSISTANT) // non-assistant HUD counts too
 		return TRUE
 	return FALSE
 
@@ -332,8 +332,8 @@
 	if(!owner?.current)
 		return FALSE
 	for(var/datum/mind/M in SSticker.minds)
-		if(!istype(M.current) || !(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
+		if(!istype(M.current) || !(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY)))
 			continue
-		if(istype(get_area(M.current), /area/security/prison))
+		if(istype(get_area(M.current), /area/station/security/prison))
 			return FALSE
 	return TRUE

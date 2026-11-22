@@ -13,11 +13,11 @@
 
 	spell_max_level = 1
 
-/datum/action/spell/vow_of_silence/Grant(mob/grant_to)
+/datum/action/cooldown/spell/vow_of_silence/Grant(mob/grant_to)
 	. = ..()
 	ADD_TRAIT(grant_to, TRAIT_MIMING, "[type]")
 
-/datum/action/spell/vow_of_silence/Remove(mob/living/remove_from)
+/datum/action/cooldown/spell/vow_of_silence/Remove(mob/living/remove_from)
 	. = ..()
 	REMOVE_TRAIT(remove_from, TRAIT_MIMING, "[type]")
 
@@ -33,7 +33,7 @@
 	SEND_SIGNAL(cast_on, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
 	REMOVE_TRAIT(cast_on, TRAIT_MIMING, "[type]")
 
-	var/datum/job/mime/mime_job = SSjob.GetJob(JOB_NAME_MIME)
+	var/datum/job/mime/mime_job = SSjob.get_job(JOB_NAME_MIME)
 	mime_job.total_positions += 1
 
 	qdel(src)

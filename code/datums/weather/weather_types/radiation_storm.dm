@@ -8,8 +8,8 @@
 
 	weather_message = span_userdanger("<i>You feel waves of heat wash over you! Find shelter!</i>")
 	weather_overlay = "rad_storm"
-	weather_duration_lower = 60 SECONDS
-	weather_duration_upper = 150 SECONDS
+	weather_duration_lower = 1 MINUTES
+	weather_duration_upper = 2.5 MINUTES
 
 	weather_color = "#00ff0dff"
 
@@ -18,22 +18,24 @@
 
 	area_type = /area
 	protected_areas = list(
-		/area/maintenance,
-		/area/ai_monitored/turret_protected/ai_upload,
-		/area/ai_monitored/turret_protected/ai_upload_foyer,
-		/area/ai_monitored/turret_protected/ai,
-		/area/storage/emergency/starboard,
-		/area/storage/emergency/port,
+		/area/station/maintenance,
+		/area/station/ai_monitored/turret_protected/ai_upload,
+		/area/station/ai_monitored/turret_protected/ai_upload_foyer,
+		/area/station/ai_monitored/turret_protected/ai,
+		/area/station/commons/storage/emergency/starboard,
+		/area/station/commons/storage/emergency/port,
 		/area/shuttle,
-		/area/security/prison/asteroid/shielded,
-		/area/security/prison/asteroid/service,
-		/area/space/nearstation,
-		/area/solar,
-		/area/security/prison,
-		/area/holodeck/prison,
-		/area/holodeck/debug,
+		/area/station/security/prison/asteroid/shielded,
+		/area/station/security/prison/asteroid/service,
+		/area/misc/space/nearstation,
+		/area/station/solars,
+		/area/station/security/prison,
+		/area/station/holodeck/prison,
+		/area/station/holodeck/debug,
 	)
 	target_trait = ZTRAIT_STATION
+
+	weather_flags = (WEATHER_MOBS | WEATHER_INDOORS)
 
 	var/list/playlist = list()
 
@@ -45,7 +47,7 @@
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
-		if(istype(place, /area/maintenance))
+		if(istype(place, /area/station/maintenance))
 			playlist[place] = /datum/looping_sound/rad_alert_inside
 		else
 			playlist[place] = /datum/looping_sound/rad_alert_outside
@@ -64,6 +66,9 @@
 	return ..()
 
 /datum/weather/rad_storm/weather_act_mob(mob/living/victim)
+	// NEW: Skip radiation if the mob is inside a shielded body container (morgue, crematorium)
+	if(victim.is_in_shielded_bodycontainer())
+		return
 	SSradiation.irradiate(victim, intensity = rand(1, 5))
 
 /datum/weather/rad_storm/end()

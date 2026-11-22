@@ -120,10 +120,8 @@
 	. = ..()
 	scan_machinery()
 
-/obj/machinery/computer/fugitive_capture_computer/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/computer/fugitive_capture_computer/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FugitiveCaptureConsole")
@@ -140,7 +138,7 @@
 		data["prisoner_valid"] = !!prisoner.mind?.has_antag_datum(/datum/antagonist/fugitive)
 		data["prisoner_ref"] = REF(prisoner.mind)
 	var/fugitives = list()
-	for(var/datum/antagonist/fugitive/A in GLOB.antagonists)
+	for(var/datum/antagonist/fugitive/A in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		var/list/entry = list()

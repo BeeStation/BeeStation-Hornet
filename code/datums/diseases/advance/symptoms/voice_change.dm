@@ -28,12 +28,14 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 60
 	symptom_delay_max = 120
+	required_organ = ORGAN_SLOT_TONGUE
 	prefixes = list("Vocal ")
-	var/scramble_language = FALSE
-	var/datum/language/current_language
 	threshold_desc = "<b>Transmission 10:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
 						<b>Stage Speed 7:</b> Changes voice more often.<br>\
 						<b>Stealth 3:</b> The symptom remains hidden until active."
+
+	var/scramble_language = FALSE
+	var/datum/language/current_language
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()
@@ -66,7 +68,7 @@ Bonus
 		else
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				H.SetSpecialVoice(H.generate_random_mob_name())
+				H.override_voice = H.generate_random_mob_name()
 				if(scramble_language && !current_language)	// Last part prevents rerolling language with small amounts of cure.
 					current_language = pick(subtypesof(/datum/language) - /datum/language/common)
 					H.add_blocked_language(subtypesof(/datum/language) - current_language, LANGUAGE_VOICECHANGE)
@@ -76,7 +78,7 @@ Bonus
 	..()
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
-		H.UnsetSpecialVoice()
+		H.override_voice = null
 	if(scramble_language)
 		A.affected_mob.remove_blocked_language(subtypesof(/datum/language), LANGUAGE_VOICECHANGE)
 		A.affected_mob.remove_all_languages(LANGUAGE_VOICECHANGE)	// In case someone managed to get more than one anyway.

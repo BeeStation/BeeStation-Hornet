@@ -5,6 +5,7 @@
  * Calls cast_on_thing_in_aoe on all atoms returned by get_things_to_cast_on by default.
  */
 /datum/action/cooldown/spell/aoe
+	abstract_type = /datum/action/cooldown/spell/aoe
 	/// The max amount of targets we can affect via our AOE. 0 = unlimited
 	var/max_targets = 0
 	/// The radius of the aoe.

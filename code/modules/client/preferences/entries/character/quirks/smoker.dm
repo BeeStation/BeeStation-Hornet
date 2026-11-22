@@ -8,7 +8,7 @@
 /datum/preference/choiced/quirk/smoker_cigarettes/compile_constant_data()
 	var/list/data = ..()
 	var/list/clean_names = list("Random" = "Random")
-	for(var/obj/item/storage/fancy/cigarettes/S as() in GLOB.smoker_cigarettes)
+	for(var/obj/item/storage/fancy/cigarettes/S as anything in GLOB.smoker_cigarettes)
 		clean_names[S] = initial(S.name)
 
 	data[CHOICED_PREFERENCE_DISPLAY_NAMES] = clean_names

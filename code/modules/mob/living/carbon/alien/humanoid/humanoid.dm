@@ -1,4 +1,5 @@
 /mob/living/carbon/alien/humanoid
+	abstract_type = /mob/living/carbon/alien/humanoid
 	name = "alien"
 	icon_state = "alien"
 	pass_flags = PASSTABLE

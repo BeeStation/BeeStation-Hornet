@@ -36,13 +36,11 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/proper_bomb = TRUE //Please
 	var/bomb_z_level = null
 	var/obj/effect/countdown/nuclearbomb/countdown
-	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	countdown = new(src)
-	GLOB.nuke_list += src
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
 	update_icon()
@@ -54,10 +52,9 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	if(!exploding)
 		// If we're not exploding, set the alert level back to normal
 		set_safety()
-	GLOB.nuke_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(core)
-	. = ..()
+	return ..()
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
@@ -93,7 +90,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	else
 		return TRUE
 
-/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, list/modifiers)
 	if (istype(I, /obj/item/disk/nuclear))
 		if(!disk_check(I))
 			return
@@ -446,9 +443,14 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+		notify_ghosts(
+			"A nuclear device has been armed in [get_area_name(src)]!",
+			source = src,
+			header = "Nuke Armed",
+		)
 
 		if(proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
+			play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 	else
 		detonation_timer = null
 		SSsecurity_level.set_level(previous_level)
@@ -506,7 +508,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/area/A = get_area(bomb_location)
 
 	if(bomb_location && is_station_level(bomb_location.z))
-		if(istype(A, /area/space))
+		if(istype(A, /area/misc/space))
 			off_station = NUKE_NEAR_MISS
 		if((bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)))
 			off_station = NUKE_NEAR_MISS
@@ -558,10 +560,13 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	else
 		to_chat(user, span_danger("It's empty."))
 
-/obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, params)
-	if(W.is_refillable())
-		W.afterattack(keg, user, TRUE) 	// redirect refillable containers to the keg, allowing them to be filled
-		return TRUE 										// pretend we handled the attack, too.
+/obj/machinery/nuclearbomb/beer/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!tool.is_refillable())
+		return ..()
+	tool.interact_with_atom(keg, user) // redirect refillable containers to the keg, allowing them to be filled
+	return ITEM_INTERACT_SUCCESS
+
+/obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/nuke_core_container))
 		to_chat(user, span_notice("[src] has had its plutonium core removed as a part of being decommissioned."))
 		return TRUE

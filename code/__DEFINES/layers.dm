@@ -40,11 +40,11 @@
 #define LOW_SIGIL_LAYER 2.52
 #define SIGIL_LAYER 2.53
 #define HIGH_PIPE_LAYER 2.54
-// Anything aboe this layer is not "on" a turf for the purposes of washing
-// I hate this life of ours
-#define FLOOR_CLEAN_LAYER 2.55
+#define CLEANABLE_OBJECT_LAYER 2.55
 
 #define BELOW_OPEN_DOOR_LAYER 2.6
+///Anything below this layer is to be considered completely (visually) under water by the immerse layer.
+#define WATER_LEVEL_LAYER 2.61
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
 #define DOOR_ACCESS_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER, special layer used for /obj/effect/mapping_helpers/airlock/access
@@ -85,8 +85,26 @@
 #define SPACEVINE_MOB_LAYER 4.9
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
 #define GASFIRE_LAYER 5.05
-#define MIMICKED_LIGHTING_LAYER 5.06
+#define ABOVE_GASFIRE_LAYER 5.06
+#define MIMICKED_LIGHTING_LAYER 5.07
+///Overlay lights from below, drawn over the z-mimic lighting they share a shadow plane with
+#define MIMICKED_OVERLAY_LIGHTING_LAYER 5.08
 #define RIPPLE_LAYER 5.1
+
+//---------- LIGHTING -------------
+
+// LIGHTING_PLANE layers
+// The layer of turf underlays starts at 0.01 and goes up by 0.01
+// Based off the z level. No I do not remember why, should check that
+/// Typically overlays, that "hide" portions of the turf underlay layer
+/// I'm allotting 100 z levels before this breaks. That'll never happen
+/// --Lemon
+#define LIGHTING_MASK_LAYER 10
+/// Misc things that draw on the turf lighting plane
+/// Space, solar beams, etc
+#define LIGHTING_PRIMARY_LAYER 15
+/// Stuff that needs to draw above everything else on this plane
+#define LIGHTING_ABOVE_ALL 20
 
 #define TEXT_EFFECT_UI_LAYER 5.90 // text effects shouldn't be displayed behind.
 	// maybe it should be custom layer category like 'UI_LAYER 6'
@@ -97,34 +115,10 @@
 #define RADIAL_BACKGROUND_LAYER 0
 #define RADIAL_CONTENT_LAYER 1000
 
-/*
-#define ADMIN_POPUP_LAYER 1
-
-///Layer for screentips
-#define SCREENTIP_LAYER 4
-
-/// Layer for tutorial instructions
-#define TUTORIAL_INSTRUCTIONS_LAYER 5
-
-/// Layer for light overlays
-#define LIGHT_DEBUG_LAYER 6
-*/
 /// Layer for pathfinding arrows
 #define PATH_ARROW_DEBUG_LAYER 7
 /// Layer for pathfinding overlays
 #define PATH_DEBUG_LAYER 8
-/*
-///Layer for lobby menu collapse button
-#define LOBBY_BELOW_MENU_LAYER 2
-/// Layer for background
-#define LOBBY_BACKGROUND_LAYER 3
-///Layer for main buttons (Join/Ready, Observe, Character Prefs)
-#define LOBBY_MENU_LAYER 4
-///Layer for lobby menu shutter, which covers up the menu to collapse/expand it
-#define LOBBY_SHUTTER_LAYER 5
-///Layer for lobby menu buttons that are hanging away from and lower than the main panel
-#define LOBBY_BOTTOM_BUTTON_LAYER 6
-*/
 
 /**
  * Planes
@@ -134,6 +128,11 @@
 #define LOWEST_EVER_PLANE -200
 
 #define CLICKCATCHER_PLANE -99
+
+///Render plate for everything drawn under the game plate: space and z-mimic. Not lit by the game plate's lighting.
+#define RENDER_PLANE_BELOW_GAME -98
+///Render plate for space, so it is lit without lighting z-mimic as well
+#define RENDER_PLANE_SPACE -97
 
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
@@ -148,6 +147,9 @@
 #define ZMIMIC_MAX_PLANE -70
 /// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
 #define ZMIMIC_MAX_DEPTH 10
+/// Z-mimic lighting is copied onto a shadow plane this far above the z-mimic plane it darkens, -69 to -59
+#define ZMIMIC_SHADOW_PLANE_OFFSET 11
+#define ZMIMIC_SHADOW_PLANE(mimic_plane) ((mimic_plane) + ZMIMIC_SHADOW_PLANE_OFFSET)
 
 //---------- ABSTRACT LIGHTING -------------
 // Layering order of these is not particularly meaningful.
@@ -174,7 +176,7 @@
 ///Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
 #define ABOVE_GAME_NO_MOUSE_PLANE -3
 #define ABOVE_GAME_PLANE -2
-#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
+#define GAME_PLANE_RENDER_TARGET "*GAME_PLANE_RENDER_TARGET"
 
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
@@ -194,7 +196,7 @@
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110
 #define O_LIGHTING_VISUAL_LAYER 110
-#define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
+#define O_LIGHTING_VISUAL_RENDER_TARGET "*O_LIGHT_VISUAL_PLANE"
 
 ///Things that should render ignoring lighting
 #define ABOVE_LIGHTING_PLANE 120
@@ -226,10 +228,11 @@
 ///--------------- FULLSCREEN IMAGES ------------
 #define FLASH_LAYER 1
 #define FULLSCREEN_LAYER 2
-#define UI_DAMAGE_LAYER 3
-#define BLIND_LAYER 4
-#define CRIT_LAYER 5
-#define CURSE_LAYER 6
+#define DITHER_LAYER 3
+#define UI_DAMAGE_LAYER 4
+#define BLIND_LAYER 5
+#define CRIT_LAYER 6
+#define CURSE_LAYER 7
 
 ///--------------- PSYCHIC & BLIND IMAGES ------------
 //Plane for highlighting objects - most soul glimmers
@@ -259,6 +262,10 @@
 
 ///Plane of the "splash" icon used that shows on the lobby screen. Nothing should ever be above this.
 #define SPLASHSCREEN_PLANE 9999
+
+///Plane master group keys
+#define PLANE_GROUP_MAIN "main"
+#define PLANE_GROUP_POPUP_WINDOW(screen) "popup-[REF(screen)]"
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"

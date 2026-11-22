@@ -21,13 +21,6 @@
 		if(mmi.brainmob)
 			mmi.brainmob.suiciding = suicide_state
 
-/mob/living/carbon/human/virtual_reality/set_suicide(suicide_state)
-	return
-
-/mob/living/carbon/human/virtual_reality/canSuicide()
-	to_chat(src, span_warning("I'm sorry [first_name()], I'm afraid you can't do that."))
-	return
-
 /mob/living/carbon/human/verb/suicide()
 	set hidden = 1
 	if(!canSuicide())
@@ -47,7 +40,7 @@
 				damagetype = held_item.suicide_act(src)
 			if(damagetype)
 				if(damagetype & SHAME)
-					adjustStaminaLoss(200)
+					stamina.adjust(-stamina.maximum)
 					set_suicide(FALSE)
 					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "shameful_suicide", /datum/mood_event/shameful_suicide)
 					return

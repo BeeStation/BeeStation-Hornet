@@ -36,7 +36,7 @@ var/global/list/custom_name_types = list(
 		READ_FILE(S["skin_tone"], skin_tone, "caucasian1")
 		READ_FILE(S["hair_style_name"], hair_style, "Bald")
 		READ_FILE(S["gradient_style"], gradient_style, "None")
-		READ_FILE(S["facial_style_name"], facial_hair_style, "Shaved")
+		READ_FILE(S["facial_style_name"], facial_hairstyle, "Shaved")
 		READ_FILE(S["underwear"], underwear, "Nude") // lewd
 		READ_FILE(S["underwear_color"], underwear_color, COLOR_BLACK)
 		READ_FILE(S["undershirt"], undershirt, "Nude")
@@ -52,7 +52,7 @@ var/global/list/custom_name_types = list(
 
 		var/list/features = list()
 		READ_FILE_EXVAR(S["body_size"], features["body_size"])
-		READ_FILE_EXVAR(S["feature_mcolor"], features["mcolor"])
+		READ_FILE_EXVAR(S["feature_mcolor"], features[FEATURE_MUTANT_COLOR])
 		READ_FILE_EXVAR(S["feature_ethcolor"], features["ethcolor"])
 		READ_FILE_EXVAR(S["feature_lizard_tail"], features["tail_lizard"])
 		READ_FILE_EXVAR(S["feature_lizard_snout"], features["snout"])
@@ -67,7 +67,7 @@ var/global/list/custom_name_types = list(
 		READ_FILE_EXVAR(S["feature_ipc_chassis"], features["ipc_chassis"])
 		READ_FILE_EXVAR(S["feature_insect_type"], features["insect_type"])
 		READ_FILE_EXVAR(S["feature_human_tail"], features["tail_human"])
-		READ_FILE_EXVAR(S["feature_human_ears"], features["ears"])
+		READ_FILE_EXVAR(S["feature_human_ears"], features[FEATURE_EARS])
 		READ_FILE_EXVAR(S["feature_apid_antenna"], features["apid_antenna"])
 		READ_FILE_EXVAR(S["feature_apid_stripes"], features["apid_stripes"])
 		READ_FILE_EXVAR(S["feature_apid_headstripes"], features["apid_headstripes"])
@@ -179,7 +179,7 @@ var/global/list/custom_name_types = list(
 			"skintone" = skin_tone,
 			"hairstyle" = hair_style,
 			"gradientstyle" = gradient_style,
-			"facialhairstyle" = facial_hair_style,
+			"facialhairstyle" = facial_hairstyle,
 			"underwear" = underwear,
 			"underwearcolour" = underwear_color,
 			"undershirt" = undershirt,

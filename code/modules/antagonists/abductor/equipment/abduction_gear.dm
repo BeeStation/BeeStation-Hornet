@@ -90,7 +90,6 @@
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
 		RegisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_disguise_name))
-		M.name_override = disguise.name
 		M.icon = disguise.icon
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
@@ -112,7 +111,6 @@
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
 		UnregisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME)
-		M.name_override = null
 		M.cut_overlays()
 		M.regenerate_icons()
 
@@ -138,12 +136,8 @@
 			to_chat(loc, span_warning("Combat injection is still recharging."))
 			return
 		var/mob/living/carbon/human/M = loc
-		M.adjustStaminaLoss(-75)
-		M.SetUnconscious(0)
-		M.SetStun(0)
-		M.SetKnockdown(0)
-		M.SetImmobilized(0)
-		M.SetParalyzed(0)
+		M.stamina.adjust(75)
+		M.SetAllImmobility(0)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
@@ -154,7 +148,7 @@
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break
@@ -169,6 +163,7 @@
 	atom_storage.max_total_storage = 30
 
 /obj/item/abductor
+	abstract_type = /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/abductor_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
@@ -226,7 +221,7 @@
 			mark(M, user)
 
 
-/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(flag)
 		return
@@ -307,7 +302,7 @@
 		icon_state = "mind_device_message"
 	to_chat(user, span_notice("You switch the device to [mode==MIND_DEVICE_MESSAGE? "TRANSMISSION": "COMMAND"] MODE"))
 
-/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(!ScientistCheck(user))
 		return
@@ -445,13 +440,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	action_slots = ALL
 
 	cooldown = 0 SECONDS
-	stamina_damage = 0
+	charged_stamina_damage = 0
 	knockdown_time = 14 SECONDS
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	affect_cyborg = TRUE
 
 	var/mode = BATON_STUN
 
+	var/stun_stamina_damage = 140
 	var/sleep_time = 2 MINUTES
 	var/time_to_cuff = 3 SECONDS
 
@@ -467,12 +463,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		return
 	mode = (mode+1)%BATON_MODES
 	var/txt
-	//Reset stamina damage to baseline
-	stamina_damage = initial(stamina_damage)
 	switch(mode)
 		if(BATON_STUN)
 			txt = "stunning"
-			stamina_damage = 140
 		if(BATON_SLEEP)
 			txt = "sleep inducement"
 		if(BATON_CUFF)
@@ -536,8 +529,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			target.set_confusion_if_lower(10 SECONDS)
 			target.set_stutter_if_lower(16 SECONDS)
 			SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-			target.adjustStaminaLoss(stamina_damage)
-			target.Knockdown(knockdown_time * (HAS_TRAIT(target, TRAIT_BATON_RESISTANCE) ? 0.1 : 1))
+			target.stamina.adjust(-stun_stamina_damage)
+			target.Paralyze(knockdown_time * (HAS_TRAIT(target, TRAIT_BATON_RESISTANCE) ? 0.1 : 1))
 		if(BATON_SLEEP)
 			SleepAttack(target,user)
 		if(BATON_CUFF)
@@ -602,7 +595,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			if(do_after(user, time_to_cuff, C) && C.canBeHandcuffed())
 				if(!C.handcuffed)
 					C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
-					C.update_handcuffed()
 					to_chat(user, span_notice("You restrain [C]."))
 					log_combat(user, C, "handcuffed")
 			else
@@ -695,7 +687,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "abductor_headset"
 	inhand_icon_state = "abductor_headset"
-	keyslot2 = new /obj/item/encryptionkey/heads/captain
+	keyslot2 = /obj/item/encryptionkey/heads/captain
 	bang_protect = 1
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
@@ -704,7 +696,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 // Stops humans from disassembling abductor headsets.
 /obj/item/radio/headset/abductor/screwdriver_act(mob/living/user, obj/item/tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/abductor_machine_beacon
 	name = "machine beacon"
@@ -818,7 +810,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You start disassembling [src]..."))
 		I.play_tool_sound(src)

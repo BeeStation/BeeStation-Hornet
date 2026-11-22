@@ -65,7 +65,7 @@
 	//Already scanned our atom.
 	var/atom/atom_parent = parent
 	if(scanned)
-		to_chat(user, "<span class='warning'>[atom_parent] has already been analysed.</span>")
+		to_chat(user, span_warning("[atom_parent] has already been analysed."))
 		return
 	//Is it *even* an artifact
 	var/datum/component/xenoartifact/artifact_datum = atom_parent.GetComponent(/datum/component/xenoartifact)
@@ -89,8 +89,8 @@
 	if(total_payout)
 		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, total_payout)
 		playsound(user, 'sound/machines/terminal_success.ogg', 60)
-		to_chat(user, "<span class='notice'>New datapoint scanned, [total_payout] discovery points gained.\n[discovered_trait_count] new traits discovered!</span>")
+		to_chat(user, span_notice("New datapoint scanned, [total_payout] discovery points gained.\n[discovered_trait_count] new traits discovered!"))
 		pulse_effect(get_turf(atom_parent), 4)
 	else
 		playsound(user, 'sound/machines/uplinkerror.ogg', 60)
-		to_chat(user, "<span class='warning'>No new traits detected in [atom_parent].</span>")
+		to_chat(user, span_warning("No new traits detected in [atom_parent]."))

@@ -285,7 +285,7 @@ Difficulty: Hard
 	update_approach()
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(spawn_blood)
 		new /obj/effect/decal/cleanable/blood/bubblegum(src.loc)

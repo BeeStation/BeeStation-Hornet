@@ -1,9 +1,30 @@
-# We are not currently using smart wires
-disabled: true
 /obj/structure/cable:
   banned_variables: true
 
-/obj/structure/pipe_cleaner:
-  banned_variables:
-  - d1
-  - d2
+/obj/structure/cable/omni:
+  banned_neighbors:
+  - /obj/structure/cable
+
+=/obj/structure/cable/red:
+  banned_neighbors:
+  - =/obj/structure/cable/red
+
+/obj/structure/cable/red:
+  banned_neighbors:
+  - /obj/structure/cable/red
+
+/obj/structure/cable/green:
+  banned_neighbors:
+  - /obj/structure/cable/green
+
+/obj/structure/cable/yellow:
+  banned_neighbors:
+  - /obj/structure/cable/yellow
+
+/obj/structure/cable/pink:
+  banned_neighbors:
+  - /obj/structure/cable/pink
+
+/obj/structure/cable/orange:
+  banned_neighbors:
+  - /obj/structure/cable/orange

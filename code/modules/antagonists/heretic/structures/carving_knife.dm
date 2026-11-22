@@ -5,7 +5,7 @@
 		but only few can evoke the dangers that lurk beneath reality."
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "rune_carver"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_SMALL
@@ -49,7 +49,7 @@
 		var/potion_string = span_info("\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "")
 		. += potion_string
 
-/obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -240,11 +240,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 	if(!iscarbon(victim))
 		return
 	var/mob/living/carbon/carbon_victim = victim
-	carbon_victim.adjustStaminaLoss(80)
+	carbon_victim.stamina.adjust(-80)
 	carbon_victim.adjust_silence(20 SECONDS)
 	carbon_victim.adjust_stutter(1 MINUTES)
 	carbon_victim.set_jitter_if_lower(20 SECONDS)
 	carbon_victim.set_dizzy_if_lower(40 SECONDS)
-	carbon_victim.adjust_blindness(2)
+	carbon_victim.adjust_temp_blindness(4 SECONDS)
 	SEND_SIGNAL(carbon_victim, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 	playsound(src, 'sound/magic/blind.ogg', 75, TRUE)

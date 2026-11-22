@@ -78,10 +78,9 @@
 	playsound(src, 'sound/items/flashlight_on.ogg', 50, TRUE)
 	return
 
-/obj/item/computer_hardware/attackby(obj/item/I, mob/living/user)
-	if(try_insert(I, user))
+/obj/item/computer_hardware/attackby(obj/item/attacking_item, mob/living/user)
+	if(application_attackby(attacking_item, user))
 		return TRUE
-
 	return ..()
 
 /obj/item/computer_hardware/welder_act(mob/living/user, obj/item/I)
@@ -121,7 +120,7 @@
 		to_chat(user, "You must unscrew the service panel in order to fiddle with the [src]'s internals.")
 		return TRUE
 	if(hacked)
-		balloon_alert(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
+		balloon_alert(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_magenta'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</span>")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
@@ -132,7 +131,7 @@
 	if(input == null || input == "")
 		return TRUE
 	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
-		balloon_alert(user, "Input value too low for current hardware")
+		balloon_alert(user, "Input value too low for current hardware", show_in_chat = FALSE)
 		to_chat(user, "Input value too low for current hardware")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
@@ -152,7 +151,7 @@
 /obj/item/computer_hardware/multitool_act_secondary(mob/living/user, obj/item/tool)
 	var/time_to_hack = 3 SECONDS
 	var/fail_chance = 15
-	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR))	// Scientist buff
+	if(user.mind?.assigned_role.title == JOB_NAME_SCIENTIST || user.mind?.assigned_role.title == JOB_NAME_RESEARCHDIRECTOR)	// Scientist buff
 		time_to_hack = 2 SECONDS
 		fail_chance = 5
 	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
@@ -164,19 +163,19 @@
 	if(!can_hack)
 		to_chat(user, "\The [src] cannot be overclocked.")
 		return TRUE
-	balloon_alert(user, "<font color='#12e21d'>Authorization Required. Keygen in progress...</font>")
+	balloon_alert(user, "<font color='#12e21d'>Authorization Required. Keygen in progress...</font>", show_in_chat = FALSE)
 	to_chat(user, "<span class='cfc_lime'>Authorization Required. Keygen in progress...</span>")
 	playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, TRUE)
 
 	if(!do_after(user, time_to_hack, src))
-		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
+		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_red'>ERROR:</span> Unauthorized access detected!")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 40)
 		user.electrocute_act(25, src, 1)
 		return TRUE
 	if(prob(fail_chance))
-		balloon_alert(user, "<font color='#d80000'>Error:</font> Serial Key provided is invalid.")
+		balloon_alert(user, "<font color='#d80000'>Error:</font> Serial Key provided is invalid.", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_red'>Error:</span> Serial Key provided is invalid.")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 40)
@@ -202,7 +201,7 @@
 	else
 		hacked = TRUE
 		power_usage = (power_usage * 5)
-		balloon_alert(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
+		balloon_alert(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_green'>Access Authorized.</span> System overclocking initiated.")
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	playsound(src, "sparks", 50)
@@ -210,16 +209,10 @@
 	update_overclocking(user, tool)
 
 /obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
-	if(enabled)
-		enabled = FALSE
-		to_chat(user, "The [src] has been disabled.")
-		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
-		return TRUE
-	else
-		enabled = TRUE
-		to_chat(user, "The [src] has been enabled.")
-		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
-		return TRUE
+	enabled = !enabled
+	to_chat(user, span_notice("[src] has been [enabled ? "disabled" : "disabled"]."))
+	playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
 	return // Nothing happens here yet
@@ -237,7 +230,6 @@
 		. += "INFO :: Component requires Expansion Bay slot."
 	if(hacked)
 		. += "<span class='cfc_magenta'>WARNING :: OPERATING BEYOND RATED PARAMETERS</span>"
-	return
 
 /obj/item/computer_hardware/proc/component_qdel()	// Handles deleting a component professionally
 	if(holder)
@@ -277,7 +269,6 @@
 
 /// Called when component is installed into PC.
 /obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
-	install_into.ui_update(user)
 	return
 
 /// Called when component is removed from PC.
@@ -286,8 +277,8 @@
 		try_eject(forced = TRUE)
 	remove_from.ui_update(user)
 
-/// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
-/obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)
+/// Called when attacking a tablet with an item, checking if any application uses it. Return TRUE to cancel the attack chain.
+/obj/item/computer_hardware/proc/application_attackby(obj/item/attacking_item, mob/living/user)
 	return FALSE
 
 /**

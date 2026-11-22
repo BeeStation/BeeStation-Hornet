@@ -75,7 +75,7 @@
 		/area/shuttle/pod_4,
 	))
 	var/static/list/disallowed_centcom_areas = typecacheof(list(
-		/area/abductor_ship,
+		/area/centcom/abductor_ship,
 		/area/awaymission/errorroom,
 	))
 	var/turf/T = get_turf(parent)

@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(movement)
 	name = "Movement Loops"
-	flags = SS_NO_INIT|SS_BACKGROUND|SS_TICKER
+	ss_flags = SS_NO_INIT|SS_BACKGROUND|SS_TICKER
 	wait = 1 //Fire each tick
 	/*
 		A breif aside about the bucketing system here
@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(movement)
 			loop.status &= ~MOVELOOP_STATUS_QUEUED
 			loop.timer = world.time + loop.delay
 			queue_loop(loop)
-		if(MC_TICK_CHECK)
+		if (MC_TICK_CHECK)
 			break
 
 	if(length(processing))
@@ -129,4 +129,4 @@ SUBSYSTEM_DEF(movement)
 
 /datum/controller/subsystem/movement/proc/remove_loop(datum/move_loop/remove)
 	dequeue_loop(remove)
-	remove.stop_loop()
+	remove.loop_stopped()

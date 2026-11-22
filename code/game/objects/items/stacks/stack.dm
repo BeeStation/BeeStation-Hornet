@@ -10,6 +10,7 @@
  */
 
 /obj/item/stack
+	abstract_type = /obj/item/stack
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
@@ -90,7 +91,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	context.add_left_click_action("Open stack crafting")
 	context.add_right_click_action("Split Stack")
 
-/obj/item/stack/Moved(atom/old_loc, dir)
+/obj/item/stack/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	if((!throwing || throwing.target_turf == loc) && old_loc != loc && (flags_1 & INITIALIZED_1))
 		merge_with_loc(merge_into_ourselves = !isnull(pulledby))
@@ -432,7 +433,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		var/turf/covered_turf = builder.drop_location()
 		if(!isturf(covered_turf))
 			return
-		covered_turf.PlaceOnTop(recipe.result_type, flags = CHANGETURF_INHERIT_AIR)
+		covered_turf.place_on_top(recipe.result_type, flags = CHANGETURF_INHERIT_AIR)
 		builder.balloon_alert(builder, "placed [ispath(recipe.result_type, /turf/open) ? "floor" : "wall"]")
 
 	else
@@ -587,12 +588,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
   * Arguments:
   * - [check][/obj/item/stack]: The stack to check for mergeability.
   */
-/obj/item/stack/proc/can_merge(obj/item/stack/check)
-	if(!istype(check, merge_type))
+/obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	if(!istype(check, merge_type) || check.merge_type != merge_type)
 		return FALSE
 	if(mats_per_unit != check.mats_per_unit)
 		return FALSE
-	if(is_cyborg)	// No merging cyborg stacks into other stacks
+	if(is_cyborg) // No merging cyborg stacks into other stacks
 		return FALSE
 	return TRUE
 
@@ -694,7 +695,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
 	is_zero_amount(delete_if_zero = TRUE)
 
-/obj/item/stack/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/attackby(obj/item/W, mob/user, list/modifiers)
 	if(can_merge(W))
 		var/obj/item/stack/S = W
 		if(merge(S))

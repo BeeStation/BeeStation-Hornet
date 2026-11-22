@@ -2,6 +2,7 @@
 //they are the easiest to cure, which means that if you want
 //to keep them, you can't cure your other traumas
 /datum/brain_trauma/special
+	abstract_type = /datum/brain_trauma/special
 
 /datum/brain_trauma/special/godwoken
 	name = "Godwoken Syndrome"
@@ -23,17 +24,14 @@
 			speak("neutral", prob(25))
 
 /datum/brain_trauma/special/godwoken/on_gain()
-	owner.AddComponent(/datum/component/anti_magic, \
-	_source = TRAUMA_TRAIT, \
-	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND), \
-	)
-	..()
+	owner.AddComponent(/datum/component/anti_magic, source = TRAUMA_TRAIT, antimagic_flags = MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND)
+	return ..()
 
 /datum/brain_trauma/special/godwoken/on_lose()
 	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == TRAUMA_TRAIT)
 			qdel(anti_magic)
-	..()
+	return ..()
 
 /datum/brain_trauma/special/godwoken/proc/speak(type, include_owner = FALSE)
 	var/message
@@ -266,7 +264,7 @@
 	if(get_dist(owner, beepsky) <= 1)
 		owner.playsound_local(owner, 'sound/weapons/egloves.ogg', 50)
 		owner.visible_message(span_warning("[owner]'s body jerks as if it was shocked."), span_userdanger("You feel the fist of the LAW."))
-		owner.take_bodypart_damage(0,0,rand(40, 70))
+		owner.stamina.adjust(-rand(40, 70))
 		QDEL_NULL(beepsky)
 
 	if(prob(20) && get_dist(owner, beepsky) <= 8)
@@ -275,7 +273,7 @@
 /obj/effect/client_image_holder/securitron
 	name = "Securitron"
 	desc = "The LAW is coming."
-	image_icon = 'icons/mob/aibots.dmi'
+	image_icon = 'icons/mob/silicon/aibots.dmi'
 	image_state = "secbot-c"
 	var/victim
 
@@ -442,7 +440,7 @@
 			continue
 		if(!isliving(nearby_viewers) || !nearby_viewers.mind || nearby_viewers.client?.is_afk())
 			continue
-		if(IS_VAMPIRE(nearby_viewers) || IS_VASSAL(nearby_viewers))
+		if(HAS_MIND_TRAIT(nearby_viewers, TRAIT_VAMPIRE_ALIGNED))
 			continue
 		if(nearby_viewers.has_unlimited_silicon_privilege || nearby_viewers.is_blind())
 			continue

@@ -59,7 +59,7 @@
 			return FALSE
 	return ..()
 
-/obj/effect/portal/attackby(obj/item/W, mob/user, params)
+/obj/effect/portal/attackby(obj/item/W, mob/user, list/modifiers)
 	if(user && Adjacent(user))
 		teleport(user)
 		return TRUE
@@ -67,7 +67,8 @@
 /obj/effect/portal/Bumped(atom/movable/bumper)
 	teleport(bumper)
 
-/obj/effect/portal/newtonian_move(direction, instant = FALSE) // Prevents portals spawned by jaunter/handtele from floating into space when relocated to an adjacent tile.
+// Prevents portals spawned by jaunter/handtele from floating into space when relocated to an adjacent tile.
+/obj/effect/portal/newtonian_move(direction, instant = FALSE, start_delay = 0)
 	return TRUE
 
 /obj/effect/portal/CanAllowThrough(atom/movable/mover, border_dir)

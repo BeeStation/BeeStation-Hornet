@@ -7,6 +7,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 
 // Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/food/grown
+	abstract_type = /obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "berrypile"
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
@@ -111,7 +112,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/food/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/food/grown/attackby(obj/item/O, mob/user, list/modifiers)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
 		var/msg = "[span_info("This is \a [span_name(name)]")].\n"
@@ -143,11 +144,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	if(!..()) //was it caught by a mob?
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_throw_impact(src, hit_atom)
+				T.on_throw_impact(src, hit_atom, throwingdatum)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom)
+				squash(hit_atom, throwingdatum)
 
-/obj/item/food/grown/proc/squash(atom/target)
+/obj/item/food/grown/proc/squash(atom/target, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(target)
 	forceMove(T)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/food/plant_smudge))
@@ -161,7 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
-			trait.on_squash(src, target)
+			trait.on_squash(src, target, throwingdatum)
 	reagents.expose(T)
 	for(var/A in T)
 		reagents.expose(A)

@@ -113,5 +113,8 @@
 	qdel(src)
 
 /obj/projectile/energy/trap/cyborg/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	do_sparks(1, TRUE, src)
 	qdel(src)

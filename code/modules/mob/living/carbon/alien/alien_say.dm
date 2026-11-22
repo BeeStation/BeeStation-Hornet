@@ -1,14 +1,19 @@
-/mob/living/proc/alien_talk(message, shown_name = real_name)
+/mob/living/proc/alien_talk(message, list/spans = list(), list/message_mods = list(), shown_name = real_name, big_voice = FALSE)
+	log_sayverb_talk(message, message_mods, tag = "alien hivemind")
 	message = trim(message)
 	if(!message)
 		return
+
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	message = treat_message_min(message)
-	log_talk(message, LOG_SAY)
-	var/message_a = say_quote(message)
-	var/rendered = "<i>[span_srtradioalien("Hivemind, [span_name(shown_name)] [span_message(message_a)]")]</i>"
+
+	var/message_a = generate_messagepart(message, spans, message_mods)
+	var/hivemind_spans = "alien"
+	if(big_voice)
+		hivemind_spans += " big"
+	var/rendered = "<i><span class='[hivemind_spans]'>Hivemind, <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span></i>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && S.hivecheck())
 			to_chat(S, rendered)
@@ -16,9 +21,8 @@
 			var/link = FOLLOW_LINK(S, src)
 			to_chat(S, "[link] [rendered]")
 
-/mob/living/carbon/alien/humanoid/royal/queen/alien_talk(message, shown_name = name)
-	shown_name = "<FONT size = 3>[shown_name]</FONT>"
-	return ..(message, shown_name)
+/mob/living/carbon/alien/humanoid/royal/queen/alien_talk(message, list/spans = list(), list/message_mods = list(), shown_name = name, big_voice = TRUE)
+	return ..(message, spans, message_mods, shown_name, TRUE)
 
 /mob/living/carbon/hivecheck()
 	var/obj/item/organ/alien/hivenode/N = get_organ_by_type(/obj/item/organ/alien/hivenode)

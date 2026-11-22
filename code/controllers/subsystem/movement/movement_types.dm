@@ -56,6 +56,7 @@
 	if(loop_type == type && priority == src.priority && flags == src.flags && delay == src.delay && timeout == lifetime)
 		return TRUE
 
+///Called when a loop is starting by a movement subsystem
 /datum/move_loop/proc/loop_started()
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_START)
@@ -67,7 +68,8 @@
 		return
 	timer = world.time + delay
 
-/datum/move_loop/proc/stop_loop()
+///Called when a loop is stopped, doesn't stop the loop itself
+/datum/move_loop/proc/loop_stopped()
 	SHOULD_CALL_PARENT(TRUE)
 	status &= ~MOVELOOP_STATUS_RUNNING
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_STOP)
@@ -420,7 +422,7 @@
 	if(!movement_path)
 		INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 
-/datum/move_loop/has_target/jps/stop_loop()
+/datum/move_loop/has_target/jps/loop_stopped()
 	. = ..()
 	movement_path = null
 

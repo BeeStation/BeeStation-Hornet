@@ -175,7 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	max_volume = 125 //Gives enough room for the black powder at max potency
 	max_integrity = 40
 	wine_power = 80
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/cherry_bomb/attack_self(mob/living/user)
 	user.visible_message(span_warning("[user] plucks the stem from [src]!"), span_userdanger("You pluck the stem from [src], which begins to hiss loudly!"))

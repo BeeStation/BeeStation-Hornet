@@ -29,11 +29,19 @@
 	GLOB.tracked_chem_implants -= src
 	return ..()
 
-/obj/item/implant/chem/trigger(emote, mob/living/source)
-	if(emote == "deathgasp")
-		if(istype(source) && !(source.stat == DEAD))
-			return
-		activate(reagents.total_volume)
+/obj/item/implant/chem/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
+	. = ..()
+	if(.)
+		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_implant_death))
+
+/obj/item/implant/chem/removed(mob/target, silent = FALSE, destroyed = FALSE)
+	. = ..()
+	if(.)
+		UnregisterSignal(target, COMSIG_LIVING_DEATH)
+
+/obj/item/implant/chem/proc/on_implant_death(mob/living/source)
+	SIGNAL_HANDLER
+	activate(reagents.total_volume)
 
 /obj/item/implant/chem/activate(cause)
 	. = ..()
@@ -57,9 +65,7 @@
 	desc = "A glass case containing a remote chemical implant."
 	imp_type = /obj/item/implant/chem
 
-/obj/item/implantcase/chem/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers/syringe) && imp)
-		W.afterattack(imp, user, TRUE, params)
-		return TRUE
-	else
-		return ..()
+/obj/item/implantcase/chem/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/reagent_containers/syringe) || !imp)
+		return NONE
+	return tool.interact_with_atom(imp, user, modifiers)

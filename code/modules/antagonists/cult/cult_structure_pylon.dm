@@ -7,15 +7,21 @@
 	light_color = COLOR_SOFT_RED
 	break_sound = 'sound/effects/glassbr2.ogg'
 	break_message = span_warning("The blood-red crystal falls to the floor and shatters!")
-	/// Length of the cooldown in between tile corruptions. Doubled if no turfs are found.
 	custom_materials = list(/datum/material/runedmetal = 300)
+	/// Length of the cooldown in between tile corruptions. Doubled if no turfs are found.
 	var/corruption_cooldown_duration = 5 SECONDS
 	/// The cooldown for corruptions.
 	COOLDOWN_DECLARE(corruption_cooldown)
 
 /obj/structure/destructible/cult/pylon/Initialize(mapload)
 	. = ..()
+	update_healing_aura()
+	START_PROCESSING(SSfastprocess, src)
 
+/obj/structure/destructible/cult/pylon/proc/update_healing_aura()
+	if(!anchored || invisibility)
+		qdel(GetComponent(/datum/component/aura_healing))
+		return
 	AddComponent( \
 		/datum/component/aura_healing, \
 		range = 5, \
@@ -23,12 +29,16 @@
 		burn_heal = 0.4, \
 		blood_heal = 0.4, \
 		simple_heal = 1.2, \
+		bleed_suppression = 0.1, \
 		requires_visibility = FALSE, \
 		limit_to_trait = TRAIT_HEALS_FROM_CULT_PYLONS, \
 		healing_color = COLOR_CULT_RED, \
 	)
 
-	START_PROCESSING(SSfastprocess, src)
+/obj/structure/destructible/cult/pylon/set_anchored(anchorvalue)
+	. = ..()
+	if(!isnull(.))
+		update_healing_aura()
 
 /obj/structure/destructible/cult/pylon/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -58,7 +68,7 @@
 	if(length(validturfs))
 		var/turf/converted_turf = pick(validturfs)
 		if(isplatingturf(converted_turf))
-			converted_turf.PlaceOnTop(/turf/open/floor/engine/cult, flags = CHANGETURF_INHERIT_AIR)
+			converted_turf.place_on_top(/turf/open/floor/engine/cult, flags = CHANGETURF_INHERIT_AIR)
 		else
 			converted_turf.ChangeTurf(/turf/open/floor/engine/cult, flags = CHANGETURF_INHERIT_AIR)
 
@@ -75,8 +85,8 @@
 
 /obj/structure/destructible/cult/pylon/conceal()
 	. = ..()
-	STOP_PROCESSING(SSfastprocess, src)
+	update_healing_aura()
 
 /obj/structure/destructible/cult/pylon/reveal()
 	. = ..()
-	START_PROCESSING(SSfastprocess, src)
+	update_healing_aura()

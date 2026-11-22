@@ -1,22 +1,25 @@
 //Preferences stuff
 	//Hairstyles
-GLOBAL_LIST_EMPTY(hair_styles_list)			//stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_EMPTY(hair_styles_male_list)		//stores only hair names
-GLOBAL_LIST_EMPTY(hair_styles_female_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_male_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(facial_hair_styles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(hairstyles_list)			//stores /datum/sprite_accessory/hair indexed by name
+GLOBAL_LIST_EMPTY(hairstyles_male_list)		//stores only hair names
+GLOBAL_LIST_EMPTY(hairstyles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(facial_hairstyles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
+GLOBAL_LIST_EMPTY(facial_hairstyles_male_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(facial_hairstyles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/gradient indexed by name
+GLOBAL_LIST_EMPTY(facial_hair_gradients_list)
+GLOBAL_LIST_EMPTY(hair_masks_list)
+
 	//Underwear
-GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
+GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/clothing/underwear indexed by name
 GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
 GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
 	//Undershirts
-GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/undershirt indexed by name
+GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/clothing/undershirt indexed by name
 GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
 GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
-GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
+GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/clothing/socks indexed by name
 /// Body sizes. The names (keys) are what is actually stored in the database. Don't get crazy with changing them.
 GLOBAL_LIST_INIT(body_sizes, list(
 	"Normal" = BODY_SIZE_NORMAL,
@@ -24,31 +27,26 @@ GLOBAL_LIST_INIT(body_sizes, list(
 	"Tall" = BODY_SIZE_TALL
 ))
 	//Lizard Bits (all datum lists indexed by name)
-GLOBAL_LIST_EMPTY(body_markings_list)
+GLOBAL_LIST_EMPTY(lizard_markings_list)
 GLOBAL_LIST_EMPTY(tails_list_lizard)
-GLOBAL_LIST_EMPTY(animated_tails_list_lizard)
+GLOBAL_LIST_EMPTY(tail_spines_list)
 GLOBAL_LIST_EMPTY(snouts_list)
 GLOBAL_LIST_EMPTY(horns_list)
 GLOBAL_LIST_EMPTY(frills_list)
 GLOBAL_LIST_EMPTY(spines_list)
-GLOBAL_LIST_EMPTY(legs_list)
-GLOBAL_LIST_EMPTY(animated_spines_list)
+
 
 	//Mutant Human bits
-GLOBAL_LIST_EMPTY(tails_list_human)
-GLOBAL_LIST_EMPTY(animated_tails_list_human)
-GLOBAL_LIST_EMPTY(tails_roundstart_list_human)
+GLOBAL_LIST_EMPTY(tails_list_felinid)
+GLOBAL_LIST_EMPTY(tails_list_monkey)
 GLOBAL_LIST_EMPTY(ears_list)
 GLOBAL_LIST_EMPTY(wings_list)
 GLOBAL_LIST_EMPTY(wings_open_list)
 GLOBAL_LIST_EMPTY(moth_wings_list)
 GLOBAL_LIST_EMPTY(moth_wings_roundstart_list)//this lacks the blacklisted wings such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_antennae_list)
-GLOBAL_LIST_EMPTY(moth_antennae_roundstart_list)//this lacks the blacklisted antennae such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_markings_list)
-GLOBAL_LIST_EMPTY(moth_markings_roundstart_list)//this lacks the blacklisted markings such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_wingsopen_list)
-GLOBAL_LIST_EMPTY(caps_list)
 GLOBAL_LIST_EMPTY(ipc_screens_list)
 GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
@@ -215,22 +213,9 @@ GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
 	SEC_DEPT_ENGINEERING,
 	SEC_DEPT_MEDICAL,
 	SEC_DEPT_NONE,
-	SEC_DEPT_RANDOM,
 	SEC_DEPT_SCIENCE,
 	SEC_DEPT_SUPPLY
 )))
-
-
-GLOBAL_LIST_INIT(backbaglist, list(
-	DBACKPACK,
-	DDUFFELBAG,
-	DSATCHEL,
-	GBACKPACK,
-	GDUFFELBAG,
-	GSATCHEL,
-	LSATCHEL
-))
-
 
 GLOBAL_LIST_INIT(jumpsuitlist, list(
 	PREF_SKIRT,
@@ -368,6 +353,17 @@ GLOBAL_LIST_INIT(accents, list(
 	"Roadman" = ROADMAN_TALK_FILE,
 ))
 
+GLOBAL_LIST_INIT(accents_donator, list(
+	"Cajun" = CAJUN_TALK_FILE,
+	"Texan" = TEXAN_TALK_FILE,
+	"South Metro" = SOUTHMETRO_TALK_FILE,
+	"Big Apple" = BIGAPPLE_TALK_FILE,
+	"Russian" = RUSSIAN_TALK_FILE,
+	"Dutch" = DUTCH_TALK_FILE,
+	"Finnish" = FINNISH_TALK_FILE,
+	"Irish" = IRISH_TALK_FILE,
+))
+
 GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/storage/fancy/cigarettes/cigpack_midori,
@@ -379,7 +375,7 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes/cigars,
 	/obj/item/storage/fancy/cigarettes/cigars/cohiba,
 	/obj/item/storage/fancy/cigarettes/cigars/havana,
-	/obj/item/clothing/mask/vape
+	/obj/item/vape
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(

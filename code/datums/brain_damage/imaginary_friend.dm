@@ -61,11 +61,13 @@
 		amount_to_pick = 1,
 	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
-	if(candidate)
-		friend.key = candidate.key
-		friend_initialized = TRUE
-	else
+	if(isnull(candidate))
 		qdel(src)
+		return
+
+	friend.key = candidate.key
+	friend.setup_friend()
+	friend_initialized = TRUE
 
 /mob/camera/imaginary_friend
 	name = "imaginary friend"
@@ -91,7 +93,8 @@
 	. = ..()
 	if(!. || !client)
 		return FALSE
-	greet()
+	if(owner)
+		greet()
 	Show()
 
 /mob/camera/imaginary_friend/proc/greet()
@@ -109,8 +112,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	copy_languages(owner, LANGUAGE_FRIEND, spoken=FALSE) // they don't have to speak in a language of their owner knows - as their language is imaginary echoes from their owner.
 	grant_language(/datum/language/metalanguage) // they only speak in metalanguage
 	language_holder.selected_language = /datum/language/metalanguage
-
-	setup_friend()
 
 	var/static/list/grantable_actions = list(
 		/datum/action/innate/imaginary_join,
@@ -134,7 +135,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	gender = pick(MALE, FEMALE)
 	real_name = generate_random_name_species_based(gender, FALSE, /datum/species/human)
 	name = real_name
-	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
+	human_image = get_flat_human_icon(null, pick(SSjob.joinable_occupations))
+	Show()
 
 /mob/camera/imaginary_friend/proc/Show()
 	SIGNAL_HANDLER
@@ -169,12 +171,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 /mob/camera/imaginary_friend/proc/owner_speech(speaker, speech_args)
 	SIGNAL_HANDLER
-	var/list/listening = get_hearers_in_view(6, owner, SEE_INVISIBLE_MAXIMUM)
+	var/list/listening = get_hearers_in_view(6, owner)
 	if(!(src in listening))
 		to_chat(src, span_hear("You hear a distant voice in your head..."))
-		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[say_quote(speech_args[SPEECH_MESSAGE])]")]"))
+		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[generate_messagepart(speech_args[SPEECH_MESSAGE])]")]"))
 
-/mob/camera/imaginary_friend/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
+/mob/camera/imaginary_friend/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode, list/message_mods)
 	if (!message)
 		return
 
@@ -187,8 +189,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 	friend_talk(message)
 
-/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
-	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode))
+/mob/camera/imaginary_friend/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
+	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods))
 
 /mob/camera/imaginary_friend/proc/friend_talk(message)
 	message = treat_message_min(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
@@ -214,8 +216,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 			hearers += owner.client
 		new /datum/chatmessage(message, src, hearers, null)
 
-	var/rendered = span_gamesay("[span_name("[name]")] [span_message("[say_quote(message)]")]")
-	var/dead_rendered = span_gamesay("[span_name("[name] (Imaginary friend of [owner])")] [span_message("[say_quote(message)]")]")
+	var/rendered = span_gamesay("[span_name("[name]")] [span_message("[generate_messagepart(message)]")]")
+	var/dead_rendered = span_gamesay("[span_name("[name] (Imaginary friend of [owner])")] [span_message("[generate_messagepart(message)]")]")
 
 	to_chat(owner, "[rendered]")
 	to_chat(src, "[rendered]")
@@ -253,7 +255,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	var/turf/tile = get_turf(A)
 	var/image/arrow = image(icon = 'icons/hud/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
 	arrow.plane = POINT_PLANE
-	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
+	animate(arrow, pixel_x = (tile.x - our_tile.x) * ICON_SIZE_X + A.pixel_x, pixel_y = (tile.y - our_tile.y) * ICON_SIZE_Y + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
 	client?.images += arrow
 	addtimer(CALLBACK(src, PROC_REF(remove_arrow), arrow, client, owner?.client), 2.5 SECONDS)

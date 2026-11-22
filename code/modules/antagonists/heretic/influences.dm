@@ -22,7 +22,7 @@ GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 	/// List of minds with the ability to see influences
 	var/list/datum/mind/tracked_heretics = list()
 
-/datum/reality_smash_tracker/Destroy(force, ...)
+/datum/reality_smash_tracker/Destroy(force)
 	if(GLOB.reality_smash_track == src)
 		stack_trace("[type] was deleted. Heretics may no longer access any influences. Fix it, or call coder support.")
 		message_admins("The [type] was deleted. Heretics may no longer access any influences. Fix it, or call coder support.")
@@ -77,6 +77,9 @@ GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 	var/location_sanity = 0
 	while((length(smashes) + num_drained) < how_many_can_we_make && location_sanity < 100)
 		var/turf/chosen_location = get_safe_random_station_turfs()
+		if(!chosen_location)
+			location_sanity++
+			continue
 
 		// We don't want them close to each other - at least 1 tile of seperation
 		var/list/nearby_things = range(1, chosen_location)
@@ -242,7 +245,7 @@ GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 
 	return
 
-/obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, params)
+/obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

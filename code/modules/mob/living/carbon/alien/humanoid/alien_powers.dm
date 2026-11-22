@@ -188,6 +188,7 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 /datum/action/cooldown/alien/acid
+	abstract_type = /datum/action/cooldown/alien/acid
 	click_to_activate = TRUE
 	unset_after_click = FALSE
 
@@ -245,7 +246,8 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 
 /datum/action/cooldown/alien/acid/neurotoxin/is_available(feedback = FALSE)
-	if(owner.is_muzzled())
+	var/mob/living/carbon/as_carbon = owner
+	if(istype(as_carbon) && as_carbon.is_mouth_covered(ITEM_SLOT_MASK))
 		return FALSE
 	if(!isturf(owner.loc))
 		return FALSE
@@ -280,16 +282,43 @@ Doesn't work on other aliens/AI.*/
 		unset_click_ability(clicker, refund_cooldown = FALSE)
 		return FALSE
 
+	// We do this in InterceptClickOn() instead of Activate()
+	// because we use the click parameters for aiming the projectile
+	// (or something like that)
+	var/turf/user_turf = clicker.loc
+	// Get the actual target's location for recoil direction (works in zero‑g)
+	var/atom/real_target = target
+	var/turf/target_turf = get_turf(real_target)
+	if(!target_turf)
+		target_turf = get_step(user_turf, clicker.dir) // fallback
+
 	var/modifiers = params2list(params)
 	clicker.visible_message(
-		span_danger("[caller] spits neurotoxin!"),
+		span_danger("[clicker] spits neurotoxin!"),
 		span_alertalien("You spit neurotoxin."),
 	)
 	var/obj/projectile/neurotoxin/neurotoxin = new /obj/projectile/neurotoxin(clicker.loc)
 	neurotoxin.preparePixelProjectile(target, clicker, modifiers)
 	neurotoxin.firer = clicker
 	neurotoxin.fire()
-	clicker.newtonian_move(get_dir(target, clicker))
+
+	// FIX: Recoil only in zero‑gravity – use .has_gravity() on the atoms
+	var/shooter_has_gravity = clicker.has_gravity()
+	var/target_has_gravity = target_turf.has_gravity()
+	if(!shooter_has_gravity || !target_has_gravity)
+		// Zero‑gravity: push the shooter away from the target
+		var/recoil_dir = get_dir(target_turf, user_turf) // opposite direction of fire
+		if(recoil_dir && recoil_dir != 0)
+			var/turf/push_turf = get_step(user_turf, recoil_dir)
+			if(push_turf)
+				clicker.throw_at(push_turf, 2, 1, spin = FALSE, diagonals_first = TRUE)
+			else
+				step(clicker, recoil_dir)
+		else
+			// Fallback to original newtonian_move (for compatibility)
+			clicker.newtonian_move(get_dir(target_turf, user_turf))
+	// else: both have gravity → no recoil
+
 	return TRUE
 
 // Has to return TRUE, otherwise is skipped.

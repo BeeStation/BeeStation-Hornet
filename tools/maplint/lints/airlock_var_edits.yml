@@ -1,0 +1,8 @@
+help: "You are manually var-editing this airlock's access. Use the access helpers."
+/obj/machinery/door/airlock:
+  banned_variables:
+    req_access:
+    req_access_txt:
+    req_one_access:
+    req_one_access_txt:
+

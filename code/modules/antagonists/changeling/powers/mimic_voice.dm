@@ -8,26 +8,23 @@
 	req_human = 1
 
 // Fake Voice
-/datum/action/changeling/mimicvoice/sting_action(mob/living/user)
-	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(changeling.mimicing)
-		changeling.mimicing = ""
+/datum/action/changeling/mimicvoice/sting_action(mob/living/carbon/human/user)
+	if(user.override_voice)
+		user.override_voice = null
 		to_chat(user, span_notice("We return our vocal glands to their original position."))
 		return
 
-	var/mimic_voice = sanitize_name(stripped_input(user, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN))
+	var/mimic_voice = sanitize_name(stripped_input(user, "Enter a name to mimic.", "Mimic Voice", max_length = MAX_NAME_LEN))
 	if(!mimic_voice)
 		return
 	..()
-	changeling.mimicing = mimic_voice
+	user.override_voice = mimic_voice
 	to_chat(user, span_notice("We shape our glands to take the voice of <b>[mimic_voice]</b>, this will slow down regenerating chemicals while active."))
 	to_chat(user, span_notice("Use this power again to return to our original voice and return chemical production to normal levels."))
 	return TRUE
 
-/datum/action/changeling/mimicvoice/Remove(mob/user)
-	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(changeling?.mimicing)
-		changeling.chem_recharge_slowdown = max(0, changeling.chem_recharge_slowdown - 0.25)
-		changeling.mimicing = ""
+/datum/action/changeling/mimicvoice/Remove(mob/living/carbon/human/user)
+	if(user.override_voice)
+		user.override_voice = null
 		to_chat(user, span_notice("Our vocal glands return to their original position."))
-	. = ..()
+	return ..()

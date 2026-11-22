@@ -56,7 +56,7 @@ type NtosRadarData = {
 };
 
 export const NtosRadar = () => {
-  const { act, data } = useBackend<NtosRadarData>();
+  const { data } = useBackend<NtosRadarData>();
   const { full_capability } = data;
   return (
     <NtosWindow
@@ -75,12 +75,23 @@ export const NtosRadar = () => {
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 export const NtosRadarContentSmall = (props) => {
-  const { act, data } = useBackend<NtosRadarData>();
+  const { data } = useBackend<NtosRadarData>();
   const { selected, target } = data;
   const { sig_err } = props;
   return (
-    <NtosWindow.Content scrollable>
-      <NtosRadarMap displayError={selected} sig_err={sig_err} target={target} />
+    <NtosWindow.Content>
+      <Flex direction="column" height="100%">
+        <Flex.Item shrink={0}>
+          <NtosRadarMapSmall
+            selected={!!selected}
+            sig_err={sig_err}
+            target={target}
+          />
+        </Flex.Item>
+        <Flex.Item grow overflowY="auto">
+          <NtosRadarTargets />
+        </Flex.Item>
+      </Flex>
     </NtosWindow.Content>
   );
 };
@@ -91,9 +102,7 @@ export const NtosRadarMapSmall = (props) => {
     <Section>
       {Object.keys(target).length === 0 ? (
         selected ? (
-          <NoticeBox width={42} fontSize="30px" textAlign="center">
-            {sig_err}
-          </NoticeBox>
+          <NoticeBox>{sig_err}</NoticeBox>
         ) : (
           <Box>No Target Selected.</Box>
         )
@@ -130,47 +139,53 @@ type NtosRadarContentProps = {
   sig_err: string;
 };
 
-export const NtosRadarContent = (props: NtosRadarContentProps) => {
+const NtosRadarTargets = () => {
   const { act, data } = useBackend<NtosRadarData>();
-  const { selected, objects = [], target, scanning } = data;
+  const { selected, objects = [], scanning } = data;
+  return (
+    <Section>
+      <Button
+        icon="redo-alt"
+        content={scanning ? 'Scanning...' : 'Scan'}
+        color="blue"
+        disabled={scanning}
+        onClick={() => act('scan')}
+      />
+      {!objects.length && !scanning && <div>No trackable signals found</div>}
+      {!scanning &&
+        objects.map((object) => (
+          <div
+            key={object.ref}
+            title={object.name}
+            className={classes([
+              'Button',
+              'Button--fluid',
+              'Button--color--transparent',
+              'Button--ellipsis',
+              object.ref === selected && 'Button--selected',
+            ])}
+            onClick={() => {
+              act('selecttarget', {
+                ref: object.ref,
+              });
+            }}
+          >
+            {object.name}
+          </div>
+        ))}
+    </Section>
+  );
+};
+
+export const NtosRadarContent = (props: NtosRadarContentProps) => {
+  const { data } = useBackend<NtosRadarData>();
+  const { selected, target } = data;
   const { sig_err } = props;
   return (
     <Flex direction={'row'} hight="100%">
       <Flex.Item position="relative" width={20.5} hight="100%">
         <NtosWindow.Content scrollable>
-          <Section>
-            <Button
-              icon="redo-alt"
-              content={scanning ? 'Scanning...' : 'Scan'}
-              color="blue"
-              disabled={scanning}
-              onClick={() => act('scan')}
-            />
-            {!objects.length && !scanning && (
-              <div>No trackable signals found</div>
-            )}
-            {!scanning &&
-              objects.map((object) => (
-                <div
-                  key={object.ref}
-                  title={object.name}
-                  className={classes([
-                    'Button',
-                    'Button--fluid',
-                    'Button--color--transparent',
-                    'Button--ellipsis',
-                    object.ref === selected && 'Button--selected',
-                  ])}
-                  onClick={() => {
-                    act('selecttarget', {
-                      ref: object.ref,
-                    });
-                  }}
-                >
-                  {object.name}
-                </div>
-              ))}
-          </Section>
+          <NtosRadarTargets />
         </NtosWindow.Content>
       </Flex.Item>
       <Flex.Item

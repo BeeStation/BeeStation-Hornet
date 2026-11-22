@@ -4,7 +4,7 @@
 	icon_state = "mjollnir0"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 30
@@ -22,10 +22,10 @@
 	icon_state = "mjollnir0"
 	return ..()
 
-/obj/item/mjolnir/Moved(atom/OldLoc, Dir)
+/obj/item/mjolnir/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	//If it was thrown out of an anchored mjolnir, destroy that
-	if (istype(OldLoc, /obj/structure/anchored_mjolnir))
-		var/obj/structure/anchored_mjolnir/old_mjolnir = OldLoc
+	if (istype(old_loc, /obj/structure/anchored_mjolnir))
+		var/obj/structure/anchored_mjolnir/old_mjolnir = old_loc
 		old_mjolnir.contained = null
 		qdel(old_mjolnir)
 	. = ..()
@@ -75,7 +75,7 @@
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon = 'icons/obj/wizard_48x32.dmi'
 	icon_state = "anchored_mjolnir"
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	anchored = TRUE
 	move_resist = INFINITY
 	density = TRUE

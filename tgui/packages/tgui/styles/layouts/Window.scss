@@ -24,16 +24,6 @@ $title-bar-height: 32px !default;
   );
 }
 
-.Window__titleBar {
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: $title-bar-height;
-  height: base.rem($title-bar-height);
-}
-
 // Everything after the title bar
 .Window__rest {
   position: fixed;

@@ -39,7 +39,7 @@
 		unbuckle_mob(H)
 	return ..()
 
-/obj/vehicle/ridden/wheelchair/Moved()
+/obj/vehicle/ridden/wheelchair/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	cut_overlays()
 	playsound(src, 'sound/effects/roll.ogg', 75, 1)
@@ -67,9 +67,6 @@
 		new /obj/item/stack/sheet/iron(drop_location(), 4)
 		qdel(src)
 	return TRUE
-
-/obj/vehicle/ridden/wheelchair/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/vehicle/ridden/wheelchair/proc/handle_rotation(direction)
 	if(has_buckled_mobs())

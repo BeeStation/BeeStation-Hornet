@@ -25,7 +25,7 @@
 	drag_slowdown = 0
 	imacrate = TRUE
 	breakout_time = 20 SECONDS
-	custom_price = 500
+	custom_price = 200
 	var/mob/living/resident //The vampire owner of this crate (or coffin)
 	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20
@@ -83,7 +83,6 @@
 	is_animating_door = FALSE
 	vis_contents -= door_obj
 	update_icon()
-	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/crate/get_door_transform(crateanim_1, crateanim_2)
 	var/matrix/M = matrix()
@@ -228,11 +227,11 @@
 	. = ..()
 	new /obj/item/reagent_containers/blood(src)
 	new /obj/item/reagent_containers/blood(src)
-	new /obj/item/reagent_containers/blood/AMinus(src)
-	new /obj/item/reagent_containers/blood/BMinus(src)
-	new /obj/item/reagent_containers/blood/BPlus(src)
-	new /obj/item/reagent_containers/blood/OMinus(src)
-	new /obj/item/reagent_containers/blood/OPlus(src)
+	new /obj/item/reagent_containers/blood/a_minus(src)
+	new /obj/item/reagent_containers/blood/b_minus(src)
+	new /obj/item/reagent_containers/blood/b_plus(src)
+	new /obj/item/reagent_containers/blood/o_minus(src)
+	new /obj/item/reagent_containers/blood/o_plus(src)
 	new /obj/item/reagent_containers/blood/lizard(src)
 	new /obj/item/reagent_containers/blood/synthetic(src)
 	new /obj/item/reagent_containers/blood/ethereal(src)
@@ -290,22 +289,6 @@
 	desc = "A science crate."
 	icon_state = "sci_crate"
 
-/obj/structure/closet/crate/science/debug
-	name = "science crate"
-	desc = "debug cyborg modules."
-	icon_state = "sci_crate"
-
-/obj/structure/closet/crate/science/debug/obj/structure/closet/crate/science/debug/PopulateContents()
-	..()
-	new /obj/item/robot_model/standard(src)
-	new /obj/item/robot_model/peacekeeper(src)
-	new /obj/item/robot_model/miner(src)
-	new /obj/item/robot_model/medical(src)
-	new /obj/item/robot_model/janitor(src)
-	new /obj/item/robot_model/engineering(src)
-	new /obj/item/robot_model/clown(src)
-	new /obj/item/robot_model/service(src)
-
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
 	icon_state = "engi_e_crate"
@@ -318,17 +301,23 @@
 	new /obj/item/paper/guides/jobs/engi/solars(src)
 	new /obj/item/electronics/tracker(src)
 
+/obj/structure/closet/crate/mod
+	name = "\improper MOD crate"
+	icon_state = "sci_crate"
+
+/obj/structure/closet/crate/mod/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/mod/core/standard(src)
+	for(var/i in 1 to 2)
+		new /obj/item/clothing/neck/link_scryer/loaded(src)
+
 /obj/structure/closet/crate/goldcrate
 	name = "gold crate"
 
 /obj/structure/closet/crate/goldcrate/PopulateContents()
-	..()
 	new /obj/item/storage/belt/champion(src)
 
 /obj/structure/closet/crate/goldcrate/populate_contents_immediate()
-	. = ..()
-
-	// /datum/objective_item/stack/gold
 	for(var/i in 1 to 3)
 		new /obj/item/stack/sheet/mineral/gold(src, 1, FALSE)
 

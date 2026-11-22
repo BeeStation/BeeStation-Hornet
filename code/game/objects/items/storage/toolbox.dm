@@ -6,11 +6,17 @@
 	inhand_icon_state = "toolbox_default"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
-	flags_1 = CONDUCT_1
-	force = 12
-	throwforce = 12
+	obj_flags = CONDUCTS_ELECTRICITY
+
+	force = 6
+	throwforce = 10
 	throw_speed = 2
 	throw_range = 7
+	stamina_damage = 47
+	stamina_cost = 20
+	stamina_critical_chance = 10
+
+
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	attack_verb_continuous = list("robusts")
@@ -96,7 +102,7 @@
 	icon_state = "toolbox_blue_old"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	desc = "It may be rusted shut, but it's still an important keepsake."
 	force = 5
 	throw_speed = 2
@@ -146,17 +152,16 @@
 	material_flags = NONE
 
 /obj/item/storage/toolbox/electrical/PopulateContents()
-	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
 	new /obj/item/screwdriver(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
-		new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+		new /obj/item/stack/cable_coil(src, MAXCOIL)
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
@@ -187,12 +192,11 @@
 	material_flags = NONE
 
 /obj/item/storage/toolbox/drone/PopulateContents()
-	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 
@@ -242,14 +246,14 @@
 /obj/item/storage/toolbox/artistic/PopulateContents()
 	new /obj/item/storage/crayons(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil/red(src)
-	new /obj/item/stack/cable_coil/yellow(src)
-	new /obj/item/stack/cable_coil/blue(src)
-	new /obj/item/stack/cable_coil/green(src)
-	new /obj/item/stack/cable_coil/pink(src)
-	new /obj/item/stack/cable_coil/orange(src)
-	new /obj/item/stack/cable_coil/cyan(src)
-	new /obj/item/stack/cable_coil/white(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
 
 /obj/item/storage/toolbox/ammo
 	name = "ammo box (7.62mm)"
@@ -286,8 +290,10 @@
 	new /obj/item/ammo_box/c38/box(src)
 
 //floorbot assembly
-/obj/item/storage/toolbox/attackby(obj/item/stack/tile/iron/T, mob/user, params)
-	var/list/allowed_toolbox = list(
+/obj/item/storage/toolbox/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/stack/tile/iron))
+		return ..()
+	var/static/list/allowed_toolbox = list(
 		/obj/item/storage/toolbox/emergency, //which toolboxes can be made into floorbots
 		/obj/item/storage/toolbox/electrical,
 		/obj/item/storage/toolbox/mechanical,
@@ -295,14 +301,12 @@
 		/obj/item/storage/toolbox/syndicate,
 	)
 
-	if(!istype(T, /obj/item/stack/tile/iron))
-		..()
-		return
 	if(!is_type_in_list(src, allowed_toolbox) && (type != /obj/item/storage/toolbox))
-		return
+		return ITEM_INTERACT_BLOCKING
 	if(contents.len >= 1)
 		to_chat(user, span_warning("They won't fit in, as there is already stuff inside!"))
-		return
+		return ITEM_INTERACT_BLOCKING
+	var/obj/item/stack/tile/iron/T = tool
 	if(T.use(10))
 		var/obj/item/bot_assembly/floorbot/B = new
 		B.toolbox = type
@@ -321,6 +325,6 @@
 		B.update_icon()
 		to_chat(user, span_notice("You add the tiles into the empty [name]. They protrude from the top."))
 		qdel(src)
-	else
-		to_chat(user, span_warning("You need 10 floor tiles to start building a floorbot!"))
-		return
+		return ITEM_INTERACT_SUCCESS
+	to_chat(user, span_warning("You need 10 floor tiles to start building a floorbot!"))
+	return ITEM_INTERACT_BLOCKING

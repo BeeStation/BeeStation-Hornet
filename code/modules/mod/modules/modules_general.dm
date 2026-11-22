@@ -121,79 +121,62 @@
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
 	required_slots = list(ITEM_SLOT_BACK)
-	/// Do we stop the wearer from gliding in space.
-	var/stabilizers = FALSE
 	/// Do we give the wearer a speed buff.
 	var/full_speed = FALSE
-	/// The ion trail particles left after the jetpack.
-	var/datum/effect_system/trail_follow/ion/grav_allowed/ion_trail
+	var/stabilize = FALSE
+	var/thrust_callback
 
 /obj/item/mod/module/jetpack/Initialize(mapload)
 	. = ..()
-	ion_trail = new()
-	ion_trail.auto_process = FALSE
-	ion_trail.set_up(src)
+	thrust_callback = CALLBACK(src, PROC_REF(allow_thrust))
+	configure_jetpack(stabilize)
 
 /obj/item/mod/module/jetpack/Destroy()
-	QDEL_NULL(ion_trail)
+	thrust_callback = null
 	return ..()
 
+/**
+ * configures/re-configures the jetpack component
+ *
+ * Arguments
+ * stabilize - Should this jetpack be stabalized
+ */
+/obj/item/mod/module/jetpack/proc/configure_jetpack(stabilize)
+	src.stabilize = stabilize
+
+	AddComponent( \
+		/datum/component/jetpack, \
+		src.stabilize, \
+		COMSIG_MODULE_TRIGGERED, \
+		COMSIG_MODULE_DEACTIVATED, \
+		MOD_ABORT_USE, \
+		thrust_callback, \
+		thrust_callback, \
+		/datum/effect_system/trail_follow/ion/grav_allowed, \
+	)
+
 /obj/item/mod/module/jetpack/on_activation()
-	ion_trail.start()
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED,  PROC_REF(move_react))
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_PRE_MOVE,  PROC_REF(pre_move_react))
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_SPACEMOVE,  PROC_REF(spacemove_react))
 	if(full_speed)
 		mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/mod/module/jetpack/on_deactivation(display_message = TRUE, deleting = FALSE)
-	ion_trail.stop()
-	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_PRE_MOVE)
-	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_SPACEMOVE)
 	if(full_speed)
 		mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/mod/module/jetpack/get_configuration()
 	. = ..()
-	.["stabilizers"] = add_ui_configuration("Stabilizers", "bool", stabilizers)
+	.["stabilizers"] = add_ui_configuration("Stabilizers", "bool", stabilize)
 
 /obj/item/mod/module/jetpack/configure_edit(key, value)
 	switch(key)
 		if("stabilizers")
-			stabilizers = text2num(value)
+			configure_jetpack(text2num(value))
 
-/obj/item/mod/module/jetpack/proc/move_react(mob/user)
-	SIGNAL_HANDLER
-
-	if(!active)//If jet dont work, it dont work
-		return
-	if(!isturf(mod.wearer.loc))//You can't use jet in nowhere or from mecha/closet
-		return
-	if(!(mod.wearer.movement_type & FLOATING) || mod.wearer.buckled)//You don't want use jet in gravity or while buckled.
-		return
-	if(mod.wearer.pulledby)//You don't must use jet if someone pull you
-		return
-	if(mod.wearer.throwing)//You don't must use jet if you thrown
-		return
-	if(user.client && length(user.client.keys_held))//You use jet when press keys. yes.
-		allow_thrust()
-
-/obj/item/mod/module/jetpack/proc/pre_move_react(mob/user)
-	SIGNAL_HANDLER
-
-	ion_trail.oldposition = get_turf(src)
-
-/obj/item/mod/module/jetpack/proc/spacemove_react(mob/user, movement_dir)
-	SIGNAL_HANDLER
-
-	if(active && (stabilizers || movement_dir))
-		return COMSIG_MOVABLE_STOP_SPACEMOVE
-
-/obj/item/mod/module/jetpack/proc/allow_thrust()
+/obj/item/mod/module/jetpack/proc/allow_thrust(use_fuel = TRUE)
+	if(!use_fuel)
+		return check_power(use_power_cost)
 	if(!drain_power(use_power_cost))
-		return
-	ion_trail.generate_effect()
+		return FALSE
 	return TRUE
 
 /obj/item/mod/module/jetpack/advanced
@@ -566,7 +549,7 @@
 	balloon_alert(user, "dna locked!")
 	return FALSE
 
-/obj/item/mod/module/dna_lock/proc/on_emp(datum/source, severity)
+/obj/item/mod/module/dna_lock/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	dna = null
@@ -629,8 +612,6 @@
 	required_slots = list(ITEM_SLOT_HEAD)
 	/*Intentionally left inheriting 0 complexity and removable = TRUE;
 	even though it comes inbuilt into the Magnate/Corporate MODS and spawns in maints, I like the idea of stealing them*/
-	///Currently "stored" hat. No armor or function will be inherited, ONLY the icon.
-	var/obj/item/clothing/head/attached_hat
 	/// Original cover flags for the MOD helmet, before a hat is placed
 	var/former_flags
 	var/former_visor_flags
@@ -639,72 +620,17 @@
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(!istype(helmet))
 		return
-	RegisterSignal(helmet, COMSIG_ATOM_EXAMINE, PROC_REF(add_examine))
-	RegisterSignal(helmet, COMSIG_ATOM_ATTACKBY,  PROC_REF(place_hat))
-	RegisterSignal(helmet, COMSIG_ATOM_ATTACK_HAND_SECONDARY,  PROC_REF(remove_hat))
+	// Override pre-existing component
+	helmet.AddComponent(/datum/component/hat_stabilizer, loose_hat = FALSE)
 
 /obj/item/mod/module/hat_stabilizer/on_part_deactivation(deleting = FALSE)
 	if(deleting)
 		return
-	if(attached_hat)	//knock off the helmet if its on their head. Or, technically, auto-rightclick it for them; that way it saves us code, AND gives them the bubble
-		remove_hat(src, mod.wearer)
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(!istype(helmet))
 		return
-	UnregisterSignal(helmet, COMSIG_ATOM_EXAMINE)
-	UnregisterSignal(helmet, COMSIG_ATOM_ATTACKBY)
-	UnregisterSignal(helmet, COMSIG_ATOM_ATTACK_HAND_SECONDARY)
-
-/obj/item/mod/module/hat_stabilizer/proc/add_examine(datum/source, mob/user, list/base_examine)
-	SIGNAL_HANDLER
-	if(attached_hat)
-		base_examine += span_notice("There's \a [attached_hat] placed on the helmet. Right-click to remove it.")
-	else
-		base_examine += span_notice("There's nothing placed on the helmet. Yet.")
-
-/obj/item/mod/module/hat_stabilizer/proc/place_hat(datum/source, obj/item/hitting_item, mob/user)
-	SIGNAL_HANDLER
-	if(!istype(hitting_item, /obj/item/clothing/head))
-		return
-	var/obj/item/clothing/hat = hitting_item
-	if(!mod.active)
-		balloon_alert(user, "suit must be active!")
-		return
-	if(attached_hat)
-		balloon_alert(user, "hat already attached!")
-		return
-	if(mod.wearer.transferItemToLoc(hitting_item, src, force = FALSE, silent = TRUE))
-		attached_hat = hat
-		var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
-		if(istype(helmet))
-			former_flags = helmet.flags_cover
-			former_visor_flags = helmet.visor_flags_cover
-			helmet.flags_cover |= attached_hat.flags_cover
-			helmet.visor_flags_cover |= attached_hat.visor_flags_cover
-		balloon_alert(user, "hat attached, right-click to remove")
-		mod.wearer.update_clothing(mod.slot_flags)
-
-/obj/item/mod/module/hat_stabilizer/generate_worn_overlay()
-	. = ..()
-	if(attached_hat)
-		. += attached_hat.build_worn_icon(default_layer = ABOVE_BODY_FRONT_LAYER-0.1, default_icon_file = 'icons/mob/clothing/head/default.dmi')
-
-/obj/item/mod/module/hat_stabilizer/proc/remove_hat(datum/source, mob/user)
-	SIGNAL_HANDLER
-	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-	if(!attached_hat)
-		return
-	attached_hat.forceMove(drop_location())
-	if(user.put_in_active_hand(attached_hat))
-		balloon_alert(user, "hat removed")
-	else
-		balloon_alert_to_viewers("the hat falls to the floor!")
-	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
-	if(istype(helmet))
-		helmet.flags_cover = former_flags
-		helmet.visor_flags_cover = former_visor_flags
-	attached_hat = null
-	mod.wearer.update_clothing(mod.slot_flags)
+	// Override again!
+	helmet.AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
 
 /obj/item/mod/module/hat_stabilizer/syndicate
 	name = "\improper MOD elite hat stabilizer module"
@@ -714,3 +640,63 @@
 		Syndicate Operatives and Agents alike, enabling them to continue to style on the opposition even while in their MODsuit."
 	complexity = 0
 	removable = FALSE
+
+///Hardlight Projector - Shows the wearer's ears, antennae, tail and wings through sealed parts as hardlight.
+/obj/item/mod/module/hardlight_projector
+	name = "\improper MOD hardlight projector module"
+	desc = "A web of emitters along the suit's seals, projecting a hardlight shell around any tail or wings poking out of the suit."
+	icon_state = "patient_transport"
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/hardlight_projector)
+	/// Limbs we project onto
+	var/static/list/zone_to_slot = list(
+		BODY_ZONE_HEAD = ITEM_SLOT_HEAD,
+		BODY_ZONE_CHEST = ITEM_SLOT_OCLOTHING,
+	)
+	/// Organ slots the wearer can show or hide while projecting
+	var/static/list/toggleable_slots = list(ORGAN_SLOT_EARS, ORGAN_SLOT_EXTERNAL_ANTENNAE)
+
+/obj/item/mod/module/hardlight_projector/on_part_activation()
+	RegisterSignal(mod, COMSIG_MOD_PART_SEALED, PROC_REF(update_projections))
+	RegisterSignal(mod.wearer, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(update_projections))
+	RegisterSignal(mod.wearer, COMSIG_CARBON_POST_REMOVE_LIMB, PROC_REF(on_limb_removed))
+	update_projections()
+
+/obj/item/mod/module/hardlight_projector/on_part_deactivation(deleting = FALSE)
+	UnregisterSignal(mod, COMSIG_MOD_PART_SEALED)
+	UnregisterSignal(mod.wearer, list(COMSIG_CARBON_POST_ATTACH_LIMB, COMSIG_CARBON_POST_REMOVE_LIMB))
+	for(var/zone in zone_to_slot)
+		mod.wearer.get_bodypart(zone)?.remove_bodypart_texture(mod.theme.hardlight_texture, update = FALSE)
+	mod.wearer.update_body_parts()
+
+/obj/item/mod/module/hardlight_projector/get_configuration(mob/user)
+	. = ..()
+	for(var/slot in toggleable_slots)
+		var/obj/item/organ/organ = mod.wearer?.get_organ_slot(slot)
+		if(organ?.bodypart_overlay?.overlay_flags & LIMB_OVERLAY_HARDLIGHT)
+			.[slot] = add_ui_configuration(capitalize(organ.name), "bool", organ.bodypart_overlay.hardlight_enabled)
+
+/obj/item/mod/module/hardlight_projector/configure_edit(key, value)
+	var/obj/item/organ/organ = mod.wearer?.get_organ_slot(key)
+	if(!(key in toggleable_slots) || !organ?.bodypart_overlay)
+		return
+	organ.bodypart_overlay.hardlight_enabled = value
+	mod.wearer.update_body_parts()
+
+/// Projects onto each limb whose suit part is sealed
+/obj/item/mod/module/hardlight_projector/proc/update_projections()
+	SIGNAL_HANDLER
+
+	for(var/zone, slot in zone_to_slot)
+		var/datum/mod_part/part = mod.get_part_datum_from_slot(slot)
+		var/obj/item/bodypart/limb = mod.wearer.get_bodypart(zone)
+		if(part?.sealed)
+			limb?.add_bodypart_texture(mod.theme.hardlight_texture, update = FALSE)
+		else
+			limb?.remove_bodypart_texture(mod.theme.hardlight_texture, update = FALSE)
+	mod.wearer.update_body_parts()
+
+/obj/item/mod/module/hardlight_projector/proc/on_limb_removed(mob/living/carbon/source, obj/item/bodypart/limb)
+	SIGNAL_HANDLER
+
+	limb.remove_bodypart_texture(mod.theme.hardlight_texture)

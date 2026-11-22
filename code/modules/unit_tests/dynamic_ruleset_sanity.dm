@@ -3,10 +3,7 @@
 
 /datum/unit_test/dynamic_roundstart_ruleset_sanity/Run()
 	// Gamemode
-	for(var/datum/dynamic_ruleset/gamemode/ruleset as anything in subtypesof(/datum/dynamic_ruleset/gamemode))
-		if(ruleset == initial(ruleset.abstract_type))
-			continue
-
+	for(var/datum/dynamic_ruleset/gamemode/ruleset as anything in valid_subtypesof(/datum/dynamic_ruleset/gamemode))
 		// Name
 		if(!initial(ruleset.name))
 			TEST_FAIL("[ruleset] has no name!")
@@ -23,10 +20,7 @@
 			TEST_FAIL("[ruleset] has no role preference!")
 
 	// Roundstart
-	for(var/datum/dynamic_ruleset/supplementary/ruleset as anything in subtypesof(/datum/dynamic_ruleset/supplementary))
-		if(ruleset == initial(ruleset.abstract_type))
-			continue
-
+	for(var/datum/dynamic_ruleset/supplementary/ruleset as anything in valid_subtypesof(/datum/dynamic_ruleset/supplementary))
 		// Name
 		if(!initial(ruleset.name))
 			TEST_FAIL("[ruleset] has no name!")
@@ -43,10 +37,7 @@
 			TEST_FAIL("[ruleset] has no role preference!")
 
 	// Midround
-	for(var/datum/dynamic_ruleset/midround/ruleset as anything in subtypesof(/datum/dynamic_ruleset/midround))
-		if(ruleset == initial(ruleset.abstract_type))
-			continue
-
+	for(var/datum/dynamic_ruleset/midround/ruleset as anything in valid_subtypesof(/datum/dynamic_ruleset/midround))
 		// Name
 		if(!initial(ruleset.name))
 			TEST_FAIL("[ruleset] has no name!")

@@ -4,7 +4,7 @@
 	var/mob/living/current = summoner?.current
 	if(!QDELETED(current) && current.stat != DEAD)
 		var/summoner_max_health = current.maxHealth
-		var/health_amount = min(current.health, summoner_max_health - current.getStaminaLoss())
+		var/health_amount = min(current.health, summoner_max_health * current.stamina.current / current.stamina.maximum)
 		if(health_amount >= summoner_max_health)
 			hud_used.healths.icon_state = "health0"
 		else if(health_amount >= (summoner_max_health * 0.8))
@@ -23,21 +23,17 @@
 		hud_used.healths.icon_state = "health7"
 
 /mob/living/simple_animal/hostile/holoparasite/med_hud_set_health()
-	var/image/holder = hud_list[HEALTH_HUD]
 	if(summoner?.current)
-		holder.icon_state = "hud[RoundHealth(summoner.current)]"
-	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_HEALTH, holder)
+		set_hud_image_state(HEALTH_HUD, "hud[RoundHealth(summoner.current)]")
+	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_HEALTH, HEALTH_HUD)
 
 /mob/living/simple_animal/hostile/holoparasite/med_hud_set_status()
-	var/image/holder = hud_list[STATUS_HUD]
 	if(summoner?.current)
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
 		if(summoner.current.stat == DEAD)
-			holder.icon_state = "huddead"
+			set_hud_image_state(STATUS_HUD, "huddead")
 		else
-			holder.icon_state = "hudhealthy"
-	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_STATUS, holder)
+			set_hud_image_state(STATUS_HUD, "hudhealthy")
+	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_STATUS, STATUS_HUD)
 
 /mob/living/simple_animal/hostile/holoparasite/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()

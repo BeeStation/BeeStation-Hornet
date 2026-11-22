@@ -1,0 +1,60 @@
+{
+	"words": {
+		"water": "wooder",
+		"hello": "yo",
+		"hi": "yo",
+		"goodbye": "aight later",
+		"yes": "yeah",
+		"no": "nah",
+		"okay": "aight",
+		"ok": "aight",
+		"thing": "jawn",
+		"object": "jawn",
+		"you guys": ["yinz", "youse"],
+		"you all": ["yinz", "youse"],
+		"friend": "hon",
+		"bro": "hon",
+		"dude": "jawn",
+		"jerk": "jagoff",
+		"idiot": "jagoff",
+		"nosy": "nebby",
+		"sandwich": "hoagie",
+		"sub": "hoagie",
+		"wash": "warsh",
+		"downtown": "dahntahn",
+		"crazy": "wired",
+		"rubber band": "gumband",
+		"clean up": "redd up",
+		"thanks": "thanks hon",
+		"thank you": "thanks hon",
+		"very": "real",
+		"really": "real",
+		"security": ["five-oh", "the boys"],
+		"sec": "five-oh",
+		"shitsec": "five-oh",
+		"shitcurity": "five-oh",
+		"secoff": "cop",
+		"officer": "cop",
+		"traitor": "snitch",
+		"changeling": "snake",
+		"brig": "the joint",
+		"prison": "the joint",
+		"perma": "the joint",
+		"gun": "jawn",
+		"credit": "bread",
+		"money": "bread",
+		"holochip": "bread",
+		"dollar": "bread",
+		"id": "papers"
+	},
+	"end": {
+		"ing": "in'"
+	},
+	"syllables": {
+		"oun": "ahn",
+		"out": "aht"
+	},
+	"appends": [
+		"n'at."
+	]
+}

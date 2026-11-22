@@ -25,7 +25,7 @@
 	if(!timing_id)
 		to_chat(user,span_notice("You flip the [src]"))
 		start()
-		flick("hourglass_flip",src)
+		z_flick("hourglass_flip",src)
 	else
 		to_chat(user,span_notice("You stop the [src].")) //Sand magically flows back because that's more convinient to use.
 		stop()

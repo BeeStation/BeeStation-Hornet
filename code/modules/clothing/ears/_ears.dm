@@ -1,6 +1,7 @@
 
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
+	abstract_type = /obj/item/clothing/ears
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
@@ -18,6 +19,11 @@
 	resistance_flags = FLAMMABLE
 	custom_price = 40
 	bang_protect = 2
+
+/obj/item/clothing/ears/earmuffs/debug
+	name = "debug earmuffs"
+	desc = "Wearing these sends a chat message for every sound played. Walking to ignore footsteps is highly recommended."
+	clothing_traits = list(TRAIT_SOUND_DEBUGGED)
 
 /obj/item/clothing/ears/earmuffs/Initialize(mapload)
 	. = ..()

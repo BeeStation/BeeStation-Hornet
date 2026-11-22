@@ -7,21 +7,18 @@
 	name = "Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
-		TRAIT_NOBLOOD
+		TRAIT_NOBLOOD,
+		TRAIT_MUTANT_COLORS,
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
+	mutanteyes = /obj/item/organ/eyes/jelly
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
@@ -83,7 +80,6 @@
 	if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 		if(DT_PROB(2.5, delta_time))
 			to_chat(H, span_notice("You feel very bloated!"))
-
 	else if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 		H.blood_volume += 1.5 * delta_time
 		H.adjust_nutrition(-1.25 * delta_time)
@@ -119,10 +115,10 @@
 
 	H.visible_message(
 		span_notice("[owner] gains a look of concentration while standing perfectly still."),
-		span_notice("You focus intently on moving your body while standing perfectly still...")
+		span_notice("You focus intently on moving your body while standing perfectly still..."),
 	)
 
-	H.notransform = TRUE
+	ADD_TRAIT(H, TRAIT_NO_TRANSFORM, REF(src))
 
 	if(do_after(owner, delay = 6 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
@@ -132,7 +128,7 @@
 	else
 		to_chat(H, span_warning("...but fail to stand perfectly still!"))
 
-	H.notransform = FALSE
+	REMOVE_TRAIT(H, TRAIT_NO_TRANSFORM, REF(src))
 
 /datum/action/innate/split_body/proc/make_dupe()
 	var/mob/living/carbon/human/H = owner
@@ -142,10 +138,11 @@
 
 	spare.underwear = "Nude"
 	H.dna.transfer_identity(spare, transfer_SE=1)
-	spare.dna.features["mcolor"] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
+	spare.dna.features[FEATURE_MUTANT_COLOR] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
 	spare.updateappearance(mutcolor_update=1)
+	spare.gender = H.gender
 	spare.domutcheck()
 	spare.Move(get_step(H.loc, pick(NORTH,SOUTH,EAST,WEST)))
 
@@ -157,7 +154,7 @@
 		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE, TRUE) //The trues are to copy activation as well
 
 	H.blood_volume *= 0.45
-	H.notransform = 0
+	REMOVE_TRAIT(H, TRAIT_NO_TRANSFORM, REF(src))
 
 	var/datum/species/oozeling/slime/origin_datum = H.dna.species
 	origin_datum.bodies |= spare
@@ -168,9 +165,8 @@
 	H.mind.transfer_to(spare)
 	spare.visible_message(
 		span_warning("[H] distorts as a new body \"steps out\" of [H.p_them()]."),
-		span_notice("...and after a moment of disorentation, you're besides yourself!")
+		span_notice("...and after a moment of disorentation, you're besides yourself!"),
 	)
-
 
 /datum/action/innate/swap_body
 	name = "Swap Body"
@@ -217,7 +213,7 @@
 
 		var/list/L = list()
 		// HTML colors need a # prefix
-		L["htmlcolor"] = body.dna.features["mcolor"]
+		L["htmlcolor"] = body.dna.features[FEATURE_MUTANT_COLOR]
 		L["area"] = get_area_name(body, TRUE)
 		var/stat = "error"
 		switch(body.stat)
@@ -336,6 +332,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/luminescent,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/luminescent,
 	)
+	mutanteyes = /obj/item/organ/eyes/jelly
 	/// How strong is our glow
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	/// Internal dummy used to glow (very cool)
@@ -385,7 +382,7 @@
 /datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/human/glowie, intensity)
 	if(intensity)
 		glow_intensity = intensity
-	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features["mcolor"])
+	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features[FEATURE_MUTANT_COLOR])
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"
@@ -444,7 +441,7 @@
 
 	else
 		var/obj/item/slime_extract/to_integrate = human_owner.get_active_held_item()
-		if(!istype(to_integrate) || to_integrate.Uses <= 0)
+		if(!istype(to_integrate) || to_integrate.extract_uses <= 0)
 			human_owner.balloon_alert(human_owner, "need an unused slime extract!")
 			return
 		if(!human_owner.temporarilyRemoveItemFromInventory(to_integrate))
@@ -513,6 +510,7 @@
 	plural_form = null
 	id = SPECIES_STARGAZER
 	examine_limb_id = SPECIES_OOZELING
+	mutanteyes = /obj/item/organ/eyes/jelly
 	/// Special "project thought" telepathy action for stargazers.
 	var/datum/action/innate/project_thought/project_action
 

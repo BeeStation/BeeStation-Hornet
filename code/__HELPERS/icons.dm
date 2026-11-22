@@ -415,9 +415,8 @@ world
 	var/render_icon = curicon
 
 	if (render_icon)
-		var/curstates = icon_states(curicon)
-		if(!(curstate in curstates))
-			if ("" in curstates)
+		if(!icon_exists(curicon, curstate))
+			if(icon_exists(curicon, ""))
 				curstate = ""
 			else
 				render_icon = FALSE
@@ -540,8 +539,8 @@ world
 				)
 
 				flatX1 = addX1
-				flatX2 = addY1
-				flatY1 = addX2
+				flatX2 = addX2
+				flatY1 = addY1
 				flatY2 = addY2
 
 			// Blend the overlay into the flattened icon
@@ -638,7 +637,7 @@ world
 			continue//If layer is greater than what we need, skip it.
 		var/icon/image_overlay = new(I.icon,I.icon_state)//Blend only works with icon objects.
 		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
-		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
+		alpha_mask.Blend(image_overlay, ICON_OR)//OR so they are lumped together in a nice overlay.
 	return alpha_mask//And now return the mask.
 
 /**
@@ -670,6 +669,7 @@ world
 	// result for the matching pixels, while starting with a base color of white everywhere.
 	mask_icon.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 255,255,255,-255, 1,1,1,1)
 	return mask_icon
+
 
 /mob/proc/AddCamoOverlay(atom/A)//A is the atom which we are using as the overlay.
 	var/icon/opacity_icon = new(A.icon, A.icon_state)//Don't really care for overlays/underlays.
@@ -768,34 +768,34 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 //Interface for using DrawBox() to draw 1 pixel on a coordinate.
 //Returns the same icon specifed in the argument, but with the pixel drawn
-/proc/DrawPixel(icon/I,colour,drawX,drawY)
-	if(!I)
-		return 0
+/proc/DrawPixel(icon/icon_to_use, colour, draw_x, draw_y)
+	if(!icon_to_use)
+		return FALSE
 
-	var/Iwidth = I.Width()
-	var/Iheight = I.Height()
+	var/icon_width = icon_to_use.Width()
+	var/icon_height = icon_to_use.Height()
 
-	if(drawX > Iwidth || drawX <= 0)
-		return 0
-	if(drawY > Iheight || drawY <= 0)
-		return 0
+	if(draw_x > icon_width || draw_x <= 0)
+		return FALSE
+	if(draw_y > icon_height || draw_y <= 0)
+		return FALSE
 
-	I.DrawBox(colour,drawX, drawY)
-	return I
+	icon_to_use.DrawBox(colour, draw_x, draw_y)
+	return icon_to_use
 
 
 //Interface for easy drawing of one pixel on an atom.
-/atom/proc/DrawPixelOn(colour, drawX, drawY)
-	var/icon/I = new(icon)
-	var/icon/J = DrawPixel(I, colour, drawX, drawY)
-	if(J) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
-		icon = J
-		return J
-	return 0
+/atom/proc/DrawPixelOn(colour, draw_x, draw_y)
+	var/icon/icon_one = new(icon)
+	var/icon/result = DrawPixel(icon_one, colour, draw_x, draw_y)
+	if(result) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
+		icon = result
+		return result
+	return FALSE
 
 /// # If you already have a human and need to get its flat icon, call `get_flat_existing_human_icon()` instead.
 /// For creating consistent icons for human looking simple animals.
-/proc/get_flat_human_icon(icon_id, datum/job/job, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
+/proc/get_flat_human_icon(icon_id, datum/job/job, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null, no_anim = FALSE)
 	var/static/list/humanoid_icon_cache = list()
 	if(icon_id && humanoid_icon_cache[icon_id])
 		return humanoid_icon_cache[icon_id]
@@ -807,15 +807,14 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 	var/datum/outfit/outfit = outfit_override || job?.outfit
 	if(job)
-		job.equip(body, TRUE, FALSE, outfit_override = outfit_override)
+		body.dna.species.pre_equip_species_outfit(job, body, TRUE, prefs)
 	if(outfit)
-		body.equipOutfit(outfit_override,visuals_only = TRUE)
+		body.equipOutfit(outfit, visuals_only = TRUE)
 
 	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
-	COMPILE_OVERLAYS(body)
-	for(var/D in showDirs)
-		var/icon/partial = getFlatIcon(body, defdir=D)
-		out_icon.Insert(partial,dir=D)
+	for(var/direction in showDirs)
+		var/icon/partial = getFlatIcon(body, defdir = direction, no_anim = no_anim)
+		out_icon.Insert(partial, dir = direction)
 
 	humanoid_icon_cache[icon_id] = out_icon
 	dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
@@ -841,7 +840,6 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/initial_human_dir = existing_human.dir
 	existing_human.dir = SOUTH
 	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
-	COMPILE_OVERLAYS(existing_human)
 	for(var/direction in directions_to_output)
 		var/icon/partial = getFlatIcon(existing_human, defdir = direction)
 		out_icon.Insert(partial, dir = direction)
@@ -876,22 +874,65 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /proc/generate_asset_name(file)
 	return "asset.[md5(fcopy_rsc(file))]"
 
+/// Gets a dummy savefile for usage in icon generation.
+/// Savefiles generated from this proc will be empty.
+/proc/get_dummy_savefile(from_failure = FALSE)
+	var/static/next_id = 0
+	if(next_id++ > 9)
+		next_id = 0
+	var/savefile_path = "tmp/dummy-save-[next_id].sav"
+	try
+		if(fexists(savefile_path))
+			fdel(savefile_path)
+		return new /savefile(savefile_path)
+	catch(var/exception/error)
+		// if we failed to create a dummy once, try again; maybe someone slept somewhere they shouldn't have
+		if(from_failure) // this *is* the retry, something fucked up
+			CRASH("get_dummy_savefile failed to create a dummy savefile: '[error]'")
+		return get_dummy_savefile(from_failure = TRUE)
+
+/// starts the base64 blob inside a filedata() block
+#define FILEDATA_OPENING_DELIMITER "{\""
+/// ends the base64 blob inside a filedata() block
+#define FILEDATA_CLOSING_DELIMITER "\"}"
+
 /**
-  * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
-  * exporting it as text, and then parsing the base64 from that.
-  * (This relies on byond automatically storing icons in savefiles as base64)
-  */
+ * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
+ * exporting it as text, and then parsing the base64 from that.
+ * (This relies on byond automatically storing icons in savefiles as base64)
+ *
+ * The backend:
+ *
+ *	. = object(".0")
+ *	.0
+ *		type = /icon
+ *		icon = filedata("name=;ext=.dmi;length=1127;crc32=0xcb9372b4;encoding=base64",{"
+ *	<the base64, split over several lines>
+ *	"})
+ *		file_reference = "icons/effects/effects.dmi"
+ *		state_reference = "<li>icon_state = \"nothing\"</li>..."
+ *
+ * 516 kind of fucked us in this regard, as there was no savefile stuff appended after png info traditionally
+ */
 /proc/icon2base64(icon/icon)
 	if (!isicon(icon))
 		return FALSE
-	var/savefile/dummySave = new("tmp/dummySave.sav")
+	var/savefile/dummySave = get_dummy_savefile()
 	WRITE_FILE(dummySave["dummy"], icon)
 	var/iconData = dummySave.ExportText("dummy")
-	var/list/partial = splittext(iconData, "{")
-	. = replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
-	dummySave.Unlock()
-	dummySave = null
-	fdel("tmp/dummySave.sav") //if you get the idea to try and make this more optimized, make sure to still call unlock on the savefile after every write to unlock it.
+
+	//neither delimiter is correct base64, so the first of each is the one we want
+	var/payload_start = findtext(iconData, FILEDATA_OPENING_DELIMITER)
+	var/payload_end = payload_start && findtext(iconData, FILEDATA_CLOSING_DELIMITER, payload_start)
+	if(!payload_start || !payload_end)
+		//an icon with no frames
+		stack_trace("icon2base64 got an icon with no filedata() in its export.")
+		return FALSE
+
+	return replacetext(copytext(iconData, payload_start + length(FILEDATA_OPENING_DELIMITER), payload_end), "\n", "")
+
+#undef FILEDATA_OPENING_DELIMITER
+#undef FILEDATA_CLOSING_DELIMITER
 
 ///given a text string, returns whether it is a valid dmi icons folder path
 /proc/is_valid_dmi_file(icon_path)
@@ -1048,7 +1089,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		var/icon/I = thing
 		var/icon_base64 = icon2base64(I)
 
-		if (I.Height() > world.icon_size || I.Width() > world.icon_size)
+		if (I.Height() > ICON_SIZE_Y || I.Width() > ICON_SIZE_X)
 			var/icon_md5 = rustg_hash_string(RUSTG_HASH_MD5, icon_base64)
 			icon_base64 = bicon_cache[icon_md5]
 			if (!icon_base64) // Doesn't exist yet, make it.
@@ -1085,31 +1126,87 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/icon/I = getFlatIcon(thing)
 	return icon2html(I, target, sourceonly = sourceonly)
 
-//Returns TRUE if the given iconstate is located in the given file, otherwise returns false.
-/proc/icon_exists(file, state, scream)
-	var/static/list/icon_states_cache = list()
-	if(icon_states_cache[file]?[state])
+/// Returns rustg-parsed metadata for an icon, universal icon, or DMI file, using cached values where possible
+/// Returns null if passed object is not a filepath or icon with a valid DMI file
+/proc/icon_metadata(file)
+	var/static/list/icon_metadata_cache = list()
+	var/static/list/failed_metadata = list()
+	if(istype(file, /datum/universal_icon))
+		var/datum/universal_icon/u_icon = file
+		file = u_icon.icon_file
+	var/file_string = "[file]"
+	if(!istext(file) && !(isfile(file) && length(file_string)))
+		return null
+	if(failed_metadata[file_string])
+		return null
+	var/list/cached_metadata = icon_metadata_cache[file_string]
+	if(islist(cached_metadata))
+		return cached_metadata
+
+	// it will decode to text, trust
+	var/list/metadata_result = rustg_dmi_read_metadata(file_string)
+	if(!islist(metadata_result) || !length(metadata_result))
+		failed_metadata[file_string] = TRUE
+		stack_trace("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
+		return null
+
+	icon_metadata_cache[file_string] = metadata_result
+	return metadata_result
+
+/// Checks whether a given icon state exists in a given icon file. If `file` and `state` both exist,
+/// this will return `TRUE` - otherwise, it will return `FALSE`.
+///
+/// If you want a stack trace to be output when the given state/file doesn't exist, use
+/// `/proc/icon_exists_or_scream()`.
+/proc/icon_exists(file, state)
+	if(isnull(file) || isnull(state))
+		return FALSE //This is common enough that it shouldn't panic, imo.
+
+	var/list/states = GLOB.icon_states_cache_lookup[file]
+	if(isnull(states))
+		compile_icon_states_cache(file)
+		states = GLOB.icon_states_cache_lookup[file]
+	return !isnull(states[state])
+
+/// Functions the same as `/proc/icon_exists()`, but with the addition of a stack trace if the
+/// specified file or state doesn't exist.
+///
+/// Stack traces will only be output once for each file.
+/proc/icon_exists_or_scream(file, state)
+	if(icon_exists(file, state))
 		return TRUE
 
-	if(icon_states_cache[file]?[state] == FALSE)
-		return FALSE
+	var/static/list/screams = list()
+	if(isnull(screams[file]))
+		screams[file] = TRUE
+		stack_trace("State [state] in file [file] does not exist.")
 
-	var/list/states = icon_states(file)
+	return FALSE
 
-	if(!icon_states_cache[file])
-		icon_states_cache[file] = list()
+/// Cached, rustg-based alternative to icon_states()
+/proc/icon_states_fast(file)
+	if(isnull(file))
+		return null
+	if(isnull(GLOB.icon_states_cache[file]))
+		compile_icon_states_cache(file)
+	return GLOB.icon_states_cache[file]
 
-	if(state in states)
-		icon_states_cache[file][state] = TRUE
-		return TRUE
-	else
-		icon_states_cache[file][state] = FALSE
-		if(scream)
-			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
-		return FALSE
+/proc/compile_icon_states_cache(file)
+	GLOB.icon_states_cache[file] = list()
+	GLOB.icon_states_cache_lookup[file] = list()
+	// Try to use rustg first
+	var/list/metadata = icon_metadata(file)
+	if(islist(metadata) && islist(metadata["states"]))
+		for(var/list/state_data as anything in metadata["states"])
+			GLOB.icon_states_cache[file] += state_data["name"]
+			GLOB.icon_states_cache_lookup[file][state_data["name"]] = TRUE
+	else // Otherwise, we have to use the slower BYOND proc
+		for(var/istate in icon_states(file))
+			GLOB.icon_states_cache[file] += istate
+			GLOB.icon_states_cache_lookup[file][istate] = TRUE
 
 /**
- * Center's an image.
+ * Center's an image. Only run this on float overlays and not physical
  * Requires:
  * The Image
  * The x dimension of the icon file used in the image
@@ -1124,19 +1221,19 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if(!x_dimension || !y_dimension)
 		return
 
-	if((x_dimension == world.icon_size) && (y_dimension == world.icon_size))
+	if((x_dimension == ICON_SIZE_X) && (y_dimension == ICON_SIZE_Y))
 		return image_to_center
 
 	//Offset the image so that it's bottom left corner is shifted this many pixels
 	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
 	//but still use them in game
-	var/x_offset = -((x_dimension / world.icon_size) - 1) * (world.icon_size * 0.5)
-	var/y_offset = -((y_dimension / world.icon_size) - 1) * (world.icon_size * 0.5)
+	var/x_offset = -((x_dimension / ICON_SIZE_X) - 1) * (ICON_SIZE_X * 0.5)
+	var/y_offset = -((y_dimension / ICON_SIZE_Y) - 1) * (ICON_SIZE_Y * 0.5)
 
-	//Correct values under world.icon_size
-	if(x_dimension < world.icon_size)
+	//Correct values under icon_size
+	if(x_dimension < ICON_SIZE_X)
 		x_offset *= -1
-	if(y_dimension < world.icon_size)
+	if(y_dimension < ICON_SIZE_Y)
 		y_offset *= -1
 
 	image_to_center.pixel_x = x_offset
@@ -1153,25 +1250,105 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	sleep(duration)
 	cut_overlay(overlay_image)
 
-///Perform a shake on an atom, resets its position afterwards
-/atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
+/// Perform a shake on an atom, resets its position afterwards
+/atom/proc/Shake(pixelshiftx = 2, pixelshifty = 2, duration = 2.5 SECONDS, shake_interval = 0.02 SECONDS)
 	var/initialpixelx = pixel_x
 	var/initialpixely = pixel_y
-	var/shiftx = rand(-pixelshiftx,pixelshiftx)
-	var/shifty = rand(-pixelshifty,pixelshifty)
-	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
-	pixel_x = initialpixelx
-	pixel_y = initialpixely
+	animate(src, pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixelx + rand(-pixelshifty,pixelshifty), time = shake_interval, flags = ANIMATION_PARALLEL)
+	for (var/i in 3 to ((duration / shake_interval))) // Start at 3 because we already applied one, and need another to reset
+		animate(pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixely + rand(-pixelshifty,pixelshifty), time = shake_interval)
+	animate(pixel_x = initialpixelx, pixel_y = initialpixely, time = shake_interval)
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
+	if(istype(icon_path, /datum/universal_icon))
+		var/datum/universal_icon/u_icon = icon_path
+		icon_path = u_icon.icon_file
+	// Icons can be a real file(), a rsc backed file(), a dynamic rsc (dyn.rsc) reference (known as a cache reference in byond docs), or an /icon which is pointing to one of those.
+	// Runtime generated dynamic icons are an unbounded concept cache identity wise, the same icon can exist millions of ways and holding them in a list as a key can lead to unbounded memory usage if called often by consumers.
+	// Check distinctly that this is something that has this unspecified concept, and thus that we should not cache.
+	if (!istext(icon_path) && (!isfile(icon_path) || !length("[icon_path]")))
+		var/icon/my_icon = icon(icon_path)
+		return list("width" = my_icon.Width(), "height" = my_icon.Height())
+	if (isnull(GLOB.icon_dimensions[icon_path]))
+		// Used cached icon metadata
+		var/list/metadata = icon_metadata(icon_path)
+		var/list/result = null
+		if(islist(metadata) && isnum(metadata["width"]) && isnum(metadata["height"]))
+			result = list("width" = metadata["width"], "height" = metadata["height"])
+		// Otherwise, we have to use the slower BYOND proc
+		else
+			var/icon/my_icon = icon(icon_path)
+			result = list("width" = my_icon.Width(), "height" = my_icon.Height())
+		GLOB.icon_dimensions[icon_path] = result
+
+	return GLOB.icon_dimensions[icon_path]
+
+/// Returns a list containing the width and height of an icon file, without using rustg for pure function calls
+/proc/get_icon_dimensions_pure(icon_path)
 	if (isnull(GLOB.icon_dimensions[icon_path]))
 		var/icon/my_icon = icon(icon_path)
 		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
 	return GLOB.icon_dimensions[icon_path]
 
-GLOBAL_LIST_EMPTY(transformation_animation_objects)
+/// Fikou's fix for making toast alerts look nice - resets offsets, transforms to fit
+/proc/get_small_overlay(atom/source)
+	var/mutable_appearance/alert_overlay = new(source)
+	alert_overlay.pixel_x = 0
+	alert_overlay.pixel_y = 0
 
+	var/scale = 1
+	var/list/icon_dimensions = get_icon_dimensions(source.icon)
+	var/width = icon_dimensions["width"]
+	var/height = icon_dimensions["height"]
+
+	if(width > ICON_SIZE_X)
+		alert_overlay.pixel_x = -(ICON_SIZE_X / 2) * ((width - ICON_SIZE_X) / ICON_SIZE_X)
+	if(height > ICON_SIZE_Y)
+		alert_overlay.pixel_y = -(ICON_SIZE_Y / 2) * ((height - ICON_SIZE_Y) / ICON_SIZE_Y)
+	if(width > ICON_SIZE_X || height > ICON_SIZE_Y)
+		if(width >= height)
+			scale = ICON_SIZE_X / width
+		else
+			scale = ICON_SIZE_Y / height
+	alert_overlay.transform = alert_overlay.transform.Scale(scale)
+
+	return alert_overlay
+
+/**
+ * Copies the passed /appearance, returns a /mutable_appearance
+ *
+ * Filters out certain overlays from the copy, depending on their planes
+ * Prevents stuff like lighting from being copied to the new appearance
+ */
+/proc/copy_appearance_filter_overlays(appearance_to_copy) as /mutable_appearance
+	var/mutable_appearance/copy = new(appearance_to_copy)
+	var/static/list/plane_whitelist = list(FLOAT_PLANE, GAME_PLANE, FLOOR_PLANE)
+
+	/// Ideally we'd have knowledge what we're removing but i'd have to be done on target appearance retrieval
+	var/list/overlays_to_keep = list()
+	for(var/mutable_appearance/special_overlay as anything in copy.overlays)
+		if(isnull(special_overlay))
+			continue
+		var/mutable_appearance/real = new()
+		real.appearance = special_overlay
+		if(real.plane in plane_whitelist)
+			overlays_to_keep += real
+	copy.overlays = overlays_to_keep
+
+	var/list/underlays_to_keep = list()
+	for(var/mutable_appearance/special_underlay as anything in copy.underlays)
+		if(isnull(special_underlay))
+			continue
+		var/mutable_appearance/real = new()
+		real.appearance = special_underlay
+		if(real.plane in plane_whitelist)
+			underlays_to_keep += real
+	copy.underlays = underlays_to_keep
+
+	return copy
+
+GLOBAL_LIST_EMPTY(transformation_animation_objects)
 
 /*
  * Creates animation that turns current icon into result appearance from top down.

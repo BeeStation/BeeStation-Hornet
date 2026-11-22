@@ -52,54 +52,15 @@
 	icon_state = "secgear_crate"
 	icon_door = "secgear_crate"
 
-/obj/structure/closet/crate/secure/gear/debug
-	name = "debug crate"
+/obj/structure/closet/crate/secure/gear/debug_mech
+	name = "debug mech equipment"
 	storage_capacity = 300 // unit test blames extreme amount
 
-/obj/structure/closet/crate/secure/gear/debug/cyborg
-	name = "debug mech equipment"
-
-/obj/structure/closet/crate/secure/gear/debug/PopulateContents()
+/obj/structure/closet/crate/secure/gear/debug_mech/PopulateContents()
 	. = ..()
-	new /obj/item/robot_model/syndicate_medical(src)
-	new /obj/item/robot_model/syndicate(src)
-	new /obj/item/robot_model/guard(src)
-	new /obj/item/robot_model/saboteur(src)
-	new /obj/item/robot_model/deathsquad(src)
-
-/obj/structure/closet/crate/secure/gear/debug/mech
-	name = "debug mech equipment"
-
-/obj/structure/closet/crate/secure/gear/debug/mech/PopulateContents()
-	. = ..()
-	for(var/item in subtypesof(/obj/item/mecha_parts/mecha_equipment))
-		new item(src)
-	for(var/i in 1 to 5)
-		new /obj/item/stack/sheet/animalhide/goliath_hide()
-	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
-
-/obj/structure/closet/crate/secure/gear/debug/cyborg
-	name = "debug mech equipment"
-
-/obj/structure/closet/crate/secure/gear/debug/PopulateContents()
-	. = ..()
-	new /obj/item/robot_model/syndicate_medical(src)
-	new /obj/item/robot_model/syndicate(src)
-	new /obj/item/robot_model/guard(src)
-	new /obj/item/robot_model/saboteur(src)
-	new /obj/item/robot_model/deathsquad(src)
-
-/obj/structure/closet/crate/secure/gear/debug/mech
-	name = "debug mech equipment"
-
-/obj/structure/closet/crate/secure/gear/debug/mech/PopulateContents()
-	. = ..()
-	for(var/item in subtypesof(/obj/item/mecha_parts/mecha_equipment))
-		new item(src)
-	for(var/i in 1 to 5)
-		new /obj/item/stack/sheet/animalhide/goliath_hide()
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment as anything in valid_subtypesof(/obj/item/mecha_parts/mecha_equipment))
+		new equipment(src)
+	new /obj/item/stack/sheet/animalhide/goliath_hide(src, 5)
 	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
 	new /obj/item/mecha_parts/mecha_tracking(src)
 	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
@@ -109,21 +70,6 @@
 	name = "secure hydroponics crate"
 	icon_state = "hydro_secure_crate"
 	icon_door = "hydro_secure_crate"
-
-/obj/structure/closet/crate/secure/freezer //for consistency with other "freezer" closets/crates
-	desc = "An insulated crate with a lock on it, used to secure perishables."
-	name = "secure kitchen crate"
-	icon_state = "kitchen_secure_crate"
-
-/obj/structure/closet/crate/secure/freezer/pizza
-	name = "secure pizza crate"
-	desc = "An insulated crate with a lock on it, used to secure pizza."
-	req_access = list(28)
-	tamperproof = 10
-
-/obj/structure/closet/crate/secure/freezer/pizza/PopulateContents()
-	. = ..()
-	new /obj/effect/spawner/random/food_or_drink/pizzaparty(src)
 
 /obj/structure/closet/crate/secure/engineering
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."

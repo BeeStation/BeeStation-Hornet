@@ -19,7 +19,7 @@
 	return 0
 
 
-/mob/living/simple_animal/drone/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/mob/living/simple_animal/drone/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	switch(slot)
 		if(ITEM_SLOT_HEAD)
 			if(head)
@@ -49,7 +49,7 @@
 		return ITEM_SLOT_HEAD
 	return ..()
 
-/mob/living/simple_animal/drone/equip_to_slot(obj/item/I, slot)
+/mob/living/simple_animal/drone/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
 	if(!slot)
 		return
 	if(!istype(I))
@@ -79,7 +79,7 @@
 			return
 
 	//Call back for item being equipped to drone
-	I.equipped(src, slot)
+	has_equipped(I, slot, initial)
 
 /mob/living/simple_animal/drone/getBackSlot()
 	return ITEM_SLOT_DEX_STORAGE

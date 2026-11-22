@@ -6,7 +6,7 @@
 */
 
 //ALL the psychic soul colours
-GLOBAL_LIST_INIT(soul_glimmer_colors, list(
+GLOBAL_LIST_INIT(soul_glimmer_colors, shuffle(list(
 	"Azure" = "#0091ff",
 	"Vermilion" = "#ff3a1c",
 	"Sage" = "#1fff5e",
@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(soul_glimmer_colors, list(
 	"Sunshine" = "#fff12c",
 	"Melancholia" = "#8100FF",
 	"Submarine" = "#1f1bff",
-	"Humour" = "#e876ff"))
+	"Humour" = "#e876ff")))
 
 /// TGUI chat colours
 GLOBAL_LIST_INIT(soul_glimmer_cfc_list, list(

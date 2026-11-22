@@ -37,7 +37,7 @@
 	if(COOLDOWN_FINISHED(src, pulse_cooldown))
 		COOLDOWN_START(src, pulse_cooldown, 6 SECONDS)
 
-		flick("[base_icon_state]_pulse", src)
+		z_flick("[base_icon_state]_pulse", src)
 		radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, intensity = 10)
 
 /obj/item/nuke_core/suicide_act(mob/living/user)
@@ -141,7 +141,7 @@
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
 	return FALSE
 
-/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/hemostat/supermatter))
 		var/obj/item/hemostat/supermatter/tongs = attacking_item
 		if (tongs.sliver)

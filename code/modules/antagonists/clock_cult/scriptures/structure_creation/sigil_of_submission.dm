@@ -58,7 +58,7 @@
 		return FALSE
 	if(!convertee.mind)
 		return FALSE
-	if(ishuman(convertee) && (convertee.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
+	if(ishuman(convertee) && (convertee.mind.assigned_role.title in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
 		return FALSE
 	if(istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		return FALSE

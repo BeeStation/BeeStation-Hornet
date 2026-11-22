@@ -1,4 +1,5 @@
 /obj/item/chromosome
+	abstract_type = /obj/item/chromosome
 	name = "blank chromosome"
 	icon = 'icons/obj/chromosomes.dmi'
 	icon_state = ""

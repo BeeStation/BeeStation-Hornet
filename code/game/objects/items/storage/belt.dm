@@ -1,8 +1,13 @@
 /obj/item/storage/belt
+	abstract_type = /obj/item/storage/belt
 	name = "belt"
 	desc = "Can hold various things."
 	icon = 'icons/obj/clothing/belts.dmi'
 	w_class = WEIGHT_CLASS_BULKY
+	stamina_damage = 10
+	stamina_cost = 5
+	stamina_critical_chance = 5
+
 	icon_state = "utilitybelt"
 	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
@@ -103,8 +108,8 @@
 		/obj/item/clothing/gloves/botanic_leather,
 		/obj/item/rollingpaper,//dudeweed
 		/obj/item/lighter,
-		/obj/item/clothing/mask/cigarette/pipe/cobpipe,
-		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
+		/obj/item/cigarette/pipe/cobpipe,
+		/obj/item/cigarette/rollie,//dudeweedlmao
 		/obj/item/gun/energy/floragun
 		))
 
@@ -123,7 +128,7 @@
 	SSwardrobe.provide_type(/obj/item/powertool/jaws_of_life, src)
 	SSwardrobe.provide_type(/obj/item/weldingtool/experimental, src)//This can be changed if this is too much
 	SSwardrobe.provide_type(/obj/item/multitool, src)
-	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL)
 	SSwardrobe.provide_type(/obj/item/extinguisher/mini, src)
 	SSwardrobe.provide_type(/obj/item/analyzer/ranged, src)
 	//much roomier now that we've managed to remove two tools
@@ -146,7 +151,7 @@
 	SSwardrobe.provide_type(/obj/item/crowbar, src)
 	SSwardrobe.provide_type(/obj/item/wirecutters, src)
 	SSwardrobe.provide_type(/obj/item/multitool, src)
-	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src,MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src,MAXCOIL)
 
 /obj/item/storage/belt/utility/full/get_types_to_preload()
 	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
@@ -166,7 +171,7 @@
 	SSwardrobe.provide_type(/obj/item/crowbar, src)
 	SSwardrobe.provide_type(/obj/item/wirecutters, src)
 	SSwardrobe.provide_type(/obj/item/multitool, src)
-	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL, pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL)
 
 /obj/item/storage/belt/utility/full/engi/get_types_to_preload()
 	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
@@ -264,7 +269,7 @@
 	if(replicator)
 		new replicator(src)
 	else
-		new /obj/item/stack/cable_coil/orange(src)
+		new /obj/item/stack/cable_coil(src)
 	new /obj/item/screwdriver/brass(src)
 	new /obj/item/wirecutters/brass(src)
 	new /obj/item/wrench/brass(src)
@@ -288,7 +293,7 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
 		/obj/item/lighter,
@@ -331,7 +336,8 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/holosign_creator/medical,
 		/obj/item/construction/plumbing,
-		/obj/item/plunger
+		/obj/item/plunger,
+		/obj/item/flesh_shears,
 		))
 
 /obj/item/storage/belt/medical/ert
@@ -469,7 +475,7 @@
 		/obj/item/storage/bag/ore,
 		/obj/item/survivalcapsule,
 		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/cup/glass,
@@ -626,7 +632,7 @@
 	new /obj/item/crowbar/abductor(src)
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil/white(src)
+	new /obj/item/stack/cable_coil(src)
 
 //Im pissed off at the amount of times I have to do this. So its a belt now
 /obj/item/storage/belt/military/abductor/med
@@ -956,6 +962,8 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
 	atom_storage.set_holdable(list(
 		/obj/item/melee/sabre
+		), list(
+		/obj/item/melee/sabre/mime
 		))
 
 /obj/item/storage/belt/sabre/examine(mob/user)
@@ -996,17 +1004,6 @@
 		hitby.forceMove(src)
 		return TRUE
 	. = ..()
-
-/obj/item/storage/belt/sabre/carbon_fiber
-	name = "carbon fiber sabre sheath"
-	desc = "A military grade sabre sheath. This one has special hooks to interface with the suit storage system of common armor classes."
-	icon_state = "sheath_fiber"
-	inhand_icon_state = "sheath_fiber"
-	worn_icon_state = "sheath_fiber"
-
-/obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
-	new /obj/item/melee/sabre/carbon_fiber(src)
-	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
 	name = "Baguette"

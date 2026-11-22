@@ -32,7 +32,7 @@
 
 /obj/item/xenoarchaeology_labeler/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 	//Fill enabled filters with all filters
 	for(var/filter in trait_filters)
 		enabled_trait_filters += filter["icon"]
@@ -206,7 +206,7 @@
 
 
 /obj/item/sticker/xenoartifact_label/Initialize(mapload, list/_traits)
-	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 	//Setup traits & examine desc
 	traits = _traits?.Copy()
 	if(length(traits))
@@ -226,7 +226,7 @@
 	. = ..()
 	. += examine_override
 
-/obj/item/sticker/xenoartifact_label/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+/obj/item/sticker/xenoartifact_label/afterattack(atom/movable/target, mob/user, proximity_flag, list/modifiers)
 	//If you somehow make traits start working with mobs, remove this isliving() check
 	if(ismob(target) && !isliving(target) || (locate(/obj/item/sticker/xenoartifact_label) in target.contents))
 		to_chat(user, "<span class='warning'>[target] already has a label!</span>")

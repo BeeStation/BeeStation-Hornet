@@ -84,16 +84,6 @@
 	SIGNAL_HANDLER
 	return COMPONENT_HANDLED_GRILLING
 
-/obj/item/food/badrecipe/burn()
-	if(QDELETED(src))
-		return
-	var/turf/T = get_turf(src)
-	var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(T)
-	A.desc += "\nLooks like this used to be \an [name] some time ago."
-	if(resistance_flags & ON_FIRE)
-		SSfire_burning.processing -= src
-	qdel(src)
-
 // We override the parent procs here to prevent burned messes from cooking into burned messes.
 /obj/item/food/badrecipe/make_grillable()
 	return
@@ -222,7 +212,7 @@
 	. = ..()
 	. += span_notice("If you had a rod you could make <b>butter on a stick</b>.")
 
-/obj/item/food/butter/attackby(obj/item/item, mob/user, params)
+/obj/item/food/butter/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/stack/rods))
 		var/obj/item/stack/rods/rods = item
 		if(!rods.use(1))//borgs can still fail this if they have no metal

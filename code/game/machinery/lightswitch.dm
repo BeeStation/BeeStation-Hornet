@@ -5,6 +5,7 @@
 	icon_state = "light"
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
+	use_power = NO_POWER_USE
 	layer = ABOVE_WINDOW_LAYER
 	mouse_over_pointer = MOUSE_HAND_POINTER
 	/// Set this to a string, path, or area instance to control that area
@@ -52,7 +53,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 			return
 	area.lightswitch = FALSE //All checks failed, department is not staffed, lights get turned off
 
-	for(var/obj/machinery/light_switch/L in GLOB.machines)
+	for(var/obj/machinery/light_switch/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		if(L.area == area)
 			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	area.power_change()
@@ -72,13 +73,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 	area.lightswitch = !area.lightswitch
 	play_click_sound("button")
 
-	for(var/obj/machinery/light_switch/L in GLOB.machines)
+	for(var/obj/machinery/light_switch/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		if(L.area == area)
 			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 
 	area.power_change()
 
-/obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
+/obj/machinery/light_switch/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		screwdrivered = !screwdrivered
 		user.visible_message(span_notice("[user] [screwdrivered ? "un" : ""]secures [name]."), \
@@ -113,7 +114,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 /obj/machinery/light_switch/tcomms
 	name = "Server Room light switch"
-	area = /area/tcommsat/server
+	area = /area/station/tcommsat/server
 
 /obj/item/wallframe/light_switch
 	name = "light switch frame"

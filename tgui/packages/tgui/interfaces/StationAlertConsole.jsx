@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend } from '../backend';
 import { Button, Section, Stack } from '../components';
@@ -29,10 +29,9 @@ export const StationAlertConsoleContent = (props) => {
     Camera: 5,
   };
 
-  const sortedAlarms = sortBy(
-    data.alarms || [],
+  const sortedAlarms = sortBy(data.alarms || [], [
     (alarm) => sortingKey[alarm.name],
-  );
+  ]);
 
   return (
     <>

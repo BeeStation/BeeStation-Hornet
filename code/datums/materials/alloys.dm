@@ -1,6 +1,7 @@
 /** Materials made from other materials.
   */
 /datum/material/alloy
+	abstract_type = /datum/material/alloy
 	name = "alloy"
 	desc = "A material composed of two or more other materials."
 	init_flags = NONE

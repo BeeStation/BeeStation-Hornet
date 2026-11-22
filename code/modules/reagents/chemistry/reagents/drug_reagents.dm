@@ -1,4 +1,5 @@
 /datum/reagent/drug
+	abstract_type = /datum/reagent/drug
 	name = "Drug"
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
@@ -18,7 +19,7 @@
 	color = "#60A584" // rgb: 96, 165, 132
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	overdose_threshold = 30
-	addiction_types = list(/datum/addiction/hallucinogens = 10) //4 per 2 seconds
+	addiction_types = list(/datum/addiction/hallucinogens = 60)
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -47,9 +48,9 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "smoke"
 	trippy = FALSE
-	overdose_threshold=15
+	overdose_threshold = 15
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
-	addiction_types = list(/datum/addiction/nicotine = 15) // 6 per 2 seconds
+	addiction_types = list(/datum/addiction/nicotine = 10)
 
 /datum/reagent/drug/nicotine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -58,11 +59,7 @@
 
 	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "smoked", /datum/mood_event/smoked, name)
 	affected_mob.remove_status_effect(/datum/status_effect/jitter)
-	affected_mob.AdjustStun(-50  * REM * delta_time)
-	affected_mob.AdjustKnockdown(-50 * REM * delta_time)
-	affected_mob.AdjustUnconscious(-50 * REM * delta_time)
-	affected_mob.AdjustParalyzed(-50 * REM * delta_time)
-	affected_mob.AdjustImmobilized(-50 * REM * delta_time)
+	affected_mob.AdjustAllImmobility(-50 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/nicotine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -83,6 +80,14 @@
 	addiction_types = list(/datum/addiction/stimulants = 14) //5.6 per 2 seconds
 	metabolized_traits = list(TRAIT_NOBLOCK)
 
+/datum/reagent/drug/crank/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 9)
+
+/datum/reagent/drug/crank/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/drug/crank/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
@@ -99,8 +104,7 @@
 	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
 	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
 	affected_mob.adjustToxLoss(0.75 * REM * delta_time, updating_health = FALSE)
-	if(affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/crank/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -118,7 +122,7 @@
 	color = "#0064B4"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	overdose_threshold = 20
-	addiction_types = list(/datum/addiction/opioids = 18) //7.2 per 2 seconds
+	addiction_types = list(/datum/addiction/opioids = 30)
 
 /datum/reagent/drug/krokodil/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -128,7 +132,7 @@
 		if(!istype(affected_mob.dna.species, /datum/species/human/krokodil_addict))
 			to_chat(affected_mob, span_userdanger("Your skin falls off!"))
 			var/mob/living/carbon/human/affected_human = affected_mob
-			affected_human.facial_hair_style = "Shaved"
+			affected_human.facial_hairstyle = "Shaved"
 			affected_human.hair_style = "Bald"
 			affected_mob.set_species(/datum/species/human/krokodil_addict)
 			if(affected_mob.adjustBruteLoss(50 * REM, updating_health = FALSE, required_bodytype = affected_bodytype)) // holy shit your skin just FELL THE FUCK OFF
@@ -149,7 +153,7 @@
 	color = "#FAFAFA"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	overdose_threshold = 20
-	addiction_types = list(/datum/addiction/stimulants = 12) //4.8 per 2 seconds
+	addiction_types = list(/datum/addiction/stimulants = 75)
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE, TRAIT_NOBLOCK)
 
@@ -157,10 +161,12 @@
 	. = ..()
 	affected_mob.client?.give_award(/datum/award/achievement/misc/meth, affected_mob)
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
+	affected_mob.stamina.add_regen_modifier(type, 18)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -178,8 +184,7 @@
 	affected_mob.set_drowsiness_if_lower(-8 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(4 SECONDS * REM * delta_time)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
-	if(affected_mob.adjustStaminaLoss(-40 * REM * delta_time, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/methamphetamine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -207,7 +212,7 @@
 	color = "#FAFAFA"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	overdose_threshold = 20
-	addiction_types = list(/datum/addiction/stimulants = 25) //8 per 2 seconds
+	addiction_types = list(/datum/addiction/stimulants = 25)
 	taste_description = "salt" // because they're bathsalts?
 	metabolized_traits = list(TRAIT_STUNIMMUNE, TRAIT_SLEEPIMMUNE, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_NOSTAMCRIT, TRAIT_NOLIMBDISABLE, TRAIT_NOBLOCK)
 
@@ -231,8 +236,8 @@
 		to_chat(affected_mob, span_notice(pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")))
 
 	var/need_mob_update
-	need_mob_update = affected_mob.adjustStaminaLoss(-5 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
-	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time, required_organ_flag = affected_organ_flags)
+	affected_mob.stamina.adjust(5 * REM * delta_time)
+	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time, required_organ_flag = affected_organ_flags)
 	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 	if(need_mob_update)
 		. = UPDATE_MOB_HEALTH
@@ -263,7 +268,15 @@
 	color = "#78FFF0"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolized_traits = list(TRAIT_NOBLOCK)
-	addiction_types = list(/datum/addiction/stimulants = 8)
+	addiction_types = list(/datum/addiction/stimulants = 75)
+
+/datum/reagent/drug/aranesp/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 9)
+
+/datum/reagent/drug/aranesp/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/drug/aranesp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -271,8 +284,7 @@
 		to_chat(affected_mob, span_notice(pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")))
 
 	var/need_mob_update
-	need_mob_update = affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
-	need_mob_update += affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update = affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	if(DT_PROB(30, delta_time))
 		affected_mob.losebreath++
 		need_mob_update += affected_mob.adjustOxyLoss(1, FALSE, required_biotype = affected_biotype)
@@ -285,7 +297,7 @@
 	reagent_state = LIQUID
 	color = "#FFF378"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	addiction_types = list(/datum/addiction/hallucinogens = 18)
+	addiction_types = list(/datum/addiction/hallucinogens = 30)
 	overdose_threshold = 20
 	metabolized_traits = list(TRAIT_FEARLESS)
 
@@ -330,7 +342,7 @@
 	color = "#c9c9c9"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	addiction_types = list(/datum/addiction/hallucinogens = 18)
+	addiction_types = list(/datum/addiction/hallucinogens = 30)
 	overdose_threshold = 16
 	metabolized_traits = list(TRAIT_IGNOREDAMAGESLOWDOWN)
 
@@ -373,7 +385,7 @@
 /datum/reagent/drug/nooartrium
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
-	addiction_types = list(/datum/addiction/medicine = 12)
+	addiction_types = list(/datum/addiction/medicine = 12.5)
 	overdose_threshold = 25
 	color = "#280000"
 	self_consuming = TRUE //No pesky liver shenanigans

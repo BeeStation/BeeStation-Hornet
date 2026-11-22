@@ -17,7 +17,7 @@
 		return
 
 	var/datum/weakref/master_ref
-	if(isatom(new_master))
+	if(isdatum(new_master))
 		master_ref = WEAKREF(new_master)
 	var/atom/movable/screen/alert/thealert
 	if(alerts[category])
@@ -48,7 +48,8 @@
 
 	if(new_master)
 		thealert.master_ref = master_ref
-		thealert.RegisterSignal(new_master, COMSIG_ATOM_UPDATE_APPEARANCE, TYPE_PROC_REF(/atom/movable/screen/alert, on_master_update_appearance))
+		if(isatom(new_master))
+			thealert.RegisterSignal(new_master, COMSIG_ATOM_UPDATE_APPEARANCE, TYPE_PROC_REF(/atom/movable/screen/alert, on_master_update_appearance))
 		thealert.update_appearance(UPDATE_OVERLAYS)
 	else if(severity)
 		thealert.icon_state = "[initial(thealert.icon_state)][severity]"
@@ -170,11 +171,11 @@
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, examine_block(jointext(examine(usr), "\n")))
 		return FALSE
-	if(!click_master)
-		return TRUE
 	var/datum/our_master = master_ref?.resolve()
-	if(our_master)
+	if(our_master && click_master)
 		return usr.client.Click(our_master, location, control, params)
+
+	return TRUE
 
 /atom/movable/screen/alert/Destroy()
 	. = ..()
@@ -285,12 +286,6 @@
 	name = "High Pressure"
 	desc = "The air around you is hazardously thick. A fire suit would protect you."
 	icon_state = "highpressure"
-
-/atom/movable/screen/alert/blind
-	name = "Blind"
-	desc = "You can't see! This may be caused by a genetic defect, eye trauma, being unconscious, or something covering your eyes."
-	use_user_hud_icon = TRUE
-	overlay_state = "blind"
 
 /atom/movable/screen/alert/hypnosis
 	name = "Hypnosis"
@@ -414,6 +409,9 @@
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
+	if(!.)
+		return
+
 	if(!iscarbon(usr))
 		CRASH("User for [src] is of type \[[usr.type]\]. This should never happen.")
 	handle_transfer()
@@ -630,25 +628,33 @@
 /atom/movable/screen/alert/nocell
 	name = "Missing Power Cell"
 	desc = "Unit has no power cell. No modules available until a power cell is reinstalled. Robotics may provide assistance."
-	icon_state = "nocell"
+	icon_state = "no_cell"
 
 /atom/movable/screen/alert/emptycell
 	name = "Out of Power"
 	desc = "Unit's power cell has no charge remaining. No modules available until power cell is recharged. \
 Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
-	icon_state = "emptycell"
+	icon_state = "empty_cell"
 
 /atom/movable/screen/alert/lowcell
 	name = "Low Charge"
 	desc = "Unit's power cell is running low. Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
-	icon_state = "lowcell"
+	icon_state = "low_cell"
 
 //Ethereal
 
-/atom/movable/screen/alert/etherealcharge
+/atom/movable/screen/alert/lowcell/ethereal
 	name = "Low Blood Charge"
-	desc = "Your blood's electric charge is running low, find a source of charge for your blood. Use a recharging station found in robotics or the dormitory bathrooms, or eat some Ethereal-friendly food."
-	icon_state = "etherealcharge"
+	desc = "Your charge is running low, find a source of energy! Use a recharging station, eat some Ethereal-friendly food, or siphon some power from lights, a power cell, or an APC while in combat mode."
+
+/atom/movable/screen/alert/emptycell/ethereal
+	name = "No Blood Charge"
+	desc = "You are out of juice, find a source of energy! Use a recharging station, eat some Ethereal-friendly food, or siphon some power from lights, a power cell, or an APC while in combat mode."
+
+/atom/movable/screen/alert/ethereal_overcharge
+	name = "Blood Overcharge"
+	desc = "Your charge is running dangerously high, find an outlet for your energy! Right click an APC while not in combat mode."
+	icon_state = "cell_overcharge"
 
 //MODsuit unique
 /atom/movable/screen/alert/nocore
@@ -730,8 +736,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	. = ..()
 	if(!.)
 		return
-
-	var/mob/dead/observer/G = usr
+	var/mob/dead/observer/G = owner
 	G.reenter_corpse()
 
 /atom/movable/screen/alert/notify_action
@@ -743,7 +748,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	clickable_glow = TRUE
 	/// Weakref to the target atom to use the action on
 	var/datum/weakref/target_ref
-	var/action = NOTIFY_JUMP
+	/// If we want to interact on click rather than jump/orbit
+	var/click_interact = FALSE
 
 /atom/movable/screen/alert/notify_action/Click()
 	. = ..()
@@ -755,19 +761,12 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		return
 
 	var/mob/dead/observer/ghost_owner = owner
-	if(!istype(ghost_owner))
+
+	if(click_interact)
+		ghost_owner.jump_to_interact(target)
 		return
-	//Any actions that cause you to jump to the target turf
-	if (action == NOTIFY_ATTACK || action == NOTIFY_JUMP)
-		var/turf/T = get_turf(target)
-		if(isturf(T))
-			ghost_owner.abstract_move(T)
-	//Other additional actions
-	switch(action)
-		if(NOTIFY_ATTACK)
-			target.attack_ghost(ghost_owner)
-		if(NOTIFY_ORBIT)
-			ghost_owner.check_orbitable(target)
+
+	ghost_owner.observer_view(target)
 
 /atom/movable/screen/alert/poll_alert
 	name = "Looking for candidates"
@@ -834,7 +833,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		if (time_left_overlay)
 			cut_overlay(time_left_overlay)
 		time_left_overlay = new
-		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[CEILING(timeleft / (1 SECONDS), 1)]</b></span>")
+		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[ceil(timeleft / (1 SECONDS))]</b></span>")
 		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 19)
 		add_overlay(time_left_overlay)
 	else
@@ -844,12 +843,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/poll_alert/Click(location, control, params)
 	. = ..()
-	if(!.)
+	if(!. || isnull(poll))
 		return
-
-	if(isnull(poll))
-		return
-
 	var/clicky = FALSE
 	var/list/modifiers = params2list(params)
 	if (LAZYACCESS(modifiers, RIGHT_CLICK))
@@ -1003,6 +998,19 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	living_owner.changeNext_move(CLICK_CD_RESIST)
 	if((living_owner.mobility_flags & MOBILITY_MOVE) && (living_owner.last_special <= world.time))
 		return living_owner.resist_restraints()
+
+/atom/movable/screen/alert/softcrit
+	name = "Critical Condition"
+	desc = "You are in very bad shape. Max stamina reduced by 100 and stamina regen reduced by 5."
+	icon_state = ALERT_SOFTCRIT
+
+/atom/movable/screen/alert/exhausted
+	name = "Exhausted"
+	desc = "You're out of breath. You move slower, can't sprint, can only whisper, and stun weapons will put you on the floor. Stop running or rest to catch your breath."
+	icon_state = "weaken"
+
+/atom/movable/screen/alert/exhausted/second_wind
+	desc = "You're out of breath, but something keeps you going. Stun weapons will still put you on the floor."
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 

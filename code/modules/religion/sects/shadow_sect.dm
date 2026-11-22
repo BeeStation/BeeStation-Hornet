@@ -40,7 +40,8 @@
 		var/mob/living/carbon/human/O = blessed
 		var/datum/species/shadow/S = O.dna.species
 		S.change_hearts_ritual(blessed)
-		blessed.heal_overall_damage(5, 5, 20, BODYTYPE_ORGANIC)
+		blessed.heal_overall_damage(5, 5, required_bodytype = BODYTYPE_ORGANIC)
+		blessed.stamina.adjust(20)
 		to_chat(user, span_notice("You bless [blessed] with the power of [GLOB.deity], healing them and spreading blessings."))
 	return TRUE
 
@@ -97,7 +98,8 @@
 	//Blessings of the ritual for people of shadow
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
-			M.heal_overall_damage(25 * grand_ritual_level, 25 * grand_ritual_level, 200)
+			M.heal_overall_damage(25 * grand_ritual_level, 25 * grand_ritual_level)
+			M.stamina.adjust(200)
 			if(isblessedshadow(M))
 				var/datum/species/shadow/S = M.dna.species
 				S.change_hearts_ritual(M)
@@ -202,7 +204,7 @@
 /obj/structure/destructible/religion/shadow_obelisk/proc/toggling_buckling_after_ritual_3() // this is useless until it is inherited by obelisk after 3 grand rituals
 	return
 
-/obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, list/modifiers)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(istype(I, /obj/item/nullrod))
 		if(sect.grand_ritual_in_progress)
@@ -468,7 +470,8 @@
 			var/light_amount = T.get_lumcount()
 			if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
 				continue
-			L.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 5 * delta_time, FALSE, TRUE)
+			L.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time)
+			L.stamina.adjust(5 * delta_time)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3
@@ -583,7 +586,7 @@
 			sect.active_obelisks += obelisk
 			sect.active_obelisks_number += 1
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-		Destroy()
+		qdel(src)
 	if(sect.grand_ritual_level == 2)
 		var/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/obelisk = new(our_turf)
 		sect.obelisks += obelisk
@@ -594,7 +597,7 @@
 			sect.active_obelisks += obelisk
 			sect.active_obelisks_number += 1
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-		Destroy()
+		qdel(src)
 	if(sect.grand_ritual_level == 3)
 		var/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3/obelisk = new(our_turf)
 		sect.obelisks += obelisk
@@ -606,7 +609,7 @@
 			sect.active_obelisks_number += 1
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 		obelisk.toggling_buckling_after_ritual_3()
-		Destroy()
+		qdel(src)
 
 // Grand rituals themselves
 

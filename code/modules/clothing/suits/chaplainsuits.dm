@@ -63,12 +63,6 @@
 	inhand_icon_state = null
 	body_parts_covered = ARMS|CHEST
 
-/obj/item/clothing/suit/chaplainsuit/armor/witchhunter
-	name = "witchunter garb"
-	desc = "This worn outfit saw much use back in the day."
-	icon_state = "witchhunter"
-	inhand_icon_state = null
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
 /obj/item/clothing/suit/hooded/chaplainsuit/monkfrock
 	name = "monk's frock"
@@ -150,6 +144,10 @@
 	slowdown = 0
 	move_sound = null
 
+/obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/biosuit_dark)
+
 /obj/item/clothing/head/helmet/plate/crusader
 	name = "Crusader's Hood"
 	desc = "A brownish hood."
@@ -183,6 +181,7 @@
 
 //Prophet helmet
 /obj/item/clothing/head/helmet/plate/crusader/prophet
+	abstract_type = /obj/item/clothing/head/helmet/plate/crusader/prophet
 	name = "Prophet's Hat"
 	desc = "A religious-looking hat."
 	icon_state = null
@@ -219,7 +218,6 @@
 	flags_inv = NONE
 	icon_state = "cage"
 	inhand_icon_state = null
-	dynamic_hair_suffix = ""
 	worn_y_offset = 7
 
 /obj/item/clothing/head/helmet/chaplain/ancient
@@ -228,19 +226,19 @@
 	icon_state = "knight_ancient"
 	inhand_icon_state = null
 
+/obj/item/clothing/head/helmet/chaplain/ancient/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/biosuit_dark)
+
 /obj/item/clothing/suit/chaplainsuit/armor/ancient
 	name = "ancient armour"
 	desc = "Defend the treasure..."
 	icon_state = "knight_ancient"
 	inhand_icon_state = null
 
-/obj/item/clothing/head/helmet/chaplain/witchunter_hat
-	name = "witchunter hat"
-	desc = "This hat saw much use back in the day."
-	icon_state = "witchhunterhat"
-	inhand_icon_state = null
-	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEEYES
+/obj/item/clothing/suit/chaplainsuit/armor/ancient/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/biosuit_dark)
 
 /obj/item/clothing/head/helmet/chaplain/adept
 	name = "adept hood"

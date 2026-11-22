@@ -4,7 +4,7 @@
 
 	var/list/datum/weakref/localMotionTargets = list()
 	var/detectTime = 0
-	var/area/ai_monitored/area_motion = null
+	var/area/station/ai_monitored/area_motion = null
 	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
 
 /obj/machinery/camera/process()
@@ -89,7 +89,7 @@
 		return
 	localMotionTargets |= WEAKREF(AM)
 	if (!detectTime)
-		for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/TV as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/security/telescreen/entertainment))
 			TV.notify(TRUE)
 	detectTime = world.time + 30 SECONDS
 
@@ -106,7 +106,7 @@
 		detectTime = world.time + 30 SECONDS
 	else if (world.time > detectTime)
 		detectTime = 0
-		for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/TV as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/security/telescreen/entertainment))
 			TV.notify(FALSE)
 
 #undef MOTION_SENSOR_MINIMUM_ALPHA

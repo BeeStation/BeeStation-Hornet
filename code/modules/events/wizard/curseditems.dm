@@ -24,7 +24,7 @@
 		if("swords")
 			loadout[TOBITSHIFT(ITEM_SLOT_HANDS) + 1] = /obj/item/katana/cursed
 		if("bigfatdoobie")
-			loadout[TOBITSHIFT(ITEM_SLOT_MASK) + 1] = /obj/item/clothing/mask/cigarette/rollie/trippy
+			loadout[TOBITSHIFT(ITEM_SLOT_MASK) + 1] = /obj/item/cigarette/rollie/trippy
 			ruins_spaceworthiness = 1
 		if("boxing")
 			loadout[TOBITSHIFT(ITEM_SLOT_MASK) + 1] = /obj/item/clothing/mask/luchador

@@ -13,14 +13,14 @@
 /turf/closed/wall/material/break_wall()
 	for(var/i in custom_materials)
 		var/datum/material/M = i
-		new M.sheet_type(src, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+		new M.sheet_type(src, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 	if(girder_type)
 		return new girder_type(src)
 
 /turf/closed/wall/material/devastate_wall()
 	for(var/i in custom_materials)
 		var/datum/material/M = i
-		new M.sheet_type(src, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+		new M.sheet_type(src, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 
 /turf/closed/wall/material/mat_update_desc(mat)
 	desc = "A huge chunk of [mat] used to separate rooms."

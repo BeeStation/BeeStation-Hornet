@@ -58,7 +58,7 @@
 
 	return TRUE
 
-/obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
+/obj/item/gun/syringe/attackby(obj/item/A, mob/user, list/modifiers, show_msg = TRUE)
 	if(istype(A, /obj/item/reagent_containers/syringe))
 		if(syringes.len < max_syringes)
 			if(!user.transferItemToLoc(A, src))
@@ -106,7 +106,7 @@
 	. = ..()
 	chambered = new /obj/item/ammo_casing/dnainjector(src)
 
-/obj/item/gun/syringe/dna/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
+/obj/item/gun/syringe/dna/attackby(obj/item/A, mob/user, list/modifiers, show_msg = TRUE)
 	if(istype(A, /obj/item/dnainjector))
 		var/obj/item/dnainjector/D = A
 		if(D.used)
@@ -140,7 +140,7 @@
 		return FALSE
 	visible_message(span_danger("[user] starts aiming with a blowgun!"))
 	if(do_after(user, 25, target = src))
-		user.adjustStaminaLoss(20, updating_stamina = FALSE)
+		user.stamina.adjust(-20, TRUE)
 		user.adjustOxyLoss(20)
 		// Perform checks above us again
 		return ..()

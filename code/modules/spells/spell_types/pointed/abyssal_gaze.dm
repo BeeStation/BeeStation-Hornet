@@ -12,7 +12,7 @@
 	cooldown_time = 75 SECONDS
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
-	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 
 	cast_range = 5
 	active_msg = "You prepare to instill a deep terror in a target..."
@@ -35,7 +35,7 @@
 	to_chat(cast_on, span_userdanger("A freezing darkness surrounds you..."))
 	cast_on.playsound_local(get_turf(cast_on), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	owner.playsound_local(get_turf(owner), 'sound/effects/ghost2.ogg', 50, 1)
-	cast_on.set_blindness(blind_duration)
+	cast_on.adjust_temp_blindness(blind_duration)
 	if(ishuman(cast_on))
 		var/mob/living/carbon/human/human_cast_on = cast_on
 		human_cast_on.adjust_coretemperature(-amount_to_cool)

@@ -12,6 +12,7 @@
  * Use enter_jaunt() and exit_jaunt() as wrappers.
  */
 /datum/action/cooldown/spell/jaunt
+	abstract_type = /datum/action/cooldown/spell/jaunt
 	school = SCHOOL_TRANSMUTATION
 
 	invocation_type = INVOCATION_NONE
@@ -42,7 +43,7 @@
 			to_chat(owner, span_danger("Some dull, universal force is stopping you from jaunting here."))
 		return FALSE
 
-	if(owner_turf?.turf_flags & NOJAUNT_1)
+	if(owner_turf?.turf_flags & NOJAUNT)
 		if(feedback)
 			to_chat(owner, span_danger("An otherwordly force is preventing you from jaunting here."))
 		return FALSE

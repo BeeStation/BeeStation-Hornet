@@ -98,6 +98,31 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
+/datum/crafting_recipe/lantern
+	name = "Lantern"
+	result = /obj/item/flashlight/lantern
+	time = 3 SECONDS
+	tool_behaviors = list(TOOL_WIRECUTTER, TOOL_WELDER)
+	reqs = list(
+		/obj/item/stack/sheet/iron = 3,
+		/obj/item/stack/rods = 4,
+		/obj/item/flashlight = 1
+	)
+	category = CAT_MISC
+
+/datum/crafting_recipe/paperlantern
+	name = "Paper Lantern"
+	result = /obj/item/flashlight/lantern/paper
+	time = 4 SECONDS
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	reqs = list(
+		/obj/item/stack/sheet/paperframes = 3,
+		/obj/item/stack/sheet/wood = 1,
+		/obj/item/stack/rods = 2,
+		/obj/item/flashlight/lantern = 1
+	)
+	category = CAT_MISC
+
 /datum/crafting_recipe/flashlight_eyes
 	name = "Flashlight Eyes"
 	result = /obj/item/organ/eyes/robotic/flashlight
@@ -215,14 +240,6 @@
 	)
 	category = CAT_MISC
 
-/datum/crafting_recipe/rcl
-	name = "Makeshift Rapid Cable Layer"
-	result = /obj/item/rcl/ghetto
-	time = 4 SECONDS
-	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
-	reqs = list(/obj/item/stack/sheet/iron = 15)
-	category = CAT_MISC
-
 /datum/crafting_recipe/aitater
 	name = "intelliTater"
 	result = /obj/item/aicard/aitater
@@ -329,13 +346,6 @@
 	time = 1 SECONDS
 	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/paper = 5)
-	category = CAT_MISC
-
-/datum/crafting_recipe/basic_lasso
-	name= "Basic Lasso"
-	result = /obj/item/mob_lasso
-	time = 2 SECONDS
-	reqs = list(/obj/item/stack/sheet/leather = 5)
 	category = CAT_MISC
 
 /datum/crafting_recipe/foldable

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "pickaxe"
 	inhand_icon_state = "pickaxe"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	attack_weight = 2
 	force = 15
@@ -21,13 +21,12 @@
 	attack_verb_simple = list("hit", "pierce", "slice", "attack")
 
 /obj/item/pickaxe/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
-	if(user.getStaminaLoss() < 75)
+	if(user.stamina.loss_as_percent < 75)
 		. = ..()
 	else
 		to_chat(user, span_danger("You quickly stop picking. You are too tired to work!"))
 		return
-	user.adjustStaminaLoss(stamina_use)
-	return
+	user.stamina.adjust(-stamina_use, TRUE)
 
 /obj/item/pickaxe/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] begins digging into [user.p_their()] chest!  It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -117,9 +116,9 @@
 	inhand_icon_state = "shovel"
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
-	force = 8
+	force = 12
 	tool_behaviour = TOOL_SHOVEL
 	toolspeed = 1
 	usesound = 'sound/effects/shovel_dig.ogg'
@@ -148,6 +147,6 @@
 	inhand_icon_state = "spade"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
-	force = 5
+	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL

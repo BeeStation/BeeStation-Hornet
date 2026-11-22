@@ -68,7 +68,7 @@
 			if(HAS_TRAIT(H, TRAIT_PROSKATER))
 				multiplier = 0.3 //70% reduction
 			H.Paralyze(multiplier * 100)
-			H.adjustStaminaLoss(multiplier * 30)
+			H.stamina.adjust(multiplier * -30)
 			if(prob(multiplier * 100))
 				H.apply_damage(rand(20,35), BRUTE)
 			if(!crash_all)
@@ -76,7 +76,7 @@
 				visible_message(span_danger("[src] crashes into [H]!"))
 				playsound(src, 'sound/effects/bang.ogg', 50, 1)
 
-/obj/vehicle/ridden/space/speedwagon/Moved()
+/obj/vehicle/ridden/space/speedwagon/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!has_buckled_mobs())
 		return

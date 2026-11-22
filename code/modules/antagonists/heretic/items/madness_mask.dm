@@ -36,13 +36,13 @@
 	if(IS_HERETIC_OR_MONSTER(user))
 		return
 
-	ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	ADD_CLOTHING_TRAIT(src, TRAIT_NODROP)
 	to_chat(user, span_userdanger("[src] clamps tightly to your face as you feel your soul draining away!"))
 
 /obj/item/clothing/mask/madness_mask/dropped(mob/M)
 	local_user = null
 	STOP_PROCESSING(SSobj, src)
-	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	REMOVE_CLOTHING_TRAIT(src, TRAIT_NODROP)
 	return ..()
 
 /obj/item/clothing/mask/madness_mask/process(delta_time)
@@ -50,7 +50,7 @@
 		return PROCESS_KILL
 
 	if(IS_HERETIC_OR_MONSTER(local_user) && HAS_TRAIT(src, TRAIT_NODROP))
-		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+		REMOVE_CLOTHING_TRAIT(src, TRAIT_NODROP)
 
 	for(var/mob/living/carbon/human/human_in_range in view(local_user))
 		if(IS_HERETIC_OR_MONSTER(human_in_range) || human_in_range.is_blind())
@@ -64,9 +64,9 @@
 		if(DT_PROB(40, delta_time))
 			human_in_range.set_jitter_if_lower(10 SECONDS)
 
-		if(human_in_range.getStaminaLoss() >= 85 && DT_PROB(30, delta_time))
+		if(HAS_TRAIT(human_in_range, TRAIT_EXHAUSTED) && DT_PROB(30, delta_time))
 			human_in_range.emote(pick("giggle", "laugh"))
-			human_in_range.adjustStaminaLoss(10)
+			human_in_range.stamina.adjust(-10)
 
 		if(DT_PROB(25, delta_time))
 			human_in_range.set_dizzy_if_lower(10 SECONDS)

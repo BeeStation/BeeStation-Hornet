@@ -31,9 +31,6 @@
 
 /// checks keybindings for nonexistent keybinds and removes them
 /datum/preferences/proc/sanitize_keybinds()
-	if(!parent)
-		return
-
 	/**
 	 * Real world example of invalid keybinds:
 	 * (To avoid confusion between list index keys and keys on a keyboard, I will be referring to keys on a keyboard as buttons)
@@ -56,6 +53,9 @@
 		// Prunes buttons as index keys and deprecated binds.
 		if(isnull(GLOB.keybindings_by_name[bind]))
 			key_bindings -= bind
+
+	key_bindings = sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
+	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 
 // Defines for list sanity
 #define READPREF_STR(target, tag) if(prefmap[tag]) target = prefmap[tag]
@@ -140,8 +140,6 @@
 	pai_comment = sanitize_text(pai_comment, initial(pai_comment))
 
 	sanitize_keybinds()
-	key_bindings = sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
-	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 
 	// Remove any invalid role preference entries
 	for(var/preference in role_preferences_global)

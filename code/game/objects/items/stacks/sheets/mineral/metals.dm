@@ -22,7 +22,7 @@ Metals Sheets
 	inhand_icon_state = "sheet-metal"
 	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/iron
 	grind_results = list(/datum/reagent/iron = 20)
@@ -52,7 +52,7 @@ Metals Sheets
 	user.visible_message(span_suicide("[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
-/obj/item/stack/sheet/iron/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/stack/sheet/iron/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
 	if(istype(target, /turf/open))
 		var/turf/open/build_on = target
 		if(!user.Adjacent(build_on))
@@ -89,7 +89,7 @@ Metals Sheets
 	mats_per_unit = list(/datum/material/alloy/plasteel=MINERAL_MATERIAL_AMOUNT)
 	material_type = /datum/material/alloy/plasteel
 	throwforce = 10
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	armor_type = /datum/armor/sheet_plasteel
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
@@ -122,7 +122,7 @@ Metals Sheets
 	throw_range = 3
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/teslium = 15)
 	merge_type = /obj/item/stack/sheet/brass
-	custom_materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.5, /datum/material/iron=MINERAL_MATERIAL_AMOUNT*0.5)
+	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.5, /datum/material/iron=MINERAL_MATERIAL_AMOUNT*0.5)
 
 /obj/item/stack/sheet/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
@@ -179,16 +179,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
-
-/* Fleshy iron */
-
-/obj/item/stack/sheet/fleshymass
-	name = "fleshy mass"
-	singular_name = "fleshy mass"
-	desc = "You swear it looks at you..."
-	icon_state = "sheet-fleshymass"
-	inhand_icon_state = "sheet-fleshymass"
-	merge_type = /obj/item/stack/sheet/fleshymass
-
-/obj/item/stack/sheet/fleshymass/get_recipes()
-	return GLOB.fleshymass_recipes

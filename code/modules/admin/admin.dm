@@ -1,12 +1,12 @@
 ////////////////////////////////
 /proc/message_admins(msg)
-	msg = span_admin("[span_prefix("ADMIN LOG:")] [span_messagelinkify(msg)]")
+	msg = span_admin("[span_prefix("ADMIN LOG:")] [span_messagelinkify("[msg]")]")
 	to_chat(GLOB.admins,
 		type = MESSAGE_TYPE_ADMINLOG,
 		html = msg)
 
 /proc/relay_msg_admins(msg)
-	msg = span_admin("[span_prefix("RELAY:")] [span_messagelinkify(msg)]")
+	msg = span_admin("[span_prefix("RELAY:")] [span_messagelinkify("[msg]")]")
 	to_chat(GLOB.admins,
 		type = MESSAGE_TYPE_ADMINLOG,
 		html = msg)
@@ -71,8 +71,7 @@
 		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=set;mob=[REF(M)]'>=</a> "
 		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=zero;mob=[REF(M)]'>0</a>"
 		if(M.client.logged_in)
-			var/antag_tokens = M.client.get_antag_token_count_db()
-			body += "<br><b>Antag Tokens</b>: [antag_tokens] "
+			body += "<br><b>Antag Tokens</b>: [get_antag_token_count_db(M.ckey)] "
 			body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=add;mob=[REF(M)]'>+</a> "
 			body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=subtract;mob=[REF(M)]'>-</a> "
 			body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=set;mob=[REF(M)]'>=</a> "
@@ -240,12 +239,7 @@
 
 	var/dat
 
-	dat += {"
-		<A href='byond://?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>
-		<A href='byond://?src=[REF(src)];[HrefToken()];quick_create_object=1'>Quick Create Object</A><br>
-		<A href='byond://?src=[REF(src)];[HrefToken()];create_turf=1'>Create Turf</A><br>
-		<A href='byond://?src=[REF(src)];[HrefToken()];create_mob=1'>Create Mob</A><br>
-		"}
+	dat += "<a href='byond://?src=[REF(src)];[HrefToken()];spawn_panel=1'>Spawn Panel</a><br>"
 
 	if(marked_datum && istype(marked_datum, /atom))
 		dat += "<A href='byond://?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
@@ -509,39 +503,83 @@
 /datum/admins/proc/unprison(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Unprison"
-	if (is_centcom_level(M.z))
-		SSjob.SendToLateJoin(M)
-		message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]")
-		log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
-	else
-		alert("[M.name] is not prisoned.")
+	if(!is_centcom_level(M.z))
+		tgui_alert(usr, "[M.name] is not prisoned.")
+
+	SSjob.SendToLateJoin(M)
+	message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]")
+	log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Unprison") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom(input as null|text)
+/datum/admins/proc/spawn_atom(object as null|text)
 	set category = "Debug"
-	set desc = "(atom path) Spawn an atom"
+	set desc = "Spawn an atom"
 	set name = "Spawn"
+
+	if(!istype(src, /datum/admins))
+		src = usr.client.holder
+	if(!istype(src, /datum/admins))
+		to_chat(usr, span_warning("Error: you are not an admin!"))
+		return
 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if (!input)
-		input = tgui_input_text(usr, "Spawn an atom:", "Spawn")
-	var/chosen = pick_closest_path(input)
-	if(!chosen)
-		return
-	var/turf/T = get_turf(usr)
+	var/static/list/atom_types
+	if (isnull(atom_types))
+		atom_types = subtypesof(/atom)
 
-	if(ispath(chosen, /turf))
-		T.ChangeTurf(chosen)
+	var/chosen_path = null
+	var/list/preparsed = null
+	if (object)
+		preparsed = splittext(object, ":")
+		var/list/matches = filter_fancy_list(atom_types, preparsed[1])
+		if (length(matches) == 1)
+			chosen_path = matches[1]
+
+	if(!chosen_path)
+		if (!spawn_menu)
+			spawn_menu = new()
+		spawn_menu.init_value = object
+		spawn_menu.ui_interact(usr)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		return TRUE
+
+	var/amount = 1
+	if (length(preparsed) > 1)
+		amount = clamp(text2num(preparsed[2]), 1, ADMIN_SPAWN_CAP)
+
+	var/turf/target_turf = get_turf(usr)
+	if (ispath(chosen_path, /turf))
+		target_turf.ChangeTurf(chosen_path)
 	else
-		var/atom/A = new chosen(T)
-		A.flags_1 |= ADMIN_SPAWNED_1
+		for (var/i in 1 to amount)
+			var/atom/spawned = new chosen_path(target_turf)
+			spawned.flags_1 |= ADMIN_SPAWNED_1
 
-	log_admin("[key_name(usr)] spawned [chosen] at [AREACOORD(usr)]")
+	log_admin("[key_name(usr)] spawned [amount] x [chosen_path] at [AREACOORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/open_spawn_panel()
+	set category = "Admin"
+	set desc = "Spawn Panel (TGUI)."
+	set name = "Spawn Panel"
+
+	if(!istype(src, /datum/admins))
+		src = usr.client.holder
+	if(!istype(src, /datum/admins))
+		to_chat(usr, span_warning("Error: you are not an admin!"))
+		return
+
+	if(!check_rights(R_SPAWN))
+		return
+
+	if(!spawn_panel)
+		spawn_panel = new()
+	spawn_panel.ui_interact(usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/podspawn_atom(object as text)
 	set category = "Debug"
@@ -601,20 +639,6 @@
 	M.mind.traitor_panel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Traitor Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/datum/admins/proc/toggletintedweldhelmets()
-	set category = "Debug"
-	set desc="Reduces view range when wearing welding helmets"
-	set name="Toggle tinted welding helmes"
-	GLOB.tinted_weldhelh = !( GLOB.tinted_weldhelh )
-	if (GLOB.tinted_weldhelh)
-		to_chat(world, "<B>The tinted_weldhelh has been enabled!</B>")
-	else
-		to_chat(world, "<B>The tinted_weldhelh has been disabled!</B>")
-	log_admin("[key_name(usr)] toggled tinted_weldhelh.")
-	message_admins("[key_name_admin(usr)] toggled tinted_weldhelh.")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Tinted Welding Helmets", "[GLOB.tinted_weldhelh ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /datum/admins/proc/toggleguests()
 	set category = "Server"
 	set desc="Guests can't enter"
@@ -665,13 +689,12 @@
 	var/count = 0
 
 	if(!SSjob.initialized)
-		alert(usr, "You cannot manage jobs before the job subsystem is initialized!")
+		tgui_alert(usr, "You cannot manage jobs before the job subsystem is initialized!")
 		return
 
 	dat += "<table>"
 
-	for(var/j in SSjob.occupations)
-		var/datum/job/job = j
+	for(var/datum/job/job as anything in SSjob.joinable_occupations)
 		count++
 		var/J_title = html_encode(job.title)
 		var/job_positions = job.get_spawn_position_count()

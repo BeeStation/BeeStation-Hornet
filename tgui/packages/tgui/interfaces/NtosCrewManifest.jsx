@@ -1,4 +1,4 @@
-import { map } from 'common/collections';
+import { map } from 'es-toolkit/compat';
 
 import { useBackend } from '../backend';
 import { Button, Section, Table } from '../components';

@@ -50,15 +50,15 @@
 		icon_state = "[catwalk_type]_above"
 
 	levelupdate()
-	user.balloon_alert(user, "[!covered ? "Cover removed" : "Ccover added"]")
+	user.balloon_alert(user, covered ? "cover added" : "cover removed")
 	tool.play_tool_sound(src)
 	update_appearance()
 
 /turf/open/floor/catwalk_floor/crowbar_act(mob/user, obj/item/crowbar)
 	if(covered)
-		user.balloon_alert(user, "Remove the cover first!")
+		user.balloon_alert(user, "remove cover first!")
 		return FALSE
-	. = ..()
+	return ..()
 
 //Reskins! More fitting with most of our tiles, and appear as a radial on the base type
 /turf/open/floor/catwalk_floor/iron
@@ -103,3 +103,25 @@
 	icon_state = "smoothiron_above"
 	floor_tile = /obj/item/stack/tile/catwalk_tile/iron_smooth
 	catwalk_type = "smoothiron"
+
+//Airless variants of the above
+/turf/open/floor/catwalk_floor/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_white/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_dark/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_dark/telecomms
+	initial_gas_mix = TCOMMS_ATMOS
+
+/turf/open/floor/catwalk_floor/titanium/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_smooth/airless
+	initial_gas_mix = AIRLESS_ATMOS

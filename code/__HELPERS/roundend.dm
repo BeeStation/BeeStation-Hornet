@@ -46,7 +46,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 					var/mob/living/carbon/human/H = L
 					category = "humans"
 					if(H.mind)
-						mob_data["job"] = H.mind.assigned_role
+						mob_data["job"] = H.mind.assigned_role.title
 					else
 						mob_data["job"] = "Unknown"
 					mob_data["species"] = H.dna.species.name
@@ -112,7 +112,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 	var/list/greentexters = list()
 
-	for(var/datum/antagonist/A as() in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 
@@ -135,7 +135,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		var/greentexted = TRUE
 
 		if(A.objectives.len)
-			for(var/datum/objective/O as() in A.objectives)
+			for(var/datum/objective/O as anything in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
 
 				if (result == "FAIL")
@@ -157,23 +157,24 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 
 /datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
-	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
-	if(N)
+	var/disk_count = 1
+	for(var/obj/item/disk/nuclear/nuke_disk as anything in SSpoints_of_interest.real_nuclear_disks)
 		var/list/data = list()
-		var/turf/T = get_turf(N)
-		if(T)
-			data["x"] = T.x
-			data["y"] = T.y
-			data["z"] = T.z
-		var/atom/outer = get_atom_on_turf(N,/mob/living)
-		if(outer != N)
+		var/turf/disk_turf = get_turf(nuke_disk)
+		if(disk_turf)
+			data["x"] = disk_turf.x
+			data["y"] = disk_turf.y
+			data["z"] = disk_turf.z
+		var/atom/outer = get_atom_on_turf(nuke_disk, /mob/living)
+		if(outer != nuke_disk)
 			if(isliving(outer))
-				var/mob/living/L = outer
-				data["holder"] = L.real_name
+				var/mob/living/disk_holder = outer
+				data["holder"] = disk_holder.real_name
 			else
 				data["holder"] = outer.name
 
-		SSblackbox.record_feedback("associative", "roundend_nukedisk", 1 , data)
+		SSblackbox.record_feedback("associative", "roundend_nukedisk", disk_count, data)
+		disk_count++
 
 /datum/controller/subsystem/ticker/proc/gather_newscaster()
 	var/json_file = file("[GLOB.log_directory]/newscaster.json")
@@ -214,12 +215,12 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		if(C)
 
 			C?.process_endround_metacoin()
-			C?.playtitlemusic(40)
+			C?.play_title_music(volume_multiplier = 0.5)
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
-					for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+					for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
 							break
 						if(CO.check_completion())
@@ -241,10 +242,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	CHECK_TICK
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		for(var/m in GLOB.player_list)
-			var/mob/M = m
-			H.add_hud_to(M)
+	for(var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antagonist_hud in GLOB.active_alternate_appearances)
+		for(var/mob/player as anything in GLOB.player_list)
+			antagonist_hud.show_to(player)
 
 	CHECK_TICK
 
@@ -263,7 +263,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		if(!(A.name in total_antagonists))
@@ -273,7 +273,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	CHECK_TICK
 
 	//Process veteran achievements
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as anything in GLOB.clients)
 		var/hours = round(C?.get_exp_living(TRUE)/60)
 		if(hours > 1000)
 			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
@@ -438,7 +438,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
-				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+				for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 					if(CO.declared_complete)
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] [span_greentext("<B>Success!</B>")]<br>"
 					else
@@ -476,15 +476,14 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 				aiPlayer.client.give_award(/datum/award/achievement/misc/laws)
 
 
-		if (aiPlayer.connected_robots.len)
-			var/borg_num = aiPlayer.connected_robots.len
+		var/borg_num = LAZYLEN(aiPlayer.connected_robots)
+		if (borg_num)
 			parts += "<br><b>[aiPlayer.real_name]</b>'s minions were:"
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				borg_num--
 				if(robo.mind)
-					parts += "<b>[robo.name]</b> [robo.stat == DEAD ? " [span_redtext("(Deactivated)")]" : ""][borg_num ?", ":""]"
-		if(!borg_spacer)
-			borg_spacer = TRUE
+					parts += "<b>[robo.name]</b> [robo.stat == DEAD ? span_redtext("(Deactivated)") : ""][borg_num ? ", " : ""]"
+		borg_spacer = TRUE
 
 	for (var/mob/living/silicon/robot/robo as anything in GLOB.cyborg_list)
 		if (!robo.connected_ai && robo.mind)
@@ -493,8 +492,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				parts += robo.laws.get_law_list(include_zeroth=TRUE)
 
-			if(!borg_spacer)
-				borg_spacer = TRUE
+			borg_spacer = TRUE
 
 	if(parts.len)
 		return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
@@ -525,7 +523,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		/datum/bank_account/department,
 		/datum/bank_account/remote,
 	))
-	for(var/datum/bank_account/current_acc as anything in SSeconomy.bank_accounts)
+	for(var/datum/bank_account/current_acc as anything in flatten_list(SSeconomy.bank_accounts_by_id))
 		if(typecache_bank[current_acc.type])
 			continue
 		station_vault += current_acc.account_balance
@@ -584,7 +582,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			continue
 		all_teams |= A
 
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		all_antagonists |= A
@@ -665,31 +663,31 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	var/obj/item/card/id/I = mind.current?.get_idcard()
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
-			custom_title = I.assignment // get the custom title
-		if(custom_title == mind.assigned_role) // non-custom title, lame
+			custom_title = I.get_assignment() // get the custom title
+		if(custom_title == mind.assigned_role.title) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/record/crew/R = find_record(mind.name, GLOB.manifest.general)
 		if(R)
 			custom_title = R.rank // get a custom title from manifest
-		if(custom_title == mind.assigned_role) // lame...
+		if(custom_title == mind.assigned_role.title) // lame...
 			return
 
 	if(custom_title)
 		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
-/proc/printplayer(datum/mind/ply, fleecheck)
+/proc/printplayer(datum/mind/ply, fleecheck, status_override)
 	var/jobtext = ""
-	if(ply.assigned_role || ply.special_role)
-		if(ply.assigned_role != "Unassigned")
-			jobtext = ply.assigned_role
-		if(!jobtext)
-			jobtext = ply.special_role
-		if(jobtext)
-			jobtext = " the <b>[jobtext]</b>"
+	if(!is_unassigned_job(ply.assigned_role))
+		jobtext = " the <b>[ply.assigned_role.title]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and"
+	if(status_override) // So we can support "Was deconverted" as a roundend state
+		text += " [status_override]"
+		if(ply.current && ply.current.real_name != ply.name)
+			text += " as <b>[ply.current.real_name]</b>"
+		return text
 	if(ply.cryoed)
 		text += " [span_bluetext("entered cryosleep")]"
 	else if(ply.current)
@@ -722,7 +720,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		return
 	var/list/objective_parts = list()
 	var/count = 1
-	for(var/datum/objective/objective as() in objectives)
+	for(var/datum/objective/objective as anything in objectives)
 		objective_parts += "<b>Objective #[count++]</b>: [objective.get_completion_message()]"
 	return objective_parts.Join("<br>")
 
@@ -836,7 +834,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 	// Unaccounted for antagonists
 	var/list/unaccounted_antagonists = list()
-	for (var/datum/antagonist/antagonist as anything in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		if (antagonist.spawning_ruleset || !antagonist.name || !antagonist.owner)
 			continue
 		if (unaccounted_antagonists[antagonist.name])
