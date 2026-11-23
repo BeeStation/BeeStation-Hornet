@@ -18,6 +18,7 @@ d\left(x\right)=\max\left(0,120-\frac{\left(120\cdot\max\left(0,\min\left(1,\fra
 
 This function calculates the amount of health that your mob has at time x
 y=d\left(q\left(x\right)\right)
+d(x) is only used for IPC coolant loss
 
 **Notes for porting/search:**
 bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() returns if you are not bleeding, even if you have active bandages.
@@ -34,6 +35,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/bleed_rate = 0
 	var/time_applied = 0
 	var/bleed_heal_multiplier = 1
+	/// Bled blood not yet put on the floor, waiting for drips/trails
+	var/floor_blood = 0
 	COOLDOWN_DECLARE(spray_cooldown)
 
 /datum/status_effect/bleeding/merge(bleed_level)
@@ -53,10 +56,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 	var/should_process = time_applied >= 1 SECONDS
 	if (!should_process)
-		// For heavy bleeding, leave drops if we are standing.
-		// If we are lying down, allow the trail to form
-		// This doesn't actually cause you to lose blood any faster
-		if (bleed_rate > BLEED_RATE_MINOR && owner.body_position == STANDING_UP && !HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+		if (isturf(owner.loc) && use_floor_blood(BLEED_DRIP_COST))
 			owner.add_splatter_floor(owner.loc, TRUE)
 		return
 	time_applied = 0
@@ -82,14 +82,24 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		update_shown_duration()
 		return
 	// Actually do the bleeding
-	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
+	var/bled = owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate), splatter = FALSE)
 	var/mob/living/carbon/carbon_owner = owner
 	var/pumping = owner.stat != DEAD && owner.get_blood_volume() >= BLOOD_VOLUME_BAD && !(istype(carbon_owner) && carbon_owner.undergoing_cardiac_arrest())
-	if(pumping && final_bleed_rate >= BLEED_CRITICAL && COOLDOWN_FINISHED(src, spray_cooldown) && owner.spray_blood(pick(GLOB.alldirs), 2))
+	if(pumping && bled && final_bleed_rate >= BLEED_CRITICAL && COOLDOWN_FINISHED(src, spray_cooldown) && owner.spray_blood(pick(GLOB.alldirs), 2))
+		// Spray takes two thirds of this beat's blood
+		bled /= 3
 		COOLDOWN_START(src, spray_cooldown, 8 SECONDS)
 		owner.visible_message(span_danger("Blood sprays out of [owner]'s wounds!"), span_userdanger("Blood sprays out of your wounds!"))
+	floor_blood = min(floor_blood + bled, BLEED_FLOOR_BLOOD_MAX)
 	// Update the alert to show current bleed rate
 	update_shown_duration()
+
+/// enough blood bled for decal?
+/datum/status_effect/bleeding/proc/use_floor_blood(amount)
+	if(floor_blood < amount)
+		return FALSE
+	floor_blood -= amount
+	return TRUE
 
 /datum/status_effect/bleeding/update_shown_duration()
 	if(QDELETED(owner))
@@ -423,16 +433,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	// Takes into account modifiers like saline-glucose solution in the blood
 	var/modified_blood_volume = get_blood_volume(apply_modifiers = TRUE)
 
-	//Effects of bloodloss
-	var/word = pick("dizzy","woozy","faint")
-
-	// How much oxyloss we want to be on
-	var/desired_damage = (getMaxHealth() * 1.2) * CLAMP01((modified_blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
-	// Make it so we only go unconcious at 25% blood remaining
-	desired_damage = max(0, (getMaxHealth() * 1.2) - ((desired_damage ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
-	if (desired_damage >= getMaxHealth() * 1.2)
-		desired_damage = getMaxHealth() * 2.0
 	if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+		// How much burn we want to be on, see the desmos link at the top of this file
+		var/desired_damage = (getMaxHealth() * 1.2) * CLAMP01((modified_blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
+		desired_damage = max(0, (getMaxHealth() * 1.2) - ((desired_damage ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
+		if (desired_damage >= getMaxHealth() * 1.2)
+			desired_damage = getMaxHealth() * 2.0
 		switch(modified_blood_volume)
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
 				if(prob(3))
@@ -444,43 +450,75 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		var/health_difference = clamp(desired_damage - getFireLoss(), 0, 5)
 		adjustFireLoss(health_difference)
 		return
+
+	//Effects of bloodloss
+	var/word = pick("dizzy","woozy","faint")
 	switch(modified_blood_volume)
+		// Low blood but not a big deal in the immediate
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 			if(DT_PROB(2.5, delta_time))
-				to_chat(src, span_warning("You feel [word]."))
-		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-			if(DT_PROB(2.5, delta_time))
-				set_eye_blur_if_lower(12 SECONDS)
-				to_chat(src, span_warning("You feel very [word]."))
+				set_eye_blur_if_lower(2 SECONDS)
+				if(prob(50))
+					to_chat(src, span_danger("You feel [word]. It's getting a bit hard to breathe."))
+					losebreath += 0.5 * delta_time
+				else if(stamina.loss < 25)
+					to_chat(src, span_danger("You feel [word]. It's getting a bit hard to focus."))
+					stamina.adjust(-5 * delta_time)
+		// Pretty low blood, getting dangerous!
+		if(BLOOD_VOLUME_RISKY to BLOOD_VOLUME_OKAY)
+			if(DT_PROB(5, delta_time))
+				set_eye_blur_if_lower(2 SECONDS)
+				set_dizzy_if_lower(2 SECONDS)
+				if(prob(50))
+					to_chat(src, span_bolddanger("You feel very [word]. It's getting hard to breathe!"))
+					losebreath += 1
+				else if(stamina.loss < 40)
+					to_chat(src, span_bolddanger("You feel very [word]. It's getting hard to stay awake!"))
+					stamina.adjust(-7.5)
+		// Very low blood, danger!!
+		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_RISKY)
+			if(DT_PROB(5, delta_time))
+				set_eye_blur_if_lower(4 SECONDS)
+				set_dizzy_if_lower(4 SECONDS)
+				if(prob(50))
+					to_chat(src, span_userdanger("You feel extremely [word]! It's getting very hard to breathe!"))
+					losebreath += 1.5
+				else if(stamina.loss < 80)
+					to_chat(src, span_userdanger("You feel extremely [word]! It's getting very hard to stay awake!"))
+					stamina.adjust(-10)
+		// Critically low blood, death is near!
 		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-			if(DT_PROB(15, delta_time))
-				set_eye_blur_if_lower(12 SECONDS)
-				Unconscious(rand(3,6))
-				to_chat(src, span_warning("You feel extremely [word]."))
+			if(DT_PROB(7.5, delta_time))
+				Unconscious(rand(1 SECONDS, 2 SECONDS))
+				to_chat(src, span_userdanger("You black out for a moment!"))
 		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-			desired_damage = getMaxHealth() * 2.0
-			// Rapidly die with no saving you
-			adjustOxyLoss(clamp(getMaxHealth() * 2.0 - getOxyLoss(), 0, 10))
-	var/health_difference = clamp(desired_damage - getOxyLoss(), 0, 5)
-	adjustOxyLoss(health_difference)
+			if(!HAS_TRAIT(src, TRAIT_NODEATH))
+				investigate_log("has died of bloodloss.", INVESTIGATE_DEATHS)
+				death()
 
-/// Bleeds amount units of blood from the mob, sometimes creating a blood splatter on the floor.
-/mob/living/proc/bleed(amount)
+	// Past the passout threshold this keeps climbing while we're out
+	var/target_oxyloss = max((1 - modified_blood_volume / BLOOD_VOLUME_NORMAL) * 100, 0)
+	if(target_oxyloss > 0 && (getOxyLoss() < target_oxyloss || (target_oxyloss >= OXYLOSS_PASSOUT_THRESHOLD && IS_UNCONSCIOUS_OR_CRIT(src))))
+		adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - modified_blood_volume), 0.25) * delta_time)
+
+/// Bleeds amount units of blood from the mob, sometimes creating a blood splatter on the floor. Returns how much was lost.
+/mob/living/proc/bleed(amount, splatter = TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE) || !can_bleed())
-		return
+		return 0
 
 	var/amount_bled = -adjust_blood_volume(-amount)
 
 	// Blood loss still happens in locker, floor stays clean
-	if(isturf(loc) && prob(sqrt(amount_bled) * BLOOD_DRIP_RATE_MOD))
+	if(splatter && isturf(loc) && prob(sqrt(amount_bled) * BLOOD_DRIP_RATE_MOD))
 		add_splatter_floor(loc, TRUE)
+	return amount_bled
 
-/mob/living/carbon/bleed(amount)
+/mob/living/carbon/bleed(amount, splatter = TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE) || !can_bleed() || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || HAS_TRAIT(src, TRAIT_STASIS))
-		return
+		return 0
 	var/cached_blood_volume = get_blood_volume()
 	if(!cached_blood_volume)
-		return
+		return 0
 	// As you get less bloodloss, you bleed slower
 	// See the top of this file for desmos lines
 	var/decrease_multiplier = BLEED_RATE_MULTIPLIER
@@ -490,10 +528,11 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/blood_loss_amount = cached_blood_volume - cached_blood_volume * NUM_E ** (-(amount * decrease_multiplier) / BLOOD_VOLUME_NORMAL)
 	var/amount_bled = -adjust_blood_volume(-blood_loss_amount)
 	// Blood loss still happens in locker, floor stays clean
-	if(isturf(loc) && prob(sqrt(amount_bled) * BLOOD_DRIP_RATE_MOD))
+	if(splatter && isturf(loc) && prob(sqrt(amount_bled) * BLOOD_DRIP_RATE_MOD))
 		add_splatter_floor(loc, amount_bled < 2)
+	return amount_bled
 
-/mob/living/carbon/human/bleed(amount)
+/mob/living/carbon/human/bleed(amount, splatter = TRUE)
 	amount *= physiology.bleed_mod
 	return ..()
 
@@ -566,7 +605,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	RETURN_TYPE(/list)
 
 	var/datum/blood_type/blood_type = get_bloodtype()
-	if (!blood_type || !can_bleed())
+	if (!blood_type)
 		return
 
 	var/blood_data = list()
@@ -652,9 +691,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /// Returns the reagent type this mob has for blood
 /mob/living/proc/get_blood_reagent()
-	if (!can_bleed())
-		return
-
 	var/datum/blood_type/blood_type = get_bloodtype()
 	return blood_type?.reagent_type
 
@@ -871,9 +907,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/blood_to_add = BLOOD_AMOUNT_PER_DECAL * 0.1
 
 	if(body_position == LYING_DOWN)
-		blood_to_add += bleed_drag_amount()
-		adjust_blood_volume(-blood_to_add)
+		var/drag_loss = bleed_drag_amount()
+		blood_to_add += drag_loss
+		adjust_blood_volume(-drag_loss)
 	else
+		var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
+		if(!bleed?.use_floor_blood(BLEED_TRAIL_COST))
+			return
 		blood_to_add += base_bleed_rate
 
 	// If we're very damaged or bleeding a lot, add even more blood to the trail

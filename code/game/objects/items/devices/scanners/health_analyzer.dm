@@ -419,7 +419,7 @@
 	if(target.has_dna())
 		var/mob/living/carbon/carbontarget = target
 		var/datum/blood_type/blood_type = carbontarget.get_bloodtype()
-		if(blood_type && carbontarget.get_blood_reagent())
+		if(blood_type)
 			if(carbontarget.is_bleeding())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding at a rate of [round(carbontarget.get_bleed_rate(), 0.1)]/s!</b></span>\n"
 			else if (carbontarget.is_bandaged())

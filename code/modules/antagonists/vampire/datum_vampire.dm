@@ -128,6 +128,7 @@
 		TRAIT_STABLELIVER,
 		TRAIT_OOZELING_NO_CANNIBALIZE,
 		TRAIT_NO_MIRROR_REFLECTION,
+		TRAIT_DRINKSBLOOD,
 	)
 
 	/// List of traits applied while in torpor
@@ -336,14 +337,12 @@
 	var/mob/living/carbon/human/human_old_body = old_body
 
 	if(ishuman(human_new_body))
-		human_new_body.dna.species.inherent_traits += TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in human_new_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage) + 2
 		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	if(ishuman(human_old_body))
-		human_old_body.dna.species.inherent_traits -= TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in human_old_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage)
@@ -466,8 +465,6 @@
 
 	// Species traits
 	if(ishuman(user) && user.dna)
-		var/datum/species/user_species = user.dna.species
-		user_species.inherent_traits += TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in user.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage += 2
@@ -517,9 +514,7 @@
 
 	/// Stats
 	if(ishuman(user))
-		var/datum/species/user_species = user.dna.species
 		var/mob/living/carbon/human/human_user = user
-		user_species.inherent_traits -= TRAIT_DRINKSBLOOD
 		human_user.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	// Remove all vampire traits

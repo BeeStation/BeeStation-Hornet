@@ -701,7 +701,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/possibledist = power + 1
 		if(M.get_blood_reagent() != /datum/reagent/blood)
 			possibledist = 1
-		if(!HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //if you dont have blood, well... sucks to be you
+		if(!HAS_TRAIT(H, TRAIT_NOBLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD)) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
 			if(bloodpoints >= 200 && H.health > 0 && H.get_blood_volume() >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
 				H.revive()

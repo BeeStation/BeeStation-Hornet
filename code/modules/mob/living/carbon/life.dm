@@ -299,6 +299,7 @@
 
 	var/datum/blood_type/donor_type = chem.data?["blood_type"]
 	if(istype(donor_type) && !(donor_type.type_key() in blood_type.compatible_types))
+		reagents.remove_reagent(chem.type, reac_volume)
 		reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
 		return COMPONENT_NO_EXPOSE_REAGENTS
 
