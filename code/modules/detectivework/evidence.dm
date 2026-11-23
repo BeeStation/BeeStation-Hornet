@@ -63,11 +63,9 @@
 
 	icon_state = "evidence"
 
-	var/mutable_appearance/in_evidence = new(I)
+	var/mutable_appearance/in_evidence = copy_appearance_without_offsets(I)
 	in_evidence.plane = FLOAT_PLANE
 	in_evidence.layer = FLOAT_LAYER
-	in_evidence.pixel_x = 0
-	in_evidence.pixel_y = 0
 	add_overlay(in_evidence)
 	add_overlay("evidence")	//should look nicer for transparent stuff. not really that important, but hey.
 

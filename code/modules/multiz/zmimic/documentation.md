@@ -27,6 +27,30 @@ Additionally, the SSoverlays procs notify mimics, catching overlay changes made 
 
 What makes Z-mimic so performant is that the performance overhead of checking for an update is extremely minimal, as it's performed on the side of the atom being mimiced, rather than the turf checking on the atom. Caching in `ZMM_MANGLE_PLANES` also helps reduce processing. When Z-mimic is told to update by the mimiced atom, it is queued into the Z-copy subsystem, which then actually performs the atom copies.
 
+### Display footprints
+
+Movable mimics synchronize `bound_width`, `bound_height`, `bound_x` and
+`bound_y` before applying their first appearance and on each queued appearance
+update. BYOND uses this footprint when anchoring large artwork in rotated
+views; copying appearance alone leaves a 32x32 anchor and displaces that art.
+Recursive mimics follow the same contract. Unchanged bounds are not assigned
+again, avoiding unnecessary changes to occupied turfs (`locs`).
+
+This is display geometry, not a copy of the original's collision/gameplay:
+mimics remain non-dense, anchored, non-opaque proxies. In particular, this does
+not copy density, opacity, movement or source interaction behaviour. It also
+does not copy `vis_contents` or change the existing anchor-turf selection rule.
+Following the source uses `abstract_move()`: the proxy still runs `Moved()`
+and moves its recursive copies, but does not emit physical turf/area
+`Entered`/`Exited` events across its enlarged footprint.
+
+Bounds changes follow the same notification contract as appearance changes:
+a runtime writer must call `update_above()` (or update the appearance through
+the normal hooks) after changing the source bounds. Direct writes to BYOND's
+builtin fields emit no project signal. No per-tick scan of all mimics is used.
+Nonzero `step_x/y` are separate movement state and are not part of this bounds
+contract.
+
 ### Lighting
 
 Z-Mimic's lighting is relatively simplistic, rather than using the lighting plane, the lighting of each level is copied onto a shadow plane. Each Z-Mimic plane has its own shadow plane, relayed just above it with a multiply blend, so it darkens that plane and everything deeper. Overlay lights (flashlights, flares and other movable lights) are mimicked onto the same shadow plane, drawn over the copied lighting, so they light the level they are on. All lighting on lower turfs has a color multiplier added to it, causing lower turfs to appear darker. The lighting is placed onto the openspace multiplier atom, which is an internal atom designed to host ambient occlusion, lighting, and apply darkness.

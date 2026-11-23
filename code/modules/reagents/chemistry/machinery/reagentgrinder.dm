@@ -258,13 +258,13 @@
 
 /obj/machinery/reagentgrinder/proc/shake_for(duration)
 	var/offset = prob(50) ? -2 : 2
-	var/old_pixel_x = pixel_x
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = -1) //start shaking
-	addtimer(CALLBACK(src, PROC_REF(stop_shaking), old_pixel_x), duration)
+	var/old_pixel_w = pixel_w
+	animate(src, pixel_w = pixel_w + offset, time = 0.2, loop = -1) //start shaking
+	addtimer(CALLBACK(src, PROC_REF(stop_shaking), old_pixel_w), duration)
 
-/obj/machinery/reagentgrinder/proc/stop_shaking(old_px)
+/obj/machinery/reagentgrinder/proc/stop_shaking(old_pw)
 	animate(src)
-	pixel_x = old_px
+	pixel_w = old_pw
 
 /obj/machinery/reagentgrinder/proc/operate_for(time, silent = FALSE, juicing = FALSE)
 	PRIVATE_PROC(TRUE)

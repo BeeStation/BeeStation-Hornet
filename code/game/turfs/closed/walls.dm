@@ -46,6 +46,7 @@
 		else
 			underlay_appearance.icon = fixed_underlay["icon"]
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
+		underlay_appearance.icon = GLOB.brandish_assets.appearance_icon(underlay_appearance.icon, underlay_appearance.icon_state, underlay_appearance.dir)
 		underlays += underlay_appearance
 
 /turf/closed/wall/MouseDrop_T(atom/dropping, mob/user, params)

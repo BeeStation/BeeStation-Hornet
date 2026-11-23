@@ -29,7 +29,11 @@
 
 	var/prev_trans = matrix(target.transform)
 	var/waddle_trans = turn(target.transform, pick(-12, 0, 12))
+	var/rest_z = target.get_screen_base_pixel_z()
+	if(isliving(target))
+		var/mob/living/living = target
+		rest_z += living.has_offset(pixel = PIXEL_Z_OFFSET)
 	for(var/atom/movable/waddler as anything in target.get_associated_mimics() + target)
-		animate(waddler, pixel_y = 4, time = 0)
-		animate(pixel_y = 0, transform = waddle_trans, time = 0.2 SECONDS)
-		animate(pixel_y = 0, transform = prev_trans, time = 0)
+		animate(waddler, pixel_z = rest_z + 4, time = 0)
+		animate(pixel_z = rest_z, transform = waddle_trans, time = 0.2 SECONDS)
+		animate(pixel_z = rest_z, transform = prev_trans, time = 0)

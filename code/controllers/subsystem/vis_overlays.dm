@@ -35,6 +35,7 @@ SUBSYSTEM_DEF(vis_overlays)
 
 //the "thing" var can be anything with vis_contents which includes images
 /datum/controller/subsystem/vis_overlays/proc/add_vis_overlay(atom/movable/thing, icon, iconstate, layer, plane, dir, alpha = 255, add_appearance_flags = NONE, unique = FALSE, invisibility = -1)
+	icon = GLOB.brandish_assets.appearance_icon(icon, iconstate, dir)
 	var/obj/effect/overlay/vis/overlay
 	if(!unique)
 		. = "[icon]|[iconstate]|[layer]|[plane]|[dir]|[alpha]|[add_appearance_flags]|[invisibility]"
@@ -102,6 +103,7 @@ SUBSYSTEM_DEF(vis_overlays)
 			continue
 		var/obj/effect/overlay/vis/overlay = i
 		overlay.dir = turn(overlay.dir, rotation)
+		overlay.icon = GLOB.brandish_assets.appearance_icon(overlay.icon, overlay.icon_state, overlay.dir)
 	remove_vis_overlay(thing, overlays_to_remove)
 
 

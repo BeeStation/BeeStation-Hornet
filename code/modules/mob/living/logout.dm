@@ -1,4 +1,6 @@
 /mob/living/Logout()
+	if(zlook_target)
+		look_reset()
 	update_z(null)
 	..()
 	if(!key && mind)	//key and mind have become separated.

@@ -85,23 +85,23 @@
 /// Actually starts a zMove, doing movement animations
 /mob/living/proc/start_travel_z(mob/user, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS, allow_movement = TRUE)
 	user.visible_message(span_notice("[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!"), span_notice("You begin [move_verb] [upwards ? "upwards" : "downwards"]."))
-	animate(user, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
+	animate(user, delay, pixel_z = upwards ? 32 : -32, transform = matrix() * 0.8)
 	var/list/bucklemobs_c = user.buckled_mobs?.Copy()
 	for(var/mob/M in bucklemobs_c)
-		animate(M, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
+		animate(M, delay, pixel_z = upwards ? 32 : -32, transform = matrix() * 0.8)
 	zmoving = TRUE
 	if(!allow_movement)
 		if(!do_after(user, delay, get_turf(user), timed_action_flags = IGNORE_HELD_ITEM))
 			zmoving = FALSE
 			animate(user, 0, flags = ANIMATION_END_NOW)
-			user.pixel_y = 0
+			user.pixel_z = 0
 			user.transform = matrix()
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.reset_lying_transform()
 			for(var/mob/M in bucklemobs_c)
 				animate(M, 0, flags = ANIMATION_END_NOW)
-				M.pixel_y = 0
+				M.pixel_z = 0
 				M.transform = matrix()
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
@@ -117,13 +117,13 @@
 /mob/living/proc/continue_travel_z(mob/user, dir, bucklemobs_c)
 	zmoving = FALSE
 	// reset animations
-	user.pixel_y = 0
+	user.pixel_z = 0
 	user.transform = matrix()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.reset_lying_transform()
 	for(var/mob/M in bucklemobs_c)
-		M.pixel_y = 0
+		M.pixel_z = 0
 		M.transform = matrix()
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M

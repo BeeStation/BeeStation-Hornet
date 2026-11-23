@@ -58,6 +58,9 @@
 		update_icon_state()
 		. |= UPDATE_ICON_STATE
 
+	// Child overlay builders need the bound resource for directional banks.
+	APPLY_BRANDISH_ICON(src)
+	var/resource_before_overlays = icon
 	if(updates & UPDATE_OVERLAYS)
 		if(LAZYLEN(managed_vis_overlays))
 			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
@@ -68,6 +71,8 @@
 		var/list/new_overlays = update_overlays(updates)
 		if (managed_overlays)
 			if (length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1))
+				if(brandish_image_projector?.projected)
+					brandish_image_projector.layers_dirty = TRUE
 				overlays = null
 				POST_OVERLAY_CHANGE(src)
 			else
@@ -81,6 +86,9 @@
 			add_overlay(new_overlays)
 		. |= UPDATE_OVERLAYS
 
+	if(icon != resource_before_overlays)
+		APPLY_BRANDISH_ICON(src)
+	brandish_image_projector?.refresh()
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 	if (ismovable(src)) // need to update here as well since update_appearance() is not always called
 		UPDATE_OO_IF_PRESENT

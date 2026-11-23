@@ -43,7 +43,7 @@
 	else //Normalise Pixel Values (So the object drops at the center of the mouse, not 16 pixels off)
 		offset[1] += x_off
 		offset[2] += y_off
-	return offset_to_screen_loc(offset[1], offset[2], our_client?.view)
+	return offset_to_screen_loc(offset[1], offset[2], our_client?.screen_view())
 
 
 //Debug procs

@@ -127,10 +127,10 @@
 /obj/item/circuit_component/mmi/proc/update_mmi_mob(datum/source, mob/living/old_mmi, mob/living/new_mmi)
 	SIGNAL_HANDLER
 	if(old_mmi)
-		old_mmi.remote_control = null
+		old_mmi.set_remote_control(null)
 		UnregisterSignal(old_mmi, COMSIG_MOB_CLICKON)
 	if(new_mmi)
-		new_mmi.remote_control = src
+		new_mmi.set_remote_control(src)
 		RegisterSignal(new_mmi, COMSIG_MOB_CLICKON, PROC_REF(handle_mmi_attack))
 
 /obj/item/circuit_component/mmi/relaymove(mob/living/user, direct)

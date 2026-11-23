@@ -21,6 +21,7 @@
 /obj/structure/shuttle/engine
 	name = "engine"
 	desc = "A bluespace engine used to make shuttles move."
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	density = TRUE
 	anchored = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP

@@ -71,12 +71,13 @@
 		to_chat(user, span_notice("[src] can't fit more items!"))
 		return
 	//Center the icon where the user clicked.
-	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
+	var/list/click_offset = camera_click_offset(modifiers)
+	if(!click_offset)
 		return
 	if(user.transferItemToLoc(I, src, silent = FALSE))
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
-		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+		I.pixel_x = clamp(click_offset[1], -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		I.pixel_y = clamp(click_offset[2], -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 		to_chat(user, span_notice("You place [I] on [src]."))
 		AddToGrill(I, user)
 	else
@@ -94,6 +95,8 @@
 
 
 /obj/machinery/griddle/proc/AddToGrill(obj/item/item_to_grill, mob/user)
+	if(!item_to_grill.GetComponent(/datum/component/screen_placement))
+		item_to_grill.AddComponent(/datum/component/screen_placement)
 	vis_contents += item_to_grill
 	griddled_objects += item_to_grill
 	SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_PLACED, user)
@@ -116,6 +119,10 @@
 
 /obj/machinery/griddle/proc/GrillCompleted(obj/item/source, atom/grilled_result)
 	SIGNAL_HANDLER
+	var/datum/component/screen_placement/placement = source.GetComponent(/datum/component/screen_placement)
+	if(placement)
+		grilled_result.pixel_x = placement.world_x
+		grilled_result.pixel_y = placement.world_y
 	AddToGrill(grilled_result)
 
 /obj/machinery/griddle/proc/update_grill_audio()

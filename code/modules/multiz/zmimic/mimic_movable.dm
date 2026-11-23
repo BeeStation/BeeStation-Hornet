@@ -174,6 +174,19 @@
 	flags_1 |= INITIALIZED_1
 	SSzcopy.openspace_overlays += 1
 
+/// Native camera rotation anchors large artwork to the movable's footprint.
+/// Copy only that display geometry, never density or other source gameplay.
+/// Run before the first appearance is exposed, including for recursive mimics.
+/atom/movable/openspace/mimic/proc/sync_display_bounds()
+	if(bound_width != associated_atom.bound_width)
+		bound_width = associated_atom.bound_width
+	if(bound_height != associated_atom.bound_height)
+		bound_height = associated_atom.bound_height
+	if(bound_x != associated_atom.bound_x)
+		bound_x = associated_atom.bound_x
+	if(bound_y != associated_atom.bound_y)
+		bound_y = associated_atom.bound_y
+
 /atom/movable/openspace/mimic/Destroy()
 	SSzcopy.openspace_overlays -= 1
 	queued = 0
@@ -223,7 +236,13 @@
 	. = associated_atom.examine(arglist(args))	// just pass all the args to the copied atom
 
 /atom/movable/openspace/mimic/forceMove(turf/dest)
-	. = ..()
+	// Bounds describe rendering only. doMove's multiturf Entered/Exited path
+	// would expose this proxy to gameplay on every covered turf. Keep Moved
+	// (and recursive mimic movement), but move without physical turf events.
+	if(!dest)
+		CRASH("No valid destination passed into mimic forceMove")
+	abstract_move(dest)
+	. = TRUE
 	if (MOVABLE_IS_BELOW_ZTURF(associated_atom))
 		if (destruction_timer)
 			deltimer(destruction_timer)

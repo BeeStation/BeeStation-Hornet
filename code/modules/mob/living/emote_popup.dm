@@ -19,7 +19,7 @@
 	var/obj/effect/overlay/emote_popup/emote_overlay = new
 	emote_overlay.icon_state = state
 	vis_contents += emote_overlay
-	animate(emote_overlay, alpha = 255, time = 5, easing = BOUNCE_EASING, pixel_y = 10)
+	animate(emote_overlay, alpha = 255, time = 5, easing = BOUNCE_EASING, pixel_z = 10)
 	addtimer(CALLBACK(src, PROC_REF(remove_emote_popup_on_mob), emote_overlay), time)
 
 /**
@@ -36,7 +36,7 @@
 	var/obj/effect/overlay/emote_popup/emote_overlay = new
 	emote_overlay.icon_state = state
 	vis_contents += emote_overlay
-	animate(emote_overlay, alpha = 255, time = 5, easing = BOUNCE_EASING, pixel_y = 10)
+	animate(emote_overlay, alpha = 255, time = 5, easing = BOUNCE_EASING, pixel_z = 10)
 	addtimer(CALLBACK(src, PROC_REF(remove_emote_popup_on_obj), emote_overlay), time)
 
 /**

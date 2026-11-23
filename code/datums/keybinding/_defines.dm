@@ -7,6 +7,7 @@
 #define CATEGORY_ROBOT "ROBOT"
 #define CATEGORY_AI "AI"
 #define CATEGORY_COMMUNICATION "COMMUNICATION"
+#define CATEGORY_BRANDISH "Brandish movement keys"
 
 #define WEIGHT_HIGHEST 0
 #define WEIGHT_ADMIN 10

@@ -6,6 +6,7 @@
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
 	icon_state = "conpipe"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	anchored = FALSE
 	density = FALSE
 	pressure_resistance = 5*ONE_ATMOSPHERE

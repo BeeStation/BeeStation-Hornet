@@ -74,15 +74,13 @@
 			continue
 		var/obj/machinery/atmospherics/node = nodes[i]
 		var/node_dir = get_dir(src, node)
-		var/mutable_appearance/pipe_appearance = mutable_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "intact_[node_dir]_[underlay_pipe_layer]")
-		pipe_appearance.color = node.pipe_color
+		var/image/pipe_appearance = GLOB.brandish_assets.world_surface_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "intact_[node_dir]_[underlay_pipe_layer]", node.pipe_color)
 		underlays += pipe_appearance
 		connected |= node_dir
 
 	for(var/direction in GLOB.cardinals)
 		if((initialize_directions & direction) && !(connected & direction))
-			var/mutable_appearance/pipe_appearance = mutable_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "exposed_[direction]_[underlay_pipe_layer]")
-			pipe_appearance.color = pipe_color
+			var/image/pipe_appearance = GLOB.brandish_assets.world_surface_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "exposed_[direction]_[underlay_pipe_layer]", pipe_color)
 			underlays += pipe_appearance
 
 	if(!shift_underlay_only)

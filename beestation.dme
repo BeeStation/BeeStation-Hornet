@@ -62,6 +62,7 @@
 #include "code\__DEFINES\blood.dm"
 #include "code\__DEFINES\bodyparts.dm"
 #include "code\__DEFINES\bot_defines.dm"
+#include "code\__DEFINES\brandish.dm"
 #include "code\__DEFINES\callbacks.dm"
 #include "code\__DEFINES\cargo.dm"
 #include "code\__DEFINES\carp_command.dm"
@@ -2814,6 +2815,20 @@
 #include "code\modules\badges\badges.dm"
 #include "code\modules\bluespace_anchor\bluespace_anchor.dm"
 #include "code\modules\bluespace_anchor\bluespace_anchor_deployer.dm"
+#include "code\modules\brandish\brandish_asset_registry.dm"
+#include "code\modules\brandish\brandish_camera.dm"
+#include "code\modules\brandish\brandish_camera_state.dm"
+#include "code\modules\brandish\brandish_coordinates.dm"
+#include "code\modules\brandish\brandish_default_direction.dm"
+#include "code\modules\brandish\brandish_guide.dm"
+#include "code\modules\brandish\brandish_icon_mode.dm"
+#include "code\modules\brandish\brandish_image.dm"
+#include "code\modules\brandish\brandish_image_projector.dm"
+#include "code\modules\brandish\brandish_keybindings.dm"
+#include "code\modules\brandish\brandish_observer_mirror.dm"
+#include "code\modules\brandish\brandish_origins.dm"
+#include "code\modules\brandish\brandish_perspective.dm"
+#include "code\modules\brandish\brandish_screen_placement.dm"
 #include "code\modules\buildmode\bm_mode.dm"
 #include "code\modules\buildmode\buildmode.dm"
 #include "code\modules\buildmode\buttons.dm"
@@ -5172,3 +5187,8 @@
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
+
+// The build-generated catalog is outside the editor-managed include list.
+#ifdef BRANDISH_GENERATED_ICONS
+#include "tmp/brandish-icons/manifest.dm"
+#endif

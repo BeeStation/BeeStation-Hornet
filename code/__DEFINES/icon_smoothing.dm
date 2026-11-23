@@ -32,6 +32,10 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define QUEUE_SMOOTH(thing_to_queue) if(thing_to_queue.smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) {SSicon_smooth.add_to_queue(thing_to_queue)}
 
+/// Inline gate for the atom hot paths (Initialize, setDir, update_icon, smoothing).
+/// Most atoms have no geometry policy, so they must not pay for a proc call.
+#define APPLY_BRANDISH_ICON(target) if(target.brandish_icon_mode || (target.smoothing_flags & (SMOOTH_BITMASK | SMOOTH_CORNERS))) { target.apply_brandish_icon() }
+
 #define QUEUE_SMOOTH_NEIGHBORS(thing_to_queue) for(var/atom/atom_neighbor as anything in orange(1, thing_to_queue)) {QUEUE_SMOOTH(atom_neighbor)}
 
 /**SMOOTHING GROUPS

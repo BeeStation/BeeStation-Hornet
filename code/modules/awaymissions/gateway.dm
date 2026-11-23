@@ -19,6 +19,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	desc = "A gateway built for quick travel between linked destinations."
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
+	brandish_image = /datum/brandish_image/group_rotate
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY

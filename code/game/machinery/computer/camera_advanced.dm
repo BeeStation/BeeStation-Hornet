@@ -131,7 +131,7 @@
 
 	ConcealCameraMob()
 	eyeobj.eye_user = null
-	user.remote_control = null
+	user.set_remote_control(null)
 	current_user = null
 	user.unset_machine()
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
@@ -284,7 +284,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
 	RevealCameraMob()
-	user.remote_control = eyeobj
+	user.set_remote_control(eyeobj)
 	user.set_mob_eye_to(eyeobj)
 	if(should_supress_view_changes )
 		user.client.view_size.supress()

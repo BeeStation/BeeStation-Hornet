@@ -3,6 +3,9 @@
 	desc = "A bar sign which has not been initialized, somehow. Complain at a coder!"
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
+	// Unlike single-tile upright labels, this is a connected two-tile surface.
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
+	bound_width = 64
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
 	integrity_failure = 0.5

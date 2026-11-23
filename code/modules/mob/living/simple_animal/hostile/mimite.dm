@@ -127,8 +127,7 @@
 		add_overlay(target.vis_contents)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
-	pixel_y = base_pixel_y
-	pixel_x = base_pixel_x
+	reset_pixel_origin()
 	density = target.density
 	mobchatspan = initial(mobchatspan)
 
@@ -157,6 +156,7 @@
 	name = initial(name)
 	icon = initial(icon)
 	icon_state = initial(icon_state)
+	reset_pixel_origin()
 	vision_range = initial(vision_range)
 	aggro_vision_range = initial(aggro_vision_range)
 	cut_overlays()

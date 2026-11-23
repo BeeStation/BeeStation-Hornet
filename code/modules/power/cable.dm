@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer."
 	icon = 'icons/obj/power_cond/cables.dmi'
 	icon_state = "0-1-2-4-8"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
 	flags_1 = STAT_UNIQUE_1

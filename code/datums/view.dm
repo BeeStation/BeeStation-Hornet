@@ -26,6 +26,7 @@
 	apply()
 
 /datum/view_data/Destroy()
+	chief?.clear_camera_effect(src)
 	chief = null
 	return ..()
 
@@ -90,7 +91,7 @@
 	apply()
 
 /datum/view_data/proc/setHeight(hei)
-	width = hei
+	height = hei
 	apply()
 
 /datum/view_data/proc/addToWidth(toAdd)
@@ -120,8 +121,8 @@
 	return "[width + temp[1]]x[height + temp[2]]"
 
 /datum/view_data/proc/zoomIn()
+	chief?.clear_camera_effect(src)
 	resetToDefault()
-	animate(chief, pixel_x = 0, pixel_y = 0, 0, FALSE, LINEAR_EASING, ANIMATION_END_NOW)
 
 /datum/view_data/proc/zoomOut(radius = 0, offset = 0, direction = FALSE)
 	if(direction)
@@ -136,7 +137,7 @@
 				_y = -offset
 			if(WEST)
 				_x = -offset
-		animate(chief, pixel_x = ICON_SIZE_X*_x, pixel_y = ICON_SIZE_Y*_y, 0, FALSE, LINEAR_EASING, ANIMATION_END_NOW)
+		chief?.set_camera_effect(src, offset_x = ICON_SIZE_X * _x, offset_y = ICON_SIZE_Y * _y)
 	//Ready for this one?
 	setTo(radius)
 

@@ -2,6 +2,9 @@
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
+	base_icon_state = "hoses"
+	brandish_image = /datum/brandish_image/upright/vertical_only
+	brandish_icon_mode = BRANDISH_MODE_SMOOTH
 	density = TRUE
 	pixel_y = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
@@ -278,6 +281,7 @@
 	return
 
 /obj/machinery/hydroponics/update_icon()
+	apply_brandish_icon()
 	//Refreshes the icon and sets the luminosity
 	cut_overlays()
 

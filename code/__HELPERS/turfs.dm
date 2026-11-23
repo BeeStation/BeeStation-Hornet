@@ -242,6 +242,20 @@ Turf and target are separate in case you want to teleport some distance from a t
 /proc/parse_caught_click_modifiers(list/modifiers, turf/origin, client/viewing_client)
 	if(!modifiers)
 		return null
+	if(viewing_client)
+		var/list/vector = camera_click_offset(modifiers, viewing_client.dir, origin, viewing_client)
+		if(!vector)
+			return null
+		var/offset_x = FLOOR((vector[1] + ICON_SIZE_X / 2) / ICON_SIZE_X, 1)
+		var/offset_y = FLOOR((vector[2] + ICON_SIZE_Y / 2) / ICON_SIZE_Y, 1)
+		var/turf/caught = locate(clamp(origin.x + offset_x, 1, world.maxx), clamp(origin.y + offset_y, 1, world.maxy), origin.z)
+		if(!caught)
+			return null
+		// ICON_X/Y stay sprite-local screen coordinates for the forwarded click.
+		var/list/local_pixel = camera_world_to_screen(vector[1] - (caught.x - origin.x) * ICON_SIZE_X - caught.pixel_x, vector[2] - (caught.y - origin.y) * ICON_SIZE_Y - caught.pixel_y, viewing_client.dir)
+		LAZYSET(modifiers, ICON_X, "[local_pixel[1] + ICON_SIZE_X / 2]")
+		LAZYSET(modifiers, ICON_Y, "[local_pixel[2] + ICON_SIZE_Y / 2]")
+		return caught
 
 	var/screen_loc = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
 	var/list/actual_view = getviewsize(viewing_client ? viewing_client.view : world.view)

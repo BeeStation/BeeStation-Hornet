@@ -44,7 +44,7 @@
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
 		return
-	stick_to(target, text2num(LAZYACCESS(modifiers, ICON_X)), text2num(LAZYACCESS(modifiers, ICON_Y)))
+	stick_to(target, text2num(LAZYACCESS(modifiers, ICON_X)), text2num(LAZYACCESS(modifiers, ICON_Y)), user.client)
 
 /obj/item/sticker/attack_hand(mob/living/user)
 	if(user.combat_mode && sticker_state == STICKER_STATE_STUCK)
@@ -148,6 +148,8 @@
 	//Reset click offset
 	pixel_x = 0
 	pixel_y = 0
+	pixel_w = 0
+	pixel_z = 0
 
 ///Add an unusual effect to the sticker, potentially
 /obj/item/sticker/proc/generate_unusual()
@@ -180,7 +182,7 @@
 	if(is_unusual)
 		. += span_purple("Unusual")
 
-/obj/item/sticker/proc/stick_to(atom/movable/target, x_offset, y_offset)
+/obj/item/sticker/proc/stick_to(atom/movable/target, x_offset, y_offset, client/viewer)
 	// Move to our target
 	forceMove(target)
 	layer = target.layer+0.001
@@ -188,8 +190,15 @@
 	// Update state
 	sticker_state = STICKER_STATE_STUCK
 	update_appearance()
-	// Apply offset
-	if(x_offset)
-		pixel_x = clamp(x_offset - 16, -(ICON_SIZE_X / 2), ICON_SIZE_X / 2)
-	if(y_offset)
-		pixel_y = clamp(y_offset - 16, -(ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
+	// Surface banks turn the attachment point with the map; upright artwork
+	// keeps its attachment point in screen axes. Programmatic calls default north.
+	var/on_surface = target.has_rotated_brandish_surface()
+	var/list/click_offset = camera_click_offset(list(ICON_X = x_offset || 16, ICON_Y = y_offset || 16), on_surface ? (viewer?.dir || NORTH) : NORTH)
+	var/offset_x = clamp(click_offset[1], -(ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+	var/offset_y = clamp(click_offset[2], -(ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
+	if(on_surface)
+		pixel_x = offset_x
+		pixel_y = offset_y
+	else
+		pixel_w = offset_x
+		pixel_z = offset_y

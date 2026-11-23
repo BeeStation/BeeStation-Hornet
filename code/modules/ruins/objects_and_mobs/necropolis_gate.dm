@@ -4,6 +4,8 @@
 	desc = "A massive stone gateway."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_full"
+	brandish_image = /datum/brandish_image/upright
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	flags_1 = ON_BORDER_1
 	appearance_flags = NONE
 	layer = TABLE_LAYER
@@ -17,9 +19,9 @@
 	var/open = FALSE
 	var/changing_openness = FALSE
 	var/locked = FALSE
-	var/static/mutable_appearance/top_overlay
-	var/static/mutable_appearance/door_overlay
-	var/static/mutable_appearance/dais_overlay
+	var/static/image/top_overlay
+	var/static/image/door_overlay
+	var/static/image/dais_overlay
 	var/obj/structure/opacity_blocker/sight_blocker
 	var/sight_blocker_distance = 1
 
@@ -34,15 +36,15 @@
 			sight_blocker_turf = get_step(sight_blocker_turf, NORTH)
 	if(sight_blocker_turf)
 		sight_blocker = new (sight_blocker_turf) //we need to block sight in a different spot than most things do
-		sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
+		sight_blocker.pixel_y = -(ICON_SIZE_Y * sight_blocker_distance)
 	icon_state = "gate_bottom"
-	top_overlay = mutable_appearance('icons/effects/96x96.dmi', "gate_top")
+	top_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/96x96.dmi', "gate_top")
 	top_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(top_overlay)
-	door_overlay = mutable_appearance('icons/effects/96x96.dmi', "door")
+	door_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/96x96.dmi', "door")
 	door_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(door_overlay)
-	dais_overlay = mutable_appearance('icons/effects/96x96.dmi', "gate_dais")
+	dais_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/96x96.dmi', "gate_dais")
 	dais_overlay.layer = CLOSED_TURF_LAYER
 	add_overlay(dais_overlay)
 
@@ -83,6 +85,8 @@
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_blocker"
+	brandish_image = /datum/brandish_image/upright
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	layer = EDGED_TURF_LAYER
 	pixel_x = -32
 	pixel_y = -32
@@ -127,7 +131,7 @@
 					break
 				sight_blocker_turf = get_step(sight_blocker_turf, NORTH)
 		if(sight_blocker_turf)
-			sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
+			sight_blocker.pixel_y = -(ICON_SIZE_Y * sight_blocker_distance)
 			sight_blocker.forceMove(sight_blocker_turf)
 		sleep(0.25 SECONDS)
 		playsound(T, 'sound/magic/clockwork/invoke_general.ogg', 30, TRUE, frequency = 15000)
@@ -211,6 +215,8 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/effect/temp_visual/necropolis
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "door_closing"
+	brandish_image = /datum/brandish_image/upright
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	appearance_flags = NONE
 	duration = 6
 	layer = EDGED_TURF_LAYER
@@ -226,6 +232,9 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	desc = "A massive arch over the necropolis gate, set into a massive tower of stone."
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "arch_full"
+	// The 160px canvas keeps a separate 24px world elevation.
+	brandish_image = /datum/brandish_image/upright/centered_160
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	appearance_flags = NONE
 	layer = TABLE_LAYER
 	anchored = TRUE
@@ -233,12 +242,12 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	pixel_y = -40
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/open = FALSE
-	var/static/mutable_appearance/top_overlay
+	var/static/image/top_overlay
 
 /obj/structure/necropolis_arch/Initialize(mapload)
 	. = ..()
 	icon_state = "arch_bottom"
-	top_overlay = mutable_appearance('icons/effects/160x160.dmi', "arch_top")
+	top_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/160x160.dmi', "arch_top")
 	top_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(top_overlay)
 
@@ -250,6 +259,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	name = "stone tile"
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "pristine_tile1"
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

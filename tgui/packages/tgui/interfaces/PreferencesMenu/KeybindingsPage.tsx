@@ -39,6 +39,7 @@ type KeybindingsPageState = {
   lastKeyboardEvent?: KeyboardEvent;
   selectedKeybindings?: PreferencesMenuData['keybindings'];
   error: any;
+  bindingConflict?: string;
   /**
    * The current hotkey that the user is rebinding.
    *
@@ -265,6 +266,22 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
 
       const [keybindName, slot] = state.rebindingHotkey;
 
+      const brandishBindings = state.keybindings?.['Brandish movement keys'];
+      if (value && brandishBindings?.[keybindName]) {
+        const other = Object.keys(brandishBindings).find(
+          (name) =>
+            name !== keybindName && selectedKeybindings[name]?.includes(value),
+        );
+        if (other) {
+          return {
+            ...state,
+            lastKeyboardEvent: undefined,
+            rebindingHotkey: undefined,
+            bindingConflict: `${value} is already assigned to ${brandishBindings[other].name}. Choose another key for this Brandish action.`,
+          };
+        }
+      }
+
       if (selectedKeybindings[keybindName]) {
         if (value) {
           selectedKeybindings[keybindName][
@@ -288,6 +305,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
         lastKeyboardEvent: undefined,
         rebindingHotkey: undefined,
         error: false,
+        bindingConflict: undefined,
         selectedKeybindings,
       };
     });
@@ -403,6 +421,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
     this.lastKeybinds = data.keybindings;
 
     this.setState({
+      bindingConflict: undefined,
       selectedKeybindings: Object.fromEntries(
         Object.entries(data.keybindings).map(([keybind, hotkeys]) => {
           return [keybind, hotkeys.filter((value) => value !== 'Unbound')];
@@ -453,6 +472,21 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       return <Box>Loading keybindings...</Box>;
     }
 
+    // Legacy movement actions could already share keys before migration.
+    // Keep those saved choices visible and flag conflicts within this group.
+    const usedBrandishKeys = new Set<string>();
+    const duplicateBrandishKeys = new Set<string>();
+    for (const name of Object.keys(
+      keybindings['Brandish movement keys'] || {},
+    )) {
+      for (const key of this.state.selectedKeybindings?.[name] || []) {
+        if (usedBrandishKeys.has(key)) {
+          duplicateBrandishKeys.add(key);
+        }
+        usedBrandishKeys.add(key);
+      }
+    }
+
     const keybindingEntries = sortKeybindingsByCategory(
       Object.entries(keybindings),
     );
@@ -468,6 +502,20 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
         />
 
         <Stack vertical fill>
+          {duplicateBrandishKeys.size > 0 && (
+            <Stack.Item>
+              <Box color="bad">
+                Brandish keys assigned more than once:{' '}
+                {Array.from(duplicateBrandishKeys).join(', ')}. Choose unique
+                keys within this group.
+              </Box>
+            </Stack.Item>
+          )}
+          {this.state.bindingConflict && (
+            <Stack.Item>
+              <Box color="bad">{this.state.bindingConflict}</Box>
+            </Stack.Item>
+          )}
           <Stack.Item grow>
             <TabbedMenu
               categoryScales={CATEGORY_SCALES}

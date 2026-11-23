@@ -7,6 +7,8 @@ All the important duct code:
 	name = "fluid duct"
 	icon = 'icons/obj/plumbing/fluid_ducts.dmi'
 	icon_state = "nduct"
+	brandish_connection_icon = 'icons/obj/plumbing/fluid_ducts.dmi'
+	brandish_icon_mode = BRANDISH_MODE_CONNECTED
 	///bitfield with the directions we're connected in
 	var/connects
 	///set to TRUE to disable smart duct behaviour
@@ -256,6 +258,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 			if(D == WEST)
 				temp_icon += "_w"
 	icon_state = temp_icon
+	APPLY_BRANDISH_ICON(src)
+
 ///update the layer we are on
 /obj/machinery/duct/proc/handle_layer()
 	var/offset
@@ -342,6 +346,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 	name = "duct layer-manifold"
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "multiduct"
+	brandish_image = /datum/brandish_image/upright/centered_64
+	brandish_icon_mode = BRANDISH_MODE_ROTATE
 	pixel_x = -15
 	pixel_y = -15
 

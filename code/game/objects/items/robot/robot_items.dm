@@ -982,9 +982,7 @@
 	. = ..()
 	var/mutable_appearance/arm = mutable_appearance(icon = icon, icon_state = "borg_beaker_apparatus_arm")
 	if(stored)
-		stored.pixel_x = 0
-		stored.pixel_y = 0
-		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
+		var/mutable_appearance/stored_copy = copy_appearance_without_offsets(stored)
 		if(istype(stored, /obj/item/reagent_containers/cup/beaker))
 			arm.pixel_y = arm.pixel_y - 3
 		stored_copy.layer = FLOAT_LAYER
@@ -1031,11 +1029,10 @@
 	. = ..()
 	var/mutable_appearance/arm = mutable_appearance(icon, "borg_hardware_apparatus_arm1")
 	if(stored)
-		stored.pixel_x = -3
-		stored.pixel_y = 0
 		if(!istype(stored, /obj/item/circuitboard))
 			arm.icon_state = "borg_hardware_apparatus_arm2"
-		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
+		var/mutable_appearance/stored_copy = copy_appearance_without_offsets(stored)
+		stored_copy.pixel_x = -3
 		stored_copy.layer = FLOAT_LAYER
 		stored_copy.plane = FLOAT_PLANE
 		. += stored_copy

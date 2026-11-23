@@ -371,6 +371,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("You stopped observing [observetarget]"))
 		LAZYREMOVE(observetarget.observers, src)
 		observetarget = null
+		sync_brandish_observe()
 		set_mob_eye_to(MOB_EYE_SELF)
 		if(hud_used)
 			client.screen = list()
@@ -899,6 +900,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("You stopped observing [observetarget]"))
 		LAZYREMOVE(observetarget.observers, src)
 		observetarget = null
+		sync_brandish_observe()
 		set_mob_eye_to(MOB_EYE_SELF)
 		if(hud_used)
 			client.screen = list()
@@ -912,6 +914,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	sight = initial(sight)
 	if(target)
 		LAZYREMOVE(target.observers, src)
+	sync_brandish_observe()
 	set_mob_eye_to(MOB_EYE_SELF)
 
 /mob/dead/observer/verb/observe()
@@ -964,6 +967,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		observetarget = mob_eye
 		LAZYOR(observetarget.observers, src)
 		set_mob_eye_to(observetarget)
+		sync_brandish_observe()
 		to_chat(src, span_notice("You started observing [observetarget]"))
 		if(observetarget.hud_used)
 			client.screen = list()

@@ -17,6 +17,7 @@
 	desc = "An energy ball."
 	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
 	icon_state = "energy_ball"
+	brandish_image = /datum/brandish_image/upright
 	anchored = TRUE
 	appearance_flags = LONG_GLIDE
 	density = TRUE
@@ -74,12 +75,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	else
 		//Weaker, less intensive zap
 		tesla_zap(src, 4, TESLA_DEFAULT_ENERGY, zap_flags = ZAP_TESLA_SMALL_FLAGS)
-		pixel_x = -32
-		pixel_y = -32
 		return
 
-	pixel_x = -32
-	pixel_y = -32
 	for(var/ball in orbiting_balls)
 		if(TICK_CHECK)
 			return

@@ -21,6 +21,9 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 GLOBAL_PROTECT(admin_verbs_default)
 
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
+	/client/proc/toggle_brandish_perspective,	/*server-wide experimental perspective; also in the debug list for coders*/
+	/client/proc/toggle_brandish_camera,		/*personal opt-out while the perspective is on; also in the debug list for coders*/
+	/client/proc/set_default_client_direction,
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/show_player_panel,	/*shows an interface for individual players, with various links (links require additional flags*/
 	/client/proc/playerpanel,
@@ -161,6 +164,9 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 GLOBAL_PROTECT(admin_verbs_server)
 
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
+	/client/proc/toggle_brandish_perspective,
+	/client/proc/set_default_client_direction,
+	/client/proc/toggle_brandish_camera,
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,

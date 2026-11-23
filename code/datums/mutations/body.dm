@@ -130,8 +130,8 @@
 				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced="tourette's syndrome")
 		var/x_offset = rand(-2, 2)
 		var/y_offset = rand(-1, 1)
-		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-		animate(owner, pixel_x = -x_offset, pixel_y = -y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+		animate(owner, pixel_w = x_offset, pixel_z = y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(owner, pixel_w = -x_offset, pixel_z = -y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 
 //Deafness makes you deaf.
 /datum/mutation/deaf

@@ -159,10 +159,10 @@
 	icon_state = "pointer_[pointer_icon_state]"
 	var/mutable_appearance/laser = mutable_appearance('icons/obj/projectiles.dmi', pointer_icon_state, 10)
 	if(modifiers)
-		if(modifiers[ICON_X])
-			laser.pixel_x = (text2num(modifiers[ICON_X]) - 16)
-		if(modifiers[ICON_Y])
-			laser.pixel_y = (text2num(modifiers[ICON_Y]) - 16)
+		var/list/click_offset = camera_click_offset(modifiers, user.client?.dir || NORTH, targloc, user.client)
+		if(click_offset)
+			laser.pixel_x = click_offset[1]
+			laser.pixel_y = click_offset[2]
 	else
 		laser.pixel_x = target.pixel_x + rand(-5,5)
 		laser.pixel_y = target.pixel_y + rand(-5,5)

@@ -90,6 +90,8 @@
 		var/obj/structure/sign/newsign = new sign_type(get_turf(src))
 		newsign.pixel_x = pixel_x
 		newsign.pixel_y = pixel_y
+		newsign.pixel_w = pixel_w
+		newsign.pixel_z = pixel_z
 		qdel(src)
 	else
 		return ..()

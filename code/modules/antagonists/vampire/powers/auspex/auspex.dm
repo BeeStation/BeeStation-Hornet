@@ -98,9 +98,7 @@
 		if(WEST)
 			_x = -zoom_amt
 
-	C.change_view(get_zoomed_view(world.view, zoom_out_amt))
-	C.pixel_x = ICON_SIZE_X * _x
-	C.pixel_y = ICON_SIZE_Y * _y
+	C.set_camera_effect(src, get_zoomed_view(world.view, zoom_out_amt), ICON_SIZE_X * _x, ICON_SIZE_Y * _y)
 	looking = TRUE
 
 	if(add_meson)
@@ -127,9 +125,7 @@
 		listeningTo = null
 	if(owner?.client)
 		var/client/C = owner.client
-		C.change_view(CONFIG_GET(string/default_view))
-		owner.client.pixel_x = 0
-		owner.client.pixel_y = 0
+		C.clear_camera_effect(src)
 
 	looking = FALSE
 
@@ -142,5 +138,6 @@
 	owner.update_sight()
 
 /datum/action/vampire/auspex/Destroy()
+	listeningTo?.client?.clear_camera_effect(src)
 	listeningTo = null
 	return ..()
