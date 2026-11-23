@@ -17500,6 +17500,11 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/guideline/guideline_tri/purple,
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/white/side{
 	dir = 10
 	},
@@ -48054,6 +48059,10 @@
 /obj/item/dest_tagger{
 	pixel_x = 5
 	},
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/sepia,
 /area/station/cargo/office)
 "sez" = (
@@ -54021,6 +54030,14 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
+"uoB" = (
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/structure/table,
+/turf/open/floor/plating,
+/area/station/hallway/secondary/service)
 "uoE" = (
 /turf/closed/wall,
 /area/station/security/checkpoint/auxiliary)
@@ -59243,6 +59260,10 @@
 	pixel_x = 1;
 	pixel_y = -35
 	},
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron,
 /area/station/medical/break_room)
 "wuA" = (
@@ -62738,6 +62759,10 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/machinery/firealarm/directional/south,
 /obj/structure/table,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "xIN" = (
@@ -100971,7 +100996,7 @@ wwj
 wwj
 fDc
 bSw
-aXq
+uoB
 qLP
 oyB
 oyB

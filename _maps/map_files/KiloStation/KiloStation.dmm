@@ -4897,6 +4897,10 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/office)
 "bWI" = (
@@ -14394,6 +14398,10 @@
 	pixel_x = -22
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "fjN" = (
@@ -25682,6 +25690,10 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/medbay/central)
 "jcm" = (
@@ -32146,10 +32158,15 @@
 /area/station/command/heads_quarters/captain)
 "liN" = (
 /obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
+	},
+/obj/machinery/reagentgrinder{
+	pixel_y = 6;
+	pixel_x = 3
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "liZ" = (
@@ -33717,6 +33734,10 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/bar/atrium)
 "lJH" = (
@@ -38683,6 +38704,10 @@
 	pixel_y = 22
 	},
 /obj/item/book/manual/wiki/sopengineering,
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/break_room)
 "nnv" = (
@@ -39256,6 +39281,10 @@
 	dir = 4
 	},
 /obj/structure/mirror/directional/west,
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/theater)
 "nwM" = (
@@ -42244,6 +42273,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
 "owC" = (
@@ -43055,6 +43088,10 @@
 /obj/item/analyzer,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
+	},
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/research)

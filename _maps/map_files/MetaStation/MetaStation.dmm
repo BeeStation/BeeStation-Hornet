@@ -20194,6 +20194,10 @@
 	},
 /obj/structure/table/glass,
 /obj/item/radio/off,
+/obj/machinery/recharger{
+	pixel_x = 5;
+	pixel_y = 3
+	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -31483,6 +31487,10 @@
 	dir = 4
 	},
 /obj/machinery/light_switch/directional/south,
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "ljA" = (
@@ -46774,6 +46782,10 @@
 	pixel_x = -6;
 	pixel_y = 5
 	},
+/obj/machinery/recharger{
+	pixel_y = 5;
+	pixel_x = 6
+	},
 /turf/open/floor/iron,
 /area/station/medical/break_room)
 "qni" = (
@@ -48685,6 +48697,10 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/recharger{
+	pixel_y = 5;
+	pixel_x = 6
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "qVY" = (
@@ -58592,6 +58608,10 @@
 	},
 /obj/item/pen/red,
 /obj/effect/turf_decal/tile/brown/half/contrasted,
+/obj/machinery/recharger{
+	pixel_y = 5;
+	pixel_x = 6
+	},
 /turf/open/floor/iron,
 /area/station/cargo/office)
 "unv" = (

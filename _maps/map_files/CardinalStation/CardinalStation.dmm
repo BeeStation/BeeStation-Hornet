@@ -24860,6 +24860,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/machinery/recharger,
 /turf/open/floor/wood,
 /area/station/science/breakroom)
 "fSk" = (
@@ -41099,6 +41100,9 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
+/obj/machinery/recharger{
+	pixel_x = -7
+	},
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
 "jFI" = (
@@ -49251,6 +49255,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/machinery/recharger,
 /turf/open/floor/wood,
 /area/station/medical/break_room)
 "lBs" = (
@@ -64371,6 +64376,9 @@
 	pixel_y = 2
 	},
 /obj/item/radio/intercom/directional/east,
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/service)
 "peC" = (

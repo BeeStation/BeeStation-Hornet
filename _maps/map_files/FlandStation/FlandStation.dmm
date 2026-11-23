@@ -9401,7 +9401,10 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
 	},
-/obj/item/book/manual/wiki/sopsupply,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron,
 /area/station/cargo/office)
 "cMW" = (
@@ -20122,6 +20125,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/iron/dark/side{
 	dir = 10
 	},
@@ -25208,13 +25212,16 @@
 /turf/open/space/basic,
 /area/station/science/mixing/chamber)
 "hAe" = (
-/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/structure/table,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "hAg" = (
@@ -38573,19 +38580,22 @@
 /area/station/maintenance/department/security/brig)
 "lml" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
-/obj/item/folder/white{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
 /turf/open/floor/iron,
 /area/station/medical/break_room)
 "lmm" = (
@@ -44697,6 +44707,10 @@
 	pixel_y = -30
 	},
 /obj/effect/spawner/random/food_or_drink/donkpocketsfinlandia,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/breakroom)
 "ncy" = (
@@ -52040,6 +52054,10 @@
 /obj/structure/table/wood,
 /obj/effect/turf_decal/bot,
 /obj/item/lightreplacer,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/sepia,
 /area/station/engineering/break_room)
 "pma" = (

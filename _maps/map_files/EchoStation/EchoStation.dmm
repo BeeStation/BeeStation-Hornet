@@ -6403,6 +6403,9 @@
 	},
 /obj/item/storage/belt/utility/full/engi,
 /obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/item/pipe_dispenser{
+	pixel_y = 3
+	},
 /turf/open/floor/iron/large,
 /area/station/engineering/main)
 "eeW" = (
@@ -17047,6 +17050,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/recharger{
+	pixel_x = -7
+	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "kxP" = (
@@ -19679,6 +19685,9 @@
 /obj/item/storage/firstaid/advanced{
 	pixel_x = -3;
 	pixel_y = 9
+	},
+/obj/machinery/recharger{
+	pixel_x = 7
 	},
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/patients_rooms)
@@ -34417,6 +34426,7 @@
 /obj/item/stock_parts/cell/high{
 	pixel_x = 5
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/iron,
 /area/station/science/lab)
 "uWf" = (
@@ -35232,7 +35242,6 @@
 /area/station/maintenance/department/engine/atmos)
 "vuF" = (
 /obj/structure/table/reinforced,
-/obj/item/pipe_dispenser,
 /obj/item/lightreplacer{
 	pixel_x = 2;
 	pixel_y = 13
@@ -35241,6 +35250,9 @@
 	pixel_x = 25
 	},
 /obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/machinery/recharger{
+	pixel_x = -7
+	},
 /turf/open/floor/iron/large,
 /area/station/engineering/main)
 "vuG" = (
@@ -36843,7 +36855,9 @@
 	pixel_x = -3;
 	pixel_y = -2
 	},
-/obj/item/book/manual/wiki/sopscience,
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/iron,
 /area/station/science/lab)
 "wna" = (

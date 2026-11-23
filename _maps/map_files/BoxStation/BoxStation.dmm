@@ -3101,6 +3101,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/cargo/storage)
+"bxX" = (
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/turf/open/floor/iron,
+/area/station/engineering/break_room)
 "bxY" = (
 /obj/machinery/camera/directional/south,
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -20792,6 +20799,9 @@
 	dir = 8
 	},
 /obj/item/paper/guides/jobs/hydroponics,
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "iOS" = (
@@ -31739,7 +31749,9 @@
 	pixel_x = -24
 	},
 /obj/item/folder/yellow,
-/obj/item/book/manual/wiki/sopsupply,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
 /turf/open/floor/iron/tech,
 /area/station/cargo/office)
 "nhU" = (
@@ -36190,6 +36202,9 @@
 /obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
 	pixel_x = 32
 	},
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "pbH" = (
@@ -40233,6 +40248,7 @@
 /obj/item/clothing/under/misc/burial,
 /obj/item/clothing/under/misc/burial,
 /obj/item/clothing/under/misc/burial,
+/obj/machinery/recharger,
 /turf/open/floor/carpet/grimy,
 /area/station/service/chapel/office)
 "qJq" = (
@@ -43145,6 +43161,10 @@
 	pixel_x = 6;
 	pixel_y = -5
 	},
+/obj/item/book/manual/wiki/sopsupply{
+	pixel_x = -6;
+	pixel_y = 9
+	},
 /obj/item/multitool,
 /turf/open/floor/iron/tech,
 /area/station/cargo/office)
@@ -43624,6 +43644,9 @@
 /obj/item/stack/spacecash/c100{
 	pixel_y = 8;
 	pixel_x = 1
+	},
+/obj/machinery/recharger{
+	pixel_x = 7
 	},
 /turf/open/floor/wood/big,
 /area/station/service/bar)
@@ -50793,6 +50816,8 @@
 /area/station/hallway/primary/fore)
 "uWy" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/table/glass,
+/obj/machinery/recharger,
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
@@ -58298,6 +58323,9 @@
 /obj/structure/sign/painting/library_private{
 	pixel_y = 32
 	},
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/engine/cult,
 /area/station/service/library)
 "yda" = (
@@ -58441,6 +58469,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
+/obj/machinery/recharger,
 /turf/open/floor/wood,
 /area/station/medical/break_room)
 "ygf" = (
@@ -90101,7 +90130,7 @@ mFT
 jZh
 pHM
 wQV
-blW
+bxX
 ebV
 ebV
 mTc

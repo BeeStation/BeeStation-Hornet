@@ -7615,6 +7615,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "cMK" = (
@@ -10358,6 +10361,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
+"dPK" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/service)
 "dPR" = (
 /obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -49947,7 +49957,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
+/obj/structure/table,
+/obj/machinery/recharger,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "pGs" = (
@@ -66553,6 +66564,9 @@
 	dir = 4
 	},
 /obj/item/pen,
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/iron,
 /area/station/cargo/office)
 "uGt" = (
@@ -72700,6 +72714,7 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/recharger,
 /turf/open/floor/iron,
 /area/station/cargo/miningoffice)
 "wCN" = (
@@ -75570,6 +75585,9 @@
 	name = "science camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
 /turf/open/floor/iron,
 /area/station/science/research)
 "xvm" = (
@@ -75704,7 +75722,6 @@
 /area/station/engineering/atmos)
 "xxz" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -75716,6 +75733,13 @@
 	pixel_y = 25
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = -5;
+	pixel_y = 3
+	},
 /turf/open/floor/iron,
 /area/station/medical/break_room)
 "xxG" = (
@@ -112669,7 +112693,7 @@ hGO
 ovc
 pGm
 kKU
-kKU
+dPK
 vlW
 kKU
 wQS
