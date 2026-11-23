@@ -41,6 +41,8 @@
 	var/excited = TRUE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
+	/// Progress bar showing how much volume is in the tank when equipped.
+	var/datum/progressbar/volume_bar
 	/// If we're currently exploding or not. If TRUE, gas does not leak
 	var/currently_exploding = FALSE
 	/// The range of our explosion when we deconstruct() is called
@@ -52,6 +54,25 @@
 	bomb = 10
 	fire = 80
 	acid = 30
+
+/obj/item/tank/Initialize(mapload)
+	. = ..()
+
+	air_contents = new(volume) //liters
+	air_contents.temperature = T20C
+
+	populate_gas()
+
+	START_PROCESSING(SSobj, src)
+
+/obj/item/tank/proc/populate_gas()
+	return
+
+/obj/item/tank/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(volume_bar)
+	air_contents = null
+	return ..()
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -73,10 +94,15 @@
 /// Called by carbons after they connect the tank to their breathing apparatus.
 /obj/item/tank/proc/after_internals_opened(mob/living/carbon/carbon_target)
 	breathing_mob = carbon_target
+	playsound(loc, 'sound/items/internals/internals_on.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	var/pressure_on_open = air_contents.return_pressure() //we start off "full" when we toggle, and count down from there.
+	volume_bar = new(carbon_target, pressure_on_open, src, pressure_on_open)
 
 /// Called by carbons after they disconnect the tank from their breathing apparatus.
 /obj/item/tank/proc/after_internals_closed(mob/living/carbon/carbon_target)
 	breathing_mob = null
+	playsound(loc, 'sound/items/internals/internals_off.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	QDEL_NULL(volume_bar)
 
 /// Attempts to toggle the mob's internals on or off using this tank. Returns TRUE if successful.
 /obj/item/tank/proc/toggle_internals(mob/living/carbon/mob_target)
@@ -84,25 +110,6 @@
 
 /obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
-
-/obj/item/tank/Initialize(mapload)
-	. = ..()
-
-	air_contents = new(volume) //liters
-	air_contents.temperature = T20C
-
-	populate_gas()
-
-	START_PROCESSING(SSobj, src)
-
-/obj/item/tank/proc/populate_gas()
-	return
-
-/obj/item/tank/Destroy()
-	UnregisterSignal(air_contents, COMSIG_GASMIX_MERGED)
-	air_contents = null
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/tank/examine(mob/user)
 	var/obj/icon = src
@@ -262,7 +269,11 @@
 	return remove_air(moles_needed)
 
 /obj/item/tank/process(delta_time)
-	if(!air_contents || currently_exploding)
+	if(!air_contents)
+		return
+	if(!QDELETED(volume_bar))
+		volume_bar.update(air_contents.return_pressure())
+	if(currently_exploding)
 		return
 
 	//Allow for reactions
