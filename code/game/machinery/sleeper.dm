@@ -1,14 +1,9 @@
-/obj/machinery/sleep_console
-	name = "sleeper console"
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "console"
-	density = FALSE
-
 /obj/machinery/sleeper
 	name = "sleeper"
 	desc = "An enclosed machine used to stabilize and heal patients."
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
+	base_icon_state = "sleeper"
 	density = FALSE
 	obj_flags = BLOCKS_CONSTRUCTION
 	state_open = TRUE
@@ -98,7 +93,7 @@
 
 /obj/machinery/sleeper/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
+	icon_state = "[base_icon_state][state_open ? "-open" : ""]"
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if ((istype(I, /obj/item/reagent_containers/cup) \
@@ -136,19 +131,23 @@
 
 //Note: open_machine and close_machine already ui_update()
 /obj/machinery/sleeper/open_machine(drop = TRUE, density_to_set = FALSE)
-	if(!state_open && !panel_open)
-		z_flick("[initial(icon_state)]-anim", src)
-		..()
+	if(!panel_open)
+		z_flick("[base_icon_state]-anim", src)
+		return ..()
 
-/obj/machinery/sleeper/close_machine(mob/user, density_to_set = TRUE)
-	if((isnull(user) || istype(user)) && state_open && !panel_open)
-		z_flick("[initial(icon_state)]-anim", src)
-		..(user)
-		var/mob/living/mob_occupant = occupant
-		if(controls_inside)
-			ui_interact(mob_occupant)
-		if(mob_occupant && mob_occupant.stat != DEAD)
-			to_chat(mob_occupant, "[enter_message]")
+/obj/machinery/sleeper/close_machine(atom/movable/target, density_to_set = TRUE)
+	if(panel_open)
+		return
+	. = ..()
+	z_flick("[base_icon_state]-anim", src)
+	playsound(src, 'goon/sounds/machines/sleeper_close.ogg', 50, TRUE)
+	if(!isliving(occupant))
+		return
+	var/mob/living/living_occupant = occupant
+	if(controls_inside)
+		ui_interact(living_occupant)
+	if(living_occupant.stat != DEAD)
+		to_chat(mob_occupant, enter_message)
 
 /obj/machinery/sleeper/emp_act(severity)
 	. = ..()
@@ -167,19 +166,17 @@
 	close_machine(target)
 
 
-/obj/machinery/sleeper/screwdriver_act(mob/living/user, obj/item/I)
-	. = TRUE
-	if(..())
-		return
+/obj/machinery/sleeper/screwdriver_act(mob/living/user, obj/item/tool)
+	. = ITEM_INTERACT_BLOCKING
 	if(occupant)
 		to_chat(user, span_warning("[src] is currently occupied!"))
-		return
+		return .
 	if(state_open)
 		to_chat(user, span_warning("[src] must be closed to [panel_open ? "close" : "open"] its maintenance hatch!"))
-		return
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
-		return
-	return FALSE
+		return .
+	if(default_deconstruction_screwdriver(user, "[base_icon_state]-o", base_icon_state, I))
+		return ITEM_INTERACT_SUCCESS
+	return .
 
 /obj/machinery/sleeper/wrench_act(mob/living/user, obj/item/I)
 	if(default_change_direction_wrench(user, I))
@@ -351,6 +348,7 @@
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s"
+	base_icon_state = "sleeper_s"
 	controls_inside = TRUE
 	roundstart_vials = list()
 	roundstart_chems = list(
@@ -370,6 +368,7 @@
 	name = "soothing sleeper"
 	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
 	icon_state = "sleeper_clockwork"
+	base_icon_state = "sleeper_clockwork"
 	enter_message = span_boldinathneqsmall("You hear the gentle hum and click of machinery, and are lulled into a sense of peace.")
 	roundstart_vials = list()
 	roundstart_chems = list(
@@ -379,7 +378,8 @@
 		/datum/reagent/medicine/salbutamol = 200,
 		/datum/reagent/medicine/oculine = 100,
 		/datum/reagent/medicine/inacusiate = 100,
-		/datum/reagent/medicine/mannitol = 100)
+		/datum/reagent/medicine/mannitol = 100,
+	)
 	max_vials = 7
 	synthesizing = TRUE
 
@@ -389,3 +389,4 @@
 
 /obj/machinery/sleeper/old
 	icon_state = "oldpod"
+	base_icon_state = "oldpod"

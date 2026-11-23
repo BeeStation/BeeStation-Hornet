@@ -3,8 +3,9 @@
 	desc = "It scans DNA structures."
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "scanner"
+	base_icon_state = "scanner"
 	density = TRUE
-	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
+	obj_flags = parent_type::obj_flags | BLOCKS_CONSTRUCTION // Becomes undense when the door is open
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
@@ -15,7 +16,7 @@
 	var/scan_level
 	var/precision_coeff
 	var/message_cooldown
-	var/breakout_time = 1200
+	var/breakout_time = 2 MINUTES
 	var/ignore_id = FALSE
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
@@ -48,26 +49,23 @@
 		if(scan_level >= 3)
 			. += span_notice("Scanner has been upgraded to support autoprocessing.")
 
-/obj/machinery/dna_scannernew/update_icon()
-	cut_overlays()
-
-	if((machine_stat & MAINT) || panel_open)
-		add_overlay("maintenance")
-
+/obj/machinery/dna_scannernew/update_icon_state()
+	. = ..()
 	//no power or maintenance
 	if(machine_stat & (NOPOWER|BROKEN))
-		icon_state = initial(icon_state)+ (state_open ? "_open" : "") + "_unpowered"
+		icon_state = "[base_icon_state][state_open ? "_open" : ""]_unpowered"
 		return
-	else if(locked)
-		add_overlay("locked")
-
-	//running and someone in there
 	if(occupant)
-		icon_state = initial(icon_state)+ "_occupied"
+		icon_state = "[base_icon_state]_occupied"
 		return
+	icon_state = "[base_icon_state][state_open ? "_open" : ""]"
 
-	//running
-	icon_state = initial(icon_state)+ (state_open ? "_open" : "")
+/obj/machinery/dna_scannernew/update_overlays()
+	. = ..()
+	if((machine_stat & MAINT) || panel_open)
+		. += "maintenance"
+	if(!(machine_stat & (NOPOWER|BROKEN)) && locked)
+		. += "locked"
 
 /obj/machinery/dna_scannernew/proc/toggle_open(mob/user)
 	if(locked)
@@ -97,31 +95,19 @@
 			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
-/obj/machinery/dna_scannernew/proc/locate_computer(type_)
-	for(var/direction in GLOB.cardinals)
-		var/C = locate(type_, get_step(src, direction))
-		if(C)
-			return C
-	return null
-
-/obj/machinery/dna_scannernew/close_machine(mob/living/carbon/user, density_to_set = TRUE)
+/obj/machinery/dna_scannernew/close_machine(atom/movable/target, density_to_set = TRUE)
 	if(!state_open)
-		return FALSE
-
-	..()
+		return
+	. = ..()
 	// Sealed with someone inside is the only time this thing is actually scanning.
 	update_use_power(occupant ? ACTIVE_POWER_USE : IDLE_POWER_USE)
-
-	return TRUE
+	playsound(src, 'goon/sounds/machines/sleeper_close.ogg', 50, TRUE)
 
 /obj/machinery/dna_scannernew/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(state_open)
-		return FALSE
-
-	..()
+		return
+	. = ..()
 	update_use_power(IDLE_POWER_USE)
-
-	return TRUE
 
 /obj/machinery/dna_scannernew/relaymove(mob/living/user, direction)
 	if(user.stat || (locked && !state_open))
@@ -131,23 +117,25 @@
 		return
 	open_machine()
 
-/obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, list/modifiers)
+/obj/machinery/dna_scannernew/screwdriver_act(mob/living/user, obj/item/tool)
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, tool)) //sent icon_state is irrelevant...
+		update_appearance(UPDATE_ICON)
+		return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_BLOCKING
 
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))//sent icon_state is irrelevant...
-		update_icon()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
+/obj/machinery/dna_scannernew/crowbar_act(mob/living/user, obj/item/tool)
+	if(default_pry_open(tool))
+		return ITEM_INTERACT_SUCCESS
+	if(default_deconstruction_crowbar(tool))
+		return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_BLOCKING
+
+/obj/machinery/dna_scannernew/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
 		return
-
-	if(default_pry_open(I))
-		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
-	if(panel_open && is_wire_tool(I))
+	if(panel_open && is_wire_tool(tool))
 		wires.interact(user)
-		return
-
-	return ..()
 
 /obj/machinery/dna_scannernew/interact(mob/user)
 	toggle_open(user)
@@ -177,4 +165,4 @@
 			ignore_id = FALSE
 		if(WIRE_BOLTS)
 			locked = FALSE
-			update_icon()
+			update_appearance(UPDATE_OVERLAYS)
