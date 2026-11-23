@@ -508,6 +508,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	..()
 	if(dna)
 		dna.real_name = real_name
+	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
+	if(my_head)
+		my_head.real_name = real_name
 
 /mob/living/carbon/set_body_position(new_value)
 	. = ..()
