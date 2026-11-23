@@ -233,7 +233,7 @@
 	. = ..()
 	//Should only be one, but I'm lazy and this seems safe
 	for(var/datum/stock_part/manipulator/part in component_parts)
-		reward_rate = part.tier / 16
+		reward_rate = part.tier / 4
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()

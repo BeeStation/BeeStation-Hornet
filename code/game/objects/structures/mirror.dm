@@ -133,6 +133,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 	icon_state = "magic_mirror"
 	var/list/choosable_races
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/magic, 28)
+
 /obj/structure/mirror/magic/Initialize(mapload)
 	. = ..()
 	if(!islist(choosable_races))
@@ -254,11 +256,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(new_eye_color)
-				user.eye_color_left = sanitize_hexcolor(new_eye_color)
-				user.eye_color_right = sanitize_hexcolor(new_eye_color)
+				user.set_eye_color(sanitize_hexcolor(new_eye_color))
 				user.dna.update_ui_block(DNA_EYE_COLOR_LEFT_BLOCK)
 				user.dna.update_ui_block(DNA_EYE_COLOR_RIGHT_BLOCK)
-				user.update_body()
+				user.update_eyes()
 	if(choice)
 		curse(user)
 

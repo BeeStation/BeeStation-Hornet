@@ -173,6 +173,9 @@
 /// from /mob/update_incapacitated: (old_incap, new_incap)
 #define COMSIG_MOB_INCAPACITATE_CHANGED "mob_incapacitated"
 
+/// from /obj/item/reagent_containers/dropper/interact_with_atom(atom/target, mob/living/user, list/modifiers): (mob/living/user, atom/dropper, datum/reagents/reagents, fraction)
+#define COMSIG_MOB_REAGENTS_DROPPED_INTO_EYES "mob_reagents_drop_into_eyes"
+
 /// Signal sent when a blackboard key is set to a new value
 #define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"
 

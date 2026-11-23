@@ -36,3 +36,6 @@
 #define COMSIG_HUMAN_GOT_PUNCHED "human_got_punched"
 /// Called from /datum/species/proc/harm(): (mob/living/carbon/human/attacked, damage, attack_type, atk_effect, obj/item/bodypart/affecting, armor_block)
 #define COMSIG_HUMAN_PUNCHED "human_punched"
+
+#define COMSIG_CARBON_PRE_SPRINT "carbon_pre_sprint"
+	#define INTERRUPT_SPRINT (1<<0)

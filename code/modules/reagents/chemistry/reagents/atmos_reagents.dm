@@ -7,7 +7,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	overdose_threshold = 10
-	metabolized_traits = list(TRAIT_NOSTAMCRIT, TRAIT_NOLIMBDISABLE)
+	metabolized_traits = list(TRAIT_NOLIMBDISABLE)
 
 	var/warned = FALSE
 	var/feeling_high = FALSE
@@ -15,12 +15,14 @@
 /datum/reagent/nitrium/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
+	ADD_TRAIT(affected_mob, TRAIT_SECOND_WIND, type)
 	to_chat(affected_mob, span_warning("You feel like nothing can stop you!"))
 	feeling_high = TRUE
 
 /datum/reagent/nitrium/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium) //Just in case it doesn't get removed in mob_life
+	REMOVE_TRAIT(affected_mob, TRAIT_SECOND_WIND, type)
 
 /datum/reagent/nitrium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -29,9 +31,10 @@
 		feeling_high = FALSE
 		to_chat(affected_mob, span_warning("You can feel your high starting to wear off"))
 		affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
+		REMOVE_TRAIT(affected_mob, TRAIT_SECOND_WIND, type)
 	// Whether they go back to huffing too soon, or they have just started huffing, this calculation will handle stamina restoration and exhaustion both.
 	else
-		affected_mob.adjustStaminaLoss((clamp((-30 + current_cycle), -2, 5)) * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-1 * (clamp((-30 + current_cycle), -2, 5)) * REM * delta_time)
 		if(!warned && current_cycle >= 31)
 			to_chat(affected_mob, span_danger("Your body aches!"))
 			warned = TRUE
@@ -68,5 +71,5 @@
 		to_chat(affected_mob, span_danger("Your body feels like it's on fire!")) // Nitrosyl is now draining more than Nitrium is giving
 		warned = TRUE
 
-	if(affected_mob.adjustStaminaLoss((clamp((-10 + current_cycle), -8, 3)) * REM * delta_time, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-1 * (clamp((-10 + current_cycle), -8, 3)) * REM * delta_time)
+	return UPDATE_MOB_HEALTH

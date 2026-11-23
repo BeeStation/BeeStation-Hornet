@@ -83,7 +83,7 @@ then the player gets the profit from selling his own wasted time.
 
 					break
 
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold, dry_run)
 
 		if(!dry_run && (sold || delete_unsold || thing.trade_flags & TRADE_DELETE_UNSOLD))
 			if(ismob(thing))
