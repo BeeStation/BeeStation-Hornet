@@ -35,7 +35,8 @@
 
 /datum/holoparasite_ability/major/frenzy/apply()
 	..()
-	var/view_distance = max(getviewsize(world.view)[1], getviewsize(world.view)[2])
+	var/list/view_sizes = getviewsize(world.view)
+	var/view_distance = max(view_sizes[1], view_sizes[2])
 	cooldown_length = round((0.2 SECONDS * (5 - master_stats.potential)) + 2, 5) // 2 to 3 seconds
 	rush_knockback = master_stats.potential > 3
 	knockback_distance = clamp(ceil(master_stats.damage * 1.75), 2, view_distance)
