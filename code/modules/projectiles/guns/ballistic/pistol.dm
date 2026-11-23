@@ -187,11 +187,11 @@
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
 	empty_alarm = TRUE
-	rack_sound = 'sound/weapons/nps10/NPS-rack.ogg'
-	load_empty_sound = 'sound/weapons/nps10/NPS-load.ogg'
-	bolt_drop_sound = 'sound/weapons/nps10/NPS-boltdrop.ogg'
-	lock_back_sound = 'sound/weapons/nps10/NPS-lockback.ogg'
-	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
+	rack_sound = 'sound/weapons/gun/pistol/nps10/rack.ogg'
+	load_empty_sound = 'sound/weapons/gun/pistol/nps10/load.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/pistol/nps10/boltdrop.ogg'
+	lock_back_sound = 'sound/weapons/gun/pistol/nps10/lockback.ogg'
+	fire_sound = 'sound/weapons/gun/pistol/nps10/fire.ogg'
 	recoil = 0.1
 
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()

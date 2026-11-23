@@ -1,5 +1,5 @@
 
-All files in sound/weapons/nps10 are modifications and remixes of:
+All sounds in this folder are modifications and remixes of:
 
 WEAPONPistol_Cyberpistol, Lazer, Sci-fi_JW-48kHz-Stereo.wav by Jwsounddesigner -- https://freesound.org/s/636023/ -- License: Attribution 4.0
 SciFi Futuristic Handgun Reload by Sabacky -- https://freesound.org/s/767158/ -- License: Attribution 4.0

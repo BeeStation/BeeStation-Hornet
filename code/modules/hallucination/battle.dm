@@ -107,7 +107,7 @@
 		'sound/weapons/gun/revolver/shot_alt.ogg',
 		'sound/weapons/gun/rifle/shot.ogg',
 		'sound/weapons/gun/smg/shot.ogg',
-		'sound/weapons/nps10/NPS-fire.ogg',
+		'sound/weapons/gun/pistol/nps10/fire.ogg',
 	)
 	hit_person_sound = 'sound/weapons/pierce.ogg'
 	hit_wall_sound = "ricochet"
