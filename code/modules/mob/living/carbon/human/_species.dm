@@ -967,10 +967,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		log_combat(user, target, "punched", "punch")
 		. |= ATTACK_CONSUME_STAMINA
 
-	return ATTACK_CONTINUE | .
-
 	SEND_SIGNAL(target, COMSIG_HUMAN_GOT_PUNCHED, user, damage, attack_type, atk_effect, affecting, armor_block)
 	SEND_SIGNAL(user, COMSIG_HUMAN_PUNCHED, target, damage, attack_type, atk_effect, affecting, armor_block)
+
+	return ATTACK_CONTINUE | .
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
