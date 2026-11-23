@@ -181,9 +181,11 @@
 
 	ui_update()
 
-/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/_label, sold)
+/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/_label, sold, dry_run)
 	SIGNAL_HANDLER
 
+	if(dry_run)
+		return
 	var/obj/item/sticker/xenoartifact_label/label = _label
 	if(!istype(label))
 		return
@@ -220,14 +222,14 @@
 				attempted_bonus = TRUE
 	//Calculate success rate
 	var/success_rate = clamp(score / max(max_score, 1), 0, 1)
-	var/bonus_rate = clamp(2 * (bonus / max(max_bonus, 1)), 1, INFINITY)
+	var/bonus_rate = clamp(1.5 * (bonus / max(max_bonus, 1)), 1, INFINITY)
 	//Rewards
 		//Research Points
 	var/rnd_reward = round(max(0, (artifact.item_price*artifact_component.artifact_material.rnd_rate)*success_rate) * bonus_rate, 1)
 		//Discovery Points
 	var/dp_reward = round(max(0, (artifact.item_price*artifact_component.artifact_material.dp_rate)*success_rate) * bonus_rate, 1)
 		//Money
-	var/monetary_reward = round(floor(((artifact.item_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate), 1)
+	var/monetary_reward = round(floor(((artifact.item_price * success_rate)**1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate), 1)
 	//Alloctae
 	if(is_main_console)
 		linked_techweb?.adjust_multiple_points(list(

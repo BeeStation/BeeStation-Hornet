@@ -457,7 +457,7 @@ world
 			var/list/process = process_set ? appearance.overlays : appearance.underlays
 			process = process.Copy()
 			var/i = 1
-			while (i < length(process))
+			while (i <= length(process))
 				if (i > 10000)
 					CRASH("Number of overlays/underlays exceeded 10000, infinite loop possible. Aborting to avoid server crash.")
 				var/image/current = process[i]

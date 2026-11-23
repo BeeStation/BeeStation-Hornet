@@ -8,8 +8,13 @@
 	usesound = 'sound/items/crowbar.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
+
 	force = 12
 	throwforce = 7
+	stamina_damage = 35
+	stamina_cost = 12
+	stamina_critical_chance = 10
+
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'

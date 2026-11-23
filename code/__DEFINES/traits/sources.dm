@@ -46,6 +46,8 @@
 #define SUIT_TRAIT "suit"
 /// Trait associated to lying down (having a [lying_angle] of a different value than zero).
 #define LYING_DOWN_TRAIT "lying-down"
+/// Is currently EMP'd
+#define EMP_TRAIT "emp"
 /// Trait associated to lacking electrical power.
 #define POWER_LACK_TRAIT "power-lack"
 #define GLASSES_TRAIT "glasses"
@@ -59,6 +61,7 @@
 #define TRAIT_NO_MIRROR_REFLECTION "no_mirror_reflection"
 #define ACTION_TRAIT "action_trait"
 #define LEANING_TRAIT "leaning"
+#define TWITCH_TRAIT "twitch"
 #define TRAIT_REGEN_COMA "regencoma"
 /// From nanites
 #define NANITES_TRAIT "nanites"
