@@ -155,6 +155,8 @@
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_HEART, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_LIVER, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_WINGS, -1, required_organ_flag = organtype)
 		if(curing)
 			for(var/datum/disease/D in M.diseases)
 				if(istype(D, /datum/disease/appendicitis) || istype(D, /datum/disease/heart_failure))
@@ -202,5 +204,6 @@
 					O.Insert(M, movement_flags = DELETE_IF_REPLACED)
 					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 200)
 					return
+
 	if(prob(2) && M.stat != DEAD)
 		to_chat(M, span_notice("[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]"))

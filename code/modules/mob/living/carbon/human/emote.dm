@@ -14,7 +14,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	QDEL_IN(human_user.give_emote_overlay(/datum/bodypart_overlay/simple/emote/cry), 12.8 SECONDS)
+	human_user.show_emote_overlay(/datum/bodypart_overlay/simple/emote/cry, 12.8 SECONDS)
 
 /datum/emote/living/carbon/human/dap
 	key = "dap"
@@ -35,7 +35,7 @@
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return ("ears" in H.dna?.species?.mutant_bodyparts)
+	return istype(H.get_organ_slot(ORGAN_SLOT_EARS), /obj/item/organ/ears/cat)
 
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
@@ -175,9 +175,10 @@
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check, intentional)
 	var/obj/item/organ/tail/tail = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
-	if(tail?.wag_flags & WAG_ABLE)
+	if(istype(tail) && (tail.wag_flags & WAG_ABLE))
 		return ..()
 	return FALSE
+
 
 /datum/emote/living/carbon/human/wing
 	key = "wing"
@@ -201,7 +202,8 @@
 	return "[emote_verb] [message]"
 
 /datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional)
-	if(!istype(user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS), /obj/item/organ/wings))
+	var/obj/item/organ/wings/wings = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	if(!istype(wings) || !wings.can_open())
 		return FALSE
 	return ..()
 
@@ -226,6 +228,45 @@
 		else
 			to_chat(user, span_warning("You strain, but can't seem to fart again just yet."))
 		return TRUE
+
+/datum/emote/living/carbon/human/blink
+	key = "blink"
+	key_third_person = "blinks"
+	message = "blinks."
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/carbon/human/blink/can_run_emote(mob/living/carbon/human/user, status_check, intentional, params)
+	if (!ishuman(user) || HAS_TRAIT(user, TRAIT_PREVENT_BLINKING) || HAS_TRAIT(user, TRAIT_NO_EYELIDS))
+		return FALSE
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
+	if (!eyes)
+		return FALSE
+	return ..()
+
+/datum/emote/living/carbon/human/blink/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
+	. = ..()
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
+	eyes.blink()
+
+/datum/emote/living/carbon/human/blink_r
+	key = "blink_r"
+	name = "blink (Rapid)"
+	message = "blinks rapidly."
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/carbon/human/blink_r/can_run_emote(mob/living/carbon/human/user, status_check, intentional, params)
+	if (!ishuman(user) || HAS_TRAIT(user, TRAIT_PREVENT_BLINKING) || HAS_TRAIT(user, TRAIT_NO_EYELIDS))
+		return FALSE
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
+	if (!eyes)
+		return FALSE
+	return ..()
+
+/datum/emote/living/carbon/human/blink_r/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
+	for (var/i in 1 to 3)
+		addtimer(CALLBACK(eyes, TYPE_PROC_REF(/obj/item/organ/eyes, blink), 0.1 SECONDS, i == 3), i * 0.2 SECONDS)
 
 // Robotic Tongue emotes. Beep!
 

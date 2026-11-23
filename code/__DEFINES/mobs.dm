@@ -13,9 +13,16 @@
 #define CURRENT_DEAD_PLAYERS "dead_players_list"
 #define CURRENT_OBSERVERS "current_observers_list"
 
-//movement intent defines for the move_intent var
-#define MOVE_INTENT_WALK "walk"
-#define MOVE_INTENT_RUN  "run"
+//movement intent flags, see [/datum/move_intent]
+///Careful movement that avoids slipping and stepping on things
+#define MOVE_INTENT_DELIBERATE (1<<0)
+///Burns extra nutrition
+#define MOVE_INTENT_EXERTIVE (1<<1)
+///Costs stamina
+#define MOVE_INTENT_QUICK (1<<2)
+
+#define MOVING_DELIBERATELY(X) (X.move_intent.flags & MOVE_INTENT_DELIBERATE)
+#define MOVING_QUICKLY(X) (X.move_intent.flags & MOVE_INTENT_QUICK)
 
 /// Amount of oxyloss that KOs a human
 #define OXYLOSS_PASSOUT_THRESHOLD 50
@@ -103,6 +110,8 @@
 #define BODYTYPE_ALIEN (1<<3)
 ///The limb is from a golem
 #define BODYTYPE_GOLEM (1<<4)
+/// Analagous to BODYSHAPE_DIGITIGRADE, though this one is not removed if the mob's shape changed
+#define BODYTYPE_DIGITIGRADE (1<<5)
 
 // Bodyshape defines for how things can be worn, i.e., what "shape" the mob sprite is
 ///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
@@ -160,9 +169,6 @@
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSMOBS_DT/3)
 
-#define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
-#define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
-
 #define HEAT_DAMAGE_LEVEL_1 1 //Amount of damage applied when your body temperature just passes the 360.15k safety point
 #define HEAT_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 400K point
 #define HEAT_DAMAGE_LEVEL_3 4 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
@@ -182,6 +188,7 @@
 
 //Brain Damage defines
 #define BRAIN_DAMAGE_MILD 20
+#define BRAIN_DAMAGE_ASYNC_BLINKING 60
 #define BRAIN_DAMAGE_SEVERE 100
 #define BRAIN_DAMAGE_DEATH 200
 
@@ -475,9 +482,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define AI_CAMERA_LUMINOSITY	5
 #define AI_VOX //! Comment out if you don't want VOX to be enabled and have players download the voice sounds.
 
-// /obj/item/bodypart on_mob_life() retval flag
-#define BODYPART_LIFE_UPDATE_HEALTH (1<<0)
-
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180
 
@@ -597,8 +601,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define BODYPARTS_LAYER 33
 /// certain mutantrace features (snout, body markings) that must appear above the body parts
 #define BODY_ADJ_LAYER 32
-/// underwear, undershirts, socks, eyes, lips(makeup)
-#define BODY_LAYER 30
+/// Underwear, undershirts, socks
+#define BODY_LAYER 31
+/// Eyes and eyelids
+#define EYES_LAYER 30
 /// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
 #define FRONT_MUTATIONS_LAYER 29
 /// damage indicators (cuts and burns)
@@ -658,23 +664,20 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The highest most layer for mob overlays
 #define HIGHEST_LAYER 1
 
-//Bitflags for the layers a bodypart overlay can draw on (can be drawn on multiple layers)
-/// Draws overlay on the BODY_FRONT_LAYER
-#define EXTERNAL_FRONT (1 << 0)
-/// Draws overlay on the BODY_ADJ_LAYER
-#define EXTERNAL_ADJACENT (1 << 1)
-/// Draws overlay on the BODY_BEHIND_LAYER
-#define EXTERNAL_BEHIND (1 << 2)
-/// Draws organ on all EXTERNAL layers
-#define ALL_EXTERNAL_OVERLAYS EXTERNAL_FRONT | EXTERNAL_ADJACENT | EXTERNAL_BEHIND
+// Legacy mutant bodypart layering defines for icon states
+// Don't change these without updating all relevant icon states
+#define EXTERNAL_FRONT "FRONT"
+#define EXTERNAL_ADJACENT "ADJ"
+#define EXTERNAL_BEHIND "BEHIND"
 
 // Bitflags for external organs restylability
+#define EXTERNAL_RESTYLE_ALL ALL
 /// This organ allows restyle through plant restyling (like secateurs)
-#define EXTERNAL_RESTYLE_PLANT (1 << 1)
+#define EXTERNAL_RESTYLE_PLANT (1 << 0)
 /// This organ allows restyling with flesh restyling stuff (surgery or something idk)
-#define EXTERNAL_RESTYLE_FLESH (1 << 2)
+#define EXTERNAL_RESTYLE_FLESH (1 << 1)
 /// This organ allows restyling with enamel restyling (like a fucking file or something?). It's for horns and shit
-#define EXTERNAL_RESTYLE_ENAMEL (1 << 3)
+#define EXTERNAL_RESTYLE_ENAMEL (1 << 2)
 
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"

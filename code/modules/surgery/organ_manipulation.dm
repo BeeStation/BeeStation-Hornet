@@ -87,8 +87,16 @@
 	)
 
 /datum/surgery/organ_manipulation/mechanic/external
-	name = "Prosthetic feature manipulation"
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	name = "Chassis Manipulation"
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+	)
 	steps = list( //not shorter than soft prosthetic manip because I dunno what steps could be cut here
 		/datum/surgery_step/mechanic_open,
 		/datum/surgery_step/open_hatch,
@@ -97,7 +105,6 @@
 		/datum/surgery_step/mechanic_close,
 	)
 
-///Organ manipulation base class. Do not use, it wont work. Use it's subtypes
 /datum/surgery_step/manipulate_organs
 	name = "manipulate organs"
 	repeatable = TRUE

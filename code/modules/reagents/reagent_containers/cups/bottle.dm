@@ -20,15 +20,17 @@
 		icon_state = "bottle"
 	update_appearance()
 
-/obj/item/reagent_containers/cup/bottle/throw_impact(mob/living/target, mob/thrower)
+/obj/item/reagent_containers/cup/bottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
+	if(. || QDELETED(src))
+		return
 	if(isGlass)
 		var/obj/item/shard/shard = new(loc)
-		target.Bumped(shard)
+		hit_atom.Bumped(shard)
 		playsound(loc, "shatter", 100, TRUE)
 		qdel(src)
 	else
-		target.Bumped(src)
+		hit_atom.Bumped(src)
 
 /obj/item/reagent_containers/cup/bottle/vial
 	name = "vial"

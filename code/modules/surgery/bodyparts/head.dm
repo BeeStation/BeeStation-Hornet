@@ -12,8 +12,7 @@
 	throw_range = 2 //No head bowling
 	px_x = 0
 	px_y = -8
-	stam_damage_coeff = 1
-	max_stamina_damage = 100
+	grind_results = null
 	is_dimorphic = TRUE
 	unarmed_attack_verb = "bite"
 	unarmed_attack_effect = ATTACK_EFFECT_BITE
@@ -31,33 +30,27 @@
 	/// Flags related to appearance, such as hair, lips, etc
 	var/head_flags = HEAD_ALL_FEATURES
 
+
 	/// Hair style
 	var/hairstyle = "Bald"
 	/// Hair colour and style
 	var/hair_color = COLOR_BLACK
 	/// Hair alpha
 	var/hair_alpha = 255
-	/// Is the hair currently hidden by something?
-	var/hair_hidden = FALSE
-	/// Lazy initialized hashset of all hair masks that should be applied
-	var/list/hair_masks
 
-	///Facial hair style
+	/// Facial hair style
 	var/facial_hairstyle = "Shaved"
-	///Facial hair color
+	/// Facial hair color
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair alpha
 	var/facial_hair_alpha = 255
-	///Is the facial hair currently hidden by something?
-	var/facial_hair_hidden = FALSE
-
 	/// Gradient styles, if any
-	var/list/gradient_styles = list(
+	var/list/grad_styles = list(
 		"None",	//Hair gradient style
 		"None",	//Facial hair gradient style
 	)
 	/// Gradient colors, if any
-	var/list/gradient_colors = list(
+	var/list/grad_colors = list(
 		COLOR_BLACK,	//Hair gradient color
 		COLOR_BLACK,	//Facial hair gradient color
 	)
@@ -67,19 +60,11 @@
 	/// An override that cannot be cleared under any circumstances, affects both hair and facial hair
 	var/fixed_hair_color = null
 
-	///Type of lipstick being used, basically
 	var/lip_style
-	///Lipstick color
 	var/lip_color
-	///Current lipstick trait, if any (such as TRAIT_KISS_OF_DEATH)
 	var/stored_lipstick_trait
 
 	var/mouth = TRUE
-
-	/// Draw this head as "debrained"
-	VAR_PROTECTED/show_debrained = FALSE
-	/// Draw this head as missing eyes
-	VAR_PROTECTED/show_eyeless = FALSE
 
 	/// Offset to apply to equipment worn on the ears
 	var/datum/worn_feature_offset/worn_ears_offset
@@ -102,13 +87,13 @@
 
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
-	if(show_organs_on_examine && IS_ORGANIC_LIMB(src))
+	if(IS_ORGANIC_LIMB(src) && show_organs_on_examine)
 		var/obj/item/organ/brain/brain = locate(/obj/item/organ/brain) in src
 		if(!brain)
 			. += span_info("The brain has been removed from [src].")
 		else if(brain.suicided || brain.brainmob?.suiciding)
 			. += span_info("There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.")
-		else if(brain.brainmob)
+		else if(brain.brainmob) //We only care about the head's brainmob here
 			if(brain.brain_death || brain.brainmob?.health <= HEALTH_THRESHOLD_DEAD)
 				. += span_info("It's leaking some kind of... clear fluid? The brain inside must be in pretty bad shape.")
 
@@ -149,50 +134,19 @@
 
 /obj/item/bodypart/head/update_limb(dropping_limb, is_creating)
 	. = ..()
-	if(!isnull(owner))
-		if(HAS_TRAIT(owner, TRAIT_HUSK))
-			real_name = "Unknown"
-		else
-			real_name = owner.real_name
-
-	if(ishuman(owner)) //No MONKEYS!!!
-		update_hair_and_lips(dropping_limb, is_creating)
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if(isnull(owner))
+		return
+	real_name = HAS_TRAIT(owner, TRAIT_HUSK) ? "Unknown" : owner.real_name
+	if(is_creating && ishuman(owner))
+		copy_appearance_from(owner)
 
 /obj/item/bodypart/head/get_limb_icon(dropped)
 	. = ..()
+	if(dropped) // These overlays are applied as standing overlays so we only need them if dropped
+		. += get_hair_overlays(dropped)
+		. += get_eye_overlays(dropped)
 
-	. += get_hair_and_lips_icon(dropped)
-	// We need to get the eyes if we are dropped (ugh)
-	if(dropped)
-		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src
-		// This is a bit of copy/paste code from eyes.dm:generate_body_overlay
-		if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
-			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
-			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
-			if(head_flags & HEAD_EYECOLOR)
-				if(eyes.eye_color_left)
-					eye_left.color = eyes.eye_color_left
-				if(eyes.eye_color_right)
-					eye_right.color = eyes.eye_color_right
-			if(eyes.overlay_ignore_lighting)
-				eye_left.overlays += emissive_appearance(eye_left.icon, eye_left.icon_state, alpha = eye_left.alpha)
-				eye_right.overlays += emissive_appearance(eye_right.icon, eye_right.icon_state, alpha = eye_right.alpha)
-			else if(blocks_emissive != EMISSIVE_BLOCK_NONE)
-				eye_left.overlays += emissive_blocker(eye_left.icon, eye_left.icon_state, alpha = eye_left.alpha)
-				eye_right.overlays += emissive_blocker(eye_right.icon, eye_right.icon_state, alpha = eye_right.alpha)
-			if(worn_face_offset)
-				worn_face_offset.apply_offset(eye_left)
-				worn_face_offset.apply_offset(eye_right)
-			. += eye_left
-			. += eye_right
-		else if(!eyes && (head_flags & HEAD_EYEHOLES))
-			var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
-			worn_face_offset?.apply_offset(no_eyes)
-			. += no_eyes
-
-	return
+	. += get_lips_overlays(dropped)
 
 /obj/item/bodypart/head/Initialize(mapload)
 	. = ..()

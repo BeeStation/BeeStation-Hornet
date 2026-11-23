@@ -12,7 +12,6 @@
 	inherent_traits = list(
 		TRAIT_TACKLING_WINGED_ATTACKER,
 		TRAIT_MUTANT_COLORS,
-		TRAIT_HAS_MARKINGS,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
 	mutant_bodyparts = list(
@@ -26,7 +25,6 @@
 		/obj/item/organ/wings/moth = "Plain",
 		/obj/item/organ/antennae = "Plain"
 	)
-	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutanttongue = /obj/item/organ/tongue/moth
@@ -45,6 +43,13 @@
 	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
+
+	var/datum/action/innate/cocoon/cocoon_action
+
+/datum/species/moth/randomize_features()
+	var/list/features = ..()
+	features[FEATURE_MOTH_MARKINGS] = pick(SSaccessories.moth_markings_list)
+	return features
 
 /datum/species/moth/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
 	. = ..()
@@ -72,11 +77,6 @@
 
 	if(istype(attacking_item, /obj/item/melee/flyswatter))
 		damage_mods += 10 // Yes, a 10x damage modifier
-
-/datum/species/moth/randomize_features()
-	var/list/features = ..()
-	features[FEATURE_MOTH_MARKINGS] = pick(SSaccessories.moth_markings_list)
-	return features
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
 	return 'sound/emotes/moth/mothlaugh.ogg'
@@ -112,7 +112,7 @@
 	if(!wingcheck) //This is to stop easy organ farms
 		to_chat(H, span_warning("You don't have any wings to regenerate!"))
 		return
-	if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+	if(!has_burnt_parts(H))
 		to_chat(H, span_warning("Your wings are fine as they are!"))
 		return
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
@@ -120,7 +120,7 @@
 		return
 	H.visible_message(span_notice("[H] begins to hold still and concentrate on weaving a cocoon..."), \
 	span_notice("You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)"))
-	H.adjustStaminaLoss(20, FALSE) //this is here to deter people from spamming it if they get interrupted
+	H.stamina.adjust(-20, TRUE) //this is here to deter people from spamming it if they get interrupted
 	if(do_after(H, COCOON_WEAVE_DELAY, H, timed_action_flags = IGNORE_HELD_ITEM))
 		if(!ismoth(H))
 			to_chat(H, span_warning("You have lost your mandibles and cannot weave anymore!."))
@@ -128,7 +128,7 @@
 		if(H.incapacitated)
 			to_chat(H, span_warning("You cannot weave a cocoon in your current state."))
 			return
-		if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+		if(!has_burnt_parts(H))
 			to_chat(H, span_warning("Your wings are fine as they are!"))
 			return
 		H.visible_message(span_notice("[H] finishes weaving a cocoon!"), span_notice("You finish weaving your cocoon."))
@@ -144,10 +144,14 @@
 
 /datum/action/innate/cocoon/is_available()
 	if(..())
-		var/mob/living/carbon/human/H = owner
-		if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-			return TRUE
-		return FALSE
+		return has_burnt_parts(owner)
+	return FALSE
+
+///Whether the moth has burnt wings or antennae for the cocoon to restore
+/datum/action/innate/cocoon/proc/has_burnt_parts(mob/living/carbon/moth)
+	var/obj/item/organ/wings/moth/wings = moth.get_organ_by_type(/obj/item/organ/wings/moth)
+	var/obj/item/organ/antennae/antennae = moth.get_organ_by_type(/obj/item/organ/antennae)
+	return wings?.burnt || antennae?.burnt
 
 //Removes moth from cocoon, restores burnt wings
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)
@@ -155,15 +159,12 @@
 		if(!H.has_status_effect(/datum/status_effect/cocooned))
 			return
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
-		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-			REMOVE_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
-			var/obj/item/organ/wings/moth/W = H.get_organ_by_type(/obj/item/organ/wings/moth)
-			if(W)
-				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
-				if(locate(/datum/mutation/strongwings) in H.dna.mutations)
-					W.flight_level = WINGS_FLYING
-		H.dna.species.handle_mutant_bodyparts(H)
-		H.dna.species.handle_body(H)
+		if(ismoth(H))
+			var/obj/item/organ/wings/moth/wings = H.get_organ_by_type(/obj/item/organ/wings/moth)
+			wings?.restore_wings()
+			var/obj/item/organ/antennae/antennae = H.get_organ_by_type(/obj/item/organ/antennae)
+			antennae?.restore_antennae()
+		H.update_body_parts()
 	C.done_regenerating = TRUE
 	qdel(C)
 
@@ -194,8 +195,7 @@
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
 			H.SetSleeping(0, FALSE)
 		H.remove_status_effect(/datum/status_effect/cocooned)
-		H.dna.species.handle_mutant_bodyparts(H)
-		H.dna.species.handle_body(H)
+		H.update_eyes()
 		H.forceMove(loc)
 		H.log_message("[key_name(H)] [done_regenerating ? "has emerged" : "was forcefully ejected"] from their cocoon with a nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
 		if(done_regenerating)
@@ -219,6 +219,11 @@
 #undef COCOON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
 */
+
+/datum/species/moth/get_features()
+	var/list/features = ..()
+	features |= "feature_moth_eyes"
+	return features
 
 /datum/species/moth/get_species_description()
 	return "Mothpeople are an intelligent species, known for their affinity to all things moth - lights, cloth, wings, and friendship."

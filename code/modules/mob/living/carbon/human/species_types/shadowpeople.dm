@@ -113,6 +113,8 @@
 	name = "burning red eyes"
 	desc = "Even without their shadowy owner, looking at these eyes gives you a sense of dread."
 	icon = 'icons/obj/medical/organs/shadow_organs.dmi'
+	icon_state = "eyes"
+	iris_overlays = FALSE
 	flash_protect = -1
 
 /datum/species/shadow/nightmare
@@ -419,13 +421,13 @@
 	var/light_amount = owner_turf.get_lumcount()
 
 	if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
-		owner.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
+		owner.take_overall_damage(brute = 0.5 * delta_time, burn = 0.5 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 		if(owner.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 			owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 	else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 		if(sect_species.sect_rituals_completed >= 1 && owner.nutrition <= NUTRITION_LEVEL_WELL_FED)
 			owner.nutrition += 2 * delta_time
-		owner.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
+		owner.heal_overall_damage(brute = 0.5 * delta_time, burn = 0.5 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 		if(sect_species.sect_rituals_completed >= 2)
 			if(sect_species.sect_rituals_completed == 3)
 				owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)

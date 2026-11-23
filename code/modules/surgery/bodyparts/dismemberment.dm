@@ -145,7 +145,6 @@
 
 /obj/item/bodypart/arm/drop_limb(special, dismembered, move_to_floor = TRUE)
 	var/mob/living/carbon/arm_owner = owner
-
 	if(special || !arm_owner)
 		return ..()
 
@@ -153,11 +152,11 @@
 		// We only want to do this if the limb being removed is the active hand part.
 		// This catches situations where limbs are "hot-swapped" such as augmentations and roundstart prosthetics.
 		arm_owner.dropItemToGround(arm_owner.get_item_for_held_index(held_index), 1)
+	. = ..()
 	if(arm_owner.handcuffed)
-		arm_owner.handcuffed.forceMove(drop_location())
-		arm_owner.handcuffed.dropped(arm_owner)
+		var/obj/item/lost_cuffs = arm_owner.handcuffed
 		arm_owner.set_handcuffed(null)
-		arm_owner.update_handcuffed()
+		arm_owner.dropItemToGround(lost_cuffs, force = TRUE)
 	if(arm_owner.hud_used)
 		var/atom/movable/screen/inventory/hand/associated_hand = arm_owner.hud_used.hand_slots["[held_index]"]
 		associated_hand?.update_appearance()
@@ -167,23 +166,18 @@
 	arm_owner.update_worn_gloves() //to remove the bloody hands overlay
 
 /obj/item/bodypart/leg/drop_limb(special, dismembered, move_to_floor = TRUE)
-	if(owner && !special)
-		if(owner.legcuffed)
-			owner.legcuffed.forceMove(owner.drop_location()) //At this point bodypart is still in nullspace
-			owner.legcuffed.dropped(owner)
-			owner.legcuffed = null
-			owner.update_worn_legcuffs()
-		if(owner.shoes)
-			owner.dropItemToGround(owner.shoes, TRUE)
-	return ..()
+	var/mob/living/carbon/leg_owner = owner
+	. = ..()
+	if(special || !leg_owner)
+		return
+	leg_owner.dropItemToGround(leg_owner.legcuffed, force = TRUE)
+	leg_owner.dropItemToGround(leg_owner.shoes, force = TRUE)
 
 /obj/item/bodypart/head/drop_limb(special, dismembered, move_to_floor = TRUE)
 	if(!special)
 		//Drop all worn head items
 		for(var/obj/item/head_item as anything in list(owner.glasses, owner.ears, owner.wear_mask, owner.head))
 			owner.dropItemToGround(head_item, force = TRUE)
-
-	qdel(owner.GetComponent(/datum/component/creamed)) //clean creampie overlay flushed emoji
 
 	//Handle dental implants
 	for(var/datum/action/item_action/hands_free/activate_pill/pill_action in owner.actions)
@@ -259,7 +253,7 @@
 		// behavior within said bodyparts list. We sort it here, as it's the only place we make changes to bodyparts.
 		new_limb_owner.bodyparts = sort_list(new_limb_owner.bodyparts, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc))
 		new_limb_owner.updatehealth()
-		new_limb_owner.update_body()
+		new_limb_owner.update_body() // updates lips + hair + eyes
 		new_limb_owner.update_damage_overlays()
 		if(!special)
 			new_limb_owner.hud_used?.update_locked_slots()
@@ -292,13 +286,13 @@
 		sexy_chad.hair_color = hair_color
 		sexy_chad.facial_hairstyle = facial_hairstyle
 		sexy_chad.facial_hair_color = facial_hair_color
-		sexy_chad.grad_style = gradient_styles.Copy()
-		sexy_chad.grad_color = gradient_colors.Copy()
+		sexy_chad.grad_style = grad_styles.Copy()
+		sexy_chad.grad_color = grad_colors.Copy()
 		sexy_chad.lip_style = lip_style
 		sexy_chad.lip_color = lip_color
 
 	new_head_owner.updatehealth()
-	new_head_owner.update_body()
+	new_head_owner.update_body() // updates lips + hair + eyes
 	new_head_owner.update_damage_overlays()
 
 /obj/item/bodypart/arm/try_attach_limb(mob/living/carbon/new_arm_owner, special, lazy)

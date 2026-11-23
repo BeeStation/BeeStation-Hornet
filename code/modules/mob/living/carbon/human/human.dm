@@ -25,7 +25,7 @@
 
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
 	AddComponent(/datum/component/personal_crafting)
-	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6, TRUE)
 	AddComponent(/datum/component/bloodysoles/feet)
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
 	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
@@ -56,11 +56,10 @@
 	randomize_human_normie(src, randomize_mutations = TRUE, update_body = FALSE)
 
 /mob/living/carbon/human/Destroy()
-	QDEL_NULL(physiology)
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
-
-	return ..()
+	. = ..()
+	QDEL_NULL(physiology)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -131,7 +130,7 @@
 
 		var/id_name = id.registered_name
 		var/id_age = id.registered_age
-		var/id_job = id.assignment
+		var/id_job = id.get_assignment()
 		// Should probably be recorded on the ID, but this is easier (albiet more restrictive) on chameleon ID users
 		var/datum/record/crew/record = find_record(id_name, GLOB.manifest.general)
 		var/id_blood_type = record?.blood_type
@@ -170,6 +169,12 @@
 			return
 		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
+
+	if(href_list["item"]) //canUseTopic check for this is handled by mob/Topic()
+		var/slot = text2num(href_list["item"])
+		if(hidden_slots_to_inventory_slots(obscured_slots) & slot)
+			to_chat(usr, span_warning("You can't reach that! Something is covering it."))
+			return
 
 ///////HUDs///////
 	if(href_list["hud"])
@@ -424,7 +429,7 @@
 
 	//Check for weapons
 	if( (judgment_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
-		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
+		if(!idcard || !(ACCESS_WEAPONS in idcard.GetAccess()))
 			for(var/obj/item/I in held_items) //if they're holding a gun
 				if(weaponcheck.Invoke(I))
 					threatcount += 4
@@ -570,7 +575,7 @@
   * Returns false if we couldn't wash our hands due to them being obscured, otherwise true
   */
 /mob/living/carbon/human/proc/wash_hands(clean_types)
-	if(check_covered_slots() & ITEM_SLOT_GLOVES)
+	if(covered_slots & HIDEGLOVES)
 		return FALSE
 
 	if(gloves)
@@ -593,7 +598,7 @@
 	if(glasses && !is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
 		. = TRUE
 
-	if(wear_mask && !(check_covered_slots() & ITEM_SLOT_MASK) && wear_mask.wash(clean_types))
+	if(wear_mask && !(covered_slots & HIDEMASK) && wear_mask.wash(clean_types))
 		. = TRUE
 
 /**
@@ -605,7 +610,7 @@
 		. = TRUE
 
 	// Wash hands if exposed
-	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(check_covered_slots() & ITEM_SLOT_GLOVES))
+	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(covered_slots & HIDEGLOVES))
 		blood_in_hands = 0
 		update_worn_gloves()
 		. = TRUE
@@ -681,6 +686,7 @@
 	if(!hud_used.healthdoll)
 		return
 
+	var/list/new_overlays = list()
 	hud_used.healthdoll.cut_overlays()
 	if(stat == DEAD)
 		hud_used.healthdoll.icon_state = "healthdoll_DEAD"
@@ -693,33 +699,27 @@
 		if(SEND_SIGNAL(body_part, COMSIG_BODYPART_UPDATING_HEALTH_HUD, src) & COMPONENT_OVERRIDE_BODYPART_HEALTH_HUD)
 			continue
 
-		var/is_hallucinating = !!src.has_status_effect(/datum/status_effect/hallucination)
-		var/damage = body_part.burn_dam + body_part.brute_dam + (is_hallucinating ? body_part.stamina_dam : 0)
-		var/comparison = (body_part.max_damage/5)
-		if(damage)
-			icon_num = 1
-		if(damage > (comparison))
-			icon_num = 2
-		if(damage > (comparison*2))
-			icon_num = 3
-		if(damage > (comparison*3))
-			icon_num = 4
-		if(damage > (comparison*4))
-			icon_num = 5
+		var/dam_state = min(1, ((body_part.brute_dam + body_part.burn_dam) / max(1, body_part.max_damage)))
+		if(dam_state)
+			icon_num = max(1, min(Ceil(dam_state * 5), 5))
 		if(has_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy))
 			icon_num = 0
 		if(icon_num)
-			hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone][icon_num]"))
-		//Stamina Outline (Communicate that we have stamina damage)
-		//Hallucinations will appear as regular damage
-		if(body_part.stamina_dam && !is_hallucinating)
-			var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[body_part.body_zone]stam")
-			MA.alpha = (body_part.stamina_dam / body_part.max_stamina_damage) * 70 + 30
-			hud_used.healthdoll.add_overlay(MA)
+			new_overlays += image('icons/hud/screen_gen.dmi', "[body_part.body_zone][icon_num]")
+		/*
+
+		if(body_part.getPain() > 20)
+			new_overlays += image('icons/hud/screen_gen.dmi', "[body_part.body_zone]pain")
+		*/
+
+		if(body_part.bodypart_disabled) //Disabled limb
+			new_overlays += image('icons/hud/screen_gen.dmi', "[body_part.body_zone]7")
+
 	for(var/t in get_missing_limbs()) //Missing limbs
-		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
-	for(var/t in get_disabled_limbs()) //Disabled limbs
-		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
+		new_overlays += image('icons/hud/screen_gen.dmi', "[t]6")
+
+	//Add all the overlays at once, more performant!
+	hud_used.healthdoll.add_overlay(new_overlays)
 
 /mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
 	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
@@ -1027,13 +1027,23 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
 		return
-	var/health_deficiency = max((maxHealth - health), staminaloss)
+	var/health_deficiency = maxHealth - health
 	if(health_deficiency >= 40)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, TRUE, multiplicative_slowdown = health_deficiency / 75)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying, TRUE, multiplicative_slowdown = health_deficiency / 25)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
+
+/mob/living/carbon/human/pre_stamina_change(diff as num, forced)
+	. = ..()
+	if(. >= 0) //Healing
+		return
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
+		SEND_SIGNAL(src, COMSIG_LIVING_DRAIN_STAMINA_POWER, -., FALSE)
+		return 0
+	if(!forced) //none when forced
+		. *= max(physiology.stamina_mod, 0) * dna.species.staminamod
 
 /mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
@@ -1053,12 +1063,12 @@
 /mob/living/carbon/human/proc/add_eye_color_left(color, color_priority, update_body = TRUE)
 	LAZYSET(eye_color_left_overrides, "[color_priority]", color)
 	if (update_body)
-		update_body()
+		update_eyes()
 
 /mob/living/carbon/human/proc/add_eye_color_right(color, color_priority, update_body = TRUE)
 	LAZYSET(eye_color_right_overrides, "[color_priority]", color)
 	if (update_body)
-		update_body()
+		update_eyes()
 
 /mob/living/carbon/human/proc/add_eye_color(color, color_priority, update_body = TRUE)
 	add_eye_color_left(color, color_priority, update_body = FALSE)
@@ -1068,9 +1078,12 @@
 	LAZYREMOVE(eye_color_left_overrides, "[color_priority]")
 	LAZYREMOVE(eye_color_right_overrides, "[color_priority]")
 	if (update_body)
-		update_body()
+		update_eyes()
 
-/mob/living/carbon/human/proc/get_right_eye_color()
+/mob/living/carbon/proc/get_right_eye_color()
+	return
+
+/mob/living/carbon/human/get_right_eye_color()
 	if (!LAZYLEN(eye_color_right_overrides))
 		return eye_color_right
 
@@ -1083,7 +1096,10 @@
 			eye_color = eye_color_right_overrides[override_priority]
 	return eye_color
 
-/mob/living/carbon/human/proc/get_left_eye_color()
+/mob/living/carbon/proc/get_left_eye_color()
+	return
+
+/mob/living/carbon/human/get_left_eye_color()
 	if (!LAZYLEN(eye_color_left_overrides))
 		return eye_color_left
 

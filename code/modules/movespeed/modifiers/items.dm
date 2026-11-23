@@ -1,15 +1,15 @@
 /datum/movespeed_modifier/jetpack
-	id = MOVESPEED_ID_JETPACK
 	conflicts_with = MOVE_CONFLICT_JETPACK
 	movetypes = FLOATING
 
 /datum/movespeed_modifier/jetpack/cybernetic
-	id = MOVESPEED_ID_CYBER_THRUSTER
-	variable = TRUE
+	multiplicative_slowdown = -0.3
 
 /datum/movespeed_modifier/jetpack/fullspeed
-	id = MOVESPEED_ID_JETPACK
 	multiplicative_slowdown = -0.5
+
+/datum/movespeed_modifier/jetpack/wings
+	multiplicative_slowdown = -0.3
 
 /datum/movespeed_modifier/die_of_fate
 	multiplicative_slowdown = 1

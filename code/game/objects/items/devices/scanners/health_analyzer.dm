@@ -45,7 +45,7 @@
 	if(!user.can_read(src))
 		return
 
-	flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
+	z_flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
 
 	// Clumsiness/brain damage check
 	if ((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
@@ -133,9 +133,9 @@
 		else
 			render_list += "<span class='alert ml-1'>Subject has been husked.</span>\n"
 
-	if(target.getStaminaLoss())
+	if(target.stamina.loss_as_percent)
 		if(advanced)
-			render_list += "<span class='alert ml-1'>Fatigue level: [target.getStaminaLoss()]%.</span>\n"
+			render_list += "<span class='alert ml-1'>Fatigue level: [target.stamina.loss_as_percent]%.</span>\n"
 		else
 			render_list += "<span class='alert ml-1'>Subject appears to be suffering from fatigue.</span>\n"
 	if (target.getCloneLoss())
@@ -296,8 +296,7 @@
 			|| targetspecies.mutanttongue != initial(targetspecies.mutanttongue) \
 			|| targetspecies.mutantliver != initial(targetspecies.mutantliver) \
 			|| targetspecies.mutantstomach != initial(targetspecies.mutantstomach) \
-			|| targetspecies.mutantappendix != initial(targetspecies.mutantappendix) \
-			|| istype(humantarget.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS), /obj/item/organ/wings)
+			|| targetspecies.mutantappendix != initial(targetspecies.mutantappendix)
 
 		render_list += "<span class='info ml-1'>Species: [targetspecies.name][mutant ? "-derived mutant" : ""]</span>\n"
 		var/core_temperature_message = "Core temperature: [round(humantarget.coretemperature-T0C, 0.1)] &deg;C ([round(humantarget.coretemperature*1.8-459.67,0.1)] &deg;F)"

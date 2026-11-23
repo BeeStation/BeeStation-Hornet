@@ -50,7 +50,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 //Instead of just deleting our equipment, we save what we can and reinsert it into SSwardrobe's store
 //Hopefully this makes preference reloading not the worst thing ever
 /mob/living/carbon/human/dummy/delete_equipment()
-	var/list/items_to_check = get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)
+	var/list/items_to_check = get_equipped_items(INCLUDE_POCKETS|INCLUDE_HELD|INCLUDE_PROSTHETICS|INCLUDE_ABSTRACT)
 	var/list/to_nuke = list() //List of items queued for deletion, can't qdel them before iterating their contents in case they hold something
 	///Travel to the bottom of the contents chain, expanding it out
 	for(var/i = 1; i <= length(items_to_check); i++) //Needs to be a c style loop since it can expand
@@ -77,15 +77,24 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 		qdel(delete)
 
 /mob/living/carbon/human/dummy/has_equipped(obj/item/item, slot, initial = FALSE)
-	item.item_flags |= PICKED_UP
-	return item.visual_equipped(src, slot, initial)
+	SHOULD_CALL_PARENT(FALSE) // assuming direct control
+	item.item_flags |= IN_INVENTORY
+	if(!item.visual_equipped(src, slot, initial))
+		return FALSE
+	if(!(slot & item.slot_flags)) // Things below only update if slotted in (ie: not held)
+		return TRUE
+	add_item_coverage(item)
+	if(item.hair_mask)
+		LAZYADD(hair_masks, item.hair_mask)
+		update_hair()
+	return TRUE
 
 /mob/living/carbon/human/dummy/proc/wipe_state()
 	delete_equipment()
 	cut_overlays()
 
 /mob/living/carbon/human/dummy/setup_human_dna()
-	randomize_human_normie(src, randomize_mutations = FALSE, update_body = FALSE)
+	randomize_human_normie(src)
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)
@@ -160,44 +169,43 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /mob/living/carbon/human/dummy/remove_from_alive_mob_list()
 	return
 
-/*
 /// Takes in an accessory list and returns the first entry from that list, ensuring that we dont return SPRITE_ACCESSORY_NONE in the process.
 /proc/get_consistent_feature_entry(list/accessory_feature_list)
 	var/consistent_entry = (accessory_feature_list- SPRITE_ACCESSORY_NONE)[1]
 	ASSERT(!isnull(consistent_entry))
 	return consistent_entry
-*/
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.features[FEATURE_MUTANT_COLOR] = COLOR_VIBRANT_LIME
-	target.dna.features[FEATURE_ETHEREAL_COLOR] = COLOR_WHITE
-	target.dna.features[FEATURE_LIZARD_MARKINGS] = SPRITE_ACCESSORY_NONE
-	target.dna.features["ears"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["frills"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["horns"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["moth_antennae"] = "Plain"
-	target.dna.features[FEATURE_MOTH_MARKINGS] = SPRITE_ACCESSORY_NONE
-	target.dna.features["moth_wings"] = "Plain"
-	target.dna.features["snout"] = "Round"
-	target.dna.features["spines"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["tail_cat"] = "Cat" // it's a lie
-	target.dna.features["tail_lizard"] = "Smooth"
-	target.dna.features["apid_stripes"] = "thick"
-	target.dna.features["apid_headstripes"] = "thick"
-	target.dna.features["apid_antenna"] = "curled"
+	target.dna.features[FEATURE_ETHEREAL_COLOR] = GLOB.color_list_ethereal["Cyan"]
+	target.dna.features[FEATURE_LIZARD_MARKINGS] = get_consistent_feature_entry(SSaccessories.lizard_markings_list)
+	target.dna.features[FEATURE_EARS] = get_consistent_feature_entry(SSaccessories.ears_list)
+	target.dna.features[FEATURE_FRILLS] = get_consistent_feature_entry(SSaccessories.frills_list)
+	target.dna.features[FEATURE_HORNS] = get_consistent_feature_entry(SSaccessories.horns_list)
+	target.dna.features[FEATURE_MOTH_ANTENNAE] = get_consistent_feature_entry(SSaccessories.moth_antennae_list)
+	target.dna.features[FEATURE_MOTH_MARKINGS] = get_consistent_feature_entry(SSaccessories.moth_markings_list)
+	target.dna.features[FEATURE_MOTH_WINGS] = get_consistent_feature_entry(SSaccessories.moth_wings_list)
+	target.dna.features[FEATURE_SNOUT] = get_consistent_feature_entry(SSaccessories.snouts_list)
+	target.dna.features[FEATURE_SPINES] = get_consistent_feature_entry(SSaccessories.spines_list)
+	target.dna.features[FEATURE_TAIL_CAT] = get_consistent_feature_entry(SSaccessories.tails_list_felinid) // it's a lie
+	target.dna.features[FEATURE_TAIL_LIZARD] = get_consistent_feature_entry(SSaccessories.tails_list_lizard)
+	target.dna.features[FEATURE_TAIL_MONKEY] = get_consistent_feature_entry(SSaccessories.tails_list_monkey)
+	target.dna.features[FEATURE_APID_STRIPES] = get_consistent_feature_entry(SSaccessories.apid_stripes_list)
+	target.dna.features[FEATURE_APID_HEADSTRIPES] = get_consistent_feature_entry(SSaccessories.apid_headstripes_list)
+	target.dna.features[FEATURE_APID_ANTENNA] = get_consistent_feature_entry(SSaccessories.apid_antenna_list)
 	target.dna.features["insect_type"] = "fly"
-	target.dna.features["ipc_screen"] = "BSOD"
-	target.dna.features["ipc_antenna"] = SPRITE_ACCESSORY_NONE
+	target.dna.features[FEATURE_IPC_SCREEN] = "BSOD"
+	target.dna.features[FEATURE_IPC_ANTENNA] = get_consistent_feature_entry(SSaccessories.ipc_antennas_list)
 	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
-	target.dna.features["psyphoza_cap"] = "Portobello"
-	target.dna.features["diona_leaves"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_thorns"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_flowers"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_moss"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_mushroom"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_antennae"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_eyes"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_pbody"] = SPRITE_ACCESSORY_NONE
+	target.dna.features[FEATURE_PSYPHOZA_CAP] = get_consistent_feature_entry(SSaccessories.psyphoza_cap_list)
+	target.dna.features[FEATURE_DIONA_LEAVES] = get_consistent_feature_entry(SSaccessories.diona_leaves_list)
+	target.dna.features[FEATURE_DIONA_THORNS] = get_consistent_feature_entry(SSaccessories.diona_thorns_list)
+	target.dna.features[FEATURE_DIONA_FLOWERS] = get_consistent_feature_entry(SSaccessories.diona_flowers_list)
+	target.dna.features[FEATURE_DIONA_MOSS] = get_consistent_feature_entry(SSaccessories.diona_moss_list)
+	target.dna.features[FEATURE_DIONA_MUSHROOM] = get_consistent_feature_entry(SSaccessories.diona_mushroom_list)
+	target.dna.features[FEATURE_DIONA_ANTENNAE] = get_consistent_feature_entry(SSaccessories.diona_antennae_list)
+	target.dna.features[FEATURE_DIONA_EYES] = get_consistent_feature_entry(SSaccessories.diona_eyes_list)
+	target.dna.features[FEATURE_DIONA_PBODY] = get_consistent_feature_entry(SSaccessories.diona_pbody_list)
 	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
 	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
 	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency

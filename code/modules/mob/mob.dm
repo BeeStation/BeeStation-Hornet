@@ -121,6 +121,11 @@
 
 	LAZYSET(active_hud_list, hud_category, hud_list[hud_category])
 
+	// Mimics have their own copy of any exclusive hud
+	if(!exclusive_hud && ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_active(hud_category, update_huds)
+
 	if(!update_huds)
 		return TRUE
 
@@ -136,6 +141,10 @@
 /atom/proc/set_hud_image_inactive(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
 	if(!istext(hud_category))
 		return FALSE
+
+	if(!exclusive_hud && ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_inactive(hud_category, update_huds)
 
 	if(!update_huds)
 		LAZYREMOVE(active_hud_list, hud_category)
@@ -243,6 +252,12 @@
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
 	var/list/hearers = mob_only_listeners(get_hearers_in_view(vision_distance, src)) //caches the hearers and then removes ignored mobs.
+	#ifdef ZMIMIC_MULTIZ_SPEECH
+	if(blind_message && ismovable(src))
+		var/atom/movable/movable_source = src
+		if(movable_source.bound_overlay)
+			hearers += mob_only_listeners(get_hearers_in_view(vision_distance, movable_source.bound_overlay))
+	#endif
 	hearers -= ignored_mobs
 
 	var/raw_msg = message
@@ -322,6 +337,12 @@
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
 	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src))
+	#ifdef ZMIMIC_MULTIZ_SPEECH
+	if(ismovable(src))
+		var/atom/movable/movable_source = src
+		if(movable_source.bound_overlay)
+			hearers += mob_only_listeners(get_hearers_in_view(hearing_distance, movable_source.bound_overlay))
+	#endif
 	var/raw_msg = message
 	var/is_emote = FALSE
 	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
@@ -454,83 +475,6 @@
 			var/list/modifiers = params2list(params)
 			I.attack_hand(src, modifiers)
 
-	return FALSE
-
-/**
-  * Try to equip an item to a slot on the mob
-  *
-  * This is a SAFE proc. Use this instead of equip_to_slot()!
-  *
-  * set qdel_on_fail to have it delete W if it fails to equip
-  *
-  * set disable_warning to disable the 'you are unable to equip that' warning.
-  *
-  * unset redraw_mob to prevent the mob icons from being redrawn at the end.
-  */
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE)
-	if(!istype(W) || QDELETED(W)) //This qdeleted is to prevent stupid behavior with things that qdel during init, like say stacks
-		return FALSE
-	if(!W.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self))
-		if(qdel_on_fail)
-			qdel(W)
-		else if(!disable_warning)
-			to_chat(src, span_warning("You are unable to equip that!"))
-		return FALSE
-	equip_to_slot(W, slot, initial, redraw_mob) //This proc should not ever fail.
-	return TRUE
-
-/**
-  * Actually equips an item to a slot (UNSAFE)
-  *
-  * This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on
-  * whether you can or can't equip need to be done before! Use mob_can_equip() for that task.
-  *
-  *In most cases you will want to use equip_to_slot_if_possible()
-  */
-/mob/proc/equip_to_slot(obj/item/equipping, slot, initial = FALSE)
-	return
-
-/**
-  * Equip an item to the slot or delete
-  *
-  * This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to
-  * equip people when the round starts and when events happen and such.
-  *
-  * Also bypasses equip delay checks, since the mob isn't actually putting it on.
-  */
-/mob/proc/equip_to_slot_or_del(obj/item/W, slot, initial = FALSE)
-	return equip_to_slot_if_possible(W, slot, TRUE, TRUE, FALSE, TRUE, initial)
-
-/**
-  * Auto equip the passed in item the appropriate slot based on equipment priority
-  *
-  * puts the item "W" into an appropriate slot in a human's inventory
-  *
-  * returns 0 if it cannot, 1 if successful
-  */
-/mob/proc/equip_to_appropriate_slot(obj/item/W, qdel_on_fail = FALSE)
-	if(!istype(W))
-		return FALSE
-	var/slot_priority = W.slot_equipment_priority
-
-	if(!slot_priority)
-		slot_priority = list( \
-			ITEM_SLOT_BACK, ITEM_SLOT_ID,\
-			ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
-			ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_NECK,\
-			ITEM_SLOT_FEET, ITEM_SLOT_GLOVES,\
-			ITEM_SLOT_EARS, ITEM_SLOT_EYES,\
-			ITEM_SLOT_BELT, ITEM_SLOT_SUITSTORE,\
-			ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET,\
-			ITEM_SLOT_DEX_STORAGE\
-		)
-
-	for(var/slot in slot_priority)
-		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, TRUE, FALSE, FALSE)) //qdel_on_fail = FALSE; disable_warning = TRUE; redraw_mob = TRUE;
-			return TRUE
-
-	if(qdel_on_fail)
-		qdel(W)
 	return FALSE
 
 /// Convinience proc. Collects crap that fails to equip either onto the mob's back, or drops it.
@@ -841,7 +785,7 @@
 	return TRUE
 
 /mob/living/carbon/can_eye_contact()
-	return !(wear_mask?.flags_inv & HIDEFACE)
+	return !(obscured_slots & HIDEFACE)
 
 /**
   * Called by using Activate Held Object with an empty hand/limb
@@ -1215,7 +1159,7 @@
 			("<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>"),
 			("<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>"),
 		)
-		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
 		playsound(src, 'sound/magic/magic_block_holy.ogg', 50, TRUE)
 
@@ -1413,15 +1357,19 @@
 ///Set the lighting plane hud alpha to the mobs lighting_alpha var
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
-		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		var/atom/movable/screen/plane_master/lighting/L = hud_used.get_plane_master(LIGHTING_PLANE)
 		if (L)
 			L.alpha = lighting_alpha
-		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.plane_masters["[LIGHTING_PLANE_ADDITIVE]"]
+		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.get_plane_master(LIGHTING_PLANE_ADDITIVE)
 		if(LA)
 			var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
 			if(client?.prefs) //If this ever doesn't work for some reason add update_sight() to /mob/living/Login()
 				bloom = client.prefs.read_preference(/datum/preference/numeric/bloom) * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
 			LA.alpha = lighting_alpha * (bloom / 255)
+		// Lower levels are lit through the z-mimic shadow planes
+		var/datum/plane_master_group/main_group = hud_used.get_plane_group(PLANE_GROUP_MAIN)
+		for(var/atom/movable/screen/plane_master/zmimic_shadow/shadow as anything in main_group?.zmimic_shadow_planes)
+			shadow.set_lighting_alpha(lighting_alpha)
 
 
 
@@ -1617,7 +1565,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
   */
 /mob/vv_get_var(var_name)
 	switch(var_name)
-		if("logging")
+		if(NAMEOF(src, logging))
 			return debug_variable(var_name, logging, 0, src, FALSE)
 	. = ..()
 
@@ -1644,21 +1592,12 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 ///Apply a proper movespeed modifier based on items we have equipped
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = 0
-	for(var/obj/item/thing in get_equipped_speed_mod_items())
-		if(thing?.item_flags & NO_WORN_SLOWDOWN)
-			continue
+	for(var/obj/item/thing as anything in get_equipped_speed_mod_items())
 		speedies += thing.slowdown
 	if(!speedies)
 		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
 	else
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
-
-///Get all items in our possession that should affect our movespeed
-/mob/proc/get_equipped_speed_mod_items()
-	. = list()
-	for(var/obj/item/thing in held_items)
-		if(thing.item_flags & SLOWS_WHILE_IN_HAND)
-			. += thing
 
 // Returns TRUE if the hearer should hear radio noises
 /mob/proc/hears_radio()
@@ -1670,6 +1609,52 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .) // this is sent after stat is assigned so anything reading src.stat will see the value
+
+/mob/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, control_object))
+			var/obj/O = var_value
+			if(!istype(O) || (O.obj_flags & DANGEROUS_POSSESSION))
+				return FALSE
+		if(NAMEOF(src, machine))
+			set_machine(var_value)
+			. =  TRUE
+		if(NAMEOF(src, focus))
+			set_focus(var_value)
+			. =  TRUE
+		if(NAMEOF(src, nutrition))
+			set_nutrition(var_value)
+			. =  TRUE
+		if(NAMEOF(src, stat))
+			set_stat(var_value)
+			. =  TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
+	var/slowdown_edit = (var_name == NAMEOF(src, cached_multiplicative_slowdown))
+	var/diff
+	if(slowdown_edit && isnum(cached_multiplicative_slowdown) && isnum(var_value))
+		remove_movespeed_modifier(/datum/movespeed_modifier/admin_varedit)
+		diff = var_value - cached_multiplicative_slowdown
+
+	. = ..()
+
+	if(. && slowdown_edit && isnum(diff))
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/admin_varedit, multiplicative_slowdown = diff)
+
+/// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
+/// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
+/mob/proc/become_uncliented()
+	if(!canon_client)
+		return
+
+	for(var/datum/callback/CB as anything in canon_client.player_details.post_logout_callbacks)
+		CB.Invoke()
+
+	clear_important_client_contents()
+	canon_client = null
 
 /mob/key_down(key, client/client, full_key)
 	..()

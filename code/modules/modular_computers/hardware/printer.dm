@@ -73,7 +73,7 @@
 	if(istype(attacking_item, /obj/item/paper))
 		if(stored_paper >= max_paper)
 			to_chat(user, span_warning("You try to add \the [attacking_item] into [src], but its paper bin is full!"))
-			balloon_alert(user, "printer bin is full!")
+			balloon_alert(user, "printer bin is full!", show_in_chat = FALSE)
 			return FALSE
 
 		if(user && !user.temporarilyRemoveItemFromInventory(attacking_item))
@@ -82,7 +82,7 @@
 
 		playsound(src, 'sound/machines/computer/paper_insert.ogg', 40, vary = TRUE)
 		to_chat(user, span_notice("You insert \the [attacking_item] into [src]'s paper recycler."))
-		balloon_alert(user, "inserted paper!")
+		balloon_alert(user, "inserted paper!", show_in_chat = FALSE)
 		qdel(attacking_item)
 		stored_paper++
 		return TRUE
@@ -117,7 +117,7 @@
 
 		playsound(src, 'sound/machines/computer/paper_insert.ogg', 40, vary = TRUE)
 		to_chat(user, span_notice("Added in [num_to_add] new sheets. You now have [stored_paper] / [max_paper] printing paper stored."))
-		balloon_alert(user, "added in [num_to_add] new sheets!")
+		balloon_alert(user, "added in [num_to_add] new sheets!", show_in_chat = FALSE)
 		bin.update_appearance()
 		return TRUE
 

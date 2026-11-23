@@ -60,6 +60,9 @@
 	if (!(z_flags & (Z_MIMIC_OVERWRITE|Z_MIMIC_NO_OCCLUDE)) && mouse_opacity)
 		mouse_opacity = MOUSE_OPACITY_OPAQUE
 	update_mimic(!mapload) // Only recursively update if the map isn't loading.
+	reconsider_lights()
+	below?.reconsider_lights()
+	above?.reconsider_lights()
 
 /// Cleans up Z-mimic objects for this turf. You shouldn't call this directly 99% of the time.
 /turf/proc/cleanup_zmimic()
@@ -77,6 +80,10 @@
 
 	if (above)
 		above.update_mimic()
+
+	reconsider_lights()
+	below?.reconsider_lights()
+	above?.reconsider_lights()
 
 /turf/Entered(atom/movable/thing, turf/oldLoc)
 	. = ..()

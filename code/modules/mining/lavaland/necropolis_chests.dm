@@ -653,7 +653,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	var/obj/item/organ/wings/wings = get_wing_choice(exposed_human, chest)
 	wings = new wings()
 	wings.Insert(exposed_human)
-	exposed_human.dna.species.handle_mutant_bodyparts(exposed_human)
 	playsound(exposed_human.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
 	exposed_human.apply_damage(20, def_zone = BODY_ZONE_CHEST, forced = TRUE)
 	exposed_human.emote("scream")
@@ -1039,17 +1038,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				"body_size" = "Normal",
 				"mcolor" = "#A02720",
 				"tail_lizard" = "Dark Tiger",
-				"tail_human" = "None",
+				FEATURE_TAIL_CAT = "None",
 				"snout" = "Sharp",
 				"horns" = "Curled",
 				"ears" = "None",
 				"frills" = "None",
 				"spines" = "Long",
-				"lizard_markings" = "Dark Tiger Body",
+				FEATURE_LIZARD_MARKINGS = "Dark Tiger Body",
 				"legs" = DIGITIGRADE_LEGS,
 			)
-			H.eye_color_left = "#FEE5A3"
-			H.eye_color_right = "#FEE5A3"
+			H.set_eye_color("#FEE5A3")
 			H.set_species(/datum/species/lizard)
 		if(2)
 			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))

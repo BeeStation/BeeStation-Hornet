@@ -130,7 +130,7 @@
 
 	// In the event that we're already in the bodypart, DO NOT MOVE IT! otherwise it triggers forced_removal
 	if(loc != bodypart)
-		forceMove(bodypart)
+		forceMove(bodypart) // The true movement
 
 	// Don't re-register if we are already owned
 	if(bodypart_owner != bodypart)
@@ -205,6 +205,9 @@
 		organ_owner.death()
 
 	START_PROCESSING(SSobj, src)
+
+	if(QDELING(src))
+		return
 
 	var/list/diseases = organ_owner.get_static_viruses()
 	if(!LAZYLEN(diseases))

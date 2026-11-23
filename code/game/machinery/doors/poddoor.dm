@@ -252,10 +252,10 @@
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
 		if("opening")
-			flick("[base_icon_state]_opening", src)
+			z_flick("[base_icon_state]_opening", src)
 			playsound(src, pod_open_sound, 30, 1)
 		if("closing")
-			flick("[base_icon_state]_closing", src)
+			z_flick("[base_icon_state]_closing", src)
 			playsound(src, pod_close_sound, 30, 1)
 
 /obj/machinery/door/poddoor/update_icon()

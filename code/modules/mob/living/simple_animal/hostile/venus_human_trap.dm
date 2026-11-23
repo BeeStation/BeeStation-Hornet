@@ -305,7 +305,7 @@
 				qdel(vine_beam)
 				return //This vine no longer exists abort
 
-			if(!line_of_sight_clear(vine_target))
+			if(!clear_line_of_sight(src, vine_target))
 				qdel(vine_beam)
 				continue // wall now blocks the vine, release it instead of dragging through
 
@@ -326,15 +326,6 @@
 
 		if(get_dist(src, vine_beam.target) == 0)
 			qdel(vine_beam)
-
-/mob/living/simple_animal/hostile/venus_human_trap/proc/line_of_sight_clear(atom/movable/target)
-	for(var/turf/checked_turf in get_line(src, target))
-		if(checked_turf.density)
-			return FALSE
-		for(var/obj/blocking_object in checked_turf)
-			if(blocking_object.density)
-				return FALSE
-	return TRUE
 
 /**
  * Removes a vine from the list.

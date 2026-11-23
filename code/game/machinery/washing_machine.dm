@@ -238,6 +238,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		M.Translate(rand(-3, 3), rand(-1, 3))
 		animate(src, transform=M, time=2)
 
+/obj/machinery/washing_machine/wash(clean_types)
+	. = ..()
+	if(!busy && bloody_mess && (clean_types & CLEAN_TYPE_BLOOD))
+		bloody_mess = FALSE
+		update_appearance()
+		. |= COMPONENT_CLEANED
+
 /obj/machinery/washing_machine/proc/wash_cycle()
 	for(var/X in contents)
 		var/atom/movable/AM = X
@@ -398,30 +405,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if (!state_open)
 			to_chat(user, span_warning("Open the door first!"))
 			return TRUE
-		else if(bloody_mess)
-			if(istype(W, /obj/item/reagent_containers/spray))
-				var/obj/item/reagent_containers/spray/clean_spray = W
-				if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
-					clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
-					playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
-					bloody_mess = 0
-					update_icon()
-				else
-					to_chat(user, span_warning("You need more space cleaner!"))
-				return TRUE
-
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/rag))
-				var/cleanspeed = 50
-				if(istype(W, /obj/item/soap))
-					var/obj/item/soap/used_soap = W
-					cleanspeed = used_soap.cleanspeed
-				user.visible_message("[user] starts to clean \the [src].", span_notice("You start to clean \the [src]..."))
-				if(do_after(user, cleanspeed, target = src))
-					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
-					bloody_mess = 0
-					update_icon()
-				return TRUE
 
 		if(bloody_mess)
 			to_chat(user, span_warning("[src] must be cleaned up first."))

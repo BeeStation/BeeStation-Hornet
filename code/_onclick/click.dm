@@ -427,6 +427,7 @@
 		var/mob/living/carbon/human_user = user
 		if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
 			human_user.changeNext_move(CLICK_CD_MELEE)
+			human_user.animate_interact(src, INTERACT_GRAB)
 			return TRUE
 
 	else
@@ -628,12 +629,12 @@
 /mob/proc/check_click_intercept(params,A)
 	//Client level intercept
 	if(client?.click_intercept)
-		if(client.click_intercept.InterceptClickOn(src, params, A))
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
 			return TRUE
 
 	//Mob level intercept
 	if(click_intercept)
-		if(click_intercept.InterceptClickOn(src, params, A))
+		if(call(click_intercept, "InterceptClickOn")(src, params, A))
 			return TRUE
 
 	return FALSE

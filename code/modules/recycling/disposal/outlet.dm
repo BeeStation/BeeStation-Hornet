@@ -36,7 +36,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposaloutlet)
 // called when the holder exits the outlet
 /obj/structure/disposaloutlet/proc/expel(obj/structure/disposalholder/H)
 	H.active = FALSE
-	flick("outlet-open", src)
+	z_flick("outlet-open", src)
 	if((start_eject + 30) < world.time)
 		start_eject = world.time
 		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)

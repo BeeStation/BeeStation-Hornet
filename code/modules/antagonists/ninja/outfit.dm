@@ -6,12 +6,15 @@
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/grenade/plastic/ninja
-	r_pocket = /obj/item/tank/internals/emergency_oxygen
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/energy_katana
 	id = /obj/item/card/id/syndicate
 	back = /obj/item/mod/control/pre_equipped/ninja
 	implants = list(/obj/item/implant/explosive)
+	backpack_contents = list(
+		/obj/item/storage/box/ninja_fieldkit,
+	)
 
 /datum/outfit/ninja/post_equip(mob/living/carbon/human/ninja)
 	var/obj/item/grenade/plastic/ninja/charge = ninja.l_store

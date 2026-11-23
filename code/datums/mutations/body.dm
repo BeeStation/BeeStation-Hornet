@@ -385,8 +385,7 @@
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
 		var/obj/item/organ/wings/moth/moth_wings = wings
-		moth_wings.flight_level += 1
-		moth_wings.Refresh(owner)
+		moth_wings.set_flight(owner, moth_wings.flight_level + 1)
 	else if(istype(wings, /obj/item/organ/wings/bee))
 		var/obj/item/organ/wings/bee/bee_wings = wings
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
@@ -404,8 +403,7 @@
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
 		var/obj/item/organ/wings/moth/moth_wings = wings
-		moth_wings.flight_level -= 1
-		moth_wings.Refresh(owner)
+		moth_wings.set_flight(owner, moth_wings.flight_level - 1)
 		to_chat(owner, span_warning("Your wings feel weak."))
 	else if(istype(wings, /obj/item/organ/wings/bee))
 		var/obj/item/organ/wings/bee/bee_wings = wings

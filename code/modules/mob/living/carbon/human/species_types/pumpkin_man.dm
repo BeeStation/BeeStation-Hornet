@@ -59,7 +59,7 @@
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2) //if there's enough light, heal
-			H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+			H.heal_overall_damage(1, 1, required_bodytype = BODYTYPE_ORGANIC)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 
@@ -126,10 +126,9 @@
 			for(var/i in 0 to 8)
 				face_options += list("face[i]" = image('icons/mob/pumpkin_faces.dmi', "face[i]"))
 			var/face_choosen = show_radial_menu(_user, _source, face_options, require_near = TRUE)
-			//Reset overlays
-			M.cut_overlay(head.carved_overlay) //This is needed in addition to the head icon getter's - for some reason?
-			head.carved_overlay.icon_state = face_choosen
-			M.update_body_parts_head_only()
+			if(!face_choosen)
+				return
+			head.set_carved_face(face_choosen)
 			to_chat(_user, span_notice("You carve a face into [_source]."))
 			//Adjust the tongue
 			var/obj/item/organ/tongue/diona/pumpkin/P = M.organs_slot[ORGAN_SLOT_TONGUE]

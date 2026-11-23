@@ -67,7 +67,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(!IS_CULTIST(user))
 		user.visible_message(span_warning("[user] cringes as they strike [target]!"), \
 							span_userdanger("Your arm throbs and your brain hurts!"))
-		user.adjustStaminaLoss(rand(force/2,force))
+		user.stamina.adjust(-1 * (rand(force/2,force)))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
 	if (target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		force = 15
@@ -195,12 +195,20 @@ Striking a noncultist, however, will tear their flesh."}
 	icon_state = "cult_hoodalt"
 	inhand_icon_state = null
 
+/obj/item/clothing/head/hooded/cult_hoodie/alt/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/cult)
+
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	name = "cultist robes"
 	desc = "An armored set of robes worn by the followers of Nar'Sie."
 	icon_state = "cultrobesalt"
 	inhand_icon_state = null
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/alt
+
+/obj/item/clothing/suit/hooded/cultrobes/alt/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/cult)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	item_flags = DROPDEL

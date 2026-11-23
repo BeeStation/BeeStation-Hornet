@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(blackbox)
 
 //no touchie
 /datum/controller/subsystem/blackbox/vv_get_var(var_name)
-	if(var_name == "feedback")
+	if(var_name == NAMEOF(src, feedback))
 		return debug_variable(var_name, deep_copy_list(feedback), 0, src)
 	return ..()
 
@@ -339,7 +339,7 @@ Versioning
 		"oxy" = L.getOxyLoss(),
 		"tox" = L.getToxLoss(),
 		"clone" = L.getCloneLoss(),
-		"stamina" = L.getStaminaLoss(),
+		"stamina" = L.stamina.current,
 		"x_coord" = L.x,
 		"y_coord" = L.y,
 		"z_coord" = L.z,

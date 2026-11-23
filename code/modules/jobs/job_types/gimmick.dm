@@ -10,7 +10,6 @@
 	selection_color = "#dddddd"
 
 	base_access = list(ACCESS_MAINT_TUNNELS)
-	extra_access = list()
 
 	departments_list = list(
 		/datum/department_group/,
@@ -39,7 +38,6 @@
 	outfit = /datum/outfit/job/barber
 
 	base_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	extra_access = list()
 
 	display_order = JOB_DISPLAY_ORDER_BARBER
 
@@ -81,7 +79,6 @@
 	outfit = /datum/outfit/job/stage_magician
 
 	base_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	extra_access = list()
 
 	display_order = JOB_DISPLAY_ORDER_STAGE_MAGICIAN
 
@@ -127,7 +124,6 @@
 	outfit = /datum/outfit/job/psychiatrist
 
 	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
-	extra_access = list()
 
 	display_order = JOB_DISPLAY_ORDER_PSYCHIATRIST
 	departments_list = list(
@@ -165,7 +161,6 @@
 	outfit = /datum/outfit/job/vip
 
 	base_access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
-	extra_access = list()
 
 	display_order = JOB_DISPLAY_ORDER_VIP
 	departments_list = list(

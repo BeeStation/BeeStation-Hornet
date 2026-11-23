@@ -4,6 +4,10 @@
 	desc = "Can hold various things."
 	icon = 'icons/obj/clothing/belts.dmi'
 	w_class = WEIGHT_CLASS_BULKY
+	stamina_damage = 10
+	stamina_cost = 5
+	stamina_critical_chance = 5
+
 	icon_state = "utilitybelt"
 	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
@@ -332,7 +336,8 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/holosign_creator/medical,
 		/obj/item/construction/plumbing,
-		/obj/item/plunger
+		/obj/item/plunger,
+		/obj/item/flesh_shears,
 		))
 
 /obj/item/storage/belt/medical/ert

@@ -608,6 +608,7 @@
 		stage = GIBTONITE_DETONATE
 		explosion(bombturf,1,2,5, adminlog = 0)
 		turf_destruction()
+		return
 
 	if(stage == GIBTONITE_STABLE) //Gibtonite deposit is now benign and extractable. Depending on how close you were to it blowing up before defusing, you get better quality ore.
 		var/obj/item/gibtonite/G = new (src)

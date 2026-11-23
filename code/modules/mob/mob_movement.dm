@@ -299,7 +299,7 @@
   *
   * You can move in space if you have a spacewalk ability
   */
-/mob/Process_Spacemove(movement_dir = 0)
+/mob/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	. = ..()
 	if(. || HAS_TRAIT(src, TRAIT_SPACEWALK))
 		return TRUE
@@ -310,22 +310,31 @@
 	if(movement_type & FLYING)
 		return TRUE
 
-	var/atom/movable/backup = get_spacemove_backup(movement_dir)
+	var/atom/movable/backup = get_spacemove_backup(movement_dir, continuous_move)
 	if(!backup)
 		return FALSE
 
-	if(!istype(backup) || !movement_dir || backup.anchored)
+	if(continuous_move || !istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
 
-	if(backup.newtonian_move(dir2angle(REVERSE_DIR(movement_dir)), instant = TRUE)) //You're pushing off something movable, so it moves
+	// last pushoff exists for one reason
+	// to ensure pushing a mob doesn't just lead to it considering us as backup, and failing
+	last_pushoff = world.time
+	if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE)) //You're pushing off something movable, so it moves
+		// We set it down here so future calls to Process_Spacemove by the same pair in the same tick don't lead to fucky
+		backup.last_pushoff = world.time
 		to_chat(src, span_info("You push off of [backup] to propel yourself."))
 	return TRUE
 
+/// We handle lattices via backups
+/mob/handle_spacemove_grabbing()
+	return
+
 /**
  * Finds a target near a mob that is viable for pushing off when moving.
- * Takes the intended movement direction as input.
-*/
-/mob/get_spacemove_backup(moving_direction)
+ * Takes the intended movement direction as input, alongside if the context is checking if we're allowed to continue drifting
+ */
+/mob/get_spacemove_backup(moving_direction, continuous_move)
 	for(var/atom/pushover as anything in range(1, get_turf(src)))
 		if(pushover == src)
 			continue
@@ -344,10 +353,19 @@
 			if(M.buckled)
 				continue
 		var/pass_allowed = rebound.CanPass(src, get_dir(rebound, src))
-		if(!rebound.density && pass_allowed)
+		if(!rebound.density && pass_allowed && !istype(rebound, /obj/structure/lattice))
 			continue
-		if(moving_direction == get_dir(src, pushover) && !pass_allowed) // Can't push "off" of something that you're walking into
+		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
+		if(rebound.last_pushoff == world.time)
 			continue
+		if(continuous_move && !pass_allowed)
+			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
+			// If you're moving toward it and you're both going the same direction, stop
+			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
+				continue
+		else if(!pass_allowed)
+			if(moving_direction == get_dir(src, pushover)) // Can't push "off" of something that you're walking into
+				continue
 		if(rebound.anchored)
 			return rebound
 		if(pulling == rebound)
@@ -363,14 +381,6 @@
 /mob/proc/mob_negates_gravity()
 	var/turf/turf = get_turf(src)
 	return !isgroundlessturf(turf) && HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY)
-
-/mob/newtonian_move(direction, instant = FALSE)
-	. = ..()
-	if(!.) //Only do this if we're actually going somewhere
-		return
-	if(!client)
-		return
-	client.visual_delay = MOVEMENT_ADJUSTED_GLIDE_SIZE(inertia_move_delay, SSspacedrift.visual_delay) //Make sure moving into a space move looks like a space move
 
 /// Called when this mob slips over, override as needed
 /mob/proc/slip(knockdown_amount, paralyze, forcedrop, w_amount, obj/slipped_on, lube, force_drop = FALSE)
@@ -511,22 +521,54 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 	set instant = TRUE
 	if(isliving(mob))
 		var/mob/living/living_mob = mob
-		living_mob.toggle_move_intent()
+		living_mob.set_next_usable_move_intent()
 
 /**
- * Toggle the move intent of the mob
+ * Set the move intent of the mob
  *
  * triggers an update the move intent hud as well
+ * Returns TRUE if the move intent changed
  */
-/mob/living/proc/toggle_move_intent()
-	if(move_intent == MOVE_INTENT_RUN)
-		move_intent = MOVE_INTENT_WALK
-	else
-		move_intent = MOVE_INTENT_RUN
+/mob/living/proc/set_move_intent(datum/move_intent/new_intent)
+	if(ispath(new_intent))
+		new_intent = GLOB.move_intents[new_intent]
+	if(!new_intent || move_intent == new_intent || !new_intent.can_be_used_by(src))
+		return FALSE
+	move_intent = new_intent
 	if(hud_used?.static_inventory)
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_appearance()
 	update_move_intent_slowdown()
+	return TRUE
+
+///Cycles to the next move intent we can use. Sprinting is skipped, since it's held with a keybind
+/mob/living/proc/set_next_usable_move_intent()
+	var/checking_intent = move_intent.type
+	for(var/i in 1 to length(move_intents))
+		checking_intent = next_list_item(checking_intent, move_intents)
+		var/datum/move_intent/next_intent = GLOB.move_intents[checking_intent]
+		if(next_intent.flags & MOVE_INTENT_QUICK)
+			continue
+		if(set_move_intent(next_intent))
+			return
+
+///Returns the first of our move intents that has the given flag
+/mob/living/proc/get_move_intent_by_flag(flag)
+	for(var/intent_type in move_intents)
+		var/datum/move_intent/intent = GLOB.move_intents[intent_type]
+		if(intent.flags & flag)
+			return intent
+
+///Replaces the move intents we can use, and moves us off our current one if it's no longer allowed
+/mob/living/proc/set_move_intents(list/new_intents)
+	move_intents = new_intents
+	if(ispath(move_intent)) //Not initialized yet
+		return
+	if(move_intent.can_be_used_by(src))
+		return
+	if(MOVING_QUICKLY(src) && set_move_intent(/datum/move_intent/run))
+		return
+	set_next_usable_move_intent()
 
 ///Moves a mob upwards in z level
 /mob/verb/up()

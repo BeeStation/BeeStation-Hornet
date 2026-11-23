@@ -13,7 +13,7 @@
 
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(apply_plate))
-	RegisterSignal(parent, COMSIG_PREQDELETED, PROC_REF(dropplates))
+	RegisterSignal(parent, COMSIG_PREQDELETED, PROC_REF(drop_plates))
 	if(istype(parent, /obj/vehicle/sealed/mecha/ripley))
 		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_mech_overlays))
 
@@ -73,17 +73,18 @@
 		to_chat(user, span_info("You strengthen [owner], improving its resistance against melee attacks."))
 	return ITEM_INTERACT_SUCCESS
 
-/datum/component/armor_plate/proc/dropplates(datum/source, force)
+/datum/component/armor_plate/proc/drop_plates(datum/source, force)
 	SIGNAL_HANDLER
+	// us having this component doesn't necessarily mean that plates were ever added
+	if(!ismecha(parent) || amount <= 0)
+		return
 
-	if(ismecha(parent)) //items didn't drop the plates before and it causes erroneous behavior for the time being with collapsible helmets
-		var/obj/parent_as_obj = parent
-		var/atom/drop_loc = parent_as_obj.drop_location()
-		if(ispath(upgrade_item, /obj/item/stack))
-			new upgrade_item(drop_loc, amount)
-		else
-			for(var/i in 1 to amount)
-				new upgrade_item(drop_loc)
+	var/atom/drop_loc = astype(parent, /atom).drop_location()
+	if(ispath(upgrade_item, /obj/item/stack))
+		new upgrade_item(drop_loc, amount)
+	else
+		for(var/i in 1 to amount)
+			new upgrade_item(drop_loc)
 
 /datum/component/armor_plate/proc/apply_mech_overlays(obj/vehicle/sealed/mecha/mech, list/overlays)
 	SIGNAL_HANDLER

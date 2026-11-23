@@ -149,7 +149,7 @@ export const TicketChatWindow = (_) => {
           selfClear
           scrollbar
           height="100%"
-          placeholder="Message... (Shift+Enter for a new line)"
+          placeholder="Message... "
           onEnter={(e, value) => act('sendpm', { text: value })}
         />
       </Stack.Item>

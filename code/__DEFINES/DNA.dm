@@ -11,22 +11,18 @@
 // String identifiers for associative list lookup
 
 // Types of usual mutations
-#define	POSITIVE 			1
-#define	NEGATIVE			2
-#define	MINOR_NEGATIVE		4
+#define POSITIVE  1
+#define NEGATIVE 2
+#define MINOR_NEGATIVE 4
 
 
-//Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
-/// A mutation that can be activated and deactived by completing a sequence
+// Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
 #define MUT_NORMAL 1
-/// A mutation that is in the mutations tab, and can be given and taken away through though the DNA console. Has a 0 before it's name in the mutation section of the dna console
 #define MUT_EXTRA 2
-/// Cannot be interacted with by players through normal means. I.E. wizards mutate
 #define MUT_OTHER 3
 
 // DNA - Because fuck you and your magic numbers being all over the codebase.
 #define DNA_BLOCK_SIZE 3
-
 #define DNA_BLOCK_SIZE_COLOR DEFAULT_HEX_COLOR_LEN
 
 #define DNA_GENDER_BLOCK 1
@@ -43,9 +39,6 @@
 #define DNA_FACIAL_HAIR_COLOR_GRADIENT_BLOCK 12
 
 #define DNA_UNI_IDENTITY_BLOCKS 12
-
-/// This number needs to equal the total number of DNA blocks
-#define DNA_FEATURE_BLOCKS 29
 
 #define DNA_MUTANT_COLOR_BLOCK 1
 #define DNA_ETHEREAL_COLOR_BLOCK 2
@@ -77,64 +70,107 @@
 #define DNA_DIONA_EYES_BLOCK 28
 #define DNA_DIONA_PBODY_BLOCK 29
 
+/// Total amount of DNA blocks, must be equal to the highest DNA block number
+#define DNA_FEATURE_BLOCKS 29
+
 #define DNA_SEQUENCE_LENGTH 4
 #define DNA_MUTATION_BLOCKS 8
 #define DNA_UNIQUE_ENZYMES_LEN 32
 
-//Features
+//Features - No more magic strings
+//These can't just simply use dna block paths like identities, because there's keys that aren't tied to blocks
+
+// Block tied
 #define FEATURE_MUTANT_COLOR "mcolor"
 #define FEATURE_ETHEREAL_COLOR "ethcolor"
+#define FEATURE_EARS "ears"
 #define FEATURE_TAIL_CAT "tail_cat"
 #define FEATURE_TAIL_LIZARD "tail_lizard"
-#define FEATURE_LIZARD_MARKINGS "lizard_markings"
+#define FEATURE_TAIL_FISH "fish_tail"
+#define FEATURE_SNOUT "snout"
+#define FEATURE_LIZARD_MARKINGS "marking_lizard"
+#define FEATURE_HORNS "horns"
+#define FEATURE_FRILLS "frills"
+#define FEATURE_SPINES "spines"
+#define FEATURE_MOTH_WINGS "moth_wings"
+#define FEATURE_MOTH_ANTENNAE "moth_antennae"
 #define FEATURE_MOTH_MARKINGS "moth_markings"
+#define FEATURE_APID_ANTENNA "apid_antenna"
+#define FEATURE_APID_HEADSTRIPES "apid_headstripes"
+#define FEATURE_APID_STRIPES "apid_stripes"
+#define FEATURE_PSYPHOZA_CAP "psyphoza_cap"
+#define FEATURE_DIONA_LEAVES "diona_leaves"
+#define FEATURE_DIONA_THORNS "diona_thorns"
+#define FEATURE_DIONA_FLOWERS "diona_flowers"
+#define FEATURE_DIONA_MOSS "diona_moss"
+#define FEATURE_DIONA_MUSHROOM "diona_mushroom"
+#define FEATURE_DIONA_ANTENNAE "diona_antennae"
+#define FEATURE_DIONA_EYES "diona_eyes"
+#define FEATURE_DIONA_PBODY "diona_pbody"
+#define FEATURE_IPC_SCREEN "ipc_screen"
+#define FEATURE_IPC_ANTENNA "ipc_antenna"
+
+// Other
+#define FEATURE_WINGS "wings"
+#define FEATURE_WINGS_OPEN "wingsopen"
+#define FEATURE_TAIL_MONKEY "tail_monkey"
+#define FEATURE_TAIL_XENO "tail_xeno"
+#define FEATURE_TAILSPINES "tailspines" // Different from regular spines, these appear on tails
+#define FEATURE_LEGS "legs"
 
 //Transformation proc stuff
-#define TR_KEEPITEMS	(1<<0)
-#define TR_KEEPVIRUS	(1<<1)
-#define TR_KEEPDAMAGE	(1<<2)
-#define TR_HASHNAME		(1<<3)	// hashing names (e.g. monkey(e34f)) (only in monkeyize)
-#define TR_KEEPIMPLANTS	(1<<4)
-#define TR_KEEPSE		(1<<5)	// changelings shouldn't edit the DNA's SE when turning into a monkey
-#define TR_DEFAULTMSG	(1<<6)
-#define TR_KEEPORGANS	(1<<8)
-#define TR_KEEPAI 		(1<<9)
+#define TR_KEEPITEMS (1<<0)
+#define TR_KEEPVIRUS (1<<1)
+#define TR_KEEPDAMAGE (1<<2)
+#define TR_HASHNAME (1<<3) // hashing names (e.g. monkey(e34f)) (only in monkeyize)
+#define TR_KEEPIMPLANTS (1<<4)
+#define TR_KEEPSE (1<<5) // changelings shouldn't edit the DNA's SE when turning into a monkey
+#define TR_DEFAULTMSG (1<<6)
+#define TR_KEEPORGANS (1<<8)
+#define TR_KEEPAI  (1<<9)
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
 //organ slots
-#define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
-#define ORGAN_SLOT_APPENDIX "appendix"
 #define ORGAN_SLOT_BRAIN "brain"
-#define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
-#define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
-#define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
-#define ORGAN_SLOT_BREATHING_TUBE "breathing_tube"
-#define ORGAN_SLOT_EARS "ears"
-#define ORGAN_SLOT_EYES "eye_sight"
-#define ORGAN_SLOT_HEART "heart"
-#define ORGAN_SLOT_HEART_AID "heartdrive"
-#define ORGAN_SLOT_HUD "eye_hud"
-#define ORGAN_SLOT_LIVER "liver"
-#define ORGAN_SLOT_LUNGS "lungs"
-#define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
-#define ORGAN_SLOT_MONSTER_CORE "monstercore"
+#define ORGAN_SLOT_APPENDIX "appendix"
 #define ORGAN_SLOT_RIGHT_ARM_AUG "r_arm_device"
 #define ORGAN_SLOT_LEFT_ARM_AUG "l_arm_device"
 #define ORGAN_SLOT_STOMACH "stomach"
 #define ORGAN_SLOT_STOMACH_AID "stomach_aid"
-#define ORGAN_SLOT_THRUSTERS "thrusters"
-#define ORGAN_SLOT_TONGUE "tongue"
-#define ORGAN_SLOT_UPGRADE_CONTROL "upgrade_control"
-#define ORGAN_SLOT_VOICE "vocal_cords"
+#define ORGAN_SLOT_BREATHING_TUBE "breathing_tube"
+#define ORGAN_SLOT_EARS "ears"
+#define ORGAN_SLOT_EYES "eye_sight"
+#define ORGAN_SLOT_LUNGS "lungs"
+#define ORGAN_SLOT_HEART "heart"
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
-
+#define ORGAN_SLOT_THRUSTERS "thrusters"
+#define ORGAN_SLOT_HUD "eye_hud"
+#define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
+#define ORGAN_SLOT_MONSTER_CORE "monstercore"
+#define ORGAN_SLOT_LIVER "liver"
+#define ORGAN_SLOT_TONGUE "tongue"
+#define ORGAN_SLOT_VOICE "vocal_cords"
+#define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
+#define ORGAN_SLOT_HEART_AID "heartdrive"
+#define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
+#define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
+#define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
+#define ORGAN_SLOT_UPGRADE_CONTROL "upgrade_control"
 #define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
 #define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
 #define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
 #define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
 #define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
+
+/// Xenomorph organ slots
+#define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
+#define ORGAN_SLOT_XENO_EGGSAC "eggsac"
+#define ORGAN_SLOT_XENO_HIVENODE "hive_node"
+#define ORGAN_SLOT_XENO_NEUROTOXINGLAND "neurotoxin_gland"
+#define ORGAN_SLOT_XENO_PLASMAVESSEL "plasma_vessel"
+#define ORGAN_SLOT_XENO_RESINSPINNER "resin_spinner"
 
 /// Organ slot external
 #define ORGAN_SLOT_EXTERNAL_TAIL "tail"
@@ -144,15 +180,19 @@
 #define ORGAN_SLOT_EXTERNAL_HORNS "horns"
 #define ORGAN_SLOT_EXTERNAL_WINGS "wings"
 #define ORGAN_SLOT_EXTERNAL_ANTENNAE "antennae"
-#define ORGAN_SLOT_EXTERNAL_BODYMARKINGS "bodymarkings"
-
-/// Xenomorph organ slots
-#define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
-#define ORGAN_SLOT_XENO_EGGSAC "eggsac"
-#define ORGAN_SLOT_XENO_HIVENODE "hive_node"
-#define ORGAN_SLOT_XENO_NEUROTOXINGLAND "neurotoxin_gland"
-#define ORGAN_SLOT_XENO_PLASMAVESSEL "plasma_vessel"
-#define ORGAN_SLOT_XENO_RESINSPINNER "resin_spinner"
+#define ORGAN_SLOT_EXTERNAL_HEADSTRIPES "headstripes"
+#define ORGAN_SLOT_EXTERNAL_STRIPES "stripes"
+#define ORGAN_SLOT_EXTERNAL_PSYPHOZA_CAP "psyphoza_cap"
+#define ORGAN_SLOT_EXTERNAL_DIONA_LEAVES "diona_leaves"
+#define ORGAN_SLOT_EXTERNAL_DIONA_THORNS "diona_thorns"
+#define ORGAN_SLOT_EXTERNAL_DIONA_FLOWERS "diona_flowers"
+#define ORGAN_SLOT_EXTERNAL_DIONA_MOSS "diona_moss"
+#define ORGAN_SLOT_EXTERNAL_DIONA_MUSHROOM "diona_mushroom"
+#define ORGAN_SLOT_EXTERNAL_DIONA_ANTENNAE "diona_antennae"
+#define ORGAN_SLOT_EXTERNAL_DIONA_EYES "diona_eyes"
+#define ORGAN_SLOT_EXTERNAL_DIONA_PBODY "diona_pbody"
+#define ORGAN_SLOT_EXTERNAL_IPC_SCREEN "ipc_screen"
+#define ORGAN_SLOT_EXTERNAL_IPC_ANTENNA "ipc_antenna"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100
@@ -170,8 +210,10 @@
 #define G_FEMALE 2
 #define G_PLURAL 3
 
-/// Defines how a mob's organs_slot is ordered
-/// Exists so Life()'s organ process order is consistent
+//Size / height stuff
+#define SPECIES_HEIGHTS(x, y, z) list("Short" = x, "Normal" = y, "Tall" = z)
+
+///Organ slot processing order for life proc
 GLOBAL_LIST_INIT(organ_process_order, list(
 	ORGAN_SLOT_BRAIN,
 	ORGAN_SLOT_APPENDIX,
@@ -201,7 +243,5 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 	ORGAN_SLOT_XENO_RESINSPINNER,
 	ORGAN_SLOT_XENO_ACIDGLAND,
 	ORGAN_SLOT_XENO_NEUROTOXINGLAND,
-	ORGAN_SLOT_XENO_EGGSAC,))
-
-//Size / height stuff
-#define SPECIES_HEIGHTS(x, y, z) list("Short" = x, "Normal" = y, "Tall" = z)
+	ORGAN_SLOT_XENO_EGGSAC,
+	))

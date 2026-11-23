@@ -37,7 +37,7 @@
 	if(COOLDOWN_FINISHED(src, pulse_cooldown))
 		COOLDOWN_START(src, pulse_cooldown, 6 SECONDS)
 
-		flick("[base_icon_state]_pulse", src)
+		z_flick("[base_icon_state]_pulse", src)
 		radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, intensity = 10)
 
 /obj/item/nuke_core/suicide_act(mob/living/user)

@@ -8,6 +8,11 @@
 	integrity_failure = 0.4
 	custom_price = 20 // Basic costum price for clothing. If it does not fit anything else.
 	max_demand = 15 // Demand shouldn't be too big for clothing or else you can just sell clothing like crazy
+
+	stamina_damage = 0
+	stamina_cost = 0
+	stamina_critical_chance = 0
+
 	var/damaged_clothes = CLOTHING_PRISTINE //similar to machine's BROKEN stat and structure's broken var
 	var/flash_protect = FLASH_PROTECTION_NONE 		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/bang_protect = 0		//what level of sound protection the item has. 1 is the level of a normal bowman.
@@ -132,30 +137,29 @@
 		moth_snack.clothing = WEAKREF(src)
 	moth_snack.attack(target, user, modifiers)
 
-/obj/item/clothing/attackby(obj/item/attacking_item, mob/user, list/modifiers)
-	if(!istype(attacking_item, repairable_by))
-		return ..()
+/obj/item/clothing/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	. = NONE
+	if(!istype(tool, repairable_by))
+		return
 
 	switch(damaged_clothes)
 		if(CLOTHING_PRISTINE)
-			return..()
+			return
 		if(CLOTHING_DAMAGED)
-			var/obj/item/stack/cloth_repair = attacking_item
+			var/obj/item/stack/cloth_repair = tool
 			cloth_repair.use(1)
 			repair(user)
-			return TRUE
+			return ITEM_INTERACT_SUCCESS
 		if(CLOTHING_SHREDDED)
-			var/obj/item/stack/cloth_repair = attacking_item
+			var/obj/item/stack/cloth_repair = tool
 			if(cloth_repair.amount < 3)
 				to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
-				return TRUE
+				return ITEM_INTERACT_BLOCKING
 			to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
 			if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
-				return TRUE
+				return ITEM_INTERACT_BLOCKING
 			repair(user)
-			return TRUE
-
-	return ..()
+			return ITEM_INTERACT_SUCCESS
 
 /// Set the clothing's integrity back to 100%, remove all damage to bodyparts, and generally fix it up
 /obj/item/clothing/proc/repair(mob/user)
@@ -589,12 +593,12 @@ BLIND	 // can't see anything
 	if(user.is_holding(src))
 		user.update_held_items()
 		return TRUE
-	if(up)
-		user.update_obscured_slots(visor_flags_inv)
 	user.update_clothing(slot_flags)
 	if(!iscarbon(user))
 		return TRUE
 	var/mob/living/carbon/carbon_user = user
+	if(visor_flags_inv)
+		carbon_user.refresh_obscured()
 	if(visor_vars_to_toggle & VISOR_TINT)
 		carbon_user.update_tint()
 	if((visor_flags & (MASKINTERNALS|HEADINTERNALS)) && carbon_user.invalid_internals())

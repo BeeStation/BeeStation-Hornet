@@ -110,7 +110,7 @@ BONUS
 		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			cachedcolor = H.skin_tone
 		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
-			cachedcolor	= H.dna.features[FEATURE_MUTANT_COLOR]
+			cachedcolor = H.dna.features[FEATURE_MUTANT_COLOR]
 
 /datum/symptom/revitiligo/Activate(datum/disease/advance/A)
 	if(!..())

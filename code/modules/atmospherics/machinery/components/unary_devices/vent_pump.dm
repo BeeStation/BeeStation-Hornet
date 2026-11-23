@@ -193,10 +193,10 @@
 	if(icon_state == ("vent_out-off" || "vent_in-off" || "vent_off"))
 		if(pump_direction & ATMOS_DIRECTION_RELEASING)
 			icon_state = "vent_out"
-			flick("vent_out-starting", src)
+			z_flick("vent_out-starting", src)
 		else // pump_direction == SIPHONING
 			icon_state = "vent_in"
-			flick("vent_in-starting", src)
+			z_flick("vent_in-starting", src)
 		return
 
 	if(pump_direction & ATMOS_DIRECTION_RELEASING)

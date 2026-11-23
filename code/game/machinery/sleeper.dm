@@ -137,12 +137,12 @@
 //Note: open_machine and close_machine already ui_update()
 /obj/machinery/sleeper/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(!state_open && !panel_open)
-		flick("[initial(icon_state)]-anim", src)
+		z_flick("[initial(icon_state)]-anim", src)
 		..()
 
 /obj/machinery/sleeper/close_machine(mob/user, density_to_set = TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
-		flick("[initial(icon_state)]-anim", src)
+		z_flick("[initial(icon_state)]-anim", src)
 		..(user)
 		var/mob/living/mob_occupant = occupant
 		if(controls_inside)
@@ -271,7 +271,7 @@
 			data["occupant"]["statstate"] = "bad"
 	data["occupant"]["health"] = mob_occupant.health
 	data["occupant"]["maxHealth"] = mob_occupant.maxHealth
-	data["occupant"]["minHealth"] = HEALTH_THRESHOLD_DEAD
+	data["occupant"]["minHealth"] = mob_occupant.death_threshold
 	data["occupant"]["bruteLoss"] = mob_occupant.getBruteLoss()
 	data["occupant"]["oxyLoss"] = mob_occupant.getOxyLoss()
 	data["occupant"]["toxLoss"] = mob_occupant.getToxLoss()

@@ -181,9 +181,11 @@
 
 	ui_update()
 
-/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/_label, sold)
+/obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/_label, sold, dry_run)
 	SIGNAL_HANDLER
 
+	if(dry_run)
+		return
 	var/obj/item/sticker/xenoartifact_label/label = _label
 	if(!istype(label))
 		return
@@ -220,14 +222,14 @@
 				attempted_bonus = TRUE
 	//Calculate success rate
 	var/success_rate = clamp(score / max(max_score, 1), 0, 1)
-	var/bonus_rate = clamp(2 * (bonus / max(max_bonus, 1)), 1, INFINITY)
+	var/bonus_rate = clamp(1.5 * (bonus / max(max_bonus, 1)), 1, INFINITY)
 	//Rewards
 		//Research Points
 	var/rnd_reward = round(max(0, (artifact.item_price*artifact_component.artifact_material.rnd_rate)*success_rate) * bonus_rate, 1)
 		//Discovery Points
 	var/dp_reward = round(max(0, (artifact.item_price*artifact_component.artifact_material.dp_rate)*success_rate) * bonus_rate, 1)
 		//Money
-	var/monetary_reward = round(floor(((artifact.item_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate), 1)
+	var/monetary_reward = round(floor(((artifact.item_price * success_rate)**1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate), 1)
 	//Alloctae
 	if(is_main_console)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
@@ -246,7 +248,7 @@
 			success_type = prob(99) ? "scientific failure." : "who let the clown in?"
 	if(radio_solved_notice)
 		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-		[attempted_bonus ? "with a bonus achieved of [100 * (bonus / (max_bonus||1))]%, " : ""]\
+		[attempted_bonus ? "with a bonus achieved of [100 * (bonus_rate - 1)]%, " : ""]\
 		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.",\
 	RADIO_CHANNEL_SCIENCE)
 	history += "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \

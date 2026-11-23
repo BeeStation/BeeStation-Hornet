@@ -223,7 +223,7 @@
 			span_hear("You hear two consecutive thuds."),
 			COMBAT_MESSAGE_RANGE,
 			ignored_mobs = rider,
-			visible_message_flags = list(ALWAYS_SHOW_SELF_MESSAGE),
+			visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
 		)
 		to_chat(rider, span_danger("[human_parent] falls to the ground, bringing you with [human_parent.p_them()]!"))
 

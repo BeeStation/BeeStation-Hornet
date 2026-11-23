@@ -381,7 +381,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		total_report = ex
 	else
 		for(var/datum/export/E in ex.total_amount)
-			total_report.exported_atoms[E] = ex.exported_atoms
+			var/list/merged_atoms = total_report.exported_atoms[E] || list()
+			total_report.exported_atoms[E] = merged_atoms + ex.exported_atoms[E]
 			total_report.total_amount[E] += ex.total_amount[E]
 			total_report.total_value[E] += ex.total_value[E]
 
@@ -391,7 +392,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		status_report += "Nothing"
 
 	pad.visible_message(span_notice("[pad] activates!"))
-	flick(pad.sending_state,pad)
+	z_flick(pad.sending_state,pad)
 	pad.icon_state = pad.idle_state
 	sending = FALSE
 	ui_update()

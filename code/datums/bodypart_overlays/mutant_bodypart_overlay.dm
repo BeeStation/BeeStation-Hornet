@@ -18,6 +18,11 @@
 	///Take on the dna/preference from whoever we're gonna be inserted in
 	var/imprint_on_next_insertion = TRUE
 
+	///shown or hidden hardlight var
+	var/hardlight_enabled = TRUE
+	///poke out of suits
+	var/mesh_in_suits = FALSE
+
 /datum/bodypart_overlay/mutant/New(obj/item/organ/attached_organ)
 	. = ..()
 
@@ -26,20 +31,31 @@
 /datum/bodypart_overlay/mutant/proc/on_mob_insert(obj/item/organ/parent, mob/living/carbon/receiver)
 	SIGNAL_HANDLER
 
+	if (isalien(receiver))
+		return // Xenomorphs have no dna or other features required to support this, maybe one day
+
 	if(!should_visual_organ_apply_to(parent.type, receiver))
 		stack_trace("adding a [parent.type] to a [receiver.type] when it shouldn't be!")
 
 	if(imprint_on_next_insertion) //We only want this set *once*
-		var/feature_name = receiver.dna.features[feature_key]
+		var/feature_name = receiver.dna.features[feature_key] || receiver.dna.species.mutant_organs[parent.type]
 		if (isnull(feature_name))
 			stack_trace("[type] has no default feature name for organ [parent.type]!")
-			feature_name = receiver.dna.species.mutant_organs[parent.type]
+			feature_name = get_consistent_feature_entry(get_global_feature_list()) //fallback to something
 		set_appearance_from_name(feature_name)
 		imprint_on_next_insertion = FALSE
 
-/datum/bodypart_overlay/mutant/get_overlay(layer, obj/item/bodypart/limb)
+/datum/bodypart_overlay/mutant/get_overlay(obj/item/bodypart/limb, layer_index, layer_real)
 	inherit_color(limb) // If draw_color is not set yet, go ahead and do that
-	return ..()
+	var/list/created_overlays = ..()
+	if(sprite_datum && sprite_datum.icon_state != SPRITE_ACCESSORY_NONE)
+		if(layer_index in sprite_datum.emissive_layers)
+			var/mutable_appearance/layer_emissive = emissive_appearance(sprite_datum.icon, build_icon_state(layer_index, limb), layer_real)
+			created_overlays[layer_emissive] = LIMB_OVERLAY_META
+		if(sprite_datum.emissive_state)
+			var/mutable_appearance/state_emissive = emissive_appearance(sprite_datum.icon, sprite_datum.emissive_state, layer_real, sprite_datum.emissive_alpha)
+			created_overlays[state_emissive] = LIMB_OVERLAY_META
+	return created_overlays
 
 ///Completely random image and color generation (obeys what a player can choose from)
 /datum/bodypart_overlay/mutant/proc/randomize_appearance()
@@ -65,32 +81,41 @@
 		valid_restyles += accessory_datum
 	return pick(valid_restyles)
 
+///hardlight projection on limb overrides clothing, otherwise show as mesh
+/datum/bodypart_overlay/mutant/proc/is_obscured(obj/item/bodypart/bodypart_owner, hide_flags)
+	if((overlay_flags & LIMB_OVERLAY_HARDLIGHT) && (locate(/datum/bodypart_texture/hardlight) in bodypart_owner.bodypart_textures))
+		return !hardlight_enabled
+	if(!(bodypart_owner.owner?.obscured_slots & hide_flags))
+		return FALSE
+	if(!mesh_in_suits)
+		return TRUE
+	var/datum/bodypart_texture/mesh/mesh = locate() in bodypart_owner.bodypart_textures
+	return !mesh?.can_texture_bodypart(bodypart_owner)
+
 ///Return the BASE icon state of the sprite datum (so not the gender, layer, feature_key)
 /datum/bodypart_overlay/mutant/proc/get_base_icon_state()
 	return sprite_datum.icon_state
 
+///Used to build the final incon state for the sprite
+/datum/bodypart_overlay/mutant/proc/build_icon_state(layer_index, obj/item/bodypart/limb)
+	PROTECTED_PROC(TRUE)
+	var/gender_key = (sprite_datum.gender_specific && limb?.limb_gender) || "m" // Male is default because sprite accessories are so ancient they predate the concept of not hardcoding gender
+	var/base_state = get_base_icon_state()
+	return "[gender_key]_[feature_key]_[base_state]_[layer_index]"
+
 ///Get the image we need to draw on the person. Called from get_overlay() which is called from _bodyparts.dm. Limb can be null
-/datum/bodypart_overlay/mutant/get_image(image_layer, obj/item/bodypart/limb)
+/datum/bodypart_overlay/mutant/get_image(obj/item/bodypart/limb, layer_index, layer_real)
 	if(!sprite_datum)
 		CRASH("Trying to call get_image() on [type] while it didn't have a sprite_datum. This shouldn't happen, report it as soon as possible.")
 
-	var/gender = (limb?.limb_gender == FEMALE) ? "f" : "m"
-	var/list/icon_state_builder = list()
-	icon_state_builder += sprite_datum.gender_specific ? gender : "m" //Male is default because sprite accessories are so ancient they predate the concept of not hardcoding gender
-	icon_state_builder += feature_key
-	icon_state_builder += get_base_icon_state()
-	icon_state_builder += mutant_bodyparts_layertext(image_layer)
-
-	var/finished_icon_state = icon_state_builder.Join("_")
-
-	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(image_layer))
-
+	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, build_icon_state(layer_index, limb), layer = layer_real)
+	appearance.alpha = sprite_datum.overlay_alpha
 	if(sprite_datum.center)
 		center_image(appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)
 
 	return appearance
 
-/datum/bodypart_overlay/mutant/color_image(image/overlay, layer, obj/item/bodypart/limb)
+/datum/bodypart_overlay/mutant/color_image(image/overlay, obj/item/bodypart/limb, layer_index)
 	overlay.color = sprite_datum.color_src ? (dye_color || draw_color) : null
 
 /datum/bodypart_overlay/mutant/added_to_limb(obj/item/bodypart/limb)
@@ -99,24 +124,25 @@
 ///Change our accessory sprite, using the accesssory type. If you need to change the sprite for something, use simple_change_sprite()
 /datum/bodypart_overlay/mutant/set_appearance(accessory_type)
 	sprite_datum = fetch_sprite_datum(accessory_type)
-	cache_key = jointext(generate_icon_cache(), "_")
 
 ///In a lot of cases, appearances are stored in DNA as the Name, instead of the path. Use set_appearance instead of possible
 /datum/bodypart_overlay/mutant/proc/set_appearance_from_name(accessory_name)
 	sprite_datum = fetch_sprite_datum_from_name(accessory_name)
-	cache_key = jointext(generate_icon_cache(), "_")
 
 ///Generate a unique key based on our sprites. So that if we've aleady drawn these sprites, they can be found in the cache and wont have to be drawn again (blessing and curse, but mostly curse)
-/datum/bodypart_overlay/mutant/generate_icon_cache()
+/datum/bodypart_overlay/mutant/icon_render_key(obj/item/bodypart/limb)
 	. = list()
 	. += "[get_base_icon_state()]"
 	. += "[feature_key]"
 	. += "[dye_color || draw_color]"
-	return .
 
 ///Return a dumb glob list for this specific feature (called from parse_sprite)
 /datum/bodypart_overlay/mutant/proc/get_global_feature_list()
 	CRASH("External organ has no feature list, it will render invisible")
+
+/// Used to add special coloring behavior to certain mutant parts.
+/datum/bodypart_overlay/mutant/proc/override_color(obj/item/bodypart/bodypart_owner)
+	CRASH("External organ color set to override with no override proc.")
 
 ///Give the organ its color. Force will override the existing one.
 /datum/bodypart_overlay/mutant/proc/inherit_color(obj/item/bodypart/bodypart_owner, force)

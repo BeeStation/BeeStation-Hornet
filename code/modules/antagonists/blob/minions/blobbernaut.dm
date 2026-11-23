@@ -80,7 +80,7 @@
 /// Called by the blob creation power to give us a mind and a basic task orientation
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/assign_key(ckey, datum/blobstrain/blobstrain)
 	key = ckey
-	flick("blobbernaut_produce", src)
+	z_flick("blobbernaut_produce", src)
 	health = maxHealth / 2 // Start out injured to encourage not beelining away from the blob
 	SEND_SOUND(src, sound('sound/effects/blobattack.ogg'))
 	SEND_SOUND(src, sound('sound/effects/attackblob.ogg'))
@@ -107,7 +107,7 @@
 	if(factory)
 		factory.blobbernaut = null //remove this blobbernaut from its factory
 		factory.max_integrity = initial(factory.max_integrity)
-	flick("blobbernaut_death", src)
+	z_flick("blobbernaut_death", src)
 	return ..()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/independent

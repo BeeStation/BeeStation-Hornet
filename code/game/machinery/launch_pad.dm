@@ -124,7 +124,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	var/turf/target = locate(target_x, target_y, z)
 	var/area/A = get_area(target)
 
-	flick(icon_teleport, src)
+	z_flick(icon_teleport, src)
 
 	//Change the indicator's icon to show that we're teleporting
 	if(sending)
@@ -318,15 +318,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 		user.transferItemToLoc(src, pad, TRUE)
 		atom_storage.close_all()
 
-/obj/item/storage/briefcase/launchpad/attackby(obj/item/I, mob/user, list/modifiers)
-	if(istype(I, /obj/item/launchpad_remote))
-		var/obj/item/launchpad_remote/L = I
-		if(L.pad == WEAKREF(src.pad)) //do not attempt to link when already linked
-			return ..()
-		L.pad = WEAKREF(src.pad)
-		to_chat(user, span_notice("You link [pad] to [L]."))
-	else
+/obj/item/storage/briefcase/launchpad/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/launchpad_remote))
 		return ..()
+	var/obj/item/launchpad_remote/remote = tool
+	if(remote.pad == WEAKREF(src.pad))
+		return ..()
+	remote.pad = WEAKREF(src.pad)
+	to_chat(user, span_notice("You link [pad] to [remote]."))
+	return ITEM_INTERACT_BLOCKING
 
 /obj/item/launchpad_remote
 	name = "folder"

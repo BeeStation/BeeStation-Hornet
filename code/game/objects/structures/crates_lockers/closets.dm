@@ -279,6 +279,7 @@
 	update_appearance()
 	update_icon()
 	after_open(user, force)
+	SEND_SIGNAL(src, COMSIG_CLOSET_POST_OPEN, user, force)
 	return TRUE
 
 ///Proc to override for effects after opening a door
@@ -347,10 +348,9 @@
 	return
 
 /obj/structure/closet/proc/toggle(mob/living/user)
-	if(opened)
-		return close(user)
-	else
-		return open(user)
+	. = opened ? close(user) : open(user)
+	if(. && user)
+		user.animate_interact(src)
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
 	if(ispath(material_drop) && material_drop_amount && !(flags_1 & NODECONSTRUCT_1))
@@ -598,6 +598,7 @@
 			locked = !locked
 			user.visible_message(span_notice("[user] [locked ? null : "un"]locks [src]."),
 							span_notice("You [locked ? null : "un"]lock [src]."))
+			user.animate_interact(src)
 			update_icon()
 		else if(!silent)
 			to_chat(user, span_notice("Access Denied."))

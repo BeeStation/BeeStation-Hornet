@@ -104,6 +104,16 @@
 			else
 				balloon_alert(ui.user, "access insufficent!")
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		if("change_label")
+			var/new_label = tgui_input_text(ui.user, "Change the visible name", "MODlink Label", mod_link.get_label(), MAX_NAME_LEN)
+			if(!new_label)
+				return
+			new_label = reject_bad_text(new_label)
+			if(!new_label)
+				balloon_alert(ui.user, "invalid name!")
+				return
+			mod_link.label = new_label
+			balloon_alert(ui.user, "name set")
 		if("call")
 			if(!mod_link.link_call)
 				call_link(ui.user, mod_link)

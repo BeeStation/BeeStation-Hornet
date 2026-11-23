@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(zcopy)
 	name = "Z-Copy"
 	wait = 1
 	priority = FIRE_PRIORITY_ZCOPY
+	ss_flags = SS_HIBERNATE
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 
 	var/list/queued_turfs = list()
@@ -113,6 +114,10 @@ SUBSYSTEM_DEF(zcopy)
 
 
 /datum/controller/subsystem/zcopy/Initialize(timeofday)
+	hibernate_checks = list(
+		NAMEOF(src, queued_turfs),
+		NAMEOF(src, queued_overlays),
+	)
 	// Flush the queue.
 	fire(FALSE, TRUE)
 	return SS_INIT_SUCCESS
@@ -224,33 +229,34 @@ SUBSYSTEM_DEF(zcopy)
 			if ((T.below.z_flags & Z_MIMIC_OVERWRITE) || isspaceturf(T.below))
 				t_target = PLANE_SPACE
 
-		// Underlay lighting stuff, if it gets ported
-		//var/list/underlay_copy
 		if (T.z_flags & Z_MIMIC_OVERWRITE)
 			// This openturf doesn't care about its icon, so we can just overwrite it.
 			if (T.below.mimic_proxy)
 				QDEL_NULL(T.below.mimic_proxy)
-			//underlay_copy = T.lighting_object?.current_underlay ? list(T.lighting_object.current_underlay) : null
 			T.appearance = T.below
 			T.name = initial(T.name)
 			T.desc = initial(T.desc)
 			T.gender = initial(T.gender)
 			T.opacity = FALSE
-			//T.underlays = underlay_copy
+			// Keep our own additive lighting
+			if (T.below.lighting_object?.applying_additive)
+				T.underlays -= T.below.lighting_object.additive_underlay
+			if (T.lighting_object?.applying_additive)
+				T.underlays += T.lighting_object.additive_underlay
 			T.plane = t_target
 		else
 			// Some openturfs have icons, so we can't overwrite their appearance.
 			if (!T.below.mimic_proxy)
 				T.below.mimic_proxy = new(T)
 			var/atom/movable/openspace/turf_proxy/TO = T.below.mimic_proxy
-			//underlay_copy = T.below.lighting_object?.current_underlay ? list(T.below.lighting_object.current_underlay) : null
 			TO.appearance = Td
+			if (Td.lighting_object?.applying_additive)
+				TO.underlays -= Td.lighting_object.additive_underlay
 			TO.name = T.name
 			TO.gender = T.gender	// Need to grab this too so PLURAL works properly in examine.
 			TO.opacity = FALSE
 			TO.plane = t_target
 			TO.mouse_opacity = initial(TO.mouse_opacity)
-			//TO.underlays = underlay_copy
 
 		// TODO z-mimic AO
 		//T.queue_ao(T.ao_neighbors_mimic == null)	// If ao_neighbors hasn't been set yet, we need to do a rebuild
@@ -263,6 +269,8 @@ SUBSYSTEM_DEF(zcopy)
 				T.below.mimic_above_copy = new(T)
 			var/atom/movable/openspace/turf_mimic/DC = T.below.mimic_above_copy
 			DC.appearance = T.below
+			if (T.below.lighting_object?.applying_additive)
+				DC.underlays -= T.below.lighting_object.additive_underlay
 			DC.mouse_opacity = initial(DC.mouse_opacity)
 			DC.plane = ZMIMIC_MAX_PLANE - turf_depth - 1
 
@@ -284,6 +292,15 @@ SUBSYSTEM_DEF(zcopy)
 			if (!object.bound_overlay)	// Generate a new overlay if the atom doesn't already have one.
 				object.bound_overlay = new(T)
 				object.bound_overlay.associated_atom = object
+
+				if (length(object.hud_list))
+					object.bound_overlay.copy_huds(object)
+
+				#ifdef ZMIMIC_MULTIZ_SPEECH
+				// Limits hearing to one level
+				if (!istype(object, /atom/movable/openspace/mimic) && HAS_TRAIT(object, TRAIT_HEARING_SENSITIVE))
+					object.bound_overlay.become_hearing_sensitive()
+				#endif
 
 			var/override_depth
 			var/original_type = object.type
@@ -315,7 +332,7 @@ SUBSYSTEM_DEF(zcopy)
 				deltimer(OO.destruction_timer)
 				OO.destruction_timer = null
 
-			OO.depth = override_depth || min(ZMIMIC_MAX_DEPTH - original_depth, ZMIMIC_MAX_DEPTH)
+			OO.depth = override_depth || ZMIMIC_DEPTH(original_depth)
 
 			// These types need to be pushed a layer down for bigturfs to function correctly.
 			switch (original_type)
@@ -384,21 +401,26 @@ SUBSYSTEM_DEF(zcopy)
 
 		// Actually update the overlay.
 		if (OO.dir != OO.associated_atom.dir)
-			OO.setDir(OO.associated_atom.dir)
+			OO.dir = OO.associated_atom.dir
 
 		if (OO.particles != OO.associated_atom.particles)
 			OO.particles = OO.associated_atom.particles
 
 		OO.appearance = OO.associated_atom
+		// EMISSIVE_BLOCK_UNIQUE render targets must stay unique
+		if (OO.render_target)
+			OO.render_target = null
 		OO.zmm_flags = OO.associated_atom.zmm_flags
 		OO.plane = ZMIMIC_MAX_PLANE - OO.depth
+		if (OO.mimiced_type == /atom/movable/openspace/multiplier)
+			OO.plane = ZMIMIC_SHADOW_PLANE(OO.plane)
 
 		OO.opacity = FALSE
 		OO.queued = 0
 
 		// If an atom has explicit plane sets on its overlays/underlays, we need to replace the appearance so they can be mangled to work with our planing.
 		if (OO.zmm_flags & (ZMM_MANGLE_PLANES | ZMM_AUTOMANGLE))
-			var/new_appearance = fixup_appearance_planes(OO.appearance)
+			var/new_appearance = fixup_appearance_planes(OO.appearance, (OO.zmm_flags & ZMM_NO_CACHE_ROOT) ? 1 : 0)
 			if (new_appearance)
 				OO.appearance = new_appearance
 				OO.have_performed_fixup = TRUE
@@ -428,6 +450,8 @@ SUBSYSTEM_DEF(zcopy)
 /datum/controller/subsystem/zcopy/proc/simple_appearance_copy(turf/T, new_appearance, target_plane)
 	if (T.z_flags & Z_MIMIC_OVERWRITE)
 		T.appearance = new_appearance
+		if (T.lighting_object?.applying_additive)
+			T.underlays += T.lighting_object.additive_underlay
 		T.name = initial(T.name)
 		T.desc = initial(T.desc)
 		T.gender = initial(T.gender)
@@ -449,7 +473,7 @@ SUBSYSTEM_DEF(zcopy)
 // For each of overlay,underlay, call fixup_appearance_planes; if it returns a new appearance, replace self
 
 /// Generate a new appearance from `appearance` with planes mangled to work with Z-Mimic. Do not pass a depth.
-/datum/controller/subsystem/zcopy/proc/fixup_appearance_planes(appearance, depth = 0)
+/datum/controller/subsystem/zcopy/proc/fixup_appearance_planes(appearance, cache_minimum_depth = 0, depth = 0)
 
 	// Adding this to guard against a reported runtime - supposed to be impossible, so cause is unclear.
 	if(!appearance)
@@ -470,14 +494,17 @@ SUBSYSTEM_DEF(zcopy)
 
 	var/plane_needs_fix = FALSE
 	var/obliterate = FALSE
+	var/light_needs_fix = FALSE
 
 	// Don't fixup the root object's plane.
 	if (depth > 0)
 		switch (appearance:plane)
-			if (GAME_PLANE, FLOOR_PLANE, FLOAT_PLANE)
+			if (GAME_PLANE, FLOOR_PLANE, FLOAT_PLANE, FLOAT_PLANE + ZMIMIC_SHADOW_PLANE_OFFSET)
 				// fine
-			if (EMISSIVE_PLANE, GRAVITY_PULSE_PLANE)
+			if (EMISSIVE_PLANE, GRAVITY_PULSE_PLANE, LIGHTING_PLANE, LIGHTING_PLANE_ADDITIVE)
 				obliterate = TRUE
+			if (O_LIGHTING_VISUAL_PLANE)
+				light_needs_fix = TRUE
 			else
 				plane_needs_fix = TRUE
 
@@ -487,7 +514,7 @@ SUBSYSTEM_DEF(zcopy)
 		var/mutated = FALSE
 		var/fixed_appearance
 		for (var/i in 1 to appearance:overlays:len)
-			if ((fixed_appearance = .(appearance:overlays[i], depth + 1)))
+			if ((fixed_appearance = .(appearance:overlays[i], cache_minimum_depth, depth + 1)))
 				mutated = TRUE
 				if (!fixed_overlays)
 					fixed_overlays = new(appearance:overlays.len)
@@ -504,7 +531,7 @@ SUBSYSTEM_DEF(zcopy)
 		var/mutated = FALSE
 		var/fixed_appearance
 		for (var/i in 1 to appearance:underlays:len)
-			if ((fixed_appearance = .(appearance:underlays[i], depth + 1)))
+			if ((fixed_appearance = .(appearance:underlays[i], cache_minimum_depth, depth + 1)))
 				mutated = TRUE
 				if (!fixed_underlays)
 					fixed_underlays = new(appearance:underlays.len)
@@ -516,9 +543,10 @@ SUBSYSTEM_DEF(zcopy)
 					fixed_underlays[i] = appearance:underlays[i]
 
 	// If we did nothing (no violations), don't bother creating a new appearance
-	if (!plane_needs_fix && !obliterate && !fixed_overlays && !fixed_underlays)
+	if (!plane_needs_fix && !obliterate && !light_needs_fix && !fixed_overlays && !fixed_underlays)
 		fixup_noop += 1
-		fixup_known_good[appearance] = TRUE
+		if (depth >= cache_minimum_depth)
+			fixup_known_good[appearance] = TRUE
 		return null
 
 	fixup_miss += 1
@@ -527,6 +555,11 @@ SUBSYSTEM_DEF(zcopy)
 	if (plane_needs_fix)
 		MA.plane = depth == 0 ? GAME_PLANE : FLOAT_PLANE
 		MA.layer = FLY_LAYER	// probably fine
+	if (light_needs_fix)
+		// Overlay lights light the level below through its shadow plane
+		MA.plane = FLOAT_PLANE + ZMIMIC_SHADOW_PLANE_OFFSET
+		MA.layer = MIMICKED_OVERLAY_LIGHTING_LAYER
+		MA.blend_mode = BLEND_OVERLAY
 	if (obliterate)
 		// Emissive, hide it.
 		MA.invisibility = INVISIBILITY_ABSTRACT
@@ -538,7 +571,8 @@ SUBSYSTEM_DEF(zcopy)
 	if (fixed_underlays)
 		MA.underlays = fixed_underlays
 
-	fixup_cache[appearance] = MA.appearance
+	if (depth >= cache_minimum_depth)
+		fixup_cache[appearance] = MA.appearance
 
 	return MA
 
@@ -656,6 +690,16 @@ SUBSYSTEM_DEF(zcopy)
 		SSzcopy.debug_fmt_planelist(atoms_list_list["[pl]"], out, T)
 
 		// Flush the list so we can find orphans.
+		atoms_list_list -= "[pl]"
+
+	for (var/d in 0 to ZMIMIC_MAX_DEPTH)
+		var/pl = ZMIMIC_SHADOW_PLANE(ZMIMIC_MAX_PLANE - d)
+		if (!atoms_list_list["[pl]"])
+			continue
+
+		out += "<strong>Depth [d], shadow plane [pl]</strong>"
+		SSzcopy.debug_fmt_planelist(atoms_list_list["[pl]"], out, T)
+
 		atoms_list_list -= "[pl]"
 
 	if (atoms_list_list["[PLANE_SPACE]"])	// Space parallax plane

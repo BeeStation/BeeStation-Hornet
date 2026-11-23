@@ -33,9 +33,7 @@
 	// Having your face covered conceals your drunkness
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
-		if(carbon_owner.wear_mask?.flags_inv & HIDEFACE)
-			return null
-		if(carbon_owner.head?.flags_inv & HIDEFACE)
+		if(carbon_owner.obscured_slots & HIDEFACE)
 			return null
 
 	// .01s are used in case the drunk value ends up to be a small decimal.
@@ -189,14 +187,14 @@
 	// Over 81, we will gain constant toxloss
 	if(drunk_value >= 81)
 		owner.adjustToxLoss(1)
-		if(owner.stat == CONSCIOUS && prob(5))
+		if(owner.stat <= SOFT_CRIT && prob(5))
 			to_chat(owner, span_warning("Maybe you should lie down for a bit..."))
 
 	// Over 91, we gain even more toxloss, brain damage, and have a chance of dropping into a long sleep
 	if(drunk_value >= 91)
 		owner.adjustToxLoss(1)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.4)
-		if(owner.stat == CONSCIOUS && prob(20))
+		if(owner.stat <= SOFT_CRIT && prob(20))
 			// Don't put us in a deep sleep if the shuttle's here. QoL, mainly.
 			if(SSshuttle.emergency.mode == SHUTTLE_DOCKED && is_station_level(owner.z))
 				to_chat(owner, span_warning("You're so tired... but you can't miss that shuttle..."))

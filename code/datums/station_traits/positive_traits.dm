@@ -86,16 +86,16 @@
 	var/obj/item/silly_little_scarf = humanspawned.wear_neck
 	if(silly_little_scarf)
 		var/list/backup_slots = list(
-			"in your left pocket" = ITEM_SLOT_LPOCKET,
-			"in your right pocket" = ITEM_SLOT_RPOCKET,
-			"in your backpack" = ITEM_SLOT_BACKPACK
+			LOCATION_LPOCKET,
+			LOCATION_RPOCKET,
+			LOCATION_BACKPACK,
 		)
 		humanspawned.temporarilyRemoveItemFromInventory(silly_little_scarf)
 		silly_little_scarf.forceMove(get_turf(humanspawned))
 		humanspawned.equip_in_one_of_slots(silly_little_scarf, backup_slots, qdel_on_fail = FALSE)
 
 	var/obj/item/clothing/neck/link_scryer/loaded/new_scryer = new(spawned)
-	new_scryer.label = spawned.name
+	new_scryer.mod_link.label = spawned.name
 	new_scryer.update_name()
 
 	spawned.equip_to_slot_or_del(new_scryer, ITEM_SLOT_NECK, initial = FALSE)

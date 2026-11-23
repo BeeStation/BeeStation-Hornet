@@ -173,9 +173,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 /mob/dead/observer/narsie_act()
 	var/old_color = color
-	color = "#960000"
+	color = COLOR_CULT_RED
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 1 SECONDS)
 
 /mob/dead/observer/Destroy()
 	UnregisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON)
@@ -243,18 +243,16 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list)) //check if this form supports accessories and if the client wants to show them
 		if(facial_hairstyle)
 			var/datum/sprite_accessory/S = SSaccessories.facial_hairstyles_list[facial_hairstyle]
-			if(S?.icon_state)
-				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-				if(facial_hair_color)
-					facial_hair_overlay.color = facial_hair_color
+			if(S && S.icon_state != SPRITE_ACCESSORY_NONE)
+				facial_hair_overlay = mutable_appearance(S.icon, S.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
+				facial_hair_overlay.color = facial_hair_color
 				facial_hair_overlay.alpha = 200
 				add_overlay(facial_hair_overlay)
 		if(hairstyle)
 			var/datum/sprite_accessory/hair/S = SSaccessories.hairstyles_list[hairstyle]
-			if(S?.icon_state)
-				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-				if(hair_color)
-					hair_overlay.color = hair_color
+			if(S && S.icon_state != SPRITE_ACCESSORY_NONE)
+				hair_overlay = mutable_appearance(S.icon, S.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
+				hair_overlay.color = hair_color
 				hair_overlay.alpha = 200
 				hair_overlay.pixel_y = S.y_offset
 				add_overlay(hair_overlay)
@@ -999,7 +997,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
+/mob/dead/observer/Process_Spacemove(movement_dir, continuous_move = FALSE)
 	return TRUE
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)

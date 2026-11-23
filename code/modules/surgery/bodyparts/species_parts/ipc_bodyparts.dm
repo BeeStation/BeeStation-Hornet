@@ -18,9 +18,8 @@
 
 	burn_modifier = 1.5
 	brute_modifier = 1.5
-	stamina_modifier = 0
 	head_flags = NONE
-	bodypart_flags = BODYPART_UNHUSKABLE
+	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED
 	bodypart_traits = list(TRAIT_NO_MOUTH)
 
 	head_flags = HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN
@@ -46,8 +45,7 @@
 
 	burn_modifier = 1.5
 	brute_modifier = 1.5
-	stamina_modifier = 0
-	bodypart_flags = BODYPART_UNHUSKABLE
+	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED
 
 /obj/item/bodypart/arm/left/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -71,8 +69,7 @@
 
 	burn_modifier = 1.5
 	brute_modifier = 1.5
-	stamina_modifier = 0
-	bodypart_flags = BODYPART_UNHUSKABLE
+	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED
 
 /obj/item/bodypart/arm/right/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -96,8 +93,7 @@
 
 	burn_modifier = 1.5
 	brute_modifier = 1.5
-	stamina_modifier = 0
-	bodypart_flags = BODYPART_UNHUSKABLE
+	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED
 
 /obj/item/bodypart/leg/left/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -119,8 +115,7 @@
 
 	burn_modifier = 1.5
 	brute_modifier = 1.5
-	stamina_modifier = 0
-	bodypart_flags = BODYPART_UNHUSKABLE
+	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED
 
 /obj/item/bodypart/leg/right/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -142,5 +137,4 @@
 
 	burn_modifier = 1.5
 	brute_modifier = 1.5
-	stamina_modifier = 0
-	bodypart_flags = BODYPART_UNHUSKABLE
+	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED

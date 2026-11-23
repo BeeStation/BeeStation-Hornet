@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		return
 	destination.dna.unique_enzymes = unique_enzymes
 	destination.dna.unique_identity = unique_identity
-	destination.dna.blood_type = blood_type
+	destination.set_blood_type(blood_type)
 	destination.dna.unique_features = unique_features
 	destination.dna.features = features.Copy()
 	destination.dna.real_name = real_name
@@ -220,7 +220,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(features[FEATURE_LIZARD_MARKINGS])
 		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(SSaccessories.lizard_markings_list.Find(features[FEATURE_LIZARD_MARKINGS]), length(SSaccessories.lizard_markings_list))
 	if(features["tail_cat"])
-		L[DNA_TAIL_BLOCK] = construct_block(SSaccessories.tails_list_human.Find(features["tail_cat"]), length(SSaccessories.tails_list_human))
+		L[DNA_TAIL_BLOCK] = construct_block(SSaccessories.tails_list_felinid.Find(features["tail_cat"]), length(SSaccessories.tails_list_felinid))
 	if(features["tail_lizard"])
 		L[DNA_LIZARD_TAIL_BLOCK] = construct_block(SSaccessories.tails_list_lizard.Find(features["tail_lizard"]), length(SSaccessories.tails_list_lizard))
 	if(features["snout"])
@@ -233,9 +233,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_SPINES_BLOCK] = construct_block(SSaccessories.spines_list.Find(features["spines"]), length(SSaccessories.spines_list))
 	if(features["ears"])
 		L[DNA_EARS_BLOCK] = construct_block(SSaccessories.ears_list.Find(features["ears"]), length(SSaccessories.ears_list))
-	if(features["moth_wings"])
+	if(features["moth_wings"] != "Burnt Off")
 		L[DNA_MOTH_WINGS_BLOCK] = construct_block(SSaccessories.moth_wings_list.Find(features["moth_wings"]), length(SSaccessories.moth_wings_list))
-	if(features["moth_antennae"])
+	if(features["moth_antennae"] != "Burnt Off")
 		L[DNA_MOTH_ANTENNAE_BLOCK] = construct_block(SSaccessories.moth_antennae_list.Find(features["moth_antennae"]), length(SSaccessories.moth_antennae_list))
 	if(features[FEATURE_MOTH_MARKINGS])
 		L[DNA_MOTH_MARKINGS_BLOCK] = construct_block(SSaccessories.moth_markings_list.Find(features[FEATURE_MOTH_MARKINGS]), length(SSaccessories.moth_markings_list))
@@ -394,7 +394,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_LIZARD_MARKINGS_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.lizard_markings_list.Find(features[FEATURE_LIZARD_MARKINGS]), length(SSaccessories.lizard_markings_list)))
 		if(DNA_TAIL_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.tails_list_human.Find(features["tail_cat"]), length(SSaccessories.tails_list_human)))
+			set_uni_feature_block(blocknumber, construct_block(SSaccessories.tails_list_felinid.Find(features["tail_cat"]), length(SSaccessories.tails_list_felinid)))
 		if(DNA_LIZARD_TAIL_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.tails_list_lizard.Find(features["tail_lizard"]), length(SSaccessories.tails_list_lizard)))
 		if(DNA_SNOUT_BLOCK)
@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.apid_stripes_list.Find(features["apid_stripes"]), length(SSaccessories.apid_stripes_list)))
 		if(DNA_APID_HEADSTRIPES_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.apid_headstripes_list.Find(features["apid_headstripes"]), length(SSaccessories.apid_headstripes_list)))
-		if(DNA_APID_HEADSTRIPES_BLOCK)
+		if(DNA_PSYPHOZA_CAP_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.psyphoza_cap_list.Find(features["psyphoza_cap"]), length(SSaccessories.psyphoza_cap_list)))
 		if(DNA_INSECT_TYPE_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.insect_type_list.Find(features["insect_type"]), length(SSaccessories.insect_type_list)))
@@ -608,7 +608,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if (old_species.properly_gained)
 		old_species.on_species_loss(src, new_race)
 
-	dna.species.on_species_gain(src, old_species, regenerate_icons = icon_update)
+	dna.species.on_species_gain(src, old_species, icon_update)
 	SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE)
@@ -654,7 +654,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	dna.gender = gender
 
 	if(newblood_type)
-		dna.blood_type = newblood_type
+		set_blood_type(newblood_type)
 
 	if(unique_identity)
 		dna.unique_identity = unique_identity
@@ -704,8 +704,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	..()
 	var/structure = dna.unique_identity
 	skin_tone = GLOB.skin_tones[deconstruct_block(get_uni_identity_block(structure, DNA_SKIN_TONE_BLOCK), GLOB.skin_tones.len)]
-	eye_color_left = sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_LEFT_BLOCK))
-	eye_color_right = sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_RIGHT_BLOCK))
+	set_eye_color(sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_LEFT_BLOCK)), sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_RIGHT_BLOCK)))
 	set_haircolor(sanitize_hexcolor(get_uni_identity_block(structure, DNA_HAIR_COLOR_BLOCK)), update = FALSE)
 	set_facial_haircolor(sanitize_hexcolor(get_uni_identity_block(structure, DNA_FACIAL_HAIR_COLOR_BLOCK)), update = FALSE)
 	set_hair_gradient_color(sanitize_hexcolor(get_uni_identity_block(structure, DNA_HAIR_COLOR_GRADIENT_BLOCK)), update = FALSE)
@@ -741,7 +740,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(dna.features["spines"])
 		dna.features["spines"] = SSaccessories.spines_list[deconstruct_block(get_uni_feature_block(features, DNA_SPINES_BLOCK), length(SSaccessories.spines_list))]
 	if(dna.features["tail_cat"])
-		dna.features["tail_cat"] = SSaccessories.tails_list_human[deconstruct_block(get_uni_feature_block(features, DNA_TAIL_BLOCK), length(SSaccessories.tails_list_human))]
+		dna.features["tail_cat"] = SSaccessories.tails_list_felinid[deconstruct_block(get_uni_feature_block(features, DNA_TAIL_BLOCK), length(SSaccessories.tails_list_felinid))]
 	if(dna.features["tail_lizard"])
 		dna.features["tail_lizard"] = SSaccessories.tails_list_lizard[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_TAIL_BLOCK), length(SSaccessories.tails_list_lizard))]
 	if(dna.features["ears"])

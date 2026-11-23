@@ -158,6 +158,16 @@
 	/// Slurring applied on projectile hit
 	var/slur = 0 SECONDS
 
+	// Disorient vars
+	/// Duration of disorient status effect
+	var/disorient_length = 0 SECONDS
+	/// Stamina damage applied
+	var/disorient_damage = 0
+	/// Paralyze duration if target is exhausted
+	var/disorient_status_length = 0 SECONDS
+	/// If FALSE, repeat hits refresh the paralyze instead of adding to it. For pellets and bursts.
+	var/disorient_stack_status = TRUE
+
 	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
 	var/dismemberment = 0
 	var/impact_effect_type //what type of impact effect to show when hitting something
@@ -651,7 +661,7 @@
 	var/turf/ending = return_predicted_turf_after_moves(moves, forced_angle)
 	return get_line(current, ending)
 
-/obj/projectile/Process_Spacemove(movement_dir = 0)
+/obj/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//Bullets don't drift in space
 
 /obj/projectile/process()
@@ -850,7 +860,7 @@
 	if(!hitscanning && !forcemoved)
 		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
 		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
-		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
+		z_animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
 	Range()
 
 /obj/projectile/proc/process_homing()			//may need speeding up in the future performance wise.

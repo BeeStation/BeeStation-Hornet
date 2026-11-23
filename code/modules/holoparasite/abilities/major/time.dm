@@ -72,6 +72,9 @@
 			show_to(mob)
 			mob.reload_huds()
 
+/datum/atom_hud/alternate_appearance/basic/decoy/copy_for_mimic(image/mimic_image)
+	new type(appearance_key, mimic_image, NONE, immune)
+
 /datum/atom_hud/alternate_appearance/basic/decoy/mobShouldSee(mob/mob)
 	return mob in immune
 

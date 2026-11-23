@@ -42,7 +42,7 @@
 	activate(user)
 
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
-	flick("ecto_sniffer_flick", src)
+	z_flick("ecto_sniffer_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
 
 	if(COOLDOWN_FINISHED(src, radio_cooldown))

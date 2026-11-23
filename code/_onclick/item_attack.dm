@@ -17,6 +17,7 @@
 
 	var/item_interact_result = target.base_item_interaction(user, src, modifiers)
 	if(item_interact_result & ITEM_INTERACT_SUCCESS)
+		user.animate_interact(target, INTERACT_GENERIC, src)
 		return TRUE
 	if(item_interact_result & ITEM_INTERACT_BLOCKING)
 		return FALSE
@@ -104,6 +105,7 @@
 /obj/item/proc/pre_attack(atom/A, mob/living/user, list/modifiers) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+
 	return FALSE //return TRUE to avoid calling attackby after this proc does stuff
 
 /**
@@ -262,6 +264,7 @@
 		target_mob.send_item_poke_message(src, user)
 		user.time_of_last_poke = time
 	else
+		user.stamina_swing(src.stamina_cost)
 		user.record_accidental_poking()
 		target_mob.attacked_by(src, user)
 		target_mob.time_of_last_attack_received = time

@@ -228,12 +228,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 
 	if(chassis.defense_mode)
 		invisibility = 0
-		flick("shield_raise", src)
+		z_flick("shield_raise", src)
 		playsound(src, 'sound/mecha/mech_shield_raise.ogg', 50, FALSE)
 		icon_state = "shield"
 		RegisterSignal(chassis, COMSIG_ATOM_DIR_CHANGE, PROC_REF(resetdir))
 	else
-		flick("shield_drop", src)
+		z_flick("shield_drop", src)
 		playsound(src, 'sound/mecha/mech_shield_drop.ogg', 50, FALSE)
 		icon_state = "shield_null"
 		invisibility = INVISIBILITY_MAXIMUM //no showing on right-click
@@ -252,7 +252,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 	if(!chassis.defense_mode) //if defense mode is disabled, we're taking damage that we shouldn't be taking
 		return
 	. = ..()
-	flick("shield_impact", src)
+	z_flick("shield_impact", src)
 	if(!chassis.use_power((max_integrity - atom_integrity) * 100))
 		chassis.cell?.charge = 0
 		for(var/O in chassis.occupants)

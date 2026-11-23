@@ -233,7 +233,7 @@
 
 	COOLDOWN_START(src, horn_cooldown, 10 SECONDS)
 	playsound(src, 'sound/items/party_horn.ogg', 75, FALSE)
-	flick("party_horn_animated", src)
+	z_flick("party_horn_animated", src)
 
 /datum/action/item_action/toot
 	name = "TOOT!"

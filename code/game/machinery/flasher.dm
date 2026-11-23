@@ -116,7 +116,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		return
 
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
-	flick("[base_state]_flash", src)
+	z_flick("[base_state]_flash", src)
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 
@@ -172,7 +172,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 
 	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
-		if (M.move_intent != MOVE_INTENT_WALK && anchored)
+		if (!MOVING_DELIBERATELY(M) && anchored)
 			flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/W, mob/user, list/modifiers)

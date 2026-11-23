@@ -4,6 +4,7 @@
 	sight = 0
 	see_in_dark = 2
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
+	zmm_flags = ZMM_NO_CACHE_ROOT
 	pressure_resistance = 10
 	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
 
@@ -19,7 +20,10 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-	var/health = 100 	//A mob's health
+	var/health = 100 //A mob's health
+
+	///The holder for stamina handling
+	var/datum/stamina_container/stamina
 
 	// Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	/// Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -32,19 +36,21 @@
 	var/fireloss = 0
 	/// Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/cloneloss = 0
-	/// Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
-	var/staminaloss = 0
 
-	/// The movement intent of the mob (run/wal)
-	var/move_intent = MOVE_INTENT_RUN
-
-	/// Rate at which fire stacks should decay from this mob
-	var/fire_stack_decay_rate = -0.05
+	/// The movement intent of the mob
+	var/datum/move_intent/move_intent = /datum/move_intent/run
+	/// Move intents this mob can use
+	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run)
 
 	/// When the mob goes from "normal" to crit
 	var/crit_threshold = HEALTH_THRESHOLD_CRIT
 	/// When the mob enters hard critical state and is fully incapacitated.
 	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
+	/// When the mob dies.
+	var/death_threshold = HEALTH_THRESHOLD_DEAD
+
+	/// Rate at which fire stacks should decay from this mob
+	var/fire_stack_decay_rate = -0.05
 
 	/// Generic bitflags for boolean conditions at the [/mob/living] level. Keep this for inherent traits of living types, instead of runtime-changeable ones.
 	var/living_flags = NONE
@@ -134,11 +140,15 @@
 	var/health_doll_icon
 
 	var/last_bumped = 0
-	var/unique_name = 0 //if a mob's name should be appended with an id when created e.g. Mob (666)
+	///if a mob's name should be appended with an id when created e.g. Mob (666)
+	var/unique_name = FALSE
 
-	var/list/butcher_results = null //these will be yielded from butchering with a probability chance equal to the butcher item's effectiveness
-	var/list/guaranteed_butcher_results = null //these will always be yielded from butchering
-	var/butcher_difficulty = 0 //effectiveness prob. is modified negatively by this amount; positive numbers make it more difficult, negative ones make it easier
+	///these will be yielded from butchering with a probability chance equal to the butcher item's effectiveness
+	var/list/butcher_results = null
+	///these will always be yielded from butchering
+	var/list/guaranteed_butcher_results = null
+	///effectiveness prob. is modified negatively by this amount; positive numbers make it more difficult, negative ones make it easier
+	var/butcher_difficulty = 0
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage = 0
@@ -146,7 +156,6 @@
 	var/blood_volume = 0 //how much blood the mob has
 
 	var/list/status_effects //a list of all status effects the mob has
-	var/druggy = 0
 
 	var/list/implants = null
 

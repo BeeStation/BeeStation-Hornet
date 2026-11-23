@@ -26,9 +26,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	var/list/flattened = list()
 	for (var/index in 1 to MAX_PREFERENCE_PRIORITY)
-		// VALIDATION CHECK: Scream if we have empty priority slots
+		// Scream if we have empty priority slots
 		if(!preferences[index])
-			CRASH("PREFERENCE SYSTEM ERROR: Priority slot [index] is EMPTY! This will cause null runtime errors. Check that all priority levels 1-[MAX_PREFERENCE_PRIORITY] have at least one preference assigned")
+			stack_trace("Preference priority slot [index] is empty. Check that all priority levels 1-[MAX_PREFERENCE_PRIORITY] have at least one preference assigned.")
+			continue
 		flattened += preferences[index]
 	return flattened
 
@@ -65,10 +66,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// DOES have random body on, will this already be randomized?
 	var/randomize_by_default = TRUE
 
-	/// If the selected species has this in its /datum/species/mutant_bodyparts,
-	/// will show the feature as selectable.
-	var/relevant_mutant_bodypart = null
-
 	/// If the selected species has this in its /datum/species/body_markings,
 	/// will show the feature as selectable.
 	var/relevant_body_markings = null
@@ -79,7 +76,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	/// If the selected species has this in its /datum/species/var/external_organs,
 	/// will show the feature as selectable.
-	var/relevant_external_organ = null
+	var/relevant_organ = null
 
 	/// If the selected species has this head_flag by default,
 	/// will show the feature as selectable.
@@ -287,7 +284,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Checks if this preference is relevant and thus visible to the passed preferences object.
 /datum/preference/proc/has_relevant_feature(datum/preferences/preferences)
-	if (isnull(relevant_mutant_bodypart) && isnull(relevant_inherent_trait) && isnull(relevant_external_organ) && isnull(relevant_head_flag) && isnull(relevant_body_markings))
+	if(isnull(relevant_inherent_trait) && isnull(relevant_organ) && isnull(relevant_head_flag) && isnull(relevant_body_markings))
 		return TRUE
 
 	return current_species_has_savekey(preferences)
@@ -427,26 +424,33 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	if (default && prob(default_probability))
 		return default
-
+	if (!length(sprite_accessories))
+		return default
+	// Accessories are only ever tagged MALE, FEMALE or NEUTER
+	if (required_gender != MALE && required_gender != FEMALE)
+		required_gender = null
 	var/list/allowed = list()
-	for (var/datum/sprite_accessory/accessory as anything in sprite_accessories)
+	var/list/selectable = list()
+	for (var/entry as anything in sprite_accessories)
+		var/datum/sprite_accessory/accessory = entry
 		// Source list is an assoc list
 		if (!istype(accessory))
-			accessory = sprite_accessories[accessory]
-		if (!accessory || !istype(accessory))
+			accessory = sprite_accessories[entry]
+		if (!istype(accessory))
 			continue
+		if (accessory.locked)
+			continue
+		selectable += accessory
 		if (!accessory.use_default)
 			continue
 		if (required_gender && accessory.use_default_gender != NEUTER && accessory.use_default_gender != required_gender)
 			continue
 		allowed += accessory
-
-	if (length(allowed) == 0)
-		if (default)
-			return default
-		return pick(sprite_accessories)
-
-	return pick(allowed)
+	if (length(allowed))
+		return pick(allowed)
+	if (default)
+		return default
+	return length(selectable) ? pick(selectable) : null
 
 /// A numeric preference with a minimum and maximum value
 /datum/preference/numeric
@@ -499,6 +503,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preference/toggle/is_valid(value)
 	return value == TRUE || value == FALSE
+
 
 /// A simple string type preference.
 /datum/preference/string

@@ -32,3 +32,6 @@
 	#define SHIELD_BLOCK (1<<0)
 ///Whenever equip_rank is called, called after job is set
 #define COMSIG_JOB_RECEIVED "job_received"
+
+#define COMSIG_CARBON_PRE_SPRINT "carbon_pre_sprint"
+	#define INTERRUPT_SPRINT (1<<0)

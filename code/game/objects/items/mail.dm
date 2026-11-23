@@ -54,7 +54,6 @@
 		/obj/item/clothing/shoes/laceup = 1,
 		/obj/item/storage/belt/military/army = 1,
 		/obj/item/tank/jetpack/carbondioxide = 1,
-		/obj/item/tank/jetpack/suit = 1,
 		/obj/item/clothing/ears/headphones = 1,
 		/obj/item/camera = 1,
 		/obj/item/gps = 1,

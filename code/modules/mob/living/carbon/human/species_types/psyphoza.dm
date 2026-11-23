@@ -21,11 +21,7 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list(
-		"psyphoza_cap" = "Portobello",
-		"body_size" = "Normal",
-		"mcolor" = COLOR_WHITE
-	)
+	mutant_organs = list(/obj/item/organ/psyphoza_cap = "Portobello")
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 
 	bodypart_overrides = list(
@@ -273,6 +269,8 @@
 /atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
 	. = ..()
 	cycle_textures()
+	unique_filters()
+	color = origin_color
 
 //Copied code, it'll be fine
 /atom/movable/screen/fullscreen/blind/psychic/proc/cycle_textures()
@@ -293,11 +291,6 @@
 	if(texture_index >= 4)
 		texture_index = 1
 
-/atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
-	. = ..()
-	unique_filters()
-	color = origin_color
-
 /atom/movable/screen/fullscreen/blind/psychic/proc/unique_filters()
 	filters += filter(type = "radial_blur", size = 0.0125)
 
@@ -314,7 +307,7 @@
 	icon = 'icons/hud/fullscreen/psychic.dmi'
 	render_target = ""
 	plane = FULLSCREEN_PLANE
-	layer = 4.1
+	layer = BLIND_LAYER + 0.1
 	///Index for visual setting - Useful if we add more presets
 	var/visual_index = 1
 	///Index for texture setting - Useful if we add more presets
@@ -322,8 +315,8 @@
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
-	filters += filter(type = "alpha", render_source = GAME_PLANE_RENDER_TARGET)
-	filters += filter(type = "alpha", render_source = ANTI_PSYCHIC_PLANE_RENDER_TARGET, flags = MASK_INVERSE)
+	filters += filter(type = "alpha", render_source = "*GAME_PLANE_RENDER_TARGET")
+	filters += filter(type = "alpha", render_source ="*ANTI_PSYCHIC_PLANE_RENDER_TARGET", flags = MASK_INVERSE)
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.0125)
@@ -434,7 +427,7 @@
 	if(isnull(psychic_overlay))
 		set_psychic_overlay(owner?.screens["psychic_highlight"])
 	if(isnull(blind_overlay)) // The blind overlay given by our eyes
-		set_blind_overlay(owner?.screens["blind"])
+		set_blind_overlay(owner?.screens["blindness"])
 
 	psychic_overlay?.cycle_textures()
 	blind_overlay?.cycle_textures()

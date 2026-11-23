@@ -4,19 +4,12 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 #ifdef USE_CUSTOM_ERROR_HANDLER
 #define ERROR_USEFUL_LEN 2
 
-/world/Error(exception/E, datum/e_src)
+/world/Error(exception/E)
 	GLOB.total_runtimes++
 
 	if(!istype(E)) //Something threw an unusual exception
 		log_world("uncaught runtime error: [E]")
 		return ..()
-
-	// a trick that helps /proc/stack_trace()
-	if(E.name == GLOB.runtime_helper["runtime_message"])
-		E.file = GLOB.runtime_helper["file"]
-		E.line = GLOB.runtime_helper["line"]
-		E.desc += " ## STACK TRACE INFO: [E.file], line [E.line]. Proc: [GLOB.runtime_helper["procname"]] / Type: [GLOB.runtime_helper["error_type"] || "null"]"
-		GLOB.runtime_helper["runtime_message"] = STACK_TRACE_NULL_HINT
 
 	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this if
 	if(copytext(E.name, 1, 32) == "Maximum recursion level reached")//32 == length() of that string + 1
@@ -28,16 +21,9 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 
 	else if(copytext(E.name, 1, 18) == "Out of resources!")//18 == length() of that string + 1
 		log_world("BYOND out of memory. Restarting")
-		log_game("BYOND out of memory. Restarting")
 		TgsEndProcess()
 		Reboot(reason = 1)
 		return ..()
-
-	if (islist(stack_trace_storage))
-		for (var/line in splittext(E.desc, "\n"))
-			if (text2ascii(line) != 32)
-				stack_trace_storage += line
-		return
 
 	var/static/list/error_last_seen = list()
 	var/static/list/error_cooldown = list() /* Error_cooldown items will either be positive(cooldown time) or negative(silenced error)
@@ -139,12 +125,11 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		GLOB.current_test.Fail("[main_line]\n[desclines.Join("\n")]", file = E.file, line = E.line)
 #endif
 
-	if (Debugger?.enabled)
+	if (Debugger?.enabled || (config?.entries && CONFIG_GET(flag/mimic_debugger)))
 		to_chat(world, span_alertwarning("[main_line]"), MESSAGE_TYPE_DEBUG)
-
 
 	// This writes the regular format (unwrapping newlines and inserting timestamps as needed).
 	log_runtime("runtime error: [E.name]\n[E.desc]")
-#endif
 
 #undef ERROR_USEFUL_LEN
+#endif

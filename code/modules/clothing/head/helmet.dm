@@ -72,6 +72,7 @@
 	if(!do_after(user, 3 SECONDS, src))
 		return
 	flags_inv ^= HIDEHAIR
+	user.refresh_obscured()
 	balloon_alert(user, "[flags_inv & HIDEHAIR ? "tightened" : "loosened"] straps")
 	return TRUE
 

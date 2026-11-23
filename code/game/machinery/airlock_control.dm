@@ -73,7 +73,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/airlock_sensor, "Use")
 	var/obj/machinery/airlock_controller/airlock_controller = GLOB.objects_by_id_tag[master_tag]
 	airlock_controller?.cycle()
 
-	flick("airlock_sensor_cycle", src)
+	z_flick("airlock_sensor_cycle", src)
 
 /obj/machinery/airlock_sensor/process()
 	if(on)

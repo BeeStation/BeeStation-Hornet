@@ -44,7 +44,7 @@
 	source,
 	antimagic_flags = MAGIC_RESISTANCE,
 	charges = INFINITY,
-	inventory_flags = ~ITEM_SLOT_BACKPACK, // items in a backpack won't activate, anywhere else is fine
+	inventory_flags = ALL,
 	datum/callback/drain_antimagic,
 	datum/callback/expiration
 )

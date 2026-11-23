@@ -10,7 +10,7 @@
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_id
 	if(id)
-		. = id.assignment
+		. = id.get_assignment()
 	else
 		var/obj/item/modular_computer/pda = wear_id
 		if(istype(pda))
@@ -32,6 +32,11 @@
 	if(istype(pda))
 		return pda.saved_identification
 	return if_no_id
+
+/// Used to update our name based on whether our face is obscured/disfigured
+/mob/living/carbon/human/proc/update_visible_name()
+	SIGNAL_HANDLER
+	name = get_visible_name()
 
 /// Combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(add_id_name = TRUE, force_real_name = FALSE)
@@ -70,9 +75,7 @@
 /mob/living/carbon/human/proc/get_face_name(if_no_face = "Unknown")
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_face //We're Unknown, no face information for you
-	for(var/obj/item/worn_item in get_equipped_items())
-		if(!(worn_item.flags_inv & HIDEFACE))
-			continue
+	if(obscured_slots & HIDEFACE)
 		return if_no_face
 	var/obj/item/bodypart/head = get_bodypart(BODY_ZONE_HEAD)
 	if(isnull(head) || (HAS_TRAIT(src, TRAIT_DISFIGURED)) || (head.brutestate + head.burnstate) > 2 || cloneloss > 50 || !real_name ) //disfigured. use id-name if possible
@@ -249,7 +252,7 @@
 	var/obj/item/card/id/I = wear_id.GetID()
 	if(!I)
 		return
-	var/I_hud = I.hud_state
+	var/I_hud = I.get_hud_state()
 	if(I_hud)
 		return I_hud
 	return "unknown"
@@ -273,3 +276,17 @@
 
 		if (preference.is_randomizable())
 			preferences.write_preference(preference, preference.create_random_value(preferences))
+
+/// Sets both mob's and eye organ's eye color values
+/// If color_right is not passed, its assumed to be the same as color_left
+/mob/living/carbon/human/proc/set_eye_color(color_left, color_right)
+	if (!color_right)
+		color_right = color_left
+	eye_color_left = color_left
+	eye_color_right = color_right
+	// Doesn't assign eye color if they already have one from their type
+	var/obj/item/organ/eyes/eyes = get_organ_by_type(/obj/item/organ/eyes)
+	if (istype(eyes) && !initial(eyes.eye_color_left) && !initial(eyes.eye_color_right))
+		eyes.eye_color_left = color_left
+		eyes.eye_color_right = color_right
+		eyes.refresh(src, FALSE)

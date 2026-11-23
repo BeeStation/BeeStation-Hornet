@@ -8,7 +8,7 @@
 /obj/item/dyespray/attack_self(mob/user)
 	dye(user, user)
 
-/obj/item/dyespray/pre_attack(atom/target, mob/living/user, params)
+/obj/item/dyespray/pre_attack(atom/target, mob/living/user, list/modifiers, list/attack_modifiers)
 	dye(target, user)
 	return ..()
 
@@ -31,41 +31,23 @@
 		if(overlay.dyable && overlay.sprite_datum.color_src)
 			dyables += list("External Body Parts")
 			break
-
-	var/obj/item/bodypart/head/head = human_target.get_bodypart(BODY_ZONE_HEAD)
-	var/obj/item/clothing/head/wig/worn_wig = null
-
-	// Check for wig
-	if(istype(human_target.head, /obj/item/clothing/head/wig))
-		worn_wig = human_target.head
-		dyables += "Wig"
-
-	if(!head || !(head.head_flags & HEAD_HAIR) || HAS_TRAIT(human_target, TRAIT_BALD))
+	var/obj/item/bodypart/head/head =  human_target.get_bodypart(BODY_ZONE_HEAD)
+	if(!head || !(head.head_flags & HEAD_HAIR))
 		dyables -= "Hair"
-	if(!head || !(head.head_flags & HEAD_FACIAL_HAIR) || HAS_TRAIT(human_target, TRAIT_SHAVED))
+	if(!head || !(head.head_flags & HEAD_FACIAL_HAIR))
 		dyables -= "Facial Hair"
-
-	// Remove hair option if wearing a wig that hides hair
-	if(worn_wig && (worn_wig.flags_inv & HIDEHAIR))
-		dyables -= "Hair"
-
 	if(!length(dyables))
 		if(target != user)
 			to_chat(user, span_warning("[human_target] doesn't have anything that can be dyed."))
 		else
 			to_chat(user, span_warning("You have nothing to dye."))
 		return
-
 	var/what_to_dye = tgui_alert(user, "What do you want to dye?", "Character Preference", dyables)
 	if(!what_to_dye || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
 		return
 
-	if(what_to_dye == "External Bodyparts/Organs")
+	if(what_to_dye == "External Body Parts")
 		dye_organ(target, user)
-		return
-
-	if(what_to_dye == "Wig")
-		dye_wig(worn_wig, user)
 		return
 
 	var/list/choices = what_to_dye == "Hair" ? SSaccessories.hair_gradients_list : SSaccessories.facial_hair_gradients_list
@@ -75,7 +57,8 @@
 	if(!user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
 		return
 
-	var/new_grad_color = tgui_color_picker(user, "Choose a secondary hair color:", "Character Preference",human_target.grad_color)
+	var/hair_key = what_to_dye == "Hair" ? GRADIENT_HAIR_KEY : GRADIENT_FACIAL_HAIR_KEY
+	var/new_grad_color = tgui_color_picker(user, "Choose a secondary hair color:", "Character Preference", human_target.grad_color[hair_key])
 	if(!new_grad_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE) || !target.IsReachableBy(user))
 		return
 
@@ -133,22 +116,3 @@
 	if(QDELETED(selected) || !(selected in target.organs))
 		return
 	overlay.set_dye_color(new_color, selected)
-
-/obj/item/dyespray/proc/dye_wig(obj/item/clothing/head/wig/wig, mob/user)
-	if(!wig.adjustablecolor)
-		to_chat(user, span_warning("This wig cannot be dyed."))
-		return
-
-	var/new_color = tgui_color_picker(user, "Choose a color for the wig:", "Character Preference", wig.color)
-	if(!new_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
-		return
-
-	to_chat(user, span_notice("You start applying the dye to the wig..."))
-	if(!do_after(user, 3 SECONDS, wig))
-		return
-
-	wig.add_atom_colour(new_color, FIXED_COLOUR_PRIORITY)
-	wig.update_appearance()
-	to_chat(user, span_notice("You successfully dye the wig [new_color]."))
-	playsound(src, 'sound/effects/spray.ogg', 10, vary = TRUE)
-	user.update_worn_head()

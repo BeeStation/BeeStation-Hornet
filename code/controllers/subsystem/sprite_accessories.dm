@@ -23,17 +23,17 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	var/list/hair_masks_list //! stores /datum/hair_mask indexed by type
 
 	//Underwear
-	var/list/underwear_list //! stores /datum/sprite_accessory/underwear indexed by name
+	var/list/underwear_list //! stores /datum/sprite_accessory/clothing/underwear indexed by name
 	var/list/underwear_m //! stores only underwear name
 	var/list/underwear_f //! stores only underwear name
 
 	//Undershirts
-	var/list/undershirt_list //! stores /datum/sprite_accessory/undershirt indexed by name
+	var/list/undershirt_list //! stores /datum/sprite_accessory/clothing/undershirt indexed by name
 	var/list/undershirt_m //! stores only undershirt name
 	var/list/undershirt_f //! stores only undershirt name
 
 	//Socks
-	var/list/socks_list //! stores /datum/sprite_accessory/socks indexed by name
+	var/list/socks_list //! stores /datum/sprite_accessory/clothing/socks indexed by name
 
 	//Lizard Bits (all datum lists indexed by name)
 	var/list/lizard_markings_list
@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	var/list/tail_spines_list
 
 	//Mutant Human bits
-	var/list/tails_list_human
+	var/list/tails_list_felinid
 	var/list/tails_list_lizard
 	var/list/tails_list_monkey
 	var/list/ears_list
@@ -91,20 +91,20 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	facial_hairstyles_male_list = facial_hair_lists[MALE_SPRITE_LIST]
 	facial_hairstyles_female_list = facial_hair_lists[FEMALE_SPRITE_LIST]
 
-	var/underwear_lists = init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear)
+	var/underwear_lists = init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/underwear)
 	underwear_list = underwear_lists[DEFAULT_SPRITE_LIST]
 	underwear_m = underwear_lists[MALE_SPRITE_LIST]
 	underwear_f = underwear_lists[FEMALE_SPRITE_LIST]
 
-	var/undershirt_lists = init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt)
+	var/undershirt_lists = init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/undershirt)
 	undershirt_list = undershirt_lists[DEFAULT_SPRITE_LIST]
 	undershirt_m = undershirt_lists[MALE_SPRITE_LIST]
 	undershirt_f = undershirt_lists[FEMALE_SPRITE_LIST]
 
-	socks_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/socks)[DEFAULT_SPRITE_LIST]
+	socks_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/socks)[DEFAULT_SPRITE_LIST]
 
 	lizard_markings_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/lizard_markings, add_blank = TRUE)[DEFAULT_SPRITE_LIST]
-	tails_list_human = init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, add_blank = TRUE)[DEFAULT_SPRITE_LIST]
+	tails_list_felinid = init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/felinid, add_blank = TRUE)[DEFAULT_SPRITE_LIST]
 	tails_list_lizard = init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard)[DEFAULT_SPRITE_LIST]
 	tails_list_monkey = init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/monkey)[DEFAULT_SPRITE_LIST]
 	snouts_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts)[DEFAULT_SPRITE_LIST]

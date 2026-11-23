@@ -164,6 +164,9 @@
 //from base of client/MouseUp(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 
+///From /datum/component/face_decal/splat/Initialize()
+#define COMSIG_MOB_HIT_BY_SPLAT "hit_by_splat"
+
 /// Called when a mob pulls the trigger of a gun. From /obj/item/gun/proc/pull_trigger(): (atom/target, mob/living/user, params = null, aimed = GUN_NOT_AIMED)
 #define COMSIG_MOB_PULL_TRIGGER "pull_trigger"
 	/// Cancel the trigger pull
@@ -180,6 +183,9 @@
 
 /// from mob/proc/dropItemToGround()
 #define COMSIG_MOB_DROPPING_ITEM "mob_dropping_item"
+
+/// from /obj/item/reagent_containers/dropper/interact_with_atom(atom/target, mob/living/user, list/modifiers): (mob/living/user, atom/dropper, datum/reagents/reagents, fraction)
+#define COMSIG_MOB_REAGENTS_DROPPED_INTO_EYES "mob_reagents_drop_into_eyes"
 
 /// Signal sent when a blackboard key is set to a new value
 #define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"

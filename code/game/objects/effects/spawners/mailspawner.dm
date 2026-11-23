@@ -32,7 +32,6 @@
 		/obj/item/organ/wings,
 		/obj/item/organ/wings/moth,
 		/obj/item/organ/wings/bee,
-		/obj/item/organ/wings/dragon,
 	)
 	new mail_organminor(loc)
 	return ..()

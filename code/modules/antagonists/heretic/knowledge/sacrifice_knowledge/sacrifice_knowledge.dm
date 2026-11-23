@@ -201,11 +201,7 @@
 	sac_target.do_jitter_animation()
 	log_combat(heretic_mind.current, sac_target, "sacrificed")
 
-	if(sac_target.legcuffed)
-		sac_target.legcuffed.forceMove(sac_target.drop_location())
-		sac_target.legcuffed.dropped(sac_target)
-		sac_target.legcuffed = null
-		sac_target.update_worn_legcuffs()
+	sac_target.dropItemToGround(sac_target.legcuffed, TRUE)
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
@@ -419,7 +415,7 @@
 	sac_target.set_eye_blur_if_lower(100 SECONDS)
 	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.AdjustKnockdown(80)
-	sac_target.adjustStaminaLoss(120)
+	sac_target.stamina.adjust(-120)
 
 	// Glad i'm outta there, though!
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived", /datum/mood_event/shadow_realm_live)

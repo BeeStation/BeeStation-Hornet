@@ -340,13 +340,14 @@
 		for(var/obj/item/bodypart/arm in human_new_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage) + 2
+		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	if(ishuman(human_old_body))
 		human_old_body.dna.species.inherent_traits -= TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in human_old_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage)
-		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
+		human_old_body.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 
 	// Vampire Traits
@@ -688,7 +689,15 @@
 	name = "vampire team"
 
 /datum/team/vampire/roundend_report()
-	return
+	var/list/report = list()
+	for(var/datum/mind/member as anything in members)
+		var/datum/antagonist/vampire/vampire = IS_VAMPIRE(member.current)
+		if(!vampire || vampire.get_team() != src)
+			continue
+		report += vampire.roundend_report()
+	if(!length(report))
+		return
+	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
 
 /datum/antagonist/vampire/proc/on_update_sight(mob/user)
 	SIGNAL_HANDLER

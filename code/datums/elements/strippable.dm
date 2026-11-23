@@ -46,6 +46,12 @@
 	if(over != user)
 		return
 
+	// We're dragging a pet, dont open the menu to strip them
+	if(ishuman(user) && isliving(source))
+		var/mob/living/pet = source
+		if(pet.can_be_held && user.pulling == pet)
+			return
+
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/cyborg_user = user
@@ -274,10 +280,10 @@
 		return STRIPPABLE_OBSCURING_NONE
 
 	var/mob/living/carbon/carbon_source = source
-	if (carbon_source.check_obscured_slots() & item_slot)
+	if (hidden_slots_to_inventory_slots(carbon_source.obscured_slots) & item_slot)
 		return STRIPPABLE_OBSCURING_COMPLETELY
 
-	if (carbon_source.check_covered_slots() & item_slot)
+	if (hidden_slots_to_inventory_slots(carbon_source.covered_slots) & item_slot)
 		return STRIPPABLE_OBSCURING_INACCESSIBLE
 
 	return STRIPPABLE_OBSCURING_NONE

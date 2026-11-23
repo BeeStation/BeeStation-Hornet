@@ -21,6 +21,7 @@
 		/obj/item/organ/tail/lizard = "Smooth",
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard
+	mutanteyes = /obj/item/organ/eyes/lizard
 	mutantbrain = /obj/item/organ/brain/lizard
 	coldmod = 1.5
 	heatmod = 0.67
@@ -31,7 +32,7 @@
 	inert_mutation = /datum/mutation/firebreath
 	death_sound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
-	digitigrade_customization = DIGITIGRADE_OPTIONAL
+	digitigrade_customization = DIGITIGRADE_FORCED
 	blush_color = BLOOD_COLOR_LIZARD
 
 	// Lizards are coldblooded and can stand a greater temperature range than humans
@@ -47,14 +48,14 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/lizard,
 	)
 
-/// Lizards are cold blooded and do not stabilize body temperature naturally
-/datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)
-	return
-
 /datum/species/lizard/randomize_features()
 	var/list/features = ..()
 	features[FEATURE_LIZARD_MARKINGS] = pick(SSaccessories.lizard_markings_list)
 	return features
+
+/// Lizards are cold blooded and do not stabilize body temperature naturally
+/datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)
+	return
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)
 	return pick(

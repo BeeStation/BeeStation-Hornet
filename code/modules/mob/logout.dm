@@ -9,11 +9,6 @@
 	if(loc)
 		loc.on_log(FALSE)
 
-	if(client)
-		for(var/foo in client.player_details.post_logout_callbacks)
-			var/datum/callback/CB = foo
-			CB.Invoke()
-
 	for (var/datum/component/comp in GetComponents(/datum/component/moved_relay))
 		qdel(comp)
 
@@ -22,5 +17,6 @@
 		if (click_intercept == action)
 			action.unset_click_ability(src)
 
-	clear_important_client_contents(client)
+	become_uncliented()
+
 	return TRUE

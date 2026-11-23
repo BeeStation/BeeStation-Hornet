@@ -94,7 +94,7 @@
 
 	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
-	flick("coilhit", src)
+	z_flick("coilhit", src)
 
 	if(!(zap_flags & ZAP_GENERATES_POWER)) //Prevent infinite recursive power
 		return 0
@@ -158,7 +158,7 @@
 
 	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
-	flick("rpcoilhit", src)
+	z_flick("rpcoilhit", src)
 
 	zap_buckle_check(power)
 
@@ -236,7 +236,7 @@
 
 /obj/machinery/power/energy_accumulator/grounding_rod/zap_act(energy, zap_flags)
 	if(anchored && !panel_open)
-		flick("grounding_rodhit", src)
+		z_flick("grounding_rodhit", src)
 		zap_buckle_check(energy)
 		stored_energy += energy
 		return 0

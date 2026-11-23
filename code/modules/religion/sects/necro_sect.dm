@@ -153,7 +153,7 @@
 		B.icon_state = GLOB.bible_icon_state
 		B.inhand_icon_state = GLOB.bible_inhand_icon_state
 		to_chat(undead, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
-		undead.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
+		undead.equip_to_storage(B, ITEM_SLOT_BACK, del_on_fail = TRUE)
 		GLOB.religious_sect?.on_conversion(undead)
 	if(is_special_character(user))
 		to_chat(undead, span_userdanger("You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))

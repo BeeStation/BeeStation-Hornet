@@ -1,15 +1,3 @@
-
-/datum/admins/proc/create_mob(mob/user)
-	var/static/create_mob_html
-	if (!create_mob_html)
-		var/mobjs = null
-		mobjs = jointext(typesof(/mob), ";")
-		create_mob_html = rustg_file_read('html/create_object.html')
-		create_mob_html = replacetext(create_mob_html, "Create Object", "Create Mob")
-		create_mob_html = replacetext(create_mob_html, "null /* object types */", "\"[mobjs]\"")
-
-	user << browse(create_panel_helper(create_mob_html), "window=create_mob;size=425x475")
-
 /**
  * Fully randomizes everything about a human, including DNA and name.
  */
@@ -73,7 +61,7 @@
 			else
 				human.grad_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
 	var/datum/sprite_accessory/gradient_style = pick_default_accessory(SSaccessories.hair_gradients_list, required_gender = human.gender)
-	human.grad_style[GRADIENT_HAIR_KEY] = gradient_style.name
+	human.grad_style[GRADIENT_HAIR_KEY] = gradient_style?.name || SPRITE_ACCESSORY_NONE
 
 	// Normal DNA init stuff, these can generally be wacky but we care less, they're aliens after all
 	human.dna.initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = randomize_mutations, randomize_features = TRUE)

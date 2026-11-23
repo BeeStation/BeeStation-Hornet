@@ -19,4 +19,4 @@
 	var/turf/T = get_turf(component_parent.parent)
 	if(!T)
 		return
-	new /obj/effect/timestop(T, 2, ((component_parent.trait_strength/100)*max_time), component_parent.parent)
+	new /obj/effect/timestop(T, 2, ((component_parent.trait_strength/100)*max_time), list(component_parent.parent))

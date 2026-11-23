@@ -9,8 +9,6 @@
 	is_dimorphic = TRUE
 	px_x = 0
 	px_y = 0
-	stam_damage_coeff = 1
-	max_stamina_damage = 120
 	grind_results = null
 	bodypart_trait_source = CHEST_TRAIT
 	///The bodyshape(s) allowed to attach to this chest.
@@ -118,7 +116,6 @@
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
 	max_damage = 50
-	max_stamina_damage = 50
 	aux_layer = BODYPARTS_HIGH_LAYER
 	body_damage_coeff = 0.75
 	can_be_disabled = TRUE
@@ -278,6 +275,7 @@
 	body_part = ARM_RIGHT
 	plaintext_zone = "right arm"
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
+	aux_layer = BODYPARTS_HIGH_LAYER
 	held_index = 2
 	px_x = 6
 	px_y = 0
@@ -373,7 +371,6 @@
 	attack_verb_simple = list("kick", "stomp")
 	max_damage = 50
 	body_damage_coeff = 0.75
-	max_stamina_damage = 50
 	can_be_disabled = TRUE
 	unarmed_attack_effect = ATTACK_EFFECT_KICK
 	unarmed_attack_verb = "kick" // The lovely kick, typically only accessable by attacking a grouded foe. 1.5 times better than the punch.

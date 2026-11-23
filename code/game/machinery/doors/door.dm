@@ -149,19 +149,21 @@
 
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
 /obj/machinery/door/proc/activate_door_base(mob/user, can_close_door)
+	set waitfor = FALSE
 	if(user)
 		add_fingerprint(user)
 	if(operating)
 		return
 	// Cutting WIRE_IDSCAN disables normal entry
 	if(!id_scan_hacked() && allowed(user))
+		. = TRUE
 		if(density)
 			open()
 		else
 			if(!can_close_door)
 				return FALSE
 			close()
-		return TRUE
+		return .
 	if(density)
 		do_animate("deny")
 
@@ -282,17 +284,17 @@
 	switch(animation)
 		if("opening")
 			if(panel_open)
-				flick("o_doorc0", src)
+				z_flick("o_doorc0", src)
 			else
-				flick("doorc0", src)
+				z_flick("doorc0", src)
 		if("closing")
 			if(panel_open)
-				flick("o_doorc1", src)
+				z_flick("o_doorc1", src)
 			else
-				flick("doorc1", src)
+				z_flick("doorc1", src)
 		if("deny")
 			if(!machine_stat)
-				flick("door_deny", src)
+				z_flick("door_deny", src)
 
 
 /obj/machinery/door/proc/open()

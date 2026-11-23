@@ -18,6 +18,9 @@ GLOBAL_LIST_EMPTY_TYPED(has_antagonist_huds, /datum/atom_hud/alternate_appearanc
 	GLOB.has_antagonist_huds -= src
 	return ..()
 
+/datum/atom_hud/alternate_appearance/basic/has_antagonist/copy_for_mimic(image/mimic_image)
+	new type(appearance_key, mimic_image, antag_datum_type, team_ref)
+
 /datum/atom_hud/alternate_appearance/basic/has_antagonist/mobShouldSee(mob/M)
 	if(add_ghost_version && isobserver(M))
 		return FALSE // use the ghost version instead
@@ -57,6 +60,10 @@ GLOBAL_LIST_EMPTY_TYPED(has_antagonist_huds, /datum/atom_hud/alternate_appearanc
 	mind = null
 
 	return ..()
+
+// One per mind, tied to mind.current
+/datum/atom_hud/alternate_appearance/basic/antagonist_hud/copy_for_mimic(image/mimic_image)
+	return
 
 /datum/atom_hud/alternate_appearance/basic/antagonist_hud/mobShouldSee(mob/mob)
 	return Master.current_runlevel >= RUNLEVEL_POSTGAME || (mob.client?.combo_hud_enabled && !isnull(mob.client?.holder))

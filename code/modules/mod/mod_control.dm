@@ -12,6 +12,7 @@
 	icon_state = "standard-control"
 	inhand_icon_state = "mod_control"
 	base_icon_state = "control"
+	flags_1 = parent_type::flags_1 | UNPAINTABLE_1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
@@ -76,7 +77,7 @@
 	/// The MODlink datum, letting us call people from the suit.
 	var/datum/mod_link/mod_link
 	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
-	var/starting_frequency = null
+	var/starting_frequency = MODLINK_FREQ_NANOTRASEN
 	/// Delay between moves as AI.
 	var/static/movedelay = 0
 	/// Cooldown for AI moves.
@@ -105,6 +106,8 @@
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
+	if(theme.hardlight_texture)
+		install(new /obj/item/mod/module/hardlight_projector(src))
 	START_PROCESSING(SSobj, src)
 	AddElement(/datum/element/drag_pickup)
 
@@ -194,6 +197,7 @@
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
+	return ..()
 
 /obj/item/mod/control/dropped(mob/user)
 	. = ..()

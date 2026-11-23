@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	if(callout_capable)
 		desc += span_notice("It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments.")
 
-	if(item_flags & PICKED_UP && loc == user)
+	if(item_flags & IN_INVENTORY && loc == user)
 		// construction of frequency description
 		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
 		if(translate_binary)
@@ -304,7 +304,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	keyslot2 = null
 
 /obj/item/radio/headset/headset_cent/commander
-	keyslot = /obj/item/encryptionkey/heads/captain
+	keyslot2 = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/headset_cent/debug
 	keyslot = /obj/item/encryptionkey/debug
@@ -314,7 +314,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A headset especially for emergency response personnel. Protects ears from flashbangs."
 	icon_state = "cent_headset_alt"
 	worn_icon_state = "cent_headset_alt"
-	keyslot = null
 	bang_protect = 1
 
 /obj/item/radio/headset/silicon/pai

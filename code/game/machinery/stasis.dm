@@ -23,7 +23,6 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
-// dir check for buckle_lying state
 /obj/machinery/stasis/Initialize(mapload)
 	. = ..()
 	initial_link()
@@ -165,6 +164,7 @@
 	if(stasis_running())
 		if(!HAS_TRAIT(L_occupant, TRAIT_STASIS))
 			chill_out(L_occupant)
+
 	else if(HAS_TRAIT(L_occupant, TRAIT_STASIS))
 		thaw_them(L_occupant)
 

@@ -513,9 +513,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 /mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
-		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
-			var/mob/living/carbon/human/H = I.thrownby
-			retaliate(H)
+		var/mob/living/thrower = throwingdatum?.get_thrower()
+		if(I.throwforce < src.health && ishuman(thrower))
+			retaliate(thrower)
 	..()
 
 /mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
@@ -530,7 +530,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = 5
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, STAMINA)
-	C.apply_damage(70, STAMINA, BODY_ZONE_CHEST, armor_block)
+	if(C.takes_stamina_damage())
+		C.Disorient(6 SECONDS, 130, paralyze = 8 SECONDS, stack_status = FALSE, protection = armor_block, electrical = TRUE)
 	C.set_stutter_if_lower(10 SECONDS)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
@@ -555,6 +556,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		return
 	if(!C.handcuffed)
 		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
-		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()

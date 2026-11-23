@@ -16,7 +16,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	QDEL_IN(human_user.give_emote_overlay(/datum/bodypart_overlay/simple/emote/blush), 5.2 SECONDS)
+	human_user.show_emote_overlay(/datum/bodypart_overlay/simple/emote/blush, 5.2 SECONDS)
 
 /datum/emote/living/bow
 	key = "bow"
@@ -130,22 +130,22 @@
 	. = ..()
 	if(!. && !ishuman(user))
 		return
-
 	var/mob/living/carbon/human/human_user = user
-	var/open = FALSE
 	var/obj/item/organ/wings/wings = human_user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 
-	// open/close wings
-	if(istype(wings))
-		if(wings.wings_open)
-			open = TRUE
-			wings.close_wings()
-		else
-			wings.open_wings()
-		addtimer(CALLBACK(wings,  open ? TYPE_PROC_REF(/obj/item/organ/wings, open_wings) : TYPE_PROC_REF(/obj/item/organ/wings, close_wings)), wing_time)
-
 	// play a flapping noise if the wing has this implemented
+	if(!istype(wings))
+		return
 	wings.make_flap_sound(human_user)
+
+	if(!wings.can_open())
+		return
+	var/open = wings.wings_open
+	if(open)
+		wings.close_wings()
+	else
+		wings.open_wings()
+	addtimer(CALLBACK(wings, open ? TYPE_PROC_REF(/obj/item/organ/wings, open_wings) : TYPE_PROC_REF(/obj/item/organ/wings, close_wings)), wing_time)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -744,12 +744,38 @@
 	key_third_person = "gasps"
 	message = "gasps"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE // You can see a person gasping.
+	stat_allowed = SOFT_CRIT
 
 /datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	return H?.dna?.species?.get_gasp_sound(H)
+	. = H.dna?.species?.get_gasp_sound(H)
+	if(!.)
+		return
+	//Dying gasps
+	if(H.undergoing_cardiac_arrest())
+		if(H.gender == FEMALE)
+			return pick(
+				'goon/sounds/voice/gasp/female_gasp_1.ogg',
+				'goon/sounds/voice/gasp/female_gasp_2.ogg',
+				'goon/sounds/voice/gasp/female_gasp_3.ogg',
+			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_1.ogg',
+			'goon/sounds/voice/gasp/male_gasp_2.ogg',
+			'goon/sounds/voice/gasp/male_gasp_3.ogg',
+		)
+	if(H.health <= H.crit_threshold)
+		if(H.gender == FEMALE)
+			return pick(
+				'goon/sounds/voice/gasp/female_gasp_4.ogg',
+				'goon/sounds/voice/gasp/female_gasp_5.ogg',
+			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_4.ogg',
+			'goon/sounds/voice/gasp/male_gasp_5.ogg',
+		)
 
 /datum/emote/living/must_breathe/huff
 	key = "huff"

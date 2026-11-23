@@ -5,6 +5,10 @@
 // /obj/item signals
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
+///From base of obj/item/on_equipped() (mob/equipped, slot)
+#define COMSIG_ITEM_POST_EQUIPPED "item_post_equipped"
+	/// This will make the on_equipped proc return FALSE.
+	#define COMPONENT_EQUIPPED_FAILED (1<<0)
 /// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
 #define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 /// A mob has just unequipped an item.
@@ -151,3 +155,8 @@
 
 /// Called by poison paper when a user applies it (atom/target, mob/living/user)
 #define COMSIG_POISON_PAPER_APPLIED "posion_paper_applied"
+
+/// Sent from /obj/item/organ/wings/proc/open_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_OPENED "wings_opened"
+/// Sent from /obj/item/organ/wings/proc/close_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_CLOSED "wings_closed"

@@ -135,9 +135,9 @@
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/choice_beacon/radial/music/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
+	var/list/slots = list(
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
@@ -161,8 +161,9 @@
 /datum/quirk/plushielover/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/choice_beacon/radial/plushie/B = new(get_turf(H))
-	var/list/slots = list (
-		"hands" = ITEM_SLOT_HANDS,
+	var/list/slots = list(
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
 	)
 	H.equip_in_one_of_slots(B, slots, qdel_on_fail = TRUE)
 
@@ -178,8 +179,8 @@
 
 /datum/quirk/spiritual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACKPACK)
-	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACKPACK)
+	H.equip_to_storage(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
+	H.equip_to_storage(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
@@ -234,6 +235,7 @@
 	icon = "fa-eye"
 	medical_record_text = "Fucking creep kept staring at me the whole damn checkup. I'm only diagnosing this because it's less awkward than thinking it was on purpose."
 	mob_trait = TRAIT_SHIFTY_EYES
+
 /datum/quirk/item_quirk/bald
 	name = "Smooth-Headed"
 	desc = "You have no hair and are quite insecure about it! Keep your wig on, or at least your head covered up."
@@ -262,7 +264,7 @@
 
 	baldie_wig.update_appearance()
 
-	give_item_to_holder(baldie_wig, list(LOCATION_HEAD = ITEM_SLOT_HEAD, LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS), notify_player = FALSE)
+	give_item_to_holder(baldie_wig, list(LOCATION_HEAD = ITEM_SLOT_HEAD, LOCATION_BACKPACK = ITEM_SLOT_BACK, LOCATION_HANDS = ITEM_SLOT_HANDS), notify_player = FALSE)
 
 /datum/quirk/item_quirk/bald/give_item_to_holder(obj/item/quirk_item, list/valid_slots, flavour_text = null, default_location = "at your feet", notify_player = TRUE)
 	var/any_head = FALSE

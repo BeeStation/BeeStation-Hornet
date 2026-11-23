@@ -1,4 +1,5 @@
-///Tail parent, it doesn't do very much.
+// Note: tails only work in humans. They use human-specific parameters and rely on human code for displaying.
+
 /obj/item/organ/tail
 	name = "tail"
 	desc = "A severed tail. What did you cut this off of?"
@@ -94,7 +95,7 @@
 /obj/item/organ/tail/proc/start_wag(mob/living/carbon/organ_owner, stop_after = INFINITY)
 	if(wag_flags & WAG_WAGGING || !(wag_flags & WAG_ABLE)) // we are already wagging
 		return FALSE
-	if(organ_owner.stat == DEAD || organ_owner != owner) // no wagging when owner is dead or tail has been disembodied
+	if(IS_UNCONSCIOUS_OR_CRIT(organ_owner) || organ_owner != owner) // no wagging when owner is ko'd or tail has been disembodied
 		return FALSE
 
 	if(stop_after != INFINITY)
@@ -106,12 +107,13 @@
 	if(tail_spines_overlay) //if there are spines, they should wag with the tail
 		tail_spines_overlay.wagging = TRUE
 	organ_owner.update_body_parts()
-	RegisterSignal(organ_owner, COMSIG_LIVING_DEATH, PROC_REF(owner_died))
+	RegisterSignals(organ_owner, list(COMSIG_MOB_STATCHANGE, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT)), PROC_REF(owner_kod))
 	return TRUE
 
-/obj/item/organ/tail/proc/owner_died(mob/living/carbon/organ_owner) // Resisting the urge to replace owner with daddy
+/obj/item/organ/tail/proc/owner_kod(mob/living/carbon/organ_owner) // Resisting the urge to replace owner with daddy
 	SIGNAL_HANDLER
-	stop_wag(organ_owner)
+	if(IS_UNCONSCIOUS_OR_CRIT(organ_owner))
+		stop_wag(organ_owner)
 
 ///We need some special behaviour for accessories, wrapped here so we can easily add more interactions later
 ///Returns false if the wag stopping worked, true otherwise
@@ -132,31 +134,33 @@
 		return succeeded
 
 	organ_owner.update_body_parts()
-	UnregisterSignal(organ_owner, COMSIG_LIVING_DEATH)
+	UnregisterSignal(organ_owner, list(COMSIG_MOB_STATCHANGE, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT)))
 	return succeeded
 
 ///Tail parent type, with wagging functionality
 /datum/bodypart_overlay/mutant/tail
-	layers = EXTERNAL_FRONT|EXTERNAL_BEHIND
+	layers = list(
+		EXTERNAL_FRONT = BODY_FRONT_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER,
+	)
+	dyable = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
+	mesh_in_suits = TRUE
+	/// Tracks if it's currently wagging or not
 	var/wagging = FALSE
 
 /datum/bodypart_overlay/mutant/tail/get_base_icon_state()
 	return "[wagging ? "wagging_" : ""][sprite_datum.icon_state]" //add the wagging tag if we be wagging
 
-/datum/bodypart_overlay/mutant/tail/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
-	var/mob/living/carbon/human/human = bodypart_owner.owner
-	if(!istype(human))
-		return TRUE
-	if(human.wear_suit?.flags_inv & HIDEJUMPSUIT)
-		return FALSE
-	return TRUE
+/datum/bodypart_overlay/mutant/tail/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
+	return ..() && !is_obscured(bodypart_owner, HIDEJUMPSUIT)
 
 /obj/item/organ/tail/cat
 	name = "cat tail"
 	desc = "A severed cat tail. Who's wagging now?"
-	preference = "feature_human_tail"
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/cat
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	wag_flags = WAG_ABLE
 
@@ -164,24 +168,22 @@
 
 ///Cat tail bodypart overlay
 /datum/bodypart_overlay/mutant/tail/cat
-	feature_key = "tail_cat"
+	feature_key = FEATURE_TAIL_CAT
 	color_source = ORGAN_COLOR_HAIR
 
-/datum/bodypart_overlay/mutant/tail/get_global_feature_list()
-	return SSaccessories.tails_list_human
+/datum/bodypart_overlay/mutant/tail/cat/get_global_feature_list()
+	return SSaccessories.tails_list_felinid
 
 /obj/item/organ/tail/monkey
 	name = "monkey tail"
-	preference = "feature_monkey_tail"
-
-	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/monkey
-
+	icon_state = "severedmonkeytail"
 	dna_block = null
+	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/monkey
 
 ///Monkey tail bodypart overlay
 /datum/bodypart_overlay/mutant/tail/monkey
 	color_source = NONE
-	feature_key = "tail_monkey"
+	feature_key = FEATURE_TAIL_MONKEY
 
 /datum/bodypart_overlay/mutant/tail/monkey/get_global_feature_list()
 	return SSaccessories.tails_list_monkey
@@ -189,7 +191,6 @@
 /obj/item/organ/tail/lizard
 	name = "lizard tail"
 	desc = "A severed lizard tail. Somewhere, no doubt, a lizard hater is very pleased with themselves."
-	preference = "feature_lizard_tail"
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/lizard
 
@@ -198,7 +199,8 @@
 
 ///Lizard tail bodypart overlay datum
 /datum/bodypart_overlay/mutant/tail/lizard
-	feature_key = "tail_lizard"
+	feature_key = FEATURE_TAIL_LIZARD
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 
 /datum/bodypart_overlay/mutant/tail/lizard/get_global_feature_list()
 	return SSaccessories.tails_list_lizard
@@ -209,8 +211,14 @@
 
 ///Bodypart overlay for tail spines. Handled by the tail - has no actual organ associated.
 /datum/bodypart_overlay/mutant/tail_spines
-	layers = EXTERNAL_ADJACENT|EXTERNAL_BEHIND
-	feature_key = "tailspines"
+	layers = list(
+		EXTERNAL_ADJACENT = BODY_ADJ_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER
+	)
+	feature_key = FEATURE_TAILSPINES
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
+	mesh_in_suits = TRUE
 	///Spines wag when the tail does
 	var/wagging = FALSE
 	/// Key for tail spine states, depends on the shape of the tail. Defined in the tail sprite datum.
@@ -222,10 +230,69 @@
 /datum/bodypart_overlay/mutant/tail_spines/get_base_icon_state()
 	return (!isnull(tail_spine_key) ? "[tail_spine_key]_" : "") + (wagging ? "wagging_" : "") + sprite_datum.icon_state // Select the wagging state if appropriate
 
-/datum/bodypart_overlay/mutant/tail_spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
-	var/mob/living/carbon/human/human = bodypart_owner.owner
-	if(!istype(human))
-		return TRUE
-	if(human.wear_suit?.flags_inv & HIDEJUMPSUIT)
+/datum/bodypart_overlay/mutant/tail_spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
+	return ..() && !is_obscured(bodypart_owner, HIDEJUMPSUIT)
+
+/datum/bodypart_overlay/mutant/tail_spines/set_dye_color(new_color, obj/item/organ/organ)
+	dye_color = new_color //no update_body_parts() call, tail/set_dye_color will do it.
+
+///Snowflake
+/obj/item/organ/apid_stinger
+	name = "apid stinger"
+	desc = "An apid stinger. Who pissed off the bee?"
+	visual = FALSE
+	icon_state = "beestinger"
+	zone = BODY_ZONE_PRECISE_GROIN
+	slot = ORGAN_SLOT_EXTERNAL_TAIL
+	actions_types = list(/datum/action/item_action/organ_action/use/bee_sting)
+
+/datum/action/item_action/organ_action/use/bee_sting
+	requires_target = TRUE
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS | AB_CHECK_HANDS_BLOCKED
+	cooldown_time = 2 MINUTES
+
+/datum/action/item_action/organ_action/use/bee_sting/set_click_ability(mob/on_who)
+	. = ..()
+	if(!.)
+		return
+	to_chat(on_who, ("<span class='notice'>You prepare to sting. <B>Left-click your target!</B></span>"))
+	update_buttons()
+
+/datum/action/item_action/organ_action/use/bee_sting/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
+	. = ..()
+	if(!.)
+		return
+
+	if(refund_cooldown)
+		to_chat(on_who, ("<span class='notice'>You are no longer prepared to sting.</span>"))
+	update_buttons()
+
+/datum/action/item_action/organ_action/use/bee_sting/on_activate(mob/user, atom/target)
+	if(!owner.Adjacent(target))
+		owner.balloon_alert(owner, "Your stinger can't reach that far!")
 		return FALSE
-	return TRUE
+
+	if(!isliving(target))
+		return FALSE
+
+	if(target == owner)
+		return FALSE
+
+	var/mob/living/living_target = target
+	playsound(living_target, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
+	if(living_target.can_inject(user, user.get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK))
+
+		living_target.visible_message(span_danger("[user] stings [living_target]!"), \
+					span_userdanger("You're stung by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_danger("You sting [living_target]!"))
+		log_combat(user, living_target, "apid sting", user)
+		living_target.reagents.add_reagent(/datum/reagent/toxin/apidvenom, 10)
+		start_cooldown()
+		return TRUE
+	else
+		living_target.visible_message(span_danger("[user] tries to sting [living_target]!"), \
+					span_userdanger("[user] tries to sting you, but it deflects off!"), null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_danger("You fail to sting [living_target]!"))
+		log_combat(user, living_target, "attempted and failed apid sting", user)
+		unset_click_ability()
+		return FALSE

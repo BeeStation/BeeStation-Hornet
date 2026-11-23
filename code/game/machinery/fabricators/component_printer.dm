@@ -109,7 +109,7 @@
 	return TRUE
 
 /obj/machinery/module_duplicator/proc/print_module(list/design)
-	flick("module-fab-print", src)
+	z_flick("module-fab-print", src)
 	addtimer(CALLBACK(src, PROC_REF(finish_module_print), design), 1.6 SECONDS)
 
 /obj/machinery/module_duplicator/proc/finish_module_print(list/design)
@@ -167,7 +167,7 @@
 			balloon_alert(user, "name already exists!")
 			return ..()
 
-	flick("module-fab-scan", src)
+	z_flick("module-fab-scan", src)
 	addtimer(CALLBACK(src, PROC_REF(finish_module_scan), user, data), 1.4 SECONDS)
 
 /obj/machinery/module_duplicator/proc/finish_module_scan(mob/user, data)
