@@ -229,7 +229,7 @@
 			sound_to_use.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
 	if(HAS_UNIQUE_SOUND_CHANNEL(sound_to_use))
-		client?.sound_channel_initial_volumes["[sound_to_use.channel]"] = sound_to_use.volume
+		client?.sound_channel_initial_volumes[sound_to_use.channel] = sound_to_use.volume
 
 	// Apply user-specific volume modifier, if necessary
 	if(ispath(volume_preference) && client.prefs)
@@ -293,7 +293,7 @@
 		if(fade_time > 0) // handled by the sound_fade() call
 			continue
 
-		hearer.client?.sound_channel_initial_volumes["[CHANNEL_SOUNDTRACK]"] = initial(song.volume)
+		hearer.client?.sound_channel_initial_volumes[CHANNEL_SOUNDTRACK] = initial(song.volume)
 
 		var/pref_volume = hearer.client?.prefs?.read_player_preference(/datum/preference/numeric/volume/sound_soundtrack_volume)
 		var/sound/sound = sound(initial(song.file), volume = initial(song.volume) * (pref_volume / 100), wait = FALSE, channel = CHANNEL_SOUNDTRACK)
@@ -336,7 +336,7 @@
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
-	sound_channel_initial_volumes["[CHANNEL_LOBBYMUSIC]"] = 100 * volume_multiplier
+	sound_channel_initial_volumes[CHANNEL_LOBBYMUSIC] = 100 * volume_multiplier
 	var/music_volume = prefs?.read_preference(/datum/preference/numeric/volume/sound_lobby_volume) * volume_multiplier
 	SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = music_volume, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 

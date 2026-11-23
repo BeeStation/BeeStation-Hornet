@@ -216,11 +216,7 @@
 	/// Port currently used by this client's Dream Seeker
 	var/seeker_port
 
-	/// An associative list of unique sound channels to their initial volume.
+	/// An alist of unique sound channels to their initial volume.
 	/// Used so we can update channel volumes based on player preferences without restarting audio.
-	/**
-	 * examples:
-	 * "CHANNEL_LOBBYMUSIC" = 100,
-	 * "CHANNEL_AMBIENT_MUSIC" = 75,
-	*/
-	var/list/sound_channel_initial_volumes = list()
+	/// e.g: [CHANNEL_LOBBYMUSIC --> 100, CHANNEL_AMBIENT_MUSIC --> 75]
+	var/alist/sound_channel_initial_volumes = alist()

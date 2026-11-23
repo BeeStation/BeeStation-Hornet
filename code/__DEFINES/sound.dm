@@ -16,7 +16,7 @@
 //KEEP IT UPDATED
 #define CHANNEL_HIGHEST_AVAILABLE 1011
 
-/// Used for /client/var/list/sound_channel_initial_volumes
+/// Used for /client/var/alist/sound_channel_initial_volumes
 #define HAS_UNIQUE_SOUND_CHANNEL(sound) (sound.channel > CHANNEL_HIGHEST_AVAILABLE)
 
 /// This is the lowest volume that can be used by playsound otherwise it gets ignored
