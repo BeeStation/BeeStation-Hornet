@@ -258,15 +258,21 @@ const TechwebOverview = (props) => {
 
   displayedNodes = nodes
     .filter((x) => (tabIndex < 2 ? x.tier === tabIndex : x.tier >= tabIndex))
-    .sort((a, b) => node_cache[a.path].name.localeCompare(node_cache[b.path].name));
+    .sort((a, b) =>
+      node_cache[a.path].name.localeCompare(node_cache[b.path].name),
+    );
 
   researchednodes = nodes
     .filter((x) => x.tier === 1)
-    .sort((a, b) => node_cache[a.path].name.localeCompare(node_cache[b.path].name));
+    .sort((a, b) =>
+      node_cache[a.path].name.localeCompare(node_cache[b.path].name),
+    );
 
   futurenodes = nodes
     .filter((x) => x.tier === 2)
-    .sort((a, b) => node_cache[a.path].name.localeCompare(node_cache[b.path].name));
+    .sort((a, b) =>
+      node_cache[a.path].name.localeCompare(node_cache[b.path].name),
+    );
   if (searching) {
     displayedNodes = filterSearchNodes(displayedNodes);
     researchednodes = filterSearchNodes(researchednodes);

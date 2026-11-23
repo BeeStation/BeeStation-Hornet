@@ -45,7 +45,9 @@ export const ExosuitFabricator = () => {
                       color="transparent"
                       onClick={() =>
                         act('build', {
-                          designs: category.children.map((design) => design.path),
+                          designs: category.children.map(
+                            (design) => design.path,
+                          ),
                         })
                       }
                     >

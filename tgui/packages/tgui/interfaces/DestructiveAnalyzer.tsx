@@ -95,9 +95,7 @@ export const DestructiveAnalyzer = (props) => {
                     ? 'This item item has already been deconstructed, and will not give any additional information.'
                     : 'Destroys the object currently residing in the machine.'
                 }
-                onClick={() =>
-                  act('deconstruct')
-                }
+                onClick={() => act('deconstruct')}
               >
                 Deconstruct
               </Button.Confirm>
