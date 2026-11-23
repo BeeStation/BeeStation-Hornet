@@ -11,7 +11,7 @@ import { affordableAmount } from './Fabricator';
 
 type QueueJob = {
   jobId: string;
-  designId: string;
+  designPath: string;
   processing: boolean;
   timeLeft: number;
 };
@@ -45,7 +45,7 @@ export const ExosuitFabricator = () => {
                       color="transparent"
                       onClick={() =>
                         act('build', {
-                          designs: category.children.map((design) => design.id),
+                          designs: category.children.map((design) => design.path),
                         })
                       }
                     >
@@ -85,7 +85,7 @@ const Recipe = (props: { design: Design; available: MaterialMap }) => {
     ([material, cost]) => cost > (props.available[material] || 0),
   );
   const queue = (amount = 1) =>
-    act('queue_item', { design_id: props.design.id, amount });
+    act('queue_item', { design_path: props.design.path, amount });
 
   return (
     <div className="FabricatorRecipe">
@@ -158,7 +158,7 @@ const CustomQueue = (props: { design: Design; available: MaterialMap }) => {
         color="transparent"
         content={`×${max}`}
         onCommit={(_event, value: string) =>
-          act('queue_item', { design_id: props.design.id, amount: value })
+          act('queue_item', { design_path: props.design.path, amount: value })
         }
       />
     </div>
@@ -169,7 +169,7 @@ const Queue = (props: { availableMaterials: MaterialMap }) => {
   const { act, data } = useBackend<Data>();
   const materialCosts: MaterialMap = {};
   for (const job of data.queue || []) {
-    const design = data.designs[job.designId];
+    const design = data.designs[job.designPath];
     for (const [material, amount] of Object.entries(design?.cost || {})) {
       materialCosts[material] = (materialCosts[material] || 0) + amount;
     }
@@ -233,7 +233,7 @@ const QueueList = (props: { availableMaterials: MaterialMap }) => {
   const accumulated: MaterialMap = {};
 
   return (data.queue || []).map((job, index) => {
-    const design = data.designs[job.designId];
+    const design = data.designs[job.designPath];
     const canBuild = !Object.entries(design?.cost || {}).some(
       ([material, amount]) =>
         (accumulated[material] = (accumulated[material] || 0) + amount) >

@@ -1,5 +1,4 @@
 /datum/techweb_node/base
-	tech_tier = 0
 	display_name = "Basic Research Technology"
 	description = "NT default research technologies."
 	node_flags = parent_type::node_flags | TECHWEB_NODE_STARTER
@@ -58,7 +57,6 @@
 	)
 
 /datum/techweb_node/basic_tools
-	tech_tier = 0
 	display_name = "Basic Tools"
 	description = "Basic mechanical, electronic, surgical and botanical tools."
 	node_flags = parent_type::node_flags | TECHWEB_NODE_STARTER

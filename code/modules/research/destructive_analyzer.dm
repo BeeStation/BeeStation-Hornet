@@ -56,8 +56,7 @@
 		data["indestructible"] = !(loaded_item.resistance_flags & INDESTRUCTIBLE)
 		data["loaded_item"] = loaded_item
 		data["already_deconstructed"] = !!stored_research.deconstructed_items[loaded_item.type]
-		var/list/points = SSresearch.techweb_point_items[loaded_item.type]
-		data["recoverable_points"] = techweb_point_display_generic(points)
+		data["recoverable_points"] = techweb_point_display_generic(SSresearch.techweb_point_items[loaded_item.type])
 
 		var/list/boostable_nodes = SSresearch.techweb_unlock_items[loaded_item.type]
 		for(var/node_path in boostable_nodes)

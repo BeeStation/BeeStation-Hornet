@@ -143,10 +143,9 @@
 	tech_tier = 5
 	display_name = "Illegal Synth Upgrades"
 	description = "Illegal devices that interface with energy-based humaniods, namely IPCs."
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/upgrades_advanced, /datum/techweb_node/syndicate_basic)
 	unlocked_designs = list(
 		/datum/design/ipc_upgrade/leap_legs,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_3_POINTS)
-	unhide_from_prereqs = TRUE

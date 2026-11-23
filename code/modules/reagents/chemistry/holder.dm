@@ -1141,7 +1141,7 @@
 					tastes[taste_desc] = taste_amount
 		//deal with percentages
 		// TODO it would be great if we could sort these from strong to weak
-		var/total_taste = counterlist_sum(tastes)
+		var/total_taste = values_sum(tastes)
 		if(total_taste > 0)
 			for(var/taste_desc in tastes)
 				var/percent = tastes[taste_desc]/total_taste * 100

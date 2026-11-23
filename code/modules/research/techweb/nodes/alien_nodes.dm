@@ -124,12 +124,11 @@
 /datum/techweb_node/alien/nullspacebreaching
 	display_name = "Nullspace Breaching"
 	description = "Research into voidspace tunnelling, allowing us to significantly reduce flight times."
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/alien/base, /datum/techweb_node/basic_shuttle_tech)
 	unlocked_designs = list(
 		/datum/design/board/shuttle_void_engine,
 		/datum/design/wingpack_alien,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
-	unhide_from_prereqs = TRUE
 	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SCIENCE)

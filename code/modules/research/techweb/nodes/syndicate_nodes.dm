@@ -37,31 +37,28 @@
 	tech_tier = 5
 	display_name = "Unregulated Bluespace Research"
 	description = "Bluespace technology using unstable or unbalanced procedures, prone to damaging the fabric of bluespace. Outlawed by galactic conventions."
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/bluespace_travel, /datum/techweb_node/syndicate_basic)
 	unlocked_designs = list(/datum/design/desynchronizer)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/sticky_basic
 	tech_tier = 3
 	display_name = "Basic Sticky Technology"
 	description = "The only thing left to do after researching this tech is to start printing out a bunch of 'kick me' signs."
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/adv_engi, /datum/techweb_node/syndicate_basic)
 	unlocked_designs = list(/datum/design/sticky_tape)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/sticky_advanced
 	tech_tier = 4
 	display_name = "Advanced Sticky Technology"
 	description = "Taking a good joke too far? Nonsense!"
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/sticky_basic)
 	unlocked_designs = list(
 		/datum/design/pointy_tape,
 		/datum/design/super_sticky_tape,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	unhide_from_prereqs = TRUE

@@ -74,19 +74,18 @@
 	UnregisterSignal(artifact_component, COMSIG_QDELETING)
 	artifact_component = null
 
-/obj/item/sticker/artifact_tracker/proc/catch_activation(datum/source, priority)
+/obj/item/sticker/artifact_tracker/proc/catch_activation(datum/component/xenoartifact/source, priority)
 	SIGNAL_HANDLER
 
 	if(priority != TRAIT_PRIORITY_ACTIVATOR)
 		return
-	for(var/reward in rewards)
-		//Reward
-		var/reward_amount = rewards[reward]
-		linked_techweb?.add_point_type(reward, reward_amount)
-		//Message
-		if(!use_radio)
-			return
-		var/datum/component/xenoartifact/artifact_component = source
-		var/message = "[artifact_component.parent] has generated [reward_amount] points of [reward] at [get_area(get_turf(src))]."
+
+	linked_techweb?.adjust_multiple_points(rewards)
+	if(!use_radio)
+		return
+	//Message
+	var/our_area = get_area_name(src)
+	for(var/reward, reward_amount in rewards)
+		var/message = "[source.parent] has generated [reward_amount] points of [reward] at [our_area]."
 		say(message)
 		radio?.talk_into(src, message, RADIO_CHANNEL_SCIENCE)

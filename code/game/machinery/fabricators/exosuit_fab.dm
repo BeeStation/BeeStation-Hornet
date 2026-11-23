@@ -39,8 +39,8 @@
 
 	if(being_built)
 		data["queue"] += list(list(
-			"jobId" = "building-[being_built.id]",
-			"designId" = being_built.id,
+			"jobId" = "building-[being_built.type]",
+			"designPath" = being_built.type,
 			"processing" = TRUE,
 			"timeLeft" = max(process_completion_world_tick - world.time, 0),
 		))

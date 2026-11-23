@@ -17,11 +17,12 @@ SUBSYSTEM_DEF(research)
 
 	/// A list of techweb node paths that all techwebs start with.
 	var/list/techweb_nodes_starting = list()
+	/// A list of techweb node paths that are hidden by default. Associative for faster lookups.
+	var/list/techweb_nodes_hidden = list()
 	/// An associative list of item paths to a list of techweb nodes that depend on that item.
 	/// e.g: [/obj/item/scalpel/alien --> [/datum/techweb_node/alien/base, /datum/techweb_node/alien/engi...]]
 	var/list/techweb_unlock_items = list()
-	/// A list of techweb node paths that are hidden by default. Associative for faster lookups.
-	var/list/techweb_nodes_hidden = list()
+
 	/// An associative list of item paths to a list of points granted. Used in the destructive analyzer only.
 	var/list/techweb_point_items = list(
 		/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS, TECHWEB_POINT_TYPE_DISCOVERY = TECHWEB_TIER_4_POINTS)
@@ -30,7 +31,7 @@ SUBSYSTEM_DEF(research)
 	var/list/point_types = TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES
 
 	/// An associative lazy list of queued techweb nodes to create an announcement for
-	/// radio channel --> list(node_path)
+	/// e.g: [RADIO_CHANNEL_SCIENCE --> [/datum/techweb_node/engineering, /datum/techweb_node/adv_engi]]
 	var/list/researched_node_announcement_queue
 	/// Whether or not we're queued to announce our researched nodes in the next ~10 seconds
 	var/node_announcement_queued = FALSE
@@ -105,7 +106,7 @@ SUBSYSTEM_DEF(research)
  * Goes through all techwebs and goes through their servers to find ones on a valid z-level
  * Returns the full list of all techweb servers.
  */
-/datum/controller/subsystem/research/proc/get_available_servers(turf/location)
+/datum/controller/subsystem/research/proc/get_available_servers(turf/location) as /list
 	var/list/local_servers = list()
 	if(location)
 		for (var/datum/techweb/individual_techweb as anything in techwebs)
@@ -118,7 +119,7 @@ SUBSYSTEM_DEF(research)
  * Args:
  * - checking_web - The techweb we're checking the servers of.
  */
-/datum/controller/subsystem/research/proc/find_valid_servers(turf/location, datum/techweb/checking_web)
+/datum/controller/subsystem/research/proc/find_valid_servers(turf/location, datum/techweb/checking_web) as /list
 	var/list/valid_servers = list()
 	for(var/obj/machinery/rnd/server/server as anything in checking_web.techweb_servers)
 		if(!is_valid_z_level(get_turf(server), location))
@@ -133,10 +134,8 @@ SUBSYSTEM_DEF(research)
  * we batch all nodes researched in a 10 second time-frame
  */
 /datum/controller/subsystem/research/proc/update_announcement_queue(list/channels_to_use, node)
-	LAZYINITLIST(researched_node_announcement_queue)
 	for(var/radio_channel in channels_to_use)
-		LAZYINITLIST(researched_node_announcement_queue[radio_channel])
-		LAZYADDASSOC(researched_node_announcement_queue, radio_channel, node)
+		LAZYORASSOCLIST(researched_node_announcement_queue, radio_channel, node)
 	if(!node_announcement_queued)
 		node_announcement_queued = TRUE
 		addtimer(CALLBACK(src, PROC_REF(announce_research_queue)), 10 SECONDS)
@@ -157,4 +156,4 @@ SUBSYSTEM_DEF(research)
 	var/list/ret = list()
 	for(var/point_type, point_amount in point_list)
 		ret += "[SSresearch.point_types[point_type] || "ERRORED POINT TYPE"]: [point_amount]"
-	return ret.Join("<BR>")
+	return jointext(ret, "<br>")

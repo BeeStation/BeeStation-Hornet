@@ -112,31 +112,28 @@
 	tech_tier = 4
 	display_name = "Exosuit Weapon (CH-PS \"Immolator\" Laser)"
 	description = "A basic piece of mech weaponry"
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/beam_weapons)
 	unlocked_designs = list(/datum/design/mech_laser)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/mech_laser_heavy
 	tech_tier = 4
 	display_name = "Exosuit Weapon (CH-LC \"Solaris\" Laser Cannon)"
 	description = "An advanced piece of mech weaponry"
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/adv_beam_weapons)
 	unlocked_designs = list(/datum/design/mech_laser_heavy)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/mech_disabler
 	tech_tier = 4
 	display_name =  "Exosuit Weapon (CH-DS \"Peacemaker\" Mounted Disabler)"
 	description = "A basic piece of mech weaponry"
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/beam_weapons)
 	unlocked_designs = list(/datum/design/mech_disabler)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/mech_grenade_launcher
 	tech_tier = 4

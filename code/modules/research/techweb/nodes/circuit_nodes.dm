@@ -1,5 +1,4 @@
 /datum/techweb_node/basic_circuitry
-	tech_tier = 0
 	display_name = "Basic Integrated Circuits"
 	description = "Research on how to fully exploit the power of integrated circuits"
 	node_flags = parent_type::node_flags | TECHWEB_NODE_STARTER

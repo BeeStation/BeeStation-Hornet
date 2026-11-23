@@ -21,26 +21,12 @@
 
 /datum/techweb/oldstation/New()
 	. = ..()
-	research_node(/datum/techweb_node/oldstation_surgery, TRUE, TRUE, FALSE)
+	research_node(/datum/techweb_node/oldstation_surgery, force = TRUE, apply_cost = TRUE)
 
 /datum/techweb/golem
 	id = "GOLEM"
 	organization = "Free Golems"
 	should_generate_points = TRUE
-
-/**
- * Admin techweb that has everything unlocked by default
- */
-/datum/techweb/admin
-	id = "ADMIN"
-	organization = "Central Command"
-
-/datum/techweb/admin/New()
-	. = ..()
-	for(var/node_path, node in SSresearch.techweb_nodes)
-		research_node(node, TRUE, TRUE)
-	adjust_all_points(INFINITY)
-	hidden_nodes.Cut()
 
 GLOBAL_LIST_EMPTY(autounlock_techwebs)
 

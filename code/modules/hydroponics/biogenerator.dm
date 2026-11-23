@@ -275,7 +275,7 @@
 
 /obj/machinery/biogenerator/ui_data(mob/user)
 	var/list/data = list()
-	data["beaker"] = beaker ? TRUE : FALSE
+	data["beaker"] = !!beaker
 	data["biomass"] = points
 	data["processing"] = processing
 	if(locate(/obj/item/food/grown) in contents)
@@ -308,7 +308,7 @@
 				"path" = design.type,
 				"name" = design.name,
 				"icon" = design.asset_id,
-				"is_reagent" = !isnull(design.make_reagent),
+				"is_reagent" = !!LAZYLEN(design.make_reagents),
 				"cost" = design.materials[SSmaterials.GetMaterialRef(/datum/material/biomass)] / efficiency,
 			))
 		data["categories"] += list(cat)
@@ -329,9 +329,6 @@
 			return TRUE
 		if("create")
 			var/design_path = text2path(params["design_path"])
-			if(!design_path)
-				return
-
 			if(!stored_research.researched_designs[design_path])
 				return
 

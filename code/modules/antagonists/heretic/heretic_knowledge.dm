@@ -451,7 +451,7 @@
 /datum/heretic_knowledge/ultimate/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	var/total_points = 0
-	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(our_heretic.researched_knowledge))
+	for(var/datum/heretic_knowledge/knowledge as anything in assoc_to_values(our_heretic.researched_knowledge))
 		total_points += knowledge.cost
 
 /datum/heretic_knowledge/ultimate/can_be_invoked(datum/antagonist/heretic/invoker)

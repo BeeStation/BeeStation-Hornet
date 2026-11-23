@@ -20,7 +20,5 @@
 	custom_materials = null
 
 /obj/item/disk/tech_disk/debug/Initialize(mapload)
-	var/datum/techweb/admin/admin_techweb = locate() in SSresearch.techwebs
-	admin_techweb ||= new()
-	stored_nodes = admin_techweb.researched_nodes.Copy()
+	stored_nodes = make_associative(SSresearch.techweb_nodes) // contains every node
 	return ..()

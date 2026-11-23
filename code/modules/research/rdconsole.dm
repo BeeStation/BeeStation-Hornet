@@ -103,49 +103,61 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
-/obj/machinery/computer/rdconsole/proc/research_node(id, mob/user)
-	if(!stored_research || !stored_research.available_nodes[id] || stored_research.researched_nodes[id])
-		say("Node unlock failed: Either no techweb is found, node is already researched or is not available!")
+/obj/machinery/computer/rdconsole/proc/research_node(node_path, mob/user)
+	if(!stored_research)
+		say("Node unlock failed: No techweb found!")
 		return FALSE
-	var/datum/techweb_node/TN = SSresearch.techweb_node_by_id(id)
-	if(!istype(TN))
+	if(!stored_research.available_nodes[node_path])
+		say("Node unlock failed: Node is not available!")
+		return FALSE
+	if(stored_research.researched_nodes[node_path])
+		say("Node unlock failed: Node is already researched!")
+		return FALSE
+
+	var/datum/techweb_node/unlocked_node = SSresearch.techweb_nodes[node_path]
+	if(!istype(unlocked_node))
 		say("Node unlock failed: Unknown error.")
 		return FALSE
-	var/list/price = TN.get_price(stored_research)
-	if(stored_research.can_afford(price))
-		user.investigate_log("researched [id]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
-		if(istype(stored_research, /datum/techweb/science))
-			SSblackbox.record_feedback("associative", "science_techweb_unlock", 1, list("id" = "[id]", "name" = TN.display_name, "price" = "[json_encode(price)]", "time" = SQLtime()))
-		if(stored_research.research_node_id(id, research_source = src))
-			say("Successfully researched [TN.display_name].")
-			var/logname = "Unknown"
-			if(isAI(user))
-				logname = "AI [user.name]"
-			if(iscyborg(user))
-				logname = "CYBORG [user.name]"
-			if(iscarbon(user))
-				var/obj/item/card/id/idcard = user.get_active_held_item()
-				if(istype(idcard))
-					logname = "[idcard.registered_name]"
-			if(ishuman(user))
-				var/mob/living/carbon/human/H = user
-				var/obj/item/I = H.wear_id
-				if(istype(I))
-					var/obj/item/card/id/ID = I.GetID()
-					if(istype(ID))
-						logname = "[ID.registered_name]"
-			stored_research.research_logs += list(list(
-				"node_name" = TN.display_name,
-				"node_cost" = price[TECHWEB_POINT_TYPE_GENERIC],
-				"node_researcher" = logname,
-				"node_research_location" = "[get_area(src)]",
-			))
-			return TRUE
-		else
-			say("Failed to research node: Internal database error!")
-			return FALSE
-	say("Not enough research points...")
-	return FALSE
+
+	var/list/price = unlocked_node.get_price(stored_research)
+	if(!stored_research.can_afford(price))
+		say("Not enough research points...")
+		return FALSE
+
+	if(!stored_research.research_node(unlocked_node, research_source = src))
+		say("Failed to research node: Internal database error!")
+		return FALSE
+
+	user.investigate_log("researched [unlocked_node.display_name]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
+	if(istype(stored_research, /datum/techweb/science))
+		SSblackbox.record_feedback("associative", "science_techweb_unlock", 1, list("path" = "[node_path]", "name" = unlocked_node.display_name, "price" = "[json_encode(price)]", "time" = SQLtime()))
+
+	say("Successfully researched [unlocked_node.display_name].")
+
+	var/logname
+	if(isAI(user))
+		logname = "AI [user.name]"
+	else if(iscyborg(user))
+		logname = "CYBORG [user.name]"
+	else if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		var/obj/item/card/id/id = human_user.wear_id?.GetID()
+		if(istype(id))
+			logname = "[id.registered_name]"
+	else if(iscarbon(user))
+		var/obj/item/card/id/idcard = user.get_active_held_item()
+		if(istype(idcard))
+			logname = "[idcard.registered_name]"
+	else
+		logname = "Unknown"
+
+	stored_research.research_logs += list(list(
+		"node_name" = unlocked_node.display_name,
+		"node_cost" = price[TECHWEB_POINT_TYPE_GENERIC],
+		"node_researcher" = logname,
+		"node_research_location" = "[get_area(src)]",
+	))
+	return TRUE
 
 /obj/machinery/computer/rdconsole/on_emag(mob/user)
 	..()
@@ -212,11 +224,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 			continue
 
 		var/datum/techweb_node/node = SSresearch.techweb_nodes[node_path]
+		var/list/costs = node.get_price(stored_research)
 		data["nodes"] += list(list(
 			"path" = node_path,
 			"can_unlock" = stored_research.can_afford(costs),
 			"tier" = node_tier,
-			"costs" = node.get_price(stored_research),
+			"costs" = costs,
 		))
 	return data
 
@@ -235,7 +248,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 	// Note this looks a bit ugly but its to reduce the size of the JSON payload
 	// by the greatest amount that we can, as larger JSON payloads result in
 	// hanging when the user opens the UI
-	var/node_cache = list()
+	var/list/node_cache = list()
 	for (var/node_path, _node in SSresearch.techweb_nodes)
 		var/datum/techweb_node/node = _node
 		var/compressed_id = "[compress_id(node.type)]"
@@ -252,18 +265,18 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 			node_cache[compressed_id]["unlocked_designs"] = list()
 			for (var/unlocked_design in node.unlocked_designs)
 				node_cache[compressed_id]["unlocked_designs"] += compress_id(unlocked_design)
-		if (LAZYLEN(node.unlocked_designs))
-			node_cache[compressed_id]["unlocked_designs"] = list()
+		if (LAZYLEN(node.unlocked_nodes))
+			node_cache[compressed_id]["unlocked_nodes"] = list()
 			for (var/unlocked_node in node.unlocked_designs)
-				node_cache[compressed_id]["unlocked_designs"] += compress_id(unlocked_node)
+				node_cache[compressed_id]["unlocked_nodes"] += compress_id(unlocked_node)
 
 	// Build design cache
-	var/design_cache = list()
+	var/list/design_cache = list()
 	var/datum/asset/spritesheet_batched/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
 	for (var/design_path, _design in SSresearch.techweb_designs)
 		var/datum/design/design = _design
 		var/size = spritesheet.icon_size_id(design.asset_id)
-		design_cache["[compress_id(design.asset_id)]"] = list(
+		design_cache["[compress_id(design.type)]"] = list(
 			design.name,
 			design.desc,
 			"[size] [design.asset_id]",
@@ -342,7 +355,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 				return
 			COOLDOWN_START(src, copy_cooldown, 5 SECONDS)
 			say("Downloading to technology disk.")
-			t_disk.stored_nodes |= stored_research.researched_nodes
+			LAZYOR(t_disk.stored_nodes, stored_research.researched_nodes)
 			return TRUE
 
 /obj/machinery/computer/rdconsole/proc/eject_disk(type)
@@ -375,9 +388,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 		return
 
 	var/target_value = input(usr, "How many [point_type] points would you like to add? (use negative to take)", "Give [point_type] points") as num
-	stored_research.add_point_type(point_type, target_value)
+	stored_research.adjust_points(point_type, target_value)
 	to_chat(usr, "Success: [target_value] points have been added to [point_type]")
-
 
 #undef RND_TECH_DISK
 #undef RND_DESIGN_DISK

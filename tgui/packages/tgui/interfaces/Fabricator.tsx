@@ -124,7 +124,7 @@ const Recipe = (props: { design: Design; available: MaterialMap }, context) => {
         volume * amount > (availableReagents[reagent] || 0),
     );
   const print = (amount: number) =>
-    act('build', { ref: props.design.id, amount });
+    act('build', { ref: props.design.path, amount });
   return (
     <div className="FabricatorRecipe">
       <Tooltip content={props.design.desc} position="right">
@@ -244,7 +244,7 @@ const CustomPrint = (props: { design: Design; available: MaterialMap }) => {
         color="transparent"
         content={`×${max}`}
         onCommit={(_event, value: string) =>
-          act('build', { ref: props.design.id, amount: value })
+          act('build', { ref: props.design.path, amount: value })
         }
       />
     </div>

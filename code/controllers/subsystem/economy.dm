@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(economy)
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
 	/**
 	 * Associative list of account identifiers (as strings) to datum accounts, for O(1) lookups.
-	 * A flat list of sole account datums can be obtained with flatten_list().
+	 * A flat list of sole account datums can be obtained with assoc_to_values().
 	 */
 	var/list/bank_accounts_by_id = list()
 	/// List of budget accounts (including nonstation accounts)

@@ -309,7 +309,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<tr><td><b>Name</b></td><td><b>Job</b></td><td><b>Department</b></td><td><b>Paycheck</b></td><td><b>Pay Bonus</b></td></tr>"
 
 		if(length(paycheck_departments))
-			for(var/datum/bank_account/B in flatten_list(SSeconomy.bank_accounts_by_id))
+			for(var/datum/bank_account/B in assoc_to_values(SSeconomy.bank_accounts_by_id))
 				var/datum/record/crew/record = find_record(B.account_holder, GLOB.manifest.general)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"

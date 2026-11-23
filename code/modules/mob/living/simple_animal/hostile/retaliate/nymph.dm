@@ -204,13 +204,8 @@
 		span_warning("You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and, along with a friend, surge with growth, splitting into a tangle of at least a dozen new vines. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
 	)
 
-	var/mob/living/simple_animal/hostile/retaliate/nymph/helpers
-	if(!nymphs)
-		helpers = new /mob/living/simple_animal/hostile/retaliate/nymph(src.loc)
-	else
-		helpers = nymphs
-	var/mob/living/carbon/human/species/diona/adult = new /mob/living/carbon/human/species/diona(src.loc)
-	adult.set_species(SPECIES_DIONA)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/helpers = nymphs || new /mob/living/simple_animal/hostile/retaliate/nymph(loc)
+	var/mob/living/carbon/human/species/diona/adult = new(loc)
 
 	for(var/obj/item/bodypart/body_part in adult.bodyparts) //No limbs for you, small diona.
 		if(istype(body_part, /obj/item/bodypart/chest))
@@ -224,7 +219,7 @@
 				QDEL_NULL(I)
 			body_part.drop_limb(TRUE)
 
-	if(!("neutral" in src.faction))
+	if(!(FACTION_NEUTRAL in src.faction))
 		adult.faction = src.faction
 	if(old_name)
 		adult.real_name = old_name

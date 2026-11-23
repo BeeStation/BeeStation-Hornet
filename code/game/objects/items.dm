@@ -452,12 +452,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// Deliver to a console to know whether the boosts have already been used.
 	var/list/research_msg = list("<font color='purple'>Research prospects:</font> ")
 	var/sep = ""
-	var/list/boostable_nodes = techweb_item_unlock_check(src)
-	if (boostable_nodes)
-		for(var/id in boostable_nodes)
-			var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
-			if(!node)
-				continue
+	var/list/boostable_nodes = SSresearch.techweb_unlock_items[type]
+	if(length(boostable_nodes))
+		for(var/boost_path in boostable_nodes)
+			var/datum/techweb_node/node = SSresearch.techweb_nodes[boost_path]
 			research_msg += sep
 			research_msg += node.display_name
 			sep = ", "

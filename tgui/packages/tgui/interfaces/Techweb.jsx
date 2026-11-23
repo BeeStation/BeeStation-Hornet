@@ -1,13 +1,11 @@
 import { toFixed } from 'common/math';
-import { filter, map } from 'es-toolkit/compat';
+import { map } from 'es-toolkit/compat';
 import { useState } from 'react';
-import { Dropdown } from 'tgui-core/components';
-
-import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
   Divider,
+  Dropdown,
   Flex,
   Icon,
   Input,
@@ -16,7 +14,9 @@ import {
   Section,
   Tabs,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
+
+import { useBackend, useLocalState } from '../backend';
 import { NtosWindow, Window } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
@@ -25,28 +25,28 @@ import { NtosWindow, Window } from '../layouts';
 // as larger sizes cause a delay for the user when opening the UI.
 
 const remappingIdCache = {};
-const remapId = (id) => remappingIdCache[id];
+const remapId = (path) => remappingIdCache[path];
 
 const selectRemappedStaticData = (data) => {
   // Handle reshaping of node cache to fill in unsent fields, and
   // decompress the node IDs
   const node_cache = {};
-  for (let id of Object.keys(data.static_data.node_cache)) {
-    const node = data.static_data.node_cache[id];
-    node_cache[remapId(id)] = {
+  for (let path of Object.keys(data.static_data.node_cache)) {
+    const node = data.static_data.node_cache[path];
+    node_cache[remapId(path)] = {
       ...node,
-      id: remapId(id),
-      prereq_ids: map(node.prereq_ids || [], remapId),
-      design_ids: map(node.design_ids || [], remapId),
-      unlock_ids: map(node.unlock_ids || [], remapId),
+      path: remapId(path),
+      prerequisite_nodes: map(node.prerequisite_nodes || [], remapId),
+      unlocked_designs: map(node.unlocked_designs || [], remapId),
+      unlocked_nodes: map(node.unlocked_nodes || [], remapId),
     };
   }
 
   // Do the same as the above for the design cache
   const design_cache = {};
-  for (let id of Object.keys(data.static_data.design_cache)) {
-    const [name, desc, classes] = data.static_data.design_cache[id];
-    design_cache[remapId(id)] = {
+  for (let path of Object.keys(data.static_data.design_cache)) {
+    const [name, desc, classes] = data.static_data.design_cache[path];
+    design_cache[remapId(path)] = {
       name: name,
       desc: desc,
       class: classes.startsWith('design') ? classes : `design32x32 ${classes}`,
@@ -243,11 +243,11 @@ const TechwebOverview = (props) => {
 
   const filterSearchNodes = (target_nodes) => {
     const filtered_search_nodes = target_nodes.filter((x) => {
-      const n = node_cache[x.id];
+      const n = node_cache[x.path];
       return (
         n.name.toLowerCase().includes(searchText) ||
         n.description.toLowerCase().includes(searchText) ||
-        n.design_ids.some((e) =>
+        n.unlocked_designs.some((e) =>
           design_cache[e].name.toLowerCase().includes(searchText),
         )
       );
@@ -258,15 +258,15 @@ const TechwebOverview = (props) => {
 
   displayedNodes = nodes
     .filter((x) => (tabIndex < 2 ? x.tier === tabIndex : x.tier >= tabIndex))
-    .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
+    .sort((a, b) => node_cache[a.path].name.localeCompare(node_cache[b.path].name));
 
   researchednodes = nodes
     .filter((x) => x.tier === 1)
-    .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
+    .sort((a, b) => node_cache[a.path].name.localeCompare(node_cache[b.path].name));
 
   futurenodes = nodes
     .filter((x) => x.tier === 2)
-    .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
+    .sort((a, b) => node_cache[a.path].name.localeCompare(node_cache[b.path].name));
   if (searching) {
     displayedNodes = filterSearchNodes(displayedNodes);
     researchednodes = filterSearchNodes(researchednodes);
@@ -311,17 +311,17 @@ const TechwebOverview = (props) => {
             <>
               <Flex.Item mr={1}>
                 {displayedNodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
+                  return <TechNode node={each_node} key={each_node.path} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
                 {researchednodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
+                  return <TechNode node={each_node} key={each_node.path} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
                 {futurenodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
+                  return <TechNode node={each_node} key={each_node.path} />;
                 })}
               </Flex.Item>
             </>
@@ -330,17 +330,17 @@ const TechwebOverview = (props) => {
             <>
               <Flex.Item mr={1}>
                 {displayedNodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
+                  return <TechNode node={each_node} key={each_node.path} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
                 {researchednodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
+                  return <TechNode node={each_node} key={each_node.path} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
                 {futurenodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
+                  return <TechNode node={each_node} key={each_node.path} />;
                 })}
               </Flex.Item>
             </>
@@ -357,7 +357,7 @@ const TechwebNodeDetail = (props) => {
   const { selectedNode } = props;
 
   const selectedNodeData =
-    selectedNode && nodes.find((x) => x.id === selectedNode);
+    selectedNode && nodes.find((x) => x.path === selectedNode);
   return <TechNodeDetail node={selectedNodeData} />;
 };
 
@@ -466,11 +466,10 @@ const TechwebDesignDisk = (props) => {
   );
   const [showModal, setShowModal] = useLocalState('showDesignModal', -1);
 
-  const designIdByIdx = Object.keys(researched_designs);
-  let designOptions = filter(designIdByIdx, (x) => x.toLowerCase() !== 'error');
-  designOptions = map(
-    designOptions,
-    (id, idx) => `${design_cache[id].name} [${idx}]`,
+  const designPathByIdx = Object.keys(researched_designs);
+  let designOptions = map(
+    designPathByIdx,
+    (path, idx) => `${design_cache[path].name} [${idx}]`,
   );
   designOptions = sortBy(designOptions, [(x) => x]);
 
@@ -486,7 +485,7 @@ const TechwebDesignDisk = (props) => {
                 options={designOptions}
                 onSelected={(val) => {
                   const idx = parseInt(val.split('[').pop().split(']')[0], 10);
-                  setSelectedDesign(designIdByIdx[idx]);
+                  setSelectedDesign(designPathByIdx[idx]);
                 }}
               />
             </Flex.Item>
@@ -557,21 +556,21 @@ const TechwebTechDisk = (props) => {
   const { stored_research } = t_disk;
 
   return Object.keys(stored_research)
-    .map((x) => ({ id: x }))
-    .map((n) => <TechNode key={n.id} nocontrols node={n} />);
+    .map((x) => ({ path: x }))
+    .map((n) => <TechNode key={n.path} nocontrols node={n} />);
 };
 
 const TechNodeDetail = (props) => {
   const { act, data } = useRemappedBackend();
   const { nodes, node_cache } = data;
   const { node } = props;
-  const { id } = node;
-  const { prereq_ids, unlock_ids } = node_cache[id];
+  const { path } = node;
+  const { prerequisite_nodes, unlocked_nodes } = node_cache[path];
   const [tabIndex, setTabIndex] = useState(0);
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
 
-  const prereqNodes = nodes.filter((x) => prereq_ids.includes(x.id));
-  const unlockedNodes = nodes.filter((x) => unlock_ids.includes(x.id));
+  const prereqNodes = nodes.filter((x) => prerequisite_nodes.includes(x.path));
+  const unlockedNodes = nodes.filter((x) => unlocked_nodes.includes(x.path));
 
   return (
     <Flex direction="column" height="100%">
@@ -591,7 +590,7 @@ const TechNodeDetail = (props) => {
         <Flex>
           <Flex.Item mr={1}>
             {prereqNodes.map((n) => (
-              <TechNode key={n.id} node={n} />
+              <TechNode key={n.path} node={n} />
             ))}
           </Flex.Item>
           <Flex.Item mr={1}>
@@ -599,7 +598,7 @@ const TechNodeDetail = (props) => {
           </Flex.Item>
           <Flex.Item mr={1}>
             {unlockedNodes.map((n) => (
-              <TechNode key={n.id} node={n} />
+              <TechNode key={n.path} node={n} />
             ))}
           </Flex.Item>
         </Flex>
@@ -635,9 +634,9 @@ const TechNode = (props) => {
     point_types_abbreviations = [],
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
-  const { id, can_unlock, tier, costs } = node;
-  const { name, description, design_ids, prereq_ids, node_tier } =
-    node_cache[id];
+  const { path, can_unlock, tier, costs } = node;
+  const { name, description, unlocked_designs, prerequisite_nodes, node_tier } =
+    node_cache[path];
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -652,7 +651,7 @@ const TechNode = (props) => {
             <Button
               icon="tasks"
               onClick={() => {
-                setTechwebRoute({ route: 'details', selectedNode: id });
+                setTechwebRoute({ route: 'details', selectedNode: path });
                 setTabIndex(0);
               }}
             >
@@ -665,14 +664,14 @@ const TechNode = (props) => {
               <Button.Confirm
                 icon="lightbulb"
                 disabled={!can_unlock || tier > 1}
-                onClick={() => act('researchNode', { node_path: id })}
+                onClick={() => act('researchNode', { node_path: path })}
                 content="Research"
               />
             ) : (
               <Button
                 icon="lightbulb"
                 disabled={!can_unlock || tier > 1}
-                onClick={() => act('researchNode', { node_path: id })}
+                onClick={() => act('researchNode', { node_path: path })}
               >
                 Research
               </Button>
@@ -697,7 +696,7 @@ const TechNode = (props) => {
             <Button
               icon="trash"
               color="red"
-              onClick={() => act('destroyfortech', { node_id: id })}
+              onClick={() => act('destroyfortech', { node_id: path })}
             >
               Destroy item for node
             </Button>
@@ -735,7 +734,7 @@ const TechNode = (props) => {
       <Box className="Techweb__NodeDescription">{description}</Box>
       {!!compact && (
         <Box className="Techweb__NodeUnlockedDesigns" mt={1}>
-          {design_ids.map((k, i) => (
+          {unlocked_designs.map((k, i) => (
             <Button
               key={k}
               className={`${design_cache[k].class} Techweb__DesignIcon`}

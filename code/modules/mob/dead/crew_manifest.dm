@@ -23,7 +23,7 @@
 		ui.open()
 
 /datum/crew_manifest/ui_static_data(mob/user)
-	var/static/list/ordering = list_to_assoc_index(flatten_list(GLOB.id_to_hud))
+	var/static/list/ordering = list_to_assoc_index(assoc_to_values(GLOB.id_to_hud))
 	return list(
 		"command" = list(
 			"name" = "Command",

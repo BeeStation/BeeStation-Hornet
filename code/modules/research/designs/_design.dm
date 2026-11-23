@@ -1,7 +1,3 @@
-/***************************************************************
-**						Design Datums						  **
-**	All the data for building stuff.						  **
-***************************************************************/
 /*
 For the materials datum, it assumes you need reagents unless specified otherwise. To designate a material that isn't a reagent,
 you use one of the material IDs below. These are NOT ids in the usual sense (they aren't defined in the object or part of a datum),
@@ -24,9 +20,9 @@ other types of metals and chemistry for reagents).
 	abstract_type = /datum/design
 
 	/// Name of the created object
-	var/name = null
+	var/name
 	/// Description of the created object
-	var/desc = null
+	var/desc
 	/// Bitflags indicating what machines this design is compatable with. See: [code\__DEFINES\machines.dm]
 	var/build_type = NONE
 	/// Associative List of materials required to create one unit of the product.
@@ -35,13 +31,13 @@ other types of metals and chemistry for reagents).
 	/// The amount of time required to create one unit of the product.
 	var/construction_time
 	/// The typepath of the object produced by this design
-	var/build_path = null
+	var/atom/movable/build_path
 	/// What categories this design falls under. Used for sorting in production machines.
 	var/list/category = list()
 	//Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
-	var/list/make_reagents = null
+	var/list/make_reagents
 	/// List of reagents required to create one unit of the product. Currently only supported by the limb grower.
-	var/list/reagents_list = null
+	var/list/reagents_list
 	/// How many times faster than normal is this to build on the protolathe
 	var/lathe_time_factor = 1
 	/// Notify and log for admin investigations if this is printed.
@@ -49,7 +45,7 @@ other types of metals and chemistry for reagents).
 	/// Bitflags indicating what departmental lathes should be allowed to process this design.
 	var/departmental_flags = ALL
 	/// What techwebs nodes unlock this design. Constructed by SSresearch
-	var/list/datum/techweb_node/unlocked_by = list()
+	var/list/datum/techweb_node/unlocked_by
 	/// Override for the automatic icon generation used for the research console.
 	var/research_icon
 	/// Override for the automatic icon state generation used for the research console.
@@ -74,15 +70,13 @@ other types of metals and chemistry for reagents).
 
 	materials = temp_list
 
-/datum/design/Destroy()
+/datum/design/Destroy(force)
 	SSresearch.techweb_designs -= type
 	return ..()
 
 /// Returns the description of the design
 /datum/design/proc/get_description()
-	var/obj/object_build_item_path = build_path
-
-	return isnull(desc) ? initial(object_build_item_path.desc) : desc
+	return desc || build_path::desc
 
 /**
  * Serializes designs into the shape the shared fabricator browser expects, so any machine backed by `/datum/design` can drive the same UI.
@@ -172,27 +166,3 @@ other types of metals and chemistry for reagents).
 				kept -= category
 		if(kept)
 			design_entry["categories"] = kept
-
-
-////////////////////////////////////////
-//Disks for transporting design datums//
-////////////////////////////////////////
-
-/obj/item/disk/design_disk
-	name = "Component Design Disk"
-	desc = "A disk for storing device design data for construction in lathes."
-	icon_state = "datadisk1"
-	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 100)
-
-	/// A List of all design typepaths that are stored on this disk
-	var/list/blueprints = list()
-
-/obj/item/disk/design_disk/Initialize(mapload)
-	. = ..()
-	if(!mapload)
-		pixel_x = base_pixel_x + rand(-5, 5)
-		pixel_y = base_pixel_y + rand(-5, 5)
-
-/obj/item/disk/design_disk/Destroy()
-	blueprints = null
-	return ..()

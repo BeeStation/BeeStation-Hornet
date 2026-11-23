@@ -3,8 +3,11 @@
 #define TECHWEB_NODE_STARTER (1<<0)
 /// This node cannot be seen in the techweb
 #define TECHWEB_NODE_HIDDEN (1<<1)
+/// This node should be unhidden when its pre-requisites are researched.
+/// Must be used with [TECHWEB_NODE_HIDDEN]
+#define TECHWEB_NODE_WAIT_FOR_PREREQS (1<<2)
 /// This node shows up on the autowiki
-#define TECHWEB_NODE_WIKI (1<<2)
+#define TECHWEB_NODE_WIKI (1<<3)
 
 #define DEPARTMENTAL_FLAG_SECURITY (1<<0)
 #define DEPARTMENTAL_FLAG_MEDICAL (1<<1)

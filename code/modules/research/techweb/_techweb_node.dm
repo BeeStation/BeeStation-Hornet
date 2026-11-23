@@ -8,15 +8,13 @@
  */
 /datum/techweb_node
 	/// The name of the node as it is shown on UIs
-	var/display_name = null
+	var/display_name
 	/// A description of the node to show on UIs
-	var/description = null
-	/// The category of the node
-	var/category = "Misc"
+	var/description
 	/// Behavior flags for this techweb node.
 	var/node_flags = TECHWEB_NODE_WIKI
-	/// The tech tier of the node.
-	/// If a node with a higher tier than the linked techweb is researched discovery points are subtracted based off of the difference in tier. See calculate_discovery_cost()
+	/// The tech tier of this node.
+	/// If a node with a higher tier than the linked techweb is researched discovery points are subtracted based off of the difference in tier.
 	var/tech_tier = 0
 
 	/// A list of nodes required to be unlocked to research this node. Made associative in New() for faster lookups.

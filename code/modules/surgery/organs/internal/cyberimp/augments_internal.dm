@@ -163,7 +163,7 @@
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/tech_disk))
 			var/obj/item/disk/tech_disk/tech_disk = held_item
-			for(var/design_path in tech_disk.stored_research.researched_designs)
+			for(var/design_path in tech_disk.stored_nodes)
 				var/datum/design/surgery/surgery_design = SSresearch.techweb_designs[design_path]
 				if(!istype(surgery_design))
 					continue

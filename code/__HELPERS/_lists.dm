@@ -5,10 +5,6 @@
  *			Sorting
  */
 
-// The highest number of "for()" loop iterations before infinite loop detection triggers
-// +1 for "while()" loops, for some reason
-#define INFINITE_LOOP_DETECTION_THRESHOLD 1048574
-
 /*
  * Misc
  */
@@ -20,6 +16,37 @@
 #define UNTYPED_LIST_ADD(list, item) (list += LIST_VALUE_WRAP_LISTS(item))
 ///Remove an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
 #define UNTYPED_LIST_REMOVE(list, item) (list -= LIST_VALUE_WRAP_LISTS(item))
+
+/*
+ * ## Lazylists
+ *
+ * * What is a lazylist?
+ *
+ * True to its name a lazylist is a lazy instantiated list.
+ * It is a list that is only created when necessary (when it has elements) and is null when empty.
+ *
+ * * Why use a lazylist?
+ *
+ * Lazylists save memory - an empty list that is never used takes up more memory than just `null`.
+ *
+ * * When to use a lazylist?
+ *
+ * Lazylists are best used on hot types when making lists that are not always used.
+ *
+ * For example, if you were adding a list to all atoms that tracks the names of people who touched it,
+ * you would want to use a lazylist because most atoms will never be touched by anyone.
+ *
+ * * How do I use a lazylist?
+ *
+ * A lazylist is just a list you defined as `null` rather than `list()`.
+ * Then, you use the LAZY* macros to interact with it, which are essentially null-safe ways to interact with a list.
+ *
+ * Note that you probably should not be using these macros if your list is not a lazylist.
+ * This will obfuscate the code and make it a bit harder to read and debug.
+ *
+ * Generally speaking you shouldn't be checking if your lazylist is `null` yourself, the macros will do that for you.
+ * Remember that LAZYLEN (and by extension, length) will return 0 if the list is null.
+ */
 
 ///Initialize the lazylist
 #define LAZYINITLIST(L) L ||= list()
@@ -46,7 +73,7 @@
 ///Sets the length of a lazylist
 #define LAZYSETLEN(L, V) L ||= list(); L.len = V;
 ///Returns the length of the list
-#define LAZYLEN(L) length(L) // should only be used for lazy lists. Using this with non-lazy lists is bad
+#define LAZYLEN(L) length(L)
 ///Sets a list to null
 #define LAZYNULL(L) L = null
 ///Adds to the item K the value V, if the list is null it will initialize it
@@ -452,22 +479,16 @@
  * Will output null sometimes if you use decimals (e.g. 0.1 instead of 10) as rand() uses integers, not floats
 **/
 /proc/pick_weight(list/list_to_pick)
-	var/total = 0
-	var/item
-	for(item in list_to_pick)
-		total += list_to_pick[item]
-
+	var/total = values_sum(list_to_pick)
 	// If everything has no weight set, then perform a standard pick
 	if (!total)
 		return pick(list_to_pick)
 
 	total *= rand()
-	for(item in list_to_pick)
-		total -= list_to_pick[item]
+	for(var/item, weight in list_to_pick)
+		total -= weight
 		if(total <= 0)
 			return item
-
-	return null
 
 
 /**
@@ -499,11 +520,8 @@
 
 	var/list/final_list = list()
 
-	for (var/key in list_to_pad)
-		if (list_to_pad[key])
-			final_list[key] = list_to_pad[key]
-		else
-			final_list[key] = 1
+	for (var/key, value in list_to_pad)
+		final_list[key] = value || 1
 
 	return final_list
 
@@ -511,8 +529,7 @@
 /// This eats more memory, but saves time when actually picking from it
 /proc/expand_weights(list/list_to_pick)
 	var/list/values = list()
-	for(var/item in list_to_pick)
-		var/value = list_to_pick[item]
+	for(var/item, value in list_to_pick)
 		if(!value)
 			continue
 		values += value
@@ -520,8 +537,7 @@
 	var/gcf = greatest_common_factor(values)
 
 	var/list/output = list()
-	for(var/item in list_to_pick)
-		var/value = list_to_pick[item]
+	for(var/item, value in list_to_pick)
 		if(!value)
 			continue
 		for(var/i in 1 to value / gcf)
@@ -548,7 +564,7 @@
 	if(list_to_pick.len)
 		var/picked = rand(1,list_to_pick.len)
 		. = list_to_pick[picked]
-		list_to_pick.Cut(picked,picked+1)			//Cut is far more efficient that Remove()
+		list_to_pick.Cut(picked,picked+1) //Cut is far more efficient that Remove()
 
 /// Returns the top(last) element from the list and removes it from the list (typical stack function)
 /proc/pop(list/L)
@@ -619,11 +635,11 @@
 /proc/unique_list_in_place(list/inserted_list)
 	var/temp = inserted_list.Copy()
 	inserted_list.len = 0
-	for(var/key in temp)
+	for(var/key, value in temp)
 		if (IS_FINITE(key))
 			inserted_list |= key
 		else
-			inserted_list[key] = temp[key]
+			inserted_list[key] = value
 
 /// for sorting clients or mobs by ckey
 /proc/sort_key(list/ckey_list, order = 1)
@@ -826,14 +842,13 @@
 		return inserted_list
 	var/copied_list = inserted_list.Copy()
 	. = copied_list
-	for(var/key_or_value in inserted_list)
-		if(IS_FINITE(key_or_value) || !inserted_list[key_or_value])
+	for(var/key, value in inserted_list)
+		if(IS_FINITE(key) || !value)
 			continue
-		var/value = inserted_list[key_or_value]
 		var/new_value = value
 		if(islist(value))
 			new_value = deep_copy_list_alt(value)
-		copied_list[key_or_value] = new_value
+		copied_list[key] = new_value
 
 /**
  * takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
@@ -851,12 +866,12 @@
 	return input_key
 
 /// Flattens a keyed list into a list of it's contents
-/proc/flatten_list(list/key_list)
+/proc/assoc_to_values(list/key_list)
 	if(!islist(key_list))
 		return null
 	. = list()
-	for(var/key in key_list)
-		. |= LIST_VALUE_WRAP_LISTS(key_list[key])
+	for(var/key, value in key_list)
+		. |= LIST_VALUE_WRAP_LISTS(value)
 
 /proc/make_associative(list/flat_list)
 	. = list()
@@ -871,25 +886,19 @@
 
 /proc/counterlist_scale(list/L, scalar)
 	var/list/out = list()
-	for(var/key in L)
-		out[key] = L[key] * scalar
+	for(var/key, value in L)
+		out[key] = value * scalar
 	. = out
 
-/proc/counterlist_sum(list/L)
-	. = 0
-	for(var/key in L)
-		. += L[key]
-
 /proc/counterlist_normalise(list/L)
-	var/avg = counterlist_sum(L)
+	var/avg = values_sum(L)
 	if(avg != 0)
 		. = counterlist_scale(L, 1 / avg)
 	else
 		. = L
 
 /proc/counterlist_combine(list/L1, list/L2)
-	for(var/key in L2)
-		var/other_value = L2[key]
+	for(var/key, other_value in L2)
 		if(key in L1)
 			L1[key] += other_value
 		else
@@ -905,8 +914,8 @@
 /// Turns an associative list into a flat list of keys, but for sprite accessories, respecting the locked variable
 /proc/assoc_to_keys_features(list/input)
 	var/list/keys = list()
-	for(var/key in input)
-		var/datum/sprite_accessory/value = input[key]
+	for(var/key, _value in input)
+		var/datum/sprite_accessory/value = _value
 		if(value?.locked)
 			continue
 		UNTYPED_LIST_ADD(keys, key)
@@ -914,10 +923,9 @@
 
 /// Gets the first key that contains the given value in an associative list, otherwise, returns null.
 /proc/assoc_key_for_value(list/input, check_for)
-	for(var/key in input)
-		if(input[key] == check_for)
+	for(var/key, value in input)
+		if(value == check_for)
 			return key
-	return null
 
 /proc/compare_list(list/l,list/d)
 	if(!islist(l) || !islist(d))

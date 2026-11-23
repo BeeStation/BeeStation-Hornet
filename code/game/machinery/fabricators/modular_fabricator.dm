@@ -352,7 +352,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	data["sec_interface_unlock"] = !security_interface_locked
 	data["hacked"] = hacked
 
-
 	// Queue
 	data["queue_repeating"] = queue_repeating
 	data["design_queue"] = list()

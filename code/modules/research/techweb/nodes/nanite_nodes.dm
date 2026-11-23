@@ -180,7 +180,7 @@
 	tech_tier = 5
 	display_name = "Military Nanite Programming"
 	description = "Nanite programs that perform military-grade functions."
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/nanite_harmonic, /datum/techweb_node/syndicate_basic)
 	unlocked_designs = list(
 		/datum/design/nanites/explosive,
@@ -193,13 +193,12 @@
 		/datum/design/nanites/unsafe_storage,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_5_POINTS)
-	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/nanite_hazard
 	tech_tier = 5
 	display_name = "Hazard Nanite Programs"
 	description = "Extremely advanced nanite programs using knowledge gained from advanced alien technology."
-	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN
+	node_flags = parent_type::node_flags | TECHWEB_NODE_HIDDEN | TECHWEB_NODE_WAIT_FOR_PREREQS
 	prerequisite_nodes = list(/datum/techweb_node/alien/base, /datum/techweb_node/nanite_harmonic)
 	unlocked_designs = list(
 		/datum/design/nanites/mind_control,
@@ -207,4 +206,3 @@
 		/datum/design/nanites/spreading,
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_5_POINTS)
-	unhide_from_prereqs = TRUE
