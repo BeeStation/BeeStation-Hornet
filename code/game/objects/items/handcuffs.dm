@@ -52,7 +52,7 @@
 
 	SEND_SIGNAL(victim, COMSIG_CARBON_CUFF_ATTEMPTED, user)
 
-	user.do_item_attack_animation(C, used_item = src)
+	user.do_item_attack_animation(victim, used_item = src)
 
 	if(iscarbon(user) && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("Uh... how do those things work?!"))
