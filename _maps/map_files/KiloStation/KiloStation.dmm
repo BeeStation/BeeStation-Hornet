@@ -1558,8 +1558,7 @@
 /area/station/medical/genetics)
 "aMv" = (
 /obj/machinery/igniter/incinerator_toxmix,
-/mob/living/simple_animal/chicken{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=1,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
+/mob/living/basic/chicken{
 	desc = "A timeless classic.";
 	name = "Kentucky"
 	},
@@ -7212,15 +7211,7 @@
 /area/station/medical/medbay/central)
 "cUK" = (
 /obj/structure/cable/yellow,
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
+/mob/living/basic/turkey/tom,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -23473,7 +23464,7 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	desc = "The arch-nemesis of Kentucky.";
 	name = "Popeye";
 	real_name = "Featherbottom"
@@ -39972,7 +39963,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/central)
 "nHW" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -41802,7 +41793,7 @@
 "opu" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	name = "Lisa, PsyD"
 	},
 /obj/structure/flora/grass/jungle/b,
@@ -53651,7 +53642,7 @@
 /obj/structure/bed/dogbed/runtime{
 	name = "Victors's bed"
 	},
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/freezer,
 /area/station/medical/virology)
 "syk" = (
@@ -54650,7 +54641,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/fore)
 "sRV" = (
-/mob/living/simple_animal/sloth/citrus,
+/mob/living/basic/sloth/citrus,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
@@ -56109,7 +56100,7 @@
 /area/station/engineering/atmos)
 "tsq" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "tsO" = (
@@ -62338,7 +62329,7 @@
 	pixel_x = 6;
 	pixel_y = -24
 	},
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/basic/pet/fox/renault,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -69310,9 +69301,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "xPt" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /turf/open/floor/iron/showroomfloor,
 /area/station/service/kitchen)
 "xPx" = (

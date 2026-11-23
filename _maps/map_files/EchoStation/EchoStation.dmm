@@ -594,9 +594,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
@@ -3603,7 +3601,7 @@
 /obj/machinery/firealarm/directional/east,
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	density = 0
 	},
 /turf/open/floor/wood,
@@ -31788,7 +31786,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/mob/living/simple_animal/sloth/citrus{
+/mob/living/basic/sloth/citrus{
 	density = 0
 	},
 /turf/open/floor/iron/sepia,
@@ -35826,7 +35824,7 @@
 /area/station/science/research/abandoned)
 "vHT" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/pet/hamster/vector{
+/mob/living/basic/pet/hamster/vector{
 	pixel_x = 1;
 	pixel_y = 10
 	},

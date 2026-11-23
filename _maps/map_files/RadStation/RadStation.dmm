@@ -2209,7 +2209,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/palebush,
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/grass/no_border,
 /area/station/hallway/secondary/exit/departure_lounge)
 "aPs" = (
@@ -10292,7 +10292,7 @@
 /area/station/maintenance/solars/port/aft)
 "dTp" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	desc = "The arch-nemesis of Kentucky.";
 	name = "Nugget";
 	real_name = "one name, one plan or..."
@@ -23966,7 +23966,7 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	name = "Lisa, PsyD"
 	},
 /obj/structure/flora/grass/jungle/b,
@@ -24789,7 +24789,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},
@@ -29558,7 +29558,7 @@
 /area/station/hallway/secondary/service)
 "lpm" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/turkey,
+/mob/living/basic/turkey,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "lpI" = (
@@ -33290,9 +33290,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/robotics)
 "mFf" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
@@ -35067,7 +35065,7 @@
 /obj/structure/bed/dogbed/renault{
 	pixel_y = 3
 	},
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	density = 0;
 	dir = 8;
 	pixel_y = 10
@@ -40036,7 +40034,7 @@
 /obj/structure/bed/dogbed/vector{
 	pixel_y = 8
 	},
-/mob/living/simple_animal/pet/hamster/vector{
+/mob/living/basic/pet/hamster/vector{
 	pixel_x = 1;
 	pixel_y = 10
 	},
@@ -46469,7 +46467,7 @@
 	dir = 2
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/turtle{
+/mob/living/basic/turtle{
 	name = "Turtle"
 	},
 /obj/structure/cable/yellow,
@@ -59045,7 +59043,7 @@
 /area/station/engineering/main)
 "wug" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/chick,
+/mob/living/basic/chick/permanent,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "wui" = (
@@ -59563,7 +59561,7 @@
 "wDa" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
-/mob/living/simple_animal/sloth/citrus{
+/mob/living/basic/sloth/citrus{
 	density = 0
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
