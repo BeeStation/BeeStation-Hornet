@@ -62,7 +62,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "l" = (
-/mob/living/basic/butterfly,
+/mob/living/simple_animal/butterfly,
 /turf/open/floor/grass,
 /area/template_noop)
 "m" = (

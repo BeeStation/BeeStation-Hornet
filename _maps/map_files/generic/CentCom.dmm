@@ -9430,6 +9430,17 @@
 	},
 /turf/open/floor/engine/cult,
 /area/centcom/wizard_station)
+"ayF" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusblue,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/obj/structure/mirror/magic/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/engine/cult,
+/area/centcom/wizard_station)
 "ayG" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/wizrobe/magusred,
@@ -21140,6 +21151,11 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/syndicate_mothership/control)
+"ico" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/mob/living/simple_animal/chicken,
+/turf/open/floor/grass,
+/area/centcom/central_command_areas/holding)
 "ieM" = (
 /obj/machinery/vending/boozeomat,
 /turf/closed/indestructible/syndicate,
@@ -21308,11 +21324,6 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/centcom/syndicate_mothership/control)
-"iYG" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/basic/chicken,
-/turf/open/floor/grass,
-/area/centcom/central_command_areas/holding)
 "jdo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -22366,17 +22377,6 @@
 /obj/item/stamp/law,
 /turf/open/floor/wood/big,
 /area/centcom/central_command_areas/control)
-"pLc" = (
-/obj/structure/table/wood,
-/obj/item/clothing/suit/wizrobe/magusblue,
-/obj/item/clothing/head/wizard/magus,
-/obj/item/staff,
-/obj/structure/mirror/magic/directional/north,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/engine/cult,
-/area/centcom/wizard_station)
 "pMa" = (
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium,
@@ -30977,7 +30977,7 @@ awc
 aqE
 aqE
 aqE
-pLc
+ayF
 aqZ
 aqZ
 aqZ
@@ -49746,7 +49746,7 @@ aNd
 aTq
 aXk
 rxh
-iYG
+ico
 aNd
 azZ
 aFh

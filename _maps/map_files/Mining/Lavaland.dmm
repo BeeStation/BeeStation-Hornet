@@ -148,6 +148,13 @@
 /obj/structure/stone_tile/cracked,
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"aH" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/mine/atmospostengine)
 "aI" = (
 /obj/machinery/firealarm/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -615,13 +622,6 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"dO" = (
-/obj/structure/frame/machine{
-	anchored = 1
-	},
-/obj/structure/cable,
-/turf/open/floor/iron/techmaint/planetary,
-/area/mine/atmospostengine)
 "dP" = (
 /obj/structure/foamedmetal,
 /turf/open/floor/iron,
@@ -2204,14 +2204,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
-"nB" = (
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
-/obj/machinery/light,
-/mob/living/basic/turtle{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/mine/gateway)
 "nD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
 /obj/effect/decal/cleanable/blood/old,
@@ -2390,9 +2382,6 @@
 "oO" = (
 /turf/open/genturf,
 /area/lavaland/surface/outdoors/unexplored/danger)
-"oQ" = (
-/turf/open/floor/iron/techmaint/planetary,
-/area/mine/atmospostengine)
 "oT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2{
 	anchored = 0
@@ -2432,6 +2421,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
+"pk" = (
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
+/obj/machinery/light,
+/mob/living/simple_animal/turtle{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/mine/gateway)
 "po" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -3473,6 +3470,11 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
+"vU" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/siding/wideplating/dark/corner,
+/turf/open/floor/iron/dark,
+/area/mine/atmospostengine)
 "vW" = (
 /obj/item/radio/intercom{
 	dir = 8;
@@ -3588,11 +3590,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/mine/atmospost)
-"wG" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/siding/wideplating/dark/corner,
-/turf/open/floor/iron/dark,
-/area/mine/atmospostengine)
 "wH" = (
 /obj/machinery/camera/preset/toxins{
 	c_tag = "Outpost Bomb Testing Site";
@@ -3954,13 +3951,6 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
-"yZ" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/mine/atmospostengine)
 "zc" = (
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
@@ -4224,12 +4214,6 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
-"AT" = (
-/obj/effect/turf_decal/siding/wideplating/dark/corner{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/mine/atmospostengine)
 "AY" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating,
@@ -5510,6 +5494,10 @@
 	},
 /turf/open/floor/iron/checker,
 /area/mine/production)
+"If" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/techmaint/planetary,
+/area/mine/atmospostengine)
 "Il" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -5532,6 +5520,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
+"Ir" = (
+/obj/effect/turf_decal/siding/wideplating/dark/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/mine/atmospostengine)
 "It" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
@@ -5747,10 +5741,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp/security)
-"JC" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/techmaint/planetary,
-/area/mine/atmospostengine)
 "JF" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -7713,6 +7703,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/mine/living_quarters)
+"Wh" = (
+/obj/structure/frame/machine{
+	anchored = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/iron/techmaint/planetary,
+/area/mine/atmospostengine)
 "Wn" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -7820,6 +7817,9 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"WM" = (
+/turf/open/floor/iron/techmaint/planetary,
+/area/mine/atmospostengine)
 "WO" = (
 /obj/machinery/light/broken/directional/south,
 /obj/structure/spider/stickyweb,
@@ -39186,7 +39186,7 @@ ug
 ug
 ug
 ug
-nB
+pk
 tI
 OO
 nM
@@ -51016,9 +51016,9 @@ uJ
 yy
 DR
 EE
-wG
-yZ
-AT
+vU
+aH
+Ir
 MO
 RR
 RR
@@ -51274,7 +51274,7 @@ Ae
 Yd
 QG
 DC
-JC
+If
 YH
 MO
 RR
@@ -51531,7 +51531,7 @@ lO
 Bp
 TJ
 be
-dO
+Wh
 La
 MO
 RR
@@ -51788,7 +51788,7 @@ jC
 DR
 qb
 VR
-oQ
+WM
 YH
 uJ
 VX
