@@ -147,7 +147,7 @@
 	if(controls_inside)
 		ui_interact(living_occupant)
 	if(living_occupant.stat != DEAD)
-		to_chat(mob_occupant, enter_message)
+		to_chat(living_occupant, enter_message)
 
 /obj/machinery/sleeper/emp_act(severity)
 	. = ..()
@@ -174,7 +174,7 @@
 	if(state_open)
 		to_chat(user, span_warning("[src] must be closed to [panel_open ? "close" : "open"] its maintenance hatch!"))
 		return .
-	if(default_deconstruction_screwdriver(user, "[base_icon_state]-o", base_icon_state, I))
+	if(default_deconstruction_screwdriver(user, "[base_icon_state]-o", base_icon_state, tool))
 		return ITEM_INTERACT_SUCCESS
 	return .
 
