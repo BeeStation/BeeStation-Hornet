@@ -13,7 +13,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
 	var/mob/oranges_ear/assigned_oranges_ear
 
-
 	/// Turf bitflags, see code/__DEFINES/flags.dm
 	var/turf_flags = NONE
 	/// If there's a tile over a basic floor that can be ripped out
@@ -62,7 +61,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/list/image/blueprint_data
 
 	var/explosion_level = 0	//for preventing explosion dodging
-	var/explosion_id = 0
 	var/list/explosion_throw_details
 
 	var/requires_activation	//add to air processing after initialize?
