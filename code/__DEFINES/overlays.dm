@@ -8,6 +8,9 @@
 		var/text_lays = overlays2text(changed_on.overlays); \
 		stack_trace("Too many overlays on [changed_on.type] - [length(changed_on.overlays)], refusing to update and cutting.\
 			\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]"); \
+		if(istype(changed_on, /mob/living/carbon)) { \
+			send2tgs("Server", "Overlay culling has occurred on [changed_on.type], a carbon. Possible overlay issue/invisibility ahelp inbound."); \
+		} \
 		changed_on.overlays.Cut(); \
 		changed_on.add_overlay(mutable_appearance('icons/testing/greyscale_error.dmi')); \
 	} \

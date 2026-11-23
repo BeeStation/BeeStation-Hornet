@@ -3,7 +3,7 @@
 	abstract_type = /obj/item/organ/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
-	visual = FALSE
+
 	organ_flags = ORGAN_ROBOTIC
 	var/implant_color = COLOR_WHITE
 	var/implant_overlay
@@ -82,7 +82,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special, movement_flags)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/implant_owner, special, movement_flags)
 	if(active)
 		ui_action_click()
 	..()

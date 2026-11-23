@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// will show the feature as selectable.
 	var/relevant_body_markings = null
 
-	/// If the selected species has this in its /datum/species/inherent_traits,
+	// If the selected species has this in its /datum/species/inherent_traits,
 	/// will show the feature as selectable.
 	var/relevant_inherent_trait = null
 
@@ -344,9 +344,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return cached_values
 
 /// Returns a list of every possible value, serialized.
-/// Return value can be in the form of:
-/// - A flat list of serialized values, such as list(MALE, FEMALE, PLURAL).
-/// - An assoc list of serialized values to atoms/icons.
 /datum/preference/choiced/proc/get_choices_serialized()
 	// Override `init_values()` instead.
 	SHOULD_NOT_OVERRIDE(TRUE)

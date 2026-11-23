@@ -4,6 +4,8 @@
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	inherent_traits = list(
+		TRAIT_AGENDER,
+		TRAIT_MUTANT_COLORS,
 		TRAIT_PSYCHIC_SENSE,
 		TRAIT_MUTANT_COLORS,
 		TRAIT_AGENDER,

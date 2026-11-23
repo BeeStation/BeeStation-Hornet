@@ -10,23 +10,28 @@
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
 	inherent_traits = list(
+		TRAIT_TACKLING_WINGED_ATTACKER,
 		TRAIT_MUTANT_COLORS,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
+	mutant_bodyparts = list(
+		"body_size" = "Normal",
+		"moth_eyes" = "Default",
+	)
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/moth = SPRITE_ACCESSORY_NONE,
 	)
 	mutant_organs = list(
 		/obj/item/organ/wings/moth = "Plain",
-		/obj/item/organ/antennae = "Plain",
+		/obj/item/organ/antennae = "Plain"
 	)
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutanttongue = /obj/item/organ/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	inert_mutation = /datum/mutation/strongwings
-	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
+	//inert_mutation = /datum/mutation/strongwings
+	death_sound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/moth,
@@ -43,7 +48,7 @@
 
 /datum/species/moth/randomize_features()
 	var/list/features = ..()
-	features[FEATURE_MOTH_MARKINGS] = pick(GLOB.moth_markings_list)
+	features[FEATURE_MOTH_MARKINGS] = pick(SSaccessories.moth_markings_list)
 	return features
 
 /datum/species/moth/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
@@ -58,6 +63,7 @@
 		mutanteyes = /obj/item/organ/eyes/moth/domestic
 	else
 		mutanteyes = /obj/item/organ/eyes/moth
+		
 	human_who_gained_species.dna?.features[FEATURE_MUTANT_COLOR] = "#f4d697"
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
@@ -78,7 +84,8 @@
 /datum/species/moth/get_scream_sound(mob/living/carbon/user)
 	return 'sound/voice/moth/scream_moth.ogg'
 
-/datum/species/moth/on_species_gain(mob/living/carbon/human/H)
+/*
+/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, regenerate_icons)
 	..()
 	cocoon_action = new()
 	cocoon_action.Grant(H)
@@ -89,7 +96,6 @@
 	QDEL_NULL(cocoon_action)
 
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
-	. = ..()
 	if(cocoon_action)
 		cocoon_action.update_buttons()
 
@@ -212,6 +218,7 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+*/
 
 /datum/species/moth/get_features()
 	var/list/features = ..()

@@ -32,7 +32,7 @@
 
 
 	/// Hair style
-	var/hair_style = "Bald"
+	var/hairstyle = "Bald"
 	/// Hair colour and style
 	var/hair_color = COLOR_BLACK
 	/// Hair alpha
@@ -45,12 +45,12 @@
 	///Facial hair alpha
 	var/facial_hair_alpha = 255
 	/// Gradient styles, if any
-	var/list/gradient_styles = list(
+	var/list/grad_styles = list(
 		"None",	//Hair gradient style
 		"None",	//Facial hair gradient style
 	)
 	/// Gradient colors, if any
-	var/list/gradient_colors = list(
+	var/list/grad_colors = list(
 		COLOR_BLACK,	//Hair gradient color
 		COLOR_BLACK,	//Facial hair gradient color
 	)

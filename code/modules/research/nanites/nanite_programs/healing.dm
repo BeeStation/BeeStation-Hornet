@@ -23,7 +23,7 @@
 		if(!parts.len)
 			return
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(0.5/parts.len, 0.5/parts.len, required_bodytype = BODYTYPE_ORGANIC))
+			if(L.heal_damage(brute = 0.5/parts.len, burn = 0.5/parts.len, required_bodytype = BODYTYPE_ORGANIC))
 				host_mob.update_damage_overlays()
 	else
 		host_mob.adjustBruteLoss(-0.5, TRUE)

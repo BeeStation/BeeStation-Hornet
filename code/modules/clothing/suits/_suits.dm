@@ -49,6 +49,7 @@
 		undershirt.accessory_overlay_over.layer = item_layer + 0.0001
 		. += undershirt.accessory_overlay_over
 
+
 /obj/item/clothing/suit/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))

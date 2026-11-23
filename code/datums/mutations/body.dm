@@ -86,7 +86,7 @@
 	difficulty = 16
 	instability = 5
 	conflicts = list(/datum/mutation/gigantism)
-	locked = TRUE    // Default intert species for now, so locked from regular pool.
+	locked = TRUE // Default intert species for now, so locked from regular pool.
 
 /datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
 	. = ..()
@@ -365,6 +365,7 @@
 		owner.visible_message(span_danger("[owner] tries to stand up, but trips!"), span_userdanger("You trip over your own feet!"))
 		COOLDOWN_START(src, stun_cooldown, 30 SECONDS)
 
+/*
 /datum/mutation/strongwings
 	name = "Strengthened Wings"
 	desc = "Subject's wing muscle volume rapidly increases."
@@ -393,6 +394,7 @@
 		return
 	to_chat(owner, span_notice("Your wings feel stronger."))
 
+
 /datum/mutation/strongwings/on_losing()
 	if(..())
 		return
@@ -413,6 +415,7 @@
 	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
+*/
 
 /datum/mutation/catclaws
 	name = "Cat Claws"

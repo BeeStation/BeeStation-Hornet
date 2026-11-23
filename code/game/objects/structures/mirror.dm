@@ -69,15 +69,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	switch(choice)
 		if("Hair")
 			//handle normal hair
-			var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hairstyles_list, user.hair_style)
+			var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", SSaccessories.hairstyles_list, user.hairstyle)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) || !new_style)
 				return //no tele-grooming
+			if(HAS_TRAIT(user, TRAIT_BALD))
+				to_chat(user, span_notice("If only growing back hair were that easy for you..."))
+				return
 			user.set_hairstyle(new_style, update = TRUE)
 		if("Facial")
 			//handle facial hair
-			var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hairstyles_list, user.facial_hairstyle)
+			var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", SSaccessories.facial_hairstyles_list, user.facial_hairstyle)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) || !new_style)
 				return //no tele-grooming
+			if(HAS_TRAIT(user, TRAIT_SHAVED))
+				to_chat(user, span_notice("If only growing back facial hair were that easy for you..."))
+				return
 			user.set_facial_hairstyle(new_style, update = TRUE)
 
 /obj/structure/mirror/atom_break(damage_flag)
@@ -195,7 +201,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/magic, 28)
 					if(mutant_hsv[3] >= 50) // mutantcolors must be bright
 						user.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(new_mutantcolor)
 						user.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
-
 					else
 						to_chat(user, span_notice("Invalid color. Your color is not bright enough."))
 
@@ -203,22 +208,22 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/magic, 28)
 			user.update_mutations_overlay() // no hulk lizard
 
 		if("gender")
-			if(!(user.gender in list("male", "female"))) //blame the patriarchy
+			if(!(user.gender in list(MALE, FEMALE))) //blame the patriarchy
 				return
-			if(user.gender == "male")
-				if(alert(user, "Become a Witch?", "Confirmation", "Yes", "No") == "Yes")
+			if(user.gender == MALE)
+				if(tgui_alert(user, "Become a Witch?", "Confirmation", list("Yes", "No")) == "Yes")
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
-					user.gender = "female"
+					user.gender = FEMALE
 					to_chat(user, span_notice("Man, you feel like a woman!"))
 				else
 					return
 
 			else
-				if(alert(user, "Become a Warlock?", "Confirmation", "Yes", "No") == "Yes")
+				if(tgui_alert(user, "Become a Warlock?", "Confirmation", list("Yes", "No")) == "Yes")
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
-					user.gender = "male"
+					user.gender = MALE
 					to_chat(user, span_notice("Whoa man, you feel like a man!"))
 				else
 					return
@@ -233,7 +238,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/magic, 28)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(hairchoice == "Style") //So you just want to use a mirror then?
-				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", GLOB.hairstyles_list, user.hair_style)
+				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", SSaccessories.hairstyles_list, user.hairstyle)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_style)
@@ -245,7 +250,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/magic, 28)
 				if(new_hair_color)
 					user.set_haircolor(sanitize_hexcolor(new_hair_color))
 					user.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
-				if(user.gender == "male")
+				if(user.gender == MALE)
 					var/new_face_color = tgui_color_picker(user, "Choose your facial hair color", "Hair Color", user.facial_hair_color)
 					if(new_face_color)
 						user.set_facial_haircolor(sanitize_hexcolor(new_face_color))

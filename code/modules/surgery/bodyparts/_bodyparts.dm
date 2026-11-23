@@ -1190,3 +1190,8 @@
 
 	owner.Stun(3 SECONDS)
 	owner.Shake(pixelshiftx = 3, pixelshifty = 0, duration = 2.5 SECONDS)
+
+/obj/item/bodypart/proc/can_bleed()
+	SHOULD_BE_PURE(TRUE)
+
+	return !owner || !HAS_TRAIT(owner, TRAIT_NOBLOOD)

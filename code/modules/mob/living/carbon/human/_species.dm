@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
 
-	//The maximum number of bodyparts this species can have.
+	///The maximum number of bodyparts this species can have.
 	var/max_bodypart_count = 6
 
 	/// This allows races to have specific hair colors.
@@ -54,9 +54,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
 	var/datum/reagent/exotic_blood
 	///If your race uses a non standard bloodtype (A+, O-, AB-, etc). For example, lizards have L type blood.
-	var/exotic_bloodtype = ""
+	var/exotic_bloodtype
 	///What the species drops when gibbed by a gibber machine.
 	var/meat = /obj/item/food/meat/slab/human
+	///What skin the species drops when gibbed by a gibber machine.
 	var/skinned_type
 	///flags for inventory slots the race can't equip stuff to. Golems cannot wear jumpsuits, for example.
 	var/no_equip_flags
@@ -64,8 +65,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// Use a [language holder datum][/datum/language_holder] typepath in this var.
 	/// Should never be null.
 	var/datum/language_holder/species_language_holder = /datum/language_holder/human_basic
-	///Internal organs that are unique to this race, like a tail.
-	var/list/mutant_organs = list()
 	///The bodyparts this species uses. assoc of bodypart string - bodypart type. Make sure all the fucking entries are in or I'll skin you alive.
 	var/list/bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left,
@@ -75,65 +74,27 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest,
 	)
-
 	/**
-	 * Percentage modifier for overall defense of the race, or less defense, if it's negative
-	 * THIS MODIFIES ALL DAMAGE TYPES.
-	 **/
-	var/damage_modifier = 0
-	var/coldmod = 1		// multiplier for cold damage
-	var/heatmod = 1		// multiplier for heat damage
-	var/stunmod = 1
-	var/staminamod = 1
-	var/oxymod = 1
-	var/clonemod = 1
-	var/toxmod = 1
-	var/siemens_coeff = 1 //base electrocution coefficient
-	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
-	var/inert_mutation 	= /datum/mutation/dwarfism //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
-	var/deathsound //used to set the mobs deathsound on species change
-	var/list/special_step_sounds //Sounds to override barefeet walkng
-	var/grab_sound //Special sound for grabbing
-	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
-	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
-	var/allow_numbers_in_name // Can this species use numbers in its name?
-	/// A path to an outfit that is important for species life e.g. plasmaman outfit
-	var/datum/outfit/outfit_important_for_life
-	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
+	  * Visible CURRENT bodyparts that are unique to a species.
+	  * DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK
+	  * SHIT UP! Changes to this list for non-species specific bodyparts (ie
+	  * cat ears and tails) should be assigned at organ level if possible.
+	  * Assoc values are defaults for given bodyparts, also modified by aforementioned organs.
+	  * They also allow for faster '[]' list access versus 'in'. Other than that, they are useless right now.
+	  * Layer hiding is handled by [/datum/species/proc/handle_mutant_bodyparts] below.
+	  */
+	var/list/mutant_bodyparts = list()
 
-	/// The natural temperature for a body
-	var/bodytemp_normal = BODYTEMP_NORMAL
-	/// Minimum amount of kelvin moved toward normal body temperature per tick.
-	var/bodytemp_autorecovery_min = BODYTEMP_AUTORECOVERY_MINIMUM
-	/// The body temperature limit the body can take before it starts taking damage from heat.
-	var/bodytemp_heat_damage_limit = BODYTEMP_HEAT_DAMAGE_LIMIT
-	/// The body temperature limit the body can take before it starts taking damage from cold.
-	var/bodytemp_cold_damage_limit = BODYTEMP_COLD_DAMAGE_LIMIT
-
-	///Does our species have colors for its damage overlays?
-	var/use_damage_color = TRUE
-
-	/// Generic traits tied to having the species.
-	var/list/inherent_traits = list()
-	/// Move intents the species can use
-	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run, /datum/move_intent/sprint)
-	/// Bitflags of biotypes the mob belongs to. Used by diseases.
-	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
-	///List of factions the mob gain upon gaining this species.
-	var/list/inherent_factions
-
-	///What gas does this species breathe? Used by suffocation screen alerts, most of actual gas breathing is handled by mutantlungs. See [life.dm][code/modules/mob/living/carbon/human/life.dm]
-	var/breathid = GAS_O2
-
-	//Do NOT remove by setting to null. use OR make an ASSOCIATED TRAIT.
-	//why does it work this way? because traits also disable the downsides of not having an organ, removing organs but not having the trait will make your species die
-
+	///Internal organs that are unique to this race, like a tail or other cosmetic organs. list(typepath of organ 1, typepath of organ 2 = "Round").
+	var/list/mutant_organs = list()
 	///Replaces default brain with a different organ
 	var/obj/item/organ/brain/mutantbrain = /obj/item/organ/brain
 	///Replaces default heart with a different organ
 	var/obj/item/organ/heart/mutantheart = /obj/item/organ/heart
 	///Replaces default lungs with a different organ
 	var/obj/item/organ/lungs/mutantlungs = /obj/item/organ/lungs
+	/// Smoker lungs for the quirk, overriden by certain species
+	var/obj/item/organ/lungs/smoker_lungs = /obj/item/organ/lungs/smoker_lungs
 	///Replaces default eyes with a different organ
 	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
 	///Replaces default ears with a different organ
@@ -150,9 +111,65 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// Store body marking defines. See mobs.dm for bitflags
 	var/list/body_markings = list()
 
-	//Bitflag that controls what in game ways can select this species as a spawnable source
-	//Think magic mirror and pride mirror, slime extract, ERT etc, see defines
-	//in __DEFINES/mobs.dm, defaults to NONE, so people actually have to think about it
+	/**
+	 * Percentage modifier for overall defense of the race, or less defense, if it's negative
+	 * THIS MODIFIES ALL DAMAGE TYPES.
+	 **/
+	var/damage_modifier = 0
+	///multiplier for damage from cold temperature
+	var/coldmod = 1
+	///multiplier for damage from hot temperature
+	var/heatmod = 1
+	///multiplier for stun durations
+	var/stunmod = 1
+	var/staminamod = 1
+	var/oxymod = 1
+	var/clonemod = 1
+	///multiplier for damage from toxins
+	var/toxmod = 1
+	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
+	var/siemens_coeff = 1
+	///To use MUTCOLOR with a fixed color that's independent of the mcolor feature in DNA.
+	var/fixed_mut_color = ""
+	///Special mutation that can be found in the genepool exclusively in this species. Dont leave empty or changing species will be a headache
+	var/inert_mutation = /datum/mutation/dwarfism
+	///Used to set the mob's death_sound upon species change
+	var/death_sound
+	///Sounds to override barefeet walking
+	var/list/special_step_sounds
+	///Special sound for grabbing
+	var/grab_sound
+	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
+	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
+	var/allow_numbers_in_name // Can this species use numbers in its name?
+	/// A path to an outfit that is important for species life e.g. plasmaman outfit
+	var/datum/outfit/outfit_important_for_life
+
+	/// The natural temperature for a body
+	var/bodytemp_normal = BODYTEMP_NORMAL
+	/// Minimum amount of kelvin moved toward normal body temperature per tick.
+	var/bodytemp_autorecovery_min = BODYTEMP_AUTORECOVERY_MINIMUM
+	/// The body temperature limit the body can take before it starts taking damage from heat.
+	var/bodytemp_heat_damage_limit = BODYTEMP_HEAT_DAMAGE_LIMIT
+	/// The body temperature limit the body can take before it starts taking damage from cold.
+	var/bodytemp_cold_damage_limit = BODYTEMP_COLD_DAMAGE_LIMIT
+
+	///Does our species have colors for its' damage overlays?
+	var/use_damage_color = TRUE
+
+	/// Generic traits tied to having the species.
+	var/list/inherent_traits = list()
+	/// Move intents the species can use
+	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run, /datum/move_intent/sprint)
+	/// Bitflags of biotypes the mob belongs to. Used by diseases.
+	var/inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	///List of factions the mob gain upon gaining this species.
+	var/list/inherent_factions
+
+	///What gas does this species breathe? Used by suffocation screen alerts, most of actual gas breathing is handled by mutantlungs. See [life.dm][code/modules/mob/living/carbon/human/life.dm]
+	var/breathid = GAS_O2
+
+	///Bitflag that controls what in game ways something can select this species as a spawnable source, such as magic mirrors. See [mob defines][code/__DEFINES/mobs.dm] for possible sources.
 	var/changesource_flags = NONE
 
 	//The component to add when swimming
@@ -175,6 +192,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Should we preload this species's organs?
 	var/preload = TRUE
 
+	/**
+	 * Was on_species_gain ever actually called?
+	 * Species code is really odd...
+	 **/
+	var/properly_gained = FALSE
+
 	/// Do we try to prevent set_mob_eye_to(MOB_EYE_SELF) from working?
 	var/prevent_perspective_change = FALSE
 
@@ -183,10 +206,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// to a random name.
 	/// If null, then it will always change.
 	var/name_key = null
-
-	/// Was on_species_gain ever actually called?
-	/// Species code is really odd...
-	var/properly_gained = FALSE
 
 ///////////
 // PROCS //
@@ -268,18 +287,49 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		stack_trace("WARNING: roundstart_no_hard_check contains invalid species ID: [species_id]")
 	return base
 
+/**
+ * Checks if a species is eligible to be picked at roundstart.
+ *
+ * Checks the config to see if this species is allowed to be picked in the character setup menu.
+ * Used by [/proc/generate_selectable_species_and_languages].
+ */
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
 		return TRUE
 	return FALSE
 
-/datum/species/proc/check_no_hard_check()
-	if(id in (CONFIG_GET(keyed_list/roundstart_no_hard_check)))
-		return TRUE
-	return FALSE
+/**
+ * Generates a random name for a carbon.
+ *
+ * This generates a random unique name based on a human's species and gender.
+ * Arguments:
+ * * gender - The gender that the name should adhere to. Use MALE for male names, use anything else for female names.
+ * * unique - If true, ensures that this new name is not a duplicate of anyone else's name currently on the station.
+ * * last_name - Do we use a given last name or pick a random new one?
+ */
+/datum/species/proc/random_name(gender, unique, lastname, attempts)
 
-//Called when cloning, copies some vars that should be kept
-/datum/species/proc/copy_properties_from(datum/species/old_species)
+	if(gender == MALE)
+		. = pick(GLOB.first_names_male)
+	else
+		. = pick(GLOB.first_names_female)
+
+	if(lastname)
+		. += " [lastname]"
+	else
+		. += " [pick(GLOB.last_names)]"
+
+	if(unique && attempts < 10)
+		. = .(gender, TRUE, lastname, ++attempts)
+
+/**
+ * Copies some vars and properties over that should be kept when creating a copy of this species.
+ *
+ * Used by slimepeople to copy themselves, and by the DNA datum to hardset DNA to a species
+ * Arguments:
+ * * old_species - The species that the carbon used to be before copying
+ */
+/datum/species/proc/copy_properties_from(datum/species/old_species, regenerate_icons)
 	return
 
 /**
@@ -310,12 +360,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			for(var/obj/item/organ/extra_organ as anything in mutant_organs)
 				if(initial(extra_organ.slot) == slot)
 					return extra_organ
-
-//Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
-/datum/species/proc/qualifies_for_rank(datum/job/rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
-		return 0
-	return 1
 
 
 /**
@@ -413,14 +457,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			new_part = new path()
 			new_part.replace_limb(target)
 			new_part.update_limb(is_creating = TRUE)
+			//new_part.set_initial_damage(old_part.brute_dam, old_part.burn_dam)
 		qdel(old_part)
-
-/// Creates body parts for the target completely from scratch based on the species
-/datum/species/proc/create_fresh_body(mob/living/carbon/target)
-	var/list/override_limbs = list()
-	for(var/bodypart in bodypart_overrides)
-		override_limbs += bodypart_overrides[bodypart]
-	target.create_bodyparts(override_limbs)
 
 /**
  * Proc called when a carbon becomes this species.
@@ -430,8 +468,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Arguments:
  * * C - Carbon, this is whoever became the new species.
  * * old_species - The species that the carbon used to be before becoming this race, used for regenerating organs.
+ * * regenerate_icons - Whether or not to update the bodies icons
  */
-/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, regenerate_icons = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
@@ -458,13 +497,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	add_body_markings(C)
 
+	add_body_markings(C)
+
 	if(length(inherent_traits))
 		C.add_traits(inherent_traits, SPECIES_TRAIT)
-
-	//if we can't have the disease, dont keep it
-	for(var/datum/disease/disease in C.diseases)
-		if(!(disease.infectable_biotypes & inherent_biotypes))
-			disease.cure(FALSE)
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
@@ -480,50 +516,64 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	for(var/language in gaining_holder.blocked_languages)
 		C.add_blocked_language(language, LANGUAGE_SPECIES)
 
+	if(regenerate_icons)
+		C.regenerate_icons()
+
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
 	properly_gained = TRUE
 
 	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
-/datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
+
+/**
+ * Proc called when a carbon is no longer this species.
+ *
+ * This sets up and adds/changes/removes things, qualities, abilities, and traits so that the transformation is as smooth and bugfree as possible.
+ * Produces a [COMSIG_SPECIES_LOSS] signal.
+ * Arguments:
+ * * C - Carbon, this is whoever lost this species.
+ * * new_species - The new species that the carbon became, used for genetics mutations.
+ */
+/datum/species/proc/on_species_loss(mob/living/carbon/human/human, datum/species/new_species)
 	SHOULD_CALL_PARENT(TRUE)
 
-	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay removed.
-	C.butcher_results = null
-	for(var/X in inherent_traits)
-		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
+	human.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay removed.
+	human.butcher_results = null
+
+	for(var/trait in inherent_traits)
+		REMOVE_TRAIT(human, trait , SPECIES_TRAIT)
 
 	//If their inert mutation is not the same, swap it out
-	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(C.dna.mutation_index) && (inert_mutation in C.dna.mutation_index))
-		C.dna.remove_mutation(inert_mutation)
+	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(human.dna.mutation_index) && (inert_mutation in human.dna.mutation_index))
+		human.dna.remove_mutation(inert_mutation)
 		//keep it at the right spot, so we can't have people taking shortcuts
-		var/location = C.dna.mutation_index.Find(inert_mutation)
-		C.dna.mutation_index[location] = new_species.inert_mutation
-		C.dna.default_mutation_genes[location] = C.dna.mutation_index[location]
-		C.dna.mutation_index[new_species.inert_mutation] = create_sequence(new_species.inert_mutation)
-		C.dna.default_mutation_genes[new_species.inert_mutation] = C.dna.mutation_index[new_species.inert_mutation]
+		var/location = human.dna.mutation_index.Find(inert_mutation)
+		human.dna.mutation_index[location] = new_species.inert_mutation
+		human.dna.default_mutation_genes[location] = human.dna.mutation_index[location]
+		human.dna.mutation_index[new_species.inert_mutation] = create_sequence(new_species.inert_mutation)
+		human.dna.default_mutation_genes[new_species.inert_mutation] = human.dna.mutation_index[new_species.inert_mutation]
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
-			C.faction -= i
+			human.faction -= i
 
-	clear_tail_moodlets(C)
+	clear_tail_moodlets(human)
 
-	remove_body_markings(C)
+	remove_body_markings(human)
 
 	// Removes all languages previously associated with [LANGUAGE_SPECIES], gaining our new species will add new ones back
 	var/datum/language_holder/losing_holder = GLOB.prototype_language_holders[species_language_holder]
 	for(var/language in losing_holder.understood_languages)
-		C.remove_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
+		human.remove_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in losing_holder.spoken_languages)
-		C.remove_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
+		human.remove_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in losing_holder.blocked_languages)
-		C.remove_blocked_language(language, LANGUAGE_SPECIES)
+		human.remove_blocked_language(language, LANGUAGE_SPECIES)
 
-	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
+	SEND_SIGNAL(human, COMSIG_SPECIES_LOSS, src)
 
-	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
+	human.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
 ///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob,
 /// but will not update the body right away.
@@ -733,7 +783,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/equip_delay_self_check(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
-	H.visible_message(span_notice("[H] start putting on [I]."), span_notice("You start putting on [I]."))
+	H.visible_message(span_notice("[H] start putting on [I]..."), span_notice("You start putting on [I]..."))
 	return do_after(H, I.equip_delay_self, target = H)
 
 /// Equips the necessary species-relevant gear before putting on the rest of the uniform.
@@ -811,8 +861,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		var/obj/item/bodypart/head/head = source.get_bodypart(BODY_ZONE_HEAD)
-		if(!(source.hair_style == "Bald") && (head?.head_flags & HEAD_HAIR|HEAD_FACIAL_HAIR) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
-			to_chat(source, span_danger("Your hair starts to fall out in clumps."))
+		if(!(source.hairstyle == "Bald") && (head?.head_flags & HEAD_HAIR|HEAD_FACIAL_HAIR) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
+			to_chat(source, span_danger("Your hair starts to fall out in clumps..."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
 
 /datum/species/proc/handle_blood(mob/living/carbon/human/H)
@@ -828,7 +878,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(QDELETED(target)) //may be called from a timer
 		return
 	target.set_facial_hairstyle("Shaved", update = FALSE)
-	target.set_hairstyle("Bald", update = TRUE) //This calls update_body_parts()
+	target.set_hairstyle("Bald") //This calls update_body_parts()
 
 ////////////////
 // MOVE SPEED //
@@ -888,7 +938,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(target.check_block())
 		target.visible_message(
-			span_warning("[target] blocks [user]'s attack!"),
+			span_warning("[target] blocks [user]'s attack!"), \
 			span_userdanger("You block [user]'s attack!"),
 			span_hear("You hear a swoosh!"),
 			COMBAT_MESSAGE_RANGE,
@@ -910,7 +960,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(atk_effect == ATTACK_EFFECT_BITE)
 		if(user.is_mouth_covered(ITEM_SLOT_MASK))
-			to_chat(user, "<span class='warning'>You can't [atk_verb] with your mouth covered!</span>")
+			to_chat(user, span_warning("You can't [atk_verb] with your mouth covered!"))
 			return FALSE
 	user.do_attack_animation(target, atk_effect)
 
@@ -920,7 +970,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/bodypart/affecting = target.get_bodypart(hit_zone)
 
 	if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
-		playsound(target.loc, attacking_bodypart.unarmed_miss_sound, 25, 1, -1)
+		playsound(target.loc, attacking_bodypart.unarmed_miss_sound, 25, TRUE, -1)
 		target.visible_message(
 			span_danger("[user]'s [atk_verb] misses [target]!"),
 			span_danger("You avoid [user]'s [atk_verb]!"),
@@ -934,10 +984,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/armor_block = target.run_armor_check(affecting, MELEE)
 
-	playsound(target.loc, attacking_bodypart.unarmed_attack_sound, 25, 1, -1)
+	playsound(target.loc, attacking_bodypart.unarmed_attack_sound, 25, TRUE, -1)
 
 	target.visible_message(
-		span_danger("[user] [atk_verb]ed [target]!"), \
+		span_danger("[user] [atk_verb]ed [target]!"),
 		span_userdanger("You're [atk_verb]ed by [user]!"),
 		span_hear("You hear a sickening sound of flesh hitting flesh!"),
 		COMBAT_MESSAGE_RANGE,
@@ -971,13 +1021,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message(
-			span_warning("[user]'s shove is blocked by [target]!"), \
-			span_danger("You block [user]'s shove!"),
-			span_hear("You hear a swoosh!"),
-			COMBAT_MESSAGE_RANGE,
-			user
-		)
+		target.visible_message(span_warning("[user]'s shove is blocked by [target]!"), \
+						span_danger("You block [user]'s shove!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, span_warning("Your shove at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.disarm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
@@ -1089,7 +1134,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		blocked = armor_block,
 		sharpness = weapon.get_sharpness(),
 		attack_direction = get_dir(user, human),
-		attacking_item = weapon,
 	)
 
 	if(damage_dealt <= 0)
@@ -1347,10 +1391,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// Apply the damage to all body parts
 		humi.apply_damage(burn_damage, BURN, spread_damage = TRUE)
 
-	if(humi.coretemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
-		var/damage_type = BURN
-		var/damage_mod = coldmod * humi.physiology.cold_mod
-		if(humi.coretemperature in 201 to bodytemp_cold_damage_limit)
+	// For cold damage, we cap at the threshold if you're dead
+	if(humi.getFireLoss() >= abs(HEALTH_THRESHOLD_DEAD) && humi.stat == DEAD)
+		return
+
+	// Apply some burn / brute damage to the body (Dependent if the person is hulk or not)
+	var/is_hulk = HAS_TRAIT(humi, TRAIT_HULK)
+
+	var/cold_damage_limit = bodytemp_cold_damage_limit + (is_hulk ? BODYTEMP_HULK_COLD_DAMAGE_LIMIT_MODIFIER : 0)
+
+	if(humi.coretemperature < cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
+		var/damage_type = is_hulk ? BRUTE : BURN // Why?
+		var/damage_mod = coldmod * humi.physiology.cold_mod * (is_hulk ? HULK_COLD_DAMAGE_MOD : 1)
+		// Can't be a switch due to http://www.byond.com/forum/post/2750423
+		if(humi.coretemperature in 201 to cold_damage_limit)
 			humi.apply_damage(COLD_DAMAGE_LEVEL_1 * damage_mod * delta_time, damage_type)
 		else if(humi.coretemperature in 120 to 200)
 			humi.apply_damage(COLD_DAMAGE_LEVEL_2 * damage_mod * delta_time, damage_type)
@@ -2088,6 +2142,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_types_to_preload()
 	return get_organs(FALSE)
 
+/// Creates body parts for the target completely from scratch based on the species
+/datum/species/proc/create_fresh_body(mob/living/carbon/target)
+	var/list/override_limbs = list()
+	for(var/bodypart in bodypart_overrides)
+		override_limbs += bodypart_overrides[bodypart]
+	target.create_bodyparts(override_limbs)
+
 /**
  * Checks if the species has a head with these head flags, by default.
  * Admittedly, this is a very weird and seemingly redundant proc, but it
@@ -2106,7 +2167,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  *
  * Returns a color string or null.
  */
-/datum/species/proc/get_fixed_hair_color(mob/living/carbon/human/for_mob)
+/datum/species/proc/get_fixed_hair_color(mob/living/carbon/for_mob)
 	ASSERT(!isnull(for_mob))
 	switch(hair_color_mode)
 		if(USE_MUTANT_COLOR)

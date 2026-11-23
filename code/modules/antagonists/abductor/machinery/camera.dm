@@ -92,7 +92,7 @@
 		if (isabductor(specimin))
 			agent_nearby = TRUE
 			break
-		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
+		var/obj/item/organ/heart/gland/temp = locate() in specimin.organs
 		//Not a specimin
 		if(istype(temp))
 			continue
@@ -147,7 +147,7 @@
 		if (isabductor(specimin))
 			agent_nearby = TRUE
 			break
-		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
+		var/obj/item/organ/heart/gland/temp = locate() in specimin.organs
 		//Not a specimin
 		if(istype(temp))
 			continue

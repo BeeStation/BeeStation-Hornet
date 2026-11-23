@@ -22,6 +22,8 @@
 	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED
 	bodypart_traits = list(TRAIT_NO_MOUTH)
 
+	head_flags = HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN
+
 /obj/item/bodypart/chest/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_greyscale = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -63,6 +65,8 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
+
 	burn_modifier = 1.5
 	brute_modifier = 1.5
 	bodypart_flags = BODYPART_UNHUSKABLE | BODYPART_EMP_HARDENED
@@ -84,6 +88,8 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
 
 	burn_modifier = 1.5
 	brute_modifier = 1.5

@@ -13,6 +13,10 @@
 	var/magpulse = 0
 	var/slowdown_active = 2
 
+/obj/item/clothing/shoes/magboots/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_FEET)

@@ -6,11 +6,12 @@
 	human.physique = human.gender
 	human.real_name = human.generate_random_mob_name()
 	human.name = human.get_visible_name()
-	human.set_hairstyle(random_hair_style(human.gender), update = FALSE)
+	human.set_hairstyle(random_hairstyle(human.gender), update = FALSE)
 	human.set_facial_hairstyle(random_facial_hairstyle(human.gender), update = FALSE)
 	human.set_haircolor("#[random_color()]", update = FALSE)
 	human.set_facial_haircolor(human.hair_color, update = FALSE)
-	human.set_eye_color(random_eye_color())
+	human.eye_color_left = random_eye_color()
+	human.eye_color_right = human.eye_color_left
 	human.skin_tone = pick(GLOB.skin_tones)
 	human.dna.species.randomize_active_underwear_only(human)
 	// Needs to be called towards the end to update all the UIs just set above
@@ -30,40 +31,40 @@
 	human.physique = human.gender
 	human.real_name = human.generate_random_mob_name()
 	human.name = human.get_visible_name()
-	human.set_eye_color(random_eye_color())
+	human.eye_color_left = random_eye_color()
+	human.eye_color_right = human.eye_color_left
 	human.skin_tone = pick(GLOB.skin_tones)
-	human.dna.species.randomize_active_underwear_only(human)
+	// No underwear generation handled here
 	var/picked_color = random_hair_color()
 	human.set_haircolor(picked_color, update = FALSE)
 	human.set_facial_haircolor(picked_color, update = FALSE)
-	var/datum/sprite_accessory/hairstyle = GLOB.hairstyles_list[random_hair_style(human.gender)]
+	var/datum/sprite_accessory/hairstyle = SSaccessories.hairstyles_list[random_hairstyle(human.gender)]
 	if(hairstyle && hairstyle.natural_spawn && !hairstyle.locked)
 		human.set_hairstyle(hairstyle.name, update = FALSE)
-	var/datum/sprite_accessory/facial_hair = GLOB.facial_hairstyles_list[random_facial_hairstyle(human.gender)]
+	var/datum/sprite_accessory/facial_hair = SSaccessories.facial_hairstyles_list[random_facial_hairstyle(human.gender)]
 	if(facial_hair && facial_hair.natural_spawn && !facial_hair.locked)
 		human.set_facial_hairstyle(facial_hair.name, update = FALSE)
 
 	// Gradient colour - initialize as list
-	if(!human.gradient_color)
-		human.gradient_color = list()
-	if(!human.gradient_style)
-		human.gradient_style = list()
+	if(!human.grad_color)
+		human.grad_color = list()
+	if(!human.grad_style)
+		human.grad_style = list()
 
 	// Gradient colour
 	if (prob(40))
-		human.gradient_color[GRADIENT_HAIR_KEY] = human.hair_color
+		human.grad_color[GRADIENT_HAIR_KEY] = human.hair_color
 	else
 		switch (human.gender)
 			if (MALE)
-				human.gradient_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours)
+				human.grad_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours)
 			else
-				human.gradient_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
-	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = human.gender)
-	human.gradient_style[GRADIENT_HAIR_KEY] = gradient_style?.name || SPRITE_ACCESSORY_NONE
+				human.grad_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
+	var/datum/sprite_accessory/gradient_style = pick_default_accessory(SSaccessories.hair_gradients_list, required_gender = human.gender)
+	human.grad_style[GRADIENT_HAIR_KEY] = gradient_style?.name || SPRITE_ACCESSORY_NONE
 
 	// Normal DNA init stuff, these can generally be wacky but we care less, they're aliens after all
 	human.dna.initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = randomize_mutations, randomize_features = TRUE)
 	human.updatehealth()
 	if(update_body)
 		human.updateappearance(mutcolor_update = TRUE)
-

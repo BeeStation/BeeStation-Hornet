@@ -58,7 +58,7 @@
 	return human_owner?.eye_color_left
 
 /datum/bodypart_overlay/mutant/ipc_screen/get_global_feature_list()
-	return GLOB.ipc_screens_list
+	return SSaccessories.ipc_screens_list
 
 ///An IPC's antenna or other head attachment
 /obj/item/organ/ipc_antenna
@@ -93,4 +93,4 @@
 	return human_owner?.hair_color
 
 /datum/bodypart_overlay/mutant/ipc_antenna/get_global_feature_list()
-	return GLOB.ipc_antennas_list
+	return SSaccessories.ipc_antennas_list

@@ -1,0 +1,11 @@
+// Digi Stuff
+
+/datum/greyscale_config/digitigrade
+	name = "Digitigrade Clothes"
+	icon_file = 'icons/mob/clothing/digi_template_equipment.dmi'
+	json_config = 'code/datums/greyscale/json_configs/digitigrade.json'
+
+/datum/greyscale_config/digitigrade_underwear
+	name = "Digitigrade Underwear"
+	icon_file = 'icons/mob/clothing/digi_template_underwear.dmi'
+	json_config = 'code/datums/greyscale/json_configs/digitigrade_underwear.json'

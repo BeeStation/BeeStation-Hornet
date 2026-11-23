@@ -33,7 +33,7 @@
 	feature_key = FEATURE_DIONA_LEAVES
 
 /datum/bodypart_overlay/mutant/diona/leaves/get_global_feature_list()
-	return GLOB.diona_leaves_list
+	return SSaccessories.diona_leaves_list
 
 /obj/item/organ/diona_growth/thorns
 	name = "diona thorns"
@@ -47,7 +47,7 @@
 	feature_key = FEATURE_DIONA_THORNS
 
 /datum/bodypart_overlay/mutant/diona/thorns/get_global_feature_list()
-	return GLOB.diona_thorns_list
+	return SSaccessories.diona_thorns_list
 
 /obj/item/organ/diona_growth/flowers
 	name = "diona flowers"
@@ -61,7 +61,7 @@
 	feature_key = FEATURE_DIONA_FLOWERS
 
 /datum/bodypart_overlay/mutant/diona/flowers/get_global_feature_list()
-	return GLOB.diona_flowers_list
+	return SSaccessories.diona_flowers_list
 
 /obj/item/organ/diona_growth/moss
 	name = "diona moss"
@@ -75,7 +75,7 @@
 	feature_key = FEATURE_DIONA_MOSS
 
 /datum/bodypart_overlay/mutant/diona/moss/get_global_feature_list()
-	return GLOB.diona_moss_list
+	return SSaccessories.diona_moss_list
 
 /obj/item/organ/diona_growth/pbody
 	name = "diona p-body"
@@ -89,7 +89,7 @@
 	feature_key = FEATURE_DIONA_PBODY
 
 /datum/bodypart_overlay/mutant/diona/pbody/get_global_feature_list()
-	return GLOB.diona_pbody_list
+	return SSaccessories.diona_pbody_list
 
 /obj/item/organ/diona_growth/mushroom
 	name = "diona mushroom"
@@ -105,7 +105,7 @@
 	hidden_by_suit = FALSE
 
 /datum/bodypart_overlay/mutant/diona/mushroom/get_global_feature_list()
-	return GLOB.diona_mushroom_list
+	return SSaccessories.diona_mushroom_list
 
 /obj/item/organ/diona_growth/antennae
 	name = "diona antennae"
@@ -121,7 +121,7 @@
 	hidden_by_suit = FALSE
 
 /datum/bodypart_overlay/mutant/diona/antennae/get_global_feature_list()
-	return GLOB.diona_antennae_list
+	return SSaccessories.diona_antennae_list
 
 /obj/item/organ/diona_growth/eyes
 	name = "diona eye growths"
@@ -140,4 +140,4 @@
 	return ..() && !(bodypart_owner.owner?.obscured_slots & (HIDEEYES|HIDEHAIR))
 
 /datum/bodypart_overlay/mutant/diona/eyes/get_global_feature_list()
-	return GLOB.diona_eyes_list
+	return SSaccessories.diona_eyes_list

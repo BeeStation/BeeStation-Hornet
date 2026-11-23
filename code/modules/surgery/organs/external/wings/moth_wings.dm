@@ -40,7 +40,7 @@
 
 /obj/item/organ/wings/moth/can_open()
 	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
-	return !burnt && (wings.sprite_datum.name in GLOB.moth_wingsopen_list) && ..()
+	return !burnt && (wings.sprite_datum.name in SSaccessories.moth_wingsopen_list) && ..()
 
 ///check if our wings can burn off ;_;
 /obj/item/organ/wings/moth/proc/try_burn_wings(mob/living/carbon/human/human)
@@ -100,9 +100,9 @@
 
 /datum/bodypart_overlay/mutant/wings/moth/get_global_feature_list()
 	if(wings_open)
-		return GLOB.moth_wingsopen_list
+		return SSaccessories.moth_wingsopen_list
 	else
-		return GLOB.moth_wings_list
+		return SSaccessories.moth_wings_list
 
 /datum/bodypart_overlay/mutant/wings/moth/get_base_icon_state()
 	return burnt ? burn_datum.icon_state : sprite_datum.icon_state

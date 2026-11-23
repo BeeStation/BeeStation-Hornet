@@ -1,0 +1,6 @@
+author: rkz, Melbert
+delete-after: true
+changes:
+  - refactor: jittering is now a status effect
+  - code_imp: reorganizes status effects
+  - refactor: cleanup of stabilized extract effect applications

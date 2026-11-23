@@ -276,8 +276,17 @@ There are several things that need to be remembered:
 		var/icon_file = 'icons/mob/clothing/eyes.dmi'
 
 		var/mutable_appearance/glasses_overlay = glasses.build_worn_icon(src, default_layer = GLASSES_LAYER, default_icon_file = icon_file, bodyshape = bodyshape)
+		if(!glasses_overlay)
+			return
 		my_head.worn_glasses_offset?.apply_offset(glasses_overlay)
 		overlays_standing[GLASSES_LAYER] = glasses_overlay
+
+		// We handle sunglasses and mesons and the like here
+		if(glasses.emissive_state)
+			var/mutable_appearance/glasses_emissive = emissive_appearance(icon_file, glasses.emissive_state, layer = GLASSES_LAYER, alpha = 100, filters = src.filters)
+			// Same standing entry as the glasses overlay, so both get removed together
+			overlays_standing[GLASSES_LAYER] = list(glasses_overlay, glasses_emissive)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_GLASSES)
 	apply_overlay(GLASSES_LAYER)
 
 
@@ -944,19 +953,19 @@ generate/load female uniform sprites matching all previously decided variables
 			body_type = physique
 
 	if(underwear)
-		var/datum/sprite_accessory/clothing/underwear/undie_accessory = GLOB.underwear_list[underwear]
+		var/datum/sprite_accessory/clothing/underwear/undie_accessory = SSaccessories.underwear_list[underwear]
 		var/mutable_appearance/underwear_overlay = undie_accessory?.make_appearance(underwear_color, body_type, bodyshape)
 		if(underwear_overlay)
 			. += underwear_overlay
 
 	if(undershirt)
-		var/datum/sprite_accessory/clothing/undershirt/shirt_accessory = GLOB.undershirt_list[undershirt]
+		var/datum/sprite_accessory/clothing/undershirt/shirt_accessory = SSaccessories.undershirt_list[undershirt]
 		var/mutable_appearance/shirt_overlay = shirt_accessory?.make_appearance(null, body_type, bodyshape)
 		if(shirt_overlay)
 			. += shirt_overlay
 
 	if(socks && num_legs >= 2 && !(bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(src, TRAIT_NO_SOCKS)))
-		var/datum/sprite_accessory/clothing/socks/sock_accessory = GLOB.socks_list[socks]
+		var/datum/sprite_accessory/clothing/socks/sock_accessory = SSaccessories.socks_list[socks]
 		var/mutable_appearance/socks_overlay = sock_accessory?.make_appearance(null, body_type, bodyshape)
 		if(socks_overlay)
 			. += socks_overlay

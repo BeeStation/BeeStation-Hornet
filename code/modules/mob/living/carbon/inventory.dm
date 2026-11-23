@@ -97,53 +97,62 @@
 	return null
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
-/mob/living/carbon/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
+/mob/living/carbon/equip_to_slot(obj/item/equipping, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
 	if(!slot)
 		return
 
-	if(!istype(I))
+	if(!istype(equipping))
 		return
 
-	var/index = get_held_index_of_item(I)
+	var/index = get_held_index_of_item(equipping)
 	if(index)
 		held_items[index] = null
 
-	if(I.pulledby)
-		I.pulledby.stop_pulling()
+	if(equipping.pulledby)
+		equipping.pulledby.stop_pulling()
 
-	I.screen_loc = null
-	client?.screen -= I
+	equipping.screen_loc = null
+	client?.screen -= equipping
 
 	for(var/mob/dead/observe as anything in observers)
-		observe.client?.screen -= I
+		observe.client?.screen -= equipping
 
 	//Call pickup behaviour on items put on mobs
-	if(!(I.item_flags & IN_INVENTORY))
-		I.pickup(src)
-	I.forceMove(src)
-	I.plane = ABOVE_HUD_PLANE
+	if(!(equipping.item_flags & IN_INVENTORY))
+		equipping.pickup(src)
+	equipping.forceMove(src)
+	equipping.plane = ABOVE_HUD_PLANE
 	var/not_handled = FALSE
 
 	switch(slot)
 		if(ITEM_SLOT_BACK)
-			back = I
+			if(back)
+				return
+			back = equipping
 			update_worn_back()
 		if(ITEM_SLOT_MASK)
-			wear_mask = I
-			wear_mask_update(I, toggle_off = 0)
+			if(wear_mask)
+				return
+			wear_mask = equipping
+			update_worn_mask()
 		if(ITEM_SLOT_HEAD)
-			head = I
-			head_update(I)
+			if(head)
+				return
+			head = equipping
+			SEND_SIGNAL(src, COMSIG_CARBON_EQUIP_HAT, equipping)
+			update_worn_head()
 		if(ITEM_SLOT_NECK)
-			wear_neck = I
-			update_worn_neck(I)
+			if(wear_neck)
+				return
+			wear_neck = equipping
+			update_worn_neck(equipping)
 		if(ITEM_SLOT_HANDCUFFED)
-			set_handcuffed(I)
+			set_handcuffed(equipping)
 		if(ITEM_SLOT_LEGCUFFED)
-			legcuffed = I
+			legcuffed = equipping
 			update_worn_legcuffs()
 		if(ITEM_SLOT_HANDS)
-			put_in_hands(I)
+			put_in_hands(equipping)
 			update_held_items()
 		else
 			not_handled = TRUE
@@ -152,7 +161,7 @@
 	//We cannot call it for items that have not been handled as they are not yet correctly
 	//in a slot (handled further down inheritance chain, probably living/carbon/human/equip_to_slot
 	if(!not_handled && slot != ITEM_SLOT_HANDS) // put in hands calls equipped on its own, annoyingly
-		has_equipped(I, slot, initial)
+		has_equipped(equipping, slot, initial)
 
 	return not_handled
 
@@ -192,8 +201,9 @@
 
 	if(I == head)
 		head = null
+		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_HAT, I, force, newloc, no_move, invdrop, silent)
 		if(!QDELETED(src))
-			head_update(I)
+			update_worn_head()
 	else if(I == back)
 		back = null
 		if(!QDELETED(src))
@@ -201,8 +211,8 @@
 	else if(I == wear_mask)
 		wear_mask = null
 		if(!QDELETED(src))
-			wear_mask_update(I, toggle_off = 1)
-	if(I == wear_neck)
+			update_worn_mask()
+	else if(I == wear_neck)
 		wear_neck = null
 		if(!QDELETED(src))
 			update_worn_neck(I)
@@ -214,7 +224,6 @@
 		legcuffed = null
 		if(!QDELETED(src))
 			update_worn_legcuffs()
-
 
 	if(I == internal && (QDELETED(src) || QDELETED(I) || I.loc != src))
 		cutoff_internals()
@@ -376,27 +385,6 @@
 	// Carbons can't open their own externals tanks.
 	return FALSE
 
-//handle stuff to update when a mob equips/unequips a mask.
-/mob/living/proc/wear_mask_update(obj/item/I, toggle_off = 1)
-	update_worn_mask()
-
-/mob/living/carbon/wear_mask_update(obj/item/I, toggle_off = 1)
-	var/obj/item/clothing/C = I
-	if(istype(C) && (C.tint || initial(C.tint)))
-		update_tint()
-	update_worn_mask()
-
-//handle stuff to update when a mob equips/unequips a headgear.
-/mob/living/carbon/proc/head_update(obj/item/I, forced)
-	if(isclothing(I))
-		var/obj/item/clothing/C = I
-		if(C.tint || initial(C.tint))
-			update_tint()
-		update_sight()
-	if(I.flags_inv & HIDEMASK || forced)
-		update_worn_mask()
-	update_worn_head()
-
 /mob/living/carbon/proc/get_holding_bodypart_of_item(obj/item/I)
 	var/index = get_held_index_of_item(I)
 	return index && hand_bodyparts[index]
@@ -488,3 +476,14 @@
 	visible_message(span_notice("[src] takes [I] from [offerer]"), \
 					span_notice("You take [I] from [offerer]"))
 	put_in_hands(I)
+
+///Returns a bitfield of all zones covered by clothing
+/mob/living/carbon/proc/get_all_covered_flags()
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	var/covered_flags = NONE
+	var/list/all_worn_items = get_equipped_items()
+	for(var/obj/item/worn_item in all_worn_items)
+		covered_flags |= worn_item.body_parts_covered
+
+	return covered_flags

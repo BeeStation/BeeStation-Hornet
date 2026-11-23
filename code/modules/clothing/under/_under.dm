@@ -131,9 +131,13 @@
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 
-	if(ishuman(user) || ismonkey(user))
+	if((supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION) && ishuman(user))
 		var/mob/living/carbon/human/H = user
+		if(H.bodyshape & BODYSHAPE_DIGITIGRADE)
+			adjusted = DIGITIGRADE_STYLE
+			update_appearance()
 		H.update_worn_undersuit()
+
 	if(slot == ITEM_SLOT_ICLOTHING)
 		set_sensor_mode(sensor_mode, TRUE)
 

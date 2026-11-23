@@ -104,15 +104,19 @@
 	bleed = 10
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
-	adjustmask(user)
+	adjust_visor(user)
 
-/obj/item/clothing/mask/gas/explorer/adjustmask(user)
+/obj/item/clothing/mask/gas/explorer/visor_toggling()
 	..()
-	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/explorer/update_icon_state()
+	. = ..()
+	inhand_icon_state = "[initial(inhand_icon_state)][up ? "_up" : ""]"
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
-	adjustmask()
+	visor_toggling()
 
 /obj/item/clothing/suit/hooded/hostile_environment
 	name = "H.E.C.K. suit"

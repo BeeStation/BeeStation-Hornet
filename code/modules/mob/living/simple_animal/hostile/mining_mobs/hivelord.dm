@@ -106,7 +106,7 @@
 	icon_aggro = "legion"
 	icon_dead = "legion"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	obj_damage = 60
 	melee_damage = 15
 	attack_verb_continuous = "lashes out at"

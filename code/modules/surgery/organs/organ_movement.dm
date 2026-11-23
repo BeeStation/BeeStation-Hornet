@@ -81,8 +81,8 @@
 		wash(CLEAN_TYPE_BLOOD)
 		organ_flags &= ~ORGAN_VIRGIN
 
-	receiver.internal_organs |= src
-	receiver.internal_organs_slot[slot] = src
+	receiver.organs |= src
+	receiver.organs_slot[slot] = src
 	owner = receiver
 
 	on_mob_insert(receiver, special, movement_flags)
@@ -111,7 +111,7 @@
 
 	// organs_slot must ALWAYS be ordered in the same way as organ_process_order
 	// Otherwise life processing breaks down
-	sortTim(owner.internal_organs_slot, GLOBAL_PROC_REF(cmp_organ_slot_asc))
+	sortTim(owner.organs_slot, GLOBAL_PROC_REF(cmp_organ_slot_asc))
 
 	STOP_PROCESSING(SSobj, src)
 
@@ -167,9 +167,9 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	if(organ_owner)
-		if(organ_owner.internal_organs_slot[slot] == src)
-			organ_owner.internal_organs_slot.Remove(slot)
-		organ_owner.internal_organs -= src
+		if(organ_owner.organs_slot[slot] == src)
+			organ_owner.organs_slot.Remove(slot)
+		organ_owner.organs -= src
 
 	owner = null
 	on_mob_remove(organ_owner, special, movement_flags)
@@ -269,6 +269,15 @@
 		update_appearance(UPDATE_OVERLAYS)
 
 	color = bodypart_overlay.draw_color // so a pink felinid doesn't drop a gray tail
+
+	if(greyscale_config)
+		get_greyscale_color_from_draw_color()
+	else
+		color = bodypart_overlay.draw_color // so a pink felinid doesn't drop a gray tail
+
+///Here we define how draw_color from the bodypart overlay sets the greyscale colors of organs that use GAGS
+/obj/item/organ/proc/get_greyscale_color_from_draw_color()
+	color = bodypart_overlay.draw_color //Defaults to the legacy behaviour of applying the color to the item.
 
 /// In space station videogame, nothing is sacred. If somehow an organ is removed unexpectedly, handle it properly
 /obj/item/organ/proc/forced_removal(datum/source, atom/old_loc, ...)

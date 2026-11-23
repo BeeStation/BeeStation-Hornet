@@ -71,9 +71,7 @@
 			vis_overlay_data["[count]"] = list("icon" = overlay.icon, "icon_state" = overlay.icon_state, "layer" = overlay.layer, "plane" = overlay.plane, "alpha" = overlay.alpha, "appearance_flags" = overlay.appearance_flags)
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
-	if(target.icon_state in icon_states(target.icon))
-		return TRUE
-	return FALSE
+	return icon_exists(target.icon, target.icon_state)
 
 /obj/item/chameleon/proc/toggle(mob/user)
 	if(!can_use || !saved_appearance)

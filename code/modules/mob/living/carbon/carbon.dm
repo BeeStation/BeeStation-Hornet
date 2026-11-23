@@ -19,14 +19,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	QDEL_LIST(hand_bodyparts)
-	QDEL_LIST(internal_organs)
+	QDEL_LIST(organs)
 	QDEL_LIST(bodyparts)
 	QDEL_LIST(implants)
 	remove_from_all_data_huds()
 	QDEL_NULL(dna)
 	GLOB.carbon_list -= src
 
-/mob/living/carbon/swap_hand(held_index)
+/mob/living/carbon/perform_hand_swap(held_index)
 	. = ..()
 	if(!.)
 		var/obj/item/held_item = get_active_held_item()
@@ -494,9 +494,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)
-		if(!internal_organs.len)
+		if(!organs.len)
 			break //Guess we're out of organs!
-		var/obj/item/organ/guts = pick(internal_organs)
+		var/obj/item/organ/guts = pick(organs)
 		var/turf/T = get_turf(src)
 		guts.Remove(src)
 		guts.forceMove(T)
@@ -505,7 +505,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 
 /mob/living/carbon/fully_replace_character_name(oldname,newname)
-	..()
+	. = ..()
 	if(dna)
 		dna.real_name = real_name
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
@@ -616,6 +616,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	sight = new_sight
 	. = ..()
 
+
 /**
  * Calculates how visually impaired the mob is by their equipment and other factors
  *
@@ -623,12 +624,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
  */
 /mob/living/carbon/proc/update_tint()
 	var/tint = 0
-	if(isclothing(head))
-		tint += head.tint
-	if(isclothing(wear_mask))
-		tint += wear_mask.tint
-	if(isclothing(glasses))
-		tint += glasses.tint
+	for(var/obj/item/clothing/worn_item in get_equipped_items())
+		tint += worn_item.tint
 
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	if(eyes)
@@ -880,7 +877,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
 			blood_volume += (excess_healing * 2) //1 excess = 10 blood
 
-		for(var/obj/item/organ/target_organ as anything in internal_organs)
+		for(var/obj/item/organ/target_organ as anything in organs)
 			if(!target_organ.damage)
 				continue
 
@@ -950,14 +947,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(QDELETED(src))
 		return
 	var/organs_amt = 0
-	for(var/X in internal_organs)
-		var/obj/item/organ/O = X
+	for(var/obj/item/organ/organ as anything in organs)
 		if(prob(50))
 			organs_amt++
-			O.Remove(src)
-			O.forceMove(drop_location())
+			organ.Remove(src)
+			organ.forceMove(drop_location())
 	if(organs_amt)
 		to_chat(user, span_notice("You retrieve some of [src]\'s internal organs!"))
+	remove_all_embedded_objects()
 
 /// Creates body parts for this carbon completely from scratch.
 /// Optionally takes a map of body zones to what type to instantiate instead of them.
@@ -1041,9 +1038,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bodypart, update = TRUE, multiplicative_slowdown = final_modification)
 
 /mob/living/carbon/proc/create_internal_organs()
-	for(var/X in internal_organs)
-		var/obj/item/organ/I = X
-		I.Insert(src)
+	for(var/obj/item/organ/internal_organ in organs)
+		internal_organ.Insert(src)
 
 /proc/cmp_organ_slot_asc(slot_a, slot_b)
 	return GLOB.organ_process_order.Find(slot_a) - GLOB.organ_process_order.Find(slot_b)
@@ -1337,35 +1333,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
 
-/mob/living/carbon/proc/add_unarmed_damage_to_arms(amount)
-	for(var/obj/item/bodypart/arm in bodyparts)
-		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
-			if(isnum(arm.unarmed_damage))
-				arm.unarmed_damage += amount
-
-/mob/living/carbon/proc/get_unarmed_damage()
-	var/total_damage = 0
-	for(var/obj/item/bodypart/arm in bodyparts)
-		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
-			if(isnum(arm.unarmed_damage))
-				total_damage += arm.unarmed_damage
-	return (total_damage/2) // average the two arms together
-
-/**
- * This proc is used to determine whether or not the mob can handle touching a burning object.
- */
-/mob/living/carbon/proc/can_touch_burning(atom/burning_atom, acid_power, acid_volume)
-	// So people can take their own clothes off
-	if((burning_atom == src) || (burning_atom.loc == src))
-		return TRUE
-	if(HAS_TRAIT(src, TRAIT_RESISTHEAT) || HAS_TRAIT(src, TRAIT_RESISTHEATHANDS))
-		return TRUE
-	if(gloves?.max_heat_protection_temperature >= BURNING_ITEM_MINIMUM_TEMPERATURE)
-		return TRUE
-	return FALSE
-
 /mob/living/carbon/dropItemToGround(obj/item/item, force = FALSE, silent = FALSE, invdrop = TRUE)
-	if(item && ((item in internal_organs) || (item in bodyparts))) //let's not do this, aight?
+	if(item && ((item in organs) || (item in bodyparts))) //let's not do this, aight?
 		return FALSE
 	return ..()
 
@@ -1385,3 +1354,29 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!unwagged)
 		return FALSE
 	return unwagged.stop_wag(src)
+
+/mob/living/carbon/proc/add_unarmed_damage_to_arms(amount)
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage += amount
+
+/mob/living/carbon/proc/get_unarmed_damage()
+	var/total_damage = 0
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				total_damage += arm.unarmed_damage
+	return (total_damage/2) // average the two arms together
+/**
+ * This proc is used to determine whether or not the mob can handle touching a burning object.
+ */
+/mob/living/carbon/proc/can_touch_burning(atom/burning_atom, acid_power, acid_volume)
+	// So people can take their own clothes off
+	if((burning_atom == src) || (burning_atom.loc == src))
+		return TRUE
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT) || HAS_TRAIT(src, TRAIT_RESISTHEATHANDS))
+		return TRUE
+	if(gloves?.max_heat_protection_temperature >= BURNING_ITEM_MINIMUM_TEMPERATURE)
+		return TRUE
+	return FALSE

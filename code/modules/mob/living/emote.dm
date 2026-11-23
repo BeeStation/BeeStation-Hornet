@@ -124,11 +124,11 @@
 	message = "flaps their wings"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
-	var/wing_time = 10
+	var/wing_time = 0.35 SECONDS
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!ishuman(user))
+	if(!. && !ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
 	var/obj/item/organ/wings/wings = human_user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)

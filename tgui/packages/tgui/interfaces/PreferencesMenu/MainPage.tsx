@@ -561,7 +561,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
           serverData.species[data.character_preferences.misc.species];
 
         const contextualPreferences =
-          data.character_preferences.secondary_features || [];
+          data.character_preferences.secondary_features || {};
 
         const mainFeatures = [
           ...Object.entries(data.character_preferences.clothing ?? {}),

@@ -110,12 +110,7 @@
 	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
-/datum/species/plasmaman/qualifies_for_rank(datum/job/rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
-		return 0
-	if(is_clown_job(rank) || is_mime_job(rank))//No funny bussiness
-		return 0
-	return ..()
+
 
 /datum/species/plasmaman/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/plasmaman/plasmeme_scream_1.ogg', 'sound/voice/plasmaman/plasmeme_scream_2.ogg', 'sound/voice/plasmaman/plasmeme_scream_3.ogg')

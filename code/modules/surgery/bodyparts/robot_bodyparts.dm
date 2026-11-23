@@ -14,11 +14,10 @@
 	name = "cyborg left arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	limb_id = BODYPART_ID_ROBOTIC
-	attack_verb_continuous = list("slaps", "punches")
-	attack_verb_simple = list("slap", "punch")
+	attack_verb_simple = list("slapped", "punched")
 	inhand_icon_state = "buildpipe"
-	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
+	icon_static = 'icons/mob/augmentation/augments.dmi'
 	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_l_arm"
 	is_dimorphic = FALSE
@@ -39,13 +38,13 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
 	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/right/robot
 	name = "cyborg right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
-	attack_verb_continuous = list("slaps", "punches")
-	attack_verb_simple = list("slap", "punch")
+	attack_verb_simple = list("slapped", "punched")
 	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
@@ -70,13 +69,13 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
 	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/robot
 	name = "cyborg left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
-	attack_verb_continuous = list("kicks", "stomps")
-	attack_verb_simple = list("kick", "stomp")
+	attack_verb_simple = list("kicked", "stomped")
 	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
@@ -106,8 +105,7 @@
 /obj/item/bodypart/leg/right/robot
 	name = "cyborg right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
-	attack_verb_continuous = list("kicks", "stomps")
-	attack_verb_simple = list("kick", "stomp")
+	attack_verb_simple = list("kicked", "stomped")
 	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
@@ -138,7 +136,7 @@
 	name = "cyborg torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	inhand_icon_state = "buildpipe"
-	icon_static = 'icons/mob/augmentation/augments.dmi'
+	icon_static =  'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	obj_flags = CONDUCTS_ELECTRICITY
@@ -161,6 +159,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	wing_types = list(/obj/item/organ/wings/robotic)
 	bodypart_flags = BODYPART_UNHUSKABLE
 
 	var/wired = FALSE
@@ -274,6 +273,24 @@
 
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
+
+#define EMP_GLITCH "EMP_GLITCH"
+
+/obj/item/bodypart/head/robot/emp_act(severity)
+	. = ..()
+	if(!. || isnull(owner))
+		return
+
+	to_chat(owner, span_danger("Your [plaintext_zone]'s optical transponders glitch out and malfunction!"))
+
+	var/glitch_duration = AUGGED_HEAD_EMP_GLITCH_DURATION
+
+	owner.add_client_colour(/datum/client_colour/malfunction)
+
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, remove_client_colour), /datum/client_colour/malfunction), glitch_duration)
+	return
+
+#undef EMP_GLITCH
 
 /obj/item/bodypart/head/robot/Destroy()
 	QDEL_NULL(flash1)

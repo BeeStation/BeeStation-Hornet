@@ -1,3 +1,38 @@
+/// Updates features and clothing attached to a specific limb with limb-specific offsets
+/mob/living/carbon/proc/update_features(feature_key)
+	switch(feature_key)
+		if(OFFSET_UNIFORM)
+			update_worn_undersuit()
+		if(OFFSET_ID)
+			update_worn_id()
+		if(OFFSET_GLOVES)
+			update_worn_gloves()
+		if(OFFSET_GLASSES)
+			update_worn_glasses()
+		if(OFFSET_EARS)
+			update_worn_ears()
+		if(OFFSET_SHOES)
+			update_worn_shoes()
+		if(OFFSET_S_STORE)
+			update_suit_storage()
+		if(OFFSET_FACEMASK)
+			update_worn_mask()
+		if(OFFSET_HEAD)
+			update_worn_head()
+		if(OFFSET_FACE)
+			update_face_offset() // updates eye and lipstick icon
+			update_worn_mask()
+		if(OFFSET_BELT)
+			update_worn_belt()
+		if(OFFSET_BACK)
+			update_worn_back()
+		if(OFFSET_SUIT)
+			update_worn_oversuit()
+		if(OFFSET_NECK)
+			update_worn_neck()
+		if(OFFSET_HELD)
+			update_held_items()
+
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]
 

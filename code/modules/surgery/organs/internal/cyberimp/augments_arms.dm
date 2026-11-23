@@ -165,7 +165,7 @@
 
 /obj/item/organ/cyberimp/arm/emp_act(severity)
 	. = ..()
-	if(. & EMP_PROTECT_SELF|| !IS_ROBOTIC_ORGAN(src))
+	if(. & EMP_PROTECT_SELF || !IS_ROBOTIC_ORGAN(src))
 		return
 	if(prob(80/severity) && owner)
 		to_chat(owner, span_warning("The electro magnetic pulse causes [src] to malfunction!"))
@@ -247,7 +247,7 @@
 					continue
 				choice_list[augment_item] = image(augment_item)
 			var/obj/item/choice = show_radial_menu(owner, owner, choice_list)
-			if(owner && owner == usr && owner.stat != DEAD && (src in owner.internal_organs) && !active_item && (choice in contents))
+			if(owner && owner == usr && owner.stat != DEAD && (src in owner.organs) && !active_item && (choice in contents))
 				// This monster sanity check is a nice example of how bad input is.
 				Extend(choice)
 	else

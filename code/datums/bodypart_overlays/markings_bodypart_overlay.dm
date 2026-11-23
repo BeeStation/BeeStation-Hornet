@@ -44,11 +44,11 @@
 	dna_feature_key = FEATURE_MOTH_MARKINGS
 
 /datum/bodypart_overlay/simple/body_marking/moth/get_accessory(name)
-	return GLOB.moth_markings_list[name]
+	return SSaccessories.moth_markings_list[name]
 
 /datum/bodypart_overlay/simple/body_marking/lizard
 	dna_feature_key = FEATURE_LIZARD_MARKINGS
 	applies_to = list(/obj/item/bodypart/chest)
 
 /datum/bodypart_overlay/simple/body_marking/lizard/get_accessory(name)
-	return GLOB.lizard_markings_list[name]
+	return SSaccessories.lizard_markings_list[name]

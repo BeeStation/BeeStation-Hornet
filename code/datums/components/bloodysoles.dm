@@ -56,7 +56,7 @@
 	if(!(equipped_slot & ITEM_SLOT_ICLOTHING))
 		return FALSE
 
-	return !isnull(wielder.shoes)
+	return !isnull(wielder.get_item_by_slot(ITEM_SLOT_FEET))
 
 /**
   * Run to update the icon of the parent

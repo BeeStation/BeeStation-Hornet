@@ -1,7 +1,7 @@
 ///DO NOT USE set_species(/datum/species/monkey)
 ///USE monkeyize() INSTEAD
 /datum/species/monkey
-	name = "\improper Monkey"
+	name = "Monkey"
 	id = SPECIES_MONKEY
 	mutantbrain = /obj/item/organ/brain/primate
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -23,6 +23,10 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/monkey,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/monkey
 	)
+
+/datum/species/monkey/randomize_features()
+	SHOULD_CALL_PARENT(FALSE)
+	return
 
 /datum/species/monkey/get_species_description()
 	return "Monkeys are a type of primate that exist between humans and animals on the evolutionary chain. \

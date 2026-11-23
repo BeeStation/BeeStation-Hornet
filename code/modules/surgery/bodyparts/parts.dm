@@ -32,6 +32,8 @@
 	var/datum/worn_feature_offset/worn_suit_offset
 	/// Offset to apply to equipment worn on the neck
 	var/datum/worn_feature_offset/worn_neck_offset
+	/// Which functional (i.e. flightpotion) wing types (if any) does this bodypart support? If count is >1 a radial menu is used to choose between all icons in list
+	var/list/wing_types = list(/obj/item/organ/wings/angel)
 
 /obj/item/bodypart/chest/forced_removal(dismembered, special, move_to_floor)
 	var/mob/living/carbon/old_owner = owner
@@ -92,6 +94,7 @@
 	bodypart_flags = BODYPART_UNREMOVABLE
 	max_damage = 500
 	acceptable_bodyshape = BODYSHAPE_HUMANOID
+	wing_types = NONE
 
 /obj/item/bodypart/chest/larva
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
@@ -104,6 +107,7 @@
 	max_damage = 50
 	bodytype = BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_ORGANIC
 	acceptable_bodytype = BODYTYPE_LARVA_PLACEHOLDER
+	wing_types = NONE
 
 /obj/item/bodypart/arm
 	abstract_type = /obj/item/bodypart/arm
@@ -129,6 +133,7 @@
 	QDEL_NULL(worn_glove_offset)
 	QDEL_NULL(held_hand_offset)
 	return ..()
+
 
 /// We need to clear out hand hud items and appearance, so do that here
 /obj/item/bodypart/arm/clear_ownership(mob/living/carbon/old_owner)

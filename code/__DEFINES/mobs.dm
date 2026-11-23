@@ -24,6 +24,9 @@
 #define MOVING_DELIBERATELY(X) (X.move_intent.flags & MOVE_INTENT_DELIBERATE)
 #define MOVING_QUICKLY(X) (X.move_intent.flags & MOVE_INTENT_QUICK)
 
+/// Amount of oxyloss that KOs a human
+#define OXYLOSS_PASSOUT_THRESHOLD 50
+
 // Bleed rates
 // See blood.dm for calculations
 #define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal
@@ -71,21 +74,21 @@
 #define MOB_ORGANIC (1 << 0)
 ///The mob is of a rocky make, most likely a golem. Iron within, iron without!
 #define MOB_MINERAL (1 << 1)
-/// The mob is a synthetic lifeform, like station borgs.
+///The mob is a synthetic lifeform, like station borgs.
 #define MOB_ROBOTIC (1 << 2)
-/// The mob is an shambling undead corpse. Or a halloween species. Pick your poison.
+///The mob is an shambling undead corpse. Or a halloween species. Pick your poison.
 #define MOB_UNDEAD (1 << 3)
-/// The mob is a human-sized human-like human-creature.
+///The mob is a human-sized human-like human-creature.
 #define MOB_HUMANOID (1 << 4)
-/// The mob is a bug/insect/arachnid/some other kind of scuttly thing.
+///The mob is a bug/insect/arachnid/some other kind of scuttly thing.
 #define MOB_BUG (1 << 5)
-/// The mob is a wild animal. Domestication may apply.
+///The mob is a wild animal. Domestication may apply.
 #define MOB_BEAST (1 << 6)
-/// The mob is some kind of a creature that should be exempt from certain **fun** interactions for balance reasons, i.e. megafauna
+///The mob is some kind of a creature that should be exempt from certain **fun** interactions for balance reasons, i.e. megafauna or a headslug.
 #define MOB_SPECIAL (1 << 7)
-/// The mob is some kind of a scaly reptile creature
+///The mob is some kind of a scaly reptile creature
 #define MOB_REPTILE (1 << 8)
-/// The mob is a spooky phantasm or an evil ghast of such nature.
+///The mob is a spooky phantasm or an evil ghast of such nature.
 #define MOB_SPIRIT (1 << 9)
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
@@ -96,7 +99,7 @@
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 
-//Bodytype defines for how things can be worn, surgery, and other misc things.
+//Bodytype defines for surgery, and other misc things.
 ///The limb is organic.
 #define BODYTYPE_ORGANIC (1<<0)
 ///The limb is robotic.
@@ -120,12 +123,19 @@
 ///The limb is snouted.
 #define BODYSHAPE_SNOUTED (1<<3)
 
+#define BODYTYPE_BIOSCRAMBLE_INCOMPATIBLE (BODYTYPE_ROBOTIC | BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_GOLEM)
+#define BODYTYPE_CAN_BE_BIOSCRAMBLED(bodytype) (!(bodytype & BODYTYPE_BIOSCRAMBLE_INCOMPATIBLE))
+
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
 
+//See: datum/species/var/digitigrade_customization
+///The species does not have digitigrade legs in generation.
 #define DIGITIGRADE_NEVER 0
+///The species can have digitigrade legs in generation
 #define DIGITIGRADE_OPTIONAL 1
+///The species is forced to have digitigrade legs in generation.
 #define DIGITIGRADE_FORCED 2
 
 // Preferences for leg types
@@ -231,11 +241,12 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 #define BRAIN_DAMAGE_INTEGRITY_MULTIPLIER 0.5
 
-//wing defines
-#define WINGS_COSMETIC 0 //Absolutely fucking useless
-#define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
-#define WINGS_AIRWORTHY 2 //can generate lift and fly if atmos is present
-#define WINGS_MAGIC 3 //can fly regardless of atmos
+//Surgery Defines
+#define BIOWARE_GENERIC "generic"
+#define BIOWARE_NERVES "nerves"
+#define BIOWARE_CIRCULATION "circulation"
+#define BIOWARE_LIGAMENTS "ligaments"
+#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
@@ -442,13 +453,13 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define OFFSET_HELD "held"
 
 //MINOR TWEAKS/MISC
-#define AGE_MIN				18	//! youngest a character can be
-#define AGE_MAX				85	//! oldest a character can be
-#define WIZARD_AGE_MIN		30	//! youngest a wizard can be
-#define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
-#define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
-#define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
+#define AGE_MIN 18	//! youngest a character can be
+#define AGE_MAX 85	//! oldest a character can be
+#define WIZARD_AGE_MIN 30	//! youngest a wizard can be
+#define APPRENTICE_AGE_MIN 29	//! youngest an apprentice can be
+#define SHOES_SLOWDOWN 0	//! How much shoes slow you down by default. Negative values speed you up
+#define POCKET_STRIP_DELAY (4 SECONDS)	//! time taken to search somebody's pockets
+#define DOOR_CRUSH_DAMAGE 15	//! the amount of damage that airlocks deal when they crush you
 
 #define HUNGER_FACTOR 0.08 //factor at which mob nutrition decreases
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
@@ -513,6 +524,17 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 //Saves a proc call, life is suffering. If who has no targets_from var, we assume it's just who
 #define GET_TARGETS_FROM(who) (who.targets_from ? who.get_targets_from() : who)
 
+//defines for grad_color and grad_styles list access keys
+#define GRADIENT_HAIR_KEY 1
+#define GRADIENT_FACIAL_HAIR_KEY 2
+
+// /datum/sprite_accessory/gradient defines
+#define GRADIENT_APPLIES_TO_HAIR (1<<0)
+#define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
+
+// Hair masks
+#define HAIR_MASK_HIDE_ABOVE_45_DEG_MEDIUM "hide_above_45deg"
+
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
@@ -558,14 +580,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define THROW_MODE_DISABLED 0
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
-
-//defines for gradient_color and gradient_styles list access keys
-#define GRADIENT_HAIR_KEY 1
-#define GRADIENT_FACIAL_HAIR_KEY 2
-
-// /datum/sprite_accessory/gradient defines
-#define GRADIENT_APPLIES_TO_HAIR (1<<0)
-#define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
 
 #define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 

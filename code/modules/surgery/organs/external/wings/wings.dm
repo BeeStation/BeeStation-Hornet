@@ -285,9 +285,9 @@
 
 /datum/bodypart_overlay/mutant/wings/get_global_feature_list()
 	if(wings_open)
-		return GLOB.wings_open_list
+		return SSaccessories.wings_open_list
 	else
-		return GLOB.wings_list
+		return SSaccessories.wings_list
 
 ///Update our wingsprite to the open wings variant
 /datum/bodypart_overlay/mutant/wings/proc/open_wings()
@@ -318,6 +318,25 @@
 	name = "dragon wings"
 	desc = "Hey, HEY- NOT lizard wings. Dragon wings. Mighty dragon wings."
 	sprite_accessory_override = /datum/sprite_accessory/wings/dragon
+
+///robotic wings, which relate to androids.
+/obj/item/organ/wings/robotic
+	name = "robotic wings"
+	desc = "Using microscopic hover-engines, or \"microwings,\" as they're known in the trade, these tiny devices are able to lift a few grams at a time. Gathering enough of them, and you can lift impressively large things."
+	organ_flags = ORGAN_ROBOTIC
+	sprite_accessory_override = /datum/sprite_accessory/wings/robotic
+
+///skeletal wings, which relate to skeletal races.
+/obj/item/organ/wings/skeleton
+	name = "skeletal wings"
+	desc = "Powered by pure edgy-teenager-notebook-scribblings. Just kidding. But seriously, how do these keep you flying?!"
+	sprite_accessory_override = /datum/sprite_accessory/wings/skeleton
+
+///fly wings, which relate to flies.
+/obj/item/organ/wings/fly
+	name = "fly wings"
+	desc = "Fly as a fly."
+	sprite_accessory_override = /datum/sprite_accessory/wings/fly
 
 ///Bee wings with special dash ability
 /obj/item/organ/wings/bee

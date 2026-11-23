@@ -1,3 +1,4 @@
+/*
 /datum/preference/choiced/tail_human
 	db_key = "feature_human_tail"
 	preference_type = PREFERENCE_CHARACTER
@@ -6,7 +7,7 @@
 	relevant_organ = /obj/item/organ/tail/cat
 
 /datum/preference/choiced/tail_human/init_possible_values()
-	return assoc_to_keys(GLOB.tails_list_felinid)
+	return assoc_to_keys(SSaccessories.tails_list_felinid)
 
 /datum/preference/choiced/tail_human/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features[FEATURE_TAIL_CAT] = value
@@ -23,12 +24,12 @@
 	relevant_organ = /obj/item/organ/ears/cat
 
 /datum/preference/choiced/ears/init_possible_values()
-	return assoc_to_keys(GLOB.ears_list)
+	return assoc_to_keys_features(SSaccessories.ears_list)
 
 /datum/preference/choiced/ears/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features[FEATURE_EARS] = value
 
 /datum/preference/choiced/ears/create_default_value()
-	var/datum/sprite_accessory/ears/cat/ears = /datum/sprite_accessory/ears/cat
-	return initial(ears.name)
+	return /datum/sprite_accessory/ears/cat::name
 
+*/

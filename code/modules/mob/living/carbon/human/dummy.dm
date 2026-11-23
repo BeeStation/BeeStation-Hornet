@@ -112,6 +112,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 		GLOB.dummy_mob_list += D
 	else
 		D.regenerate_icons() //they were cut in wipe_state()
+		D.update_body_parts(update_limb_data = TRUE)
 	D.in_use = TRUE
 	return D
 
@@ -177,34 +178,34 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.features[FEATURE_MUTANT_COLOR] = COLOR_VIBRANT_LIME
 	target.dna.features[FEATURE_ETHEREAL_COLOR] = GLOB.color_list_ethereal["Cyan"]
-	target.dna.features[FEATURE_LIZARD_MARKINGS] = get_consistent_feature_entry(GLOB.lizard_markings_list)
-	target.dna.features[FEATURE_EARS] = get_consistent_feature_entry(GLOB.ears_list)
-	target.dna.features[FEATURE_FRILLS] = get_consistent_feature_entry(GLOB.frills_list)
-	target.dna.features[FEATURE_HORNS] = get_consistent_feature_entry(GLOB.horns_list)
-	target.dna.features[FEATURE_MOTH_ANTENNAE] = get_consistent_feature_entry(GLOB.moth_antennae_list)
-	target.dna.features[FEATURE_MOTH_MARKINGS] = get_consistent_feature_entry(GLOB.moth_markings_list)
-	target.dna.features[FEATURE_MOTH_WINGS] = get_consistent_feature_entry(GLOB.moth_wings_list)
-	target.dna.features[FEATURE_SNOUT] = get_consistent_feature_entry(GLOB.snouts_list)
-	target.dna.features[FEATURE_SPINES] = get_consistent_feature_entry(GLOB.spines_list)
-	target.dna.features[FEATURE_TAIL_CAT] = get_consistent_feature_entry(GLOB.tails_list_felinid) // it's a lie
-	target.dna.features[FEATURE_TAIL_LIZARD] = get_consistent_feature_entry(GLOB.tails_list_lizard)
-	target.dna.features[FEATURE_TAIL_MONKEY] = get_consistent_feature_entry(GLOB.tails_list_monkey)
-	target.dna.features[FEATURE_APID_STRIPES] = get_consistent_feature_entry(GLOB.apid_stripes_list)
-	target.dna.features[FEATURE_APID_HEADSTRIPES] = get_consistent_feature_entry(GLOB.apid_headstripes_list)
-	target.dna.features[FEATURE_APID_ANTENNA] = get_consistent_feature_entry(GLOB.apid_antenna_list)
+	target.dna.features[FEATURE_LIZARD_MARKINGS] = get_consistent_feature_entry(SSaccessories.lizard_markings_list)
+	target.dna.features[FEATURE_EARS] = get_consistent_feature_entry(SSaccessories.ears_list)
+	target.dna.features[FEATURE_FRILLS] = get_consistent_feature_entry(SSaccessories.frills_list)
+	target.dna.features[FEATURE_HORNS] = get_consistent_feature_entry(SSaccessories.horns_list)
+	target.dna.features[FEATURE_MOTH_ANTENNAE] = get_consistent_feature_entry(SSaccessories.moth_antennae_list)
+	target.dna.features[FEATURE_MOTH_MARKINGS] = get_consistent_feature_entry(SSaccessories.moth_markings_list)
+	target.dna.features[FEATURE_MOTH_WINGS] = get_consistent_feature_entry(SSaccessories.moth_wings_list)
+	target.dna.features[FEATURE_SNOUT] = get_consistent_feature_entry(SSaccessories.snouts_list)
+	target.dna.features[FEATURE_SPINES] = get_consistent_feature_entry(SSaccessories.spines_list)
+	target.dna.features[FEATURE_TAIL_CAT] = get_consistent_feature_entry(SSaccessories.tails_list_felinid) // it's a lie
+	target.dna.features[FEATURE_TAIL_LIZARD] = get_consistent_feature_entry(SSaccessories.tails_list_lizard)
+	target.dna.features[FEATURE_TAIL_MONKEY] = get_consistent_feature_entry(SSaccessories.tails_list_monkey)
+	target.dna.features[FEATURE_APID_STRIPES] = get_consistent_feature_entry(SSaccessories.apid_stripes_list)
+	target.dna.features[FEATURE_APID_HEADSTRIPES] = get_consistent_feature_entry(SSaccessories.apid_headstripes_list)
+	target.dna.features[FEATURE_APID_ANTENNA] = get_consistent_feature_entry(SSaccessories.apid_antenna_list)
 	target.dna.features["insect_type"] = "fly"
 	target.dna.features[FEATURE_IPC_SCREEN] = "BSOD"
-	target.dna.features[FEATURE_IPC_ANTENNA] = get_consistent_feature_entry(GLOB.ipc_antennas_list)
+	target.dna.features[FEATURE_IPC_ANTENNA] = get_consistent_feature_entry(SSaccessories.ipc_antennas_list)
 	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
-	target.dna.features[FEATURE_PSYPHOZA_CAP] = get_consistent_feature_entry(GLOB.psyphoza_cap_list)
-	target.dna.features[FEATURE_DIONA_LEAVES] = get_consistent_feature_entry(GLOB.diona_leaves_list)
-	target.dna.features[FEATURE_DIONA_THORNS] = get_consistent_feature_entry(GLOB.diona_thorns_list)
-	target.dna.features[FEATURE_DIONA_FLOWERS] = get_consistent_feature_entry(GLOB.diona_flowers_list)
-	target.dna.features[FEATURE_DIONA_MOSS] = get_consistent_feature_entry(GLOB.diona_moss_list)
-	target.dna.features[FEATURE_DIONA_MUSHROOM] = get_consistent_feature_entry(GLOB.diona_mushroom_list)
-	target.dna.features[FEATURE_DIONA_ANTENNAE] = get_consistent_feature_entry(GLOB.diona_antennae_list)
-	target.dna.features[FEATURE_DIONA_EYES] = get_consistent_feature_entry(GLOB.diona_eyes_list)
-	target.dna.features[FEATURE_DIONA_PBODY] = get_consistent_feature_entry(GLOB.diona_pbody_list)
+	target.dna.features[FEATURE_PSYPHOZA_CAP] = get_consistent_feature_entry(SSaccessories.psyphoza_cap_list)
+	target.dna.features[FEATURE_DIONA_LEAVES] = get_consistent_feature_entry(SSaccessories.diona_leaves_list)
+	target.dna.features[FEATURE_DIONA_THORNS] = get_consistent_feature_entry(SSaccessories.diona_thorns_list)
+	target.dna.features[FEATURE_DIONA_FLOWERS] = get_consistent_feature_entry(SSaccessories.diona_flowers_list)
+	target.dna.features[FEATURE_DIONA_MOSS] = get_consistent_feature_entry(SSaccessories.diona_moss_list)
+	target.dna.features[FEATURE_DIONA_MUSHROOM] = get_consistent_feature_entry(SSaccessories.diona_mushroom_list)
+	target.dna.features[FEATURE_DIONA_ANTENNAE] = get_consistent_feature_entry(SSaccessories.diona_antennae_list)
+	target.dna.features[FEATURE_DIONA_EYES] = get_consistent_feature_entry(SSaccessories.diona_eyes_list)
+	target.dna.features[FEATURE_DIONA_PBODY] = get_consistent_feature_entry(SSaccessories.diona_pbody_list)
 	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
 	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
 	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency
