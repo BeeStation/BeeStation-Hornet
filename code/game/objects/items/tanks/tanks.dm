@@ -16,10 +16,15 @@
 	pickup_sound = 'sound/items/handling/gas_tank/gas_tank_pick_up.ogg'
 	drop_sound = 'sound/items/handling/gas_tank/gas_tank_drop.ogg'
 	pressure_resistance = ONE_ATMOSPHERE * 5
+
 	force = 10
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
+	stamina_damage = 55
+	stamina_cost = 23
+	stamina_critical_chance = 10
+
 	custom_materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
 	armor_type = /datum/armor/item_tank

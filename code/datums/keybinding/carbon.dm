@@ -10,7 +10,6 @@
 	name = "toggle_throw_mode"
 	full_name = "Toggle throw mode"
 	description = "Toggle throwing the current item or not."
-	category = CATEGORY_CARBON
 	keybind_signal = COMSIG_KB_CARBON_TOGGLETHROWMODE_DOWN
 
 /datum/keybinding/carbon/toggle_throw_mode/down(client/user)
@@ -27,7 +26,6 @@
 	name = "hold_throw_mode"
 	full_name = "Hold throw mode"
 	description = "Hold this to turn on throw mode, and release it to turn off throw mode"
-	category = CATEGORY_CARBON
 	keybind_signal = COMSIG_KB_CARBON_HOLDTHROWMODE_DOWN
 
 /datum/keybinding/carbon/hold_throw_mode/down(client/user)
@@ -49,7 +47,6 @@
 	name = "Give_Item"
 	full_name = "Give item"
 	description = "Give the item you're currently holding"
-	category = CATEGORY_CARBON
 	keybind_signal = COMSIG_KB_CARBON_GIVEITEM_DOWN
 
 /datum/keybinding/carbon/give/down(client/user)
@@ -59,3 +56,16 @@
 	var/mob/living/carbon/carbon_user = user.mob
 	carbon_user.give()
 	return TRUE
+
+/datum/keybinding/carbon/sprint
+	keys = list("Shift")
+	name = "Sprint"
+	full_name = "Sprint"
+	description = "Move fast at the cost of stamina"
+	keybind_signal = COMSIG_KB_CARBON_SPRINT_DOWN
+
+/datum/keybinding/carbon/sprint/up(client/user)
+	. = ..()
+	if(.)
+		return
+	SEND_SIGNAL(user.mob, COMSIG_KB_CARBON_SPRINT_UP)

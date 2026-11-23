@@ -40,7 +40,8 @@
 		var/mob/living/carbon/human/O = blessed
 		var/datum/species/shadow/S = O.dna.species
 		S.change_hearts_ritual(blessed)
-		blessed.heal_overall_damage(5, 5, 20, BODYTYPE_ORGANIC)
+		blessed.heal_overall_damage(5, 5, required_bodytype = BODYTYPE_ORGANIC)
+		blessed.stamina.adjust(20)
 		to_chat(user, span_notice("You bless [blessed] with the power of [GLOB.deity], healing them and spreading blessings."))
 	return TRUE
 
@@ -97,7 +98,8 @@
 	//Blessings of the ritual for people of shadow
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
-			M.heal_overall_damage(25 * grand_ritual_level, 25 * grand_ritual_level, 200)
+			M.heal_overall_damage(25 * grand_ritual_level, 25 * grand_ritual_level)
+			M.stamina.adjust(200)
 			if(isblessedshadow(M))
 				var/datum/species/shadow/S = M.dna.species
 				S.change_hearts_ritual(M)
@@ -468,7 +470,8 @@
 			var/light_amount = T.get_lumcount()
 			if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
 				continue
-			L.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 5 * delta_time, FALSE, TRUE)
+			L.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time)
+			L.stamina.adjust(5 * delta_time)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3

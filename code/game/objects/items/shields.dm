@@ -32,7 +32,7 @@
 	. = ..()
 	if(QDELETED(src))
 		return FALSE
-	if(owner.getStaminaLoss() >= 45 && !is_energy_shield)
+	if(owner.stamina.loss_as_percent >= 45 && !is_energy_shield)
 		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			shatter(owner)

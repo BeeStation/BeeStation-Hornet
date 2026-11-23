@@ -67,7 +67,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(!IS_CULTIST(user))
 		user.visible_message(span_warning("[user] cringes as they strike [target]!"), \
 							span_userdanger("Your arm throbs and your brain hurts!"))
-		user.adjustStaminaLoss(rand(force/2,force))
+		user.stamina.adjust(-1 * (rand(force/2,force)))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
 	if (target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		force = 15

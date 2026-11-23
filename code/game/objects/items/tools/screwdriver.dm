@@ -11,11 +11,17 @@
 	obj_flags = CONDUCTS_ELECTRICITY
 	flags_1 = IS_PLAYER_COLORABLE_1
 	slot_flags = ITEM_SLOT_BELT
-	force = 5
 	w_class = WEIGHT_CLASS_TINY
+
+	force = 5
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
+	stamina_cost = 5
+	stamina_damage = 10
+	stamina_critical_chance = 30
+
+
 	custom_materials = list(/datum/material/iron=75)
 	attack_verb_continuous = list("stabs")
 	attack_verb_simple = list("stab")
