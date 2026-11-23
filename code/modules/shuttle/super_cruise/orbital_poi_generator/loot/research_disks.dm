@@ -36,18 +36,18 @@
 
 /obj/item/disk/tech_disk/research/random/Initialize(mapload)
 	var/list/possible_nodes = list(
-		"bagofholding",
-		"wormholegun",
-		"qswapper",
-		"plasmarefiner",
-		"adv_combat_cyber_implants",
-		"combat_cyber_implants",
-		"radioactive_weapons",
-		"beam_weapons",
-		"adv_beam_weapons",
-		"mecha_phazon",
-		"linkedsurgery_implant",
-		"bluespace_anchor"
+		/datum/techweb_node/bag_of_holding,
+		/datum/techweb_node/wormhole_gun,
+		/datum/techweb_node/quantum_spin,
+		/datum/techweb_node/plasma_refiner,
+		/datum/techweb_node/adv_combat_cyber_implants,
+		/datum/techweb_node/combat_cyber_implants,
+		/datum/techweb_node/radioactive_weapons,
+		/datum/techweb_node/beam_weapons,
+		/datum/techweb_node/adv_beam_weapons,
+		/datum/techweb_node/phazon,
+		/datum/techweb_node/linkedsurgery_implant,
+		/datum/techweb_node/bluespace_stabilization,
 	)
 
 	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
