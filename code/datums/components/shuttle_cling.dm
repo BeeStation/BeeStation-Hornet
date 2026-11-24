@@ -93,7 +93,7 @@
 	var/mob/living/living = movee
 
 	//Check if we can interact with stuff (checks for alive, arms, stun, etc)
-	if(!living.canUseTopic(living, be_close = TRUE, no_dexterity = FALSE, no_tk = TRUE))
+	if(!living.can_perform_action(living, FORBID_TELEKINESIS_REACH|NEED_HANDS))
 		return NOT_HOLDING_ON
 
 	if(living.buckled)

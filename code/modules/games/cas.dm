@@ -121,7 +121,7 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+	if(!ishuman(usr) || !usr.can_perform_action(src))
 		return
 	if(!flipped)
 		name = "CAS card"
@@ -130,10 +130,11 @@
 	flipped = !flipped
 	update_icon()
 
-/obj/item/toy/cards/singlecard/cas/AltClick(mob/living/user)
-	if(!ishuman(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/toy/cards/singlecard/cas/click_alt(mob/user)
+	if(!ishuman(user))
+		return NONE
 	Flip()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/cards/singlecard/cas/update_icon()
 	if(flipped)
@@ -150,7 +151,7 @@
 			to_chat(user, "You cannot write on that card.")
 			return
 		var/cardtext = stripped_input(user, "What do you wish to write on the card?", "Card Writing", "", 50)
-		if(!cardtext || !user.canUseTopic(src, BE_CLOSE))
+		if(!cardtext || !user.can_perform_action(src))
 			return
 		name = cardtext
 		buffertext = cardtext

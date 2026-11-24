@@ -403,9 +403,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	open_machine()
 	name = initial(name)
 
-/obj/machinery/cryopod/MouseDrop_T(mob/living/target, mob/user)
-	if(..())
-		return
+/obj/machinery/cryopod/mouse_drop_receive(mob/living/target, mob/user, params)
 	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 

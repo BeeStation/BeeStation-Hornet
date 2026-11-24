@@ -79,13 +79,13 @@
 	w_class = WEIGHT_CLASS_HUGE
 	custom_price = 300
 
-/obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
-	if(loc == user)
-		if(!user.is_holding(src))
-			return
-		semi_auto = !semi_auto
-		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
-		to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
+/obj/item/gun/ballistic/shotgun/automatic/combat/click_alt(mob/user)
+	if(!user.is_holding(src))
+		return CLICK_ACTION_BLOCKING
+	semi_auto = !semi_auto
+	playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
+	to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
 	. = ..()
@@ -125,6 +125,7 @@
 	icon_state = "cycler"
 	worn_icon_state = "cshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
@@ -156,14 +157,13 @@
 	alternate_magazine = current_mag
 	toggled = !toggled
 	if(toggled)
-		to_chat(user, "You switch to tube B.")
+		balloon_alert(user, "switched to tube B")
 	else
-		to_chat(user, "You switch to tube A.")
+		balloon_alert(user, "switched to tube A")
 
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-		return
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	rack()
+	return CLICK_ACTION_SUCCESS
 
 // Bulldog shotgun //
 

@@ -214,7 +214,7 @@
 				return
 			var/obj/item/pizzabox/box = boxes.len ? boxes[boxes.len] : src
 			box.boxtag += stripped_input(user, "Write on [box]'s tag:", box, "", 30)
-			if(!user.canUseTopic(src, BE_CLOSE))
+			if(!user.can_perform_action(src))
 				return
 			to_chat(user, span_notice("You write with [I] on [src]."))
 			boxtag_set = TRUE

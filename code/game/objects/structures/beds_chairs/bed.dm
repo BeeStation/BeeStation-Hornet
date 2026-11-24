@@ -73,16 +73,15 @@
 	. = ..()
 	AddElement(/datum/element/noisy_movement, volume = 100)
 
-/obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
-			return 0
+/obj/structure/bed/roller/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user)
+		if(!ishuman(user))
+			return
 		if(has_buckled_mobs())
-			return 0
-		usr.visible_message("[usr] collapses \the [src.name].", span_notice("You collapse \the [src.name]."))
+			return
+		user.visible_message("[user] collapses \the [src.name].", span_notice("You collapse \the [src.name]."))
 		var/obj/structure/bed/roller/B = new foldabletype(get_turf(src))
-		usr.put_in_hands(B)
+		user.put_in_hands(B)
 		qdel(src)
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)

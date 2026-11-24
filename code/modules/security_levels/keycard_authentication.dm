@@ -74,7 +74,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 /obj/machinery/keycard_auth/ui_act(action, params)
 	if(..() || waiting || !allowed(usr))
 		return
-	var/obj/item/card/swipe_id = usr.get_idcard()
+	var/obj/item/card/swipe_id
+	if(isliving(usr))
+		var/mob/living/living_user = usr
+		swipe_id = living_user.get_idcard()
 	if(!swipe_id || !istype(swipe_id))
 		to_chat(usr, span_warning("No ID card detected."))
 		return

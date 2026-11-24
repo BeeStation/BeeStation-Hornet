@@ -28,9 +28,11 @@
 	..()
 	chamber_round(TRUE)
 
-/obj/item/gun/ballistic/revolver/AltClick(mob/user)
-	..()
+/obj/item/gun/ballistic/revolver/click_alt(mob/user)
+	if(suppressed && can_unsuppress)
+		return ..()
 	spin()
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/gun/ballistic/revolver/fire_sounds()

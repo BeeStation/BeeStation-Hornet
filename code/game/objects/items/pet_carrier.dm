@@ -3,6 +3,7 @@
 //Used to transport little animals without having to drag them across the station.
 //Comes with a handy lock to prevent them from running off.
 /obj/item/pet_carrier
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	name = "pet carrier"
 	desc = "A big white-and-blue pet carrier. Good for carrying <s>meat to the chef</s> cute animals around."
 	icon = 'icons/obj/pet_carrier.dmi'
@@ -54,10 +55,10 @@
 			. += span_notice("It has [L] inside.")
 	else
 		. += span_notice("It has nothing inside.")
-	if(user.canUseTopic(src))
-		. += span_notice("Activate it in your hand to [open ? "close" : "open"] its door.")
-		if(!open)
-			. += span_notice("Alt-click to [locked ? "unlock" : "lock"] its door.")
+
+	. += span_notice("Activate it in your hand to [open ? "close" : "open"] its door.")
+	if(!open)
+		. += span_notice("Alt-click to [locked ? "unlock" : "lock"] its door.")
 
 /obj/item/pet_carrier/attack_self(mob/living/user)
 	if(open)
@@ -73,9 +74,9 @@
 		open = TRUE
 	update_icon()
 
-/obj/item/pet_carrier/AltClick(mob/living/user)
-	if(open || !user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/pet_carrier/click_alt(mob/living/user)
+	if(open)
+		return CLICK_ACTION_BLOCKING
 	locked = !locked
 	to_chat(user, span_notice("You flip the lock switch [locked ? "down" : "up"]."))
 	if(locked)
@@ -83,6 +84,7 @@
 	else
 		playsound(user, 'sound/machines/boltsup.ogg', 30, TRUE)
 	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/pet_carrier/attack(mob/living/target, mob/living/user)
 	if(user.combat_mode)
@@ -159,10 +161,9 @@
 	if(!open)
 		. += "[locked ? "" : "un"]locked"
 
-/obj/item/pet_carrier/MouseDrop(atom/over_atom)
-	. = ..()
-	if(isopenturf(over_atom) && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(usr)) && usr.Adjacent(over_atom) && open && occupants.len)
-		usr.visible_message(span_notice("[usr] unloads [src]."), \
+/obj/item/pet_carrier/mouse_drop_dragged(atom/over_atom, mob/user, src_location, over_location, params)
+	if(isopenturf(over_atom) && open && occupants.len)
+		user.visible_message(span_notice("[user] unloads [src]."), \
 		span_notice("You unload [src] onto [over_atom]."))
 		for(var/V in occupants)
 			remove_occupant(V, over_atom)

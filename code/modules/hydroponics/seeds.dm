@@ -406,12 +406,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 	if (istype(O, /obj/item/pen))
 		var/penchoice = tgui_input_list(user, "What would you like to edit on [src]?", "Seed editing", list("Plant Name","Plant Description","Seed Description"))
 
-		if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+		if(QDELETED(src) || !user.can_perform_action(src))
 			return
 
 		if(penchoice == "Plant Name")
 			var/input = tgui_input_text(user, "What do you want to name the plant?", "Plant Name", plantname, MAX_NAME_LEN)
-			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+			if(QDELETED(src) || !user.can_perform_action(src))
 				return
 			if(!input) // empty input so we return
 				to_chat(user, span_warning("You need to enter a name!"))
@@ -425,7 +425,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 
 		if(penchoice == "Plant Description")
 			var/input = tgui_input_text(user, "What do you want to change the description of the plant to?", "Plant Description", plantdesc, MAX_NAME_LEN)
-			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+			if(QDELETED(src) || !user.can_perform_action(src))
 				return
 			if(!input) // empty input so we return
 				to_chat(user, span_warning("You need to enter a description!"))
@@ -437,7 +437,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 
 		if(penchoice == "Seed Description")
 			var/input = tgui_input_text(user, "What do you want to change the description of the seeds to?", "Seed Description", desc, MAX_NAME_LEN)
-			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+			if(QDELETED(src) || !user.can_perform_action(src))
 				return
 			if(!input) // empty input so we return
 				to_chat(user, span_warning("You need to enter a description!"))

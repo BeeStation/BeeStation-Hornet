@@ -89,14 +89,14 @@
 /obj/item/clothing/ears/headphones/proc/should_stop_playing(mob/user)
 	return user.incapacitated || !((loc == user) || (isturf(loc) && Adjacent(user)))
 
-/obj/item/clothing/ears/headphones/AltClick(mob/user)
-	. = ..()
+/obj/item/clothing/ears/headphones/click_alt(mob/user)
 	if(headphones_on)
 		song.stop_playing()
 		toggle(user, "OFF")
 	else
 		song.start_playing(user)
 		toggle(user, "ON")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/ears/headphones/examine(mob/user)
 	. = ..()
