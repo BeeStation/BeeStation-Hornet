@@ -244,12 +244,10 @@
 	SEND_SOUND(src, sound_to_use)
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
-	if(!S)
-		S = sound(get_sfx(soundin))
-	for(var/m in GLOB.player_list)
-		if(ismob(m) && !isnewplayer(m))
-			var/mob/M = m
-			M.playsound_local(M, null, volume, vary, frequency, null, channel, pressure_affected, S)
+	S ||= sound(get_sfx(soundin))
+	for(var/mob/player_mob as anything in GLOB.player_list)
+		if(!isnewplayer(player_mob))
+			player_mob.playsound_local(player_mob, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
 /proc/play_soundtrack_music(
 	datum/soundtrack_song/song,
@@ -301,7 +299,7 @@
 
 	if(fade_time > 0)
 		sound_fade(
-			sound_file = sound(initial(song.file), channel = CHANNEL_SOUNDTRACK),
+			sound_instance = sound(initial(song.file), channel = CHANNEL_SOUNDTRACK),
 			listeners = hearers,
 			time = fade_time,
 			volume_preference = /datum/preference/numeric/volume/sound_soundtrack_volume,

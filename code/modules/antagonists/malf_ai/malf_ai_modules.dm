@@ -1,11 +1,11 @@
-#define DEFAULT_DOOMSDAY_TIMER 450 SECONDS
-#define DOOMSDAY_ANNOUNCE_INTERVAL 60 SECONDS
+#define DEFAULT_DOOMSDAY_TIMER (2 MINUTES)//(7.5 MINUTES)
+#define DOOMSDAY_ANNOUNCE_INTERVAL (1 MINUTES)
 
-#define MALF_VENDOR_TIPPING_TIME 0.5 SECONDS //within human reaction time
+#define MALF_VENDOR_TIPPING_TIME (0.5 SECONDS) //within human reaction time
 #define MALF_VENDOR_TIPPING_CRIT_CHANCE 100 //percent - guaranteed
 
-#define MALF_AI_ROLL_TIME 0.5 SECONDS
-#define MALF_AI_ROLL_COOLDOWN 1 SECONDS + MALF_AI_ROLL_TIME
+#define MALF_AI_ROLL_TIME (0.5 SECONDS)
+#define MALF_AI_ROLL_COOLDOWN (1 SECONDS + MALF_AI_ROLL_TIME)
 #define MALF_AI_ROLL_DAMAGE 75
 #define MALF_AI_ROLL_CRIT_CHANCE 5
 
@@ -367,12 +367,9 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		next_announce += DOOMSDAY_ANNOUNCE_INTERVAL
 
 /obj/machinery/doomsday_device/proc/trigger_doomsday()
-	for(var/i in GLOB.mob_living_list)
-		var/mob/living/L = i
+	for(var/mob/living/L in GLOB.mob_living_list)
 		var/turf/T = get_turf(L)
-		if(!T || !is_station_level(T.z))
-			continue
-		if(issilicon(L))
+		if(!T || !is_station_level(T.z) || issilicon(L))
 			continue
 		to_chat(L, span_userdanger("The blast wave from [src] tears you atom from atom!"))
 		L.investigate_log("has been dusted by a doomsday device.", INVESTIGATE_DEATHS)

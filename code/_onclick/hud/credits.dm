@@ -14,9 +14,8 @@ GLOBAL_LIST(end_titles)
 
 		if(GLOB.soundtrack_this_round.len)
 			GLOB.end_titles += "<center><h1>Music Credits</h1>"
-			for(var/song_path in GLOB.soundtrack_this_round)
-				var/datum/soundtrack_song/song = song_path
-				GLOB.end_titles += "<center><h2>[sanitize(initial(song.artist))] - \"[sanitize(initial(song.title))]\" ([sanitize(initial(song.album))])</h2>"
+			for(var/datum/soundtrack_song/song_path as anything in GLOB.soundtrack_this_round)
+				GLOB.end_titles += "<center><h2>[sanitize(song_path::artist)] - \"[sanitize(song_path::title)]\" ([sanitize(song_path::album)])</h2>"
 			GLOB.end_titles += "<br>"
 			GLOB.end_titles += "<br>"
 
