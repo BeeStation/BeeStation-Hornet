@@ -4519,7 +4519,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "bsR" = (
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},
@@ -16119,7 +16119,7 @@
 /turf/open/floor/plating,
 /area/station/science/xenobiology)
 "eMT" = (
-/mob/living/simple_animal/sloth/citrus,
+/mob/living/basic/sloth/citrus,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -34751,9 +34751,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/security/office)
 "khC" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -36527,7 +36525,7 @@
 	dir = 1
 	},
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/grid,
 /area/station/medical/virology)
 "kHs" = (
@@ -37600,7 +37598,7 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/storage)
 "kWc" = (
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /obj/structure/cable/yellow,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
@@ -43791,7 +43789,7 @@
 /area/station/service/chapel)
 "mOx" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	desc = "Renault, the Captain's trustworthy fox. Shame it's not Peuegot..."
 	},
 /obj/structure/extinguisher_cabinet{
@@ -50618,7 +50616,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/aft)
 "oOY" = (
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	desc = "The arch-nemesis of Kentucky.";
 	name = "Nugget";
 	real_name = "one name, one plan or..."

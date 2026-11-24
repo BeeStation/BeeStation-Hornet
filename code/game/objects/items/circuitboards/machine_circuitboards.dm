@@ -1238,6 +1238,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/dish_drive
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "dish drive"
 	icon_state = "service"
 	build_path = /obj/machinery/dish_drive
@@ -1259,11 +1260,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	suction = !suction
 	to_chat(user, span_notice("You [suction ? "enable" : "disable"] the board's suction function."))
 
-/obj/item/circuitboard/machine/dish_drive/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/item/circuitboard/machine/dish_drive/click_alt(mob/living/user)
 	transmit = !transmit
 	to_chat(user, span_notice("You [transmit ? "enable" : "disable"] the board's automatic disposal transmission."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/circuitboard/machine/gibber
 	name = "Gibber"

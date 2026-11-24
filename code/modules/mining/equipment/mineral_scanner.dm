@@ -15,11 +15,10 @@
 	var/current_cooldown = 0
 	var/speaker = TRUE // Speaker that plays a sound when pulsed.
 
-/obj/item/mining_scanner/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/mining_scanner/click_alt(mob/user)
 	speaker = !speaker
 	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -56,11 +55,10 @@
 	var/range = 7
 	var/speaker = FALSE // Speaker that plays a sound when pulsed.
 
-/obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/t_scanner/adv_mining_scanner/click_alt(mob/user)
 	speaker = !speaker
 	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
 	. = ..()

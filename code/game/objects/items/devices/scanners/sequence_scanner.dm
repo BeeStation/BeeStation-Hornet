@@ -69,7 +69,7 @@
 	var/answer = tgui_input_list(user, "Analyze Potential", "Sequence Analyzer", sort_list(options))
 	if(isnull(answer))
 		return
-	if(!ready || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!ready || !user.can_perform_action(src, NEED_LITERACY|FORBID_TELEKINESIS_REACH))
 		return
 
 	var/sequence

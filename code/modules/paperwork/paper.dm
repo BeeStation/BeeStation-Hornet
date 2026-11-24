@@ -23,7 +23,8 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
-	drop_sound = 'sound/items/handling/paper/paper_drop.ogg'
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
+	op_sound = 'sound/items/handling/paper/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper/paper_pickup.ogg'
 	throw_range = 1
 	throw_speed = 1

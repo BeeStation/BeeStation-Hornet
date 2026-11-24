@@ -9,6 +9,7 @@
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
 	item_flags = NO_BLOOD_ON_ITEM
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
@@ -124,11 +125,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 	. = ..()
 	update_icon()
 
-/obj/item/radio/intercom/AltClick(mob/user)
+/obj/item/radio/intercom/click_alt(mob/user)
 	. = ..()
 	update_icon()
 
-/obj/item/radio/intercom/CtrlShiftClick(mob/user)
+/obj/item/radio/intercom/click_ctrl_shift(mob/user)
 	. = ..()
 	update_icon()
 

@@ -462,7 +462,7 @@
 		to_chat(user, span_notice("You scribble illegibly on [src]!"))
 		return ITEM_INTERACT_BLOCKING
 	var/new_label = stripped_input(user, "What would you like to label the bottle?", name, null, MAX_NAME_LEN)
-	if(!new_label || user.get_active_held_item() != tool || !user.canUseTopic(src, BE_CLOSE))
+	if(!new_label || user.get_active_held_item() != tool || !user.can_perform_action(src))
 		return ITEM_INTERACT_BLOCKING
 	playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 	name = "[initial(name)] ([new_label])"

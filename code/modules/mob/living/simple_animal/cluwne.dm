@@ -29,7 +29,7 @@
 	var/newname = pick(GLOB.clown_names)
 	name = newname
 	real_name = newname
-	AddComponent(/datum/component/waddling)  // sad man
+	AddElementTrait(TRAIT_WADDLING, INNATE_TRAIT, /datum/element/waddling) // sad man
 
 /mob/living/simple_animal/cluwne/emote(act, m_type=1, message = null, intentional = FALSE)
 	if(intentional)

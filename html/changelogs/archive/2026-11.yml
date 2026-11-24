@@ -242,3 +242,7 @@
       optimizing future species that use this feature.
   - refactor: Refactored hair and eye rendering a bit, they're now rendered separately
       to the head - report any oddities with either. Lips too but to a lesser degree.
+2026-11-23:
+  DrDuckedGoose:
+  - balance: Reduced artifact bonus duck values, less discovery & research points.
+  - bugfix: Fixes artifacts being sold infinitely

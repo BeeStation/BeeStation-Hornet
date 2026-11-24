@@ -97,7 +97,7 @@
 	to_chat(user, span_notice("You find nothing in [src]."))
 
 /obj/structure/filingcabinet/Topic(href, href_list)
-	if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(usr)))
+	if(!usr.can_perform_action(src, NEED_DEXTERITY))
 		return
 	if(href_list["retrieve"])
 		usr << browse(null, "window=filingcabinet") // Close the menu

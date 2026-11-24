@@ -5,6 +5,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead
 	abstract_type = /mob/dead
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 	move_resist = INFINITY
 	throwforce = 0
 

@@ -240,13 +240,12 @@
 		. += span_notice("It seems like you could use an <b>empty hand</b> to remove the magazine.")
 
 
-/obj/item/gun/ballistic/automatic/l6_saw/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/gun/ballistic/automatic/l6_saw/click_alt(mob/user)
 	cover_open = !cover_open
 	to_chat(user, span_notice("You [cover_open ? "open" : "close"] [src]'s cover."))
 	playsound(user, 'sound/weapons/gun/l6/l6_door.ogg', 60, TRUE)
 	update_appearance()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/ballistic/automatic/l6_saw/update_overlays()
 	. = ..()

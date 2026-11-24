@@ -24,15 +24,14 @@
 	fieldlimit = 6
 	quick_burst_mod = 1
 
-/obj/item/resonator/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/resonator/click_alt(mob/user)
 	if(burst_time == 50)
 		burst_time = 30
 		to_chat(user, span_info("You set the resonator's fields to detonate after 3 seconds."))
 	else
 		burst_time = 50
 		to_chat(user, span_info("You set the resonator's fields to detonate after 5 seconds."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/resonator/attack_self(mob/user)
 	if(LAZYLEN(fields) == 0)

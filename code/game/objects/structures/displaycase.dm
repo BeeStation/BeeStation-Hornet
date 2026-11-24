@@ -489,7 +489,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
 			if(!payments_acc)
 				to_chat(usr, span_notice("[src] hasn't been registered yet."))
 				return
-			if(!usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+			if(!usr.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 				return
 			if(!potential_acc)
 				to_chat(usr, span_notice("No ID card detected."))
@@ -543,7 +543,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
 			if(isnull(new_price_input) || (payments_acc != potential_acc.registered_account))
 				to_chat(usr, span_warning("[src] rejects your new price."))
 				return
-			if(!usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) )
+			if(!usr.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 				to_chat(usr, span_warning("You need to get closer!"))
 				return
 			new_price_input = clamp(round(new_price_input, 1), 10, 1000)

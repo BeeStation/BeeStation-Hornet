@@ -2,7 +2,7 @@
 /mob/living/basic
 	abstract_type = /mob/living/basic
 	name = "basic mob"
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	health = 20
 	maxHealth = 20
 	gender = PLURAL

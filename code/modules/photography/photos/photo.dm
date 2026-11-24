@@ -56,13 +56,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/photo)
 	if(burn_paper_product_attackby_check(P, user))
 		return
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on [src]!"))
+		if(!user.can_write(P))
 			return
-
-		var/txt = stripped_input(user, "What would you like to write on the back? 256 characters max.", "Photo Writing", max_length=256)
-
-		if(txt && user.canUseTopic(src, BE_CLOSE))
+		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing", max_length = 256)
+		if(txt && user.can_perform_action(src))
 			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			scribble = txt
 	else
