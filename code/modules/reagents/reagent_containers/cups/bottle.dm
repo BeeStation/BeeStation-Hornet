@@ -13,6 +13,8 @@
 	isGlass = TRUE
 	throwforce = 10
 	custom_price = 20
+	pickup_sound = 'sound/items/handling/beaker/beaker_pickup.ogg'
+	drop_sound = 'sound/items/handling/beaker/beaker_place.ogg'
 
 /obj/item/reagent_containers/cup/bottle/Initialize(mapload)
 	. = ..()

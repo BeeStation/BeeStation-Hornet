@@ -6,8 +6,8 @@
 	custom_materials = list(/datum/material/iron=100)
 	attachable = TRUE
 	var/armed = FALSE
-	drop_sound = 'sound/items/handling/component_drop.ogg'
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component/component_pickup.ogg'
 	var/obj/item/host = null
 	var/turf/host_turf = null
 

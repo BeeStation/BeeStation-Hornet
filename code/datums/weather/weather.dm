@@ -155,7 +155,7 @@
 			if(alert_msg)
 				to_chat(player, alert_msg)
 			if(alert_sfx)
-				player.client?.sound_channel_initial_volumes["[CHANNEL_WEATHER]"] = 100
+				player.client?.sound_channel_initial_volumes[CHANNEL_WEATHER] = 100
 				player.stop_sound_channel(CHANNEL_WEATHER)
 
 				var/pref_volume = player.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_weather_volume)

@@ -4,9 +4,11 @@
 	abstract_type = /obj/item/stack/sheet/animalhide
 	name = "hide"
 	desc = "Something went wrong."
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-hide"
 	inhand_icon_state = "sheet-hide"
-	icon = 'icons/obj/stacks/organic.dmi'
+	pickup_sound = 'sound/items/handling/materials/skin_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/skin_drop.ogg'
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/animalhide
 

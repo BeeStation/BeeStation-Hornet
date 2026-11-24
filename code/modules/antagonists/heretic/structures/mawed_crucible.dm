@@ -214,6 +214,8 @@
 	desc = "You should never see this"
 	icon = 'icons/obj/heretic.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	/// When a heretic examines a mawed crucible, shows a list of possible potions by name + includes this tip to explain what it does.
 	var/crucible_tip = "Doesn't do anything."
 	/// Typepath to the status effect this applies
@@ -224,7 +226,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
-	. += span_notice("[crucible_tip]")
+	. += span_notice(crucible_tip)
 
 /obj/item/eldritch_potion/attack_self(mob/user)
 	. = ..()

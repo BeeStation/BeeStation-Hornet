@@ -22,8 +22,8 @@
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
-	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/toolbox/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox/toolbox_pickup.ogg'
 	var/awakened = FALSE
 	var/bloodthirst = HIS_GRACE_SATIATED
 	var/prev_bloodthirst = HIS_GRACE_SATIATED
@@ -174,7 +174,7 @@
 		return
 	var/turf/T = get_turf(src)
 	T.visible_message(span_boldwarning("[src] slowly stops rattling and falls still, His latch snapping shut."))
-	playsound(loc, 'sound/weapons/batonextend.ogg', 100, 1)
+	playsound(loc, 'sound/items/baton/batonextend.ogg', 100, 1)
 	name = initial(name)
 	desc = initial(desc)
 	icon_state = initial(icon_state)

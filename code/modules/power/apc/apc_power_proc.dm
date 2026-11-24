@@ -67,7 +67,7 @@
 		if(AUTOSET_FORCE_OFF)
 			// Force OFF overrides everything, but manual-ON should become AUTO OFF so it can resume
 			if(val == APC_CHANNEL_ON || val == APC_CHANNEL_AUTO_ON)
-				playsound(src, "sound/machines/apc/PowerSwitch_Place.ogg", 20, TRUE)
+				playsound(src, 'sound/machines/apc/PowerSwitch_Place.ogg', 20, TRUE)
 				do_sparks(2, cardinal_only = FALSE, source = src)
 				return APC_CHANNEL_AUTO_OFF
 			// Manual OFF or AUTO OFF - stay the same
@@ -75,13 +75,13 @@
 
 		if(AUTOSET_ON)	// APC turning the channel on automatically
 			if(val == APC_CHANNEL_AUTO_OFF)
-				playsound(src, "sound/machines/apc/PowerUp_001.ogg", 20, TRUE)
+				playsound(src, 'sound/machines/apc/PowerUp_001.ogg', 20, TRUE)
 				return APC_CHANNEL_AUTO_ON
 			return val
 
 		if(AUTOSET_OFF)	// APC turning the channel off automatically
 			if(val == APC_CHANNEL_AUTO_ON)
-				playsound(src, "sound/machines/apc/PowerSwitch_Place.ogg", 20, TRUE)
+				playsound(src, 'sound/machines/apc/PowerSwitch_Place.ogg', 20, TRUE)
 				do_sparks(2, cardinal_only = FALSE, source = src)
 				return APC_CHANNEL_AUTO_OFF
 			return val

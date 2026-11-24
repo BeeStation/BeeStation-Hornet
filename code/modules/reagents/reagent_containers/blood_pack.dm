@@ -111,6 +111,7 @@
 
 		if(custom_label)
 			labelled = TRUE
+			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			name = "blood pack - [custom_label]"
 			balloon_alert(user, "new label set")
 		else

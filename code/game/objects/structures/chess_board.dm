@@ -272,7 +272,7 @@
 	icon = 'icons/obj/chess_board.dmi'
 	icon_state = "pawn_white"
 	w_class = WEIGHT_CLASS_TINY
-	pickup_sound = 'sound/items/handling/screwdriver_pickup.ogg'
+	pickup_sound = 'sound/items/handling/tools/screwdriver_pickup.ogg'
 	drop_sound = 'sound/items/handling/standard_stamp.ogg'
 
 /obj/item/chess_piece/white/pawn

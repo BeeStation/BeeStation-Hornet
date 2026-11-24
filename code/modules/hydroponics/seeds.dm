@@ -419,6 +419,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
 				to_chat(user, span_warning("Your message contains forbidden words."))
 				return
+			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			name = "pack of [input] seeds"
 			plantname = input
 			renamedByPlayer = TRUE

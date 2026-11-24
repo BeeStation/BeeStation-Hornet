@@ -223,7 +223,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	abstract_type = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	name = "general ballistic weapon"
-	fire_sound = 'sound/weapons/gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gun/smg/shot.ogg'
 	var/projectiles
 	var/projectiles_cache //ammo to be loaded in, if possible.
 	var/projectiles_cache_max
@@ -291,7 +291,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
 	desc = "A weapon for combat exosuits. A mime invention, field tests have shown that targets cannot even scream before going down."
-	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gun/general/heavy_shot_suppressed.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 30
 	projectile = /obj/projectile/bullet/mime
@@ -337,7 +337,7 @@
 	desc = "A weapon for combat exosuits. Launches short range missiles."
 	icon_state = "mecha_missilerack"
 	projectile = /obj/projectile/bullet/rocket/srm
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gun/general/rocket_launch.ogg'
 	projectiles = 8
 	projectiles_cache = 0
 	projectiles_cache_max = 0
@@ -352,7 +352,7 @@
 	desc = "A weapon for combat exosuits. Launches precision explosive projectiles designed to explode only when striking a structured target, including walls, exosuits and cyborgs."
 	icon_state = "mecha_missilerack_six"
 	projectile = /obj/projectile/bullet/rocket/pep
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gun/general/rocket_launch.ogg'
 	projectiles = 6
 	projectiles_cache = 0
 	projectiles_cache_max = 0
@@ -394,7 +394,7 @@
 	desc = "A weapon for combat exosuits. Launches primed flashbangs."
 	icon_state = "mecha_grenadelnchr"
 	projectile = /obj/item/grenade/flashbang
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gun/general/grenade_launch.ogg'
 	projectiles = 6
 	projectiles_cache = 6
 	projectiles_cache_max = 24
@@ -510,7 +510,7 @@
 	desc = "A weapon for combat exosuits. Launches primed tear-stache grenades."
 	icon_state = "mecha_grenadelnchr"
 	projectile = /obj/item/grenade/chem_grenade/teargas/moustache
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gun/general/grenade_launch.ogg'
 	projectiles = 6
 	missile_speed = 1.5
 	projectiles_cache = 999
