@@ -84,11 +84,11 @@
 	if(!atom_storage.locked)
 		context.add_alt_click_action(open ? "Close" : "Open")
 
-/obj/item/storage/lockbox/medal/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE) || atom_storage.locked)
-		return
-	open = !open
-	update_appearance(UPDATE_ICON)
+/obj/item/storage/lockbox/medal/click_alt(mob/user)
+	if(!atom_storage.locked)
+		open = (open ? FALSE : TRUE)
+		update_appearance(UPDATE_ICON)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/lockbox/medal/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

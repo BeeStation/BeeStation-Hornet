@@ -28,7 +28,7 @@
 
 /obj/item/ai_module/supplied/freeform/attack_self(mob/user)
 	var/newpos = tgui_input_number(user, "Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority ", lawpos, 50, 15)
-	if(!newpos || !user.is_holding(src))
+	if(!newpos || !user.is_holding(src) || !usr.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	lawpos = newpos
 	var/new_law = tgui_input_text(user, "Enter a new law for the AI.", "Freeform Law Entry", laws[1], max_length = CONFIG_GET(number/max_law_len), multiline = TRUE)

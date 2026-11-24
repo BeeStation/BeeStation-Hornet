@@ -146,18 +146,17 @@
 	return TRUE
 
 
-/obj/structure/chess_board/MouseDrop(over_object)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
-			return FALSE
-		usr.visible_message("[usr] folds \the [src.name].", span_notice("You fold \the [src.name]."))
+/obj/structure/chess_board/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user)
+		if(!ishuman(user))
+			return
+		user.visible_message("[user] folds \the [src.name].", span_notice("You fold \the [src.name]."))
 		var/obj/item/chess_board/board = new folded_type ()
 		board.populated = populated
 		board.sorted_contents = chess_board_contents
 		for(var/obj/item/I in contents)
 			I.forceMove(board)
-		usr.put_in_hands(board)
+		user.put_in_hands(board)
 		qdel(src)
 
 /obj/structure/chess_board/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)

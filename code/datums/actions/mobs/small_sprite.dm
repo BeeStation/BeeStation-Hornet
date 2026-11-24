@@ -35,9 +35,9 @@
 	background_icon_state = "bg_demon"
 
 /datum/action/small_sprite/space_dragon
-	small_icon = 'icons/mob/carp.dmi'
+	small_icon = 'icons/mob/simple/carp.dmi'
 	small_icon_state = "carp"
-	button_icon = 'icons/mob/carp.dmi'
+	button_icon = 'icons/mob/simple/carp.dmi'
 	button_icon_state = "carp"
 
 /datum/action/small_sprite/on_activate(mob/user, atom/target)

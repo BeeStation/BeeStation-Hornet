@@ -44,7 +44,7 @@
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(do_remove))
 
-	hyperloop = SSmove_manager.move(moving = parent, direction = direction, delay = not_clinging_move_delay, subsystem = SShyperspace_drift, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, flags = MOVEMENT_LOOP_NO_DIR_UPDATE)
+	hyperloop = SSmove_manager.move(moving = parent, direction = direction, delay = not_clinging_move_delay, subsystem = SShyperspace_drift, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, flags = MOVEMENT_LOOP_NO_DIR_UPDATE|MOVEMENT_LOOP_OUTSIDE_CONTROL)
 
 	update_state(parent) //otherwise we'll get moved 1 tile before we can correct ourselves, which isnt super bad but just looks jank
 
@@ -93,7 +93,7 @@
 	var/mob/living/living = movee
 
 	//Check if we can interact with stuff (checks for alive, arms, stun, etc)
-	if(!living.canUseTopic(living, be_close = TRUE, no_dexterity = FALSE, no_tk = TRUE))
+	if(!living.can_perform_action(living, FORBID_TELEKINESIS_REACH|NEED_HANDS))
 		return NOT_HOLDING_ON
 
 	if(living.buckled)

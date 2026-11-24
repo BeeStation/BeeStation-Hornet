@@ -236,6 +236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 /obj/effect/forcefield/luxury_shuttle/Bumped(atom/movable/AM)
 	if(!isliving(AM))
 		return ..()
+	var/mob/living/payee = AM
 
 	var/list/counted_money = list()
 
@@ -270,18 +271,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		payees[AM] += H.credits
 		counted_money += H
 
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(H.get_bank_account())
-			var/datum/bank_account/account = H.get_bank_account()
-
-			if(account.account_balance < threshold)
-				payees[AM] += account.account_balance
-				account.adjust_money(-account.account_balance)
-			else
-				var/money_owed = threshold - payees[AM]
-				payees[AM] += money_owed
-				account.adjust_money(-money_owed)
+	var/datum/bank_account/account = payee.get_bank_account()
+	if(account)
+		if(account.account_balance < threshold)
+			payees[AM] += account.account_balance
+			account.adjust_money(-account.account_balance)
+		else
+			var/money_owed = threshold - payees[AM]
+			payees[AM] += money_owed
+			account.adjust_money(-money_owed)
 
 	if(payees[AM] >= threshold)
 		for(var/obj/I in counted_money)
@@ -290,12 +288,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		say("Welcome aboard, [AM]!")
 		approved_passengers += AM
 
-		if(payees[AM] > 0 && ishuman(AM))
-			var/mob/living/carbon/human/H = AM
-			if(H.get_bank_account())
-				var/datum/bank_account/account = H.get_bank_account()
-				account.adjust_money(payees[AM])
-				payees[AM] -= payees[AM]
+		if(payees[AM] > 0 && account)
+			account.adjust_money(payees[AM])
+			payees[AM] -= payees[AM]
 
 		check_times -= AM
 		return

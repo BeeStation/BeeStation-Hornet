@@ -12,7 +12,6 @@
 	light_range = 3
 	faction = list(FACTION_MINING, FACTION_BOSS)
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
@@ -51,8 +50,8 @@
 	. = ..()
 	if(gps_name && true_spawn)
 		AddComponent(/datum/component/gps, gps_name)
-	ADD_TRAIT(src, TRAIT_NO_TELEPORT, MEGAFAUNA_TRAIT)
-	ADD_TRAIT(src, TRAIT_MARTIAL_ARTS_IMMUNE, MEGAFAUNA_TRAIT)
+	AddElement(/datum/element/simple_flying)
+	add_traits(list(TRAIT_NO_TELEPORT, TRAIT_MARTIAL_ARTS_IMMUNE), INNATE_TRAIT)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)

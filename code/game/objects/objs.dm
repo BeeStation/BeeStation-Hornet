@@ -21,10 +21,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// How much acid is on that obj
 	var/acid_level = 0
 
-	var/current_skin //Has the item been reskinned?
-	var/list/unique_reskin //List of options to reskin.
-	var/list/unique_reskin_icon //List of icons for said options.
-
 	// Access levels, used in modules\jobs\access.dm
 	var/list/req_access
 	var/req_access_txt = "0"
@@ -256,29 +252,11 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	. = ..()
 	if(desc_controls)
 		. += span_notice(desc_controls)
-	if(unique_reskin_icon && !current_skin)
-		. += span_notice("Alt-click it to reskin it.")
 
 /obj/examine_tags(mob/user)
 	. = ..()
 	if(obj_flags & UNIQUE_RENAME)
 		.["renameable"] = "Use a pen on it to rename it or change its description."
-
-/obj/AltClick(mob/user)
-	. = ..()
-	if(unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
-		reskin_obj(user)
-
-/obj/proc/reskin_obj(mob/M)
-	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated && in_range(M,src))
-		if(!unique_reskin[choice])
-			return
-		current_skin = choice
-		icon_state = unique_reskin_icon[choice]
-		to_chat(M, "[src] is now skinned as '[choice].'")
-		src.update_icon()
-	return
 
 /obj/analyzer_act(mob/living/user, obj/item/I)
 	if(atmos_scan(user=user, target=src, silent=FALSE))

@@ -472,6 +472,15 @@
 /obj/item/food/meat/slab/chicken/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/chicken, 3, 3 SECONDS, table_required = TRUE, screentip_verb = "Cut")
 
+/obj/item/food/meat/slab/grassfed
+	name = "eco meat"
+	desc = "A slab of 100% grass fed award-winning farm meat."
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/fat = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+	) // Marble
+
 /obj/item/food/meat/slab/mothroach
 	name = "mothroach meat"
 	desc = "a light slab of mothroach meat"

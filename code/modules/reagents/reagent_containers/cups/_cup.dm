@@ -392,13 +392,13 @@
 	initial_reagent_flags = OPENCONTAINER
 	var/obj/item/grinded
 
-/obj/item/reagent_containers/cup/mortar/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(grinded)
-		grinded.forceMove(drop_location())
-		grinded = null
-		to_chat(user, "You eject the item inside.")
+/obj/item/reagent_containers/cup/mortar/click_alt(mob/user)
+	if(!grinded)
+		return CLICK_ACTION_BLOCKING
+	grinded.forceMove(drop_location())
+	grinded = null
+	balloon_alert(user, "ejected")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/reagent_containers/cup/mortar/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	. = ..()

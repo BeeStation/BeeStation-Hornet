@@ -40,7 +40,7 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Cletus"
 	},
 /turf/open/floor/engine,
@@ -97,7 +97,7 @@
 /area/template_noop)
 "av" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Bloodthirsty Peckins"
 	},
 /turf/open/floor/engine,
@@ -115,7 +115,7 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky Fried Terror"
 	},
 /turf/open/floor/engine,
@@ -166,7 +166,7 @@
 /area/template_noop)
 "aL" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Killer Cluck"
 	},
 /turf/open/floor/engine,

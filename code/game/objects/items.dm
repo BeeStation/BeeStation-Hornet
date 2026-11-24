@@ -244,6 +244,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// How many charges get restored, when using this item to restore shield
 	var/added_shield = 0
 
+	/// Has the item been reskinned?
+	var/current_skin
+	/// Radial menu options for reskinning, usually built when first needed.
+	var/list/unique_reskin
+	/// Icon states for each reskin option. Items with this set can be reskinned by alt-clicking.
+	var/list/unique_reskin_icon
 	/*___________*/
 	/*Goon Combat*/
 	/*‾‾‾‾‾‾‾‾‾‾‾*/
@@ -301,6 +307,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
+	if(unique_reskin_icon)
+		RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(on_click_alt_reskin))
+
+
 /obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
@@ -312,6 +322,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		remove_item_action(action)
 	QDEL_NULL(rpg_loot)
 	return ..()
+
+/obj/item/examine(mob/user)
+	. = ..()
+	if(unique_reskin_icon && !current_skin)
+		. += span_notice("Alt-click it to reskin it.")
+
+/obj/item/click_ctrl(mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	//If the item is on the ground & not anchored we allow the player to drag it
+	. = item_ctrl_click(user)
+	if(. & CLICK_ACTION_ANY)
+		return (isturf(loc) && !anchored) ? NONE : . //allow the object to get dragged on the floor
+
+/// Subtypes only override this proc for ctrl click purposes. obeys same principles as ctrl_click()
+/obj/item/proc/item_ctrl_click(mob/user)
+	SHOULD_CALL_PARENT(FALSE)
+	return NONE
 
 /// Called when an action associated with our item is deleted
 /obj/item/proc/on_action_deleted(datum/source)
@@ -727,7 +755,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(hitby, /mob/living/simple_animal))
 		var/mob/living/simple_animal/simplemob = hitby
 		if(simplemob.hardattacks)
-			attackforce = attackforce * 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
+			attackforce *= 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
 
 	//We are ready to deal stamina damage to our owner
 	owner.apply_damage(min(attackforce, 35), STAMINA, blocked = block_power)
@@ -1299,8 +1327,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				apply_outline()
 
-/obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+/obj/item/base_mouse_drop_handler(atom/over, src_location, over_location, params)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	. = ..()
+
 	remove_outline()
 
 /obj/item/MouseExited()

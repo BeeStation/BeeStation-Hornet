@@ -639,20 +639,20 @@
 	return TRUE // If we pass all these checks, woohoo! We can interact
 
 /obj/machinery/proc/check_nap_violations()
-	if(!SSeconomy.full_ancap || !ishuman(occupant) || state_open)
+	if(!SSeconomy.full_ancap || !isliving(occupant) || state_open)
 		return TRUE
 
-	var/mob/living/carbon/human/human_occupant = occupant
-	var/obj/item/card/id/idcard = human_occupant.get_idcard(TRUE)
+	var/mob/living/living_occupant = occupant
+	var/obj/item/card/id/idcard = living_occupant.get_idcard(TRUE)
 	if(isnull(idcard))
 		say("[market_verb] NAP Violation: No ID card found.")
-		nap_violation(human_occupant)
+		nap_violation(living_occupant)
 		return FALSE
 
 	var/datum/bank_account/insurance = idcard.registered_account
 	if(!insurance)
 		say("[market_verb] NAP Violation: No bank account found.")
-		nap_violation(human_occupant)
+		nap_violation(living_occupant)
 		return FALSE
 
 	if(!fair_market_price)
@@ -660,7 +660,7 @@
 
 	if(!insurance.adjust_money(-fair_market_price))
 		say("[market_verb] NAP Violation: Unable to pay.")
-		nap_violation(human_occupant)
+		nap_violation(living_occupant)
 		return FALSE
 	// each department (seller_department) will earn the profit
 	if(seller_department)
@@ -692,7 +692,7 @@
 	..()
 	if(!can_interact(usr))
 		return TRUE
-	if(!usr.canUseTopic(src))
+	if(!usr.can_perform_action(src, ALLOW_SILICON_REACH))
 		return TRUE
 	add_fingerprint(usr)
 	return FALSE

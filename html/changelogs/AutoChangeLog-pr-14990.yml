@@ -1,5 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - balance: Reduced artifact bonus duck values, less discovery & research points.
-  - bugfix: Fixes artifacts being sold infinitely
