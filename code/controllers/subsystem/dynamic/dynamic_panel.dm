@@ -423,7 +423,7 @@
 			if(!chosen_ruleset)
 				return
 			var/datum/dynamic_ruleset/midround/midround_ruleset = chosen_ruleset.duplicate()
-			midround_ruleset.admin_forced = TRUE
+			midround_ruleset.skip_minimum_players = TRUE
 
 			if (SSdynamic.midround_waiting_ruleset)
 				SSdynamic.midround_waiting_ruleset.abort()

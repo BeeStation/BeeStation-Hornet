@@ -1,8 +1,5 @@
 /datum/dynamic_ruleset
 	abstract_type = /datum/dynamic_ruleset
-	/// Whether an admin explicitly forced this ruleset, bypassing its minimum player requirement
-	var/admin_forced = FALSE
-
 	/**
 	 * Configurable Variables
 	 */
@@ -18,6 +15,8 @@
 	var/points_cost = 7
 	/// The minimum amount of players that have to be connected for this ruleset to run
 	var/minimum_players_required = 6
+	/// Skip the minimum-player check when this ruleset is forced by an admin
+	var/skip_minimum_players = FALSE
 	/// The amount of people drafted by this ruleset.
 	var/drafted_players_amount = 1
 	/// The role preference used for this ruleset
@@ -155,7 +154,7 @@
 		// then take the total number of ready players
 		players = SSticker.totalPlayersReady
 
-	if(!admin_forced && players < minimum_players_required)
+	if(!skip_minimum_players && players < minimum_players_required)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum player requirement! (minimum players: [minimum_players_required]) (players: [players])")
 		return FALSE
 

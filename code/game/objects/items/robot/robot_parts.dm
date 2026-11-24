@@ -251,10 +251,6 @@
 		tool.forceMove(final_product)//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
 		QDEL_NULL(final_product.mmi) //we delete the mmi created by Initialize()
 		final_product.mmi = tool //and give the real mmi to the borg.
-		if(aisync)
-			final_product.try_connect_to_ai(forced_ai)
-		if(!lawsync)
-			final_product.lawupdate = FALSE
 		final_product.updatename(brainmob.client)
 		// This canonizes that MMI'd cyborgs have memories of their previous life
 		//brainmob.add_mob_memory(/datum/memory/was_cyborged, protagonist = brainmob.mind, deuteragonist = user)
