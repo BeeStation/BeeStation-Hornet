@@ -1,3 +1,15 @@
+/*
+ * Holds procs designed to change one type of value, into another.
+ * Contains:
+ *			file2list
+ *			angle2dir
+ *			angle2text
+ *			worldtime2text
+ *			text2dir_extended & dir2text_short
+ */
+
+
+
 //Splits the text of a file at seperator and returns them in a list.
 //returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
@@ -24,6 +36,8 @@
 			return "northwest"
 		if(SOUTHWEST)
 			return "southwest"
+		else
+	return
 
 /// Turns text into proper direction bitmasks
 /proc/text2dir(direction)
@@ -44,9 +58,12 @@
 			return SOUTHEAST
 		if("SOUTHWEST")
 			return SOUTHWEST
+		else
+	return
 
 /// Converts an angle (degrees) into an ss13 direction bitmask
 /proc/angle2dir(degree)
+
 	degree = SIMPLIFY_DEGREES(degree)
 	switch(degree)
 		if(0 to 22.5) //north requires two angle ranges
@@ -100,9 +117,15 @@
 			return 315
 		if(SOUTHWEST)
 			return 225
+		else
+			return null
 
 ///Returns a single dir rotated by x degrees clockwise, adhering to the cardinal directions.
 #define turn_cardinal(dir, rotation) ( angle2dir_cardinal ( dir2angle(dir) + rotation ) )
+
+/// Returns the angle in english
+/proc/angle2text(degree)
+	return dir2text(angle2dir(degree))
 
 /// Converts a blend_mode constant to one acceptable to icon.Blend()
 /proc/blendMode2iconMode(blend_mode)
@@ -267,6 +290,8 @@
 /proc/isLeap(y)
 	return ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
 
+
+
 /// Turns a Body_parts_covered bitfield into a list of organ/limb names. (I challenge you to find a use for this)
 /proc/body_parts_covered2organ_names(bpc)
 	var/list/covered_parts = list()
@@ -343,6 +368,82 @@
 		if(ITEM_SLOT_LEGCUFFED)
 			return pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
+/// adapted from http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
+/proc/heat2colour(temp)
+	return rgb(heat2colour_r(temp), heat2colour_g(temp), heat2colour_b(temp))
+
+
+/proc/heat2colour_r(temp)
+	temp /= 100
+	if(temp <= 66)
+		. = 255
+	else
+		. = max(0, min(255, 329.698727446 * (temp - 60) ** -0.1332047592))
+
+
+/proc/heat2colour_g(temp)
+	temp /= 100
+	if(temp <= 66)
+		. = max(0, min(255, 99.4708025861 * log(temp) - 161.1195681661))
+	else
+		. = max(0, min(255, 288.1221685293 * ((temp - 60) ** -0.075148492)))
+
+
+/proc/heat2colour_b(temp)
+	temp /= 100
+	if(temp >= 66)
+		. = 255
+	else
+		if(temp <= 16)
+			. = 0
+		else
+			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
+
+/// Converts a text color like "red" to a hex color ("#FF0000")
+/proc/color2hex(color)	//web colors
+	if(!color)
+		return COLOR_BLACK
+
+	switch(color)
+		if("white")
+			return COLOR_WHITE
+		if("black")
+			return COLOR_BLACK
+		if("gray")
+			return COLOR_GRAY
+		if("brown")
+			return "#A52A2A"
+		if("red")
+			return COLOR_RED
+		if("darkred")
+			return "#8B0000"
+		if("crimson")
+			return "#DC143C"
+		if("orange")
+			return "#FFA500"
+		if("yellow")
+			return COLOR_YELLOW
+		if("green")
+			return COLOR_GREEN
+		if("lime")
+			return COLOR_VIBRANT_LIME
+		if("darkgreen")
+			return "#006400"
+		if("cyan")
+			return COLOR_CYAN
+		if("blue")
+			return COLOR_BLUE
+		if("navy")
+			return COLOR_NAVY
+		if("teal")
+			return COLOR_TEAL
+		if("purple")
+			return COLOR_PURPLE
+		if("indigo")
+			return "#4B0082"
+		else
+			return COLOR_WHITE
+
 /**
 This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format
 It's only a proc because it's used in more than one place
@@ -392,7 +493,58 @@ Takes a string and a datum. The string is well, obviously the string being check
 		a = color[4] / 255
 	return list(r,0,0,0, 0,g,0,0, 0,0,b,0, 0,0,0,a, 0,0,0,0)
 
+/// Will drop all values not on the diagonal
+/proc/color_matrix2color_hex(list/the_matrix)
+	if(!istype(the_matrix) || the_matrix.len != 20)
+		return "#ffffffff"
+	return rgb(the_matrix[1]*255, the_matrix[6]*255, the_matrix[11]*255, the_matrix[16]*255)
+
+// Returns a string the last bit of a type, without the preceeding '/'
+/proc/type2top(datum/typepath)
+	//handle the builtins manually
+	if(!ispath(typepath))
+		return
+	switch(typepath)
+		if(/datum)
+			return "datum"
+		if(/atom)
+			return "atom"
+		if(/obj)
+			return "obj"
+		if(/mob)
+			return "mob"
+		if(/area)
+			return "area"
+		if(/turf)
+			return "turf"
+		else //regex everything else (works for /proc too)
+			return LOWER_TEXT(replacetext("[typepath]", "[typepath::parent_type]/", ""))
+
 /// Return html to load a url.
 /// for use inside of browse() calls to html assets that might be loaded on a cdn.
 /proc/url2htmlloader(url)
 	return {"<html><head><meta http-equiv="refresh" content="0;URL='[url]'"/></head><body onLoad="parent.location='[url]'"></body></html>"}
+
+/// Encodes a string to hex
+/proc/strtohex(str)
+	if(!istext(str)||!str)
+		return
+	var/r
+	var/c
+	for(var/i = 1 to length(str))
+		c = text2ascii(str,i)
+		r += num2hex(c, 2)
+	return r
+
+/// Decodes hex to raw byte string. If safe=TRUE, returns null on incorrect input strings instead of CRASHing
+/proc/hextostr(str, safe=FALSE)
+	if(!istext(str)||!str)
+		return
+	var/r
+	var/c
+	for(var/i = 1 to length(str)/2)
+		c = hex2num(copytext(str,i*2-1,i*2+1))
+		if(isnull(c))
+			return null
+		r += ascii2text(c)
+	return r
