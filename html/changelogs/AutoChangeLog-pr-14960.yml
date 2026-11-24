@@ -1,0 +1,9 @@
+author: mrmanlikesbt, grungussuss, TheBoondock, timothymtorres, actioninja, MrMelbert,
+  LemonInTheDark, Beebblie, JohnFulpWillard
+delete-after: true
+changes:
+  - sound: A ton of sounds have been added to various item interactions in the game.
+  - image: Portals have a new sprite
+  - balance: Silenced guns can no longer be heard through walls
+  - qol: Internals now have a visual indicator above them displaying how much gas
+      is left
