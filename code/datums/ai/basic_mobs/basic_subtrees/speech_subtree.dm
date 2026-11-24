@@ -26,6 +26,10 @@
 		return
 	speak(controller)
 
+/datum/ai_planning_subtree/random_speech/proc/select_sound()
+	if(length(sound))
+		return pick(sound)
+
 /// Actually perform an action
 /datum/ai_planning_subtree/random_speech/proc/speak(datum/ai_controller/controller)
 	var/audible_emotes_length = LAZYLEN(emote_hear)
@@ -38,7 +42,7 @@
 		return
 
 	var/random_number_in_range = rand(1, total_choices_length)
-	var/sound_to_play = length(sound) > 0 ? pick(sound) : null
+	var/sound_to_play = select_sound()
 
 	if(random_number_in_range <= audible_emotes_length)
 		controller.queue_behavior(/datum/ai_behavior/perform_emote, pick(emote_hear), sound_to_play)
@@ -159,9 +163,11 @@
 
 /datum/ai_planning_subtree/random_speech/cats
 	speech_chance = 10
-	sound = list("cat_meow")
 	emote_hear = list("meows.")
 	emote_see = list("meows.")
+
+/datum/ai_planning_subtree/random_speech/cats/select_sound()
+	return pick_cat_meow_sound()
 
 /datum/ai_planning_subtree/random_speech/hamster
 	speech_chance = 5

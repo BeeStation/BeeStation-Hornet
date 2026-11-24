@@ -126,7 +126,7 @@
 	var/tmp_sound = get_sound(user)
 	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
 		run_cooldown_integer(user)
-		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
+		playsound(source = user, soundin = tmp_sound, vol = get_sound_volume(user), vary = vary, ignore_walls = sound_wall_ignore)
 
 	var/msg = select_message_type(user, message, intentional)
 	if(params)
@@ -256,6 +256,10 @@
 	else
 		//We did a few emotes, but didnt use them all up, reset our integer
 		cooldown_integer = initial(cooldown_integer)
+
+/// How loud should the emote be played at?
+/datum/emote/proc/get_sound_volume(mob/living/user)
+	return sound_volume
 
 /**
  * For handling emote cooldown, return true to allow the emote to happen.

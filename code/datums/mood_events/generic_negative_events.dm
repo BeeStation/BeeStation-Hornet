@@ -114,6 +114,11 @@
 	mood_change = -4
 	timeout = 4 MINUTES
 
+/datum/mood_event/watersprayed // Let's be real, moods dont do shit right now, but hey i needed to bring them alongside my cat emotes
+	description = "I hate being sprayed with water!"
+	mood_change = -1
+	timeout = 30 SECONDS
+
 /datum/mood_event/notcreeping
 	description = span_warning("The voices are not happy, and they painfully contort my thoughts into getting back on task.")
 	mood_change = -6

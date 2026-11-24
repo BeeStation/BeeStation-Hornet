@@ -285,6 +285,15 @@
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
 	sound_wall_ignore = TRUE
 
+/datum/emote/living/scream/get_sound_volume(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
+		return 10 // I hate doing this, but HOLY fuck they're loud as shit
+	return ..()
+
+/datum/emote/living/scream/get_sound(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
+		return 'sound/mobs/non-humanoids/cat/scream_cat.ogg'
+
 /datum/emote/living/scream/select_message_type(mob/user, message, intentional)
 	. = ..()
 	if(!intentional && isanimal_or_basicmob(user))
@@ -649,9 +658,16 @@
 	message = "hisses"
 	emote_type = EMOTE_AUDIBLE
 
+/datum/emote/living/hiss/get_sound_volume(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
+		return 10 // WHY ARE YOU SOU LOUD, AAAAAAAH!
+	return ..()
+
 /datum/emote/living/hiss/get_sound(mob/living/user)
 	if(islizard(user))
 		return pick('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg', 'sound/voice/hiss5.ogg', 'sound/voice/hiss6.ogg')
+	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
+		return 'sound/mobs/non-humanoids/cat/cat_hiss.ogg'
 
 /datum/emote/living/thumbs_up
 	key = "thumbsup"
@@ -821,3 +837,42 @@
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_sniff_sound(H)
+
+/// Emotes shared by felinids and real cats
+/datum/emote/living/cat
+	abstract_type = /datum/emote/living/cat
+
+/proc/pick_cat_meow_sound()
+	var/static/list/meow_sounds = list(
+		'sound/mobs/non-humanoids/cat/cat_meow1.ogg' = 33,
+		'sound/mobs/non-humanoids/cat/cat_meow2.ogg' = 33,
+		'sound/mobs/non-humanoids/cat/cat_meow3.ogg' = 33,
+		'sound/mobs/non-humanoids/cat/oranges_meow1.ogg' = 1, // Ultra rare meow sound
+	)
+	return pick_weight(meow_sounds)
+
+/datum/emote/living/cat/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE, params)
+	if(!..())
+		return FALSE
+	return HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED)
+
+/datum/emote/living/cat/meow
+	key = "meow"
+	key_third_person = "meows"
+	message = "meows!"
+	message_mime = "meows silently."
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/cat/meow/get_sound(mob/living/user)
+	return pick_cat_meow_sound()
+
+/datum/emote/living/cat/purr
+	key = "purr"
+	key_third_person = "purrs"
+	message = "purrs."
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/cat/purr/get_sound(mob/living/user)
+	return pick('sound/mobs/non-humanoids/cat/cat_purr1.ogg', 'sound/mobs/non-humanoids/cat/cat_purr2.ogg', 'sound/mobs/non-humanoids/cat/cat_purr3.ogg', 'sound/mobs/non-humanoids/cat/cat_purr4.ogg')
