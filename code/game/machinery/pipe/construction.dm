@@ -162,6 +162,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	paintable = make_from.paintable
 	pipe_color = make_from.pipe_color
 
+/obj/item/pipe/trinary/flippable/make_from_existing(obj/machinery/atmospherics/components/trinary/make_from)
+	. = ..()
+	if(make_from.flipped)
+		do_a_flip()
+
 /obj/item/pipe/dropped()
 	if(loc)
 		set_piping_layer(piping_layer)
