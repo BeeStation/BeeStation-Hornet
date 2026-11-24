@@ -87,8 +87,7 @@ PROCESSING_SUBSYSTEM_DEF(fading_sounds)
 			receiver.client?.sound_channel_initial_volumes[sound.channel] = sound.volume
 
 		if(ispath(volume_preference, /datum/preference/numeric/volume))
-			var/client/receiver_client = astype(receiver, /mob)?.client || astype(receiver, /client)
-			var/pref_volume = receiver_client?.prefs?.read_player_preference(volume_preference)
+			var/pref_volume = receiver.client?.prefs?.read_player_preference(volume_preference)
 			sound.volume *= pref_volume / 100
 
 		SEND_SOUND(receiver, sound)
