@@ -155,8 +155,6 @@
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	if (!QDELETED(human_user) && air_contents && air_contents.return_pressure() >= 1000)
 		for(var/obj/item/to_drop in human_user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_ACCESSORIES | INCLUDE_HELD))
-			if(!to_drop)
-				continue
 			human_user.dropItemToGround(to_drop)
 			if(prob(50))
 				step(to_drop, pick(GLOB.alldirs))
