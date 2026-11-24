@@ -191,7 +191,14 @@
 		playsound(src, "rustle", 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
+	if(!ore || QDELETED(ore) || ore.loc != get_turf(mod.wearer))
+		return
 	for(var/obj/item/stack/stored_ore as anything in ores)
+		if(!stored_ore || QDELETED(stored_ore) || stored_ore.loc != src)
+			ores -= stored_ore
+			continue
+		if(stored_ore == ore)
+			return
 		if(!stored_ore.can_merge(ore))
 			continue
 		stored_ore.merge(ore)
@@ -203,6 +210,10 @@
 
 /obj/item/mod/module/orebag/on_use()
 	for(var/obj/item/ore as anything in ores)
+		if(!ore || QDELETED(ore) || ore.loc != src)
+			if(ore)
+				ores -= ore
+			continue
 		ore.forceMove(drop_location())
 		ores -= ore
 	drain_power(use_power_cost)

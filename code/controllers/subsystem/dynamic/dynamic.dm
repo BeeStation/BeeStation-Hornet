@@ -744,7 +744,7 @@ SUBSYSTEM_DEF(dynamic)
 	update_midround_points()
 
 	// Try to choose/execute a ruleset
-	if(world.time - SSticker.round_start_time > midround_grace_period && COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
+	if(!midround_waiting_ruleset && world.time - SSticker.round_start_time > midround_grace_period && COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
 		if(!midround_chosen_ruleset)
 			choose_midround_ruleset()
 		else if(midround_points >= midround_chosen_ruleset.points_cost)

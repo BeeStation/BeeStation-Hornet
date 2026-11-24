@@ -79,11 +79,10 @@
 	AddComponent(/datum/component/swarming, 16, 16) //max_x, max_y
 
 /mob/living/basic/mouse/proc/make_tameable()
-	if (tame)
+	if(tame)
 		faction |= FACTION_NEUTRAL
-	else
-		var/static/list/food_types = list(/obj/item/food/cheese)
-		AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 100)
+	var/static/list/food_types = list(/obj/item/food/cheese)
+	AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 100)
 
 /mob/living/basic/mouse/Destroy()
 	SSmobs.cheeserats -= src

@@ -1,5 +1,7 @@
 /datum/dynamic_ruleset
 	abstract_type = /datum/dynamic_ruleset
+	/// Whether an admin explicitly forced this ruleset, bypassing its minimum player requirement
+	var/admin_forced = FALSE
 
 	/**
 	 * Configurable Variables
@@ -153,7 +155,7 @@
 		// then take the total number of ready players
 		players = SSticker.totalPlayersReady
 
-	if(players < minimum_players_required)
+	if(!admin_forced && players < minimum_players_required)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum player requirement! (minimum players: [minimum_players_required]) (players: [players])")
 		return FALSE
 

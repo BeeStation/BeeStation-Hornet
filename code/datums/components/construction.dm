@@ -76,8 +76,7 @@
 		target_step = steps[target_index]
 
 	if(I.tool_behaviour)
-		INVOKE_ASYNC(I, TYPE_PROC_REF(/obj/item, use_tool), parent, user, 0, 0, 50)
-		return TRUE
+		return I.use_tool(parent, user, 0, 0, 50)
 
 	else if(diff == FORWARD)
 		switch(current_step["action"])

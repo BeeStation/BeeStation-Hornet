@@ -341,6 +341,9 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	return max(0, detonation_timer - world.time)
 
 /obj/machinery/doomsday_device/process()
+	if(owner?.shunted || !isturf(owner?.loc))
+		owner?.ShutOffDoomsdayDevice()
+		return
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		minor_announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", TRUE)
