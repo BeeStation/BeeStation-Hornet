@@ -5,5 +5,5 @@
 	maxHealth = 30
 	melee_damage = 15
 	obj_damage = 0
-	ai_controller = /datum/ai_controller/basic_controller/simple_hostile
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile
 	faction = list(FACTION_CAT, FACTION_SYNDICATE)

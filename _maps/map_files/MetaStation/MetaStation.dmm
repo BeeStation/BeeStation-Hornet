@@ -2659,7 +2659,7 @@
 /turf/open/floor/plating,
 /area/station/service/kitchen/coldroom)
 "bgK" = (
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Featherbottom";
 	real_name = "Featherbottom"
 	},
@@ -27383,7 +27383,7 @@
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation)
 "jOv" = (
-/mob/living/simple_animal/sloth/citrus,
+/mob/living/basic/sloth/citrus,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -28876,7 +28876,7 @@
 /obj/machinery/door/window/westright{
 	name = "Garden A"
 	},
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},
@@ -50109,7 +50109,7 @@
 "rpC" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	dir = 8;
 	name = "Justine"
 	},
@@ -55850,7 +55850,7 @@
 	pixel_y = -29
 	},
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/basic/pet/fox/renault,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
@@ -58826,7 +58826,7 @@
 /area/station/holodeck/prison)
 "urf" = (
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "uri" = (
@@ -64853,9 +64853,7 @@
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "wtZ" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 10

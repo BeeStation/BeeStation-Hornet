@@ -69,6 +69,10 @@
 	move_resist = MOVE_FORCE_WEAK
 	var/foldabletype = /obj/item/rollerbed
 
+/obj/structure/bed/roller/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/noisy_movement, volume = 100)
+
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
@@ -84,11 +88,6 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	set_density(TRUE)
 	icon_state = "up"
-
-/obj/structure/bed/roller/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	. = ..()
-	if(has_gravity())
-		playsound(src, 'sound/effects/roll.ogg', 100, 1)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	set_density(FALSE)

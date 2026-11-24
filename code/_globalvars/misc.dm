@@ -18,7 +18,6 @@ GLOBAL_PROTECT(poll_options)
 
 // Monkeycube/chicken/slime spam prevention
 GLOBAL_VAR_INIT(total_cube_monkeys, 0)
-GLOBAL_VAR_INIT(total_chickens, 0)
 GLOBAL_VAR_INIT(total_slimes, 0)
 
 ///Global var for insecure comms key rate limiting

@@ -17,7 +17,7 @@
 	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
 	icon_state = ""
 	icon_living = ""
-	icon = 'icons/mob/bees.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	gender = FEMALE
 	speak_emote = list("buzzes")
 	emote_hear = list("buzzes")
@@ -41,7 +41,6 @@
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = 1 //have to find those plant trays!
@@ -65,6 +64,7 @@
 	generate_bee_visuals()
 	AddComponent(/datum/component/clickbox, x_offset = -2, y_offset = -2)
 	AddComponent(/datum/component/swarming)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	if(beehome)
@@ -111,7 +111,7 @@
 	add_overlay("[icon_base]_base")
 
 	var/static/mutable_appearance/greyscale_overlay
-	greyscale_overlay = greyscale_overlay || mutable_appearance('icons/mob/bees.dmi')
+	greyscale_overlay = greyscale_overlay || mutable_appearance('icons/mob/simple/animal.dmi')
 	greyscale_overlay.icon_state = "bee_grey"
 	greyscale_overlay.color = col
 	add_overlay(greyscale_overlay)
@@ -266,7 +266,7 @@
 	desc = "She's the queen of bees, BZZ BZZ!"
 	icon_state = "queen_item"
 	inhand_icon_state = ""
-	icon = 'icons/mob/bees.dmi'
+	icon = 'icons/mob/simple/bees.dmi'
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
