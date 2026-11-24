@@ -6479,7 +6479,7 @@
 	paint_colour = "#548434"
 	},
 /obj/structure/closet/crate/critter,
-/mob/living/simple_animal/crab/evil,
+/mob/living/basic/crab/evil,
 /turf/open/floor/iron,
 /area/station/maintenance/department/cargo)
 "bAL" = (
@@ -12341,7 +12341,7 @@
 /turf/open/floor/engine,
 /area/station/medical/chemistry)
 "cVP" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "cVS" = (
@@ -16394,7 +16394,7 @@
 	pixel_x = 8;
 	pixel_y = 4
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /obj/effect/turf_decal/siding/dirt,
 /turf/open/floor/grass/no_border,
 /area/station/service/hydroponics/garden)
@@ -24887,7 +24887,7 @@
 /area/station/security/prison)
 "fSw" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	desc = "Renault, the Captain's trustworthy fox. Shame it's not Peuegot...";
 	dir = 8
 	},
@@ -29554,7 +29554,7 @@
 	dir = 6
 	},
 /obj/structure/window/reinforced/spawner/directional/south,
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/grass/no_border,
 /area/station/science/research)
 "gZN" = (
@@ -30150,7 +30150,7 @@
 	pixel_x = 3;
 	color = "#BBBBFF"
 	},
-/mob/living/simple_animal/chick/dave,
+/mob/living/basic/chick/permanent/dave,
 /turf/open/floor/iron/smooth,
 /area/station/command/bridge)
 "hfC" = (
@@ -46779,9 +46779,7 @@
 /turf/open/floor/iron/checker,
 /area/station/commons/vacant_room/commissary/commissaryFood)
 "kYs" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -51662,7 +51660,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 6
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /turf/open/floor/grass/no_border,
 /area/station/service/hydroponics/garden)
 "meQ" = (
@@ -54841,7 +54839,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/hydroponics)
 "mQt" = (
@@ -55998,7 +55996,7 @@
 /turf/open/floor/mineral/silver,
 /area/station/medical/pharmacy)
 "nbt" = (
-/mob/living/simple_animal/cardinal{
+/mob/living/basic/cardinal{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -61360,7 +61358,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
 	},
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "orG" = (
@@ -63395,7 +63393,7 @@
 	pixel_y = -9;
 	pixel_x = -4
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /turf/open/floor/grass/no_border,
 /area/station/service/hydroponics/garden)
 "oOS" = (
@@ -63900,7 +63898,7 @@
 /turf/open/floor/iron/smooth,
 /area/station/hallway/secondary/command)
 "oVk" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/hydroponics)
 "oVp" = (
@@ -75995,7 +75993,7 @@
 	dir = 4
 	},
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "rQM" = (

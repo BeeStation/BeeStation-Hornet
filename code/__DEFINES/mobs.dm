@@ -87,6 +87,8 @@
 #define MOB_REPTILE (1 << 8)
 /// The mob is a spooky phantasm or an evil ghast of such nature.
 #define MOB_SPIRIT (1 << 9)
+///The mob is a plant-based species, benefitting from light but suffering from darkness and plantkillers.
+#define MOB_PLANT (1 << 10)
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
@@ -178,6 +180,7 @@
 
 //Brain Damage defines
 #define BRAIN_DAMAGE_MILD 20
+#define BRAIN_DAMAGE_ASYNC_BLINKING 60
 #define BRAIN_DAMAGE_SEVERE 100
 #define BRAIN_DAMAGE_DEATH 200
 
@@ -586,8 +589,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define BODYPARTS_LAYER 33
 /// certain mutantrace features (snout, body markings) that must appear above the body parts
 #define BODY_ADJ_LAYER 32
-/// underwear, undershirts, socks, eyes, lips(makeup)
-#define BODY_LAYER 30
+/// Underwear, undershirts, socks
+#define BODY_LAYER 31
+/// Eyes and eyelids
+#define EYES_LAYER 30
 /// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
 #define FRONT_MUTATIONS_LAYER 29
 /// damage indicators (cuts and burns)

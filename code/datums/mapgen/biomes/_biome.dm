@@ -240,11 +240,11 @@
 
 		grasslush_seasonal_fauna = list(
 			"SUMMER" = list(
-				/mob/living/simple_animal/crab,
-				/mob/living/simple_animal/butterfly,
-				/mob/living/simple_animal/hostile/lizard,
+				/mob/living/basic/crab,
+				/mob/living/basic/butterfly,
+				/mob/living/basic/lizard,
 				/mob/living/simple_animal/parrot,
-				/mob/living/simple_animal/sloth,
+				/mob/living/basic/sloth,
 				/mob/living/carbon/monkey
 			),
 			"WINTER" = list(
@@ -317,9 +317,9 @@
 
 		sand_seasonal_fauna = list(
 			"SUMMER" = list(
-				/mob/living/simple_animal/crab,
-				/mob/living/simple_animal/butterfly,
-				/mob/living/simple_animal/hostile/lizard
+				/mob/living/basic/crab,
+				/mob/living/basic/butterfly,
+				/mob/living/basic/lizard
 			),
 			"WINTER" = list(),
 			"SPRING" = list(),

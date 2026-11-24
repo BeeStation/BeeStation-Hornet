@@ -45,7 +45,7 @@
 	#define MOVE_ARG_NEW_LOC 1
 	/// The argument of move_args which dictates our movement direction
 	#define MOVE_ARG_DIRECTION 2
-/// From base of /client/Move()
+/// From base of /client/Move(): (direction, old_dir)
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 /// From base of /mob/proc/set_mob_eye_to() : (atom/new_eye, atom/old_eye)
 #define COMSIG_MOB_SET_MOB_EYE "mob_set_mob_eye_to"
@@ -172,6 +172,9 @@
 
 /// from /mob/update_incapacitated: (old_incap, new_incap)
 #define COMSIG_MOB_INCAPACITATE_CHANGED "mob_incapacitated"
+
+/// from /obj/item/reagent_containers/dropper/interact_with_atom(atom/target, mob/living/user, list/modifiers): (mob/living/user, atom/dropper, datum/reagents/reagents, fraction)
+#define COMSIG_MOB_REAGENTS_DROPPED_INTO_EYES "mob_reagents_drop_into_eyes"
 
 /// Signal sent when a blackboard key is set to a new value
 #define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"

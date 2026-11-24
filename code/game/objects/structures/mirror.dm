@@ -256,11 +256,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/magic, 28)
 			if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 				return
 			if(new_eye_color)
-				user.eye_color_left = sanitize_hexcolor(new_eye_color)
-				user.eye_color_right = sanitize_hexcolor(new_eye_color)
+				user.set_eye_color(sanitize_hexcolor(new_eye_color))
 				user.dna.update_ui_block(DNA_EYE_COLOR_LEFT_BLOCK)
 				user.dna.update_ui_block(DNA_EYE_COLOR_RIGHT_BLOCK)
-				user.update_body()
+				user.update_eyes()
 	if(choice)
 		curse(user)
 

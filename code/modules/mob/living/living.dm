@@ -17,7 +17,7 @@
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
 	if(unique_name)
-		name = "[name] ([rand(1, 1000)])"
+		set_unique_name()
 		real_name = name
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(src)
@@ -1552,7 +1552,7 @@
 				/mob/living/simple_animal/hostile/mushroom,
 				/mob/living/simple_animal/hostile/statue,
 				/mob/living/simple_animal/hostile/retaliate/bat,
-				/mob/living/simple_animal/hostile/retaliate/goat,
+				/mob/living/basic/goat,
 				/mob/living/simple_animal/hostile/killertomato,
 				/mob/living/simple_animal/hostile/poison/giant_spider,
 				/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
@@ -1570,17 +1570,17 @@
 				/mob/living/simple_animal/hostile/gorilla,
 				/mob/living/simple_animal/parrot,
 				/mob/living/basic/pet/dog/corgi,
-				/mob/living/simple_animal/crab,
+				/mob/living/basic/crab,
 				/mob/living/basic/pet/dog/pug,
 				/mob/living/basic/pet/cat,
 				/mob/living/basic/mouse,
-				/mob/living/simple_animal/chicken,
+				/mob/living/basic/chicken,
 				/mob/living/basic/cow,
-				/mob/living/simple_animal/hostile/lizard,
-				/mob/living/simple_animal/pet/fox,
-				/mob/living/simple_animal/butterfly,
+				/mob/living/basic/lizard,
+				/mob/living/basic/pet/fox,
+				/mob/living/basic/butterfly,
 				/mob/living/basic/pet/cat/cak,
-				/mob/living/simple_animal/chick,
+				/mob/living/basic/chick,
 				/mob/living/simple_animal/slime/random,
 				/mob/living/carbon/monkey,
 				/mob/living/carbon/alien/humanoid/hunter,
@@ -1857,7 +1857,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		return
 
 	if(. <= UNCONSCIOUS || new_stat >= UNCONSCIOUS)
-		update_body() // to update eyes
+		update_eyes()
 
 	switch(.) //Previous stat.
 		if(CONSCIOUS)
@@ -2770,6 +2770,12 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 /mob/living/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs))
 		return user_buckle_mob(M, user, check_loc = FALSE)
+
+/mob/living/proc/set_unique_name()
+	if(identifier == 0)
+		identifier = rand(1, 999)
+	name = "[name] ([identifier])"
+	real_name = name
 
 ///Take away stamina from an attack being thrown.
 /mob/living/proc/stamina_swing(cost as num)

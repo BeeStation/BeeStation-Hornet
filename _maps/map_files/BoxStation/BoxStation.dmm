@@ -6910,7 +6910,7 @@
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
 "dmp" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/leafybush,
 /turf/open/floor/grass,
@@ -22517,7 +22517,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -20
 	},
-/mob/living/simple_animal/crab/Coffee,
+/mob/living/basic/crab/coffee,
 /turf/open/floor/iron/white,
 /area/station/science/lab)
 "jzZ" = (
@@ -25033,7 +25033,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft)
 "kDW" = (
-/mob/living/simple_animal/sloth/paperwork,
+/mob/living/basic/sloth/paperwork,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -33403,7 +33403,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "nRR" = (
@@ -44635,9 +44635,7 @@
 /turf/open/floor/prison,
 /area/station/security/prison)
 "sAP" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "sAR" = (
@@ -46957,7 +46955,7 @@
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "tuQ" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -51973,7 +51971,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "vwZ" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,
