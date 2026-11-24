@@ -74,7 +74,7 @@
 		fake_card = null
 	stored_card = attacking_item
 	to_chat(user, span_notice("You insert \the [attacking_item] into \the [expansion_hw ? "secondary":"primary"] [src]."))
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.sec_hud_set_ID()
@@ -109,7 +109,7 @@
 		if(human_wearer.wear_id == holder)
 			human_wearer.sec_hud_set_ID()
 	to_chat(user, span_notice("You remove the card from \the [src]."))
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 	. = stored_card
 	stored_card = null
 	current_identification = null

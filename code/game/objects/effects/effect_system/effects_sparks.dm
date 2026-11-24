@@ -29,7 +29,7 @@
 
 /obj/effect/particle_effect/sparks/LateInitialize()
 	z_flick(icon_state, src) // replay the animation
-	playsound(src, "sparks", 100, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 100, TRUE)
 	var/turf/T = loc
 	if(isturf(T))
 		T.hotspot_expose(1000,100)

@@ -992,7 +992,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "Slap my hand."
 	icon_state = "latexballon"
 	inhand_icon_state = "nothing"
-	hitsound = 'sound/weapons/punchmiss.ogg'
+	hitsound = 'sound/weapons/punch/punchmiss.ogg'
 	force = 0
 	throwforce = 0
 	item_flags = DROPDEL | ABSTRACT | ISWEAPON
@@ -1006,12 +1006,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		user.visible_message("[user] and [target] high five!", span_notice("You high five with [target]!"), span_italics("You hear a slap!"))
 		user.do_attack_animation(target)
 		target.do_attack_animation(user)
-		playsound(src, 'sound/weapons/punch2.ogg', 50, 0)
+		playsound(src, 'sound/weapons/punch/punch2.ogg', 50, 0)
 		qdel(src)
 		qdel(downlow)
 	else
 		user.visible_message("[user] is left hanging by [target].", span_notice("[target] leaves you hanging."))
-		playsound(src, 'sound/weapons/punchmiss.ogg', 50, 0)
+		playsound(src, 'sound/weapons/punch/punchmiss.ogg', 50, 0)
 
 /obj/item/club
 	name = "Billy club"

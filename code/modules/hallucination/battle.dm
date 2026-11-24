@@ -44,7 +44,7 @@
 	/// The sound we make when our shot actually "hits" "someone".
 	var/hit_person_sound = 'sound/weapons/pierce.ogg'
 	/// The sound we make when our shot misses someone and "hits" a "wall".
-	var/hit_wall_sound = "ricochet"
+	var/hit_wall_sound = /datum/sound_effect/ricochet
 	/// The number of successful hits required to "down" the "someone" we're firing at.
 	var/number_of_hits_to_end = 2
 	/// The probability chance we have to make our "hit" person fall down after we pass the number_of_hits_to_end.
@@ -92,7 +92,7 @@
 	if(QDELETED(src) || QDELETED(hallucinator) || !source)
 		return
 
-	play_battle_sound(source, "bodyfall", volume)
+	play_battle_sound(source, /datum/sound_effect/bodyfall, volume)
 	if(prob(60))
 		addtimer(CALLBACK(src, PROC_REF(play_battle_sound), source, get_scream_sound(), volume), 0.2 SECONDS)
 	QDEL_IN(src, 1 SECONDS)
@@ -110,7 +110,6 @@
 		'sound/weapons/gun/pistol/nps10/fire.ogg',
 	)
 	hit_person_sound = 'sound/weapons/pierce.ogg'
-	hit_wall_sound = "ricochet"
 	number_of_hits_to_end = 2
 	chance_to_fall = 80
 	volume = 80
@@ -150,9 +149,9 @@
 	/// Upper bound for melee hits.
 	var/hits_upper_range = 6
 	/// Sound or list of sounds for attacking / hitting. If a list, one is picked at start.
-	var/attack_sound = "swing_hit"
+	var/attack_sound = /datum/sound_effect/swing_hit
 	/// Sound played on miss.
-	var/miss_sound = 'sound/weapons/punchmiss.ogg'
+	var/miss_sound = 'sound/weapons/punch/punchmiss.ogg'
 	/// Optional defensive reaction sound (e.g. parry).
 	var/defend_sound
 	/// Chance for a swing to be a miss or parried.
@@ -201,7 +200,7 @@
 	if(QDELETED(src) || QDELETED(hallucinator) || !source)
 		return
 
-	play_battle_sound(source, "bodyfall", volume)
+	play_battle_sound(source, /datum/sound_effect/bodyfall, volume)
 	if(prob(70))
 		addtimer(CALLBACK(src, PROC_REF(play_battle_sound), source, get_scream_sound(), volume), 0.2 SECONDS)
 	QDEL_IN(src, 1 SECONDS)
@@ -213,7 +212,7 @@
 		'sound/weapons/blade1.ogg',
 		'sound/weapons/slice.ogg',
 		'sound/weapons/slash.ogg',
-		"swing_hit",
+		/datum/sound_effect/swing_hit,
 	)
 	miss_sound = 'sound/weapons/smash.ogg'
 	defend_sound = 'sound/weapons/parry.ogg'
@@ -225,11 +224,11 @@
 /// Melee fight hallucination involving blunt impacts and punches.
 /datum/hallucination/battle/melee/brawl
 	attack_sound = list(
-		"punch",
+		/datum/sound_effect/punch,
 		'sound/weapons/smash.ogg',
 		'sound/weapons/genhit.ogg',
 	)
-	miss_sound = 'sound/weapons/punchmiss.ogg'
+	miss_sound = 'sound/weapons/punch/punchmiss.ogg'
 	miss_chance = 25
 	number_of_hits_to_end = 4
 	chance_to_fall = 70
@@ -237,7 +236,7 @@
 
 /datum/hallucination/battle/melee/brawl/melee_loop(turf/source, hits_left = 3, landed_hits = 0)
 	if(prob(15))
-		addtimer(CALLBACK(src, PROC_REF(play_battle_sound), source, pick('sound/effects/tableslam.ogg', "shatter"), volume), 0.1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(play_battle_sound), source, pick('sound/effects/tableslam.ogg', /datum/sound_effect/shatter), volume), 0.1 SECONDS)
 	return ..()
 
 /// A hallucination of someone unsheathing an energy sword, going to town, and sheathing it again.

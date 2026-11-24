@@ -21,7 +21,7 @@
 	melee_damage = 10
 	attack_verb_continuous = "slams"
 	attack_verb_simple = "slam"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/weapons/punch/punch1.ogg'
 	faction = list(FACTION_PLANTS)
 
 	mobchatspan = "headofsecurity"

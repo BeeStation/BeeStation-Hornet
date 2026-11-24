@@ -72,7 +72,7 @@
 	if (authenticated)
 		authorize_access = get_all_accesses()
 	to_chat(user, span_danger("You scramble the communication routing circuits!"))
-	playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+	playsound(src, 'sound/machines/terminal/terminal_alert.ogg', 50, 0)
 
 /obj/machinery/computer/communications/ui_act(action, list/params)
 	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MESSAGES)
@@ -117,18 +117,18 @@
 				var/obj/item/card/id/id_card = held_item?.GetID()
 				if (!istype(id_card))
 					to_chat(usr, span_warning("You need to swipe your ID!"))
-					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+					playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 				if (!(ACCESS_CAPTAIN in id_card.GetAccess()))
 					to_chat(usr, span_warning("You are not authorized to do this!"))
-					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+					playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
 			var/new_sec_level = SSsecurity_level.text_level_to_number(params["newSecurityLevel"])
 			var/current_sec_level = SSsecurity_level.get_current_level_as_number()
 			if (current_sec_level > SEC_LEVEL_BLACK)
 				to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 				return
 			if (current_sec_level == new_sec_level)
 				return
@@ -136,7 +136,7 @@
 			SSsecurity_level.set_level(new_sec_level)
 
 			to_chat(usr, span_notice("Authorization confirmed. Modifying security level."))
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 
 			// Only notify people if an actual change happened
 			log_game("[key_name(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
@@ -165,7 +165,7 @@
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
 
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
 
 			var/emagged = obj_flags & EMAGGED
@@ -224,7 +224,7 @@
 			to_chat(usr, span_notice("Request sent."))
 			usr.log_message("has requested the nuclear codes from CentCom with reason \"[reason]\"", LOG_SAY)
 			priority_announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self-Destruct Codes Requested", SSstation.announcer.get_rand_report_sound())
-			playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt.ogg', 50, FALSE)
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
 		if ("restoreBackupRoutingData")
@@ -233,7 +233,7 @@
 			if (!(obj_flags & EMAGGED))
 				return
 			to_chat(usr, span_notice("Backup routing data restored."))
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			obj_flags &= ~EMAGGED
 			. = TRUE
 		if ("sendToOtherSector")
@@ -251,7 +251,7 @@
 				to_chat(usr, span_warning("Your message contains forbidden words."))
 				return
 
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 
 			SStopic.crosscomms_send_async("comms_console", message, station_name())
 			minor_announce(message, title = "Outgoing message to allied station", html_encode = FALSE)
@@ -309,7 +309,7 @@
 				authenticated = FALSE
 				authorize_access = null
 				authorize_name = null
-				playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_off.ogg', 50, FALSE)
 				return TRUE
 
 			if (obj_flags & EMAGGED)
@@ -317,7 +317,7 @@
 				authorize_access = get_all_accesses()
 				authorize_name = "Unknown"
 				to_chat(usr, span_warning("[src] lets out a quiet alarm as its login is overridden."))
-				playsound(src, 'sound/machines/terminal_alert.ogg', 25, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_alert.ogg', 25, FALSE)
 			else if(isliving(usr))
 				var/mob/living/living_user = usr
 				var/obj/item/card/id/id_card = living_user.get_idcard(hand_first = TRUE)
@@ -327,7 +327,7 @@
 					authorize_name = "[id_card.registered_name] - [id_card.get_assignment()]"
 
 			state = STATE_MESSAGES
-			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_on.ogg', 50, FALSE)
 			. = TRUE
 		if ("toggleEmergencyAccess")
 			if (!authenticated_as_silicon_or_captain(usr))

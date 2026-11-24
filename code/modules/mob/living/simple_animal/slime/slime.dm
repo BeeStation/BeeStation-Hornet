@@ -348,7 +348,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		if(bucklestrength >= 0)
 			M.visible_message(span_warning("[M] attempts to wrestle \the [name] off!"), \
 				span_danger("You attempt to wrestle \the [name] off!"))
-			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/punch/punchmiss.ogg', 25, 1, -1)
 			bucklestrength --
 
 		else

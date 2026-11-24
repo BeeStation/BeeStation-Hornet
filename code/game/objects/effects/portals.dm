@@ -7,8 +7,8 @@
 	var/obj/effect/portal/P2 = new newtype(actual_destination, _creator, _lifespan, P1, TRUE, null, atmos_link_override)
 	if(!istype(P1) || !istype(P2))
 		return
-	playsound(P1, "portal_created", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	playsound(P2, "portal_created", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(P1, /datum/sound_effect/portal_created, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(P2, /datum/sound_effect/portal_created, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	P1.link_portal(P2)
 	P1.hardlinked = TRUE
 	return list(P1, P2)

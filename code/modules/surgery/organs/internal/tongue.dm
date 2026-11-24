@@ -290,7 +290,7 @@
 	if(hivemind)
 		return
 
-	playsound(owner, "hiss", 25, 1, 1)
+	playsound(owner, /datum/sound_effect/hiss, 25, TRUE, 1)
 
 /obj/item/organ/tongue/bee
 	name = "proboscis"

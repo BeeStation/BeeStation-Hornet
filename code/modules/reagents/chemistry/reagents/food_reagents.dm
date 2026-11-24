@@ -787,7 +787,7 @@
 		affected_mob.blood_volume += 1 * delta_time
 	else if(DT_PROB(10, delta_time)) //lmao at the newbs who eat energy bars
 		affected_mob.electrocute_act(rand(5,10), "Liquid Electricity in their body", 1, SHOCK_NOGLOVES) //the shock is coming from inside the house
-		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(affected_mob, /datum/sound_effect/sparks, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /datum/reagent/consumable/chlorophyll
 	name = "Liquid Chlorophyll"

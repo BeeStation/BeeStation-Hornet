@@ -145,7 +145,7 @@
 	host.emote("gasp")
 	log_combat(user, src, "revived with soulstone")
 	var/message = ""
-	playsound(host, 'sound/effects/glassbr2.ogg', 50, TRUE)
+	playsound(host, 'sound/effects/glass/glassbr2.ogg', 50, TRUE)
 	switch(theme)
 		if(THEME_HOLY)
 			message = "You have been brought back into this world by holy energies."

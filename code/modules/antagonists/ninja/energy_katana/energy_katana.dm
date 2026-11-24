@@ -64,7 +64,7 @@
 		jaunt?.teleport(user, target)
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()
-		playsound(user, "sparks", 50, 1)
+		playsound(user, /datum/sound_effect/sparks, 50, TRUE)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
 		target.use_emag(user)
 
@@ -97,7 +97,7 @@
 
 	if(doSpark)
 		spark_system.start()
-		playsound(get_turf(src), "sparks", 50, 1)
+		playsound(get_turf(src), /datum/sound_effect/sparks, 50, TRUE)
 
 	var/msg = ""
 

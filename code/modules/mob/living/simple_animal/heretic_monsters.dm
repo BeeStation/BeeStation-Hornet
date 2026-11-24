@@ -5,7 +5,7 @@
 	icon = 'icons/mob/eldritch_mobs.dmi'
 	gender = NEUTER
 	mob_biotypes = NONE
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/weapons/punch/punch1.ogg'
 	response_help_continuous = "thinks better of touching"
 	response_help_simple = "think better of touching"
 	response_disarm_continuous = "flails at"

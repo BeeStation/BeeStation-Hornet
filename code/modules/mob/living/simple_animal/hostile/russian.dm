@@ -15,7 +15,7 @@
 	melee_damage = 15
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/weapons/punch/punch1.ogg'
 	combat_mode = TRUE
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
 				/obj/item/knife/combat)

@@ -27,8 +27,8 @@
 	foodtypes = FRUIT
 	tastes = list("cocoa" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/creme_de_cacao
-	pickup_sound = "cucumba_pickup"
-	drop_sound = "cucumba_drop"
+	pickup_sound = /datum/sound_effect/cucumba_pickup
+	drop_sound = /datum/sound_effect/cucumba_drop
 
 // Vanilla Pod
 /obj/item/seeds/cocoapod/vanillapod

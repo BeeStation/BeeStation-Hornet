@@ -101,7 +101,7 @@
 		return
 	if(old_mob) //If the helmet was put through an attempted mind transfer, this is retribution
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-		playsound(src, "sparks", 100, TRUE)
+		playsound(src, /datum/sound_effect/sparks, 100, TRUE)
 		old_mob.visible_message(span_warning("[src] fizzles and breaks apart!"))
 		new /obj/effect/decal/cleanable/ash/crematorium(drop_location())
 		qdel(src)

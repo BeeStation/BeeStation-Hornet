@@ -80,9 +80,9 @@
 		return
 
 	if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
-		playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
+		playsound(loc, 'sound/effects/footstep/glass_step.ogg', 30, 1)
 	else
-		playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
+		playsound(loc, 'sound/effects/footstep/glass_step.ogg', 50, 1)
 	if(status == LIGHT_BURNED || status == LIGHT_OK)
 		shatter()
 
@@ -117,5 +117,5 @@
 		visible_message(span_danger("[src] shatters."),span_italics("You hear a small glass object shatter."))
 		status = LIGHT_BROKEN
 		force = 5
-		playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/glass/glasshit.ogg', 75, 1)
 		update()

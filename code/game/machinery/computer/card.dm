@@ -158,7 +158,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	if(target)
 		if(holder_item && inserting_item.InsertID(target))
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 		else
 			id_eject(user, target)
 
@@ -166,7 +166,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		span_notice("[user] inserts \the [card_to_insert] into \the [src]."),
 		span_notice("You insert \the [card_to_insert] into \the [src]."),
 	)
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 	updateUsrDialog()
 	return TRUE
 
@@ -182,7 +182,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			span_notice("[user] gets \the [target] from \the [src]."),
 			span_notice("You get \the [target] from \the [src].")
 		)
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 		updateUsrDialog()
 		return TRUE
 
@@ -602,7 +602,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						else
 							accessible_dept_payment_bitflag = ALL
 							authenticated = 2
-						playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
+						playsound(src, 'sound/machines/terminal/terminal_on.ogg', 50, FALSE)
 
 					else
 						var/regions = inserted_scan_id.get_accessible_regions(department_bitflag)
@@ -616,7 +616,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("logout")
 			accessible_region_bitflag = NONE
 			authenticated = 0
-			playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_off.ogg', 50, FALSE)
 
 		if("access")
 			if(href_list["allowed"])
@@ -630,7 +630,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						inserted_modify_id.add_console_access(list(access_type), "[inserted_scan_id]", usr)
 					else
 						inserted_modify_id.remove_console_access(list(access_type), "[inserted_scan_id]", usr)
-					playsound(src, "terminal_type", 50, FALSE)
+					playsound(src, /datum/sound_effect/terminal_type, 50, FALSE)
 					inserted_modify_id.update_label()
 					// Refresh only the access grid :)
 					send_byjax(usr, "id_com.browser", "idc_accesses", get_accesses_html())
@@ -679,10 +679,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/assign_source = "[inserted_scan_id]"
 					if(inserted_modify_id.needs_acting_head_for(jobdatum))
 						if(inserted_modify_id.grant_acting_head(jobdatum, assign_source, usr))
-							playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+							playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 						else
 							to_chat(usr, span_warning("Someone is already Acting [jobdatum.title]."))
-							playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+							playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 						updateUsrDialog()
 						return
 					inserted_modify_id.assign_job(jobdatum, usr)
@@ -717,7 +717,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 				if (inserted_modify_id)
 					inserted_modify_id.assignment = t1
-					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+					playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 				inserted_modify_id.sync_manifest()
 
 		if ("demote") // for now, every head can demote anyone... it's better than shitcode
@@ -728,17 +728,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				// Only a full login can appoint acting heads, so only a full login can end them
 				if(authenticated != 2)
 					to_chat(usr, span_warning("Insufficient access to end an acting appointment."))
-					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+					playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 					updateUsrDialog()
 					return
 				inserted_modify_id.end_acting_head(user = usr)
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 				updateUsrDialog()
 				return
 			inserted_modify_id.assignment = "Demoted"
 			inserted_modify_id.job_title = null
 			log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			inserted_modify_id.sync_manifest()
 
 		if ("reg")
@@ -754,7 +754,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(new_name)
 						log_id("[key_name(usr)] changed [inserted_modify_id] name to '[new_name]', using [inserted_scan_id] at [AREACOORD(usr)].")
 						inserted_modify_id.set_registered_name(new_name, usr)
-						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+						playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 					else
 						to_chat(usr, span_error("Invalid name entered."))
 						updateUsrDialog()
@@ -765,7 +765,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("return")
 			//DISPLAY MAIN MENU
 			mode = 0
-			playsound(src, "terminal_type", 25, FALSE)
+			playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
@@ -782,7 +782,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					GLOB.time_last_changed_position = world.time / 10
 				j.total_position_delta++
 				opened_positions[edit_job_target]++
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
@@ -800,7 +800,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					GLOB.time_last_changed_position = world.time / 10
 				j.total_position_delta--
 				opened_positions[edit_job_target]--
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 
 		if ("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
@@ -821,7 +821,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				else
 					SSjob.prioritized_jobs += j
 				to_chat(usr, span_notice("[j.title] has been successfully [priority ?  "prioritized" : "unprioritized"]. Potential employees will notice your request."))
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 
 		if ("set_paycheck_department")
 			if(!inserted_scan_id)
@@ -924,7 +924,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				P.default_raw_text = t1
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
-				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 
 		if ("open_new_account")
 			if(!inserted_scan_id)
@@ -966,7 +966,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				printed_paper.add_raw_text(final_paper_text)
 				printed_paper.update_appearance()
 				printing = null
-				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 
 	if (inserted_modify_id)
 		inserted_modify_id.update_label()

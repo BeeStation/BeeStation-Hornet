@@ -49,7 +49,7 @@
 		if(!A)
 			break
 		A.setDir(i)
-		playsound(A.loc, 'sound/weapons/punch1.ogg', 15, 1, -1)
+		playsound(A.loc, 'sound/weapons/punch/punch1.ogg', 15, 1, -1)
 		sleep(1)
 
 /datum/martial_art/plasma_fist/proc/Tornado(mob/living/A, mob/living/D)
@@ -65,7 +65,7 @@
 	D.visible_message(span_danger("[A] hits [D] with Plasma Punch!"), \
 					span_userdanger("You're hit with a Plasma Punch by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 	to_chat(A, span_danger("You hit [D] with Plasma Punch!"))
-	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+	playsound(D.loc, 'sound/weapons/punch/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	D.throw_at(throw_target, 200, 4,A)
 	A.say("HYAH!", forced="plasma fist")
@@ -76,7 +76,7 @@
 	var/hasclient = D.client ? TRUE : FALSE
 
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+	playsound(D.loc, 'sound/weapons/punch/punch1.ogg', 50, 1, -1)
 	A.say("PLASMA FIST!", forced="plasma fist")
 	D.visible_message(span_danger("[A] hits [D] with THE PLASMA FIST TECHNIQUE!"), \
 					span_userdanger("You're suddenly hit with THE PLASMA FIST TECHNIQUE by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
@@ -126,7 +126,7 @@
 	A.apply_damage(rand(50,70), BRUTE)
 
 	addtimer(CALLBACK(src, PROC_REF(Apotheosis_end), A), 6 SECONDS)
-	playsound(boomspot, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	playsound(boomspot, 'sound/weapons/punch/punch1.ogg', 50, TRUE, -1)
 	explosion(boomspot,plasma_power,plasma_power*2,plasma_power*4,ignorecap = TRUE)
 	plasma_power = 1 //just in case there is any clever way to cause it to happen again
 

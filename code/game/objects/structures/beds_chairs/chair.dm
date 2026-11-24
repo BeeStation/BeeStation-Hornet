@@ -239,8 +239,8 @@
 	icon_state = "shuttle_chair"
 	buildstackamount = 1
 	item_chair = null
-	buckle_sound = "buckle"
-	unbuckle_sound = "unbuckle"
+	buckle_sound = /datum/sound_effect/seatbelt_buckle
+	unbuckle_sound = /datum/sound_effect/seatbelt_unbuckle
 
 /obj/structure/chair/fancy/plastic
 	name = "plastic chair"

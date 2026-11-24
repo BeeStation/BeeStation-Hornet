@@ -18,7 +18,7 @@
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 	interaction_flags_click = ALLOW_SILICON_REACH
-	clicksound = 'sound/machines/terminal_select.ogg'
+	clicksound = 'sound/machines/terminal/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
 	hud_possible = list(HACKED_APC_HUD)

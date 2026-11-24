@@ -22,8 +22,8 @@
 	icon_state = "eggplant"
 	foodtypes = FRUIT
 	wine_power = 20
-	pickup_sound = "cucumba_pickup"
-	drop_sound = "cucumba_drop"
+	pickup_sound = /datum/sound_effect/cucumba_pickup
+	drop_sound = /datum/sound_effect/cucumba_drop
 
 // Egg-Plant
 /obj/item/seeds/eggplant/eggy

@@ -7,7 +7,7 @@
 		sleep(1)
 		step_away(src,user,15)
 		hitverb = "slam"
-	playsound(loc, "punch", 25, 1, -1)
+	playsound(loc, /datum/sound_effect/punch, 25, TRUE, -1)
 	visible_message(span_danger("[user] [hitverb]s [src]!"), \
 				span_userdanger("[user] [hitverb]s you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You [hitverb] [src]!"))

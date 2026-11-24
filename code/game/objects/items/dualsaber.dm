@@ -14,7 +14,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
-	hitsound = "swing_hit"
+	hitsound = /datum/sound_effect/swing_hit
 	armour_penetration = 35
 	item_flags = ISWEAPON|NO_BLOOD_ON_ITEM
 	var/saber_color = "green"
@@ -99,7 +99,7 @@
 	sharpness = initial(sharpness)
 	w_class = initial(w_class)
 	bleed_force = initial(bleed_force)
-	hitsound = "swing_hit"
+	hitsound = /datum/sound_effect/swing_hit
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)
 

@@ -18,7 +18,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/cat/cake
 	attacked_sound = 'sound/items/eatfood.ogg'
 	death_message = "loses her false life and collapses!"
-	death_sound = "bodyfall"
+	death_sound = /datum/sound_effect/bodyfall
 	held_state = "cak"
 	can_interact_with_stove = TRUE
 

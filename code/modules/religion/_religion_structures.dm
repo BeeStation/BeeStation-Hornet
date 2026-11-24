@@ -65,4 +65,4 @@
 	icon = 'icons/obj/religion.dmi'
 	light_power = 2
 	var/cooldowntime = 0
-	break_sound = 'sound/effects/glassbr2.ogg'
+	break_sound = 'sound/effects/glass/glassbr2.ogg'

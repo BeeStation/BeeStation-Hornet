@@ -177,7 +177,7 @@
 		D.visible_message(span_danger("[A] throws [D]!"), \
 						span_userdanger("You're thrown by [A]!"), span_hear("You hear aggressive shuffling and a loud thud!"), null, A)
 		to_chat(A, span_danger("You throw [D]!"))
-		playsound(A.loc, "swing_hit", 50, 1)
+		playsound(A.loc, /datum/sound_effect/swing_hit, 50, TRUE)
 		var/turf/T = get_edge_target_turf(A, A.dir)
 		if (T && isturf(T))
 			if (!D.stat)
@@ -279,7 +279,7 @@
 		D.visible_message(span_danger("[A] [fluff] [D]!"), \
 						span_userdanger("You're [fluff]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, span_danger("You [fluff] [D]!"))
-		playsound(A.loc, "swing_hit", 50, 1)
+		playsound(A.loc, /datum/sound_effect/swing_hit, 50, TRUE)
 		if (!D.stat)
 			D.emote("scream")
 			D.Paralyze(40)
@@ -325,7 +325,7 @@
 						span_userdanger("You're headbutted by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, span_danger("You headbutt [D]!"))
 		D.adjustBruteLoss(rand(10,20))
-		playsound(A.loc, "swing_hit", 50, 1)
+		playsound(A.loc, /datum/sound_effect/swing_hit, 50, TRUE)
 		D.Unconscious(20)
 	log_combat(A, D, "headbutted", name)
 
@@ -339,7 +339,7 @@
 	D.visible_message(span_danger("[A] roundhouse-kicks [D]!"), \
 					span_userdanger("You're roundhouse-kicked by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 	to_chat(A, span_danger("You roundhouse-kick [D]!"))
-	playsound(A.loc, "swing_hit", 50, 1)
+	playsound(A.loc, /datum/sound_effect/swing_hit, 50, TRUE)
 	D.adjustBruteLoss(rand(10,20))
 
 	var/turf/T = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
@@ -403,7 +403,7 @@
 		D.visible_message(span_danger("[A] leg-drops [D]!"), \
 						span_userdanger("You're leg-dropped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 		to_chat(A, span_danger("You leg-drop [D]!"))
-		playsound(A.loc, "swing_hit", 50, 1)
+		playsound(A.loc, /datum/sound_effect/swing_hit, 50, TRUE)
 		A.emote("scream")
 
 		if (falling == 1)

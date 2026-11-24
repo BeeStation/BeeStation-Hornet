@@ -285,7 +285,7 @@
 				return
 			loaded.forceMove(drop_location())
 			loaded_item_ref = null
-			playsound(src, 'sound/machines/terminal_eject.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_eject.ogg', 50, FALSE)
 			update_icon()
 			return TRUE
 

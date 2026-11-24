@@ -107,6 +107,6 @@
 		playsound(component_parent.parent, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	C.forceMove(component_parent.parent)
-	playsound(component_parent.parent, 'sound/machines/terminal_insert_disc.ogg', 50, TRUE)
+	playsound(component_parent.parent, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, TRUE)
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 	credit_requirement += 1

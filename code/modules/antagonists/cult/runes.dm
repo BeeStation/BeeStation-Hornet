@@ -523,7 +523,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 /obj/effect/rune/teleport/proc/handle_portal(portal_type, turf/origin)
 	var/turf/T = get_turf(src)
 	close_portal() // To avoid stacking descriptions/animations
-	playsound(T, "portal_created", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(T, /datum/sound_effect/portal_created, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	inner_portal = new /obj/effect/temp_visual/cult/portal(T)
 	if(portal_type == "space")
 		light_color = color

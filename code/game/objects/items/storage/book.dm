@@ -146,7 +146,7 @@
 
 	built_in_his_image.visible_message(span_notice("[user] heals [built_in_his_image] with the power of [deity_name]!"))
 	to_chat(built_in_his_image, span_boldnotice("May the power of [deity_name] compel you to be healed!"))
-	playsound(src.loc, "punch", 25, 1, -1)
+	playsound(src.loc, /datum/sound_effect/punch, 25, TRUE, -1)
 	SEND_SIGNAL(built_in_his_image, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return 1
 
@@ -192,12 +192,12 @@
 		if(smack)
 			M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), \
 					span_userdanger("[user] beats [M] over the head with [src]!"))
-			playsound(src.loc, "punch", 25, 1, -1)
+			playsound(src.loc, /datum/sound_effect/punch, 25, TRUE, -1)
 			log_combat(user, M, "attacked", src)
 
 	else
 		M.visible_message(span_danger("[user] smacks [M]'s lifeless corpse with [src]."))
-		playsound(src.loc, "punch", 25, 1, -1)
+		playsound(src.loc, /datum/sound_effect/punch, 25, TRUE, -1)
 
 /obj/item/storage/book/bible/afterattack(atom/A, mob/user, proximity)
 	. = ..()

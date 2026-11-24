@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		to_chat(user, span_warning("You cannot overload that device!"))
 		return FALSE
 
-	user.playsound_local(user, 'sound/effects/sparks1.ogg', 50, 0)
+	user.playsound_local(user, 'sound/effects/sparks/sparks1.ogg', 50, 0)
 	adjust_uses(-1)
 
 	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
@@ -566,7 +566,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	cost = 15
 	power_type = /datum/action/innate/ai/blackout
 	unlock_text = span_notice("You hook into the powernet and route bonus power towards the station's lighting.")
-	unlock_sound = 'sound/effects/sparks1.ogg'
+	unlock_sound = 'sound/effects/sparks/sparks1.ogg'
 
 /datum/action/innate/ai/blackout
 	name = "Blackout"
@@ -583,7 +583,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		else
 			apc.overload++
 	to_chat(owner, span_notice("Overcurrent applied to the powernet."))
-	user.playsound_local(user, 'sound/effects/sparks1.ogg', 50, 0)
+	user.playsound_local(user, 'sound/effects/sparks/sparks1.ogg', 50, 0)
 	adjust_uses(-1)
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
@@ -720,7 +720,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			continue
 		AA.obj_flags |= EMAGGED
 	to_chat(owner, span_notice("All air alarm safeties on the station have been overridden. Air alarms may now use extremely dangerous environmental modes."))
-	user.playsound_local(user, 'sound/machines/terminal_off.ogg', 50, 0)
+	user.playsound_local(user, 'sound/machines/terminal/terminal_off.ogg', 50, 0)
 
 /// Thermal Sensor Override: Unlocks the ability to disable all fire alarms from doing their job.
 /datum/ai_module/malf/utility/break_fire_alarms
@@ -752,7 +752,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			continue
 		firelock.on_emag(owner_AI)
 	to_chat(owner, span_notice("All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized."))
-	user.playsound_local(user, 'sound/machines/terminal_off.ogg', 50, 0)
+	user.playsound_local(user, 'sound/machines/terminal/terminal_off.ogg', 50, 0)
 
 /// Reactivate Camera Network: Reactivates up to 20 cameras across the station.
 /datum/ai_module/malf/utility/reactivate_cameras
@@ -1011,7 +1011,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	cost = 20
 	power_type = /datum/action/innate/ai/ranged/emag
 	unlock_text = span_notice("You download an illicit software package from a syndicate database leak and integrate it into your firmware, fighting off a few kernel intrusions along the way.")
-	unlock_sound = 'sound/effects/sparks1.ogg'
+	unlock_sound = 'sound/effects/sparks/sparks1.ogg'
 
 /datum/action/innate/ai/ranged/emag
 	name = "Targeted Safeties Override"
@@ -1265,7 +1265,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	description = "Assess the most probable threats to the station, and send a distracting fake alert by hijacking the station's alert and threat identification systems."
 	cost = 20
 	power_type = /datum/action/innate/ai/fake_alert
-	unlock_sound = 'sound/effects/sparks1.ogg'
+	unlock_sound = 'sound/effects/sparks/sparks1.ogg'
 	unlock_text = span_notice("You gain control of the station's alert system.")
 
 /datum/action/innate/ai/fake_alert

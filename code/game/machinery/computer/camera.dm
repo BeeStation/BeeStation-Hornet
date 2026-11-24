@@ -66,7 +66,7 @@
 			concurrent_users += user_ref
 		// Turn on the console
 		if(length(concurrent_users) == 1 && is_living)
-			playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_on.ogg', 25, FALSE)
 			use_power(active_power_usage)
 		// Open UI
 		ui = new(user, src, "CameraConsole")
@@ -159,7 +159,7 @@
 	// Turn off the console
 	if(length(concurrent_users) == 0 && is_living)
 		active_camera = null
-		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_off.ogg', 25, FALSE)
 		use_power(0)
 
 // Returns the list of cameras accessible from this computer

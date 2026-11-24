@@ -54,7 +54,7 @@ Difficulty: Medium
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	death_message = "falls to the ground, decaying into glowing particles."
-	death_sound = "bodyfall"
+	death_sound = /datum/sound_effect/bodyfall
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
@@ -221,14 +221,14 @@ Difficulty: Medium
 	new /obj/effect/temp_visual/small_smoke/halfsecond(step_forward_turf)
 	var/obj/effect/temp_visual/decoy/fading/halfsecond/D = new (own_turf, src)
 	forceMove(step_back_turf)
-	playsound(own_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
+	playsound(own_turf, 'sound/weapons/punch/punchmiss.ogg', 40, 1, -1)
 	dashing = TRUE
 	alpha = 0
 	animate(src, alpha = 255, time = 5)
 	SLEEP_CHECK_DEATH(2)
 	D.forceMove(step_forward_turf)
 	forceMove(target_turf)
-	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
+	playsound(target_turf, 'sound/weapons/punch/punchmiss.ogg', 40, 1, -1)
 	SLEEP_CHECK_DEATH(1)
 	dashing = FALSE
 	return TRUE

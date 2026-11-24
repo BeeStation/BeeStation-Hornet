@@ -5,6 +5,6 @@
 	damage_type = BRUTE
 	nodamage = FALSE
 	armor_flag = BULLET
-	hitsound_wall = "ricochet"
+	hitsound_wall = /datum/sound_effect/ricochet
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 	bleed_force = BLEED_DEEP_WOUND

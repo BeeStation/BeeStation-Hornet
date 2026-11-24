@@ -117,6 +117,6 @@
 				blessed.update_damage_overlays()
 		blessed.visible_message(span_notice("[chap] heals [blessed] with the power of [GLOB.deity]!"))
 		to_chat(blessed, span_boldnotice("May the power of [GLOB.deity] compel you to be healed!"))
-		playsound(chap, "punch", 25, TRUE, -1)
+		playsound(chap, /datum/sound_effect/punch, 25, TRUE, -1)
 		SEND_SIGNAL(blessed, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return TRUE

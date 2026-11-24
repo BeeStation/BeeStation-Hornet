@@ -290,7 +290,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(damtype == BURN)
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == BRUTE)
-			hitsound = "swing_hit"
+			hitsound = /datum/sound_effect/swing_hit
 
 	add_weapon_description()
 
@@ -1128,9 +1128,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/get_dismember_sound()
 	if(damtype == BURN)
-		. = 'sound/weapons/sear.ogg'
-	else
-		. = pick('sound/misc/desecration-01.ogg', 'sound/misc/desecration-02.ogg', 'sound/misc/desecration-03.ogg')
+		return 'sound/weapons/sear.ogg'
+	return /datum/sound_effect/desecration
 
 /obj/item/proc/open_flame(flame_heat=700)
 	var/turf/location = loc
@@ -1608,12 +1607,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)
 				broken_glass.name = "broken [name]"
 				broken_glass.desc = "This used to be \a [name], but it sure isn't anymore."
-				playsound(victim, "shatter", 25, TRUE)
+				playsound(victim, /datum/sound_effect/shatter, 25, TRUE)
 				qdel(src)
 				if(QDELETED(source_item))
 					broken_glass.on_accidental_consumption(victim, user)
 			else //33% chance to just "crack" it (play a sound) and leave it in the bread
-				playsound(victim, "shatter", 15, TRUE)
+				playsound(victim, /datum/sound_effect/shatter, 15, TRUE)
 			discover_after = FALSE
 
 		victim.adjust_disgust(33)

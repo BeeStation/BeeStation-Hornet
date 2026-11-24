@@ -92,7 +92,7 @@
 	image_icon_state = "baton"
 
 /datum/hallucination/nearby_fake_item/baton/generate_fake_image(mob/living/carbon/human/holder, file)
-	hallucinator.playsound_local(get_turf(holder), "sparks", 75, TRUE, -1)
+	hallucinator.playsound_local(get_turf(holder), /datum/sound_effect/sparks, 75, TRUE, -1)
 	return ..()
 
 /datum/hallucination/nearby_fake_item/flash

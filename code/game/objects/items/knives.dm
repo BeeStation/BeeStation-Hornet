@@ -18,8 +18,8 @@
 	custom_materials = list(/datum/material/iron=12000)
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	pickup_sound = "knife_pickup"
-	drop_sound = "knife_drop"
+	pickup_sound = /datum/sound_effect/knife_pickup
+	drop_sound = /datum/sound_effect/knife_drop
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	armor_type = /datum/armor/item_knife

@@ -24,7 +24,7 @@
 
 /obj/item/food/cake/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = "knife_slice")
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = /datum/sound_effect/knife_slice)
 
 /obj/item/food/cakeslice
 	abstract_type = /obj/item/food/cakeslice

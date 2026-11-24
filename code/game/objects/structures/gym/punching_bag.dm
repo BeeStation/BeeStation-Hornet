@@ -9,10 +9,10 @@
 		'sound/weapons/genhit1.ogg',
 		'sound/weapons/genhit2.ogg',
 		'sound/weapons/genhit3.ogg',
-		'sound/weapons/punch1.ogg',
-		'sound/weapons/punch2.ogg',
-		'sound/weapons/punch3.ogg',
-		'sound/weapons/punch4.ogg',
+		'sound/weapons/punch/punch1.ogg',
+		'sound/weapons/punch/punch2.ogg',
+		'sound/weapons/punch/punch3.ogg',
+		'sound/weapons/punch/punch4.ogg',
 	)
 
 /obj/structure/punching_bag/attack_hand(mob/living/user, list/modifiers)

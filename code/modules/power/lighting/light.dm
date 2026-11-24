@@ -447,7 +447,7 @@
 				if(LIGHT_BROKEN)
 					playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 90, 1)
 				else
-					playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+					playsound(loc, 'sound/effects/glass/glasshit.ogg', 90, 1)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
@@ -617,7 +617,7 @@
 
 	if(!skip_sound_and_sparks && Master.current_runlevel) //not completely sure disabling this during initialize is needed but then again there are broken lights after initialize
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
+			playsound(src.loc, 'sound/effects/glass/glasshit.ogg', 75, 1)
 		if(on)
 			do_sparks(3, TRUE, src)
 	status = LIGHT_BROKEN

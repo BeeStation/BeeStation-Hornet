@@ -595,23 +595,26 @@
 
 ///A special case for splatting for handling windows
 /datum/component/tackler/proc/splatWindow(mob/living/carbon/user, obj/structure/window/windscreen_casualty)
-	playsound(user, 'sound/effects/glasshit.ogg', 140, TRUE)
+	playsound(user, 'sound/effects/glass/glasshit.ogg', 140, TRUE)
 
 	if(windscreen_casualty.type in list(/obj/structure/window, /obj/structure/window/fulltile, /obj/structure/window/unanchored, /obj/structure/window/fulltile/unanchored)) // boring unreinforced windows
 		for(var/i in 1 to 2)
 			var/obj/item/shard/shard = new /obj/item/shard(get_turf(user))
 			shard.tryEmbed(user)
-		var/glass_breaking_sound = pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg')
-		playsound(user, glass_breaking_sound, 140, TRUE)
+		playsound(user, /datum/sound_effect/shatter, 140, TRUE)
 		qdel(windscreen_casualty)
 		user.stamina.adjust(-10 * speed)
 		user.Paralyze(3 SECONDS)
-		user.visible_message("<span class='danger'>[user] smacks into [windscreen_casualty] and shatters it, shredding [user.p_them()]self with glass!</span>",
-							"<span class='userdanger'>You smacks into [windscreen_casualty] and shatter it, shredding yourself with glass!</span>")
+		user.visible_message(
+			span_danger("[user] smacks into [windscreen_casualty] and shatters it, shredding [user.p_them()]self with glass!"),
+			span_userdanger("You smacks into [windscreen_casualty] and shatter it, shredding yourself with glass!"),
+		)
 
 	else
-		user.visible_message("<span class='danger'>[user] smacks into [windscreen_casualty] like a bug!</span>",
-							"<span class='userdanger'>You smacks into [windscreen_casualty] like a bug!</span>")
+		user.visible_message(
+			span_danger("[user] smacks into [windscreen_casualty] like a bug!"),
+			span_userdanger("You smacks into [windscreen_casualty] like a bug!"),
+		)
 		user.Paralyze(1 SECONDS)
 		user.Knockdown(3 SECONDS)
 		windscreen_casualty.take_damage(30 * speed)

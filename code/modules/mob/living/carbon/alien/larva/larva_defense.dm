@@ -3,7 +3,7 @@
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		var/damage = rand(1, 9)
-		playsound(loc, "punch", 25, TRUE, -1)
+		playsound(loc, /datum/sound_effect/punch, 25, TRUE, -1)
 		log_combat(M, src, "attacked", M)
 		visible_message(span_danger("[M] kicks [src]!"), \
 			span_userdanger("[M] kicks you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, M)

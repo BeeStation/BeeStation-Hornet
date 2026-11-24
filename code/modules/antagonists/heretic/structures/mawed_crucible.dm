@@ -160,7 +160,7 @@
 
 	var/obj/item/spawned_pot = new spawned_type(drop_location())
 
-	playsound(src, 'sound/misc/desecration-02.ogg', 75, TRUE)
+	playsound(src, 'sound/effects/desecration/desecration-02.ogg', 75, TRUE)
 	visible_message(span_notice("[src]'s shining liquid drains into a flask, creating a [spawned_pot.name]!"))
 	balloon_alert(user, "Potion created")
 

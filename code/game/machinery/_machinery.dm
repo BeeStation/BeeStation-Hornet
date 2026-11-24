@@ -683,8 +683,10 @@
 	. = ..()
 
 /obj/machinery/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	add_fingerprint(usr)
-	if(isliving(usr) && in_range(src, usr))
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	add_fingerprint(ui.user)
+	if(!issilicon(ui.user) && in_range(src, usr))
 		play_click_sound()
 	return ..()
 

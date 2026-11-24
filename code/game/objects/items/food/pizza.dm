@@ -29,7 +29,7 @@
 
 /obj/item/food/pizza/make_processable()
 	if(slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, 6, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = "knife_slice")
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, 6, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = /datum/sound_effect/knife_slice)
 		AddElement(/datum/element/processable, TOOL_SAW, slice_type, 6, 4.5 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 		AddElement(/datum/element/processable, TOOL_SCALPEL, slice_type, 6, 6 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
@@ -45,7 +45,7 @@
 
 /*
 /obj/item/food/pizzaslice/make_processable()
-	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, /obj/item/stack/sheet/pizza, 1, 1 SECONDS, table_required = TRUE, screentip_verb = "Flatten", , sound_to_play = "rolling_pin_rolling")
+	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, /obj/item/stack/sheet/pizza, 1, 1 SECONDS, table_required = TRUE, screentip_verb = "Flatten", , sound_to_play = /datum/sound_effect/rolling_pin_rolling)
 */
 
 /obj/item/food/pizza/margherita
@@ -379,7 +379,7 @@
 		return
 	to_chat(user, span_userdanger("Maybe I'll give you a pizza, maybe I'll break off your arm.")) //makes the reference more obvious
 	user.visible_message(span_warning("\The [src] breaks off [user]'s arm!"), span_warning("\The [src] breaks off your arm!"))
-	playsound(user,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, TRUE, -1)
+	playsound(user, /datum/sound_effect/desecration, 50, TRUE, -1)
 
 /obj/item/food/proc/i_kill_you(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/food/pineappleslice))

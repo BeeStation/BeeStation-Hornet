@@ -107,7 +107,7 @@
 	owner.armour_penetration = 0
 	owner.ranged = FALSE
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
-		owner.attack_sound = "punch"
+		owner.attack_sound = /datum/sound_effect/punch
 	owner.response_harm_continuous = "weakly punches"
 	owner.response_harm_simple = "weakly punch"
 	owner.attack_verb_continuous = "weakly punches"

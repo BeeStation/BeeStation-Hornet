@@ -68,11 +68,11 @@
 	/// Should our rustle sound frequency vary
 	var/rustle_vary = TRUE
 	/// Path for the item's rustle sound.
-	var/rustle_sound = "rustle"
+	var/rustle_sound = /datum/sound_effect/rustle
 	/// Path for the item's rustle sound when removing items.
 	var/remove_rustle_sound = null
 	/// The sound to play when we open/access the storage
-	var/open_sound = "rustle"
+	var/open_sound = /datum/sound_effect/rustle
 	/// Should our open sound frequency vary
 	var/open_sound_vary = TRUE
 

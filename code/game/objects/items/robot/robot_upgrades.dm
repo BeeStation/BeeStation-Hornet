@@ -347,7 +347,7 @@
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
-		playsound(cyborg, 'sound/machines/terminal_processing.ogg', 30)
+		playsound(cyborg, 'sound/machines/terminal/terminal_processing.ogg', 30)
 		to_chat(cyborg, span_notice("You activate the self-repair module."))
 		START_PROCESSING(SSobj, src)
 	else

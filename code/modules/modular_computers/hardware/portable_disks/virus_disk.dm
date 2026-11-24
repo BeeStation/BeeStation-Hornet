@@ -42,8 +42,8 @@
 	charges-- //Continues from here
 	new /obj/effect/particle_effect/sparks/red(get_turf(target))	// We don't make it extremely obvious the target got trolled
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
-	playsound(target, "sparks", 50, TRUE)
-	playsound(src, "sparks", 50, TRUE)
+	playsound(target, /datum/sound_effect/sparks, 50, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
 	balloon_alert_to_viewers("<font color='#ff0000'>Virus deployed.</font> charges left: <font color='#00ff4c'>[charges]</font>.")
 	to_chat(user, span_notice("<span class='cfc_red'>Virus deployed.</span> charges left: <span class='cfc_green'>[charges]</span>."))
@@ -72,7 +72,7 @@
 	charges--
 	target.virus_blocked_info()
 	new /obj/effect/particle_effect/sparks/red(get_turf(src))
-	playsound(src, "sparks", 50, 1)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
 	balloon_alert(user, "<font color='#ff0000'>ERROR: Virus Blocked!</font> charges left: <font color='#00ff4c'>[charges]</font>.", show_in_chat = FALSE)
 	to_chat(user, span_notice("<span class='cfc_red'>ERROR: Virus Blocked!</span> charges left: <span class='cfc_green'>[charges]</span>."))
@@ -208,7 +208,7 @@
 	if(!.)
 		return
 	empulse(get_turf(target), 1, 1, 1)
-	playsound(get_turf(target), "sparks", 50)
+	playsound(get_turf(target), /datum/sound_effect/sparks, 50)
 	playsound(get_turf(target), 'sound/machines/defib_zap.ogg', 25, TRUE)
 	component_qdel()
 
@@ -292,7 +292,7 @@
 		target.antivirus_gift(virus_strength)
 		playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
 		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
-		playsound(src, "sparks", 50, 1)
+		playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 		nt_log(target, user)
 		balloon_alert(user, "<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!", show_in_chat = FALSE)
 		to_chat(user, span_notice("<span class='cfc_green'>>SUCCESS!</span> your colleague is now enjoying their new <span class='cfc_cyan'>NTOS Virus Buster</span> subscription package!"))
@@ -303,7 +303,7 @@
 
 	target.virus_blocked_info(gift_card = TRUE)
 	new /obj/effect/particle_effect/sparks/red(get_turf(src))
-	playsound(src, "sparks", 50, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
 	balloon_alert(user, "<font color='#c70000'>ERROR:</font> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!", show_in_chat = FALSE)
 	to_chat(user, span_notice("<span class='cfc_red'>ERROR:</span> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!"))

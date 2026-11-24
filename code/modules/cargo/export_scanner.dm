@@ -26,7 +26,7 @@
 	if(!istype(current_object) || !proximity || HAS_TRAIT(current_object, TRAIT_IGNORE_EXPORT_SCAN))
 		if(HAS_TRAIT(current_object, TRAIT_IGNORE_EXPORT_SCAN))
 			to_chat(user, span_warning("[current_object] cannot be scanned!"))
-			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+			playsound(user, 'sound/machines/terminal/terminal_error.ogg', 30, TRUE)
 		return
 
 	if(istype(current_object, /obj/machinery/computer/cargo))
@@ -37,7 +37,7 @@
 			playsound(user, 'sound/effects/fastbeep.ogg', 30)
 	else if(!istype(cargo_console))
 		to_chat(user, span_warning("You must link [src] to a cargo console first!"))
-		playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+		playsound(user, 'sound/machines/terminal/terminal_error.ogg', 30, TRUE)
 	else
 		// Before you fix it:
 		// yes, checking manifests is a part of intended functionality.
@@ -61,7 +61,7 @@
 			to_chat(user, "Current stock of [current_object]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_green'><b>[price] cr</b></span>[length(current_object.contents) ? " (contents included)" : ""].")
 		else
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
-			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
+			playsound(user, 'sound/machines/terminal/terminal_error.ogg', 30, TRUE)
 			balloon_alert(user, "<font color='#c41d1d'>Value:</font> [price] cr")
 			if(!current) // If demand is 0, price will always be 0
 				to_chat(user, "Current stock of [current_object]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_red'><b>[price] cr</b></span>[length(current_object.contents) ? " (contents included)" : ""].")

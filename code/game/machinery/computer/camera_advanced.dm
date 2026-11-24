@@ -134,7 +134,7 @@
 	user.remote_control = null
 	current_user = null
 	user.unset_machine()
-	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
 	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.is_blind() || user.incapacitated )
@@ -403,21 +403,21 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 				continue
 			T["[netcam.c_tag][netcam.can_use() ? null : " (Deactivated)"]"] = netcam
 
-	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
+	playsound(origin, 'sound/machines/terminal/terminal_prompt.ogg', 25, FALSE)
 	var/camera = tgui_input_list(usr, "Camera to view", "Cameras", T)
 	if(isnull(camera))
 		return
 	if(isnull(T[camera]))
 		return
 	var/obj/machinery/camera/final = T[camera]
-	playsound(src, "terminal_type", 25, 0)
+	playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 	if(final)
-		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
+		playsound(origin, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 25, FALSE)
 		remote_eye.setLoc(get_turf(final))
 		owner.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
 		owner.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else
-		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
+		playsound(origin, 'sound/machines/terminal/terminal_prompt_deny.ogg', 25, FALSE)
 
 /datum/action/innate/camera_multiz_up
 	name = "Move up a floor"

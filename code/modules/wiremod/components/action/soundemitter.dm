@@ -59,7 +59,7 @@
 		"Coinflip" = 'sound/items/coinflip.ogg',
 		"Megaphone" = 'sound/items/megaphone.ogg',
 		"Warpwhistle" = 'sound/magic/warpwhistle.ogg',
-		"Hiss" = 'sound/voice/hiss1.ogg',
+		"Hiss" = 'sound/mobs/non-humanoids/hiss/hiss1.ogg',
 		"Lizard" = 'sound/voice/lizard/lizard_scream_1.ogg',
 		"Flashbang" = 'sound/weapons/flashbang.ogg',
 		"Flash" = 'sound/weapons/flash.ogg',

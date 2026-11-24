@@ -16,7 +16,7 @@
 
 /obj/item/mjolnir/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
+	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound = /datum/sound_effect/sparks)
 
 /obj/item/mjolnir/update_icon_state()
 	icon_state = "mjollnir0"
@@ -44,7 +44,7 @@
 /obj/item/mjolnir/attack(mob/living/M, mob/user)
 	..()
 	if(ISWIELDED(src))
-		playsound(src.loc, "sparks", 50, 1)
+		playsound(src.loc, /datum/sound_effect/sparks, 50, TRUE)
 		shock(M)
 
 /obj/item/mjolnir/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, quickstart)

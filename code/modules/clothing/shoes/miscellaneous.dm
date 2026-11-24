@@ -69,7 +69,7 @@
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
 	create_storage(storage_type = /datum/storage/pockets/shoes/clown)
-	LoadComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
+	LoadComponent(/datum/component/squeak, list('sound/effects/footstep/clownstep1.ogg'=1,'sound/effects/footstep/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/living/user, slot)
 	. = ..()

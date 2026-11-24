@@ -16,7 +16,7 @@
 	mob_biotypes = NONE
 
 	melee_damage = 10
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/weapons/punch/punch1.ogg'
 	emote_taunt = list("growls")
 	speak_emote = list("creaks")
 	taunt_chance = 30

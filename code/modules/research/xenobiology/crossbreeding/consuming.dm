@@ -250,7 +250,7 @@ Consuming extracts:
 	if(target)
 		do_teleport(M, target, 0, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 		new /obj/effect/particle_effect/sparks(get_turf(M))
-		playsound(get_turf(M), "sparks", 50, 1)
+		playsound(get_turf(M), /datum/sound_effect/sparks, 50, TRUE)
 
 /obj/item/slimecross/consuming/sepia
 	colour = SLIME_TYPE_SEPIA

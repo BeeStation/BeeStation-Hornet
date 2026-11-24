@@ -225,7 +225,7 @@
 
 /turf/open/floor/mineral/bananium/proc/squeak()
 	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, 1)
+		playsound(src, /datum/sound_effect/clown_step, 50, TRUE)
 		spam_flag = world.time + 10
 
 /turf/open/floor/mineral/bananium/airless

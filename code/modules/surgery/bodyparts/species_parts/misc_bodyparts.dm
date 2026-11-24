@@ -894,8 +894,8 @@
 	should_draw_greyscale = FALSE
 	unarmed_attack_verb = "punch"
 	unarmed_attack_effect = ATTACK_EFFECT_PUNCH
-	unarmed_attack_sound = 'sound/weapons/punch1.ogg'
-	unarmed_miss_sound = 'sound/weapons/punchmiss.ogg'
+	unarmed_attack_sound = 'sound/weapons/punch/punch1.ogg'
+	unarmed_miss_sound = 'sound/weapons/punch/punchmiss.ogg'
 	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/right/pumpkin_man
@@ -903,8 +903,8 @@
 	should_draw_greyscale = FALSE
 	unarmed_attack_verb = "punch"
 	unarmed_attack_effect = ATTACK_EFFECT_PUNCH
-	unarmed_attack_sound = 'sound/weapons/punch1.ogg'
-	unarmed_miss_sound = 'sound/weapons/punchmiss.ogg'
+	unarmed_attack_sound = 'sound/weapons/punch/punch1.ogg'
+	unarmed_miss_sound = 'sound/weapons/punch/punchmiss.ogg'
 	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/left/pumpkin_man

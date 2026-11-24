@@ -133,7 +133,7 @@
 	flick("intro_nuke",screen)
 	sleep(35)
 	flick("station_explode_fade_red",screen)
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 	screen.icon_state = "summary_nukewin"
 
@@ -143,7 +143,7 @@
 /datum/cinematic/nuke_miss/content()
 	flick("intro_nuke",screen)
 	sleep(35)
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 	flick("station_intact_fade_red",screen)
 	screen.icon_state = "summary_nukefail"
@@ -156,7 +156,7 @@
 	flick("intro_nuke",screen)
 	sleep(35)
 	flick("station_explode_fade_red", screen)
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 	screen.icon_state = "summary_selfdes"
 
@@ -166,7 +166,7 @@
 /datum/cinematic/nuke_selfdestruct_miss/content()
 	flick("intro_nuke",screen)
 	sleep(35)
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 	screen.icon_state = "station_intact"
 
@@ -177,7 +177,7 @@
 	flick("intro_malf",screen)
 	sleep(76)
 	flick("station_explode_fade_red",screen)
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 	screen.icon_state = "summary_malf"
 
@@ -190,7 +190,7 @@
 	sleep(25)
 	cinematic_sound(sound('sound/magic/enter_blood.ogg'))
 	sleep(28)
-	cinematic_sound(sound('sound/machines/terminal_off.ogg'))
+	cinematic_sound(sound('sound/machines/terminal/terminal_off.ogg'))
 	sleep(20)
 	flick("station_corrupted",screen)
 	cinematic_sound(sound('sound/effects/ghost.ogg'))
@@ -204,7 +204,7 @@
 	flick("intro_nuke",screen)
 	sleep(35)
 	flick("station_explode_fade_red",screen)
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 	screen.icon_state = "summary_cult"
 
@@ -215,7 +215,7 @@
 	flick("intro_nuke",screen)
 	sleep(35)
 	flick("station_explode_fade_red",screen)
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 	screen.icon_state = "summary_totala"
 
@@ -246,7 +246,7 @@
 	cleanup_time = 0
 
 /datum/cinematic/nuke_far/content()
-	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
+	cinematic_sound(sound('sound/effects/explosion/explosion_distant.ogg'))
 	special()
 
 /datum/cinematic/clownop

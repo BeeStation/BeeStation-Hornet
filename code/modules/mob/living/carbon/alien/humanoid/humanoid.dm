@@ -6,7 +6,7 @@
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	limb_destroyer = TRUE
 	hud_type = /datum/hud/alien
-	death_sound = 'sound/voice/hiss6.ogg'
+	death_sound = 'sound/mobs/non-humanoids/hiss/hiss6.ogg'
 	bodyparts = list(
 		/obj/item/bodypart/chest/alien,
 		/obj/item/bodypart/head/alien,
@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
-	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
+	playsound(src, 'sound/mobs/non-humanoids/hiss/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
 	..(I, cuff_break = INSTANT_CUFFBREAK)
 
 /mob/living/carbon/alien/humanoid/resist_grab(moving_resist)
@@ -59,5 +59,5 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 /mob/living/carbon/alien/humanoid/check_breath(datum/gas_mixture/breath)
 	if(breath?.total_moles() > 0 && !HAS_TRAIT(src, TRAIT_ALIEN_SNEAK))
-		playsound(get_turf(src), pick('sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg'), 50, FALSE, -5)
+		playsound(get_turf(src), pick('sound/mobs/non-humanoids/hiss/lowHiss2.ogg', 'sound/mobs/non-humanoids/hiss/lowHiss3.ogg', 'sound/mobs/non-humanoids/hiss/lowHiss4.ogg'), 50, FALSE, -5)
 	return ..()

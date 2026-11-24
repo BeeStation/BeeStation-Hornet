@@ -836,7 +836,7 @@
 	damtype = BRAIN
 	attack_verb_continuous = list("pulses", "mends", "cuts")
 	attack_verb_simple = list("pulse", "mend", "cut")
-	hitsound = 'sound/effects/sparks4.ogg'
+	hitsound = 'sound/effects/sparks/sparks4.ogg'
 
 /obj/item/nullrod/spear
 	name = "ancient spear"

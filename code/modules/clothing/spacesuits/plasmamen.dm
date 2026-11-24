@@ -197,7 +197,7 @@
 		return
 	set_light_on(FALSE)
 	helmet_on = FALSE
-	playsound(src, 'sound/effects/glass_step.ogg', 100)
+	playsound(src, 'sound/effects/footstep/glass_step.ogg', 100)
 	to_chat(usr, span_danger("The [src]'s headlamp is smashed to pieces!"))
 	lamp_functional = FALSE
 	update_icon()

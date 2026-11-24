@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 
 /obj/machinery/computer/holodeck/on_emag(mob/user)
 	..()
-	playsound(src, "sparks", 75, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 75, TRUE)
 	to_chat(user, span_warning("You vastly increase projector power and override the safety and security protocols."))
 	say("Warning. Automatic shutoff and derezzing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Console")

@@ -517,7 +517,7 @@
 	var/datum/effect_system/spark_spread/S = new
 	S.set_up(4,0,get_turf(target))
 	S.start()
-	playsound(src,'sound/effects/sparks4.ogg',50,1)
+	playsound(src,'sound/effects/sparks/sparks4.ogg',50,1)
 	do_teleport(target, F, 0, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
@@ -562,7 +562,7 @@
 
 /obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
-	playsound(loc, "sparks", 100, 1)
+	playsound(loc, /datum/sound_effect/sparks, 100, TRUE)
 
 /obj/effect/temp_visual/swarmer/dismantle
 	icon_state = "dismantle"

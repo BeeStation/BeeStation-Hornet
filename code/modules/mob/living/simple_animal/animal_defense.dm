@@ -49,7 +49,7 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_notice("You don't want to hurt [src]!"))
 		return FALSE
-	playsound(loc, "punch", 25, 1, -1)
+	playsound(loc, /datum/sound_effect/punch, 25, TRUE, -1)
 	visible_message(span_danger("[user] punches [src]!"), \
 			span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You punch [src]!"))
@@ -67,7 +67,7 @@
 			visible_message(span_notice("[M.name] [response_help_continuous] [src]."), \
 							span_notice("[M.name] [response_help_continuous] you."), null, COMBAT_MESSAGE_RANGE, M)
 			to_chat(M, span_notice("You [response_help_simple] [src]."))
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)

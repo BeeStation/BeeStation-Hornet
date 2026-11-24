@@ -24,8 +24,8 @@
 	foodtypes = VEGETABLES
 	juice_typepath = /datum/reagent/consumable/carrotjuice
 	wine_power = 30
-	pickup_sound = "cucumba_pickup"
-	drop_sound = "cucumba_drop"
+	pickup_sound = /datum/sound_effect/cucumba_pickup
+	drop_sound = /datum/sound_effect/cucumba_drop
 
 /obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharpness >= SHARP)

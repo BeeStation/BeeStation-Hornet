@@ -71,7 +71,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 		to_chat(user, span_notice("You flick the switch but nothing happens!"))
 		return
 	area.lightswitch = !area.lightswitch
-	play_click_sound("button")
+	play_click_sound(/datum/sound_effect/button)
 
 	for(var/obj/machinery/light_switch/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		if(L.area == area)

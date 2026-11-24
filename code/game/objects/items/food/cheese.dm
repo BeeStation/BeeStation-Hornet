@@ -37,4 +37,4 @@
 	AddComponent(/datum/component/food_storage)
 
 /obj/item/food/cheese/wheel/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/cheese/wedge, 5, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = "knife_slice")
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/cheese/wedge, 5, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = /datum/sound_effect/knife_slice)

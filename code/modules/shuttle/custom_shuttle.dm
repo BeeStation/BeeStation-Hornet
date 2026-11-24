@@ -203,7 +203,7 @@
 		if(!user.transferItemToLoc(I,src))
 			return
 		designator_ref = WEAKREF(I)
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, 0)
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/click_alt(mob/user)
 	var/obj/item/shuttle_creator/designator = designator_ref?.resolve()

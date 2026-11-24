@@ -150,7 +150,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 /obj/machinery/computer/rdconsole/on_emag(mob/user)
 	..()
 	balloon_alert(user, "security protocols disabled")
-	playsound(src, "sparks", 75, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 75, TRUE)
 	var/obj/item/circuitboard/computer/rdconsole/board = circuit
 	if(!(board.obj_flags & EMAGGED))
 		board.silence_announcements = TRUE

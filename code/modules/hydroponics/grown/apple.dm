@@ -26,8 +26,8 @@
 	juice_typepath = /datum/reagent/consumable/applejuice
 	tastes = list("apple" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/hcider
-	pickup_sound = "cucumba_pickup"
-	drop_sound = "cucumba_drop"
+	pickup_sound = /datum/sound_effect/cucumba_pickup
+	drop_sound = /datum/sound_effect/cucumba_drop
 
 // Gold Apple
 /obj/item/seeds/apple/gold

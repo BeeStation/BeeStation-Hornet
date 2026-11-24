@@ -185,7 +185,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	QDEL_NULL(bumper)
 	update_icon()
 	if(telegraph)
-		playsound(src, 'sound/machines/terminal_off.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_off.ogg', 50, 0)
 	return TRUE
 
 //this is da important part wot makes things go

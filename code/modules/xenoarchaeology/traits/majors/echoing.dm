@@ -10,7 +10,7 @@
 	register_targets = FALSE
 	///List of possible noises
 	var/list/possible_noises = list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg',
-					'sound/effects/empulse.ogg', 'sound/effects/explosion1.ogg', 'sound/effects/explosion_distant.ogg',
+					'sound/effects/empulse.ogg', 'sound/effects/explosion/explosion1.ogg', 'sound/effects/explosion/explosion_distant.ogg',
 					'sound/effects/laughtrack.ogg', 'sound/effects/magic.ogg', 'sound/effects/meteorimpact.ogg',
 					'sound/effects/phasein.ogg', 'sound/effects/supermatter.ogg', 'sound/weapons/armbomb.ogg',
 					'sound/weapons/blade1.ogg')

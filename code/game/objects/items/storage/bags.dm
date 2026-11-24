@@ -204,7 +204,7 @@
 		show_message=handle_ores_in_turf(tile, user, box)
 
 	if(show_message)
-		playsound(user, "rustle", 50, TRUE)
+		playsound(user, /datum/sound_effect/rustle, 50, TRUE)
 		if(!COOLDOWN_FINISHED(src, ore_bag_balloon_cooldown))
 			return
 
@@ -394,8 +394,8 @@
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=3000)
-	pickup_sound = "tray_pickup"
-	drop_sound = "tray_drop"
+	pickup_sound = /datum/sound_effect/tray_pickup
+	drop_sound = /datum/sound_effect/tray_drop
 
 /obj/item/storage/bag/tray/Initialize(mapload)
 	. = ..()

@@ -17,7 +17,7 @@
 	mecha_attacker.do_attack_animation(src)
 	switch(mecha_attacker.damtype)
 		if(BRUTE)
-			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+			playsound(src, 'sound/weapons/punch/punch4.ogg', 50, TRUE)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 		else
@@ -35,7 +35,7 @@
 	mecha_attacker.do_attack_animation(src)
 	switch(mecha_attacker.damtype)
 		if(BRUTE)
-			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+			playsound(src, 'sound/weapons/punch/punch4.ogg', 50, TRUE)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 		else
@@ -72,7 +72,7 @@
 				if(mecha_attacker.force > 35) // durand and other heavy mechas
 					Knockdown(20)
 				selected_zone.receive_damage(dmg, 0, updating_health = TRUE)
-				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+				playsound(src, 'sound/weapons/punch/punch4.ogg', 50, TRUE)
 			if(FIRE)
 				selected_zone.receive_damage(0, dmg, updating_health = TRUE)
 				playsound(src, 'sound/items/welder.ogg', 50, TRUE)

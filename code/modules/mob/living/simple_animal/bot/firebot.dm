@@ -121,7 +121,7 @@
 		if(user)
 			to_chat(user, span_danger("[src] buzzes and beeps."))
 		audible_message(span_danger("[src] buzzes oddly!"))
-		playsound(src, "sparks", 75, TRUE)
+		playsound(src, /datum/sound_effect/sparks, 75, TRUE)
 		if(user)
 			old_target_fire = user
 		extinguish_fires = FALSE

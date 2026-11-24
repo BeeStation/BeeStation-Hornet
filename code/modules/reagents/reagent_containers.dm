@@ -38,7 +38,7 @@
 	///Icon for the "label", if the holder was renamed
 	var/label_icon
 	/// The sound this container makes when picked up, dropped if there is liquid inside.
-	var/reagent_container_liquid_sound = "default_liquid_slosh"
+	var/reagent_container_liquid_sound = /datum/sound_effect/default_liquid_slosh
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
@@ -276,7 +276,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		return ITEM_INTERACT_BLOCKING
 
 	var/trans = round(reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
-	playsound(target.loc, "liquid_pour", 50, TRUE)
+	playsound(target.loc, /datum/sound_effect/liquid_pour, 50, TRUE)
 	if(trans)
 		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
 	target.update_appearance()
@@ -292,7 +292,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		return ITEM_INTERACT_BLOCKING
 
 	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
-	playsound(target.loc, "liquid_pour", 50, TRUE)
+	playsound(target.loc, /datum/sound_effect/liquid_pour, 50, TRUE)
 	to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 	target.update_appearance()
 	return ITEM_INTERACT_SUCCESS

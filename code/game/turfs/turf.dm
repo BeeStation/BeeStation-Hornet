@@ -511,7 +511,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /// When someone falls over onto this turf (Knockdown() or similar), not related to zfalls
 /turf/handle_fall(mob/faller)
 	if(has_gravity(src))
-		playsound(src, "bodyfall", 50, 1)
+		playsound(src, /datum/sound_effect/bodyfall, 50, TRUE)
 
 /turf/proc/photograph(limit=20)
 	var/image/I = new()

@@ -61,7 +61,7 @@
 					M.add_splatter_floor(get_turf(M))
 					M.apply_damage(5, BRUTE)
 					M.emote("laugh")
-					playsound(M, 'sound/misc/desecration-01.ogg', 50, 1)
+					playsound(M, /datum/sound_effect/desecration, 50, TRUE)
 			else if(!ears || !tail)
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_dysmorphia)
 				if(dnacounter >= 5)
@@ -119,7 +119,7 @@
 					target.apply_damage(5, BRUTE)
 					H.put_in_hands(targettail)
 					dnacounter += 1
-					playsound(target, 'sound/misc/desecration-01.ogg', 50, 1)
+					playsound(target, /datum/sound_effect/desecration, 50, TRUE)
 				else
 					H.visible_message(span_warning("[H] pulls at [target]'s tail!"), span_hypnophrase("You bat at [target]'s tail!"))
 					to_chat(target, span_userdanger("[H] pulls at your tail!"))
@@ -137,7 +137,7 @@
 					target.add_splatter_floor(get_turf(target))
 					target.apply_damage(5, BRUTE)
 					H.put_in_hands(targetears)
-					playsound(target, 'sound/misc/desecration-01.ogg', 50, 1)
+					playsound(target, /datum/sound_effect/desecration, 50, TRUE)
 				else
 					H.visible_message(span_warning("[H] yanks on [target]'s ears!"), span_hypnophrase("You scratch behind [target]'s ears!"))
 					to_chat(target, span_userdanger("[H] yanks on your ears!"))

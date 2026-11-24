@@ -104,7 +104,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 	. = ..()
 	if(emagged == 2)
 		audible_message(span_danger("[src] whirs ominously."))
-		playsound(src, "sparks", 75, TRUE)
+		playsound(src, /datum/sound_effect/sparks, 75, TRUE)
 
 /mob/living/simple_animal/bot/atmosbot/handle_automated_action()
 	if(!..())

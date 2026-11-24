@@ -876,7 +876,7 @@
 	damage = 30
 	damage_type = BRUTE
 	knockdown = 50
-	hitsound = 'sound/weapons/punch3.ogg'
+	hitsound = 'sound/weapons/punch/punch3.ogg'
 	trigger_range = 0
 	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	ignored_factions = list("cult")

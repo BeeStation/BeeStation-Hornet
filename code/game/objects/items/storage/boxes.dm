@@ -52,7 +52,7 @@
 		user.visible_message(span_suicide("[user] puts [user.p_their()] head into \the [src], and begins closing it! It looks like [user.p_theyre()] trying to commit suicide!"))
 		myhead.dismember()
 		myhead.forceMove(src)//force your enemies to kill themselves with your head collection box!
-		playsound(user,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
+		playsound(user, /datum/sound_effect/desecration, 50, TRUE, -1)
 		return BRUTELOSS
 	user.visible_message(span_suicide("[user] beating [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
@@ -906,7 +906,7 @@
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(loc, "rustle", 50, 1, -5)
+	playsound(loc, /datum/sound_effect/rustle, 50, TRUE, -5)
 	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
 
 /////clown box & honkbot assembly

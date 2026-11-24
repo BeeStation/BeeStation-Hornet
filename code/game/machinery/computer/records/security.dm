@@ -201,7 +201,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 /// Finishes printing, resets the printer.
 /obj/machinery/computer/records/security/proc/print_finish(list/to_print)
 	printing = FALSE
-	playsound(src, 'sound/machines/terminal_eject.ogg', 100, TRUE)
+	playsound(src, 'sound/machines/terminal/terminal_eject.ogg', 100, TRUE)
 
 	for(var/obj/item/printable as anything in to_print)
 		printable.forceMove(loc)
@@ -212,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 /obj/machinery/computer/records/security/proc/print_record(mob/user, datum/record/crew/target, alias, description, header, type)
 	if(printing)
 		balloon_alert(user, "printer busy")
-		playsound(src, 'sound/machines/terminal_error.ogg', 100, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 100, TRUE)
 		return FALSE
 
 	printing = TRUE

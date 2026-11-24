@@ -81,7 +81,7 @@
 /datum/action/spell/aoe/repulse/xeno/on_cast(mob/user, atom/target)
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_caster = user
-		playsound(get_turf(carbon_caster), 'sound/voice/hiss5.ogg', 80, TRUE, TRUE)
+		playsound(get_turf(carbon_caster), 'sound/mobs/non-humanoids/hiss/hiss5.ogg', 80, TRUE, TRUE)
 		carbon_caster.spin(6, 1)
 
 	return ..()

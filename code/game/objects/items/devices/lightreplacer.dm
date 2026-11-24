@@ -150,7 +150,7 @@
 
 /obj/item/lightreplacer/on_emag(mob/user)
 	. = ..()
-	playsound(src, "sparks", 100, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 100, TRUE)
 	update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
 
 /obj/item/lightreplacer/attack_self(mob/user)

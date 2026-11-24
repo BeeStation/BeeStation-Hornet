@@ -18,12 +18,12 @@
 /obj/item/bluespace_capsule/proc/try_deploy(mob/user, atom/location)
 	if (SEND_SIGNAL(src, COMSIG_DEPLOYABLE_FORCE_DEPLOY, location))
 		return TRUE
-	playsound(src, 'sound/machines/button2.ogg', 15, 1)
+	playsound(src, 'sound/machines/button/button2.ogg', 15, 1)
 	active = FALSE
 	update_icon()
 
 /obj/item/bluespace_capsule/attack_self(mob/user)
-	playsound(src, 'sound/machines/button2.ogg', 15, 1)
+	playsound(src, 'sound/machines/button/button2.ogg', 15, 1)
 	activate_capsule(user)
 
 /obj/item/bluespace_capsule/proc/activate_capsule(mob/user)

@@ -328,7 +328,7 @@
 					return
 				var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
 				T.autoclose = TRUE
-				playsound(target, 'sound/effects/sparks2.ogg', 50, TRUE)
+				playsound(target, 'sound/effects/sparks/sparks2.ogg', 50, TRUE)
 	chassis.spark_system.start()
 	playsound(target, 'sound/items/deconstruct.ogg', 50, TRUE)
 	return ..()

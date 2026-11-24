@@ -89,9 +89,9 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	visible_message("<span class = 'warning'>Sparks fly out of [src]!</span>")
+	visible_message(span_warning("Sparks fly out of [src]!"))
 	balloon_alert(user, "authentication sensors scrambled")
-	playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
 /obj/machinery/airalarm/on_deconstruction(disassembled = TRUE)

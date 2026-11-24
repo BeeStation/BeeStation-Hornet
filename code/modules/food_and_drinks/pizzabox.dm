@@ -217,7 +217,7 @@
 			if(!user.can_perform_action(src))
 				return
 			to_chat(user, span_notice("You write with [I] on [src]."))
-			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
+			playsound(src, /datum/sound_effect/writing_pen, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			boxtag_set = TRUE
 			update_icon()
 			return

@@ -109,7 +109,7 @@
 				return
 			diskette = used_item
 			to_chat(user, span_notice("You insert [used_item]."))
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, 0)
 	else
 		return ..()
 
@@ -144,7 +144,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		idcard_for_auth = living_user.get_idcard(hand_first = TRUE)
 	if(!istype(idcard_for_auth) || !check_access(idcard_for_auth))
 		scantemp = "Cannot delete: Access Denied."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 
 	var/datum/record/cloning/found_record
@@ -153,19 +153,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			found_record = each_record
 			break
 	if(!found_record)
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Cannot delete: Data Corrupted."
 		return
 
 	scantemp = "[found_record.name] => Record deleted."
 	records.Remove(found_record)
-	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+	playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, 0)
 	qdel(found_record)
 
 /obj/machinery/computer/cloning/proc/save_to_disk(mob/user, target_record)
 	if(!diskette || diskette.read_only)
 		scantemp = !diskette ? "Failed saving to disk: No disk." : "Failed saving to disk: Disk refuses override attempt."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 
 	var/datum/record/cloning/found_record
@@ -174,7 +174,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			found_record = each_record
 			break
 	if(!found_record)
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Failed saving to disk: Data Corrupted"
 		return
 
@@ -184,12 +184,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	diskette.name = "data disk - '[diskette.data.name]'"
 	scantemp = "Saved to disk successfully."
-	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+	playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, 0)
 
 /obj/machinery/computer/cloning/proc/load_from_disk(mob/user)
 	if(!diskette || !diskette.data.name || !diskette.data)
 		scantemp = "Failed loading: Load error."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 
 	for(var/datum/record/cloning/each_record in records)
@@ -202,7 +202,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	records += new_record
 	scantemp = "Loaded into internal storage successfully."
-	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+	playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, 0)
 	return
 
 /obj/machinery/computer/cloning/proc/eject_disk(mob/user)
@@ -212,7 +212,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	diskette.forceMove(drop_location())
 	user.put_in_active_hand(diskette)
 	diskette = null
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 
 /obj/machinery/computer/cloning/proc/toggle_lock(mob/user)
 	if(!connected_scanner.is_operational)
@@ -220,7 +220,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(!connected_scanner.locked && !connected_scanner.occupant) //I figured out that if you're fast enough, you can lock an open pod
 		return
 	connected_scanner.locked = !connected_scanner.locked
-	playsound(src, connected_scanner.locked ? 'sound/machines/terminal_prompt_deny.ogg' : 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+	playsound(src, connected_scanner.locked ? 'sound/machines/terminal/terminal_prompt_deny.ogg' : 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, 0)
 
 // --------------------------------------
 // Actual clone codes / 1.scan procs / 2.clone proc
@@ -228,12 +228,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(isnull(connected_scanner) || !connected_scanner.is_operational || !connected_scanner.occupant)
 		return
 	if(busy)
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Error: Too busy for scanning."
 		return
 	scantemp = "[scantemp_name] => Scanning..."
 	busy = TRUE
-	playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
+	playsound(src, 'sound/machines/terminal/terminal_prompt.ogg', 50, 0)
 	say("Initiating scan...")
 	var/previous_lock_status = connected_scanner.locked
 	connected_scanner.locked = TRUE
@@ -247,7 +247,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	busy = FALSE
 	connected_scanner.locked = previous_lock_status
-	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+	playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, 0)
 	SStgui.update_uis(src) // Immediate since it's not spammable
 
 /obj/machinery/computer/cloning/proc/scan_occupant(atom/atom_occupant, mob/user, body_only)
@@ -372,39 +372,39 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		log_cloning("[key_name(user)] added the record[body_only ? "(body-only)" : ""] of [key_name(human_mob)](DNA-name:[dna.real_name]) to [src] at [AREACOORD(src)].")
 	else
 		log_cloning("[key_name(user)] added the record(experimental) of [key_name(human_mob)](DNA-name:[dna.real_name]) to [src] at [AREACOORD(src)].")
-	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50)
+	playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50)
 	ui_update()
 
 /obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, datum/bank_account/account, body_only)
 	if(!istype(dna))
 		scantemp = "Unable to locate valid genetic data."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return FALSE
 	if(isliving(mob_occupant))
 		if(HAS_TRAIT(mob_occupant, TRAIT_NO_DNA_COPY))
 			scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE
 		if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (connected_scanner.scan_level < 2))
 			scantemp = "Subject's body is too damaged to scan properly."
-			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_alert.ogg', 50, 0)
 			return FALSE
 		if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
 			scantemp = "Subject's DNA is damaged beyond any hope of recovery."
-			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_alert.ogg', 50, 0)
 			return FALSE
 		if(!experimental && !body_only)
 			if(mob_occupant.suiciding)
 				scantemp = "Subject's brain is not responding to scanning stimuli."
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 				return FALSE
 			if(isnull(mob_occupant.mind))
 				scantemp = "Mental interface failure."
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 				return FALSE
 			if(SSeconomy.full_ancap && !account)
 				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 				return FALSE
 	return TRUE
 
@@ -416,26 +416,26 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			break
 	if(!found_record)
 		temp = "Failed to clone: No Data corrupted."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 
 	var/obj/machinery/clonepod/pod = get_available_clonepod()
 	//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 	if(!LAZYLEN(connected_pods))
 		temp = "Error: No Clonepods detected."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if(!pod)
 		temp = "Error: No Clonepods available."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if((!found_record.body_only || !experimental) && !CONFIG_GET(flag/revival_cloning))
 		temp = "Error: Unable to initiate cloning cycle."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if(pod.occupant)
 		temp = "Warning: Cloning cycle already in progress."
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		return
 
 	var/cloning_attempt_result = pod.growclone(CLONING_STRICT_ARGS(
@@ -458,51 +458,51 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	switch(cloning_attempt_result)
 		if(CLONING_SUCCESS)
 			temp = "Notice: [found_record.name] => Cloning cycle in progress..."
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, 0)
 			if(!found_record.body_only)
 				records.Remove(found_record)
 		if(CLONING_SUCCESS_EXPERIMENTAL)
 			temp = "Notice: [found_record.name] => Experimental cloning cycle in progress..."
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, 0)
 		if(ERROR_NO_SYNTHFLESH)
 			temp = "Error [ERROR_NO_SYNTHFLESH]: Out of synthflesh."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_PANEL_OPENED)
 			temp = "Error [ERROR_PANEL_OPENED]: Panel opened."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_MESS_OR_ATTEMPTING)
 			temp = "Error [ERROR_MESS_OR_ATTEMPTING]: Pod is already occupied."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_MISSING_EXPERIMENTAL_POD)
 			temp = "Error [ERROR_MISSING_EXPERIMENTAL_POD]: Experimental pod is not detected."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_NOT_MIND)
 			temp = "Error [ERROR_NOT_MIND]: [found_record.name]'s lack of their mind."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_PRESAVED_CLONE)
 			temp = "Error [ERROR_PRESAVED_CLONE]: [found_record.name]'s clone record is presaved."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_OUTDATED_CLONE)
 			temp = "Error [ERROR_OUTDATED_CLONE]: [found_record.name]'s clone record is outdated."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_ALREADY_ALIVE)
 			temp = "Error [ERROR_ALREADY_ALIVE]: [found_record.name] already alive."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_COMMITED_SUICIDE)
 			temp = "Error [ERROR_COMMITED_SUICIDE]: [found_record.name] commited a suicide."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_SOUL_DEPARTED)
 			temp = "Error [ERROR_SOUL_DEPARTED]: [found_record.name]'s soul had departed."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_SUICIDED_BODY)
 			temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [found_record.name]'s mind from a suicided body."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		if(ERROR_UNCLONABLE)
 			temp = "Error [ERROR_UNCLONABLE]: [found_record.name] is not clonable."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 		else
 			temp = "Error unknown => Initialisation failure."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, 0)
 
 // --------------------------------------
 // TGUI parts

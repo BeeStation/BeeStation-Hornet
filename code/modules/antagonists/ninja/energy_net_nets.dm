@@ -82,7 +82,7 @@
 		// After we remove items, at least give them what they need to live.
 		affected_human.dna.species.give_important_for_life(affected_human)
 
-	playsound(affecting, 'sound/effects/sparks4.ogg', 50, 1)
+	playsound(affecting, 'sound/effects/sparks/sparks4.ogg', 50, 1)
 	new /obj/effect/temp_visual/dir_setting/ninja/phase/out(affecting.drop_location(), affecting.dir)
 
 	visible_message("[affecting] suddenly vanishes!")
@@ -98,7 +98,7 @@
 				capture.register_capture(affecting)
 	do_sparks(5, FALSE, affecting)
 	playsound(affecting, 'sound/effects/phasein.ogg', 25, 1)
-	playsound(affecting, 'sound/effects/sparks2.ogg', 50, 1)
+	playsound(affecting, 'sound/effects/sparks/sparks2.ogg', 50, 1)
 	new /obj/effect/temp_visual/dir_setting/ninja/phase(affecting.drop_location(), affecting.dir)
 	// Return the mob to the station after 5 minutes in prison
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(force_teleport_to_safe_location), affecting), 5 MINUTES)

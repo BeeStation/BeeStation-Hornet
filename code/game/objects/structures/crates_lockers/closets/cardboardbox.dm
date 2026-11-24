@@ -9,7 +9,7 @@
 	integrity_failure = 0
 	can_weld_shut = FALSE
 	cutting_tool = TOOL_WIRECUTTER
-	open_sound = "rustle"
+	open_sound = /datum/sound_effect/rustle
 	material_drop = /obj/item/stack/sheet/cardboard
 	delivery_icon = "deliverybox"
 	anchorable = FALSE

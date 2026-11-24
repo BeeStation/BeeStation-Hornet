@@ -191,7 +191,7 @@
 					switch(i)
 						if(1)
 							new /obj/effect/temp_visual/cult/sparks(mobloc, B.current.dir)
-							playsound(mobloc, "sparks", 50, 1)
+							playsound(mobloc, /datum/sound_effect/sparks, 50, TRUE)
 						if(2)
 							new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, B.current.dir)
 							playsound(mobloc, 'sound/effects/portal/portal_travel.ogg', 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

@@ -93,7 +93,7 @@
 	else
 		switch(damage_type)
 			if(BRUTE)
-				playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
+				playsound(src, 'sound/effects/glass/glasshit.ogg', 75, 1)
 			if(BURN)
 				playsound(src, 'sound/items/welder.ogg', 100, 1)
 
@@ -113,7 +113,7 @@
 		broken = TRUE
 		if(shatter)
 			new /obj/item/shard(drop_location())
-			playsound(src, "shatter", 70, TRUE)
+			playsound(src, /datum/sound_effect/shatter, 70, TRUE)
 		else
 			playsound(src, 'sound/magic/summonitems_generic.ogg', 70, TRUE)
 		update_appearance()
@@ -617,7 +617,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = TRUE
-		playsound(src, "shatter", 70, TRUE)
+		playsound(src, /datum/sound_effect/shatter, 70, TRUE)
 		update_icon()
 		trigger_alarm() //In case it's given an alarm anyway.
 		ui_update()

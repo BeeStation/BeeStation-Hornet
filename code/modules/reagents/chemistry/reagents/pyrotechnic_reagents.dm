@@ -267,7 +267,7 @@
 	if(shock_timer >= rand(5, 30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
 		affected_mob.electrocute_act(rand(5,20), "Teslium in their body", 1, SHOCK_NOGLOVES) //SHOCK_NOGLOVES because it's caused from INSIDE of you
-		playsound(affected_mob, "sparks", 50, 1)
+		playsound(affected_mob, /datum/sound_effect/sparks, 50, TRUE)
 
 /datum/reagent/teslium/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -312,7 +312,7 @@
 	if(isoozeling(affected_mob))
 		if(prob(25))
 			affected_mob.electrocute_act(rand(5,20), "Energized Jelly overdose in their body", 1, 1) //Override because it's caused from INSIDE of you
-			playsound(affected_mob, "sparks", 50, 1)
+			playsound(affected_mob, /datum/sound_effect/sparks, 50, TRUE)
 
 /datum/reagent/firefighting_foam
 	name = "Firefighting Foam"

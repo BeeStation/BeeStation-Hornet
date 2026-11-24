@@ -42,7 +42,7 @@
 	if(!registered_name)
 		registered_name = I.registered_name
 		desc = "Owned by [registered_name]."
-		playsound(src, 'sound/machines/terminal_success.ogg', 50)
+		playsound(src, 'sound/machines/terminal/terminal_success.ogg', 50)
 		balloon_alert_to_viewers("ID registered! Welcome <font color='#ffea2d'>[registered_name]</font>!")
 		to_chat(user, "The airlock beeps happily and recognizes <b>[registered_name]</b> as its owner.")
 		return

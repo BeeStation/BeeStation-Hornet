@@ -214,7 +214,7 @@
 		D.visible_message("<span class='danger'>[A] fails to disarm [D]!</span>", \
 						"<span class='userdanger'>You're nearly disarmed by [A]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, "<span class='warning'>You fail to disarm [D]!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+		playsound(D, 'sound/weapons/punch/punchmiss.ogg', 25, TRUE, -1)
 	return FALSE
 
 /mob/living/proc/CQC_help()

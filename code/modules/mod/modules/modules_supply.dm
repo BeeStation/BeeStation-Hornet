@@ -188,7 +188,7 @@
 
 	for(var/obj/item/stack/ore/ore in get_turf(mod.wearer))
 		INVOKE_ASYNC(src, PROC_REF(move_ore), ore)
-		playsound(src, "rustle", 50, TRUE)
+		playsound(src, /datum/sound_effect/rustle, 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
 	for(var/obj/item/stack/stored_ore as anything in ores)
@@ -452,7 +452,7 @@
 			balloon_alert(mod.wearer, "fully ash covered")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
 			animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
-			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
+			playsound(src, 'sound/effects/sparks/sparks1.ogg', 100, TRUE)
 			mod.update_speed()
 	else if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
 		return

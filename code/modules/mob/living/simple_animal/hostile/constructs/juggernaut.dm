@@ -15,7 +15,7 @@
 	attack_verb_simple = "smash your armored gauntlet into"
 	speed = 2.5
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	attack_sound = 'sound/weapons/punch3.ogg'
+	attack_sound = 'sound/weapons/punch/punch3.ogg'
 	status_flags = 0
 	move_resist = MOVE_FORCE_STRONG
 	mob_size = MOB_SIZE_LARGE

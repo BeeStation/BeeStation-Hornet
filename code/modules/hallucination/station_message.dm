@@ -109,7 +109,7 @@
 	if(QDELETED(src))
 		return
 
-	hallucinator.playsound_local(get_turf(hallucinator), 'sound/effects/explosion_distant.ogg', 50, FALSE, pressure_affected = FALSE)
+	hallucinator.playsound_local(get_turf(hallucinator), 'sound/effects/explosion/explosion_distant.ogg', 50, FALSE, pressure_affected = FALSE)
 	qdel(src)
 
 #undef ALERT_TITLE

@@ -71,7 +71,7 @@
 	if(triggered)
 		empulse(get_turf(computer), 2, 2, 1)
 		new /obj/effect/particle_effect/sparks/blue(get_turf(computer))
-		playsound(computer, "sparks", 50)
+		playsound(computer, /datum/sound_effect/sparks, 50)
 		playsound(computer, 'sound/machines/defib_zap.ogg', 25, TRUE)
 	else
 		weaker_emp()
@@ -97,7 +97,7 @@
 /datum/computer_file/program/coil_virus/proc/weaker_emp()
 	empulse(get_turf(computer), 1, 1, 1)
 	new /obj/effect/particle_effect/sparks/blue(get_turf(computer))
-	playsound(computer, "sparks", 50)
+	playsound(computer, /datum/sound_effect/sparks, 50)
 	playsound(computer, 'sound/machines/defib_zap.ogg', 25, TRUE)
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
@@ -141,7 +141,7 @@
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	if(controler)
 		new /obj/effect/particle_effect/sparks/red(get_turf(computer))
-		playsound(computer, "sparks", 50)
+		playsound(computer, /datum/sound_effect/sparks, 50)
 		computer.battery_explosion()	// Instant explosion
 	if(disk)
 		disk.component_qdel()
@@ -166,7 +166,7 @@
 	if(drive)
 		drive.component_qdel()
 	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
-	playsound(computer, "sparks", 50)
+	playsound(computer, /datum/sound_effect/sparks, 50)
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	disk.component_qdel()
 
@@ -229,7 +229,7 @@
 	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
 	drive.virus_defense = ANTIVIRUS_NONE
 	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
-	playsound(computer, "sparks", 50)
+	playsound(computer, /datum/sound_effect/sparks, 50)
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(card)

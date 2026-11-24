@@ -48,7 +48,7 @@
 	owner.armour_penetration = 0
 	owner.ranged = FALSE
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
-		owner.attack_sound = "punch"
+		owner.attack_sound = /datum/sound_effect/punch
 	if(master_stats.damage >= 5 || (master_stats.damage >= 3 && master_stats.potential >= 4))
 		owner.environment_smash |= ENVIRONMENT_SMASH_WALLS
 	if(master_stats.damage >= 5 && master_stats.potential >= 5)

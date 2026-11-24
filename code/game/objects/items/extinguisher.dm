@@ -35,7 +35,7 @@
 	var/precision = FALSE //By default, turfs picked from a spray are random, set to 1 to make it always have at least one water effect per row
 	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
 	/// The sound a fire extinguisher makes when picked up, dropped if there is liquid inside.
-	var/slosh_sound = "default_liquid_slosh"
+	var/slosh_sound = /datum/sound_effect/default_liquid_slosh
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()

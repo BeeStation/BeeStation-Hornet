@@ -103,7 +103,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 			if(machine_stat & BROKEN)
 				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 60, TRUE)
 			else
-				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
+				playsound(loc, 'sound/effects/glass/glasshit.ogg', 90, TRUE)
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
@@ -111,7 +111,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 /obj/machinery/power/solar/atom_break(damage_flag)
 	. = ..()
 	if(.)
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		playsound(loc, 'sound/effects/glass/glassbr3.ogg', 100, TRUE)
 		unset_control()
 		// Make sure user can see it's broken
 		var/new_angle = rand(160, 200)
@@ -131,7 +131,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 				new material_type.sheet_type(get_turf(src))
 	else
 		//When smashed to bits
-		playsound(src, "shatter", 70, TRUE)
+		playsound(src, /datum/sound_effect/shatter, 70, TRUE)
 
 		new material_type.shard_type(get_turf(src))
 		new material_type.shard_type(get_turf(src))
@@ -631,14 +631,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 			if(machine_stat & BROKEN)
 				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 			else
-				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
+				playsound(src.loc, 'sound/effects/glass/glasshit.ogg', 75, 1)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
 /obj/machinery/power/solar_control/atom_break(damage_flag)
 	. = ..()
 	if(.)
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		playsound(loc, 'sound/effects/glass/glassbr3.ogg', 100, TRUE)
 
 /obj/machinery/power/solar_control/process()
 	lastgen = gen

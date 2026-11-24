@@ -220,7 +220,7 @@
 			if(!length(user.aicamera.stored))
 				to_chat(user, span_notice("ERROR: No stored photos located."))
 				if(ringer_status)
-					playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
+					playsound(computer, 'sound/machines/terminal/terminal_error.ogg', 15, TRUE)
 				return
 			var/datum/picture/selected_photo = user.aicamera.selectpicture(user, title = "Select Message Attachment")
 			if(!istype(selected_photo, /datum/picture))
@@ -349,7 +349,7 @@
 	if (!signal.data["done"])
 		to_chat(user, span_notice("ERROR: Server isn't responding."))
 		if(ringer_status)
-			playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
+			playsound(computer, 'sound/machines/terminal/terminal_error.ogg', 15, TRUE)
 		return FALSE
 
 	var/target_text = signal.format_target()

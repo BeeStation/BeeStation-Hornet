@@ -24,12 +24,12 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(get_turf(component_parent?.parent), 'sound/effects/glass_step.ogg', 50, TRUE)
+	playsound(get_turf(component_parent?.parent), 'sound/effects/footstep/glass_step.ogg', 50, TRUE)
 	if(current_uses)
 		current_uses -= 1
 	else if(prob(50)) //After we run out of uses, there is a 50% on use for it to break
 		component_parent.calcify()
-		playsound(get_turf(component_parent?.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
+		playsound(get_turf(component_parent?.parent), 'sound/effects/glass/glassbr1.ogg', 50, TRUE)
 
 /datum/xenoartifact_trait/minor/delicate/generate_trait_appearance(atom/target)
 	. = ..()

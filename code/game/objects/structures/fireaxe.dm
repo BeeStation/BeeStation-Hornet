@@ -83,7 +83,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 			if(broken)
 				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 90, 1)
 			else
-				playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+				playsound(loc, 'sound/effects/glass/glasshit.ogg', 90, 1)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
@@ -99,7 +99,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		update_appearance()
 		broken = TRUE
-		playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		playsound(src, 'sound/effects/glass/glassbr3.ogg', 100, TRUE)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 

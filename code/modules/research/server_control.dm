@@ -25,7 +25,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdservercontrol)
 /obj/machinery/computer/rdservercontrol/on_emag(mob/user)
 	..()
 	balloon_alert(user, "security protocols disabled")
-	playsound(src, "sparks", 75, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 75, TRUE)
 
 /obj/machinery/computer/rdservercontrol/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()

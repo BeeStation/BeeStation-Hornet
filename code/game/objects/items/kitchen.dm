@@ -33,8 +33,8 @@
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
-	pickup_sound = "cutlery_pickup"
-	drop_sound = "cutlery_drop"
+	pickup_sound = /datum/sound_effect/cutlery_pickup
+	drop_sound = /datum/sound_effect/cutlery_drop
 
 /datum/armor/kitchen_fork
 	fire = 50
@@ -75,8 +75,8 @@
 	attack_verb_continuous = list("attacks", "slaps", "pokes")
 	attack_verb_simple = list("attack", "slap", "poke")
 	armor_type = /datum/armor/kitchen_fork
-	pickup_sound = "cutlery_pickup"
-	drop_sound = "cutlery_drop"
+	pickup_sound = /datum/sound_effect/cutlery_pickup
+	drop_sound = /datum/sound_effect/cutlery_drop
 
 /obj/item/kitchen/spoon/Initialize(mapload)
 	. = ..()
@@ -106,8 +106,8 @@
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
 	custom_price = 20
 	tool_behaviour = TOOL_ROLLINGPIN
-	pickup_sound = "rolling_pin_pickup"
-	drop_sound = "rolling_pin_drop"
+	pickup_sound = /datum/sound_effect/rolling_pin_pickup
+	drop_sound = /datum/sound_effect/rolling_pin_drop
 
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

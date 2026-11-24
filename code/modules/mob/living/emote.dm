@@ -651,7 +651,7 @@
 
 /datum/emote/living/hiss/get_sound(mob/living/user)
 	if(islizard(user))
-		return pick('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg', 'sound/voice/hiss5.ogg', 'sound/voice/hiss6.ogg')
+		return pick('sound/mobs/non-humanoids/hiss/hiss1.ogg', 'sound/mobs/non-humanoids/hiss/hiss2.ogg', 'sound/mobs/non-humanoids/hiss/hiss3.ogg', 'sound/mobs/non-humanoids/hiss/hiss4.ogg', 'sound/mobs/non-humanoids/hiss/hiss5.ogg', 'sound/mobs/non-humanoids/hiss/hiss6.ogg')
 
 /datum/emote/living/thumbs_up
 	key = "thumbsup"

@@ -104,7 +104,7 @@
 
 	var/allow_movement_on_non_turfs = FALSE
 
-	var/attacked_sound = "punch" //Played when someone punches the creature
+	var/attacked_sound = /datum/sound_effect/punch //Played when someone punches the creature
 
 	var/dextrous = FALSE //If the creature has, and can use, hands
 	var/dextrous_hud_type = /datum/hud/dextrous

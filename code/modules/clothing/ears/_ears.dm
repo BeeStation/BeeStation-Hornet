@@ -38,8 +38,8 @@
 	inhand_icon_state = "headphones"
 	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK //Fluff item, put it wherever you want!
 	actions_types = list(/datum/action/item_action/toggle_headphones)
-	equip_sound = "headset_equip"
-	pickup_sound = "headset_pickup"
+	equip_sound = /datum/sound_effect/headset_equip
+	pickup_sound = /datum/sound_effect/headset_pickup
 	drop_sound = 'sound/items/handling/headset/headset_drop.ogg'
 	var/headphones_on = FALSE
 	var/datum/song/headphones/song

@@ -67,14 +67,14 @@
 	switch(action)
 		if("PRG_authenticate")
 			if(!user_id_card)
-				playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+				playsound(computer, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 				return
 			if(authenticate(user, user_id_card))
-				playsound(computer, 'sound/machines/terminal_on.ogg', 50, FALSE)
+				playsound(computer, 'sound/machines/terminal/terminal_on.ogg', 50, FALSE)
 				return TRUE
 		if("PRG_logout")
 			authenticated = FALSE
-			playsound(computer, 'sound/machines/terminal_off.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_off.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_print")
 			if(!printer)
@@ -98,7 +98,7 @@
 				to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
 				return
 			else
-				playsound(computer, 'sound/machines/terminal_on.ogg', 50, FALSE)
+				playsound(computer, 'sound/machines/terminal/terminal_on.ogg', 50, FALSE)
 				computer.visible_message(span_notice("\The [computer] prints out a paper."))
 			return TRUE
 		if("PRG_eject")
@@ -121,7 +121,7 @@
 			target_id_card.update_label()
 			target_id_card.sync_manifest()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_edit")
 			if(!authenticated || !target_id_card)
@@ -138,7 +138,7 @@
 				return
 			log_id("[key_name(usr)] changed [target_id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			target_id_card.set_registered_name(new_name, usr)
-			playsound(computer, "terminal_type", 50, FALSE)
+			playsound(computer, /datum/sound_effect/terminal_type, 50, FALSE)
 			return TRUE
 		if("PRG_assign")
 			if(!authenticated || !target_id_card)
@@ -166,7 +166,7 @@
 				if(!jobdatum)
 					to_chat(usr, span_warning("No log exists for this job."))
 					stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
-					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+					playsound(computer, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
 				// tablet program doesn't change bank status. check 'card.dm' for the detail
@@ -174,14 +174,14 @@
 				if(target_id_card.needs_acting_head_for(jobdatum))
 					if(!target_id_card.grant_acting_head(jobdatum, assign_source, usr))
 						to_chat(usr, span_warning("Someone is already Acting [jobdatum.title]."))
-						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+						playsound(computer, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 						return
 				else
 					target_id_card.assign_job(jobdatum, usr)
 					log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 
 			target_id_card.sync_manifest()
-			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_access")
 			if(!authenticated)
@@ -195,19 +195,19 @@
 				target_id_card.remove_console_access(list(access_type), access_source, usr)
 			else
 				target_id_card.add_console_access(list(access_type), access_source, usr)
-			playsound(computer, "terminal_type", 50, FALSE)
+			playsound(computer, /datum/sound_effect/terminal_type, 50, FALSE)
 			return TRUE
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
 			target_id_card.add_console_access(is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses(), get_log_source(user_id_card), usr)
-			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
 			target_id_card.remove_console_access(is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses(), get_log_source(user_id_card), usr)
-			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_grantregion")
 			if(!authenticated)
@@ -217,7 +217,7 @@
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
 			target_id_card.add_console_access(dept_datum.access_list, get_log_source(user_id_card), usr)
-			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyregion")
 			if(!authenticated)
@@ -227,7 +227,7 @@
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
 			target_id_card.remove_console_access(dept_datum.access_list, get_log_source(user_id_card), usr)
-			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 
 

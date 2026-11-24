@@ -23,7 +23,7 @@
 		return
 	if(swirlie)
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src.loc, "swing_hit", 25, 1)
+		playsound(src.loc, /datum/sound_effect/swing_hit, 25, TRUE)
 		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto your head!"), span_italics("You hear reverberating porcelain."))
 		swirlie.adjustBruteLoss(5)
 

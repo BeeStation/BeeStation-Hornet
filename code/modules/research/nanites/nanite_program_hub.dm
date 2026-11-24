@@ -28,7 +28,7 @@
 		var/obj/item/disk/nanite_program/N = I
 		if(user.transferItemToLoc(N, src))
 			to_chat(user, span_notice("You insert [N] into [src]."))
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 			if(disk)
 				eject(user)
 			disk = N
@@ -118,7 +118,7 @@
 				qdel(disk.program)
 			disk.program = new downloaded.program_type
 			disk.name = "[initial(disk.name)] \[[disk.program.name]\]"
-			playsound(src, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt.ogg', 25, FALSE)
 			. = TRUE
 		if("refresh")
 			update_static_data(usr, bypass_cooldown = FALSE)

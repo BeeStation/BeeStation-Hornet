@@ -178,10 +178,10 @@
 			if(current_image)
 				if(src_console)
 					src_console.balloon_alert(usr, "photo selected.")
-					playsound(src_console, 'sound/machines/terminal_success.ogg', 15, TRUE)
+					playsound(src_console, 'sound/machines/terminal/terminal_success.ogg', 15, TRUE)
 				else
 					usr.balloon_alert(usr, "photo selected.")
-					SEND_SOUND(usr, 'sound/machines/terminal_success.ogg')
+					SEND_SOUND(usr, 'sound/machines/terminal/terminal_success.ogg')
 			else
 				if(src_console)
 					src_console.balloon_alert(usr, "no photo identified.")

@@ -85,7 +85,7 @@
 	alpha = 180
 	damage = 30
 	damage_type = TOX
-	hitsound = 'sound/weapons/punch3.ogg'
+	hitsound = 'sound/weapons/punch/punch3.ogg'
 	trigger_range = 0
 	//ignored_factions = list(FACTION_HERETIC) I am not touching projectile code with a ten metre pole
 	range = 15
