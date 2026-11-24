@@ -1,5 +1,6 @@
 /datum/dynamic_ruleset
 	abstract_type = /datum/dynamic_ruleset
+
 	/**
 	 * Configurable Variables
 	 */
