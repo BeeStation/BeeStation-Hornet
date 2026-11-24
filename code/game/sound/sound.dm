@@ -347,7 +347,7 @@
 
 /// Used to convert a sound effect typepath into a .ogg so we can add some variance to sounds. If soundin is already a .ogg, we simply return it
 /proc/get_sfx(soundin)
-#ifdef UNIT_TESTS || defined(SPACEMAN_DMM)
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 	if(istext(soundin))
 		CRASH("A string was passed into get_sfx(). Use the new sound effect datums.")
 #endif
