@@ -56,7 +56,7 @@
 	for (var/turf/room_turf in room_turfs)
 		for (var/obj/placed_object in room_turf)
 			// Temporary hacky check to see if we contain a directional mapping helper <-- 2 year old temporary check btw
-			if (!placed_object._reflection_is_directional || !isProbablyWallMounted(placed_object))
+			if (!placed_object._is_directional_mapping_helper || !isProbablyWallMounted(placed_object))
 				continue
 			// Check to see if we correctly placed ourselves on a wall
 			if (!isclosedturf(get_step(placed_object, placed_object.dir)))
