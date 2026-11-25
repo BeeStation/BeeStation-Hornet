@@ -2744,7 +2744,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "agB" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -4108,7 +4108,7 @@
 	},
 /obj/effect/turf_decal/sand,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aka" = (
 /obj/structure/railing/corner{
@@ -4337,7 +4337,7 @@
 	pixel_y = 9
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "akJ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -4877,7 +4877,7 @@
 	dir = 9
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "amg" = (
 /obj/effect/turf_decal/tile/red{
@@ -5899,7 +5899,7 @@
 	},
 /obj/structure/lattice,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aoX" = (
 /obj/effect/turf_decal/tile/steelgrid{
@@ -5998,7 +5998,7 @@
 	pixel_y = 17
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aph" = (
 /obj/structure/chair/fancy/comfy{
@@ -6090,7 +6090,7 @@
 	dir = 9
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "apr" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -6488,7 +6488,7 @@
 "aqq" = (
 /obj/structure/girder,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aqr" = (
 /turf/open/floor/iron/stairs/right{
@@ -6998,7 +6998,7 @@
 "arQ" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "arR" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
@@ -7671,7 +7671,7 @@
 	pixel_y = 9
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "atN" = (
 /obj/effect/turf_decal/tile/green/half{
@@ -7757,7 +7757,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "atZ" = (
 /obj/effect/turf_decal/siding/red{
@@ -9032,7 +9032,7 @@
 	pixel_y = 15
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "axl" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
@@ -9048,7 +9048,7 @@
 "axm" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "axn" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -9146,7 +9146,7 @@
 /obj/structure/girder/reinforced,
 /obj/structure/barricade/wooden/crude,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "axD" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -9533,7 +9533,7 @@
 "ayT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "ayU" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -9584,7 +9584,7 @@
 	pixel_y = -7
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "ayZ" = (
 /obj/structure/railing{
@@ -9997,7 +9997,7 @@
 	},
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aAf" = (
 /obj/effect/turf_decal/siding/red{
@@ -10961,7 +10961,7 @@
 	pixel_y = 19
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aCz" = (
 /obj/structure/railing,
@@ -11448,7 +11448,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aDK" = (
 /obj/effect/turf_decal/weather/dirt/corner{
@@ -12042,7 +12042,7 @@
 /obj/structure/lattice,
 /obj/structure/girder,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aFA" = (
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -12286,7 +12286,7 @@
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aGk" = (
 /obj/machinery/light,
@@ -12456,7 +12456,7 @@
 "aGI" = (
 /obj/structure/grille,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aGJ" = (
 /obj/machinery/iv_drip,
@@ -14002,7 +14002,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aKw" = (
 /obj/structure/bookcase/manuals,
@@ -14081,7 +14081,7 @@
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aKI" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -14370,7 +14370,7 @@
 "aLu" = (
 /obj/structure/lattice,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aLv" = (
 /turf/open/floor/plating,
@@ -14825,7 +14825,7 @@
 	dir = 6
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aMN" = (
 /obj/structure/extinguisher_cabinet{
@@ -14932,7 +14932,7 @@
 "aMZ" = (
 /obj/machinery/light/small,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aNa" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -15058,7 +15058,7 @@
 "aNp" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aNq" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -15274,7 +15274,7 @@
 "aNN" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aNO" = (
 /turf/open/floor/iron/dark,
@@ -15708,7 +15708,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aOS" = (
 /obj/structure/bookcase/random,
@@ -16471,7 +16471,7 @@
 	dir = 9
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aQK" = (
 /obj/machinery/light,
@@ -16530,7 +16530,7 @@
 	},
 /obj/item/wirebrush,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aQV" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -16789,7 +16789,7 @@
 	dir = 6
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aRH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -17788,7 +17788,7 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aTZ" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -17976,7 +17976,7 @@
 	dir = 5
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aUt" = (
 /obj/structure/trap/ctf/red,
@@ -18808,7 +18808,7 @@
 /area/centcom/central_command_areas/control)
 "aWy" = (
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aWA" = (
 /obj/structure/railing{
@@ -18988,7 +18988,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aWY" = (
 /obj/structure/mineral_door/paperframe{
@@ -19199,7 +19199,7 @@
 	dir = 6
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aXA" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -19541,7 +19541,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "aYs" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -20607,7 +20607,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "eTR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20775,7 +20775,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mop_bucket,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "ggJ" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
@@ -20929,7 +20929,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "hkB" = (
 /obj/machinery/light{
@@ -20955,7 +20955,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "hmg" = (
 /obj/effect/turf_decal/tile/dark_blue{
@@ -21078,7 +21078,7 @@
 	},
 /obj/structure/spacevine,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "hHR" = (
 /obj/effect/turf_decal/weather/snow,
@@ -21182,7 +21182,7 @@
 	dir = 6
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "iaH" = (
 /obj/effect/turf_decal/siding/dark,
@@ -21237,7 +21237,7 @@
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "itl" = (
 /obj/effect/turf_decal/box/corners{
@@ -21417,7 +21417,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "jra" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -21447,7 +21447,7 @@
 	dir = 5
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "jDA" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -21720,7 +21720,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "lgn" = (
 /obj/effect/turf_decal/tile/red{
@@ -21735,7 +21735,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "llK" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -21863,7 +21863,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/chair/noose,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "mbC" = (
 /obj/effect/turf_decal/sand/plating,
@@ -21871,7 +21871,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "mlH" = (
 /obj/structure/barricade/wooden/snowed,
@@ -21926,7 +21926,7 @@
 	pixel_y = 4
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "msT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22134,7 +22134,7 @@
 	pixel_x = 5
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "nBD" = (
 /obj/structure/table/wood,
@@ -22172,7 +22172,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "nZA" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
@@ -22392,7 +22392,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "prS" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -22443,13 +22443,13 @@
 	dir = 5
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "pRr" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "pTU" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -22487,7 +22487,7 @@
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/lattice/catwalk,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "qac" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
@@ -22509,7 +22509,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "qgJ" = (
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
@@ -22653,7 +22653,7 @@
 /obj/structure/kitchenspike_frame,
 /obj/effect/mapping_helpers/dead_body_placer,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "qRL" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -22818,7 +22818,7 @@
 /obj/structure/girder/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "sjP" = (
 /obj/docking_port/stationary{
@@ -22930,7 +22930,7 @@
 	},
 /obj/structure/railing/corner,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "sVt" = (
 /obj/machinery/computer/camera_advanced{
@@ -22969,7 +22969,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "tbW" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -23021,7 +23021,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "tED" = (
 /obj/effect/turf_decal/trimline/dark_red/corner,
@@ -23255,7 +23255,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/start/nukeop,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
 "vkU" = (
 /obj/structure/window/reinforced/spawner/directional/north,

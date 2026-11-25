@@ -2085,7 +2085,7 @@
 /obj/structure/girder/reinforced,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/broken,
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "YF" = (
 /obj/machinery/door/poddoor/shutters/preopen{
