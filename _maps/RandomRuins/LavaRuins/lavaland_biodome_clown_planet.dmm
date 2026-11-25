@@ -236,7 +236,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -260,7 +260,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -269,7 +269,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -293,7 +293,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -337,7 +337,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -347,7 +347,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -356,7 +356,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -366,7 +366,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -462,7 +462,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
@@ -471,7 +471,7 @@
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
+	sound = 'sound/effects/foostep/clownstep1.ogg';
 	wet = 16
 	},
 /area/ruin/powered/clownplanet)
