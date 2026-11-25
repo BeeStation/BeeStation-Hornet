@@ -9,9 +9,8 @@
 "k" = (
 /obj/effect/trap/nexus/doorbolt,
 /obj/effect/spawner/random/unsorted/trap,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "G" = (
 /obj/effect/spawner/random/unsorted/sanitarium,

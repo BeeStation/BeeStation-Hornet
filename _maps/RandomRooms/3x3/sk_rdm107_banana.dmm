@@ -18,9 +18,8 @@
 /obj/item/stack/ore/bananium,
 /obj/effect/spawner/random/unsorted/trap/clowntrap,
 /obj/effect/spawner/random/unsorted/trap,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"

@@ -22,9 +22,8 @@
 "f" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "g" = (
 /obj/structure/table/wood,
@@ -115,9 +114,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "x" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -127,9 +125,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "z" = (
 /obj/structure/chair/fancy/sofa/old{
@@ -176,9 +173,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "I" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "J" = (
 /obj/structure/table/wood,
@@ -262,9 +258,8 @@
 /area/template_noop)
 "Z" = (
 /obj/structure/grille/broken,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"

@@ -2420,7 +2420,7 @@
 /area/station/engineering/atmos)
 "baH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/chair/fancy/corp{
 	dir = 1
 	},
@@ -19440,9 +19440,8 @@
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/port)
 "hfG" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -20915,7 +20914,7 @@
 /area/station/maintenance/starboard/aft)
 "hGC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "hGO" = (
@@ -26695,7 +26694,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "jDe" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/turf_decal/trimline/green/line{
 	dir = 10
 	},
@@ -35542,7 +35541,7 @@
 /obj/item/xenoartifact,
 /obj/item/xenoartifact,
 /obj/item/xenoartifact,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "mCQ" = (
@@ -35794,9 +35793,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/fore)
 "mHZ" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
@@ -42640,7 +42638,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "oTg" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/closet/crate,
 /obj/item/storage/belt/utility,
 /obj/item/stack/cable_coil,
@@ -50740,7 +50738,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "rCd" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -58237,9 +58235,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/fore)
 "ufP" = (
 /obj/machinery/holopad,
@@ -63543,7 +63540,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/noslip/white,
@@ -65306,7 +65303,7 @@
 /turf/open/floor/carpet/grimy,
 /area/station/tcommsat/computer)
 "wDt" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/turf_decal/trimline/green/line{
 	dir = 6
 	},
@@ -67045,7 +67042,7 @@
 /area/station/commons/locker)
 "xhl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "It's insane we still have the naked lizard poster - Varo"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,

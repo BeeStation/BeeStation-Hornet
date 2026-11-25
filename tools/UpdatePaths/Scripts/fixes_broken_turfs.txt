@@ -1,0 +1,9 @@
+/obj/effect/mapping_helpers/tile_breaker : /obj/effect/mapping_helpers/broken_floor
+
+/turf/open/floor/wood/broken : /obj/effect/mapping_helpers/broken_floor, /turf/open/floor/wood{@OLD}
+/turf/open/floor/plating/broken : /obj/effect/mapping_helpers/broken_floor, /turf/open/floor/plating/broken{@OLD}
+
+/turf/open/@SUBTYPES{broken=1} : /obj/effect/mapping_helpers/broken_floor, /turf/open/@SUBTYPES{@OLD;broken=@SKIP}
+/turf/open/@SUBTYPES{burnt=1} : /obj/effect/mapping_helpers/burnt_floor, /turf/open/@SUBTYPES{@OLD;burnt=@SKIP}
+
+/obj/effect/mapping_helpers/Mapper_Comment : /obj/effect/mapping_helpers/mapper_comment{@OLD}

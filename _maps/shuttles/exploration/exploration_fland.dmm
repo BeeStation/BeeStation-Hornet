@@ -873,9 +873,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/exploration)
 "Sf" = (
 /obj/effect/turf_decal/box,

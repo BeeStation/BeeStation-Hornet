@@ -429,6 +429,7 @@
 	dir = 1
 	},
 /obj/structure/spider/stickyweb,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospostengine)
 "cl" = (
@@ -776,10 +777,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
-"ey" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/broken,
-/area/mine/atmospost)
 "eA" = (
 /obj/structure/foamedmetal,
 /turf/open/floor/plating/asteroid,
@@ -1092,7 +1089,7 @@
 /area/mine/living_quarters)
 "gC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/mine/atmospost)
 "gI" = (
@@ -1243,7 +1240,7 @@
 /area/lavaland/surface/outdoors)
 "hw" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/mine/atmospostengine)
 "hz" = (
@@ -1314,6 +1311,7 @@
 "hX" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "ia" = (
@@ -1743,6 +1741,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
 	},
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "ks" = (
@@ -2104,6 +2103,7 @@
 /area/lavaland/surface/outdoors)
 "mJ" = (
 /obj/structure/extinguisher_cabinet/directional/east,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "mK" = (
@@ -2531,6 +2531,7 @@
 "pL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "pN" = (
@@ -2623,6 +2624,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "qr" = (
@@ -3165,7 +3167,8 @@
 /area/mine/laborcamp/security)
 "tT" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "tY" = (
@@ -3762,7 +3765,8 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospostengine)
 "xL" = (
@@ -3948,7 +3952,8 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "yY" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "zc" = (
@@ -4848,6 +4853,7 @@
 /obj/structure/table/reinforced,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmosposthallway)
 "EO" = (
@@ -6255,6 +6261,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
 	dir = 6
 	},
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "NA" = (
@@ -6395,6 +6402,7 @@
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "NY" = (
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "Oc" = (
@@ -6671,7 +6679,7 @@
 /area/lavaland/surface/outdoors/explored)
 "PL" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/mine/atmospostengine)
 "PM" = (
@@ -6922,7 +6930,8 @@
 "Rv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "Rw" = (
@@ -7173,6 +7182,7 @@
 	cocoon_target = 500;
 	spider_team = 101
 	},
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "Te" = (
@@ -7266,6 +7276,7 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospostengine)
 "TL" = (
@@ -7376,7 +7387,8 @@
 	cocoon_target = 500;
 	spider_team = 101
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "UD" = (
@@ -7392,6 +7404,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "UF" = (
@@ -52798,7 +52811,7 @@ bW
 rV
 nZ
 wC
-ey
+tT
 FG
 Gj
 tc
