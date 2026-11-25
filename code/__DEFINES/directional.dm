@@ -22,7 +22,7 @@
 #define MAPPING_DIRECTIONAL_HELPERS(path, offset) ##path/directional {\
 	abstract_type = ##path/directional; \
 } \
-##path {\
+##path/directional {\
 	_reflection_is_directional = TRUE;\
 } \
 ##path/directional/north {\
