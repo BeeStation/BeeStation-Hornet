@@ -38,6 +38,9 @@
 	inhand_icon_state = "headphones"
 	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK //Fluff item, put it wherever you want!
 	actions_types = list(/datum/action/item_action/toggle_headphones)
+	equip_sound = "headset_equip"
+	pickup_sound = "headset_pickup"
+	drop_sound = 'sound/items/handling/headset/headset_drop.ogg'
 	var/headphones_on = FALSE
 	var/datum/song/headphones/song
 	custom_price = 20
@@ -89,14 +92,14 @@
 /obj/item/clothing/ears/headphones/proc/should_stop_playing(mob/user)
 	return user.incapacitated || !((loc == user) || (isturf(loc) && Adjacent(user)))
 
-/obj/item/clothing/ears/headphones/AltClick(mob/user)
-	. = ..()
+/obj/item/clothing/ears/headphones/click_alt(mob/user)
 	if(headphones_on)
 		song.stop_playing()
 		toggle(user, "OFF")
 	else
 		song.start_playing(user)
 		toggle(user, "ON")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/ears/headphones/examine(mob/user)
 	. = ..()

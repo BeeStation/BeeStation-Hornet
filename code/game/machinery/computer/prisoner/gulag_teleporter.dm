@@ -149,10 +149,12 @@
 		log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] for [id_goal_not_set ? "default goal of ":""][contained_id.goal] points.")
 	log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] permanently.")
 	teleporter.handle_prisoner(contained_id, temporary_record)
-	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
+	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(do_teleport(prisoner, get_turf(beacon)))
 		prisoner.Paralyze(40) // small travel dizziness
 		to_chat(prisoner, span_warning("The teleportation makes you a little dizzy."))
+		new /obj/effect/particle_effect/sparks(get_turf(prisoner))
+		playsound(src, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(teleporter.locked)
 			teleporter.locked = FALSE
 		teleporter.toggle_open()

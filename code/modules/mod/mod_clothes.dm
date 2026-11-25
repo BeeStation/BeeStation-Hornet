@@ -77,6 +77,8 @@
 	item_flags = IGNORE_DIGITIGRADE
 	//can_be_tied = FALSE
 	equip_sound = null
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/clothing/shoes/mod/Initialize(mapload)
 	. = ..()

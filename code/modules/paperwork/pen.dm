@@ -19,11 +19,16 @@
 	inhand_icon_state = "pen"
 	worn_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_EARS
+
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
+	stamina_damage = 0
+	stamina_cost = 0
+	stamina_critical_chance = 0
+
 	custom_materials = list(/datum/material/iron=10)
 	pressure_resistance = 2
 	grind_results = list(/datum/reagent/iron = 2, /datum/reagent/iodine = 1)
@@ -162,12 +167,12 @@
 	//Changing Name/Description of items. Only works if they have the 'unique_rename' flag set
 	if(isobj(O) && proximity && (O.obj_flags & UNIQUE_RENAME))
 		var/penchoice = tgui_input_list(user, "What would you like to edit?", "Rename or change description?", list("Rename","Change description"))
-		if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+		if(QDELETED(O) || !user.can_perform_action(O))
 			return
 		var/anythingchanged = FALSE
 		if(penchoice == "Rename")
 			var/input = tgui_input_text(user,"What do you want to name [O]?", "", O.name, MAX_NAME_LEN)
-			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+			if(QDELETED(O) || !user.can_perform_action(O))
 				return
 			if(!input) // empty input so we return
 				to_chat(user, span_warning("You need to enter a name!"))
@@ -184,7 +189,7 @@
 			anythingchanged = TRUE
 		if(penchoice == "Change description") // we'll allow empty descriptions
 			var/input = tgui_input_text(user, "Describe [O] here", "", O.desc) // max_lenght to the default MAX_MESSAGE_LEN, what's the worst that could happen?
-			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+			if(QDELETED(O) || !user.can_perform_action(O))
 				return
 			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
 				to_chat(user, span_warning("Your message contains forbidden words."))
@@ -324,7 +329,7 @@
 
 	if(user)
 		balloon_alert(user, active ? "extended" : "retracted")
-	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+	playsound(src, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 
 	if(!active)
 		tool_behaviour = initial(tool_behaviour)

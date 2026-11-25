@@ -146,13 +146,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/mob_holder)
 	var/mob/living/simple_animal/drone/drone = contained
 	if(!drone)
 		return ..()
-	icon = 'icons/mob/drone.dmi'
+	icon = 'icons/mob/silicon/drone.dmi'
 	icon_state = "[drone.visualAppearance]_hat"
 
 /obj/item/mob_holder/rabbit
 
 /obj/item/mob_holder/rabbit/Initialize(mapload, mob/living/held_mob, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
-	var/mob/living/simple_animal/rabbit/rabbit = new(src)
+	var/mob/living/basic/rabbit/rabbit = new(src)
 	return ..(mapload, rabbit, rabbit.held_state, rabbit.head_icon, rabbit.held_lh, rabbit.held_rh, rabbit.worn_slot_flags)
 
 

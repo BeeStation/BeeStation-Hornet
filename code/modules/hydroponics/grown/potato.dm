@@ -8,6 +8,8 @@
 	foodtypes = VEGETABLES
 	juice_typepath = /datum/reagent/consumable/potato_juice
 	distill_reagent = /datum/reagent/consumable/ethanol/vodka
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 /obj/item/food/grown/potato/wedges
 	name = "potato wedges"
@@ -16,7 +18,7 @@
 	bite_consumption_mod = 100
 
 /obj/item/food/grown/potato/attackby(obj/item/W, mob/user, list/modifiers)
-	if(W.get_sharpness())
+	if(W.sharpness)
 		to_chat(user, span_notice("You cut the potato into wedges with [W]."))
 		var/obj/item/food/grown/potato/wedges/Wedges = new /obj/item/food/grown/potato/wedges
 		remove_item_from_storage(user)

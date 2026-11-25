@@ -98,16 +98,20 @@
 
 /obj/item/reagent_containers/blood/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(istype(tool, /obj/item/pen) || istype(tool, /obj/item/toy/crayon))
-		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on the label of [src]!"))
+
+		if(!user.can_write(tool))
 			return
+
 		var/custom_label = tgui_input_text(user, "What would you like to label the blood pack?", "Blood Pack", name, max_length = MAX_NAME_LEN)
-		if(!user.canUseTopic(src, BE_CLOSE))
+		if(!user.can_perform_action(src))
 			return
+
 		if(user.get_active_held_item() != tool)
 			return
+
 		if(custom_label)
 			labelled = TRUE
+			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			name = "blood pack - [custom_label]"
 			balloon_alert(user, "new label set")
 		else

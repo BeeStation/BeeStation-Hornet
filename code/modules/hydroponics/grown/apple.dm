@@ -9,6 +9,8 @@
 	juice_typepath = /datum/reagent/consumable/applejuice
 	tastes = list("apple" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/hcider
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 // Gold Apple
 /obj/item/food/grown/apple/gold

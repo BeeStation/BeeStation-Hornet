@@ -9,9 +9,11 @@
 	foodtypes = VEGETABLES
 	juice_typepath = /datum/reagent/consumable/carrotjuice
 	wine_power = 30
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 /obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, list/modifiers)
-	if(I.get_sharpness())
+	if(I.sharpness >= SHARP)
 		to_chat(user, span_notice("You sharpen the carrot into a shiv with [I]."))
 		var/obj/item/knife/shiv/carrot/Shiv = new /obj/item/knife/shiv/carrot
 		remove_item_from_storage(user)

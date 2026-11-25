@@ -5,6 +5,8 @@
 	icon_state = "experiment-open"
 	density = FALSE
 	state_open = TRUE
+	interaction_flags_mouse_drop = NEED_DEXTERITY
+
 	var/points = 0
 	var/credits = 0
 	var/list/history
@@ -15,12 +17,8 @@
 	var/message_cooldown = 0
 	var/breakout_time = 450
 
-/obj/machinery/abductor/experiment/MouseDrop_T(mob/target, mob/user)
-	if(..())
-		return
-	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
-		return
-	if(isabductor(target))
+/obj/machinery/abductor/experiment/mouse_drop_receive(mob/target, mob/user, params)
+	if(!ishuman(target) || isabductor(target))
 		return
 	close_machine(target)
 

@@ -129,6 +129,14 @@
 /obj/machinery/chem_master,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
+"bk" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/flashlight/glowstick/blue,
+/obj/item/flashlight/glowstick/blue,
+/obj/item/flashlight/glowstick/blue,
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/ruin/powered/animal_hospital)
 "bn" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -481,6 +489,18 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
+"pE" = (
+/obj/structure/closet/crate/bin,
+/obj/item/trash/pistachios,
+/obj/item/lipstick/random,
+/obj/item/plant_seeds/preset/apple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
 "qn" = (
 /mob/living/simple_animal/bot/cleanbot,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -506,14 +526,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
-"sq" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/flashlight/glowstick/blue,
-/obj/item/flashlight/glowstick/blue,
-/obj/item/flashlight/glowstick/blue,
-/obj/machinery/light/small,
-/turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "tu" = (
 /obj/machinery/vending/snack,
@@ -561,6 +573,16 @@
 /obj/machinery/vending/coffee,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered/animal_hospital)
+"vI" = (
+/mob/living/simple_animal/bot/medbot{
+	desc = "A little medical robot. It's programmed to only act in emergencies."
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
@@ -664,18 +686,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
-"zE" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/pistachios,
-/obj/item/lipstick/random,
-/obj/item/plant_seeds/preset/apple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
 "zK" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Morgue"
@@ -760,7 +770,7 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
-"EN" = (
+"EY" = (
 /obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
@@ -897,19 +907,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
-"PA" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/mob/living/basic/pet/cat/kitten{
-	name = "Director";
-	desc = "The Animal Hospital's youngest employee."
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
 "PU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -922,6 +919,19 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
+/area/ruin/powered/animal_hospital)
+"QL" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/mob/living/basic/pet/cat/kitten{
+	name = "Director";
+	desc = "The Animal Hospital's youngest employee."
+	},
+/turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "QW" = (
 /obj/item/stack/cable_coil,
@@ -986,18 +996,6 @@
 	pixel_y = 12
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
-"Vj" = (
-/mob/living/simple_animal/bot/medbot{
-	desc = "A little medical robot. It's programmed to only act in emergencies.";
-	heal_threshold = 40;
-	name = "emergency Medibot"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "Vv" = (
@@ -1273,7 +1271,7 @@ oj
 Qm
 zK
 HP
-zE
+pE
 hX
 lX
 ae
@@ -1382,7 +1380,7 @@ ab
 ac
 af
 rt
-PA
+QL
 lQ
 ae
 Nv
@@ -1423,7 +1421,7 @@ ae
 Ms
 ae
 me
-EN
+EY
 aK
 aK
 bW
@@ -1570,11 +1568,11 @@ aK
 cm
 QW
 be
-sq
+bk
 ae
 bo
 KK
-Vj
+vI
 Dn
 Rp
 ao

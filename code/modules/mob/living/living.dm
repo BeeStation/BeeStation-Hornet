@@ -7,13 +7,17 @@
 	var/time_of_last_attack_received = 0
 
 /mob/living/Initialize(mapload)
+	if(ispath(move_intent))
+		move_intent = GLOB.move_intents[move_intent]
 	. = ..()
+	stamina = new(src)
+
 	if(initial_size != RESIZE_DEFAULT_SIZE)
 		update_transform(initial_size)
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
 	if(unique_name)
-		name = "[name] ([rand(1, 1000)])"
+		set_unique_name()
 		real_name = name
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(src)
@@ -43,6 +47,7 @@
 	med_hud_set_status()
 
 /mob/living/Destroy()
+	QDEL_NULL(stamina)
 	for(var/datum/status_effect/effect as anything in status_effects)
 		// The status effect calls on_remove when its mob is deleted
 		if(effect.on_remove_on_mob_delete)
@@ -69,7 +74,7 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && move_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
+	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && !MOVING_DELIBERATELY(src) && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
 		ADD_TRAIT(src, TRAIT_NO_BUMP_SLAM, type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
@@ -285,8 +290,9 @@
 	now_pushing = FALSE
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
-	if(!AM || !src)
+	if(!src)
 		return FALSE
+	ASSERT(ismovable(AM), "[src] attempted to pull [AM ? "[AM], a nonmovable atom" : "a null object"]")
 	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
 	if(throwing || !(mobility_flags & MOBILITY_PULL))
@@ -306,11 +312,17 @@
 		stop_pulling()
 
 	changeNext_move(CLICK_CD_GRABBING)
+	animate_interact(AM, INTERACT_PULL)
 
 	if(AM.pulledby)
 		if(!supress_message)
-			AM.visible_message(span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."), \
-							span_danger("[src] has pulled you from [AM.pulledby]'s grip."), null, null, src)
+			AM.visible_message(
+				span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."),
+				span_danger("[src] has pulled you from [AM.pulledby]'s grip."),
+				null,
+				null,
+				src
+			)
 			to_chat(src, span_notice("You pull [AM] from [AM.pulledby]'s grip!"))
 		log_combat(AM, AM.pulledby, "pulled from", src, important = FALSE)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
@@ -328,7 +340,7 @@
 				sound_to_play = H.dna.species.grab_sound
 			if(HAS_TRAIT(H, TRAIT_STRONG_GRABBER))
 				sound_to_play = null
-		playsound(src.loc, sound_to_play, 50, 1, -1)
+		playsound(src.loc, sound_to_play, 50, TRUE, -1)
 	update_pull_hud_icon()
 
 	if(ismob(AM))
@@ -434,6 +446,7 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
+	animate_interact(pulling, INTERACT_UNPULL)
 	if(ismob(pulling))
 		reset_pull_offsets(pulling)
 	..()
@@ -465,7 +478,7 @@
 		return
 
 	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
-	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	adjustOxyLoss(health - death_threshold)
 	updatehealth()
 	if(!whispered)
 		to_chat(src, span_notice("You have given up life and succumbed to death."))
@@ -547,6 +560,25 @@
 
 
 /mob/proc/get_contents()
+	return
+
+
+/**
+ * Gets ID card from a mob.
+ * Argument:
+ * * hand_first - boolean that checks the hands of the mob first if TRUE.
+ */
+/mob/living/proc/get_idcard(hand_first)
+	if(!length(held_items)) //Early return for mobs without hands.
+		return
+	//Check hands
+	var/obj/item/held_item = get_active_held_item()
+	if(held_item) //Check active hand
+		. = held_item.GetID()
+	if(!.) //If there is no id, check the other hand
+		held_item = get_inactive_held_item()
+		if(held_item)
+			. = held_item.GetID()
 
 /**
  * Returns the access list for this mob
@@ -557,12 +589,108 @@
 		return list()
 	return id.GetAccess()
 
+/mob/living/proc/get_bank_account()
+	RETURN_TYPE(/datum/bank_account)
+	var/obj/item/card/id/id_card = get_idcard()
+	return id_card?.registered_account
+
+/mob/living/proc/get_id_in_hand()
+	var/obj/item/held_item = get_active_held_item()
+	if(!held_item)
+		return
+	return held_item.GetID()
+
+/**
+ * Used to fetch all the cash a vendor can access from the mob
+ * See /mob/living/proc/get_cash_list() proc for the list of items and inventory slots it searches through
+ */
+/mob/living/proc/get_accessible_cash(list/cash_list = null)
+	var/available_cash = 0
+	if(!cash_list)
+		cash_list = get_cash_list()
+	if(!length(cash_list))
+		return 0
+	for(var/found_item in cash_list)
+		if(istype(found_item, /obj/item/holochip))
+			var/obj/item/holochip/chip_stack = found_item
+			available_cash += chip_stack.credits
+		if(istype(found_item, /obj/item/card/id))
+			var/obj/item/card/id/id_card = found_item
+			available_cash += id_card.registered_account.account_balance
+	return available_cash
+
+/**
+ * Used by vendors to see if the mob can spend a certain amount of cash.
+ * Returns FALSE if they cannot, TRUE if they can and withdraws the cash.
+ * Arguments:
+ * * to_spend = how much cash needs to be deducted
+ */
+/mob/living/proc/spend_cash(to_spend)
+	if(!to_spend)
+		return FALSE
+	var/list/cash_list = get_cash_list()
+	if(!length(cash_list)) //We have no accessible cash items, early return
+		return FALSE
+	if(to_spend > get_accessible_cash(cash_list)) //If we don't have enough money, early return
+		return FALSE
+	for(var/obj/item/holochip/chip_stack in cash_list)//Loops are separate because we prioritize taking cash from holochips first, then ID cards
+		if(chip_stack.credits >= to_spend)
+			chip_stack.spend(to_spend, TRUE)
+			return TRUE
+		else
+			var/temp_value_holder = to_spend
+			to_spend -= chip_stack.credits
+			chip_stack.spend(temp_value_holder, TRUE)
+	for(var/obj/item/card/id/id_card in cash_list)
+		var/temp_cash_holder = id_card.registered_account.account_balance
+		if(temp_cash_holder >= to_spend)
+			id_card.registered_account.adjust_money(-to_spend)
+			return TRUE
+		else
+			id_card.registered_account.adjust_money(-to_spend)
+			to_spend -= temp_cash_holder
+	return FALSE
+
+/**
+ * Used to find which 'cash holding items' the mob has that are accessible by a vendor.
+ * Searches through both hands by default. Looks inside of wallets and PDAs.
+ * Returns a list consisting of IDs and chip stacks.
+ */
+/mob/living/proc/get_cash_list(list/search_through = null)
+	var/list/found_list = list()
+	if(!search_through)
+		search_through = list(get_active_held_item(), get_inactive_held_item())
+	for(var/obj/item/found_item in search_through)
+		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
+			var/obj/item/modular_computer/found_PDA = found_item
+			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
+			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
+			if(!found_item) //Empty ID slot, skip it
+				continue
+
+		// we store detected cards and holochips into the returning list
+		if(istype(found_item, /obj/item/card/id))
+			var/obj/item/card/id/found_id = found_item
+			if(found_id?.registered_account)
+				found_list += found_id
+		else if(istype(found_item, /obj/item/holochip))
+			var/obj/item/holochip/found_chip = found_item
+			if(found_chip.credits > 0)
+				found_list += found_chip
+		else if(istype(found_item, /obj/item/storage/wallet)) // if it's a wallet, find other cards and holochips recursively through this proc.
+			var/obj/item/storage/wallet/found_wallet = found_item
+			if(length(found_wallet.contents))
+				found_list += get_cash_list(found_wallet.contents)
+	if(length(found_list))
+		return found_list
+	else
+		return null
+
 /mob/living/proc/toggle_resting()
 	set name = "Rest"
 	set category = "IC"
 
 	set_resting(!resting, FALSE)
-
 
 ///Proc to hook behavior to the change of value in the resting variable.
 /mob/living/proc/set_resting(new_resting, silent = TRUE, instant = FALSE)
@@ -707,7 +835,6 @@
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
-	staminaloss = getStaminaLoss()
 	update_stat()
 	med_hud_set_health()
 	med_hud_set_status()
@@ -861,8 +988,6 @@
 		setBruteLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_BURN)
 		setFireLoss(0, updating_health = FALSE, forced = TRUE)
-	if(heal_flags & HEAL_STAM)
-		setStaminaLoss(0, updating_stamina = FALSE, forced = TRUE)
 
 	// I don't really care to keep this under a flag
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -886,6 +1011,9 @@
 		suiciding = FALSE
 
 	updatehealth()
+	//After updatehealth, so leaving softcrit has already raised our maximum
+	if(heal_flags & HEAL_STAM)
+		stamina.adjust(INFINITY)
 	stop_sound_channel(CHANNEL_HEARTBEAT)
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, heal_flags)
 
@@ -911,7 +1039,7 @@
 /// Checks if we are actually able to ressuscitate this mob.
 /// (We don't want to revive then to have them instantly die again)
 /mob/living/proc/can_be_revived()
-	if(health <= HEALTH_THRESHOLD_DEAD)
+	if(health <= death_threshold)
 		return FALSE
 	return TRUE
 
@@ -1245,36 +1373,100 @@
 /mob/living/can_hold_items(obj/item/I)
 	return usable_hands && ..()
 
-/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
-	if(!(mobility_flags & MOBILITY_UI) && !floor_okay)
-		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
+/mob/living/can_perform_action(atom/target, action_bitflags)
+	if(!istype(target))
+		CRASH("Missing target arg for can_perform_action")
+
+	if(stat != CONSCIOUS)
+		to_chat(src, span_warning("You are not conscious enough for this action!"))
 		return FALSE
-	if(be_close && !Adjacent(M) && (M.loc != src))
-		if(no_tk)
-			to_chat(src, "<span class='warning'>You are too far away!</span>")
+
+	if(!(target.interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
+		var/ignore_flags = NONE
+		if(target.interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
+			ignore_flags |= INCAPABLE_RESTRAINTS
+		if(!(target.interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
+			ignore_flags |= INCAPABLE_GRAB
+
+		if(INCAPACITATED_IGNORING(src, ignore_flags))
+			to_chat(src, span_warning("You are incapacitated at the moment!"))
 			return FALSE
-		var/datum/dna/D = has_dna()
-		if(!D || !D.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, M))
-			to_chat(src, "<span class='warning'>You are too far away!</span>")
+
+	// If the MOBILITY_UI bitflag is not set it indicates the mob's hands are cutoff, blocked, or handcuffed
+	// Note - AI's and borgs have the MOBILITY_UI bitflag set even though they don't have hands
+	// Also if it is not set, the mob could be incapcitated, knocked out, unconscious, asleep, EMP'd, etc.
+	if(!(mobility_flags & MOBILITY_UI) && !(action_bitflags & ALLOW_RESTING))
+		to_chat(src, span_warning("You don't have the mobility for this!"))
+		return FALSE
+
+	// NEED_HANDS is already checked by MOBILITY_UI for humans so this is for silicons
+	if((action_bitflags & NEED_HANDS))
+		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+			to_chat(src, span_warning("You hands are blocked for this action!"))
 			return FALSE
-	if(need_hands && !can_hold_items(isitem(M) ? M : null)) //almost redundant if it weren't for mobs,
-		to_chat(src, "<span class='warning'>You don't have the physical ability to do this!</span>")
+		if(!can_hold_items(isitem(target) ? target : null)) // almost redundant if it weren't for mobs
+			to_chat(src, span_warning("You don't have the hands for this action!"))
+			return FALSE
+
+	if(!(action_bitflags & ALLOW_PAI) && ispAI(src))
+		to_chat(src, span_warning("Your holochasis does not allow you to do this!"))
 		return FALSE
-	if(!no_dexterity && !ISADVANCEDTOOLUSER(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+
+	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !recursive_loc_check(src, target)) && !target.IsReachableBy(src))
+		if(issilicon(src) && !ispAI(src))
+			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+		else // just a normal carbon mob
+			if((action_bitflags & FORBID_TELEKINESIS_REACH))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+			var/datum/dna/mob_DNA = has_dna()
+			if(!mob_DNA || !mob_DNA.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, target))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+	if((action_bitflags & NEED_VENTCRAWL) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS))
+		to_chat(src, span_warning("You wouldn't fit!"))
 		return FALSE
+
+	if((action_bitflags & NEED_DEXTERITY) && !ISADVANCEDTOOLUSER(src))
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_LITERACY) && !is_literate())
+		to_chat(src, span_warning("You can't comprehend any of this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_LIGHT) && !has_light_nearby() && !has_nightvision())
+		to_chat(src, span_warning("You need more light to do this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_GRAVITY) && !has_gravity())
+		to_chat(src, span_warning("You need gravity to do this!"))
+		return FALSE
+
 	return TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !ISADVANCEDTOOLUSER(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
 		return FALSE
 	return TRUE
 
-/mob/living/proc/update_stamina()
+///Called by [process()][/datum/stamina_container/proc/process]
+/mob/living/proc/on_stamina_update()
 	return
 
-/mob/living/carbon/alien/update_stamina()
+///Called by [adjust()][/datum/stamina_container/proc/adjust] when stamina goes down. Not called on regen ticks.
+/mob/living/proc/on_stamina_loss()
+	return
+
+/mob/living/carbon/alien/on_stamina_update()
 	return
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
@@ -1360,7 +1552,7 @@
 				/mob/living/simple_animal/hostile/mushroom,
 				/mob/living/simple_animal/hostile/statue,
 				/mob/living/simple_animal/hostile/retaliate/bat,
-				/mob/living/simple_animal/hostile/retaliate/goat,
+				/mob/living/basic/goat,
 				/mob/living/simple_animal/hostile/killertomato,
 				/mob/living/simple_animal/hostile/poison/giant_spider,
 				/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
@@ -1378,17 +1570,17 @@
 				/mob/living/simple_animal/hostile/gorilla,
 				/mob/living/simple_animal/parrot,
 				/mob/living/basic/pet/dog/corgi,
-				/mob/living/simple_animal/crab,
+				/mob/living/basic/crab,
 				/mob/living/basic/pet/dog/pug,
 				/mob/living/basic/pet/cat,
 				/mob/living/basic/mouse,
-				/mob/living/simple_animal/chicken,
+				/mob/living/basic/chicken,
 				/mob/living/basic/cow,
-				/mob/living/simple_animal/hostile/lizard,
-				/mob/living/simple_animal/pet/fox,
-				/mob/living/simple_animal/butterfly,
+				/mob/living/basic/lizard,
+				/mob/living/basic/pet/fox,
+				/mob/living/basic/butterfly,
 				/mob/living/basic/pet/cat/cak,
-				/mob/living/simple_animal/chick,
+				/mob/living/basic/chick,
 				/mob/living/simple_animal/slime/random,
 				/mob/living/carbon/monkey,
 				/mob/living/carbon/alien/humanoid/hunter,
@@ -1665,16 +1857,16 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		return
 
 	if(. <= UNCONSCIOUS || new_stat >= UNCONSCIOUS)
-		update_body() // to update eyes
+		update_eyes()
 
 	switch(.) //Previous stat.
 		if(CONSCIOUS)
 			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
 			add_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), STAT_TRAIT)
 		if(SOFT_CRIT)
 			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
+				add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
 			if(pulledby)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 		if(UNCONSCIOUS)
@@ -1686,32 +1878,37 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		if(DEAD)
 			remove_from_dead_mob_list()
 			add_to_alive_mob_list()
+
 	switch(stat) //Current stat.
 		if(CONSCIOUS)
 			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED, TRAIT_CRITICAL_CONDITION), STAT_TRAIT)
+				remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
+			remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED, TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 		if(SOFT_CRIT)
+			add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			if(pulledby)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
 			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+				remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
 		if(UNCONSCIOUS)
 			if(. != HARD_CRIT)
 				become_blind(UNCONSCIOUS_TRAIT)
-			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-				ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-			else
-				REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			update_unconscious_crit_traits()
 		if(HARD_CRIT)
 			if(. != UNCONSCIOUS)
 				become_blind(UNCONSCIOUS_TRAIT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 		if(DEAD)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			remove_from_alive_mob_list()
 			add_to_dead_mob_list()
+
+///Health can cross the crit threshold while mob is unconscious, so force signal handler
+/mob/living/proc/update_unconscious_crit_traits()
+	if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+		add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
+	else
+		remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
@@ -1809,7 +2006,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	..()
 	update_z(new_z)
 
-/mob/living/MouseDrop_T(atom/dropping, atom/user)
+/mob/living/mouse_drop_receive(atom/dropping, atom/user, params)
 	var/mob/living/U = user
 	if(isliving(dropping))
 		var/mob/living/M = dropping
@@ -1934,7 +2131,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			OXY:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
 			CLONE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
 			BRAIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
-			STAMINA:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[stamina.current]</a>
 		</font>
 	"}
 
@@ -2202,12 +2399,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if (is_grab)
 		return style.grab_act(src, target)
 	if (LAZYACCESS(modifiers, RIGHT_CLICK))
-		return style.disarm_act(src, target)
-	if(combat_mode)
+		. = style.disarm_act(src, target)
+	else if(combat_mode)
 		if (HAS_TRAIT(src, TRAIT_PACIFISM))
 			return FALSE
-		return style.harm_act(src, target)
-	return style.help_act(src, target)
+		. = style.harm_act(src, target)
+	else
+		return style.help_act(src, target)
+	if(. == MARTIAL_ATTACK_SUCCESS)
+		stamina_swing(STAMINA_SWING_COST_UNARMED)
 
 /**
  * Returns an assoc list of assignments and minutes for updating a client's exp time in the databse.
@@ -2570,3 +2770,25 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 /mob/living/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs))
 		return user_buckle_mob(M, user, check_loc = FALSE)
+
+/mob/living/proc/set_unique_name()
+	if(identifier == 0)
+		identifier = rand(1, 999)
+	name = "[name] ([identifier])"
+	real_name = name
+
+///Take away stamina from an attack being thrown.
+/mob/living/proc/stamina_swing(cost as num)
+	return
+
+///Called by the stamina holder, passing the change in stamina to modify.
+/mob/living/proc/pre_stamina_change(diff as num, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
+		return 0
+	return diff
+
+///Whether stamina damage does anything to us. Silicons and xenos are immune. IPCs are snowflakes
+/mob/living/proc/takes_stamina_damage()
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
+		return TRUE
+	return pre_stamina_change(-1) != 0

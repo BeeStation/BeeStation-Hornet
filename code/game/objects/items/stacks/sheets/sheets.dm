@@ -5,13 +5,20 @@
 	righthand_file = 'icons/mob/inhands/misc/sheets_righthand.dmi'
 	icon_state = "sheet-metal_3"
 	full_w_class = WEIGHT_CLASS_NORMAL
+
 	force = 5
 	throwforce = 5
 	max_amount = 50
 	throw_speed = 1
 	throw_range = 3
+	stamina_damage = 42
+	stamina_cost = 23
+	stamina_critical_chance = 10
+
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "smashes")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "smash")
+	pickup_sound = 'sound/items/handling/materials/metal_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/metal_drop.ogg'
 	novariants = FALSE
 	material_flags = MATERIAL_EFFECTS
 	var/sheettype = null //this is used for girders in the creation of walls/false walls

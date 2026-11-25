@@ -230,7 +230,7 @@
 
 
 		var/desc = tgui_input_list(usr, "Select a location to lock in", "Locking Computer", sort_list(L))
-		if(isnull(desc)|| !user.canUseTopic(src, be_close = !issilicon(user)))
+		if(isnull(desc) || !user.can_perform_action(src, ALLOW_SILICON_REACH))
 			return
 		target_ref = WEAKREF(L[desc])
 		var/turf/T = get_turf(L[desc])
@@ -247,7 +247,7 @@
 			return
 
 		var/desc = tgui_input_list(usr, "Select a station to lock in", "Locking Computer", sort_list(L))
-		if(isnull(desc)|| !user.canUseTopic(src, be_close = !issilicon(user)))
+		if(isnull(desc)|| !user.can_perform_action(src, ALLOW_SILICON_REACH))
 			return
 
 		var/obj/machinery/teleport/station/target_station = L[desc]

@@ -89,8 +89,8 @@ SUBSYSTEM_DEF(sound_effects)
 /datum/sound_effect/proc/send_sound()
 	for(var/receiver in listeners)
 		if(has_custom_channel)
-			astype(receiver, /mob)?.client?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
-			astype(receiver, /client)?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
+			astype(receiver, /mob)?.client?.sound_channel_initial_volumes[sound.channel] = sound.volume
+			astype(receiver, /client)?.sound_channel_initial_volumes[sound.channel] = sound.volume
 
 		var/previous_volume = sound.volume
 		if(ispath(volume_preference))
@@ -151,8 +151,8 @@ SUBSYSTEM_DEF(sound_effects)
 
 	for(var/receiver in listeners)
 		if(has_custom_channel)
-			astype(receiver, /mob)?.client?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
-			astype(receiver, /client)?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
+			astype(receiver, /mob)?.client?.sound_channel_initial_volumes[sound.channel] = sound.volume
+			astype(receiver, /client)?.sound_channel_initial_volumes[sound.channel] = sound.volume
 
 		var/previous_volume = sound.volume
 		if(ispath(volume_preference))

@@ -288,6 +288,17 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/centcom/syndicate_mothership/control)
+"aaN" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/vomit/old{
+	pixel_x = -5;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron,
+/area/centcom/syndicate_mothership/control)
 "aaO" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -519,6 +530,14 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/control)
+"abu" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "abv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/railing{
@@ -5163,6 +5182,14 @@
 "anB" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/central_command_areas/ferry)
+"anC" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/centcom/central_command_areas/ferry)
@@ -11165,6 +11192,11 @@
 "aDR" = (
 /turf/open/floor/iron/white,
 /area/centcom/wizard_station)
+"aDS" = (
+/obj/structure/mirror/directional/north,
+/obj/structure/sink/directional/south,
+/turf/open/floor/iron/white,
+/area/centcom/wizard_station)
 "aDT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -12195,6 +12227,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/central_command_areas/evacuation/ship)
+"aHb" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "aHc" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/blue{
@@ -12233,6 +12273,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ctf)
+"aHh" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "aHj" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -12270,6 +12318,11 @@
 	},
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/holding)
+"aHn" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "aHo" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 6
@@ -12349,6 +12402,11 @@
 /obj/effect/turf_decal/tile/dark_blue,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
+"aHx" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "aHy" = (
 /obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -12365,6 +12423,14 @@
 /obj/structure/barricade/security/ctf,
 /turf/open/floor/circuit,
 /area/centcom/ctf)
+"aHA" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "aHB" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -12385,6 +12451,18 @@
 	dir = 4
 	},
 /area/centcom/tdome/administration)
+"aHE" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
+"aHF" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "aHG" = (
 /obj/item/food/egg/rainbow{
 	desc = "I bet you think you're pretty clever... well you are.";
@@ -17147,6 +17225,11 @@
 	dir = 4
 	},
 /area/centcom/central_command_areas/control)
+"aTK" = (
+/obj/structure/table/wood/bar,
+/obj/structure/mirror/directional/north,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/holding)
 "aTL" = (
 /obj/structure/sign/warning/secure_area,
 /obj/item/clothing/accessory/lawyers_badge,
@@ -19400,6 +19483,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
+"aZG" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/evacuation/ship)
 "aZH" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -19576,6 +19666,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/observation)
+"biL" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light,
+/turf/open/floor/iron/edge{
+	dir = 4
+	},
+/area/centcom/central_command_areas/control)
 "bjA" = (
 /obj/effect/turf_decal/weather/dirt/corner{
 	dir = 1
@@ -19588,6 +19688,15 @@
 	dir = 1
 	},
 /area/centcom/syndicate_mothership/control)
+"bwJ" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/corner{
+	dir = 1
+	},
+/area/centcom/tdome/observation)
 "bxh" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/kinesis/plus,
@@ -19613,6 +19722,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/tech,
 /area/centcom/syndicate_mothership/control)
+"bBr" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
+/area/centcom/tdome/observation)
 "bGL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -19625,14 +19746,6 @@
 /obj/item/mod/core/infinite,
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/control)
-"bKu" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/central_command_areas/ferry)
 "bKF" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 5
@@ -19673,14 +19786,6 @@
 "caB" = (
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
-"caW" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror/directional/west,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "ceF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -19695,14 +19800,6 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
-"cpi" = (
-/obj/structure/filingcabinet{
-	pixel_x = 9
-	},
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/evacuation/ship)
 "cpV" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/small,
@@ -19714,6 +19811,20 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/carpet/black,
 /area/centcom/central_command_areas/holding)
+"cuk" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/ferry)
+"cwa" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron,
+/area/centcom/syndicate_mothership/control)
 "cEy" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -19800,10 +19911,6 @@
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/centcom/central_command_areas/evacuation/ship)
-"cZO" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/ferry)
 "dcV" = (
 /obj/structure/curtain,
 /obj/machinery/shower{
@@ -19845,6 +19952,15 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"dqs" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/corner{
+	dir = 4
+	},
+/area/centcom/tdome/observation)
 "drb" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -19904,6 +20020,17 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"dHq" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusblue,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/obj/structure/mirror/magic/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/engine/cult,
+/area/centcom/wizard_station)
 "dNo" = (
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade,
 /obj/structure/table/reinforced{
@@ -19937,6 +20064,13 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/control)
+"dXi" = (
+/obj/effect/turf_decal/tile/red/half,
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/edge{
+	dir = 4
+	},
+/area/centcom/central_command_areas/control)
 "dXB" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -19948,11 +20082,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
-"dYP" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "dZf" = (
 /obj/structure/fluff/iced_abductor,
 /turf/open/floor/grass/snow,
@@ -19977,42 +20106,19 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
+"ehX" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/control)
 "ejH" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
-"ele" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/monotile/dark,
-/area/centcom/syndicate_mothership/control)
-"eoj" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror/directional/west,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
-"epX" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/red/anticorner{
-	dir = 8
-	},
-/turf/open/floor/iron/corner{
-	dir = 4
-	},
-/area/centcom/central_command_areas/control)
-"eDl" = (
-/obj/structure/railing,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/large,
-/area/centcom/central_command_areas/supply)
 "eDv" = (
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
@@ -20046,15 +20152,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
-"eMn" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner{
-	dir = 1
-	},
-/area/centcom/tdome/observation)
 "eOy" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt,
@@ -20121,14 +20218,6 @@
 /obj/structure/flora/tree/pine/xmas,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
-"fpu" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "fqd" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
@@ -20144,12 +20233,6 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/centcom/syndicate_mothership/control)
-"fsN" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "ftr" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -20179,25 +20262,11 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
-"fEI" = (
-/obj/machinery/status_display/ai{
-	pixel_y = 32
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/ferry)
-"fFv" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/iron/dark/textured_large,
-/area/centcom/central_command_areas/evacuation/ship)
+"fBT" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/mob/living/basic/chicken,
+/turf/open/floor/grass,
+/area/centcom/central_command_areas/holding)
 "fGm" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -20217,6 +20286,11 @@
 "fOj" = (
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/control)
+"fOy" = (
+/obj/structure/railing,
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/large,
+/area/centcom/central_command_areas/supply)
 "fQJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -20249,15 +20323,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/control)
-"gcq" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_edge{
-	dir = 4
-	},
-/area/centcom/central_command_areas/ferry)
 "geF" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -20318,6 +20383,15 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
+"gxw" = (
+/obj/effect/turf_decal/tile/green/half{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
+/area/centcom/central_command_areas/control)
 "gxW" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
@@ -20330,6 +20404,13 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
+"gHu" = (
+/obj/machinery/status_display/ai{
+	pixel_y = 32
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/ferry)
 "gKc" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -20348,13 +20429,15 @@
 	},
 /turf/open/floor/iron/tech,
 /area/centcom/central_command_areas/ferry)
-"gRF" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
+"gPX" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 4
+	},
+/turf/open/floor/iron/corner{
+	dir = 8
+	},
+/area/centcom/central_command_areas/control)
 "gRL" = (
 /obj/structure/table/reinforced,
 /obj/item/defibrillator/loaded,
@@ -20370,13 +20453,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"gUn" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/control)
 "gVs" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -20395,6 +20471,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/observation)
+"gWA" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/turf_decal/trimline/neutral/warning,
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark/textured_large,
+/area/centcom/syndicate_mothership/control)
 "hai" = (
 /obj/structure/curtain,
 /obj/machinery/shower{
@@ -20497,15 +20582,6 @@
 /obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/observation)
-"hrZ" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark/smooth_edge{
-	dir = 1
-	},
-/area/centcom/central_command_areas/control)
 "hur" = (
 /obj/structure/flora/ash/leaf_shroom{
 	pixel_x = 11;
@@ -20529,6 +20605,10 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
+"hvM" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/holding)
 "hvT" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/edges/borderfloor{
@@ -20538,15 +20618,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/centcom/tdome/observation)
-"hwV" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner{
-	dir = 8
-	},
 /area/centcom/tdome/observation)
 "hzy" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -20634,18 +20705,6 @@
 	dir = 8
 	},
 /area/centcom/central_command_areas/ferry)
-"hMJ" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/iron/edge{
-	dir = 8
-	},
-/area/centcom/central_command_areas/evacuation/ship)
 "hSl" = (
 /obj/structure/flora/grass/jungle/b{
 	pixel_x = -13;
@@ -20717,11 +20776,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/syndicate_mothership/control)
-"ico" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/chicken,
-/turf/open/floor/grass,
-/area/centcom/central_command_areas/holding)
 "ieM" = (
 /obj/machinery/vending/boozeomat,
 /turf/closed/indestructible/syndicate,
@@ -20784,6 +20838,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
+"itQ" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 1
+	},
+/area/centcom/central_command_areas/supply)
 "ivj" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -20805,13 +20869,6 @@
 	dir = 1
 	},
 /area/centcom/tdome/observation)
-"izk" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/control)
 "iBw" = (
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	dir = 1
@@ -20852,6 +20909,11 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/control)
+"iJY" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "iKv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -20897,15 +20959,6 @@
 	},
 /turf/open/floor/plating/dirt/jungle,
 /area/centcom/syndicate_mothership/control)
-"jbF" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark,
-/obj/effect/turf_decal/trimline/neutral/warning,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark/textured_large,
-/area/centcom/syndicate_mothership/control)
 "jdo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -20932,10 +20985,6 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
-"jhq" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/control)
 "jiK" = (
 /obj/effect/landmark/start/nukeop,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -21010,11 +21059,6 @@
 	dir = 9
 	},
 /area/centcom/syndicate_mothership/control)
-"jKg" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/ferry)
 "jMV" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /obj/effect/decal/cleanable/generic,
@@ -21046,6 +21090,20 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
+"jTU" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/control)
 "jUf" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/antigrav,
@@ -21054,11 +21112,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
-"jYs" = (
-/obj/machinery/plant_machine/plant_analyser,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
 "kbc" = (
 /obj/structure/chair{
 	dir = 1
@@ -21145,6 +21198,18 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
+"kEh" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
+/area/centcom/tdome/observation)
 "kEB" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -21153,17 +21218,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"kGC" = (
-/obj/structure/table/wood,
-/obj/item/clothing/suit/wizrobe/magusblue,
-/obj/item/clothing/head/wizard/magus,
-/obj/item/staff,
-/obj/structure/mirror/directional/north,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/engine/cult,
-/area/centcom/wizard_station)
 "kIh" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -21238,6 +21292,13 @@
 	},
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
+"kMX" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/blue/anticorner,
+/turf/open/floor/iron/corner{
+	dir = 1
+	},
+/area/centcom/central_command_areas/control)
 "kQp" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/teleporter,
@@ -21251,22 +21312,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/observation)
-"kSm" = (
-/obj/item/plant_tray,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
-"kYw" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
+"kZk" = (
+/obj/structure/filingcabinet{
+	pixel_x = 9
 	},
 /obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/control)
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/evacuation/ship)
 "lcz" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -21345,6 +21398,20 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"lpT" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/ferry)
+"ltF" = (
+/obj/item/plant_tray/pot/random,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/evacuation/ship)
 "lun" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -21361,11 +21428,19 @@
 /obj/structure/flora/tree/dead,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
-"lBj" = (
+"lCf" = (
+/obj/effect/turf_decal/tile/neutral,
 /obj/item/plant_tray/pot/random,
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/iron/dark/textured,
-/area/centcom/central_command_areas/evacuation/ship)
+/turf/open/floor/iron/corner,
+/area/centcom/tdome/observation)
+"lCl" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/control)
 "lCF" = (
 /mob/living/simple_animal/bot/medbot/nukie{
 	name = "\improper Hijikata";
@@ -21374,21 +21449,10 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
-"lDR" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "lEi" = (
 /obj/structure/flora/rock/jungle,
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
-"lFt" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror/directional/west,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "lHP" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -21460,15 +21524,6 @@
 	},
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
-"mbR" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/iron/dark/textured_large,
-/area/centcom/central_command_areas/evacuation/ship)
 "mlH" = (
 /obj/structure/barricade/wooden/snowed,
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
@@ -21496,11 +21551,6 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/control)
-"mnV" = (
-/obj/structure/mirror/directional/north,
-/obj/structure/sink/directional/south,
-/turf/open/floor/iron/white,
-/area/centcom/wizard_station)
 "moQ" = (
 /obj/structure/railing/sec{
 	pixel_y = -4
@@ -21552,19 +21602,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/centcom/syndicate_mothership/control)
-"mvg" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror/directional/west,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
-"mvX" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/large,
-/area/centcom/central_command_areas/evacuation/ship)
 "mws" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -21640,6 +21677,15 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/dirt/jungle/dark,
 /area/centcom/syndicate_mothership/control)
+"mNK" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/dark/textured_large,
+/area/centcom/central_command_areas/evacuation/ship)
 "mQj" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/iron,
@@ -21676,13 +21722,6 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
-"ncJ" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/evacuation/ship)
 "nec" = (
 /obj/structure/fluff/fokoff_sign,
 /turf/open/floor/grass/snow,
@@ -21700,14 +21739,13 @@
 	},
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
-"nfU" = (
-/obj/effect/turf_decal/tile/green/half{
-	dir = 4
+"nil" = (
+/obj/structure/railing{
+	dir = 9
 	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/edge{
-	dir = 1
-	},
+/turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
 "nnf" = (
 /obj/effect/turf_decal/trimline/red/warning,
@@ -21755,20 +21793,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"nsY" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/obj/effect/turf_decal/tile/dark_blue{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/control)
 "nyE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -21778,6 +21802,13 @@
 	},
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
+"nzw" = (
+/obj/structure/table,
+/obj/item/plant_seeds/preset/pumpkin,
+/obj/item/paper/guides/jobs/hydroponics,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "nBD" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
@@ -21788,6 +21819,15 @@
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood/big,
 /area/centcom/central_command_areas/evacuation/ship)
+"nIl" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 8
+	},
+/turf/open/floor/iron/corner{
+	dir = 4
+	},
+/area/centcom/central_command_areas/control)
 "nJv" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 5
@@ -21815,6 +21855,25 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
+"nTj" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
+/area/centcom/central_command_areas/evacuation/ship)
+"nUK" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/control)
 "nZA" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -21836,10 +21895,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
-"ois" = (
+"odW" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
 /obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark/textured,
-/area/centcom/central_command_areas/evacuation/ship)
+/turf/open/floor/iron/corner{
+	dir = 8
+	},
+/area/centcom/tdome/observation)
+"ofs" = (
+/obj/effect/turf_decal/tile/red,
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/corner,
+/area/centcom/tdome/observation)
 "oiw" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 5
@@ -21880,11 +21949,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
-"onW" = (
-/obj/machinery/seeder,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
 "opo" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -21945,6 +22009,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"ozy" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/corner{
+	dir = 1
+	},
+/area/centcom/tdome/observation)
 "oCO" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -21984,15 +22057,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"oOa" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner{
-	dir = 8
-	},
-/area/centcom/tdome/observation)
 "oRH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/floor,
@@ -22038,6 +22102,15 @@
 /obj/effect/turf_decal/weather/dirt/corner,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
+"pgM" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/secure_area{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/evacuation/ship)
 "pmF" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/rust,
@@ -22091,14 +22164,18 @@
 /obj/item/stamp/law,
 /turf/open/floor/wood/big,
 /area/centcom/central_command_areas/control)
-"pIQ" = (
-/obj/structure/railing{
-	dir = 9
+"pIy" = (
+/obj/structure/railing/corner{
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/control)
+/obj/effect/turf_decal/weather/dirt/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand,
+/turf/open/floor/pod/light,
+/area/centcom/syndicate_mothership/control)
 "pMa" = (
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium,
@@ -22191,21 +22268,6 @@
 "qje" = (
 /turf/open/space/basic,
 /area/centcom/tdome/observation)
-"qjG" = (
-/obj/effect/turf_decal/tile/red,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner,
-/area/centcom/tdome/observation)
-"qkZ" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark/corner,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark/textured_corner{
-	dir = 8
-	},
-/area/centcom/syndicate_mothership/control)
 "qnw" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shuttledock,
@@ -22216,6 +22278,13 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
+"qry" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/control)
 "qsL" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -22325,6 +22394,14 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
+"qNW" = (
+/obj/item/plant_tray,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "qPl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/kitchenspike_frame,
@@ -22371,21 +22448,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"rau" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner,
-/area/centcom/tdome/observation)
-"rcK" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark/smooth_edge{
-	dir = 1
-	},
-/area/centcom/central_command_areas/supply)
 "rgk" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -22401,11 +22463,41 @@
 /obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /turf/open/floor/iron/smooth_large,
 /area/centcom/central_command_areas/evacuation/ship)
+"rhc" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/ferry)
+"rhG" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/corner{
+	dir = 8
+	},
+/area/centcom/tdome/observation)
+"rjW" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 4
+	},
+/area/centcom/central_command_areas/ferry)
 "rkh" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 8
 	},
+/turf/open/floor/monotile/dark,
+/area/centcom/syndicate_mothership/control)
+"rmp" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
 "rrl" = (
@@ -22426,20 +22518,15 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/holding)
-"ruS" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner{
-	dir = 4
-	},
-/area/centcom/tdome/observation)
 "rvu" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/apocryphal,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
+"rxe" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/evacuation/ship)
 "rxh" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/door/window/eastright{
@@ -22458,32 +22545,19 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/iron/corner,
 /area/centcom/tdome/observation)
+"rAD" = (
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/supply)
 "rDi" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
-"rFh" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/blue/anticorner,
-/turf/open/floor/iron/corner{
-	dir = 1
-	},
-/area/centcom/central_command_areas/control)
-"rFl" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/brown/anticorner{
-	dir = 1
-	},
-/turf/open/floor/iron/corner,
-/area/centcom/central_command_areas/control)
-"rMs" = (
-/obj/structure/table,
-/obj/item/plant_seeds/preset/pumpkin,
-/obj/item/paper/guides/jobs/hydroponics,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
 "rRh" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -22493,13 +22567,6 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
-"rTa" = (
-/obj/effect/turf_decal/tile/red/half,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/edge{
-	dir = 4
-	},
-/area/centcom/central_command_areas/control)
 "rVO" = (
 /obj/structure/chair/office{
 	name = "tactical swivel chair"
@@ -22538,13 +22605,6 @@
 /obj/structure/spacevine,
 /turf/open/floor/plating/dirt/jungle,
 /area/centcom/syndicate_mothership/control)
-"sgz" = (
-/obj/item/plant_tray/pot/random,
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/ferry)
 "shE" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/plating/dirt/jungle,
@@ -22622,6 +22682,13 @@
 	},
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
+"sGR" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/brown/anticorner{
+	dir = 1
+	},
+/turf/open/floor/iron/corner,
+/area/centcom/central_command_areas/control)
 "sIs" = (
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
@@ -22703,6 +22770,15 @@
 	},
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
+"taL" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/corner{
+	dir = 4
+	},
+/area/centcom/tdome/observation)
 "tbW" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -22742,6 +22818,27 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
+"tnF" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/dark/textured_large,
+/area/centcom/central_command_areas/evacuation/ship)
+"tpH" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 1
+	},
+/area/centcom/central_command_areas/control)
 "twU" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/wood,
@@ -22754,13 +22851,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
-"tAM" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/control)
 "tED" = (
 /obj/effect/turf_decal/trimline/dark_red/corner,
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
@@ -22812,19 +22902,6 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/white/textured,
 /area/centcom/central_command_areas/control)
-"tOg" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/monotile/dark,
-/area/centcom/syndicate_mothership/control)
-"tTa" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/red/anticorner{
-	dir = 4
-	},
-/turf/open/floor/iron/corner{
-	dir = 8
-	},
-/area/centcom/central_command_areas/control)
 "tUf" = (
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass/snow,
@@ -22852,23 +22929,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/freezer,
 /area/centcom/syndicate_mothership/control)
-"uau" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
-"uaz" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/structure/railing{
-	dir = 5
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/edge{
-	dir = 1
-	},
-/area/centcom/tdome/observation)
 "ubX" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -22920,6 +22980,24 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
+"ufZ" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/plant_tray/pot/random,
+/obj/machinery/vending/cola/black{
+	pixel_x = 6
+	},
+/turf/open/floor/monotile/dark,
+/area/centcom/syndicate_mothership/control)
+"umK" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light_switch{
+	pixel_y = -24
+	},
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/ferry)
 "uqg" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -22935,11 +23013,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
-"uuW" = (
-/obj/structure/table/wood/bar,
-/obj/structure/mirror/directional/north,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/holding)
 "uwm" = (
 /obj/structure/sign/poster/contraband/syndicate{
 	pixel_y = 32
@@ -22948,13 +23021,6 @@
 	dir = 8
 	},
 /area/centcom/syndicate_mothership/control)
-"uwv" = (
-/obj/item/plant_tray/pot/random,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/ferry)
 "uzL" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
@@ -22990,14 +23056,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
-"uFb" = (
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/supply)
 "uIy" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anti_magic,
@@ -23012,6 +23070,12 @@
 /obj/item/pen,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/evacuation/ship)
+"uNp" = (
+/obj/structure/table/wood/bar,
+/obj/structure/safe/floor,
+/obj/item/plant_seeds/preset/cherry_bomb,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/holding)
 "uPS" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -23019,15 +23083,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
-"uSc" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner{
-	dir = 4
-	},
-/area/centcom/tdome/observation)
 "vcG" = (
 /obj/structure/closet/cardboard,
 /obj/effect/turf_decal/trimline/neutral/warning,
@@ -23058,25 +23113,11 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
-"vkX" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
+"vnZ" = (
 /obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/corner{
-	dir = 1
-	},
-/area/centcom/tdome/observation)
-"vmN" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/item/plant_tray/pot/random,
-/obj/machinery/light,
-/turf/open/floor/iron/edge{
-	dir = 4
-	},
-/area/centcom/central_command_areas/control)
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/large,
+/area/centcom/central_command_areas/evacuation/ship)
 "vpH" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -23108,10 +23149,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/centcom/tdome/observation)
-"vvl" = (
+"vwg" = (
 /obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/holding)
+/turf/open/floor/monotile/dark,
+/area/centcom/syndicate_mothership/control)
 "vCt" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -23122,16 +23163,6 @@
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"vEn" = (
-/obj/item/plant_tray/pot/random,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/evacuation/ship)
 "vFy" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -23203,20 +23234,6 @@
 /obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
-"wqa" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/control)
 "wqJ" = (
 /obj/structure/table/reinforced,
 /obj/item/radio{
@@ -23256,36 +23273,35 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
-"wwg" = (
+"wty" = (
 /obj/item/plant_tray/pot/random,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/secure_area{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
+/obj/machinery/airalarm/directional/west,
+/turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/evacuation/ship)
-"wzU" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/ferry)
-"wCq" = (
-/obj/structure/railing/corner{
-	dir = 8
+"wxi" = (
+/obj/machinery/light{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/weather/dirt/corner{
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/dark_blue{
 	dir = 1
 	},
-/obj/effect/turf_decal/sand,
-/turf/open/floor/pod/light,
-/area/centcom/syndicate_mothership/control)
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/control)
 "wGA" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/skin_applier/honkerative,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
+"wIC" = (
+/obj/machinery/seeder,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "wMh" = (
 /obj/structure/railing{
 	dir = 4
@@ -23309,17 +23325,6 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/dirt/jungle/dark,
 /area/centcom/syndicate_mothership/control)
-"wOQ" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/plant_tray/pot/random,
-/obj/machinery/vending/cola/black{
-	pixel_x = 6
-	},
-/turf/open/floor/monotile/dark,
-/area/centcom/syndicate_mothership/control)
 "wRb" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -23332,6 +23337,16 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
+"wVr" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/dark/corner,
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark/textured_corner{
+	dir = 8
+	},
+/area/centcom/syndicate_mothership/control)
 "wZy" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -23354,22 +23369,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"xeb" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/control)
 "xho" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"xhO" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/decal/cleanable/vomit/old{
-	pixel_x = -5;
-	pixel_y = -3
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
+"xhq" = (
+/obj/machinery/plant_machine/plant_analyser,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "xlg" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -23400,6 +23413,11 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
+"xvZ" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/ferry)
 "xxh" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 5
@@ -23452,12 +23470,6 @@
 /obj/item/mod/control/pre_equipped/corporate,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
-"xKH" = (
-/obj/structure/table/wood/bar,
-/obj/structure/safe/floor,
-/obj/item/plant_seeds/preset/cherry_bomb,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/holding)
 "xLM" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -23520,18 +23532,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/centcom/tdome/observation)
-"ykW" = (
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/obj/structure/railing{
-	dir = 9
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/edge{
-	dir = 1
-	},
 /area/centcom/tdome/observation)
 "ylz" = (
 /obj/structure/table/reinforced,
@@ -30937,7 +30937,7 @@ awc
 aqE
 aqE
 aqE
-kGC
+dHq
 aqZ
 aqZ
 aqZ
@@ -31718,7 +31718,7 @@ aqZ
 aqZ
 aqZ
 aqE
-mnV
+aDS
 aEf
 aEo
 aqE
@@ -34490,7 +34490,7 @@ amK
 aOL
 aVb
 qac
-ele
+rmp
 acb
 apg
 amM
@@ -36033,7 +36033,7 @@ aWW
 aht
 anm
 qac
-tOg
+vwg
 amP
 aKJ
 qac
@@ -37061,7 +37061,7 @@ auv
 aUj
 acR
 qbp
-wOQ
+ufZ
 aFw
 aEF
 aku
@@ -40401,7 +40401,7 @@ aby
 aku
 aku
 aku
-jbF
+gWA
 aPn
 aer
 qac
@@ -42714,7 +42714,7 @@ aku
 aku
 aku
 aXY
-qkZ
+wVr
 aQC
 akW
 aku
@@ -43481,8 +43481,8 @@ aku
 vZn
 lNE
 coL
-gRF
-xhO
+cwa
+aaN
 aMn
 aku
 aig
@@ -44258,7 +44258,7 @@ aha
 atl
 awk
 aSa
-wCq
+pIy
 avZ
 aKy
 arY
@@ -47904,13 +47904,13 @@ aaa
 aaa
 aRk
 aNd
-uau
-uau
-uau
-kSm
-uau
-uau
-uau
+iJY
+iJY
+iJY
+qNW
+iJY
+iJY
+iJY
 aNd
 aQI
 aVA
@@ -48181,7 +48181,7 @@ aXk
 aXk
 aTn
 aNT
-vvl
+hvM
 aXk
 aXk
 aNT
@@ -48932,9 +48932,9 @@ aaa
 aaa
 aRk
 aNd
-jYs
-rMs
-onW
+xhq
+nzw
+wIC
 aaT
 aXl
 acp
@@ -49209,7 +49209,7 @@ aXk
 aXk
 aTn
 aNT
-vvl
+hvM
 aXk
 aXk
 aNT
@@ -49706,7 +49706,7 @@ aNd
 aTq
 aXk
 rxh
-ico
+fBT
 aNd
 azZ
 aFh
@@ -50731,7 +50731,7 @@ aaa
 aaa
 aRk
 aNd
-xKH
+uNp
 aXk
 aYo
 aXk
@@ -51245,7 +51245,7 @@ aaa
 aaa
 aRk
 aNd
-uuW
+aTK
 aXk
 aXk
 aXk
@@ -56664,7 +56664,7 @@ aom
 aIi
 arZ
 ami
-lBj
+wty
 aKI
 aKI
 aKI
@@ -56925,7 +56925,7 @@ aTM
 aKI
 avo
 aKI
-wwg
+pgM
 aIo
 aIo
 aTW
@@ -56937,14 +56937,14 @@ aHd
 aHd
 aHd
 cYd
-mbR
+mNK
 aHa
 aoS
 aGQ
 auG
 agS
 aLo
-fFv
+tnF
 aFY
 agS
 aVa
@@ -57692,7 +57692,7 @@ aKs
 aSk
 aPY
 amq
-ois
+rxe
 aKI
 aKI
 aKI
@@ -58205,7 +58205,7 @@ aLs
 aKI
 aCq
 aVB
-cpi
+kZk
 aKI
 aaa
 aaa
@@ -59981,7 +59981,7 @@ amD
 aOS
 aSn
 aWu
-gcq
+rjW
 aZC
 aNQ
 aOS
@@ -60489,7 +60489,7 @@ amD
 aqR
 amD
 aww
-jKg
+xvZ
 awz
 aqR
 aeV
@@ -60733,7 +60733,7 @@ aaa
 aaa
 aaa
 amD
-fEI
+gHu
 aHM
 aDw
 aoB
@@ -61251,13 +61251,13 @@ aLt
 aYO
 aza
 apJ
-sgz
+umK
 amD
 aru
 apJ
 aoB
 aoB
-wzU
+rhc
 anT
 awx
 aLj
@@ -61510,7 +61510,7 @@ aoF
 apK
 aqf
 anU
-uwv
+cuk
 asz
 aur
 aur
@@ -61759,7 +61759,7 @@ aaa
 aaa
 amD
 oxo
-bKu
+anC
 amD
 aRX
 aDs
@@ -62311,12 +62311,12 @@ aGb
 xzB
 aEp
 aVq
-caW
-lFt
-mvg
-eoj
+aHb
+aHn
+aHA
+abu
 aEp
-rau
+lCf
 aIh
 fGm
 aIx
@@ -62549,11 +62549,11 @@ aLj
 acd
 aqR
 aDx
-cZO
+lpT
 azA
 abj
 azA
-cZO
+lpT
 aNl
 amD
 kQp
@@ -63306,7 +63306,7 @@ amD
 ahm
 adc
 aRb
-wzU
+rhc
 adp
 anT
 arB
@@ -63335,7 +63335,7 @@ fOj
 fYY
 gWk
 cQw
-qjG
+ofs
 aTX
 aGv
 aGn
@@ -63602,7 +63602,7 @@ aVD
 adP
 aVD
 adP
-eMn
+bwJ
 hDc
 aIA
 aIT
@@ -64344,7 +64344,7 @@ amD
 ava
 aoe
 awB
-jKg
+xvZ
 axS
 amD
 azj
@@ -64836,7 +64836,7 @@ ajp
 aTO
 aoQ
 ahL
-eDl
+fOy
 afl
 aci
 ajE
@@ -65135,7 +65135,7 @@ lgn
 aVD
 adP
 aVD
-vkX
+ozy
 aEp
 aFq
 aGc
@@ -65363,11 +65363,11 @@ aou
 aVe
 ahJ
 aFk
-rcK
+itQ
 aiF
 aiX
 aiF
-rFl
+sGR
 aAr
 amR
 ays
@@ -65377,7 +65377,7 @@ aZf
 ays
 amR
 azF
-epX
+nIl
 atP
 aiu
 aio
@@ -65614,7 +65614,7 @@ aiX
 ana
 aOO
 ahJ
-uFb
+rAD
 aiF
 aov
 aoO
@@ -66163,7 +66163,7 @@ aEN
 aEv
 xrg
 acL
-uaz
+bBr
 aEp
 aRA
 awR
@@ -66640,7 +66640,7 @@ aaa
 aio
 alM
 amk
-nfU
+gxw
 ast
 aej
 aqu
@@ -66667,7 +66667,7 @@ aiu
 aBE
 amk
 aCJ
-pIQ
+nil
 aSu
 aSu
 aDV
@@ -67154,7 +67154,7 @@ aaa
 aio
 alM
 aiu
-nfU
+gxw
 ast
 aLB
 aJJ
@@ -67672,7 +67672,7 @@ aLn
 abN
 aMl
 aFn
-rTa
+dXi
 aFn
 aMl
 abN
@@ -67705,7 +67705,7 @@ aEN
 aEv
 spF
 ark
-ykW
+kEh
 aEp
 aXP
 awR
@@ -68451,7 +68451,7 @@ aio
 aio
 aGt
 aio
-tTa
+gPX
 aFn
 amR
 ayy
@@ -68461,7 +68461,7 @@ aSc
 ayy
 amR
 avQ
-rFh
+kMX
 aAT
 aiu
 aio
@@ -68733,7 +68733,7 @@ rAA
 aMW
 aWk
 aMW
-uSc
+taL
 aEp
 agy
 aal
@@ -69742,7 +69742,7 @@ avc
 ahC
 aTw
 aTw
-vmN
+biL
 avc
 gRL
 ajd
@@ -69991,7 +69991,7 @@ ajG
 aiu
 aqv
 aiu
-hrZ
+tpH
 agI
 aBr
 aei
@@ -70284,7 +70284,7 @@ aMW
 aWk
 aMW
 aWk
-ruS
+dqs
 hDc
 aIN
 aJc
@@ -70531,7 +70531,7 @@ aEp
 sIs
 aXQ
 aEp
-oOa
+odW
 aFM
 aGv
 aeP
@@ -71270,7 +71270,7 @@ acX
 abe
 aUK
 akl
-jhq
+xeb
 akl
 aLp
 aio
@@ -71563,12 +71563,12 @@ aFS
 aFS
 aEp
 agF
-fpu
-dYP
-fsN
-lDR
+aHh
+aHx
+aHF
+aHE
 aEp
-hwV
+rhG
 aIr
 fGm
 aAU
@@ -71778,7 +71778,7 @@ aAa
 akl
 abt
 akl
-kYw
+lCl
 aio
 aWo
 aiA
@@ -72049,17 +72049,17 @@ aqy
 aqz
 aqx
 asN
-hMJ
+nTj
 auA
 auA
 avV
 awK
-ncJ
+aZG
 awK
 avV
 auA
 auA
-hMJ
+nTj
 aAV
 aqx
 aqz
@@ -73326,7 +73326,7 @@ aiu
 aiu
 aim
 aXq
-izk
+qry
 ayc
 ads
 aio
@@ -73349,7 +73349,7 @@ aAZ
 aqx
 avy
 aeD
-vEn
+ltF
 aan
 aYn
 aOP
@@ -73575,7 +73575,7 @@ aio
 aYS
 aQP
 ate
-wqa
+jTU
 akl
 akl
 akl
@@ -73859,7 +73859,7 @@ ayB
 aBd
 atT
 aAt
-mvX
+vnZ
 uKE
 aSl
 avO
@@ -74343,7 +74343,7 @@ aaa
 aaa
 aaa
 ain
-tAM
+ehX
 aQP
 aVd
 aFm
@@ -75117,7 +75117,7 @@ aio
 aYS
 aQP
 art
-nsY
+wxi
 akl
 akl
 akl
@@ -75382,7 +75382,7 @@ aaq
 aOM
 aim
 aAS
-gUn
+nUK
 azs
 aaU
 aio

@@ -13,12 +13,8 @@
 	..()
 	to_chat(user, span_notice("Energy rushes through us.[(user.body_position == LYING_DOWN) ? " We arise." : ""]"))
 	user.SetSleeping(0)
-	user.SetUnconscious(0)
-	user.SetStun(0)
-	user.SetKnockdown(0)
-	user.SetImmobilized(0)
-	user.SetParalyzed(0)
+	user.SetAllImmobility(0)
 	user.reagents.add_reagent(/datum/reagent/medicine/changelingadrenaline, 10)
 	user.reagents.add_reagent(/datum/reagent/medicine/changelinghaste, 2) //For a really quick burst of speed
-	user.adjustStaminaLoss(-200)
+	user.stamina.adjust(200)
 	return TRUE

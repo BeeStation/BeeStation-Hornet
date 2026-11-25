@@ -27,7 +27,7 @@
 /obj/item/folder/examine()
 	. = ..()
 	if(length(contents))
-		. += span_notice("Alt-click to remove [contents[1]].")
+		. += span_notice("Right-click to remove [contents[1]].")
 
 /obj/item/folder/proc/rename(mob/user)
 	if(!user.is_literate())
@@ -39,8 +39,9 @@
 	if(!inputvalue)
 		return
 
-	if(user.canUseTopic(src, BE_CLOSE))
+	if(user.can_perform_action(src))
 		name = "folder[(inputvalue ? " - '[inputvalue]'" : null)]"
+		playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 
 /obj/item/folder/proc/remove_item(obj/item/I, mob/user)
 	if(istype(I))
@@ -50,12 +51,11 @@
 		update_icon()
 		ui_update()
 
-/obj/item/folder/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(length(contents))
+/obj/item/folder/attack_hand(mob/user, list/modifiers)
+	if(length(contents) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		remove_item(contents[1], user)
+		return TRUE
+	. = ..()
 
 /obj/item/folder/update_overlays()
 	. = ..()

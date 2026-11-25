@@ -8,7 +8,7 @@
 		ShiftClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK))
-		AltClickNoInteract(src, A)
+		list_turf_contents(A)
 		return
 
 	if(LAZYACCESS(modifiers, CTRL_CLICK))

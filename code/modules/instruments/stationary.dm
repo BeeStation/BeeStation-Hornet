@@ -21,7 +21,7 @@
 		return TRUE
 	if(!user)
 		return FALSE
-	return !user.canUseTopic(src, FALSE, TRUE, FALSE, FALSE)		//can play with TK and while resting because fun.
+	return !user.can_perform_action(src, BYPASS_ADJACENCY)		//can play with TK and while resting because fun.
 
 /obj/structure/musician/ui_interact(mob/user)
 	. = ..()

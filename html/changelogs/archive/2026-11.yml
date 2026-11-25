@@ -166,3 +166,128 @@
     - rscadd: Biosuits and beekeeper suit sprites now altar when worn by digitigrade
         mobs.
     - rscadd: Aprons and overalls sprites now altar when worn by digitigrade mobs.
+2026-11-13:
+  Tsar-Salat:
+  - bugfix: prisoners no longer get skeleton access or are considered in its pop counter
+  mrmanlikesbt:
+  - github: auxtools 3.0 is now included as a recommended VScode extension and a new
+      launch task has been created to use it. It's primary features include hot-reloading.
+      This means that you can make changes to the game's code in real-time without
+      having to recompile the whole project and start a new server.
+2026-11-15:
+  Baherain:
+  - bugfix: Changed addiction tolerance of Morphine from 10u to 25u, to match the
+      wiki page
+  Isaac, BotTierPC:
+  - rscadd: New sliders in the medibot for brute, burn, toxin, suffocation make your
+      own medibot!
+  - rscadd: New UI design for all bots
+  - bugfix: You wont hit a medibot when trying to insert a bag inside
+  Ucksus:
+  - bugfix: fixed Clock component not using Clock divider correctly
+  afonsofpuga-a11y:
+  - bugfix: Fixed your chat being spammed with errors when trying to craft something
+      with cable coils.
+2026-11-17:
+  BotTierPC, Amanitaspooder:
+  - rscadd: Adds A Lantern Varient, The Paper Lantern! This, And Mining Lanterns Are
+      Both Now Buildable In The Misc Tab Of The Crafting Menu!
+  Programs-The-Station:
+  - rscadd: Adds a for-each wiremod component, which will iterate over a list one
+      item at a time.
+2026-11-18:
+  BotTierPC, Racc-Off, BlerpFish, Rkz:
+  - rscadd: Added the Spoon! Can be printed in Autolathes or bought from the Dinnerware
+      Vendor
+  - tweak: 'Expanded the Fork/Omelette Interaction: Forks can now be used on all (non-soup)
+      food items, they''ll pick up a chunk of the food that can then be eaten! Spoons
+      work similarly, but will only function on soup food items!'
+  - tweak: Forks, and Spoons now fit on plates.
+  Tsar-Salat:
+  - bugfix: fix clowncar unable to bump open doors
+  - bugfix: fixes 10+ xenoartifact reactions
+  - bugfix: calcified xenoartifacts say when they calcify
+  - bugfix: shuttles no longer lose power when rotated
+  - bugfix: fixes the spawner menu
+  - bugfix: character ages no longer get shared between charslots
+  - bugfix: non-gygax mechs can deactivate overclocking
+  - bugfix: fixed cargo crate export values being 1 credit. crates are now all recyclable
+      through exports again
+  - bugfix: xenoartifact pearls can be extracted again
+2026-11-19:
+  SunShine214, Niko432, Racc-Off, Wrill:
+  - rscadd: Added the CDR (Condensate Decay Reactor), which decays gases to make power!
+  - rscadd: Added a new PDA program to control CDRs. Check the engineering tab in
+      the NTnet store!
+  - rscadd: Added a new pump_gas_volume proc to gas_mixture, which... pumps volume!
+  - rscdel: Removed the TEG.
+  Ucksus:
+  - balance: discovery scanner now returns a reasonable amount of discovery points
+      from artifacts.
+  mrmanlikesbt:
+  - bugfix: Fixed various TGUI text inputs crashing when pressing Enter
+2026-11-20:
+  mrmanlikesbt, PowerfulBacon:
+  - refactor: The stack_trace() proc has been refactored to be a little more sane
+2026-11-22:
+  rkz, Shroopy, SmArtKar, Melbert:
+  - rscadd: humanoids now blink.
+  - rscadd: other species like moths don't visibly blink, whilst lizards blink asynchronously
+  - qol: Implanted HUDs can now be toggled on and off with an action.
+  - image: Eyes now display their color on their organ sprite, instead of always being
+      displayed as blue.
+  - bugfix: Fixed an issue where some NPC/midround humans would not get their eye
+      color set correctly
+  - refactor: Refactored how facial offsets interact with eye rendering, potentially
+      optimizing future species that use this feature.
+  - refactor: Refactored hair and eye rendering a bit, they're now rendered separately
+      to the head - report any oddities with either. Lips too but to a lesser degree.
+2026-11-23:
+  DrDuckedGoose:
+  - balance: Reduced artifact bonus duck values, less discovery & research points.
+  - bugfix: Fixes artifacts being sold infinitely
+2026-11-24:
+  BotTierPC, BiancaWilkson:
+  - tweak: Cardboard tubes now bonk, and thunk people hit while playing a new sound
+      effect.
+  - sound: Adds a new sound resembling cardboard hitting an object
+  Ghommie, timothymtorres, jlsnow301, Melbert, SyncIt21, 00-Steven, the-sushi:
+  - qol: Add hotkeys to APCs for AIs and borgs. Toggle environmental (ctrl + shift),
+      toggle lighting (shift), toggle equipment (alt), and toggle breaker (ctrl).
+  - qol: Many items which previously required you to stand to alt-click now don't,
+      such as bedsheets and spray cans
+  - qol: improved feedback messages when an action cannot be done
+  - qol: shift+alt will open the tgui loot panel on any tile without being intercepted
+      by items that may be on the tile
+  - tweak: Non-human mobs now also benefit from held id cards and some economy features
+      (dexterity checks still apply).
+  - refactor: Refactored, improve, and rename canUseTopic to be can_perform_action
+      that now uses bitflags to determine if a mob can perform an action.
+  - refactor: Mouse drag & drop attack chain has been refactored. Report any bugs
+      on GitHub
+  - refactor: alt right click has been refactored. report bugs on github
+  - refactor: Ctrl click & Ctrl shift click has been refactored. Please report bugs
+      on GitHub
+  - bugfix: Alt click interactions have been refactored, which may lead to unintentional
+      changes to gameplay. Report any issues, please.
+  - bugfix: Fix runtimes for IV drips, food processors, and gibber
+  - bugfix: Fix pAIs interacting with machinery via alt/ctrl clicking.
+  - code_imp: most actions now properly check for recursive locs & better adjacency
+  - code_imp: improved alt & ctrl click code
+  - code_imp: improved mouse drag & drop code
+  - code_imp: adds a shift+alt click on proc for living mobs to explicitly open the
+      turf statpanel in addition to the already existing alt bind
+  mrmanlikesbt, grungussuss, TheBoondock, timothymtorres, actioninja, MrMelbert, LemonInTheDark, Beebblie, JohnFulpWillard:
+  - sound: A ton of sounds have been added to various item interactions in the game.
+  - image: Portals have a new sprite
+  - balance: Silenced guns can no longer be heard through walls
+  - qol: Internals now have a visual indicator above them displaying how much gas
+      is left
+  mrmanlikesbt, tralezab, coiax, Ghommie, LemonInTheDark, san7890, Ben10Omintrix,:
+  - refactor: Several animals have been converted from the deprecated simple animal
+      framework to basic mobs. This means that they should be smarter and more performant.
+      If you see anything wrong, please open an issue report.
+  - sound: 'The following animals now make idle sounds: chickens, cows, snakes, crabs,
+      cardinals, cockroaches, and turkeys'
+  - bugfix: Fixed the Easter exclusive "Rabbit Release" event not spawning rabbits
+  - bugfix: Being moved around by conveyor belts no longer plays footsteps

@@ -164,9 +164,11 @@
 	icon_state = "beaker"
 	inhand_icon_state = "beaker"
 	worn_icon_state = "beaker"
+	label_icon = "label_beaker"
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
-	label_icon = "label_beaker"
+	pickup_sound = 'sound/items/handling/beaker/beaker_pickup.ogg'
+	drop_sound = 'sound/items/handling/beaker/beaker_place.ogg'
 
 /obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
@@ -392,13 +394,13 @@
 	initial_reagent_flags = OPENCONTAINER
 	var/obj/item/grinded
 
-/obj/item/reagent_containers/cup/mortar/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(grinded)
-		grinded.forceMove(drop_location())
-		grinded = null
-		to_chat(user, "You eject the item inside.")
+/obj/item/reagent_containers/cup/mortar/click_alt(mob/user)
+	if(!grinded)
+		return CLICK_ACTION_BLOCKING
+	grinded.forceMove(drop_location())
+	grinded = null
+	balloon_alert(user, "ejected")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/reagent_containers/cup/mortar/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	. = ..()
@@ -409,7 +411,7 @@
 		if(!grinded)
 			to_chat(user, span_warning("There is nothing to grind!"))
 			return ITEM_INTERACT_BLOCKING
-		if(user.getStaminaLoss() > 50)
+		if(HAS_TRAIT(user, TRAIT_EXHAUSTED))
 			to_chat(user, span_warning("You are too tired to work!"))
 			return ITEM_INTERACT_BLOCKING
 
@@ -417,7 +419,7 @@
 		if(!do_after(user, 2.5 SECONDS, target = src))
 			return ITEM_INTERACT_BLOCKING
 
-		user.adjustStaminaLoss(40)
+		user.stamina.adjust(-40, TRUE)
 
 		//food and pills
 		grinded.reagents?.trans_to(src, grinded.reagents.total_volume, transfered_by = user)
@@ -467,8 +469,8 @@
 	volume = 50
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
-	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
-	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
+	drop_sound = 'sound/items/handling/drink/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drink/drinkglass_pickup.ogg'
 
 /obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
 	if (reagents && reagents.total_volume > 0)

@@ -12,6 +12,8 @@
 	custom_materials = list(/datum/material/iron = 2000)
 	move_resist = MOVE_FORCE_WEAK
 	layer = OBJ_LAYER
+	interaction_flags_mouse_drop = ALLOW_RESTING
+
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -237,6 +239,8 @@
 	icon_state = "shuttle_chair"
 	buildstackamount = 1
 	item_chair = null
+	buckle_sound = "buckle"
+	unbuckle_sound = "unbuckle"
 
 /obj/structure/chair/fancy/plastic
 	name = "plastic chair"
@@ -301,10 +305,8 @@
 /obj/structure/chair/fancy/brass/ratvar_act()
 	return
 
-/obj/structure/chair/fancy/brass/AltClick(mob/living/user)
+/obj/structure/chair/fancy/brass/click_alt(mob/user)
 	turns = 0
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
 	if(!(datum_flags & DF_ISPROCESSING))
 		user.visible_message(span_notice("[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER."), \
 		span_notice("Automated spinny chairs. The pinnacle of Ratvarian technology."))
@@ -313,6 +315,7 @@
 		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
 		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/chair/fancy/brass/bronze
 	name = "bronze chair"
@@ -336,6 +339,10 @@
 	item_chair = null
 	icon_state = "officechair_dark"
 
+/obj/strucutre/chair/office/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/noisy_movement, volume = 100)
+
 /obj/structure/chair/office/relaymove(mob/user, direction)
 	if(!direction)
 		return FALSE
@@ -343,11 +350,6 @@
 		return
 	setDir(direction)
 	return FALSE
-
-/obj/structure/chair/office/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	. = ..()
-	if(has_gravity())
-		playsound(src, 'sound/effects/roll.ogg', 100, 1)
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"
@@ -383,18 +385,20 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 /obj/structure/chair/stool/narsie_act()
 	return
 
-/obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
+/obj/structure/chair/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(over_object == user)
 		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
 			return
-		if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
+		if(!user.can_perform_action(src, NEED_HANDS))
 			return
-		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
+		user.visible_message(
+			span_notice("[user] grabs \the [src.name]."),
+			span_notice("You grab \the [src.name].")
+		)
 		var/obj/item/C = new item_chair(loc)
 		C.set_custom_materials(custom_materials)
 		TransferComponents(C)
-		usr.put_in_hands(C)
+		user.put_in_hands(C)
 		qdel(src)
 
 /obj/structure/chair/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)

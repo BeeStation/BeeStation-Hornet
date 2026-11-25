@@ -162,12 +162,14 @@
 		ui = new(user, src, "Crayon")
 		ui.open()
 
-/obj/item/toy/crayon/spraycan/AltClick(mob/user)
-	if(has_cap && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-		is_capped = !is_capped
-		to_chat(user, span_notice("The cap on [src] is now [is_capped ? "on" : "off"]."))
-		update_icon()
-		ui_update()
+/obj/item/toy/crayon/spraycan/click_alt(mob/user)
+	if(!has_cap)
+		return CLICK_ACTION_BLOCKING
+	is_capped = !is_capped
+	balloon_alert(user, is_capped ? "capped" : "cap removed")
+	update_icon()
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/crayon/proc/staticDrawables()
 
@@ -588,6 +590,7 @@
 
 	pre_noise = TRUE
 	post_noise = FALSE
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 
 	var/static/list/spraycan_touch_normally
 

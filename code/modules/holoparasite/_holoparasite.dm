@@ -25,7 +25,6 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	light_on = FALSE
 	combat_mode = TRUE
 	stop_automated_movement = TRUE
-	is_flying_animal = TRUE // Immunity to chasms and landmines, etc.
 	no_flying_animation = TRUE
 	attack_sound = "punch"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -123,6 +122,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		notes = _notes
 	stats = _stats
 	stats.apply(src)
+	AddElement(/datum/element/simple_flying)
 	set_battlecry(pick("ORA", "MUDA", "DORA", "ARRI", "VOLA", "AT"), silent = TRUE)
 	RegisterSignal(src, COMSIG_LIVING_PRE_WABBAJACKED, PROC_REF(on_pre_wabbajacked))
 	ADD_LUM_SOURCE(src, LUM_SOURCE_INNATE)
@@ -194,7 +194,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		var/mob/living/current = summoner.current
 		var/health_percent
 		if(iscarbon(current))
-			health_percent = round((abs(HEALTH_THRESHOLD_DEAD - current.health) / abs(HEALTH_THRESHOLD_DEAD - current.maxHealth)) * 100)
+			health_percent = round((abs(current.death_threshold - current.health) / abs(current.death_threshold - current.maxHealth)) * 100)
 		else
 			health_percent = round((current.health / current.maxHealth) * 100, 0.5)
 		var/stat_text = "[health_percent]%"

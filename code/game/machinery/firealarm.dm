@@ -12,6 +12,7 @@
 	pixel_shift = 26
 
 /obj/machinery/firealarm
+	interaction_flags_click = ALLOW_SILICON_REACH
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
@@ -298,14 +299,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 			locked = FALSE
 			balloon_alert(user, "Unlocked")
 		playsound(src, 'sound/machines/beep.ogg', 50, 1)
+		user?.animate_interact(src)
 	else
 		balloon_alert(user, "Access Denied!")
 		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
 	update_appearance()
 
-/obj/machinery/firealarm/AltClick(mob/user)
-	if(can_interact(user))
-		try_lock(user)
+/obj/machinery/firealarm/click_alt(mob/user)
+	if(!can_interact(user))
+		return NONE
+	try_lock(user)
+	return CLICK_ACTION_SUCCESS
 
 SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 
@@ -314,6 +318,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 		return ..()
 	add_fingerprint(user)
 	play_click_sound("button")
+	user.animate_interact(src)
 	var/area/A = get_area(src)
 	if(A.fire)
 		if(locked)

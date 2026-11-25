@@ -233,7 +233,7 @@
 	. = ..()
 	//Should only be one, but I'm lazy and this seems safe
 	for(var/datum/stock_part/manipulator/part in component_parts)
-		reward_rate = part.tier / 16
+		reward_rate = part.tier / 4
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -269,6 +269,10 @@
 				say("No label detected!")
 				if(!artifact_component.calcified)
 					decision = tgui_alert(user, "Do you want to continue, this will destroy [atom_target]?", "Calcify Artifact", list("Yes", "No"))
+			else if(artifact_component?.calcified)
+				say("[atom_target] is calcified and can't be calibrated!")
+			else if(artifact_component?.calibrated)
+				say("[atom_target] is already calibrated!")
 			if(decision == "No")
 				//This stops us from spitting out stuff we shouldn't, mostly
 				if(atom_target in held_contents)
@@ -314,6 +318,8 @@
 	empty_contents(atom_target)
 	//If we're cooked
 	if(!solid_as)
+		if(locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents)
+			say("Calibration failed, the label doesn't match [atom_target]'s traits!")
 		artifact_component.calcify()
 		return
 	//Scoring & success

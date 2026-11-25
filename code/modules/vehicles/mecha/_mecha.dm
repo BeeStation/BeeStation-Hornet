@@ -709,6 +709,24 @@
 	target.mech_melee_attack(src, user)
 	TIMER_COOLDOWN_START(src, COOLDOWN_MECHA_MELEE_ATTACK, melee_cooldown)
 
+/// Driver alt clicks anything while in mech
+/obj/vehicle/sealed/mecha/proc/on_click_alt(mob/user, atom/target, params)
+	SIGNAL_HANDLER
+
+	. = COMSIG_MOB_CANCEL_CLICKON // Cancel base_click_alt
+
+	if(target != src)
+		return
+
+	if(!(user in occupants))
+		return
+
+	if(!(user in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE)))
+		to_chat(user, span_warning("You're in the wrong seat to control movement."))
+		return
+
+	toggle_strafe()
+
 ///Displays a special speech bubble when someone inside the mecha speaks
 /obj/vehicle/sealed/mecha/proc/display_speech_bubble(datum/source, list/speech_args)
 	SIGNAL_HANDLER

@@ -2,10 +2,6 @@
 "aa" = (
 /turf/open/floor/iron/dark,
 /area/template_noop)
-"ab" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark,
-/area/template_noop)
 "ac" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -33,15 +29,6 @@
 /obj/structure/closet/masks,
 /obj/item/food/deadmouse,
 /turf/open/floor/iron/dark,
-/area/template_noop)
-"ah" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/chicken{
-	name = "Cletus"
-	},
-/turf/open/floor/engine,
 /area/template_noop)
 "ai" = (
 /obj/effect/decal/cleanable/vomit/old,
@@ -93,13 +80,6 @@
 /obj/structure/chair/stool,
 /turf/open/floor/engine,
 /area/template_noop)
-"av" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/mob/living/simple_animal/chicken{
-	name = "Bloodthirsty Peckins"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
 "aw" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/engine,
@@ -107,15 +87,6 @@
 "ax" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/north,
-/turf/open/floor/engine,
-/area/template_noop)
-"az" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/mob/living/simple_animal/chicken{
-	name = "Kentucky Fried Terror"
-	},
 /turf/open/floor/engine,
 /area/template_noop)
 "aA" = (
@@ -160,13 +131,6 @@
 /area/template_noop)
 "aK" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/engine,
-/area/template_noop)
-"aL" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/mob/living/simple_animal/chicken{
-	name = "Killer Cluck"
-	},
 /turf/open/floor/engine,
 /area/template_noop)
 "aM" = (
@@ -251,6 +215,42 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
+"tC" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/mob/living/basic/chicken{
+	name = "Bloodthirsty Peckins"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"yM" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
+/mob/living/basic/chicken{
+	name = "Cletus"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"zC" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/mob/living/basic/chicken{
+	name = "Kentucky Fried Terror"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"DG" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"Er" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/mob/living/basic/chicken{
+	name = "Killer Cluck"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
 "Hq" = (
 /obj/item/trash/popcorn,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -295,7 +295,7 @@
 
 (1,1,1) = {"
 aa
-ah
+yM
 ak
 at
 aa
@@ -306,7 +306,7 @@ aP
 aR
 "}
 (2,1,1) = {"
-ab
+DG
 aa
 al
 aa
@@ -345,7 +345,7 @@ aU
 aa
 aa
 VF
-av
+tC
 aC
 aC
 aK
@@ -360,7 +360,7 @@ Im
 aw
 aC
 aE
-aL
+Er
 aZ
 aa
 aa
@@ -405,7 +405,7 @@ aX
 aa
 aj
 as
-az
+zC
 aa
 aa
 aa

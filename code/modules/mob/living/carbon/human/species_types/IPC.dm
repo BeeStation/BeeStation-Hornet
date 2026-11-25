@@ -20,10 +20,10 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_MUTANT_COLORS,
 		TRAIT_REVIVESBYHEALING,
-		TRAIT_NO_DEBRAIN_OVERLAY,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_UPGRADE_COMPATIBLE,
 		TRAIT_UNHUSKABLE,
+		TRAIT_STAMINA_DRAINS_POWER,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -49,7 +49,7 @@
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
 	allow_numbers_in_name = TRUE
-	deathsound = "sound/voice/borg_deathsound.ogg"
+	deathsound = 'sound/voice/borg_deathsound.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
@@ -331,6 +331,12 @@
 			SPECIES_PERK_ICON = "magnet",
 			SPECIES_PERK_NAME = "EMP Vulnerable",
 			SPECIES_PERK_DESC = "IPC organs are cybernetic, and thus susceptible to electromagnetic interference. Getting hit by an EMP may stop your heart.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "battery-quarter",
+			SPECIES_PERK_NAME = "Power Drain",
+			SPECIES_PERK_DESC = "You never tire. However, blows from weapons, disablers, exertion and EMPs will drain your charge, with stun batons and tasers draining it fast. Once you're in low power, stuns lock you up until you recharge your battery.",
 		),
 	)
 

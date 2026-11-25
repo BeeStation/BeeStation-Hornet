@@ -124,7 +124,7 @@
 		if(opened && has_opened_overlay)
 			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[overlay_state]_open", alpha = src.alpha)
 			. += door_overlay
-			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(has_closed_overlay)
 			. += "[icon_door || overlay_state]_door"
 	if(welded)
@@ -279,6 +279,7 @@
 	update_appearance()
 	update_icon()
 	after_open(user, force)
+	SEND_SIGNAL(src, COMSIG_CLOSET_POST_OPEN, user, force)
 	return TRUE
 
 ///Proc to override for effects after opening a door
@@ -347,10 +348,9 @@
 	return
 
 /obj/structure/closet/proc/toggle(mob/living/user)
-	if(opened)
-		return close(user)
-	else
-		return open(user)
+	. = opened ? close(user) : open(user)
+	if(. && user)
+		user.animate_interact(src)
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
 	if(ispath(material_drop) && material_drop_amount && !(flags_1 & NODECONSTRUCT_1))
@@ -394,7 +394,7 @@
 				return
 		if (user.combat_mode)
 			return FALSE
-		if(user.transferItemToLoc(W, drop_location())) // so we put in unlit welder too
+		if(user.transfer_item_to_turf(W, drop_location())) // so we put in unlit welder too
 			return
 	else if(W.tool_behaviour == TOOL_WELDER && can_weld_shut)
 		if(!W.tool_start_check(user, amount=0))
@@ -435,12 +435,10 @@
 /obj/structure/closet/proc/after_weld(weld_state)
 	return
 
-/obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
+/obj/structure/closet/mouse_drop_receive(atom/movable/O, mob/living/user, params)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
-	if(!istype(user) || user.incapacitated || user.body_position == LYING_DOWN)
-		return
-	if(!Adjacent(user) || !user.Adjacent(O))
+	if(!istype(user) || user.body_position == LYING_DOWN)
 		return
 	if(user == O) //try to climb onto it
 		return ..()
@@ -456,14 +454,18 @@
 		return
 	var/turf/T = get_turf(src)
 	add_fingerprint(user)
-	user.visible_message(span_warning("[user] [actuallyismob ? "tries to " : ""]stuff [O] into [src]."), \
-						span_warning("You [actuallyismob ? "try to " : ""]stuff [O] into [src]."), \
-						span_italics("You hear clanging."))
+	user.visible_message(
+		span_warning("[user] [actuallyismob ? "tries to " : ""]stuff [O] into [src]."),
+		span_warning("You [actuallyismob ? "try to " : ""]stuff [O] into [src]."),
+		span_hear("You hear clanging.")
+	)
 	if(actuallyismob)
 		if(do_after(user, 4 SECONDS, O))
-			user.visible_message(span_notice("[user] stuffs [O] into [src]."), \
-								span_notice("You stuff [O] into [src]."), \
-								span_italics("You hear a loud metal bang."))
+			user.visible_message(
+				span_notice("[user] stuffs [O] into [src]."),
+				span_notice("You stuff [O] into [src]."),
+				span_hear("You hear a loud metal bang.")
+			)
 			var/mob/living/L = O
 			if(!issilicon(L))
 				L.Paralyze(4 SECONDS)
@@ -472,9 +474,9 @@
 			else
 				O.forceMove(T)
 				close()
+			log_combat(user, O, "stuffed", addition = "inside of [src]")
 	else
 		O.forceMove(T)
-	return TRUE
 
 /obj/structure/closet/relaymove(mob/living/user, direction)
 	if(user.stat || !isturf(loc))
@@ -520,7 +522,7 @@
 	set category = "Object"
 	set name = "Toggle Open"
 
-	if(!usr.canUseTopic(src, BE_CLOSE) || !isturf(loc))
+	if(!usr.can_perform_action(src) || !isturf(loc))
 		return
 
 	if(iscarbon(usr) || issilicon(usr) || isdrone(usr))
@@ -576,19 +578,18 @@
 /obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
 	. = ..()
 
-	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(loc))
+	if(!user.can_perform_action(src) || !isturf(loc))
 		return
 
 	if(!opened && secure)
 		togglelock(user)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/structure/closet/CtrlShiftClick(mob/living/user)
-	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))
-		return ..()
-	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(user.loc))
-		return
+/obj/structure/closet/click_ctrl_shift(mob/living/user)
+	if(!divable || !HAS_TRAIT(user, TRAIT_SKITTISH) || !isturf(user.loc))
+		return NONE
 	dive_into(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/proc/togglelock(mob/living/user, silent)
 	if(secure && !broken)
@@ -598,6 +599,7 @@
 			locked = !locked
 			user.visible_message(span_notice("[user] [locked ? null : "un"]locks [src]."),
 							span_notice("You [locked ? null : "un"]lock [src]."))
+			user.animate_interact(src)
 			update_icon()
 		else if(!silent)
 			to_chat(user, span_notice("Access Denied."))

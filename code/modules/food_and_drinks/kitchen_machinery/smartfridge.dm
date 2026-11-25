@@ -425,7 +425,7 @@
 
 /obj/machinery/smartfridge/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	if(. || !ui.user.canUseTopic(src, be_close = TRUE, no_dexterity = FALSE, no_tk = TRUE))
+	if(. || !ui.user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 
 	var/mob/living_mob = ui.user

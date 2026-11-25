@@ -9,6 +9,8 @@
 	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
 
 	hud_type = /datum/hud/living
+	interaction_flags_click = ALLOW_RESTING
+	interaction_flags_mouse_drop = ALLOW_RESTING
 
 	///Tracks the scale of the mob transformation matrix in relation to its identity. Use update_transform(resize) to change it.
 	var/current_size = RESIZE_DEFAULT_SIZE
@@ -20,7 +22,10 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-	var/health = 100 	//A mob's health
+	var/health = 100 //A mob's health
+
+	///The holder for stamina handling
+	var/datum/stamina_container/stamina
 
 	// Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	/// Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -33,19 +38,21 @@
 	var/fireloss = 0
 	/// Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/cloneloss = 0
-	/// Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
-	var/staminaloss = 0
 
-	/// The movement intent of the mob (run/wal)
-	var/move_intent = MOVE_INTENT_RUN
-
-	/// Rate at which fire stacks should decay from this mob
-	var/fire_stack_decay_rate = -0.05
+	/// The movement intent of the mob
+	var/datum/move_intent/move_intent = /datum/move_intent/run
+	/// Move intents this mob can use
+	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run)
 
 	/// When the mob goes from "normal" to crit
 	var/crit_threshold = HEALTH_THRESHOLD_CRIT
 	/// When the mob enters hard critical state and is fully incapacitated.
 	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
+	/// When the mob dies.
+	var/death_threshold = HEALTH_THRESHOLD_DEAD
+
+	/// Rate at which fire stacks should decay from this mob
+	var/fire_stack_decay_rate = -0.05
 
 	/// Generic bitflags for boolean conditions at the [/mob/living] level. Keep this for inherent traits of living types, instead of runtime-changeable ones.
 	var/living_flags = NONE
@@ -137,6 +144,8 @@
 	var/last_bumped = 0
 	///if a mob's name should be appended with an id when created e.g. Mob (666)
 	var/unique_name = FALSE
+	///the id a mob gets when it's created
+	var/identifier = 0
 
 	///these will be yielded from butchering with a probability chance equal to the butcher item's effectiveness
 	var/list/butcher_results = null
@@ -151,7 +160,6 @@
 	var/blood_volume = 0 //how much blood the mob has
 
 	var/list/status_effects //a list of all status effects the mob has
-	var/druggy = 0
 
 	var/list/implants = null
 
@@ -181,9 +189,9 @@
 	var/is_busy = FALSE //Used for random actions that take time. ex: curbstomping. We need to make sure we can only do one of these at a time.
 
 	//this stuff is here to make it simple for admins to mess with custom held sprites
-	var/icon/held_lh = 'icons/mob/pets_held_lh.dmi'//icons for holding mobs
-	var/icon/held_rh = 'icons/mob/pets_held_rh.dmi'
-	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
+	var/icon/held_lh = 'icons/mob/inhands/pets_held_lh.dmi'//icons for holding mobs
+	var/icon/held_rh = 'icons/mob/inhands/pets_held_rh.dmi'
+	var/icon/head_icon = 'icons/mob/clothing/head/pets_head.dmi' //what it looks like on your head
 	var/held_state = ""//icon state for the above
 
 	///If combat mode is on or not

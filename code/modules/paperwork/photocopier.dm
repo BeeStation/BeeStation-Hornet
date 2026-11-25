@@ -26,6 +26,8 @@
 	power_channel = AREA_USAGE_EQUIP
 	max_integrity = 300
 	integrity_failure = 0.33
+	interaction_flags_mouse_drop = NEED_DEXTERITY | ALLOW_RESTING
+
 	/// A reference to an `/obj/item/paper` inside the copier, if one is inserted. Otherwise null.
 	var/obj/item/paper/paper_copy
 	/// A reference to an `/obj/item/photo` inside the copier, if one is inserted. Otherwise null.
@@ -436,11 +438,9 @@
 		new /obj/effect/decal/cleanable/oil(get_turf(src))
 		toner_cartridge.charges = 0
 
-/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
-	if(..())
-		return
+/obj/machinery/photocopier/mouse_drop_receive(mob/target, mob/user, params)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
-	if(!istype(target) || target.anchored || target.buckled || !Adjacent(target) || !user.canUseTopic(src, BE_CLOSE) || target == ass || copier_blocked())
+	if(!istype(target) || target.anchored || target.buckled || target == ass || copier_blocked())
 		return
 	add_fingerprint(user)
 	if(target == user)
@@ -493,7 +493,7 @@
 	return TRUE
 
 /**
- * Checks if the copier is deleted, or has something dense at its location. Called in `MouseDrop_T()`
+ * Checks if the copier is deleted, or has something dense at its location. Called in `mouse_drop_receive()`
  */
 /obj/machinery/photocopier/proc/copier_blocked()
 	if(QDELETED(src))

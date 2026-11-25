@@ -174,13 +174,6 @@
 /obj/machinery/computer/rdconsole/unlocked,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"fA" = (
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 4
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/carpet,
-/area/shuttle/exploration)
 "ge" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -548,22 +541,6 @@
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Ab" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/light/small,
-/obj/structure/closet/crate/critter,
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	dir = 4;
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/exploration)
 "Ai" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -663,18 +640,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"EX" = (
-/obj/structure/table/reinforced,
-/obj/item/rag{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/glass/shaker{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "FB" = (
 /obj/machinery/light{
 	dir = 8
@@ -770,6 +735,13 @@
 	pixel_x = 24
 	},
 /turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
+"Nq" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/carpet,
 /area/shuttle/exploration)
 "Nt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -935,6 +907,18 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"TD" = (
+/obj/structure/table/reinforced,
+/obj/item/rag{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = 4;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Uh" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -972,6 +956,13 @@
 	dir = 4
 	},
 /turf/open/floor/carpet,
+/area/shuttle/exploration)
+"Xe" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/light/small,
+/obj/structure/closet/crate/critter,
+/mob/living/basic/turkey/tom,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Xk" = (
 /obj/structure/table,
@@ -1139,7 +1130,7 @@ zC
 XF
 LM
 cN
-Ab
+Xe
 nG
 hQ
 Cj
@@ -1192,7 +1183,7 @@ nG
 eA
 du
 du
-fA
+Nq
 nG
 Dj
 Rt
@@ -1263,7 +1254,7 @@ Sw
 nG
 Tf
 wo
-EX
+TD
 dL
 nG
 Xo

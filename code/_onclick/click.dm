@@ -88,6 +88,9 @@
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
 			return
+		if (LAZYACCESS(modifiers, ALT_CLICK))
+			alt_shift_click_on(A)
+			return
 		ShiftClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
@@ -98,7 +101,7 @@
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			alt_click_on_secondary(A)
+			AltClickSecondaryOn(A)
 		else
 			AltClickOn(A)
 		return
@@ -387,123 +390,20 @@
 		user.examinate(src)
 	return
 
-/**
-  * Ctrl click
-  * For most objects, pull
-  */
-/mob/proc/CtrlClickOn(atom/A)
-	A.CtrlClick(src)
-	return
-
-/atom/proc/CtrlClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
-	var/mob/living/ML = user
-	if(istype(ML))
-		ML.pulled(src)
-
-/mob/living/CtrlClick(mob/user)
-	if(!isliving(user) || !IsReachableBy(user) || user.incapacitated)
-		return ..()
-
-	if(world.time < user.next_move)
-		return FALSE
-
-	var/mob/living/user_living = user
-	if(user_living.apply_martial_art(src, null, is_grab=TRUE) == MARTIAL_ATTACK_SUCCESS)
-		user_living.changeNext_move(CLICK_CD_MELEE)
-		return TRUE
-
-	return ..()
-
-/mob/living/carbon/CtrlClick(mob/user)
-
-	if(!iscarbon(user) || !IsReachableBy(user) || user.incapacitated)
-		return ..()
-
-	if(world.time < user.next_move)
-		return FALSE
-
-	if(ishuman(src) && ishuman(user))
-		var/mob/living/carbon/human_user = user
-		if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
-			human_user.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
-
-	else
-		var/mob/living/carbon/carbon_user = user
-		if(carbon_user.grab(carbon_user, src, carbon_user.mind.martial_art))
-			carbon_user.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
-
-	return ..()
-
-/mob/proc/CtrlMiddleClickOn(atom/A)
-	// specifically made for admin feature.
-	if(check_rights_for(client, R_ADMIN))
-		client.toggle_tag_datum(A)
-		return
-	A.CtrlClick(src) // this assumes you did CtrlClick instead of MiddleClick
-	return
-
-/**
-  * Alt click
-  * Unused except for AI
-  */
-/mob/proc/AltClickOn(atom/A)
-	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A)
-	if(. & COMSIG_MOB_CANCEL_CLICKON)
-		return
-	A.AltClick(src)
-
-/atom/proc/AltClick(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user) & COMPONENT_CANCEL_CLICK_ALT)
-		return
-	var/turf/T = get_turf(src)
-	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.set_stat_tab(T.name)
-
-///The base proc of when something is right clicked on when alt is held - generally use alt_click_secondary instead
-/atom/proc/alt_click_on_secondary(atom/A)
-	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON_SECONDARY, A)
-	if(. & COMSIG_MOB_CANCEL_CLICKON)
-		return
-	A.alt_click_secondary(src)
-
-///The base proc of when something is right clicked on when alt is held
-/atom/proc/alt_click_secondary(mob/user)
-	if(!can_interact(user))
-		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT_SECONDARY, user) & COMPONENT_CANCEL_CLICK_ALT_SECONDARY)
-		return
-	if(isobserver(user) && user.client && check_rights_for(user.client, R_DEBUG))
-		user.client.toggle_tag_datum(src)
-		return
-
-/// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
-/atom/proc/AltClickNoInteract(mob/user, atom/A)
-	var/turf/T = get_turf(A)
-	if(T && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.set_stat_tab(T.name)
-
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
 
-/**
-  * Control+Shift click
-  * Used for AI and Give code
-  */
-/mob/proc/CtrlShiftClickOn(atom/A)
-	A.CtrlShiftClick(src)
-	return
+/// Lists the contents of the target's turf in the stat panel.
+/mob/proc/list_turf_contents(atom/target)
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf || !TurfAdjacent(target_turf))
+		return FALSE
+	listed_turf = target_turf
+	set_stat_tab(target_turf.name)
+	return TRUE
 
 /mob/proc/ShiftMiddleClickOn(atom/A, params)
 	src._pointed(A, params)
-	return
-
-/atom/proc/CtrlShiftClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_CTRL_SHIFT)
 	return
 
 /*

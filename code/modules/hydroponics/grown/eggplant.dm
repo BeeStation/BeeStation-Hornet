@@ -6,6 +6,8 @@
 	icon_state = "eggplant"
 	foodtypes = FRUIT
 	wine_power = 20
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 // Egg-Plant
 /obj/item/food/grown/shell/eggy

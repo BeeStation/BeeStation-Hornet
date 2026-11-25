@@ -10,7 +10,7 @@
 		Having no hands he embodies the Taoist principle of wu-wei (non-action) while his smiling \
 		facial expression shows his utter and complete acceptance of the world as it is. \
 		Its hide is extremely valuable."
-	icon = 'icons/mob/gondolas.dmi'
+	icon = 'icons/mob/simple/carp.dmi'
 	icon_state = "gondola"
 	icon_living = "gondola"
 
