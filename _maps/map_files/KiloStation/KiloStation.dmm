@@ -6718,6 +6718,11 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/mob/living/basic/chicken{
+	desc = "The arch-nemesis of Kentucky.";
+	name = "Popeye";
+	real_name = "Featherbottom"
+	},
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "cJF" = (
@@ -18205,22 +18210,8 @@
 	},
 /obj/effect/turf_decal/tile/green,
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/flora/grass/jungle,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
-	},
-/mob/living/basic/chicken{
-	desc = "The arch-nemesis of Kentucky.";
-	name = "Popeye";
-	real_name = "Featherbottom"
 	},
 /turf/open/floor/iron/white,
 /area/station/service/hydroponics)
@@ -68457,11 +68448,6 @@
 /obj/effect/turf_decal/tile/steelgrid/diagonal{
 	dir = 4;
 	alpha = 255
-	},
-/mob/living/simple_animal/chicken{
-	desc = "The arch-nemesis of Kentucky.";
-	name = "Popeye";
-	real_name = "Featherbottom"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
