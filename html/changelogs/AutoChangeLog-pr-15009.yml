@@ -1,0 +1,15 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - admin: Midrounds forced by admins will bypass minimum pop requirements, bus at
+      your own risk
+  - bugfix: Mechs require the welder to be on to continue it's steps
+  - bugfix: Autolathes will actually print you the correct amount of items
+  - bugfix: Malf AI's nuke will stop if they shunt to an APC
+  - bugfix: Malf AI's nuke music will stop if they shunt to an APC
+  - bugfix: Awe shouldn't take you out of a mech anymore
+  - bugfix: Mouse spawned by breeding other mice will keep who originally tamed them
+  - bugfix: Cleanbots shouldn't get stuck trying to clean a mess they cant reach
+  - bugfix: Orebag module shouldn't void materials anymore
+  - bugfix: Boris Module now shows up in the correct category
+  - balance: Nuka Cola wont instantly irradiate you
