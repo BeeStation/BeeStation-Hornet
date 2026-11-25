@@ -104,10 +104,22 @@
   - tweak: Binoculars can now be worn around your neck
   - admin: A new matrix editor UI has been added to VV. See "Test Matrices" in the
       dropdown.
+2026-10-09:
+  BotTierPC:
+  - bugfix: Fixes Admin/Mentors not being able to hide when using the deadmin command
+  Baherain:
+    bugfix: Fixed the hamster wheels and hamsterperson wheels not being able to be wrenched to
+      the floor
 2026-10-10:
   BotTierPC:
   - admin: Admin Ticket Manager, and Mentor Ticket Manager Input Box Are Made Multi-line
       For Easier Readability.
+  - bugfix: Fixes attack_animations applying under the target. Configured items should now
+      overlay above of what they are hitting
+  WhiskeyMarten:
+    - spellcheck: Changed "addition" to "Edition" in the title of a written manuscript.
+    - bugfix: Fixed some sinks being backwards in Flandstation's medbay.
+    - bugfix: Fixed the desk in Boxstation's QM office.
   MatiAvanti:
   - bugfix: Xenomorphs no longer gasp for air while idle.
   - bugfix: Xenomorphs regain plasma by breathing plasma gas again, and make their
@@ -120,6 +132,9 @@
       this time the TTV will shake vigorously, play a loud rumbling sound, and display
       a balloon alert until finally killing you (or not if you escape the blast radius).
   - sound: Valves now make a sound when being opened
+  Tsar-Salat:
+  - bugfix: alt clicking will never (or your money back) crash clients again. Malformed
+      rendering of turf atoms will just show as invisible in the altclick display
 2026-10-17:
   ? rkz, IndieanaJones, XDTM, Timberpoes, JohnFulpWillard, Ryll-Ryll, LemonInTheDark,
     Fikou, jlsnow301, NamelessFairy, Rhials, 13spacemen, MrMelbert, SmArtKar, mcbalaam,
@@ -198,6 +213,9 @@
 2026-10-18:
   DrDuckedGoose:
   - bugfix: Fix grav-pulse plane based effects
+2026-10-21:
+  mrmanlikesbt:
+  - code_imp: Fixed SpacemanDMM emitting a warning in vscode if you ever compiled a test environment
 2026-10-22:
   mrmanlikesbt:
   - bugfix: Fixed some holodeck templates not spawning with some of their items.

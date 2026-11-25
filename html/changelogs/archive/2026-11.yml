@@ -1,3 +1,12 @@
+2026-11-01:
+  r1ks-iwnl:
+  - rscadd: Makes announcement hallucinations more believable.
+  - rscadd: Expanded battle hallucinations.
+  - rscadd: Xeno hallucination tries to vent out after tackling you.
+  - balance: Fire hallucination deals significant stamina damage again.
+  - bugfix: Fixed stray bullet hallucination not firing from specific sides of the screen
+  - bugfix: Fixed sound hallucinations picking space tiles as a source.
+  - code_imp: /datum/heretic_knowledge/final doesn't use the final keyword now.
 2026-11-02:
   mrmanlikesbt:
   - bugfix: Fixed things which can have goliath hide plates applied as armor throwing
@@ -7,6 +16,11 @@
   - map: Fixed the RadStation command airlock not requiring command access.
   - map: Fixed the RadStation command airlock not automatically closing one of the
       doors when the other one was opened.
+  - bugfix: Modsuits constructed in robotics now start off on the Nanotrasen frequency
+  - bugfix: Using a multitool to copy a buffer onto an item with storage will no longer put the multitool in said item. An example of this would be modsuits.
+  - qol: MODlink labels on MODsuits can now be changed.
+  - tweak: The power cell of a modlink scryer is now removed with a screwdriver instead of RMB.
+  - code_imp: Cleaned up some multitool buffer code.
 2026-11-03:
   Isaac:
   - balance: Revenant Blight can be cured by sleeping at stage 5
@@ -46,14 +60,24 @@
   - rscdel: deletes syndicate, wizard, and ERT variants of hardsuits. any current
       pointers have been replaced with respective modsuits
   - bugfix: fixes jetpacks being nonfunctional in the station
+  Isaacnml:
+    - map: Replaced the ERT clown modsuit with a regular clown modsuit in random room spawn
+    - bugfix: Throwing your energy katana will still keep recharging it's charges
 2026-11-05:
   VmpOS2NHSkhkejA9:
   - balance: the weak variant of improvised 7.62 ammo now destroys the gun firing
       it slower, additionally, the mosin is more durable, allowing it to handle twice
       as many of your homemade munitions as the pipe rifle before breaking entirely.
+  mrmanlikesbt:
+  - github: Added a GitHub changelog entry
+  - qol: "The \u0022Report Issue\u0022 button in the top right of your screen now directs you to the proper bug\
+      \ report form instead of a blank issue template. Additionally, it will auto-fill available info\
+      \ such as\u003A reporting client version, round ID, round date, and active test merges."
 2026-11-06:
   DrDuckedGoose:
   - bugfix: Fix math & APC files
+  mrmanlikesbt:
+  - bugfix: Fixed the Ripley MK2 conversion-kit deleting the Ripley's manipulator.
 2026-11-07:
   Isaacnml:
   - bugfix: "Fixed stray markup and team colors in CTF flag capture and victory announcements.\xBF"
@@ -74,6 +98,15 @@
   - bugfix: Xenoarchaeology radio announcements now report the bonus applied to the
       reward, CORRECTLY
   - bugfix: Compact NTOS radar now supports scanning and selecting targets
+  - bugfix: ERT members have access to central command's frequency, again
+  mrmanlikesbt, ma44:
+  - bugfix: Fixed some potential exploits with the voting panel and air alarm
+  Isaac:
+  - balance: Revenant Blight can be cured by sleeping at stage 5
+  - bugfix: C4/X4 should work if placed on a window or door again
+  - bugfix: Vampires are shown in the round end window again
+  Isaac, san7890:
+  - bugfix: Flaky byond test
 2026-11-09:
   Isaac, moocowswag:
   - rscadd: "Welders keep repairing APC covers until they\u2019re fixed or welding\
@@ -94,6 +127,8 @@
       they were on the same level.
   - bugfix: Fixed silicons playing two death gasps when they died.
   - bugfix: Fixed silicons not having their HUDs updated on death.
+  Isaacnml:
+  - bugfix: Awe shouldn't last forever anymore
 2026-11-10:
   rkz/tsar-salat:
   - rscadd: adds temporary access system to IDs
@@ -118,6 +153,7 @@
   - tweak: Agent ID cards steal temp access as permanent access.
   - bugfix: cryo reopens job slots again
   - bugfix: a second ID in a PDA no longer mutates the access of the first ID
+  - bugfix: fixes energy gun ammo pips
 2026-11-11:
   Kubsius:
   - tweak: allowed speech component to have language options
@@ -166,6 +202,24 @@
     - rscadd: Biosuits and beekeeper suit sprites now altar when worn by digitigrade
         mobs.
     - rscadd: Aprons and overalls sprites now altar when worn by digitigrade mobs.
+  Aramix:
+  - bugfix: fixed xenobiology's warping bluespace rune not showing its inventory
+  mrmanlikesbt:
+  - code_imp: RBMK code has been cleaned up.
+  - bugfix: Fixed being able to construct an RBMK without all of its required ports.
+  - spellcheck: Fixed the RBMK box part names being proper nouns.
+  rkz, RimiNosha, strandsofivy, jlsnow301:
+  - refactor: The latejoin menu is now TGUI
+  - qol: You'll also be able to see why you can't join a job, instead of it being invisible
+  - code_imp: Department UI colors have been made more distinct
+  ? rkz, mcbalaam, Ez-Briz, smartkar, AnturK, Lemon, joje3003, jlsnow301, kashargul,
+    cabinetonfire, TealSeer
+  : - admin: Added a new TGUI spawn panel, removing it's ancestors - HTML "Create X" panels
+    - admin: Converted the Spawn verb into a TGUI input, featuring for dynamic search and RegEx support
+    - admin: adds admin keybind, Ctrl + Shift + LMB to View Variables
+    - admin: adds admin keybind, Ctrl + LMB to Player Panel
+  Tsar-Salat:
+  - bugfix: fixes debug spawn menu verb
 2026-11-13:
   Tsar-Salat:
   - bugfix: prisoners no longer get skeleton access or are considered in its pop counter
@@ -174,6 +228,7 @@
       launch task has been created to use it. It's primary features include hot-reloading.
       This means that you can make changes to the game's code in real-time without
       having to recompile the whole project and start a new server.
+  - bugfix: Fixed not being able to link techweb or telecommunication buffers.
 2026-11-15:
   Baherain:
   - bugfix: Changed addiction tolerance of Morphine from 10u to 25u, to match the
@@ -188,13 +243,27 @@
   afonsofpuga-a11y:
   - bugfix: Fixed your chat being spammed with errors when trying to craft something
       with cable coils.
+  mrmanlikesbt:
+  - bugfix: Fixed 17x15 sized title screens being offset by one turf to the right on a localhost server.
+  - github: Removed an unused configuration for file labeling on GitHub
+  SAY-5:
+  - bugfix: Prisoner management consoles rebuilt from their circuit board are now prisoner management
+      consoles again instead of a generic computer.
 2026-11-17:
   BotTierPC, Amanitaspooder:
   - rscadd: Adds A Lantern Varient, The Paper Lantern! This, And Mining Lanterns Are
       Both Now Buildable In The Misc Tab Of The Crafting Menu!
+  BotTierPC:
+  - bugfix: Fixes Psyphoza Cap's not rendering mutant color correctly, and applies
+      their proper colored vision once more.
   Programs-The-Station:
   - rscadd: Adds a for-each wiremod component, which will iterate over a list one
       item at a time.
+  - rscadd: Adds an Is Null Wiremod Component. It does what it says on the box.
+  afonsofpuga-a11y:
+  - bugfix: multi-z cables not connecting between Z levels.
+  DrDuckedGoose:
+  - bugfix: Fixes metastation corpses spawning outside their homes, spooky!
 2026-11-18:
   BotTierPC, Racc-Off, BlerpFish, Rkz:
   - rscadd: Added the Spoon! Can be printed in Autolathes or bought from the Dinnerware
@@ -214,6 +283,8 @@
   - bugfix: fixed cargo crate export values being 1 credit. crates are now all recyclable
       through exports again
   - bugfix: xenoartifact pearls can be extracted again
+  mrmanlikesbt:
+  - github: libcurl is no longer cached in the CI Suite because libcurl sucks and was very inconsistent.
 2026-11-19:
   SunShine214, Niko432, Racc-Off, Wrill:
   - rscadd: Added the CDR (Condensate Decay Reactor), which decays gases to make power!
@@ -226,9 +297,24 @@
       from artifacts.
   mrmanlikesbt:
   - bugfix: Fixed various TGUI text inputs crashing when pressing Enter
+  Tsar-Salat:
+  - rscadd: stamina is now an independent datum as opposed to a damage type
+  - rscadd: carbons can now sprint by holding down shift whilst walking/running. Sprinting consumes stamina for each tile moved across.
+  - balance: accordingly, running has had its move delay upped a bit
+  - rscadd: items now do stamina damage in addition to their regular damage. Items specifically designed for crowd control or subduing (beanbag shotgun shells) do a lot of stamina damage.
+  - balance: most medicines or reagents that reduced received stamina damage now instead up the regen rate of stamina
+  - balance: diona now have less base slowdown, but cannot sprint
+  VmpOS2NHSkhkejA9:
+  - bugfix: the wizard's mirror is magic again. turns out polishing it broke the magic.
 2026-11-20:
   mrmanlikesbt, PowerfulBacon:
   - refactor: The stack_trace() proc has been refactored to be a little more sane
+  VmpOS2NHSkhkejA9:
+  - rscadd: debrained carbons (humanoids, mostly) will now say their soul is elsewhere when examined
+  - tweak: examining a dead animal will now show whether or not it has a soul
+  - tweak: medical huds will now show whether dead animals are revivable or not
+  - bugfix: mobs no longer say they have suicided twice when examined, with the text instead replacing the death text.
+  - bugfix: recycling items no longer always returns 0.0005 sheets of material
 2026-11-22:
   rkz, Shroopy, SmArtKar, Melbert:
   - rscadd: humanoids now blink.
@@ -242,10 +328,14 @@
       optimizing future species that use this feature.
   - refactor: Refactored hair and eye rendering a bit, they're now rendered separately
       to the head - report any oddities with either. Lips too but to a lesser degree.
+  BotTierPC:
+  - bugfix: Fixes Psyphoza Overlay Applying UNDER Blind Effects, making Psyphoza hallucinate colors once again.
 2026-11-23:
   DrDuckedGoose:
   - balance: Reduced artifact bonus duck values, less discovery & research points.
   - bugfix: Fixes artifacts being sold infinitely
+  mrmanlikesbt:
+  - bugfix: Fixed some trinary atmospherics components (filters and mixers) dropping a flipped version of themselves when unwrenched
 2026-11-24:
   BotTierPC, BiancaWilkson:
   - tweak: Cardboard tubes now bonk, and thunk people hit while playing a new sound
