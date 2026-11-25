@@ -110,11 +110,6 @@
 	cooldown_integer_ceiling = 2
 	vary = TRUE
 
-/datum/emote/living/carbon/human/scream/get_sound_volume(mob/living/carbon/human/user)
-	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
-		return 10
-	return ..()
-
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/carbon/human/user)
 	if(!istype(user))
 		return

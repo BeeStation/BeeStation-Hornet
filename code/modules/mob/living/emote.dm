@@ -285,11 +285,6 @@
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
 	sound_wall_ignore = TRUE
 
-/datum/emote/living/scream/get_sound_volume(mob/living/user)
-	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
-		return 10 // I hate doing this, but HOLY fuck they're loud as shit
-	return ..()
-
 /datum/emote/living/scream/get_sound(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
 		return 'sound/mobs/non-humanoids/cat/scream_cat.ogg'
@@ -657,11 +652,6 @@
 	key_third_person = "hisses"
 	message = "hisses"
 	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/hiss/get_sound_volume(mob/living/user)
-	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
-		return 10 // WHY ARE YOU SOU LOUD, AAAAAAAH!
-	return ..()
 
 /datum/emote/living/hiss/get_sound(mob/living/user)
 	if(islizard(user))
