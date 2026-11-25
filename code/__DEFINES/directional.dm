@@ -16,7 +16,7 @@
 /// Inverse direction, taking into account UP|DOWN if necessary.
 #define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
 
-/obj/var/_reflection_is_directional = FALSE
+/obj/var/_reflection_is_directional
 
 /// Create directional subtypes for a path to simplify mapping.
 #define MAPPING_DIRECTIONAL_HELPERS(path, offset) ##path/directional {\

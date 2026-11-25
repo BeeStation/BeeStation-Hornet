@@ -53,8 +53,8 @@
 		T.x, T.y, T.z,
 		T.x + room_width - 1, T.y + room_height - 1, T.z,
 	)
-	for (var/turf/placed_turf in room_turfs)
-		for (var/obj/placed_object in placed_turf)
+	for (var/turf/room_turf in room_turfs)
+		for (var/obj/placed_object in room_turf)
 			// Temporary hacky check to see if we contain a directional mapping helper <-- 2 year old temporary check btw
 			if (!placed_object._reflection_is_directional || !isProbablyWallMounted(placed_object))
 				continue
