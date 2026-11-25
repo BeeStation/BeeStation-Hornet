@@ -120,6 +120,8 @@
 		return
 
 	poll = null
+	if(SSdynamic.midround_waiting_ruleset == src)
+		SSdynamic.midround_waiting_ruleset = null
 	source.end_poll()
 
 	// Pick our candidates
