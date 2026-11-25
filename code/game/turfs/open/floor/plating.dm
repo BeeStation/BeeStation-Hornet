@@ -28,9 +28,6 @@
 /turf/open/floor/plating/get_turf_texture()
 	return GLOB.turf_texture_plating
 
-/turf/open/floor/plating/broken
-	broken = TRUE
-
 /turf/open/floor/plating/examine(mob/user)
 	. = ..()
 	if(broken || burnt)
