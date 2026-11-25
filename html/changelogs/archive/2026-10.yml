@@ -108,7 +108,7 @@
   BotTierPC:
   - bugfix: Fixes Admin/Mentors not being able to hide when using the deadmin command
   Baherain:
-    bugfix: Fixed the hamster wheels and hamsterperson wheels not being able to be wrenched to
+  - bugfix: Fixed the hamster wheels and hamsterperson wheels not being able to be wrenched to
       the floor
 2026-10-10:
   BotTierPC:
