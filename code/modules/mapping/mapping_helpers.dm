@@ -1167,6 +1167,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	name = "broken floor"
 	icon = 'icons/turf/damaged.dmi'
 	icon_state = "damaged1"
+	color = COLOR_RED
 	layer = ABOVE_NORMAL_TURF_LAYER
 	late = TRUE
 
@@ -1179,6 +1180,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	name = "burnt floor"
 	icon = 'icons/turf/damaged.dmi'
 	icon_state = "floorscorched1"
+	color = COLOR_RED
 	layer = ABOVE_NORMAL_TURF_LAYER
 	late = TRUE
 
