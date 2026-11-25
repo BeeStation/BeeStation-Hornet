@@ -55,8 +55,7 @@
 	)
 	for (var/turf/placed_turf in room_turfs)
 		for (var/obj/placed_object in placed_turf)
-			// Temporary hacky check to see if we contain a directional mapping helper
-			// I know its a normal variable, but this is explicitly accessed through reflection
+			// Temporary hacky check to see if we contain a directional mapping helper <-- 2 year old temporary check btw
 			if (!placed_object._reflection_is_directional || !isProbablyWallMounted(placed_object))
 				continue
 			// Check to see if we correctly placed ourselves on a wall
