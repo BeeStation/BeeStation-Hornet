@@ -293,10 +293,10 @@
 		vis_contents -= problem
 
 /obj/item/plant_tray/proc/label_tray(mob/user)
-	if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+	if(QDELETED(src) || !user.can_perform_action(src, SILENT_ADJACENCY))
 		return
 	var/input = tgui_input_text(user, "New label", "New label", "label", MAX_NAME_LEN)
-	if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+	if(QDELETED(src) || !user.can_perform_action(src, SILENT_ADJACENCY))
 		return
 	//Blank input removes label
 	if(!input)

@@ -45,16 +45,16 @@
 	//Custom name with a pen
 	if(!istype(I, /obj/item/pen))
 		return
-	if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+	if(QDELETED(src) || !user.can_perform_action(src, SILENT_ADJACENCY))
 		return
 //Desc / name select
 	var/selection
 	selection = tgui_input_list(user, "Edit name, or description?", "Name or Description", list("name", "desc"))
-	if(!selection || QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+	if(!selection || QDELETED(src) || !user.can_perform_action(src, SILENT_ADJACENCY))
 		return
 //Text input
 	var/input = tgui_input_text(user, "New text", "New text", selection == "name" ? name_override : desc_override, selection == "name" ? MAX_NAME_LEN : MAX_MESSAGE_LEN)
-	if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+	if(QDELETED(src) || !user.can_perform_action(src, SILENT_ADJACENCY))
 		return
 	//empty input so we return
 	if(!input)
@@ -202,7 +202,7 @@
 		feature.associate_seeds(src)
 		plant_features += feature
 
-/obj/item/plant_seeds/debug/AltClick(mob/user)
+/obj/item/plant_seeds/debug/click_alt(mob/user)
 	. = ..()
 	plant_features = list()
 

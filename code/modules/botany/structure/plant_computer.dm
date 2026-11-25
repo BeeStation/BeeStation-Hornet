@@ -64,7 +64,7 @@
 	machine.ui_interact(user)
 	screen.flash()
 
-/obj/machinery/computer/plant_machine_controller/AltClick(mob/user)
+/obj/machinery/computer/plant_machine_controller/click_alt(mob/user)
 	. = ..()
 	to_chat(user, span_notice("Resyncing machines..."))
 	playsound(src, 'sound/effects/fastbeep.ogg', 60)
