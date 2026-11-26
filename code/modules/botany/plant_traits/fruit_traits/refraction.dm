@@ -1,6 +1,6 @@
 /datum/plant_trait/refraction
 	name = "Experimental Refraction Gene"
-	desc = "This trait will attempt to sequence plant DNA to produce a reagent, based on the refraction coordinates associated with it. Failing a sequence will destroy the plant's DNA on maturation."
+	desc = "This trait will attempt to alter plant metabolism to produce a reagent, based on the refraction coordinates associated with it. Failure to produce the reagent will destroy the plant's DNA on maturation"
 	scales = "Reagent production percentage scales with trait power."
 	plant_feature_compat = /datum/plant_feature/fruit
 	random_trait = FALSE //We already appear in every random plant

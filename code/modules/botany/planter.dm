@@ -26,7 +26,8 @@
 	visual_upset = _visual_upset || visual_upset
 	layer_upset = _layer_upset || layer_upset
 	gain_weeds = _gain_weeds
-	RegisterSignal(parent, COMSIG_ATOM_AFTER_ATTACKEDBY, PROC_REF(catch_attack))
+	RegisterSignal(parent, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(catch_attack))
+	RegisterSignal(parent, COMSIG_ATOM_ITEM_INTERACTION_SECONDARY, PROC_REF(catch_attack))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(catch_examine))
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(catch_entered))
 	RegisterSignal(parent, COMSIG_ATOM_EXITED, PROC_REF(catch_exited))
@@ -54,45 +55,44 @@
 	obj_parent.visible_message(span_warning("The [parent] is overtaken by some [weed.name_override]!"))
 	qdel(weed)
 
-/datum/component/planter/proc/catch_attack(datum/source, obj/item/I, mob/living/attacker, proximity_flag, list/modifiers)
+/datum/component/planter/proc/catch_attack(datum/source, mob/living/attacker, obj/item/I, list/modifiers)
 	SIGNAL_HANDLER
 
-	if(!proximity_flag)
-		return
 //Hasty remove plants
 	if(LAZYACCESS(modifiers, RIGHT_CLICK) && istype(I, /obj/item/shovel) && length(plants))
 		to_chat(attacker, span_warning("You begin to hastily remove [parent]'s plants! (This will destroy them)"))
+		playsound(parent, 'sound/effects/shovel_dig.ogg', 60)
 		INVOKE_ASYNC(src, PROC_REF(async_hasty_remove), attacker, I)
-		return
+		return ITEM_INTERACT_SUCCESS
 //Removing weeeds
 	if(istype(I, /obj/item/cultivator))
 		if(weed_level <= 1)
 			attacker.visible_message("[attacker] digs around in [parent].", span_warning("[parent] is devoid of weeds!"))
-			return
+			return ITEM_INTERACT_BLOCKING
 		attacker.visible_message("[attacker] uproots the weeds.", span_notice("You remove the weeds from [parent]."))
 		weed_level = 0
 		playsound(parent, 'sound/effects/shovel_dig.ogg', 60)
-		return
+		return ITEM_INTERACT_SUCCESS
 //Plumbing - because the punger is coded stupid
 	if(istype(I, /obj/item/plunger))
 		to_chat(attacker, span_notice("You start furiously plunging [parent]."))
 		INVOKE_ASYNC(src, PROC_REF(async_plunger_action), attacker, I)
-		return
+		return ITEM_INTERACT_SUCCESS
 //Remove substrate
 	if(istype(I, /obj/item/shovel) && !length(plants) && allow_substrate_change)
 		INVOKE_ASYNC(src, PROC_REF(async_spade_action), attacker)
-		return
+		return ITEM_INTERACT_SUCCESS
 	else if(istype(I, /obj/item/shovel) && length(plants))
 		to_chat(attacker, span_warning("You can't clear [parent]'s substrate while it still contains plants!"))
 		//special code selecting specific plants to uproot, helps when visiblity is sucky
 		INVOKE_ASYNC(src, PROC_REF(async_spade_options), attacker, I)
-		return
+		return ITEM_INTERACT_BLOCKING
 //Ported legacy code from old trays
 	var/obj/obj_parent = parent
 	var/obj/item/reagent_containers/reagent_source = I
 	if(istype(reagent_source, /obj/item/reagent_containers) && reagent_source.reagents.total_volume <= 0)
 		to_chat(attacker, span_warning("[reagent_source] is empty!"))
-		return
+		return ITEM_INTERACT_BLOCKING
 	//Composting - Composted reagents are doubled
 	if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/applicator/pill))
 		obj_parent.visible_message(span_notice("[attacker] composts [reagent_source], spreading it through [obj_parent]"))

@@ -65634,16 +65634,13 @@
 /area/station/commons/dorms)
 "wJT" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/tile_breaker,
 /obj/item/chair/plastic,
 /obj/item/trash/chips{
 	pixel_y = 2;
 	pixel_x = -8
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "wKn" = (
