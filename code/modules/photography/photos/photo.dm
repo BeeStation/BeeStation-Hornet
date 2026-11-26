@@ -60,6 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/photo)
 			return
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing", max_length = 256)
 		if(txt && user.can_perform_action(src))
+			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			scribble = txt
 	else
 		return ..()

@@ -153,6 +153,7 @@
 		var/cardtext = stripped_input(user, "What do you wish to write on the card?", "Card Writing", "", 50)
 		if(!cardtext || !user.can_perform_action(src))
 			return
+		playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 		name = cardtext
 		buffertext = cardtext
 		blank = 0

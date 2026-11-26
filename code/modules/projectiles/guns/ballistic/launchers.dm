@@ -7,7 +7,7 @@
 	icon_state = "dshotgun_sawn"
 	inhand_icon_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gun/general/grenade_launch.ogg'
 	w_class = WEIGHT_CLASS_LARGE
 	pin = /obj/item/firing_pin/implant/pindicate
 	spread_unwielded = 8
@@ -38,7 +38,7 @@
 	name = "gyrojet pistol"
 	desc = "A prototype pistol designed to fire self propelled rockets."
 	icon_state = "gyropistol"
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gun/general/grenade_launch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m75
 	automatic = 0
 	actions_types = list()
@@ -51,7 +51,7 @@
 	icon_state = "rocketlauncher"
 	inhand_icon_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher
-	fire_sound = 'sound/weapons/rocketlaunch.ogg'
+	fire_sound = 'sound/weapons/gun/general/rocket_launch.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin/implant/pindicate

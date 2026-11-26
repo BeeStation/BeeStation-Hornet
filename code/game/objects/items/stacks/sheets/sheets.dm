@@ -17,6 +17,8 @@
 
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "smashes")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "smash")
+	pickup_sound = 'sound/items/handling/materials/metal_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/metal_drop.ogg'
 	novariants = FALSE
 	material_flags = MATERIAL_EFFECTS
 	var/sheettype = null //this is used for girders in the creation of walls/false walls

@@ -248,6 +248,7 @@ export function SpawnSearch() {
       title="Spawn Atom"
       width={400}
       height={500}
+      theme="admin"
       buttons={
         <>
           <Button

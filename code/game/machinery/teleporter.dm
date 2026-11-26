@@ -78,6 +78,7 @@
 		return
 	if(!do_teleport(M, target, channel = TELEPORT_CHANNEL_BLUESPACE))
 		return
+	playsound(loc, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	use_power(active_power_usage)
 	if(!calibrated && prob(40 - ((accuracy) * 10))) //oh dear a problem
 		if(ishuman(M))//don't remove people from the round randomly you jerks

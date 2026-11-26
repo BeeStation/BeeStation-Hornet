@@ -16,7 +16,7 @@
 //KEEP IT UPDATED
 #define CHANNEL_HIGHEST_AVAILABLE 1011
 
-/// Used for /client/var/list/sound_channel_initial_volumes
+/// Used for /client/var/alist/sound_channel_initial_volumes
 #define HAS_UNIQUE_SOUND_CHANNEL(sound) (sound.channel > CHANNEL_HIGHEST_AVAILABLE)
 
 /// This is the lowest volume that can be used by playsound otherwise it gets ignored
@@ -72,11 +72,12 @@
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
 #define SOUND_MINIMUM_PRESSURE 10
-#define FALLOFF_SOUNDS 1
+
 #define INTERACTION_SOUND_RANGE_MODIFIER -3
+#define LIQUID_SLOSHING_SOUND_VOLUME 10
+#define PICKUP_SOUND_VOLUME 15
+#define DROP_SOUND_VOLUME 20
 #define EQUIP_SOUND_VOLUME 30
-#define PICKUP_SOUND_VOLUME 40
-#define DROP_SOUND_VOLUME 50
 #define YEET_SOUND_VOLUME 90
 
 #define AMBIENCE_GENERIC "generic"

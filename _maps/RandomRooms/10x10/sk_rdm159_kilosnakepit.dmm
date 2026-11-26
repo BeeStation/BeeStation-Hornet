@@ -43,9 +43,8 @@
 	pixel_y = 30
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "cm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -141,9 +140,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "jx" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "ke" = (
 /obj/effect/turf_decal/stripes/line,
@@ -199,16 +197,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "np" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "nH" = (
 /obj/effect/turf_decal/stripes/line{
@@ -217,9 +213,8 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "ol" = (
 /turf/closed/wall,
@@ -271,17 +266,15 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "uF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "uH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -363,18 +356,16 @@
 /area/template_noop)
 "As" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "BB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "BT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -442,9 +433,8 @@
 "It" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Jx" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
@@ -534,9 +524,8 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "OG" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -547,17 +536,15 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "Qy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "QX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -568,9 +555,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "Ry" = (
 /obj/effect/turf_decal/stripes/line{
@@ -619,9 +605,8 @@
 /area/template_noop)
 "VY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "WC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -653,9 +638,8 @@
 "Zq" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"

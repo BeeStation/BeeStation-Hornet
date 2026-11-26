@@ -208,7 +208,7 @@
 			user.visible_message("[user] starts to fix part of \the [src].", span_notice("You start to fix part of \the [src]..."))
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes part of \the [src].", span_notice("You fix part of \the [src]."))
-				broken = 1 // Fix it a bit
+				broken = TRUE // Fix it a bit
 		else if(broken == 1 && O.tool_behaviour == TOOL_WELDER) // If it's broken and they're doing the wrench
 			user.visible_message("[user] starts to fix part of \the [src].", span_notice("You start to fix part of \the [src]..."))
 			if(O.use_tool(src, user, 20))

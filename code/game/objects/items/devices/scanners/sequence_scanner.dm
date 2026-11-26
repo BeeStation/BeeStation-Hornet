@@ -26,7 +26,7 @@
 	if(!HAS_TRAIT(M, TRAIT_GENELESS) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message(span_notice("[user] analyzes [M]'s genetic sequence."))
 		balloon_alert(user, "sequence analyzed")
-		playsound(src, 'sound/effects/fastbeep.ogg', 20)
+		playsound(user, 'sound/items/healthanalyzer.ogg', 50)
 		gene_scan(M, user)
 		return
 

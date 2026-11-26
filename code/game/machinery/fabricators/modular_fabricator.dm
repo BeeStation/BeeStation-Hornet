@@ -768,7 +768,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	// Actually make the item
 	var/turf/release_turf = get_release_turf()
 	if(is_stack)
-		var/obj/item/stack/new_stack = new being_built.build_path(loc, items_to_build)
+		var/obj/item/stack/new_stack = new being_built.build_path(loc)
+		new_stack.add(new_stack.amount * (items_to_build - 1))
+		new_stack.check_max_amount()
 		new_stack.forceMove(release_turf) //Forcemove to the release turf to trigger ZFall
 	else
 		for(var/i = 1 to items_to_build)

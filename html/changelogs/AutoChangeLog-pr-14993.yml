@@ -1,6 +1,0 @@
-author: BotTierPC, BiancaWilkson
-delete-after: true
-changes:
-  - tweak: Cardboard tubes now bonk, and thunk people hit while playing a new sound
-      effect.
-  - sound: Adds a new sound resembling cardboard hitting an object

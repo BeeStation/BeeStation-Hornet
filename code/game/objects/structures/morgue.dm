@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 			continue
 		icon_state = "morgue4" // Living mobs are there
 		if(mob_occupant.stat == DEAD && beeper && COOLDOWN_FINISHED(src, beep_timer))
-			playsound(src, 'sound/weapons/smg_empty_alarm.ogg', 50, 0) //Clone them you blind fucks
+			playsound(src, 'sound/weapons/gun/general/empty_alarm.ogg', 50, 0) //Clone them you blind fucks
 			COOLDOWN_START(src, beep_timer, beep_cooldown)
 			return
 

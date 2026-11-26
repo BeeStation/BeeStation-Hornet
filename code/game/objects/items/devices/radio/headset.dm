@@ -29,6 +29,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	interaction_flags_mouse_drop = FORBID_TELEKINESIS_REACH
 	slot_flags = ITEM_SLOT_EARS
 	dog_fashion = null
+	equip_sound = "headset_equip"
+	pickup_sound = "headset_pickup"
+	drop_sound = 'sound/items/handling/headset/headset_drop.ogg'
 	var/obj/item/encryptionkey/keyslot2 = null
 	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 	var/callout_capable = FALSE

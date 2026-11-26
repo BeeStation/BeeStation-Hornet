@@ -12,8 +12,8 @@
 	max_integrity = 20
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
-	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
-	pickup_sound = 'sound/items/handling/drinkglass_pickup.ogg'
+	drop_sound = 'sound/items/handling/drink/drinkglass_drop.ogg'
+	pickup_sound = 'sound/items/handling/drink/drinkglass_pickup.ogg'
 
 	/// The type to compare to glass_style.required_container type, or null to use class type.
 	/// This allows subtypes to utilize parent styles.

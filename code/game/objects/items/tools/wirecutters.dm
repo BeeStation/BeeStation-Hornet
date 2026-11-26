@@ -23,8 +23,8 @@
 	attack_verb_simple = list("pinch", "nip")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
-	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
-	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/wirecutter_drop.ogg'
+	pickup_sound =  'sound/items/handling/tools/wirecutter_pickup.ogg'
 	tool_behaviour = TOOL_WIRECUTTER
 	toolspeed = 1
 	armor_type = /datum/armor/item_wirecutters
