@@ -12,9 +12,8 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /obj/effect/turf_decal/stripes/corner{

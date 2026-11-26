@@ -138,9 +138,8 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "T" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "V" = (
 /obj/effect/landmark/event_spawn,
@@ -153,9 +152,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "X" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Z" = (
 /obj/effect/landmark/blobstart,

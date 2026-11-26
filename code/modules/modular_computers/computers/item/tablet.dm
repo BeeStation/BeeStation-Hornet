@@ -176,7 +176,7 @@
 
 	if(issilicon(user) || !user.can_perform_action(src, FORBID_TELEKINESIS_REACH | NEED_DEXTERITY)) //TK doesn't work even with this removed but here for readability
 		return
-		
+
 	if(!inserted_item)
 		to_chat(user, span_warning("This tablet does not have a pen in it!"))
 		return
@@ -344,10 +344,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/ipc)
 		tablet_owner = null
 		stack_trace("[type] initialized outside of an IPC, deleting.")
 		return INITIALIZE_HINT_QDEL
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /obj/item/modular_computer/tablet/ipc/Destroy()
 	tablet_owner = null
+	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	..()
+
+/obj/item/modular_computer/tablet/ipc/proc/on_move()
+	if(loc == tablet_owner)
+		return
+	qdel(src)
 
 GLOBAL_LIST_EMPTY(PDAs)
 

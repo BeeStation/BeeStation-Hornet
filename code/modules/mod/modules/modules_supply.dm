@@ -174,37 +174,64 @@
 	cooldown_time = 0.5 SECONDS
 	allow_flags = MODULE_ALLOW_INACTIVE
 	required_slots = list(ITEM_SLOT_BACK)
-	/// The ores stored in the bag.
-	var/list/ores = list()
+	/// Prevents automatically picking ores back up while the bag is unloading them.
+	var/dropping_ores = FALSE
 
 /obj/item/mod/module/orebag/on_equip()
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(ore_pickup))
+	if(mod.wearer.loc)
+		RegisterSignal(mod.wearer.loc, COMSIG_ATOM_ENTERED, PROC_REF(on_obj_entered))
+		RegisterSignal(mod.wearer.loc, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_initialized_on))
 
 /obj/item/mod/module/orebag/on_unequip()
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
+	if(mod.wearer.loc)
+		UnregisterSignal(mod.wearer.loc, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON))
 
 /obj/item/mod/module/orebag/proc/ore_pickup(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
 
+	if(old_loc)
+		UnregisterSignal(old_loc, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON))
+	if(mod.wearer.loc)
+		RegisterSignal(mod.wearer.loc, COMSIG_ATOM_ENTERED, PROC_REF(on_obj_entered))
+		RegisterSignal(mod.wearer.loc, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_initialized_on))
+	var/ore_found = FALSE
 	for(var/obj/item/stack/ore/ore in get_turf(mod.wearer))
+		ore_found = TRUE
 		INVOKE_ASYNC(src, PROC_REF(move_ore), ore)
-		playsound(src, /datum/sound_effect/rustle, 50, TRUE)
+	if(ore_found)
+		playsound(mod.wearer, /datum/sound_effect/rustle, 50, TRUE)
+
+/obj/item/mod/module/orebag/proc/on_obj_entered(atom/source, atom/movable/arrived, atom/old_loc)
+	SIGNAL_HANDLER
+	if(istype(arrived, /obj/item/stack/ore) && !dropping_ores && old_loc != mod.wearer)
+		INVOKE_ASYNC(src, PROC_REF(move_ore), arrived)
+		playsound(mod.wearer, /datum/sound_effect/rustle, 50, TRUE)
+
+/obj/item/mod/module/orebag/proc/on_atom_initialized_on(atom/source, atom/new_atom, mapload)
+	SIGNAL_HANDLER
+	if(istype(new_atom, /obj/item/stack/ore) && !dropping_ores)
+		INVOKE_ASYNC(src, PROC_REF(move_ore), new_atom)
+		playsound(mod.wearer, /datum/sound_effect/rustle, 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
-	for(var/obj/item/stack/stored_ore as anything in ores)
-		if(!stored_ore.can_merge(ore))
+	if(QDELETED(ore) || ore.loc != get_turf(mod.wearer))
+		return
+	for(var/obj/item/stack/ore/stored_ore as anything in src)
+		if(!ore.can_merge(stored_ore))
 			continue
-		stored_ore.merge(ore)
+		ore.merge(stored_ore)
 		if(QDELETED(ore))
 			return
 		break
 	ore.forceMove(src)
-	ores += ore
 
 /obj/item/mod/module/orebag/on_use()
-	for(var/obj/item/ore as anything in ores)
-		ore.forceMove(drop_location())
-		ores -= ore
+	dropping_ores = TRUE
+	for(var/obj/item/ore as anything in src)
+		ore.forceMove(mod.drop_location())
+	dropping_ores = FALSE
 	drain_power(use_power_cost)
 
 /obj/item/mod/module/hydraulic

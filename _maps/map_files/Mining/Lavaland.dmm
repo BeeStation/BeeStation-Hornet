@@ -429,7 +429,8 @@
 	dir = 1
 	},
 /obj/structure/spider/stickyweb,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospostengine)
 "cl" = (
 /obj/structure/fence/corner{
@@ -776,10 +777,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
-"ey" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/broken,
-/area/mine/atmospost)
 "eA" = (
 /obj/structure/foamedmetal,
 /turf/open/floor/plating/asteroid,
@@ -1092,7 +1089,7 @@
 /area/mine/living_quarters)
 "gC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/mine/atmospost)
 "gI" = (
@@ -1243,7 +1240,7 @@
 /area/lavaland/surface/outdoors)
 "hw" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/mine/atmospostengine)
 "hz" = (
@@ -1314,7 +1311,8 @@
 "hX" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "ia" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -1743,7 +1741,8 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
 	},
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "ks" = (
 /obj/structure/stone_tile,
@@ -2104,7 +2103,8 @@
 /area/lavaland/surface/outdoors)
 "mJ" = (
 /obj/structure/extinguisher_cabinet/directional/east,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "mK" = (
 /obj/structure/stone_tile/block{
@@ -2531,7 +2531,8 @@
 "pL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "pN" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -2623,7 +2624,8 @@
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "qr" = (
 /obj/item/radio/intercom/directional/west,
@@ -3165,8 +3167,8 @@
 /area/mine/laborcamp/security)
 "tT" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "tY" = (
 /obj/effect/turf_decal/tile/red,
@@ -3762,8 +3764,8 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospostengine)
 "xL" = (
 /obj/machinery/suit_storage_unit,
@@ -3947,10 +3949,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"yY" = (
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plating/broken,
-/area/mine/atmospost)
 "zc" = (
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
@@ -4848,7 +4846,8 @@
 /obj/structure/table/reinforced,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/firedoor,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmosposthallway)
 "EO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -6255,7 +6254,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
 	dir = 6
 	},
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "NA" = (
 /turf/closed/wall/r_wall,
@@ -6395,7 +6395,8 @@
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "NY" = (
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "Oc" = (
 /obj/machinery/light/small/directional/north,
@@ -6671,7 +6672,7 @@
 /area/lavaland/surface/outdoors/explored)
 "PL" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/mine/atmospostengine)
 "PM" = (
@@ -6922,8 +6923,8 @@
 "Rv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "Rw" = (
 /obj/item/storage/firstaid/toxin{
@@ -7173,7 +7174,8 @@
 	cocoon_target = 500;
 	spider_team = 101
 	},
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "Te" = (
 /obj/structure/ore_box,
@@ -7266,7 +7268,8 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospostengine)
 "TL" = (
 /obj/structure/ore_box,
@@ -7376,8 +7379,8 @@
 	cocoon_target = 500;
 	spider_team = 101
 	},
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "UD" = (
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -7392,7 +7395,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "UF" = (
 /obj/machinery/atmospherics/components/binary/pump/on/layer2{
@@ -52036,7 +52040,7 @@ TW
 bp
 xe
 Li
-yY
+NY
 pL
 PX
 FA
@@ -52798,7 +52802,7 @@ bW
 rV
 nZ
 wC
-ey
+tT
 FG
 Gj
 tc
@@ -53056,7 +53060,7 @@ jI
 uT
 GC
 tT
-yY
+NY
 FG
 CE
 FN

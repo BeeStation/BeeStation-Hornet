@@ -73,23 +73,24 @@
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
-/datum/species/ipc/on_species_gain(mob/living/carbon/C)
+/datum/species/ipc/on_species_gain(mob/living/carbon/carbon)
 	. = ..()
-	if(ishuman(C) && !change_screen)
+	if(ishuman(carbon) && !change_screen)
 		change_screen = new
-		change_screen.Grant(C)
+		change_screen.Grant(carbon)
 
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
+	if(ishuman(carbon))
+		var/mob/living/carbon/human/H = carbon
 		H.physiology.bleed_mod *= 0.1
 
-	controller = new(C)
-	controller.saved_identification = "[C.real_name || C.name] :: INTERNAL"
+	controller = new(carbon)
+	controller.saved_identification = "[carbon.real_name || carbon.name] :: INTERNAL"
 	controller.messenger_invisible = TRUE
 	controller_action = new
-	controller_action.Grant(C)
+	controller_action.Grant(carbon)
 
-	RegisterSignal(C, COMSIG_LIVING_REVIVE, PROC_REF(mechanical_revival))
+	RegisterSignal(controller, COMSIG_QDELETING, PROC_REF(controller_deleted))
+	RegisterSignal(carbon, COMSIG_LIVING_REVIVE, PROC_REF(mechanical_revival))
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -99,9 +100,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 10
-	if(controller_action)
-		controller_action.Remove(C)
-	QDEL_NULL(controller)
+
+	// controller should exist, but could be null at this point. This should handle action removal as well.
+	qdel(controller)
 	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
 /datum/species/ipc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
@@ -111,12 +112,18 @@
 		source.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
 		to_chat(source, span_danger("You feel weak."))
 
+/datum/species/ipc/proc/controller_deleted()
+	UnregisterSignal(controller, COMSIG_QDELETING)
+	controller = null
+	controller_action?.Remove(controller_action.owner)
+	controller_action = null
+
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
 	if(!gibbed)
-		controller.shutdown_computer()
+		controller?.shutdown_computer()
 	var/obj/item/organ/ipc_screen/screen = C.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
 	if(screen)
 		saved_screen = screen.bodypart_overlay.sprite_datum.name

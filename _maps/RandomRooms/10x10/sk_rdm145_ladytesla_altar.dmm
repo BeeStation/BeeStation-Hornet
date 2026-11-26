@@ -20,9 +20,8 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "i" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -34,14 +33,12 @@
 /area/template_noop)
 "l" = (
 /obj/effect/spawner/random/trash/grille_or_waste,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "m" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "n" = (
 /obj/item/stack/cable_coil,
@@ -128,9 +125,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "E" = (
 /obj/item/radio/intercom{
@@ -162,9 +158,8 @@
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "O" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
 /obj/machinery/light/small{
@@ -208,9 +203,8 @@
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "X" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "Z" = (
 /obj/structure/table/wood,

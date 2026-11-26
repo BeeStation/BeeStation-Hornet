@@ -79,7 +79,7 @@
 	AddComponent(/datum/component/swarming, 16, 16) //max_x, max_y
 
 /mob/living/basic/mouse/proc/make_tameable()
-	if (tame)
+	if(tame)
 		faction |= FACTION_NEUTRAL
 	else
 		var/static/list/food_types = list(/obj/item/food/cheese)
@@ -211,7 +211,15 @@
 
 /// Creates a new mouse based on this mouse's subtype.
 /mob/living/basic/mouse/proc/create_a_new_rat()
-	new /mob/living/basic/mouse(loc, /* tame = */ tame)
+	var/mob/living/basic/mouse/offspring = new(loc, /* tame = */ tame)
+	inherit_friends(offspring)
+
+/// Passes this mouse's tamer to their offspring
+/mob/living/basic/mouse/proc/inherit_friends(mob/living/basic/mouse/offspring)
+	var/list/friends = ai_controller?.blackboard[BB_FRIENDS_LIST]
+	for(var/mob/living/friend as anything in friends)
+		if(!QDELETED(friend))
+			offspring.befriend(friend)
 
 /// Biting into a cable will cause a mouse to get shocked and die if applicable. Or do nothing if they're lucky.
 /mob/living/basic/mouse/proc/try_bite_cable(obj/structure/cable/cable)
@@ -275,7 +283,8 @@
 	AddElement(/datum/element/pet_bonus, "squeak")
 
 /mob/living/basic/mouse/brown/tom/create_a_new_rat()
-	new /mob/living/basic/mouse/brown(loc, /* tame = */ tame) // dominant gene
+	var/mob/living/basic/mouse/offspring = new /mob/living/basic/mouse/brown(loc, /* tame = */ tame) // dominant gene
+	inherit_friends(offspring)
 
 /mob/living/basic/mouse/rat
 	name = "rat"
