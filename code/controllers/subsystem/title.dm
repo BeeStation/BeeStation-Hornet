@@ -66,8 +66,8 @@ SUBSYSTEM_DEF(title)
 		icon = icon(icon)
 
 	//Calculate the screen size
-	var/width = icon.Width() / world.icon_size
-	var/height = icon.Height() / world.icon_size
+	var/width = round(icon.Width() / world.icon_size)
+	var/height = round(icon.Height() / world.icon_size)
 	var/calculated_lobby_screen_size = "[width]x[height]"
 
 	if(lobby_screen_size != calculated_lobby_screen_size)
