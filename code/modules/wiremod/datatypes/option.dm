@@ -25,6 +25,8 @@
 	if(!port.possible_options || !length(port.possible_options))
 		return null
 
+	if(istext(value_to_convert))
+		value_to_convert = replacetext(replacetext(value_to_convert, "‹", "<"), "›", ">")
 	if(value_to_convert in port.possible_options)
 		return value_to_convert
 	return port.possible_options[1]

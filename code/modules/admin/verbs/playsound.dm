@@ -102,7 +102,7 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 		if (duration > 10 MINUTES)
 			if((tgui_alert(user, "This song is over 10 minutes long. Are you sure you want to play it?", "Length Warning!", list("No", "Yes", "Cancel")) != "Yes"))
 				return
-		var/res = tgui_alert(user, "Show the title of and link to this song to the players?\n[title]", "Show Info?", list("Yes", "No", "Cancel"))
+		var/res = tgui_alert(user, "Show the title of and link to this song to the players?\n[data["title"]]", "Show Info?", list("Yes", "No", "Cancel"))
 		switch(res)
 			if("Yes")
 				music_extra_data["title"] = data["title"]

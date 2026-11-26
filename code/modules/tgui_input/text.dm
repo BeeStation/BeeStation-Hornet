@@ -41,7 +41,7 @@
 				return
 			if(!user.client.holder)
 				entry = scrub_angle_brackets(entry)
-			return trim(entry, max_length)
+			return max_length ? copytext_char(entry, 1, max_length + 1) : entry
 	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, timeout)
 	text_input.ui_interact(user)
 	text_input.wait()
@@ -89,7 +89,7 @@
 				return
 			if(!user.client.holder)
 				entry = scrub_angle_brackets(entry)
-			return trim(entry, max_length)
+			return max_length ? copytext_char(entry, 1, max_length + 1) : entry
 	var/datum/tgui_input_text/async/text_input = new(user, message, title, default, max_length, multiline, encode, callback, timeout)
 	text_input.ui_interact(user)
 
@@ -182,7 +182,7 @@
 	switch(action)
 		if("submit")
 			if(max_length)
-				if(length(params["entry"]) > max_length)
+				if(length_char(params["entry"]) > max_length)
 					CRASH("[usr] typed a text string longer than the max length")
 				if(encode && (length(html_encode(params["entry"])) > max_length))
 					to_chat(usr, span_notice("Input uses special characters, thus reducing the maximum length."))

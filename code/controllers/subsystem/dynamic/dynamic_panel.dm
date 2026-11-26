@@ -431,7 +431,7 @@
 
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
 			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
-			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(DYNAMIC_EXECUTE_SUCCESS)]")
+			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 			if (result == DYNAMIC_EXECUTE_WAITING)
 				SSdynamic.midround_waiting_ruleset = midround_ruleset
 				SSdynamic.midround_executed_rulesets += midround_ruleset
