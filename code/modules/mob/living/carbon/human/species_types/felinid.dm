@@ -3,6 +3,7 @@
 	name = "\improper Felinid"
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
+	mutantbrain = /obj/item/organ/brain/felinid
 
 	mutant_organs = list(
 		/obj/item/organ/tail/cat = "Cat",
@@ -19,6 +20,9 @@
 	inert_mutation = /datum/mutation/catclaws
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
+
+/obj/item/organ/brain/felinid
+	brain_size = 0.8 // tiny brained creatures rkz hates all felinid players
 
 /datum/species/human/felinid/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	/*
