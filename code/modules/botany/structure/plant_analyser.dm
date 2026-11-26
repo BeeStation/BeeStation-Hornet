@@ -125,9 +125,15 @@
 	plant_item.forceMove(src)
 	inserted_plant = plant_item
 	plant_component = plant
+	RegisterSignal(plant_component, COMSIG_QDELETING, PROC_REF(catch_qdel))
 	icon_state = "analyzer"
 	playsound(src, 'sound/machines/click.ogg', 30)
 	ui_update()
+
+/obj/machinery/plant_machine/plant_analyser/proc/catch_qdel(datum/source)
+	SIGNAL_HANDLER
+
+	plant_component = null
 
 /obj/machinery/plant_machine/plant_analyser/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()

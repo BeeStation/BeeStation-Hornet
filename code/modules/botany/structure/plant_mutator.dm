@@ -133,6 +133,7 @@
 	plant_item.forceMove(src)
 	plant = plant_item
 	plant_component = comp
+	RegisterSignal(plant_component, COMSIG_QDELETING, PROC_REF(catch_qdel))
 	icon_state = "mutator"
 	playsound(src, 'sound/machines/click.ogg', 30)
 	ui_update()
@@ -289,6 +290,11 @@
 	vis_contents -= rad_ghost
 	soundloop.stop()
 	ui_update()
+
+/obj/machinery/plant_machine/plant_mutator/proc/catch_qdel(datum/source)
+	SIGNAL_HANDLER
+
+	plant_component = null
 
 //Circuitboard
 /obj/item/circuitboard/machine/plant_mutator

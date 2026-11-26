@@ -24,6 +24,12 @@
 		plant_comp = null
 		return
 	RegisterSignal(plant_comp, COMSIG_PLANT_BEE_BUFF, PROC_REF(catch_bee))
+	RegisterSignal(plant_comp, COMSIG_QDELETING, PROC_REF(catch_qdel))
+
+/datum/plant_trait/body/sap/proc/catch_qdel(datum/source)
+	SIGNAL_HANDLER
+
+	plant_comp = null
 
 /datum/plant_trait/body/sap/proc/catch_bee(datum/source)
 	SIGNAL_HANDLER

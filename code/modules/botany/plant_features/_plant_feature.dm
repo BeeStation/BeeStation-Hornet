@@ -178,11 +178,19 @@
 		UnregisterSignal(parent, COMSIG_PLANT_UPROOTED)
 	//Shack up with the new rockstar
 	parent = _parent
+	if(!parent)
+		return
 	if(parent?.plant_item)
 		RegisterSignal(parent.plant_item, COMSIG_ATOM_EXAMINE, PROC_REF(catch_examine))
 	RegisterSignal(parent, COMSIG_PLANT_PLANTED, PROC_REF(catch_planted))
 	RegisterSignal(parent, COMSIG_PLANT_UPROOTED, PROC_REF(catch_uprooted))
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(catch_qdel))
 	SEND_SIGNAL(src, COMSIG_PF_ATTACHED_PARENT)
+
+/datum/plant_feature/proc/catch_qdel(datum/source)
+	SIGNAL_HANDLER
+
+	setup_parent(null)
 
 /datum/plant_feature/proc/remove_parent()
 	setup_parent(null)
