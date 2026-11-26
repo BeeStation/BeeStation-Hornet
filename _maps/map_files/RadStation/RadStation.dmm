@@ -55954,7 +55954,6 @@
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "vln" = (
-/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "vlr" = (
