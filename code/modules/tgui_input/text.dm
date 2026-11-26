@@ -37,6 +37,8 @@
 				entry = input(user, message, title, default) as message|null
 			else
 				entry = input(user, message, title, default) as text|null
+			if(isnull(entry))
+				return
 			if(!user.client.holder)
 				entry = scrub_angle_brackets(entry)
 			return trim(entry, max_length)
@@ -83,6 +85,8 @@
 				entry = input(user, message, title, default) as message|null
 			else
 				entry = input(user, message, title, default) as text|null
+			if(isnull(entry))
+				return
 			if(!user.client.holder)
 				entry = scrub_angle_brackets(entry)
 			return trim(entry, max_length)

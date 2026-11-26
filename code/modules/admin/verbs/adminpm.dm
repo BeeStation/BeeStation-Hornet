@@ -157,6 +157,7 @@
 		msg = sanitize_simple(msg)
 		if(!html_encoded)
 			msg = html_encode(msg)
+			html_encoded = TRUE
 		msg = trim(msg, MAX_MESSAGE_LEN)
 		if(!msg)
 			return
