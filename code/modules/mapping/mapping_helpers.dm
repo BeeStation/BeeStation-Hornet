@@ -1172,8 +1172,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	late = TRUE
 
 /obj/effect/mapping_helpers/broken_floor/LateInitialize()
-	var/turf/open/floor/floor = get_turf(src)
-	floor.break_tile()
+	var/turf/open/floor = get_turf(src)
+	// another mapping helper could've made our turf into a wall
+	if(istype(floor))
+		floor.break_tile()
 	qdel(src)
 
 /obj/effect/mapping_helpers/burnt_floor
@@ -1185,8 +1187,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	late = TRUE
 
 /obj/effect/mapping_helpers/burnt_floor/LateInitialize()
-	var/turf/open/floor/floor = get_turf(src)
-	floor.burn_tile()
+	var/turf/open/floor = get_turf(src)
+	// another mapping helper could've made our turf into a wall
+	if(istype(floor))
+		floor.burn_tile()
 	qdel(src)
 
 ///Applies BROKEN flag to the first found machine on a tile
