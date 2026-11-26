@@ -37,6 +37,10 @@
 	return TRUE
 
 /datum/action/item_action/adjust/do_effect(trigger_flags)
+	if(istype(target, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/as_mask = target
+		as_mask.adjustmask(owner)
+		return TRUE
 	if(!isclothing(target))
 		CRASH("weldingvisortoggle action attempted to trigger on a non-clothing atom [target] ([target?.type]) owned by [owner] ([owner?.type]!")
 	var/obj/item/clothing/as_clothing = target

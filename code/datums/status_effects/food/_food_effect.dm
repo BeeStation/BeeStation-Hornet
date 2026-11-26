@@ -14,7 +14,8 @@
 	if(isnum(timeout))
 		duration *= timeout
 	if(istype(linked_alert, /atom/movable/screen/alert/status_effect/food))
-		linked_alert.icon_state = "[linked_alert.base_icon_state]_[strength]"
+		linked_alert.overlay_state = "food_buff_[strength]"
+		linked_alert.update_appearance(UPDATE_OVERLAYS)
 
 /atom/movable/screen/alert/status_effect/food
 	name = "Hand-crafted meal"
