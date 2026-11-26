@@ -6,6 +6,7 @@
 
 import { EventEmitter } from 'common/events';
 import { classes } from 'common/react';
+import DOMPurify from 'dompurify';
 import { createRoot } from 'react-dom/client';
 import { RadarChart, Tooltip } from 'tgui/components';
 import { createLogger } from 'tgui/logging';
@@ -31,6 +32,13 @@ const logger = createLogger('chatRenderer');
 // We consider this as the smallest possible scroll offset
 // that is still trackable.
 const SCROLL_TRACKING_TOLERANCE = 24;
+
+const CHAT_PURIFY_CONFIG = {
+  FORBID_TAGS: ['iframe', 'link', 'video', 'object', 'embed', 'form'],
+  // DOMPurify's default URI allow-list with byond: added, for admin/topic links
+  ALLOWED_URI_REGEXP:
+    /^(?:(?:(?:f|ht)tps?|mailto|byond):|[^a-z]|[a-z+.-]+(?:[^a-z+.:-]|$))/i,
+};
 
 // List of injectable component names to the actual type
 export const TGUI_CHAT_COMPONENTS = {
@@ -453,9 +461,10 @@ class ChatRenderer {
         }
         // Payload is HTML
         else if (message.html) {
-          node.innerHTML = this.highContrast
-            ? formatHighContrast(message.html)
-            : message.html;
+          node.innerHTML = DOMPurify.sanitize(
+            this.highContrast ? formatHighContrast(message.html) : message.html,
+            CHAT_PURIFY_CONFIG,
+          );
         } else {
           logger.error('Error: message is missing text payload', message);
         }

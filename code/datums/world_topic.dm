@@ -143,7 +143,7 @@
 
 /datum/world_topic/ahelp_relay/Run(list/input)
 	. = ..()
-	relay_msg_admins(span_adminnotice("<b><font color=red>HELP:</font> <font color=orange>[input["source"]]:</font> [input["message_sender"]]: [input["message"]]</b>"))
+	relay_msg_admins(span_adminnotice("<b><font color=red>HELP:</font> <font color=orange>[html_encode(input["source"])]:</font> [html_encode(input["message_sender"])]: [html_encode(input["message"])]</b>"))
 	statuscode = 200
 	response = "Ahelp relayed"
 
@@ -155,7 +155,7 @@
 	. = ..()
 	if(CHAT_FILTER_CHECK(input["message"])) // prevents any.. diplomatic incidents
 		minor_announce("In the interest of station productivity and mental hygiene, a message from [input["message_sender"]] was intercepted by the CCC and determined to be unfit for crew-level access.", "CentCom Communications Commission")
-		message_admins("Incoming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
+		message_admins("Incoming cross-comms message from [html_encode(input["message_sender"])] blocked: [html_encode(input["message"])]")
 		statuscode = 451 // "Unavailable for legal reasons" ahaha; i.e. censored
 		response = "Censored - Message blocked by chat filter"
 		return

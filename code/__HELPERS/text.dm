@@ -31,6 +31,22 @@
 			index = findtext(t, char)
 	return t
 
+/// Swaps < and > for look-alike ‹ › in a string, or in every string key and value of a (nested) list.
+/proc/scrub_angle_brackets(value)
+	if(istext(value))
+		return replacetext(replacetext(value, "<", "‹"), ">", "›")
+	if(!islist(value))
+		return value
+	var/list/input = value
+	var/list/output = list()
+	for(var/key in input)
+		var/new_key = scrub_angle_brackets(key)
+		if(istext(key) && !isnull(input[key]))
+			output[new_key] = scrub_angle_brackets(input[key])
+		else
+			output += list(new_key)
+	return output
+
 /// Removes all characters in `repl_chars`
 /proc/sanitize_simple(t,list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)

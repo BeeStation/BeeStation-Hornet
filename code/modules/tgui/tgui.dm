@@ -334,6 +334,8 @@
 	// Pass act type messages to ui_act
 	if(type && copytext(type, 1, 5) == "act/")
 		process_status()
+		if(!user.client?.holder && !src_object.ui_allows_angle_brackets())
+			payload = scrub_angle_brackets(payload)
 		if(src_object.ui_act(copytext(type, 5), payload, src, state))
 			SStgui.update_uis(src_object)
 		return FALSE
