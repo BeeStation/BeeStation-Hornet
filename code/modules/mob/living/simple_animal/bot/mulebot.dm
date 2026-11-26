@@ -315,7 +315,7 @@
 			if(pda)
 				new_id = stripped_input(user, "Enter ID:", name, id, MAX_NAME_LEN)
 			else
-				new_id = params["value"]
+				new_id = reject_bad_text(params["value"], MAX_NAME_LEN)
 			if(new_id)
 				set_id(new_id)
 		if("sethome")
