@@ -23,7 +23,7 @@
 	title = "Soil Receptical"
 	body = "(Plant trays have built in indicators lights. Green means a plant is ready for harvest, yellow means a plant needs something, and red means something is negatively affecting a plant. Scan the tray with a plant scanner to learn more about the lights.)\n\
 	\n\
-	Story goes here.\n\
+	-- NO DATA --\n\
 	\n\
 	(Plant trays have 4 plant slots, and a 200u reagent capacity.)"
 
@@ -31,7 +31,7 @@
 	title = "Dirt Bags"
 	body = "(Substrate bags can be used to change the substrate of a tray. You can check what kind of substrate a plant needs by examining its seeds.)\n\
 	\n\
-	Story goes here.\n\
+	-- NO DATA --\n\
 	\n\
 	(Subtrates can be vended, or created in the biogenerator.)"
 
@@ -39,7 +39,7 @@
 	title = "A Seedy Place"
 	body = "(Seeds can be made, and stored, with the industrial seeder. Insert fruits, or whole plants, into the seeder to make seeds.)\n\
 	\n\
-	Story goes here.\n\
+	-- NO DATA --\n\
 	\n\
 	(The seeder can be upgraded to redeem more seeds from fruits and plants.)"
 
@@ -47,7 +47,7 @@
 	title = "Scanning For Danger"
 	body = "(The plant scanner can be used to check a plant's genetics on the fly. A scan will also reveal a plant's needs.)\n\
 	\n\
-	Story goes here.\n\
+	-- NO DATA --\n\
 	\n\
 	(The plant scanner can be used on plant trays to reveal information about status lights.)"
 
@@ -55,7 +55,7 @@
 	title = "Analyse This"
 	body = "(The plant analyzer can be used to save features and traits from a mature plant.)\n\
 	\n\
-	Story goes here.\n\
+	-- NO DATA --\n\
 	\n\
 	(Traits and features can be saved to plant data disks.)"
 
@@ -63,7 +63,7 @@
 	title = "Your Genetic Science"
 	body = "(The seed editor can be used to edit the genes of a seed, such as adding or removing features and traits.)\n\
 	\n\
-	Story goes here.\n\
+	-- NO DATA --\n\
 	\n\
 	(Traits and features can be added from plant data disks.)"
 
@@ -71,7 +71,7 @@
 	title = "Don't Get In The Kiln!"
 	body = "(The irradiator kiln can be used to mutate plant features into different types.)\n\
 	\n\
-	Story goes here.\n\
+	-- NO DATA --\n\
 	\n\
 	(Most mutation cycles are typically cyclical, but some have diverging paths.)"
 
@@ -87,7 +87,19 @@
 	title = "Parasites"
 	body = "(Small plants like mushrooms and flowers can be given helpful traits, and planted alongside other plants to benefit them.)\n\
 	\n\
-	Story goes here.\n\
+	// -- DIAGNOSTIC START -- ACCESS : ROAM HISTORY -- DESIGNATION : \[W1KK3R\] -- //\n\
+	\n\
+	\[I AM DESIGNATION W1KK3R\] \n\
+	\[I MAINTAIN --SUBSTRATE-- MOISTURE\] \n\
+	\[I MAI- #45NT -^%GRET EGRESS\] \n\
+	-- FAULT DETECTED --\n\
+	-- INITIATING REBOOT SEQUENCE... --\n\
+	-- RECOVERED 12 PROCESSES --\n\
+	\[I AM DESIGNATION W1KK3R\] \n\
+	\[I MAINTAIN -- MOISTURE\] \n\
+	\[--CREW-- MOISTURE MEASURED AT 60% CAPACITY\] \n\
+	\[I MAINTAIN MOISTURE\] \n\
+	// -- DIAGNOSTIC END -- //\n\
 	\n\
 	(Plants like flowers have exclusive traits, nectar, that make them a valuable candidate for your garden.)"
 
