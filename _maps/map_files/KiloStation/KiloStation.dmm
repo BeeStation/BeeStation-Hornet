@@ -6695,9 +6695,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/station/maintenance/central)
 "cIw" = (
 /obj/machinery/digital_clock/directional/north,
@@ -17396,9 +17394,7 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 6
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/station/maintenance/central)
 "gnV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -65430,7 +65426,6 @@
 "wNg" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/station/maintenance/central)
 "wNz" = (

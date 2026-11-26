@@ -13,18 +13,11 @@
 "ad" = (
 /obj/machinery/vending/boozeomat,
 /obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/plating,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "ae" = (
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
-/area/template_noop)
-"af" = (
-/obj/structure/table_frame/wood,
-/obj/item/stack/sheet/wood,
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "ag" = (
 /obj/structure/table/wood,
@@ -111,25 +104,9 @@
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/template_noop)
-"aw" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "ax" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/template_noop)
-"ay" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "az" = (
 /obj/structure/chair/fancy/sofa/old{
@@ -179,11 +156,6 @@
 /obj/machinery/vending/autodrobe,
 /turf/open/floor/wood,
 /area/template_noop)
-"aI" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "aJ" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
@@ -204,10 +176,6 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/spawner/random/entertainment/gambling,
 /turf/open/floor/iron/cafeteria,
-/area/template_noop)
-"aN" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/wood,
 /area/template_noop)
 "aO" = (
 /obj/effect/decal/cleanable/insectguts,
@@ -264,12 +232,6 @@
 "aY" = (
 /turf/open/floor/monotile/steel,
 /area/template_noop)
-"aZ" = (
-/obj/structure/grille/broken,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "AG" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -286,7 +248,7 @@
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "IK" = (
 /obj/machinery/light/small{
