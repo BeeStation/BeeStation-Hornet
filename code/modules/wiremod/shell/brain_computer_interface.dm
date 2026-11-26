@@ -19,7 +19,7 @@
 
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/bci_core,
-	), SHELL_CAPACITY_SMALL)
+	), SHELL_CAPACITY_SMALL, starting_circuit = circuit)
 
 /obj/item/organ/cyberimp/bci/say(
 	message,
@@ -50,6 +50,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 /obj/item/organ/cyberimp/bci/proc/action_comp_registered(datum/source, obj/item/circuit_component/equipment_action/action_comp)
 	SIGNAL_HANDLER
 	LAZYADD(actions, new/datum/action/innate/bci_action(src, action_comp))
+	action_comp.update_actions()
 
 /obj/item/organ/cyberimp/bci/proc/action_comp_unregistered(datum/source, obj/item/circuit_component/equipment_action/action_comp)
 	SIGNAL_HANDLER
@@ -283,7 +284,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	if (isnull(bci_to_implant))
 		. += span_notice("There is no BCI inserted.")
 	else
-		. += span_notice("Alt-click to remove [bci_to_implant].")
+		. += span_notice("Right-click to remove current BCI.")
+
+/obj/machinery/bci_implanter/add_context_self(datum/screentip_context/context, mob/user)
+	if (bci_to_implant)
+		context.add_attack_hand_secondary_action("Eject BCI")
+	context.add_left_click_item_action("Insert BCI", /obj/item/organ/cyberimp/bci)
+	if (!occupant)
+		context.add_generic_deconstruction_actions(src)
 
 /obj/machinery/bci_implanter/proc/set_busy(status, working_icon)
 	busy = status

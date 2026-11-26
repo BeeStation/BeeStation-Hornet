@@ -90,3 +90,4 @@
 		var/datum/action/granted_action = granted_to[ref]
 		granted_action.name = button_name.value || "Action"
 		granted_action.button_icon_state = "bci_[replacetextEx(LOWER_TEXT(icon_options.value), " ", "_")]"
+		granted_action.build_all_button_icons()
