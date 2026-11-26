@@ -419,9 +419,11 @@
 			log_dynamic("[key_name(usr)] set the midround ruleset to [ruleset_path::name]")
 			return TRUE
 		if("execute_midround_ruleset")
-			var/datum/dynamic_ruleset/midround/midround_ruleset = SSdynamic.midround_chosen_ruleset
-			if(!midround_ruleset)
+			var/datum/dynamic_ruleset/midround/chosen_ruleset = SSdynamic.midround_chosen_ruleset
+			if(!chosen_ruleset)
 				return
+			var/datum/dynamic_ruleset/midround/midround_ruleset = chosen_ruleset.duplicate()
+			midround_ruleset.skip_minimum_players = TRUE
 
 			if (SSdynamic.midround_waiting_ruleset)
 				SSdynamic.midround_waiting_ruleset.abort()
@@ -432,8 +434,9 @@
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(DYNAMIC_EXECUTE_SUCCESS)]")
 			if (result == DYNAMIC_EXECUTE_WAITING)
 				SSdynamic.midround_waiting_ruleset = midround_ruleset
+				SSdynamic.midround_executed_rulesets += midround_ruleset
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
-				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
+				SSdynamic.midround_executed_rulesets += midround_ruleset
 			SSdynamic.midround_chosen_ruleset = null
 			return TRUE
 

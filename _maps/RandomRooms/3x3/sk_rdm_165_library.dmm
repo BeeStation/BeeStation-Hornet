@@ -3,7 +3,7 @@
 /obj/structure/bookcase/random,
 /turf/open/floor/carpet/green,
 /area/template_noop)
-"e" = (
+"g" = (
 /obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -11,9 +11,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "u" = (
 /obj/effect/decal/cleanable/dirt,
@@ -84,5 +83,5 @@ U
 (3,1,1) = {"
 a
 R
-e
+g
 "}

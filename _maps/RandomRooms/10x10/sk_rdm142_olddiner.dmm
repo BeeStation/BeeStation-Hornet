@@ -1,4 +1,15 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aQ" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
+"cq" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "dZ" = (
 /turf/open/floor/wood,
 /area/template_noop)
@@ -16,19 +27,13 @@
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood,
 /area/template_noop)
-"hL" = (
-/obj/structure/table_frame/wood,
-/turf/open/floor/plating{
-	broken = 1
-	},
+"iL" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
-"ig" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+"iN" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "iU" = (
 /obj/structure/closet/firecloset,
@@ -36,10 +41,6 @@
 /area/template_noop)
 "ja" = (
 /obj/machinery/door/airlock/wood,
-/turf/open/floor/wood,
-/area/template_noop)
-"lT" = (
-/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "oV" = (
@@ -60,6 +61,12 @@
 "qm" = (
 /obj/structure/table_frame/wood,
 /turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"rC" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "tO" = (
 /obj/effect/landmark/event_spawn,
@@ -118,11 +125,6 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/template_noop)
-"yH" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "ze" = (
 /turf/open/floor/plating,
 /area/template_noop)
@@ -130,6 +132,13 @@
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
 /turf/open/floor/monotile/steel,
+/area/template_noop)
+"zP" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "AN" = (
 /obj/machinery/door/airlock/wood,
@@ -141,14 +150,6 @@
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
-"Bt" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "Bw" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -158,17 +159,10 @@
 "Ch" = (
 /turf/closed/wall,
 /area/template_noop)
-"Dz" = (
+"Cm" = (
 /obj/structure/table_frame/wood,
-/obj/item/stack/sheet/wood,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/template_noop)
-"Eg" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "FF" = (
 /obj/structure/sign/warning/no_smoking/circle,
@@ -187,6 +181,10 @@
 /obj/item/knife/kitchen,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
+"Ie" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "Il" = (
 /turf/open/floor/carpet,
 /area/template_noop)
@@ -202,11 +200,6 @@
 "Ny" = (
 /obj/structure/bookcase/random/reference,
 /turf/open/floor/carpet,
-/area/template_noop)
-"Ok" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/template_noop)
 "Os" = (
 /obj/item/chair/wood,
@@ -298,10 +291,10 @@
 /area/template_noop)
 
 (1,1,1) = {"
-lT
-Eg
+Ie
+iN
 dZ
-ig
+aQ
 dZ
 SJ
 wr
@@ -322,23 +315,23 @@ SJ
 iU
 "}
 (3,1,1) = {"
-Eg
+iN
 Os
 SJ
 SJ
 dZ
 SJ
 RI
-yH
+cq
 SJ
-Eg
+iN
 "}
 (4,1,1) = {"
 ze
 Zp
 SJ
 qm
-Eg
+iN
 Pi
 Ch
 Ch
@@ -346,8 +339,8 @@ QG
 Ch
 "}
 (5,1,1) = {"
-Eg
-Dz
+iN
+rC
 Wn
 tO
 gK
@@ -360,13 +353,13 @@ ze
 (6,1,1) = {"
 dZ
 oV
-Bt
+zP
 dZ
 gK
-hL
+Cm
 Sl
 ze
-yH
+cq
 Sl
 "}
 (7,1,1) = {"
@@ -411,7 +404,7 @@ ZF
 Ch
 ya
 Sl
-Ok
+iL
 pI
 Ch
 Il

@@ -62,13 +62,6 @@
 	color = "#1eff00"
 	},
 /area/ruin/powered/clownplanet)
-"ao" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/banana,
-/turf/open/floor/grass{
-	color = "#1eff00"
-	},
-/area/ruin/powered/clownplanet)
 "ap" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass{
@@ -353,12 +346,6 @@
 "bi" = (
 /turf/closed/wall/mineral/wood/nonmetal,
 /area/ruin/powered/clownplanet)
-"bj" = (
-/obj/structure/mineral_door/wood,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/ruin/powered/clownplanet)
 "bk" = (
 /obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/stripes/white/box,
@@ -374,6 +361,18 @@
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating/asteroid,
+/area/ruin/powered/clownplanet)
+"yC" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/banana,
+/turf/open/floor/grass{
+	color = "#1eff00"
+	},
+/area/ruin/powered/clownplanet)
+"Mo" = (
+/obj/structure/mineral_door/wood,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/ruin/powered/clownplanet)
 
 (1,1,1) = {"
@@ -436,7 +435,7 @@ aa
 ae
 ae
 ae
-ao
+yC
 aj
 aj
 ba
@@ -460,7 +459,7 @@ aa
 aa
 ae
 ae
-ao
+yC
 as
 aj
 aj
@@ -513,7 +512,7 @@ ae
 aj
 aj
 aj
-ao
+yC
 aj
 aj
 aU
@@ -523,7 +522,7 @@ at
 at
 aL
 aj
-bj
+Mo
 bl
 ab
 aI
@@ -851,7 +850,7 @@ ae
 aj
 aj
 aj
-ao
+yC
 aj
 aj
 aU
@@ -902,7 +901,7 @@ aa
 aa
 ae
 ae
-ao
+yC
 as
 aj
 aj
@@ -930,7 +929,7 @@ aa
 ae
 ae
 ae
-ao
+yC
 aj
 aj
 aU

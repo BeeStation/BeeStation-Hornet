@@ -5,13 +5,6 @@
 "ab" = (
 /turf/closed/indestructible/riveted/uranium,
 /area/shuttle/escape/luxury)
-"ac" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/shuttle/escape/luxury)
 "ad" = (
 /obj/machinery/door/airlock/gold,
 /obj/effect/forcefield/luxury_shuttle{
@@ -37,6 +30,10 @@
 /turf/open/floor/wood,
 /area/shuttle/escape/luxury)
 "aj" = (
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"al" = (
+/obj/structure/mirror/directional/north,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "ap" = (
@@ -250,19 +247,16 @@
 /obj/item/food/honkdae,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"ex" = (
-/obj/machinery/light/small,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/shuttle/escape/luxury)
-"hw" = (
-/obj/structure/mirror/directional/north,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
 "hA" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"ji" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "js" = (
@@ -283,22 +277,24 @@
 /obj/machinery/vending/wallmed,
 /turf/closed/indestructible/riveted/uranium,
 /area/shuttle/escape/luxury)
-"zt" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
 "Be" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/eggplantparm,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"Cx" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/shuttle/escape/luxury)
 "CU" = (
 /obj/effect/turf_decal/pool/corner,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Dd" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/shuttle/escape/luxury)
+"Ee" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/pool{
+	dir = 4
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "Eg" = (
@@ -310,15 +306,9 @@
 /obj/effect/turf_decal/pool,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"Ll" = (
+"Oj" = (
 /obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/pool{
-	dir = 8
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"LU" = (
-/obj/item/plant_tray/pot/random,
+/obj/machinery/light,
 /obj/effect/turf_decal/pool{
 	dir = 4
 	},
@@ -334,14 +324,37 @@
 /obj/structure/table/wood/fancy,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"Rk" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Sc" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light,
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
 "SN" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/kebab/tofu,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
+"Ue" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/shuttle/escape/luxury)
 "Ui" = (
 /obj/item/pool/rubber_ring,
 /turf/open/indestructible/sound/pool,
+/area/shuttle/escape/luxury)
+"Un" = (
+/obj/machinery/light/small,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/escape/luxury)
 "Vf" = (
 /turf/open/indestructible/sound/pool,
@@ -352,25 +365,9 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"WI" = (
+"VO" = (
 /obj/item/plant_tray/pot/random,
 /obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"Yq" = (
-/obj/item/plant_tray/pot/random,
-/obj/machinery/light,
-/obj/effect/turf_decal/pool{
-	dir = 4
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"Zv" = (
-/obj/item/plant_tray/pot/random,
-/obj/machinery/light,
-/obj/effect/turf_decal/pool{
 	dir = 8
 	},
 /turf/open/floor/mineral/gold,
@@ -395,7 +392,7 @@ aa
 (2,1,1) = {"
 ab
 ab
-Cx
+Dd
 ab
 ab
 as
@@ -410,7 +407,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-Cx
+Dd
 ag
 ab
 ab
@@ -427,9 +424,9 @@ ab
 (4,1,1) = {"
 ab
 ag
-ex
+Un
 ab
-WI
+VO
 aj
 aj
 aj
@@ -468,13 +465,13 @@ Eg
 bd
 aj
 CU
-LU
-Yq
+Ee
+Oj
 ab
 "}
 (7,1,1) = {"
 ab
-Cx
+Dd
 ag
 ab
 aj
@@ -522,8 +519,8 @@ ab
 "}
 (10,1,1) = {"
 ab
-Cx
-ex
+Dd
+Un
 ab
 aj
 au
@@ -553,9 +550,9 @@ Vf
 ab
 "}
 (12,1,1) = {"
-ac
+Ue
 ag
-Cx
+Dd
 ab
 aj
 au
@@ -692,8 +689,8 @@ bb
 bd
 aj
 Vm
-Ll
-Zv
+ji
+Sc
 ab
 "}
 (21,1,1) = {"
@@ -714,7 +711,7 @@ ab
 "}
 (22,1,1) = {"
 ab
-zt
+Rk
 ap
 ab
 aj
@@ -746,7 +743,7 @@ ab
 "}
 (24,1,1) = {"
 ab
-hw
+al
 aj
 aq
 bk
@@ -757,7 +754,7 @@ be
 bk
 aj
 aj
-zt
+Rk
 ab
 "}
 (25,1,1) = {"

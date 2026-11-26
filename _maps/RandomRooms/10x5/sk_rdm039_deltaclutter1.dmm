@@ -13,6 +13,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/template_noop)
+"b" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "c" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/matches{
@@ -30,10 +34,6 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"e" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/template_noop)
 "f" = (
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -42,28 +42,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
-"g" = (
-/obj/structure/table/wood,
-/obj/item/storage/briefcase,
-/obj/item/taperecorder,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "h" = (
 /obj/structure/table/wood,
 /obj/item/electronics/firelock,
 /obj/item/electronics/airlock,
-/turf/open/floor/wood,
-/area/template_noop)
-"i" = (
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
@@ -71,14 +53,6 @@
 /area/template_noop)
 "n" = (
 /turf/open/floor/wood,
-/area/template_noop)
-"o" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 4
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
 /area/template_noop)
 "p" = (
 /obj/structure/table/wood,
@@ -92,23 +66,6 @@
 	},
 /obj/item/poster/random_contraband,
 /turf/open/floor/wood,
-/area/template_noop)
-"q" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 8
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
-"r" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
-"s" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/dark,
 /area/template_noop)
 "t" = (
 /obj/structure/chair/fancy/comfy{
@@ -137,6 +94,10 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"y" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "z" = (
 /obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/wood,
@@ -159,6 +120,13 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"D" = (
+/obj/structure/table/wood,
+/obj/item/storage/briefcase,
+/obj/item/taperecorder,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "F" = (
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/west{
@@ -173,6 +141,16 @@
 /obj/item/stack/sheet/glass,
 /obj/item/circuitboard/machine/microwave,
 /turf/open/floor/iron/dark,
+/area/template_noop)
+"G" = (
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
 /area/template_noop)
 "H" = (
 /obj/structure/table/wood,
@@ -190,6 +168,15 @@
 "I" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood,
+/area/template_noop)
+"K" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"M" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "N" = (
 /obj/structure/table/wood,
@@ -212,8 +199,22 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/iron/dark,
 /area/template_noop)
+"T" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "V" = (
 /obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood,
+/area/template_noop)
+"W" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "X" = (
@@ -227,21 +228,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
-"Z" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/template_noop)
 
 (1,1,1) = {"
 a
 X
-s
+M
 P
 F
 "}
 (2,1,1) = {"
-Z
+K
 R
 X
 O
@@ -256,27 +252,27 @@ H
 "}
 (4,1,1) = {"
 d
-r
+y
 n
 z
 z
 "}
 (5,1,1) = {"
-e
+b
 n
 V
-r
+y
 n
 "}
 (6,1,1) = {"
 n
-o
+W
 t
 A
-r
+y
 "}
 (7,1,1) = {"
-g
+D
 p
 u
 B
@@ -284,22 +280,22 @@ I
 "}
 (8,1,1) = {"
 h
-q
+T
 v
 C
 n
 "}
 (9,1,1) = {"
-e
+b
 n
 V
 n
-r
+y
 "}
 (10,1,1) = {"
-i
-r
+G
+y
 w
-r
-e
+y
+b
 "}

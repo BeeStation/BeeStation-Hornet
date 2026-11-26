@@ -15,6 +15,13 @@
 /obj/item/flashlight/lamp,
 /turf/open/floor/wood,
 /area/template_noop)
+"i" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
 "j" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/carpet/grimy,
@@ -32,24 +39,25 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"l" = (
-/obj/item/plant_tray/pot/random,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
+"n" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "o" = (
 /turf/open/floor/wood,
 /area/template_noop)
-"p" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/wood{
-	broken = 1
+"s" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "t" = (
 /obj/structure/bookcase,
@@ -105,16 +113,6 @@
 "K" = (
 /turf/template_noop/closed,
 /area/template_noop)
-"O" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/plant_tray/pot/random,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "P" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bookcase/random/fiction,
@@ -153,7 +151,7 @@
 
 (1,1,1) = {"
 U
-O
+s
 Q
 t
 P
@@ -189,14 +187,14 @@ K
 "}
 (4,1,1) = {"
 U
-p
+n
 o
 T
 g
 a
 k
 F
-l
+i
 K
 "}
 (5,1,1) = {"

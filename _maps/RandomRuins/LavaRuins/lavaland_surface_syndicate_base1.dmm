@@ -684,6 +684,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
+"fn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
 "fp" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /obj/effect/decal/cleanable/dirt,
@@ -1597,6 +1606,12 @@
 /obj/structure/sign/departments/chemistry,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/syndicate_lava_base/testlab)
+"oW" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
+/area/ruin/syndicate_lava_base/bar)
 "oY" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
@@ -1640,6 +1655,13 @@
 	dir = 4
 	},
 /area/ruin/syndicate_lava_base/science)
+"pC" = (
+/mob/living/basic/rabbit{
+	faction = list("Syndicate");
+	desc = "Just a mildly evil rabbit."
+	},
+/turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
 "pD" = (
 /obj/item/storage/box/lights/bulbs,
 /obj/item/stack/rods{
@@ -1722,6 +1744,17 @@
 	dir = 4
 	},
 /area/ruin/syndicate_lava_base/science)
+"qE" = (
+/obj/structure/reagent_dispensers/beerkeg,
+/obj/structure/window/reinforced/spawner/directional/north{
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
 "qG" = (
 /obj/structure/sign/warning/explosives/alt{
 	pixel_x = -32
@@ -2255,6 +2288,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
+"wH" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
 "wL" = (
 /obj/machinery/sleeper/syndie{
 	dir = 4
@@ -2464,16 +2505,6 @@
 "zf" = (
 /turf/open/floor/engine/o2,
 /area/ruin/syndicate_lava_base/engineering)
-"zp" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/ruin/syndicate_lava_base/bar)
 "zA" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -2562,13 +2593,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
-/area/ruin/syndicate_lava_base/bar)
-"Af" = (
-/mob/living/basic/rabbit{
-	faction = list("Syndicate");
-	desc = "Just a mildly evil rabbit."
-	},
-/turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
 "Ak" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -2728,15 +2752,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/engineering)
-"BA" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/ruin/syndicate_lava_base/bar)
 "BC" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -2849,18 +2864,6 @@
 /area/ruin/syndicate_lava_base/port)
 "CD" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/syndicate_lava_base/bar)
-"CL" = (
-/obj/structure/reagent_dispensers/beerkeg,
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 5
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
 /area/ruin/syndicate_lava_base/bar)
 "CP" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
@@ -3398,11 +3401,6 @@
 	},
 /turf/open/floor/engine/n2,
 /area/ruin/syndicate_lava_base/engineering)
-"Jz" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/ruin/syndicate_lava_base/bar)
 "JA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -3820,6 +3818,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/science)
+"NW" = (
+/obj/machinery/door/window/southleft{
+	base_state = "right";
+	dir = 1;
+	icon_state = "right";
+	name = "Bar"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
 "Oa" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -3935,12 +3946,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/testlab)
-"OL" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
-/area/ruin/syndicate_lava_base/bar)
 "OV" = (
 /turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
@@ -4500,6 +4505,10 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
+"UR" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
 "UT" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -4851,20 +4860,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/port)
-"YK" = (
-/obj/machinery/door/window/southleft{
-	base_state = "right";
-	dir = 1;
-	icon_state = "right";
-	name = "Bar"
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/ruin/syndicate_lava_base/bar)
 "YO" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
@@ -5982,7 +5977,7 @@ dV
 FX
 ly
 PC
-OL
+oW
 dU
 Qa
 zM
@@ -6028,7 +6023,7 @@ wG
 jZ
 kp
 SE
-zp
+fn
 PK
 aP
 Zf
@@ -6078,10 +6073,10 @@ jZ
 wG
 Hl
 Yx
-BA
-Jz
+wH
+UR
 lX
-Af
+pC
 Zd
 EL
 CD
@@ -6128,7 +6123,7 @@ PZ
 jO
 ni
 dV
-YK
+NW
 OV
 lX
 UL
@@ -6178,7 +6173,7 @@ CD
 CD
 Pz
 RZ
-CL
+qE
 iA
 sB
 Wz

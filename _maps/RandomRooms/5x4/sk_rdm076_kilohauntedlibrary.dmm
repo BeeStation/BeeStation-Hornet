@@ -1,13 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"c" = (
-/obj/structure/chair/fancy/sofa/old/right{
-	color = "#c45c57";
-	dir = 2
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "d" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -20,50 +11,11 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"e" = (
-/obj/structure/chair/fancy/sofa/old/corner/concave{
-	color = "#c45c57";
-	dir = 2;
-	icon_state = "sofacorner"
-	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "h" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/camera,
 /turf/open/floor/wood,
-/area/template_noop)
-"i" = (
-/obj/structure/table/wood,
-/obj/item/folder{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/pill_bottle/dice{
-	pixel_x = -4
-	},
-/obj/item/pen/red{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
-"j" = (
-/obj/structure/chair/fancy/sofa/old/left{
-	color = "#c45c57";
-	dir = 8;
-	icon_state = "sofaend_left"
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/wood{
-	broken = 1
-	},
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -72,11 +24,6 @@
 	pixel_y = -32
 	},
 /turf/open/floor/wood,
-/area/template_noop)
-"n" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
 /area/template_noop)
 "o" = (
 /obj/structure/bookcase/random/fiction,
@@ -107,12 +54,6 @@
 /obj/item/pen,
 /turf/open/floor/wood,
 /area/template_noop)
-"t" = (
-/obj/effect/trap/nexus/darkness,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "v" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/old,
@@ -120,10 +61,38 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/template_noop)
+"B" = (
+/obj/structure/chair/fancy/sofa/old/right{
+	color = "#c45c57";
+	dir = 2
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "D" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
+/area/template_noop)
+"E" = (
+/obj/structure/table/wood,
+/obj/item/folder{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/pill_bottle/dice{
+	pixel_x = -4
+	},
+/obj/item/pen/red{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
+"F" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "I" = (
 /obj/effect/decal/cleanable/dirt,
@@ -131,7 +100,17 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/template_noop)
-"N" = (
+"J" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#c45c57";
+	dir = 8;
+	icon_state = "sofaend_left"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
+"M" = (
 /obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -165,6 +144,21 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/template_noop)
+"V" = (
+/obj/structure/chair/fancy/sofa/old/corner/concave{
+	color = "#c45c57";
+	dir = 2;
+	icon_state = "sofacorner"
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
+"W" = (
+/obj/effect/trap/nexus/darkness,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/retaliate/ghost,
@@ -185,20 +179,20 @@ D
 p
 "}
 (3,1,1) = {"
-c
+B
 h
-t
-N
+W
+M
 "}
 (4,1,1) = {"
 d
-i
+E
 m
 r
 "}
 (5,1,1) = {"
-e
-j
-n
+V
+J
+F
 s
 "}

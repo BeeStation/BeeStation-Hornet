@@ -76,6 +76,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
+"cW" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/sink/directional/west,
+/obj/structure/sign/poster/official/the_owl{
+	pixel_y = 32
+	},
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/structure/mirror/directional/east,
+/turf/open/floor/iron/showroomfloor,
+/area/shuttle/hunter)
 "dl" = (
 /obj/effect/turf_decal/siding/white,
 /obj/effect/turf_decal/siding/white{
@@ -421,20 +432,15 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
-"lT" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
+"lQ" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 10
 	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
+/obj/item/plant_tray/pot/random,
+/obj/structure/sign/poster/contraband/the_griffin{
+	pixel_x = -32
 	},
-/obj/structure/chair,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/turf/open/floor/iron,
 /area/shuttle/hunter)
 "mM" = (
 /obj/structure/bed,
@@ -582,6 +588,27 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
+"qA" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/chair,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/shuttle/hunter)
+"ra" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/shuttle/hunter)
 "sz" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot/left,
@@ -677,34 +704,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/shuttle/hunter)
-"vJ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/shuttle/hunter)
 "ws" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "wV" = (
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/hunter)
-"xB" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/sink/directional/west,
-/obj/structure/sign/poster/official/the_owl{
-	pixel_y = 32
-	},
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/obj/structure/mirror/directional/east,
-/turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
 "xM" = (
 /obj/structure/closet/crate/internals,
@@ -760,15 +765,15 @@
 "yh" = (
 /turf/open/floor/iron/yellowsiding,
 /area/shuttle/hunter)
-"Bc" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 10
+"AG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/oil/streak{
+	pixel_y = 11
 	},
+/obj/effect/turf_decal/caution,
 /obj/item/plant_tray/pot/random,
-/obj/structure/sign/poster/contraband/the_griffin{
-	pixel_x = -32
-	},
-/turf/open/floor/iron,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
+/turf/open/floor/engine,
 /area/shuttle/hunter)
 "Be" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
@@ -1130,29 +1135,12 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/wood,
 /area/shuttle/hunter)
-"QS" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/streak{
-	pixel_y = 11
-	},
-/obj/effect/turf_decal/caution,
-/obj/item/plant_tray/pot/random,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
-/turf/open/floor/engine,
-/area/shuttle/hunter)
 "Rq" = (
 /obj/effect/turf_decal/caution{
 	dir = 4;
 	pixel_x = -6
 	},
 /turf/open/floor/iron/dark,
-/area/shuttle/hunter)
-"Rr" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron,
 /area/shuttle/hunter)
 "Sf" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1202,6 +1190,16 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
+/area/shuttle/hunter)
+"TH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/hunter)
 "Ua" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner,
@@ -1410,7 +1408,7 @@ GC
 TA
 GC
 Ua
-QS
+AG
 SW
 sz
 GC
@@ -1484,14 +1482,14 @@ je
 uR
 Of
 ce
-Bc
+lQ
 Be
 iD
 "}
 (9,1,1) = {"
 wV
 GC
-xB
+cW
 Sf
 dM
 nz
@@ -1526,7 +1524,7 @@ hx
 GC
 Lr
 SD
-lT
+qA
 fZ
 GC
 "}
@@ -1553,7 +1551,7 @@ cU
 qy
 GC
 Il
-vJ
+TH
 mM
 aw
 GC
@@ -1651,7 +1649,7 @@ DY
 GC
 Gl
 ht
-Rr
+ra
 nB
 iD
 iD

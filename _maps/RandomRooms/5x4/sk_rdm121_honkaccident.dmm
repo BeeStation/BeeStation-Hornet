@@ -1,36 +1,31 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /obj/item/grown/bananapeel,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "d" = (
 /obj/structure/mecha_wreckage/honker,
 /obj/effect/trap/nexus/darkness,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/ash,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "g" = (
 /obj/item/grown/bananapeel,
 /obj/machinery/light/broken{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/item/mecha_parts/mecha_equipment/weapon/honker,
@@ -47,9 +42,8 @@
 /area/template_noop)
 "l" = (
 /obj/effect/spawner/random/unsorted/trap/clowntrap,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "B" = (
 /obj/effect/decal/cleanable/dirt,
@@ -77,9 +71,8 @@
 /area/template_noop)
 "O" = (
 /obj/effect/spawner/random/unsorted/trap,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,

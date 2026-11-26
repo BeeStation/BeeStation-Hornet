@@ -9,11 +9,6 @@
 "d" = (
 /turf/open/floor/monotile/steel,
 /area/template_noop)
-"e" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/monotile/steel,
-/area/template_noop)
 "f" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance/external/glass,
@@ -55,13 +50,6 @@
 "n" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/turf/open/floor/plating,
-/area/template_noop)
-"o" = (
-/obj/item/plant_seeds/preset/glowshroom,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
@@ -158,6 +146,11 @@
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
+"N" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/monotile/steel,
+/area/template_noop)
 "O" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -171,10 +164,16 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"T" = (
-/turf/open/floor/plating{
-	burnt = 1
+"R" = (
+/obj/item/plant_seeds/preset/glowshroom,
+/obj/machinery/light/small{
+	dir = 1
 	},
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "U" = (
 /obj/structure/table/wood,
@@ -230,9 +229,9 @@ a
 (3,1,1) = {"
 a
 i
-e
+N
 J
-e
+N
 K
 Z
 w
@@ -240,13 +239,13 @@ H
 a
 "}
 (4,1,1) = {"
-T
+S
 i
-e
+N
 J
-e
+N
 K
-T
+S
 w
 w
 M
@@ -258,7 +257,7 @@ s
 G
 s
 j
-T
+S
 E
 a
 a
@@ -308,7 +307,7 @@ Q
 r
 Z
 w
-o
+R
 a
 "}
 (10,1,1) = {"
@@ -316,7 +315,7 @@ a
 r
 a
 w
-T
+S
 E
 a
 c

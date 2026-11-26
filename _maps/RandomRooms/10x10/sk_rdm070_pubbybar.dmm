@@ -27,9 +27,8 @@
 /obj/effect/spawner/random/food_or_drink/three_course_meal,
 /obj/structure/closet/crate,
 /obj/item/paper/crumpled/beernuke,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/structure/sign/barsign,
@@ -39,9 +38,8 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "j" = (
 /turf/open/floor/wood,
@@ -89,9 +87,8 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "r" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/oil{
@@ -101,9 +98,8 @@
 /area/template_noop)
 "t" = (
 /obj/item/cigbutt/cigarbutt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "u" = (
 /obj/structure/mineral_door/wood,
@@ -173,14 +169,12 @@
 	pixel_x = -32
 	},
 /obj/effect/spawner/random/maintenance,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "F" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "G" = (
 /obj/effect/spawner/random/maintenance,
@@ -231,9 +225,8 @@
 	brightness = 3;
 	dir = 8
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "P" = (
 /obj/structure/table,

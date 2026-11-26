@@ -156,15 +156,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"ie" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/shuttle/hunter)
 "iD" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/line{
@@ -329,6 +320,16 @@
 "oX" = (
 /turf/open/floor/iron/stairs/left,
 /area/shuttle/hunter)
+"pq" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/shuttle/hunter)
 "pB" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -354,18 +355,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/shuttle/hunter)
-"pT" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 6
-	},
-/obj/effect/turf_decal/edges/techfloor/corners,
-/obj/effect/decal/cleanable/dirt/dust,
-/mob/living/basic/pet/fox{
-	dir = 8
-	},
-/obj/structure/bed/dogbed,
-/turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "qs" = (
 /obj/structure/fans/tiny,
@@ -416,6 +405,18 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/hunter)
+"rY" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 6
+	},
+/obj/effect/turf_decal/edges/techfloor/corners,
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/basic/pet/fox{
+	dir = 8
+	},
+/obj/structure/bed/dogbed,
+/turf/open/floor/iron/dark,
+/area/shuttle/hunter)
 "sc" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -459,7 +460,15 @@
 /obj/machinery/suit_storage_unit/bounty,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"uU" = (
+"vF" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"vO" = (
 /obj/item/plant_tray/pot/random,
 /obj/structure/railing{
 	dir = 2
@@ -471,14 +480,6 @@
 	pixel_x = 26
 	},
 /turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"vF" = (
-/obj/structure/lattice/catwalk/over,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating,
 /area/shuttle/hunter)
 "vW" = (
 /obj/structure/chair/fancy/shuttle{
@@ -493,6 +494,14 @@
 	req_access = null
 	},
 /turf/open/floor/iron/tech,
+/area/shuttle/hunter)
+"wp" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "yl" = (
 /obj/machinery/power/port_gen/pacman,
@@ -546,14 +555,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron/grid/steel,
-/area/shuttle/hunter)
-"AT" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/shuttle/hunter)
 "BE" = (
 /obj/structure/fluff/empty_sleeper{
@@ -724,17 +725,6 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"Lb" = (
-/obj/structure/lattice/catwalk/over,
-/obj/effect/decal/cleanable/glass,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 10
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/shuttle/hunter)
 "Lo" = (
 /turf/closed/wall/mineral/titanium/survival,
@@ -984,6 +974,13 @@
 /obj/machinery/light,
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
+"Wu" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/shuttle/hunter)
 "XH" = (
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/edges/techfloor{
@@ -1158,7 +1155,7 @@ nn
 nn
 Jh
 hO
-ie
+wp
 Vx
 JK
 jC
@@ -1173,10 +1170,10 @@ NG
 nn
 jw
 GG
-Lb
+pq
 aI
 zm
-AT
+Wu
 aI
 ne
 TW
@@ -1264,7 +1261,7 @@ UI
 UI
 nn
 Hl
-uU
+vO
 ms
 nn
 Gx
@@ -1312,7 +1309,7 @@ nn
 Rz
 Yj
 MR
-pT
+rY
 Uw
 nn
 UI

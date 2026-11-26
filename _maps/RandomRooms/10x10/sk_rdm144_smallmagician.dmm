@@ -43,9 +43,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "ai" = (
-/obj/structure/mirror{
-	pixel_y = 26
-	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/carpet,
 /area/template_noop)
 "aj" = (
@@ -174,8 +172,8 @@
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "aG" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "aH" = (
 /obj/machinery/vending/autodrobe,
@@ -272,9 +270,34 @@
 	broken = 1
 	},
 /area/template_noop)
-"Bd" = (
-/obj/structure/mirror/directional/north,
-/turf/open/floor/carpet,
+"AG" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"Ee" = (
+/obj/structure/grille/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"Ir" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"IK" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"Kk" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -299,7 +322,7 @@ aV
 al
 al
 av
-aI
+aG
 "}
 (3,1,1) = {"
 aa
@@ -307,14 +330,14 @@ aO
 al
 aH
 aL
-aG
+Kk
 aD
 ar
 aD
 aa
 "}
 (4,1,1) = {"
-aZ
+Ee
 ak
 al
 ap
@@ -326,7 +349,7 @@ az
 ao
 "}
 (5,1,1) = {"
-ay
+AG
 aE
 aV
 aL
@@ -365,7 +388,7 @@ aP
 aa
 at
 al
-Bd
+ai
 au
 al
 aF
@@ -382,18 +405,18 @@ aT
 al
 an
 am
-af
+Ir
 aP
 "}
 (10,1,1) = {"
 aa
 aa
-aZ
+Ee
 aa
 aa
-aw
+IK
 aa
-aI
+aG
 ax
 aa
 "}

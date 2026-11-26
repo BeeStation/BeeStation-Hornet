@@ -182,6 +182,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
+"gw" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/carpet,
+/area/shuttle/exploration)
 "gz" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -541,6 +548,13 @@
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Ab" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/light/small,
+/obj/structure/closet/crate/critter,
+/mob/living/basic/turkey/tom,
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
 "Ai" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -736,13 +750,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
-"Nq" = (
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 4
-	},
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/carpet,
-/area/shuttle/exploration)
 "Nt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -858,18 +865,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"RB" = (
-/obj/structure/bed/dogbed,
-/obj/effect/decal/cleanable/oil,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/toy/plush/beeplushie,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/shuttle/exploration)
 "Sf" = (
 /obj/effect/turf_decal/box,
 /obj/structure/sign/poster/contraband/random{
@@ -919,6 +914,17 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"TZ" = (
+/obj/structure/bed/dogbed,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/toy/plush/beeplushie,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/shuttle/exploration)
 "Uh" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -956,13 +962,6 @@
 	dir = 4
 	},
 /turf/open/floor/carpet,
-/area/shuttle/exploration)
-"Xe" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/light/small,
-/obj/structure/closet/crate/critter,
-/mob/living/basic/turkey/tom,
-/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Xk" = (
 /obj/structure/table,
@@ -1130,7 +1129,7 @@ zC
 XF
 LM
 cN
-Xe
+Ab
 nG
 hQ
 Cj
@@ -1183,7 +1182,7 @@ nG
 eA
 du
 du
-Nq
+gw
 nG
 Dj
 Rt
@@ -1273,7 +1272,7 @@ su
 Df
 Df
 nG
-RB
+TZ
 SO
 nG
 aO
