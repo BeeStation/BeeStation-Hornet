@@ -130,10 +130,10 @@
 			update_worn_back()
 		if(ITEM_SLOT_MASK)
 			wear_mask = I
-			wear_mask_update(I, toggle_off = 0)
+			update_worn_mask()
 		if(ITEM_SLOT_HEAD)
 			head = I
-			head_update(I)
+			update_worn_head()
 		if(ITEM_SLOT_NECK)
 			wear_neck = I
 			update_worn_neck(I)
@@ -193,7 +193,7 @@
 	if(I == head)
 		head = null
 		if(!QDELETED(src))
-			head_update(I)
+			update_worn_head()
 	else if(I == back)
 		back = null
 		if(!QDELETED(src))
@@ -201,8 +201,8 @@
 	else if(I == wear_mask)
 		wear_mask = null
 		if(!QDELETED(src))
-			wear_mask_update(I, toggle_off = 1)
-	if(I == wear_neck)
+			update_worn_mask()
+	else if(I == wear_neck)
 		wear_neck = null
 		if(!QDELETED(src))
 			update_worn_neck(I)
@@ -215,7 +215,7 @@
 		if(!QDELETED(src))
 			update_worn_legcuffs()
 
-
+	// Not an else-if because we're probably equipped in another slot
 	if(I == internal && (QDELETED(src) || QDELETED(I) || I.loc != src))
 		cutoff_internals()
 		if(!QDELETED(src))
@@ -375,27 +375,6 @@
 /mob/living/carbon/proc/toggle_externals(obj/item/tank)
 	// Carbons can't open their own externals tanks.
 	return FALSE
-
-//handle stuff to update when a mob equips/unequips a mask.
-/mob/living/proc/wear_mask_update(obj/item/I, toggle_off = 1)
-	update_worn_mask()
-
-/mob/living/carbon/wear_mask_update(obj/item/I, toggle_off = 1)
-	var/obj/item/clothing/C = I
-	if(istype(C) && (C.tint || initial(C.tint)))
-		update_tint()
-	update_worn_mask()
-
-//handle stuff to update when a mob equips/unequips a headgear.
-/mob/living/carbon/proc/head_update(obj/item/I, forced)
-	if(isclothing(I))
-		var/obj/item/clothing/C = I
-		if(C.tint || initial(C.tint))
-			update_tint()
-		update_sight()
-	if(I.flags_inv & HIDEMASK || forced)
-		update_worn_mask()
-	update_worn_head()
 
 /mob/living/carbon/proc/get_holding_bodypart_of_item(obj/item/I)
 	var/index = get_held_index_of_item(I)

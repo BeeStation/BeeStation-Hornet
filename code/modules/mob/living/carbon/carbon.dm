@@ -625,12 +625,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
  */
 /mob/living/carbon/proc/update_tint()
 	var/tint = 0
-	if(isclothing(head))
-		tint += head.tint
-	if(isclothing(wear_mask))
-		tint += wear_mask.tint
-	if(isclothing(glasses))
-		tint += glasses.tint
+	for(var/obj/item/clothing/worn_item in get_equipped_items())
+		tint += worn_item.tint
 
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	if(eyes)

@@ -1,4 +1,9 @@
 /obj/item/clothing/mask/bandana
+	name = "bandana"
+	desc = "A fine bandana with nanotech lining."
+	icon_state = "bandana"
+	icon_state_preview = "bandana_cloth"
+	worn_icon_state = "bandana_worn"
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = MASKCOVERSMOUTH
 	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
@@ -8,11 +13,7 @@
 	adjusted_flags = ITEM_SLOT_HEAD
 	dying_key = DYE_REGISTRY_BANDANA
 	flags_1 = IS_PLAYER_COLORABLE_1
-	name = "bandana"
-	desc = "A fine bandana with nanotech lining."
-	icon_state = "bandana"
-	icon_state_preview = "bandana_cloth"
-	worn_icon_state = "bandana_worn"
+
 	greyscale_config = /datum/greyscale_config/bandana
 	greyscale_config_worn = /datum/greyscale_config/bandana_worn
 	var/greyscale_config_up = /datum/greyscale_config/bandana_up
@@ -20,20 +21,26 @@
 	greyscale_colors = "#2e2e2e"
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
+	adjust_visor(user)
+
+/obj/item/clothing/mask/bandana/adjust_visor(mob/living/user)
 	if(slot_flags & ITEM_SLOT_NECK)
 		to_chat(user, span_warning("You must undo [src] in order to push it into a hat!"))
-		return
-	adjustmask(user)
-	if(greyscale_config == initial(greyscale_config) && greyscale_config_worn == initial(greyscale_config_worn))
-		worn_icon_state += "_up"
+		return FALSE
+	return ..()
+
+/obj/item/clothing/mask/bandana/visor_toggling()
+	. = ..()
+	if(up)
 		undyeable = TRUE
+		worn_icon_state = "[initial(worn_icon_state)]_up"
 		set_greyscale(
 			new_config = greyscale_config_up,
 			new_worn_config = greyscale_config_worn_up
 		)
 	else
-		worn_icon_state = initial(worn_icon_state)
 		undyeable = initial(undyeable)
+		worn_icon_state = initial(worn_icon_state)
 		set_greyscale(
 			new_config = initial(greyscale_config),
 			new_worn_config = initial(greyscale_config_worn)

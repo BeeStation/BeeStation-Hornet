@@ -163,12 +163,6 @@
 		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
-	if(href_list["item"])
-		var/slot = text2num(href_list["item"])
-		if(hidden_slots_to_inventory_slots(obscured_slots) & slot)
-			to_chat(usr, span_warning("You can't reach that! Something is covering it."))
-			return
-
 ///////HUDs///////
 	if(href_list["hud"])
 		if(!ishuman(usr) && !isobserver(usr))

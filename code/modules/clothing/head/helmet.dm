@@ -114,47 +114,30 @@
 
 
 /obj/item/clothing/head/helmet/toggleable
-	///chat message when the visor is toggled down.
-	var/toggle_message
-	///chat message when the visor is toggled up.
-	var/alt_toggle_message
+	visor_vars_to_toggle = NONE
 
 /obj/item/clothing/head/helmet/toggleable/attack_self(mob/user)
-	. = ..()
-	if(.)
-		return
-	//Fails if user incapacitated or try_toggle doesnt complete
-	if(user.incapacitated || !try_toggle())
-		return
-	up = !up
-	flags_1 ^= visor_flags
-	flags_inv ^= visor_flags_inv
-	flags_cover ^= visor_flags_cover
-	icon_state = "[initial(icon_state)][up ? "up" : ""]"
-	to_chat(user, span_notice("[up ? alt_toggle_message : toggle_message] \the [src]."))
+	adjust_visor(user)
 
-	user.update_worn_head()
-	if(iscarbon(user))
-		var/mob/living/carbon/carbon_user = user
-		carbon_user.refresh_obscured()
-		carbon_user.head_update(src, forced = TRUE)
-
-///Attempt to toggle the visor. Returns true if it does the thing.
-/obj/item/clothing/head/helmet/toggleable/proc/try_toggle()
-	//Fails if attached seclite, as it blocks the visor from opening
+/obj/item/clothing/head/helmet/toggleable/adjust_visor(mob/living/user)
 	var/obj/item/flashlight/seclite/blocking_us = locate() in src
 	if(blocking_us)
-		to_chat(usr, span_warning("[blocking_us] is in the way, remove it first!"))
+		to_chat(user, span_warning("[blocking_us] is in the way, remove it first!"))
 		return FALSE
-	return TRUE
+	return ..()
+
+/obj/item/clothing/head/helmet/toggleable/update_icon_state()
+	// Before parent so the seclite component can override it
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
+	return ..()
 
 /obj/item/clothing/head/helmet/toggleable/riot
 	name = "riot helmet"
 	desc = "It's a helmet specifically designed to protect against close range attacks."
 	icon_state = "riot"
 	inhand_icon_state = "helmet"
-	toggle_message = "You pull the visor down on"
-	alt_toggle_message = "You push the visor up on"
+	toggle_message = "You pull the visor down."
+	alt_toggle_message = "You push the visor up."
 	armor_type = /datum/armor/toggleable_riot
 	flags_inv = HIDEEARS|HIDEFACE|HIDESNOUT
 	strip_delay = 80
@@ -183,19 +166,26 @@
 	desc = "WEEEEOOO. WEEEEEOOO. WEEEEOOOO."
 	icon_state = "justice"
 	inhand_icon_state = "justice_helmet"
-	toggle_message = "You turn off the lights on"
-	alt_toggle_message = "You turn on the lights on"
+	toggle_message = "You turn off the lights."
+	alt_toggle_message = "You turn on the lights."
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	///Cooldown for toggling the visor.
 	COOLDOWN_DECLARE(visor_toggle_cooldown)
 	///Looping sound datum for the siren helmet
 	var/datum/looping_sound/siren/weewooloop
 
-/obj/item/clothing/head/helmet/toggleable/justice/try_toggle()
+/obj/item/clothing/head/helmet/toggleable/justice/adjust_visor(mob/living/user)
 	if(!COOLDOWN_FINISHED(src, visor_toggle_cooldown))
 		return FALSE
 	COOLDOWN_START(src, visor_toggle_cooldown, 2 SECONDS)
-	return TRUE
+	return ..()
+
+/obj/item/clothing/head/helmet/toggleable/justice/visor_toggling()
+	. = ..()
+	if(up)
+		weewooloop.start()
+	else
+		weewooloop.stop()
 
 /obj/item/clothing/head/helmet/toggleable/justice/Initialize(mapload)
 	. = ..()
@@ -204,13 +194,6 @@
 /obj/item/clothing/head/helmet/toggleable/justice/Destroy()
 	QDEL_NULL(weewooloop)
 	return ..()
-
-/obj/item/clothing/head/helmet/toggleable/justice/attack_self(mob/user)
-	. = ..()
-	if(up)
-		weewooloop.start()
-	else
-		weewooloop.stop()
 
 /obj/item/clothing/head/helmet/toggleable/justice/escape
 	name = "alarm helmet"
