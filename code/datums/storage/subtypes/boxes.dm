@@ -30,7 +30,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman/belt,
 	))
-	exception_hold = exception_hold
+	src.exception_hold = exception_hold
 
 /// Donk Pocket box
 /datum/storage/box/donk_pockets
