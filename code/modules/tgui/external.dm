@@ -99,7 +99,7 @@
 /**
  * public
  *
- * Whether non-admins may send < and > in this UI's act params. Otherwise they are swapped for ‹ › before ui_act.
+ * Whether non-admins may send < and > in this UI's act params. Otherwise they are swapped for SAFE_LT and SAFE_GT before ui_act.
  */
 /datum/proc/ui_allows_angle_brackets()
 	return FALSE

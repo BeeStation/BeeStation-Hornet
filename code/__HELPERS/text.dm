@@ -31,10 +31,10 @@
 			index = findtext(t, char)
 	return t
 
-/// Swaps < and > for look-alike ‹ › in a string, or in every string key and value of a (nested) list.
+/// Swaps < and > for SAFE_LT and SAFE_GT in a string, or in every string key and value of a (nested) list.
 /proc/scrub_angle_brackets(value)
 	if(istext(value))
-		return replacetext(replacetext(value, "<", "‹"), ">", "›")
+		return replacetext(replacetext(value, "<", SAFE_LT), ">", SAFE_GT)
 	if(!islist(value))
 		return value
 	var/list/input = value

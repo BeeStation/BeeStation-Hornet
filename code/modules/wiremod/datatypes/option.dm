@@ -26,7 +26,7 @@
 		return null
 
 	if(istext(value_to_convert))
-		value_to_convert = replacetext(replacetext(value_to_convert, "‹", "<"), "›", ">")
+		value_to_convert = replacetext(replacetext(value_to_convert, SAFE_LT, "<"), SAFE_GT, ">")
 	if(value_to_convert in port.possible_options)
 		return value_to_convert
 	return port.possible_options[1]
