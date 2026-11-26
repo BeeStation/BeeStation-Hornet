@@ -106,7 +106,6 @@
 	var/antimagic_flags = MAGIC_RESISTANCE
 	var/obj/effect/cross_action/spacetime_dist/linked_dist
 	var/busy = FALSE
-	var/sound
 	var/walks_left = 50 //prevents the game from hanging in extreme cases (such as minigun fire)
 
 /obj/effect/cross_action/singularity_act()
@@ -138,7 +137,7 @@
 	busy = TRUE
 	z_flick("purplesparkles", src)
 	AM.forceMove(get_turf(src))
-	playsound(get_turf(src),sound,70,FALSE)
+	playsound(src, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	busy = FALSE
 
 /obj/effect/cross_action/spacetime_dist/proc/on_entered(datum/source, atom/movable/AM)

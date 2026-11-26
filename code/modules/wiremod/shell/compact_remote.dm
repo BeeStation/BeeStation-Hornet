@@ -47,6 +47,6 @@
 /obj/item/circuit_component/compact_remote/proc/send_trigger(atom/source, mob/user)
 	SIGNAL_HANDLER
 	source.balloon_alert(user, "Clicked the primary button.")
-	playsound(source, get_sfx("terminal_type"), 25, FALSE)
+	playsound(source, "terminal_type", 25, FALSE)
 	entity.set_output(user)
 	signal.set_output(COMPONENT_SIGNAL)

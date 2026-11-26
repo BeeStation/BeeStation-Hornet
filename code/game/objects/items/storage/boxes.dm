@@ -32,18 +32,19 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	resistance_flags = FLAMMABLE
-	var/foldable = /obj/item/stack/sheet/cardboard
-	var/illustration = "writing"
-	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/cardboard_box/cardboard_box_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboard_box/cardboard_box_pickup.ogg'
+	storage_type = /datum/storage/box
 	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
+
+	/// What material do we get when we fold this box?
+	var/foldable_result = /obj/item/stack/sheet/cardboard
+	/// What drawing will we get on the face of the box?
+	var/illustration = "writing"
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
-	atom_storage.max_slots = 8
-	atom_storage.max_total_storage = 8
-	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
 	var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)
@@ -64,16 +65,16 @@
 /obj/item/storage/box/attack_self(mob/user)
 	..()
 
-	if(!foldable || (flags_1 & HOLOGRAM_1))
+	if(!foldable_result || (flags_1 & HOLOGRAM_1))
 		return
 	if(contents.len)
 		to_chat(user, span_warning("You can't fold this box with items still inside!"))
 		return
-	if(!ispath(foldable))
+	if(!ispath(foldable_result))
 		return
 
 	to_chat(user, span_notice("You fold [src] flat."))
-	var/obj/item/I = new foldable
+	var/obj/item/I = new foldable_result
 	qdel(src)
 	user.put_in_hands(I)
 
@@ -110,7 +111,7 @@
 /obj/item/storage/box/mime
 	name = "invisible box"
 	desc = "Unfortunately not large enough to trap the mime."
-	foldable = null
+	foldable_result = null
 	icon_state = "box"
 	inhand_icon_state = null
 	alpha = 0
@@ -158,25 +159,10 @@
 	illustration = "survival"
 	desc = "A compact box that is designed to hold specific emergency supplies"
 	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
+	storage_type = /datum/storage/box/survival
 	var/mask_type = /obj/item/clothing/mask/breath
 	var/internal_type = /obj/item/tank/internals/emergency_oxygen
 	var/medipen_type = /obj/item/reagent_containers/hypospray/medipen
-
-/obj/item/storage/box/survival/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 5
-	atom_storage.max_total_storage = 21
-	atom_storage.max_specific_storage = WEIGHT_CLASS_TINY
-	var/static/list/exception_hold = typecacheof(list(
-		/obj/item/flashlight/flare,
-		/obj/item/radio,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/gas,
-		/obj/item/reagent_containers/hypospray/medipen,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman/belt,
-	))
-	atom_storage.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()
 	if(!isplasmaman(loc))
@@ -540,11 +526,8 @@
 	desc = "Instructions: Heat in microwave. Product will stay perpetually warmed with cutting edge Donk Co. technology."
 	icon_state = "donkpocketbox"
 	illustration = null
+	storage_type = /datum/storage/box/donk_pockets
 	var/donktype = /obj/item/food/donkpocket
-
-/obj/item/storage/box/donkpockets/Initialize(mapload)
-	. = ..()
-	atom_storage.set_holdable(list(/obj/item/food/donkpocket))
 
 /obj/item/storage/box/donkpockets/PopulateContents()
 	for(var/i in 1 to 6)
@@ -591,12 +574,8 @@
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon_state = "monkeycubebox"
 	illustration = null
+	storage_type = /datum/storage/box/monkey_cube
 	var/cube_type = /obj/item/food/monkeycube
-
-/obj/item/storage/box/monkeycubes/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 7
-	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
 
 /obj/item/storage/box/monkeycubes/PopulateContents()
 	for(var/i in 1 to 5)
@@ -611,11 +590,7 @@
 	desc = "Waffle Co. brand gorilla cubes. Do not taunt."
 	icon_state = "monkeycubebox"
 	illustration = null
-
-/obj/item/storage/box/gorillacubes/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 3
-	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
+	storage_type = /datum/storage/box/gorilla_cube
 
 /obj/item/storage/box/gorillacubes/PopulateContents()
 	for(var/i in 1 to 3)
@@ -720,12 +695,7 @@
 	desc = "A box full of handcuffs."
 	icon_state = "secbox"
 	illustration = "handcuff"
-
-/obj/item/storage/box/handcuffs/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 7
-	atom_storage.max_total_storage = 14
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	storage_type = /datum/storage/box/handcuffs
 
 /obj/item/storage/box/handcuffs/PopulateContents()
 	for(var/i in 1 to 7)
@@ -737,12 +707,7 @@
 	icon_state = "secbox"
 	illustration = "handcuff"
 	w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/box/handcuffs/compact/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 4
-	atom_storage.max_total_storage = 8
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	storage_type = /datum/storage/box/handcuffs/compact
 
 /obj/item/storage/box/handcuffs/compact/PopulateContents()
 	for(var/i in 1 to 4)
@@ -753,12 +718,7 @@
 	desc = "A box full of zipties."
 	icon_state = "secbox"
 	illustration = "handcuff"
-
-/obj/item/storage/box/zipties/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 14
-	atom_storage.max_total_storage = 28
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	storage_type = /datum/storage/box/zipties
 
 /obj/item/storage/box/zipties/PopulateContents()
 	for(var/i in 1 to 14)
@@ -770,16 +730,11 @@
 	icon_state = "secbox"
 	illustration = "handcuff"
 	w_class = WEIGHT_CLASS_NORMAL
+	storage_type = /datum/storage/box/zipties/compact
 
 /obj/item/storage/box/zipties/compact/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/restraints/handcuffs/cable/zipties(src)
-
-/obj/item/storage/box/zipties/compact/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 7
-	atom_storage.max_total_storage = 14
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/box/alienhandcuffs
 	name = "box of spare handcuffs"
@@ -851,11 +806,7 @@
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
-
-/obj/item/storage/box/snappops/Initialize(mapload)
-	. = ..()
-	atom_storage.set_holdable(list(/obj/item/toy/snappop))
-	atom_storage.max_slots = 8
+	storage_type = /datum/storage/box/snap_pops
 
 /obj/item/storage/box/snappops/PopulateContents()
 	for(var/i in 1 to 8)
@@ -870,13 +821,12 @@
 	worn_icon_state = "lighter"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
-	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/matchbox/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox/matchbox_pickup.ogg'
+	storage_type = /datum/storage/box/match
 
 /obj/item/storage/box/matches/Initialize(mapload)
 	. = ..()
-	atom_storage.max_slots = 10
-	atom_storage.set_holdable(list(/obj/item/match))
 	AddElement(/datum/element/ignites_matches)
 
 /obj/item/storage/box/matches/PopulateContents()
@@ -891,14 +841,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
-
-/obj/item/storage/box/lights/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 21
-	atom_storage.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
-	atom_storage.max_total_storage = 21
-	atom_storage.allow_quick_gather = FALSE //temp workaround to re-enable filling the light replacer with the box
+	storage_type = /datum/storage/box/lights
 
 /obj/item/storage/box/lights/bulbs/PopulateContents()
 	for(var/i in 1 to 21)
@@ -954,7 +897,7 @@
 	desc = "A special box for sensitive people."
 	icon_state = "hugbox"
 	illustration = "heart"
-	foldable = null
+	foldable_result = null
 
 /obj/item/storage/box/hug/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all.."))
@@ -1289,13 +1232,7 @@
 /obj/item/storage/box/material
 	name = "box of materials"
 	illustration = "implant"
-
-/obj/item/storage/box/material/Initialize(mapload)
-	. = ..()
-	atom_storage.max_specific_storage = 1000
-	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
-	atom_storage.max_slots = 1000
-	atom_storage.allow_big_nesting = TRUE
+	storage_type = /datum/storage/box/debug
 
 /obj/item/storage/box/material/PopulateContents()
 	var/static/list/items_inside

@@ -243,18 +243,16 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list)) //check if this form supports accessories and if the client wants to show them
 		if(facial_hairstyle)
 			var/datum/sprite_accessory/S = GLOB.facial_hairstyles_list[facial_hairstyle]
-			if(S?.icon_state)
-				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-				if(facial_hair_color)
-					facial_hair_overlay.color = facial_hair_color
+			if(S && S.icon_state != SPRITE_ACCESSORY_NONE)
+				facial_hair_overlay = mutable_appearance(S.icon, S.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
+				facial_hair_overlay.color = facial_hair_color
 				facial_hair_overlay.alpha = 200
 				add_overlay(facial_hair_overlay)
 		if(hair_style)
 			var/datum/sprite_accessory/hair/S = GLOB.hairstyles_list[hair_style]
-			if(S?.icon_state)
-				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-				if(hair_color)
-					hair_overlay.color = hair_color
+			if(S && S.icon_state != SPRITE_ACCESSORY_NONE)
+				hair_overlay = mutable_appearance(S.icon, S.icon_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
+				hair_overlay.color = hair_color
 				hair_overlay.alpha = 200
 				hair_overlay.pixel_y = S.y_offset
 				add_overlay(hair_overlay)
@@ -690,14 +688,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	GLOB.crew_manifest_tgui.ui_interact(src)
 
 //this is called when a ghost is drag clicked to something.
-/mob/dead/observer/MouseDrop(atom/over)
-	if(!usr || !over)
-		return
-	if (isobserver(usr) && usr.client.holder && (isliving(over) || iscameramob(over)) )
-		if (usr.client.holder.cmd_ghost_drag(src,over))
-			return
-
-	return ..()
+/mob/dead/observer/mouse_drop_dragged(atom/over, mob/user)
+	if (isobserver(user) && user.client.holder && (isliving(over) || iscameramob(over)))
+		user.client.holder.cmd_ghost_drag(src, over)
 
 /mob/dead/observer/Topic(href, href_list)
 	..()
@@ -866,7 +859,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	update_icon()
 
-/mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+/mob/dead/observer/can_perform_action(atom/target, action_bitflags)
 	return IsAdminGhost(usr)
 
 /mob/dead/observer/is_literate()
@@ -987,9 +980,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		to_chat(usr, "Can't become a pAI candidate while not dead!")
 
-/mob/dead/observer/CtrlShiftClick(mob/user)
-	if(isobserver(user) && check_rights(R_SPAWN))
-		change_mob_type( /mob/living/carbon/human , null, null, TRUE) //always delmob, ghosts shouldn't be left lingering
+/mob/dead/observer/AltClickOn(atom/target)
+	if(!base_click_alt(target))
+		list_turf_contents(target)
+
+/mob/dead/observer/AltClickSecondaryOn(atom/target)
+	if(client && check_rights_for(client, R_DEBUG))
+		client.toggle_tag_datum(target)
 
 /mob/dead/observer/examine(mob/user)
 	. = ..()

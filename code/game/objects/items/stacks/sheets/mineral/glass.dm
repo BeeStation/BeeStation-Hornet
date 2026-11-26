@@ -16,6 +16,8 @@
 	singular_name = "glass sheet"
 	icon_state = "sheet-glass"
 	inhand_icon_state = "sheet-glass"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	armor_type = /datum/armor/sheet_glass
 	resistance_flags = ACID_PROOF
@@ -27,7 +29,6 @@
 	matter_amount = 4
 	cost = 500
 	source = /datum/robot_energy_storage/glass
-
 
 /datum/armor/sheet_glass
 	fire = 50
@@ -74,6 +75,8 @@
 	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
 	inhand_icon_state = "sheet-rglass"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass = MINERAL_MATERIAL_AMOUNT)
 	armor_type = /datum/armor/sheet_rglass
 	resistance_flags = ACID_PROOF
@@ -81,7 +84,6 @@
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/iron = 10)
 	point_value = 4
 	matter_amount = 6
-
 
 /datum/armor/sheet_rglass
 	fire = 70
@@ -123,6 +125,8 @@
 	singular_name = "plasma glass sheet"
 	icon_state = "sheet-pglass"
 	inhand_icon_state = "sheet-pglass"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/alloy/plasmaglass=MINERAL_MATERIAL_AMOUNT)
 	material_type = /datum/material/alloy/plasmaglass
 	armor_type = /datum/armor/sheet_plasmaglass
@@ -131,7 +135,6 @@
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
 	material_flags = NONE
 	tableVariant = /obj/structure/table/glass/plasma
-
 
 /datum/armor/sheet_plasmaglass
 	fire = 75
@@ -166,6 +169,8 @@
 	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-prglass"
 	inhand_icon_state = "sheet-prglass"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/alloy/plasmaglass=MINERAL_MATERIAL_AMOUNT, /datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5)
 	armor_type = /datum/armor/sheet_plasmarglass
 	resistance_flags = ACID_PROOF
@@ -174,7 +179,6 @@
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10, /datum/reagent/iron = 10)
 	point_value = 23
 	matter_amount = 8
-
 
 /datum/armor/sheet_plasmarglass
 	melee = 20
@@ -192,12 +196,13 @@
 	singular_name = "titanium glass sheet"
 	icon_state = "sheet-titaniumglass"
 	inhand_icon_state = "sheet-titaniumglass"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/alloy/titaniumglass=MINERAL_MATERIAL_AMOUNT)
 	material_type = /datum/material/alloy/titaniumglass
 	armor_type = /datum/armor/sheet_titaniumglass
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
-
 
 /datum/armor/sheet_titaniumglass
 	fire = 80
@@ -214,13 +219,14 @@
 	singular_name = "plastitanium glass sheet"
 	icon_state = "sheet-plastitaniumglass"
 	inhand_icon_state = "sheet-plastitaniumglass"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	material_type = /datum/material/alloy/plastitaniumglass
 	armor_type = /datum/armor/sheet_plastitaniumglass
 	resistance_flags = ACID_PROOF
 	material_flags = NONE
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
-
 
 /datum/armor/sheet_plastitaniumglass
 	fire = 80

@@ -30,7 +30,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	is_flying_animal = TRUE
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	var/ghost_hair_style
@@ -55,6 +54,7 @@
 			if(1)
 				name = "ghost of [pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Destroy()
 	. = ..()

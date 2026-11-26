@@ -98,6 +98,6 @@
 		if(hit.Find(hit_living))
 			continue
 		hit += hit_living
-		playsound(hit_living, "sound/weapons/punch[rand(1,4)].ogg", 15, 1, -1)
+		playsound(hit_living, "punch", 15, TRUE, -1)
 		hit_living.Knockdown(10 + level_current * 8)
 		hit_living.spin(10, 1)

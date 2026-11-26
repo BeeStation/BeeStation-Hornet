@@ -12,7 +12,7 @@
 	icon_state = "paperbag_None"
 	inhand_icon_state = "paperbag_None"
 	resistance_flags = FLAMMABLE
-	foldable = null
+	foldable_result = null
 	var/design = NODESIGN
 
 /obj/item/storage/box/papersack/update_icon_state()

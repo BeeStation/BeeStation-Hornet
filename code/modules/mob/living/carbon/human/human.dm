@@ -72,12 +72,6 @@
 
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
-	var/obj/item/tank/target_tank = internal || external
-	if(target_tank)
-		var/datum/gas_mixture/target_tank_air = target_tank.return_air()
-		tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[target_tank.name]")
-		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank_air.return_pressure()]")
-		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
 	if(istype(wear_suit, /obj/item/clothing/suit/space))
 		var/obj/item/clothing/suit/space/S = wear_suit
 		tab_data["Thermal Regulator"] = GENERATE_STAT_TEXT("[S.thermal_on ? "on" : "off"]")
@@ -159,7 +153,7 @@
 
 		to_chat(viewer, examine_block(span_info(id_examine)))
 
-	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
+	if(href_list["embedded_object"] && usr.can_perform_action(src, NEED_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
 			return
@@ -169,7 +163,7 @@
 		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
-	if(href_list["item"]) //canUseTopic check for this is handled by mob/Topic()
+	if(href_list["item"])
 		var/slot = text2num(href_list["item"])
 		if(hidden_slots_to_inventory_slots(obscured_slots) & slot)
 			to_chat(usr, span_warning("You can't reach that! Something is covering it."))
@@ -857,8 +851,7 @@
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins(span_notice("[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name]."))
 
-/mob/living/carbon/human/MouseDrop(mob/over)
-	. = ..()
+/mob/living/carbon/human/mouse_drop_dragged(mob/over, mob/user, src_location, over_location, params)
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
 		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) && get_turf(src) == get_turf(T) && (T.body_position == LYING_DOWN) && src.combat_mode && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
@@ -1062,12 +1055,12 @@
 /mob/living/carbon/human/proc/add_eye_color_left(color, color_priority, update_body = TRUE)
 	LAZYSET(eye_color_left_overrides, "[color_priority]", color)
 	if (update_body)
-		update_body()
+		update_eyes()
 
 /mob/living/carbon/human/proc/add_eye_color_right(color, color_priority, update_body = TRUE)
 	LAZYSET(eye_color_right_overrides, "[color_priority]", color)
 	if (update_body)
-		update_body()
+		update_eyes()
 
 /mob/living/carbon/human/proc/add_eye_color(color, color_priority, update_body = TRUE)
 	add_eye_color_left(color, color_priority, update_body = FALSE)
@@ -1077,9 +1070,12 @@
 	LAZYREMOVE(eye_color_left_overrides, "[color_priority]")
 	LAZYREMOVE(eye_color_right_overrides, "[color_priority]")
 	if (update_body)
-		update_body()
+		update_eyes()
 
-/mob/living/carbon/human/proc/get_right_eye_color()
+/mob/living/carbon/proc/get_right_eye_color()
+	return
+
+/mob/living/carbon/human/get_right_eye_color()
 	if (!LAZYLEN(eye_color_right_overrides))
 		return eye_color_right
 
@@ -1092,7 +1088,10 @@
 			eye_color = eye_color_right_overrides[override_priority]
 	return eye_color
 
-/mob/living/carbon/human/proc/get_left_eye_color()
+/mob/living/carbon/proc/get_left_eye_color()
+	return
+
+/mob/living/carbon/human/get_left_eye_color()
 	if (!LAZYLEN(eye_color_left_overrides))
 		return eye_color_left
 

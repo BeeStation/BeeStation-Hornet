@@ -56,7 +56,7 @@
 
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, ALT_CLICK))
-		linked_action?.begin_creating_bind(usr)
+		linked_action?.begin_creating_bind(src, usr)
 		return TRUE
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		var/datum/hud/our_hud = usr.hud_used
@@ -106,7 +106,7 @@
 	closeToolTip(usr)
 	return ..()
 
-/atom/movable/screen/movable/action_button/MouseDrop(over_object)
+/atom/movable/screen/movable/action_button/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	last_hovored_ref = null
 	if(!can_use(usr))
 		return

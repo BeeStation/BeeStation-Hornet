@@ -4,8 +4,10 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "fire_extinguisher0"
 	inhand_icon_state = "fire_extinguisher"
+	base_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
-
+	pickup_sound = 'sound/items/handling/gas_tank/gas_tank_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gas_tank/gas_tank_drop.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	throwforce = 10
 	w_class = WEIGHT_CLASS_LARGE
@@ -21,6 +23,7 @@
 	attack_verb_simple = list("slam", "whack", "bash", "thunk", "batter", "bludgeon", "thrash")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	custom_price = 15
 	var/max_water = 50
 	var/last_use = 1
@@ -28,16 +31,32 @@
 	var/safety = TRUE
 	var/refilling = FALSE
 	var/tanktype = /obj/structure/reagent_dispensers/watertank
-	var/sprite_name = "fire_extinguisher"
 	var/power = 5 //Maximum distance launched water will travel
 	var/precision = FALSE //By default, turfs picked from a spray are random, set to 1 to make it always have at least one water effect per row
 	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
+	/// The sound a fire extinguisher makes when picked up, dropped if there is liquid inside.
+	var/slosh_sound = "default_liquid_slosh"
+
+/obj/item/extinguisher/Initialize(mapload)
+	. = ..()
+	refill()
+
+/obj/item/extinguisher/dropped(mob/user, silent)
+	. = ..()
+	if(slosh_sound && reagents.total_volume > 0)
+		playsound(src, slosh_sound, LIQUID_SLOSHING_SOUND_VOLUME, vary = TRUE, ignore_walls = FALSE)
+
+/obj/item/extinguisher/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if((slot & ITEM_SLOT_HANDS) && slosh_sound && reagents.total_volume > 0)
+		playsound(src, slosh_sound, LIQUID_SLOSHING_SOUND_VOLUME, vary = TRUE, ignore_walls = FALSE)
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
 	icon_state = "miniFE0"
 	inhand_icon_state = "miniFE"
+	base_icon_state = "miniFE"
 	hitsound = null	//it is much lighter, after all.
 	obj_flags = NONE //doesn't conduct electricity
 	throwforce = 2
@@ -45,7 +64,6 @@
 	force = 3
 	custom_materials = list(/datum/material/iron = 50, /datum/material/glass = 40)
 	max_water = 30
-	sprite_name = "miniFE"
 	dog_fashion = null
 	custom_price = 10
 
@@ -53,19 +71,15 @@
 	create_reagents(max_water, AMOUNT_VISIBLE)
 	reagents.add_reagent(chem, max_water)
 
-/obj/item/extinguisher/Initialize(mapload)
-	. = ..()
-	refill()
-
 /obj/item/extinguisher/advanced
 	name = "advanced fire extinguisher"
 	desc = "Used to stop thermonuclear fires from spreading inside your engine."
 	icon_state = "foam_extinguisher0"
 	inhand_icon_state = "foam_extinguisher"
+	base_icon_state = "foam_extinguisher"
 	dog_fashion = null
 	chem = /datum/reagent/firefighting_foam
 	tanktype = /obj/structure/reagent_dispensers/foamtank
-	sprite_name = "foam_extinguisher"
 	precision = TRUE
 	custom_price = 125
 
@@ -83,7 +97,7 @@
 
 /obj/item/extinguisher/attack_self(mob/user)
 	safety = !safety
-	src.icon_state = "[sprite_name][!safety]"
+	src.icon_state = "[base_icon_state][!safety]"
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
 
@@ -220,10 +234,12 @@
 		if(1 to 3)
 			source.delay = multiplier + 2
 
-/obj/item/extinguisher/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
+/obj/item/extinguisher/click_alt(mob/user)
+	if(!user.is_holding(src))
+		to_chat(user, span_notice("You must be holding the [src] in your hands do this!"))
+		return CLICK_ACTION_BLOCKING
 	EmptyExtinguisher(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/extinguisher/proc/EmptyExtinguisher(mob/user)
 	if(loc == user && reagents.total_volume)

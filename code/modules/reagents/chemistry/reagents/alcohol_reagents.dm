@@ -3127,7 +3127,7 @@
 		has_traveled = TRUE
 		affected_mob.AdjustKnockdown(15)
 		shake_camera(affected_mob, 15)
-		affected_mob.playsound_local(affected_mob.loc, "sound/effects/hyperspace_end.ogg", 50)
+		affected_mob.playsound_local(affected_mob.loc, 'sound/effects/hyperspace_end.ogg', 50)
 		affected_mob.become_nearsighted("ftliver")
 		addtimer(CALLBACK(src, PROC_REF(delayed_cure_nearsighted), affected_mob), 5 SECONDS)
 

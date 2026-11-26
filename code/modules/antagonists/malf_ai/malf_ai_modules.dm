@@ -555,7 +555,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		to_chat(clicker, span_warning("You cannot overload that device!"))
 		return FALSE
 
-	clicker.playsound_local(clicker, "sound/effects/sparks1.ogg", 50, 0)
+	clicker.playsound_local(clicker, 'sound/effects/sparks1.ogg', 50, 0)
 	adjust_uses(-1)
 
 	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
@@ -586,7 +586,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		else
 			apc.overload++
 	to_chat(owner, span_notice("Overcurrent applied to the powernet."))
-	owner.playsound_local(owner, "sound/effects/sparks1.ogg", 50, 0)
+	owner.playsound_local(owner, 'sound/effects/sparks1.ogg', 50, 0)
 	adjust_uses(-1)
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return

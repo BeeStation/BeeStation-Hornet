@@ -2658,15 +2658,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/service/kitchen/coldroom)
-"bgK" = (
-/mob/living/simple_animal/chicken{
-	name = "Featherbottom";
-	real_name = "Featherbottom"
-	},
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/open/floor/grass,
-/area/station/service/hydroponics/garden)
 "bgM" = (
 /obj/machinery/telecomms/bus/preset_one,
 /turf/open/floor/circuit/green/telecomms/mainframe,
@@ -8978,15 +8969,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
-"dDh" = (
-/obj/structure/destructible/cult/item_dispenser/archives/library,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/item/stack/cable_coil/cut,
-/obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/engine/cult,
-/area/station/service/library)
 "dDx" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -10924,6 +10906,17 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
+"ejN" = (
+/mob/living/basic/goat/pete,
+/obj/structure/cable/yellow,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/iron/freezer,
+/area/station/service/kitchen/coldroom)
 "ejY" = (
 /obj/machinery/atmospherics/components/binary/valve{
 	dir = 1;
@@ -19901,6 +19894,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
+"hmP" = (
+/mob/living/basic/sloth/citrus,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/iron,
+/area/station/cargo/storage)
 "hmR" = (
 /obj/machinery/requests_console{
 	department = "Detective's office";
@@ -20703,6 +20703,20 @@
 	},
 /turf/open/floor/wood,
 /area/station/security/prison)
+"hCs" = (
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/fullgrass,
+/mob/living/basic/butterfly{
+	dir = 8;
+	name = "Justine"
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/floor/grass,
+/area/station/medical/patients_rooms)
 "hCE" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/blood/old,
@@ -24918,6 +24932,16 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"iYU" = (
+/obj/machinery/door/window/westright{
+	name = "Garden A"
+	},
+/mob/living/basic/chicken{
+	name = "Kentucky";
+	real_name = "Kentucky"
+	},
+/turf/open/floor/grass,
+/area/station/service/hydroponics/garden)
 "iYV" = (
 /turf/closed/wall/r_wall,
 /area/station/tcommsat/computer)
@@ -26370,6 +26394,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/commons/locker)
+"jyc" = (
+/mob/living/basic/chicken{
+	name = "Featherbottom";
+	real_name = "Featherbottom"
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/grass,
+/area/station/service/hydroponics/garden)
 "jye" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -27382,13 +27415,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation)
-"jOv" = (
-/mob/living/simple_animal/sloth/citrus,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/iron,
-/area/station/cargo/storage)
 "jOw" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate{
@@ -27411,6 +27437,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
+"jOX" = (
+/obj/structure/bed/dogbed/vector,
+/mob/living/basic/pet/hamster/vector,
+/turf/open/floor/iron/grid/steel,
+/area/station/medical/virology)
 "jPg" = (
 /obj/structure/chair{
 	dir = 4
@@ -28872,16 +28903,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/explab)
-"krI" = (
-/obj/machinery/door/window/westright{
-	name = "Garden A"
-	},
-/mob/living/simple_animal/chicken{
-	name = "Kentucky";
-	real_name = "Kentucky"
-	},
-/turf/open/floor/grass,
-/area/station/service/hydroponics/garden)
 "krL" = (
 /obj/structure/chair,
 /obj/effect/landmark/start/assistant,
@@ -35316,6 +35337,17 @@
 	dir = 5
 	},
 /area/station/science/research)
+"myX" = (
+/obj/machinery/light,
+/obj/machinery/computer/security/telescreen/minisat{
+	dir = 1;
+	pixel_y = -29
+	},
+/obj/structure/bed/dogbed/renault,
+/mob/living/basic/pet/fox/renault,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/station/command/heads_quarters/captain/private)
 "mzd" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/freezer,
@@ -50106,20 +50138,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
-"rpC" = (
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/flora/ausbushes/fullgrass,
-/mob/living/simple_animal/butterfly{
-	dir = 8;
-	name = "Justine"
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/north,
-/turf/open/floor/grass,
-/area/station/medical/patients_rooms)
 "rpL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -55843,17 +55861,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/station/commons/fitness/recreation)
-"tpd" = (
-/obj/machinery/light,
-/obj/machinery/computer/security/telescreen/minisat{
-	dir = 1;
-	pixel_y = -29
-	},
-/obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault,
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/wood,
-/area/station/command/heads_quarters/captain/private)
 "tpe" = (
 /obj/structure/easel,
 /obj/item/canvas/nineteen_nineteen,
@@ -58824,11 +58831,6 @@
 "uqQ" = (
 /turf/open/floor/holofloor/plating,
 /area/station/holodeck/prison)
-"urf" = (
-/obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
-/turf/open/floor/iron/grid/steel,
-/area/station/medical/virology)
 "uri" = (
 /obj/machinery/door/airlock{
 	name = "Custodial Closet"
@@ -64852,19 +64854,6 @@
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
-"wtZ" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
-/obj/structure/cable/yellow,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/iron/freezer,
-/area/station/service/kitchen/coldroom)
 "wuk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/trimline/purple/filled/corner{
@@ -66613,6 +66602,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/station/medical/genetics)
+"xba" = (
+/obj/structure/destructible/cult/item_dispenser/archives/library,
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/obj/item/stack/cable_coil/cut,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/engine/cult,
+/area/station/service/library)
 "xbc" = (
 /obj/effect/landmark/carpspawn,
 /turf/open/space/basic,
@@ -87559,7 +87557,7 @@ igY
 igY
 igY
 igY
-jOv
+hmP
 oWx
 qUU
 iuG
@@ -88131,7 +88129,7 @@ lKf
 aZy
 aZy
 kzs
-urf
+jOX
 krR
 env
 cTD
@@ -91184,7 +91182,7 @@ vhK
 qZL
 gwZ
 mMD
-dDh
+xba
 cSN
 meB
 mMD
@@ -93262,7 +93260,7 @@ tci
 rsN
 jas
 xTQ
-rpC
+hCs
 aVp
 tlg
 kZd
@@ -100426,7 +100424,7 @@ sWR
 pdV
 sgB
 opQ
-tpd
+myX
 tNB
 fEq
 hxe
@@ -107083,7 +107081,7 @@ lOE
 obz
 rio
 quA
-krI
+iYU
 rEL
 aPQ
 nct
@@ -107596,7 +107594,7 @@ qmy
 fYG
 vrD
 rio
-bgK
+jyc
 glc
 qJi
 cKo
@@ -107887,7 +107885,7 @@ klh
 scF
 rUC
 joy
-wtZ
+ejN
 jDr
 gWw
 uio

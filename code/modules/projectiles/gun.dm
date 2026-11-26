@@ -24,14 +24,14 @@
 	max_integrity = 500
 	integrity_failure = 0.2
 
-	var/fire_sound = "gunshot"
+	var/fire_sound = 'sound/weapons/gun/pistol/shot.ogg'
 	var/vary_fire_sound = TRUE
 	var/fire_sound_volume = 50
-	var/dry_fire_sound = 'sound/weapons/gun_dry_fire.ogg'
+	var/dry_fire_sound = 'sound/weapons/gun/general/dry_fire.ogg'
 	var/suppressed = null	//whether or not a message is displayed when fired
 	var/can_suppress = FALSE
-	var/suppressed_sound = 'sound/weapons/gunshot_silenced.ogg'
-	var/suppressed_volume = 10
+	var/suppressed_sound = 'sound/weapons/gun/general/heavy_shot_suppressed.ogg'
+	var/suppressed_volume = 60
 	var/can_unsuppress = TRUE
 	var/recoil = 0						//boom boom shake the room
 	var/clumsy_check = TRUE
@@ -248,7 +248,7 @@
 
 /obj/item/gun/proc/fire_sounds()
 	if(suppressed)
-		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE)
 	else
 		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
 
@@ -398,8 +398,7 @@
 	if(aimed == GUN_AIMED_POINTBLANK)
 		zone_override = BODY_ZONE_HEAD //Shooting while pressed against someone's temple
 
-	process_fire(target, user, TRUE, modifiers, zone_override, aimed)
-	return TRUE
+	return process_fire(target, user, TRUE, modifiers, zone_override, aimed)
 
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
@@ -563,7 +562,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 
 	if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
@@ -591,7 +590,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	if(pin && user.is_holding(src))
 		user.visible_message(span_warning("[user] attempts to remove [pin] from [src] with [I]."),
@@ -608,7 +607,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	if(pin && user.is_holding(src))
 		user.visible_message(span_warning("[user] attempts to remove [pin] from [src] with [I]."),

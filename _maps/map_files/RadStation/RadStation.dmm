@@ -1599,6 +1599,17 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/central)
+"aEH" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/bed/dogbed/vector{
+	pixel_y = 8
+	},
+/mob/living/basic/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron/dark,
+/area/station/medical/virology)
 "aEW" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -2204,14 +2215,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
-"aPq" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/grass/jungle/b,
-/obj/structure/flora/ausbushes/palebush,
-/mob/living/simple_animal/butterfly,
-/turf/open/floor/grass/no_border,
-/area/station/hallway/secondary/exit/departure_lounge)
 "aPs" = (
 /obj/effect/turf_decal/tile/white/anticorner,
 /turf/open/floor/iron,
@@ -8264,6 +8267,14 @@
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/station/security/brig/dock)
+"dez" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/ausbushes/palebush,
+/mob/living/basic/butterfly,
+/turf/open/floor/grass/no_border,
+/area/station/hallway/secondary/exit/departure_lounge)
 "deA" = (
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
 	dir = 8
@@ -10290,15 +10301,6 @@
 /obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
-"dTp" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/chicken{
-	desc = "The arch-nemesis of Kentucky.";
-	name = "Nugget";
-	real_name = "one name, one plan or..."
-	},
-/turf/open/floor/grass,
-/area/station/hallway/primary/central)
 "dTt" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -10838,6 +10840,11 @@
 /obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/port/aft)
+"edg" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/mob/living/basic/turkey,
+/turf/open/floor/grass,
+/area/station/hallway/primary/central)
 "edh" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/chair{
@@ -11177,6 +11184,17 @@
 	},
 /turf/open/floor/iron/tech,
 /area/station/engineering/main)
+"eiU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/structure/flora/ausbushes/lavendergrass,
+/mob/living/basic/turtle{
+	name = "Turtle"
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/grass,
+/area/station/hallway/primary/central)
 "eiX" = (
 /obj/effect/turf_decal/guideline/guideline_edge/blue,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -21213,6 +21231,21 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
+"igN" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/mob/living/basic/butterfly{
+	name = "Lisa, PsyD"
+	},
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/grass/no_border,
+/area/station/medical/treatment_center)
 "igO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/circuit/red,
@@ -22363,6 +22396,11 @@
 	},
 /turf/open/floor/plating,
 /area/station/science/research)
+"iHo" = (
+/obj/structure/flora/rock/jungle,
+/mob/living/basic/chick/permanent,
+/turf/open/floor/grass,
+/area/station/hallway/primary/central)
 "iHu" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
@@ -23961,21 +23999,6 @@
 "jmd" = (
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
-"jmf" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/butterfly{
-	name = "Lisa, PsyD"
-	},
-/obj/structure/flora/grass/jungle/b,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/grass/no_border,
-/area/station/medical/treatment_center)
 "jmh" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 9
@@ -24785,16 +24808,6 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"jAH" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/mob/living/simple_animal/chicken{
-	name = "Kentucky";
-	real_name = "Kentucky"
-	},
-/turf/open/floor/iron/dark,
-/area/station/service/bar)
 "jAI" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/pump,
@@ -28040,6 +28053,15 @@
 	broken = 1
 	},
 /area/station/maintenance/port/aft)
+"kOp" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/mob/living/basic/chicken{
+	desc = "The arch-nemesis of Kentucky.";
+	name = "Nugget";
+	real_name = "one name, one plan or..."
+	},
+/turf/open/floor/grass,
+/area/station/hallway/primary/central)
 "kOu" = (
 /turf/closed/wall,
 /area/station/security/brig/dock)
@@ -29556,11 +29578,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/service)
-"lpm" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/turkey,
-/turf/open/floor/grass,
-/area/station/hallway/primary/central)
 "lpI" = (
 /obj/structure/transit_tube/curved/flipped,
 /turf/open/space/basic,
@@ -33289,13 +33306,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/robotics)
-"mFf" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron/freezer,
-/area/station/service/kitchen/coldroom)
 "mFi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -35060,23 +35070,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/hallway/primary/central)
-"nnn" = (
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 10
-	},
-/obj/structure/bed/dogbed/renault{
-	pixel_y = 3
-	},
-/mob/living/simple_animal/pet/fox/Renault{
-	density = 0;
-	dir = 8;
-	pixel_y = 10
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/station/command/heads_quarters/captain)
 "nno" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
@@ -40031,17 +40024,6 @@
 /obj/item/camera,
 /turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
-"pcy" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/bed/dogbed/vector{
-	pixel_y = 8
-	},
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/iron/dark,
-/area/station/medical/virology)
 "pcL" = (
 /obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/light/small{
@@ -41146,6 +41128,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/office)
+"pBd" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/mob/living/basic/sloth/citrus{
+	density = 0
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/station/cargo/storage)
 "pBe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -42691,10 +42684,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/maintenance/department/security)
-"qht" = (
-/obj/structure/destructible/cult/item_dispenser/archives,
-/turf/open/floor/carpet/royalblack,
-/area/station/service/library)
 "qhu" = (
 /obj/machinery/camera/directional/east,
 /obj/machinery/firealarm/directional/east,
@@ -46464,17 +46453,6 @@
 "rBc" = (
 /turf/closed/wall,
 /area/station/cargo/miningdock)
-"rBe" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/turtle{
-	name = "Turtle"
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/grass,
-/area/station/hallway/primary/central)
 "rBr" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/o2,
 /obj/effect/turf_decal/delivery,
@@ -49010,6 +48988,16 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/engineering/main)
+"sBH" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/mob/living/basic/chicken{
+	name = "Kentucky";
+	real_name = "Kentucky"
+	},
+/turf/open/floor/iron/dark,
+/area/station/service/bar)
 "sBK" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/turf_decal/bot,
@@ -49775,6 +49763,23 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
+"sQe" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 10
+	},
+/obj/structure/bed/dogbed/renault{
+	pixel_y = 3
+	},
+/mob/living/basic/pet/fox/renault{
+	density = 0;
+	dir = 8;
+	pixel_y = 10
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/station/command/heads_quarters/captain)
 "sQi" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180;
@@ -58223,6 +58228,11 @@
 	},
 /turf/open/floor/plating,
 /area/station/security/medical)
+"wdw" = (
+/mob/living/basic/goat/pete,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/iron/freezer,
+/area/station/service/kitchen/coldroom)
 "wdG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -59043,11 +59053,6 @@
 /obj/structure/cable,
 /turf/open/floor/iron/tech,
 /area/station/engineering/main)
-"wug" = (
-/obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/chick,
-/turf/open/floor/grass,
-/area/station/hallway/primary/central)
 "wui" = (
 /obj/structure/cable/yellow,
 /turf/open/floor/wood,
@@ -59560,17 +59565,6 @@
 	dir = 8
 	},
 /area/station/science/mixing)
-"wDa" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box,
-/mob/living/simple_animal/sloth/citrus{
-	density = 0
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/station/cargo/storage)
 "wDh" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
 	alpha = 200;
@@ -63847,6 +63841,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/exploration_prep)
+"ygB" = (
+/obj/structure/destructible/cult/item_dispenser/archives,
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library)
 "ygK" = (
 /obj/machinery/airalarm/directional/east{
 	pixel_x = 29;
@@ -86417,7 +86415,7 @@ xpj
 hyY
 dLL
 myv
-wDa
+pBd
 myv
 pXv
 iNt
@@ -94638,7 +94636,7 @@ pNx
 srL
 cqu
 uDN
-rBe
+eiU
 fYn
 pGl
 nlA
@@ -95405,7 +95403,7 @@ hBF
 mJA
 wHJ
 uMg
-dTp
+kOp
 xLU
 uSh
 uSh
@@ -95662,7 +95660,7 @@ pHA
 wHJ
 tLA
 mWv
-wug
+iHo
 uSh
 uSh
 xJi
@@ -97145,7 +97143,7 @@ tdA
 dIy
 gUh
 pvP
-nnn
+sQe
 hvF
 byu
 erQ
@@ -97718,7 +97716,7 @@ dgu
 eRT
 iyx
 hLg
-lpm
+edg
 uSh
 uSh
 tKA
@@ -100063,7 +100061,7 @@ iiQ
 eTA
 pHB
 hwE
-jmf
+igN
 aEW
 qcS
 idd
@@ -101310,7 +101308,7 @@ cey
 cey
 cey
 jlj
-jAH
+sBH
 mqe
 pIU
 keK
@@ -102586,7 +102584,7 @@ lrr
 doT
 cso
 wBE
-mFf
+wdw
 rOS
 kjE
 ekJ
@@ -105443,7 +105441,7 @@ xDw
 fKZ
 qVN
 mKR
-aPq
+dez
 cLm
 sxM
 mOj
@@ -107492,7 +107490,7 @@ cYd
 iGf
 jOs
 rBM
-qht
+ygB
 nhd
 jux
 wRQ
@@ -108551,7 +108549,7 @@ xGy
 gTE
 vTw
 wkG
-pcy
+aEH
 aCZ
 uot
 czl

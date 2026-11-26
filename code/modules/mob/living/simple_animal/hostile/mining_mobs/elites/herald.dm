@@ -201,7 +201,6 @@
 	icon_aggro = "herald_mirror"
 	death_message = "shatters violently!"
 	death_sound = 'sound/effects/glassbr1.ogg'
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	del_on_death = TRUE
 	is_mirror = TRUE
@@ -210,6 +209,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
 	. = ..()
 	toggle_ai(AI_OFF)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Destroy()
 	if(my_master != null)

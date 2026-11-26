@@ -7,7 +7,8 @@
 	max_integrity = 100
 	armor_type = /datum/armor/ridden_wheelchair
 	canmove = TRUE
-	density = FALSE		//Thought I couldn't fix this one easily, phew
+	density = FALSE
+	interaction_flags_mouse_drop = ALLOW_RESTING
 	move_resist = MOVE_FORCE_WEAK
 	// Run speed delay is multiplied with this for vehicle move delay.
 	var/delay_multiplier = 6.7
@@ -24,6 +25,7 @@
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_IMMOBILIZE, INNATE_TRAIT) //the wheelchair doesnt immobilize us like a bed would
+	AddElement(/datum/element/noisy_movement, volume = 75)
 
 /obj/vehicle/ridden/wheelchair/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/hand)
@@ -42,10 +44,8 @@
 /obj/vehicle/ridden/wheelchair/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	cut_overlays()
-	playsound(src, 'sound/effects/roll.ogg', 75, 1)
 	if(has_buckled_mobs())
 		handle_rotation_overlayed()
-
 
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	. = ..()
@@ -84,12 +84,3 @@
 
 /obj/vehicle/ridden/wheelchair/proc/can_be_rotated(mob/living/user)
 	return TRUE
-
-/obj/vehicle/ridden/wheelchair/proc/can_user_rotate(mob/living/user)
-	var/mob/living/L = user
-	if(istype(L))
-		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-			return FALSE
-	if(isobserver(user) && CONFIG_GET(flag/ghost_interaction))
-		return TRUE
-	return FALSE

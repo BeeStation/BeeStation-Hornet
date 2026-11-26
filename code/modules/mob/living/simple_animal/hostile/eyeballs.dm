@@ -23,7 +23,6 @@
 	attack_verb_continuous = "blinks at"
 	attack_verb_simple = "blink at"
 	attack_sound = 'sound/weapons/pierce.ogg'
-	is_flying_animal = TRUE
 
 	faction = list(FACTION_SPOOKY)
 	del_on_death = TRUE

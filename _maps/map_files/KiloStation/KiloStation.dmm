@@ -1416,6 +1416,14 @@
 "aJj" = (
 /turf/closed/wall/r_wall,
 /area/station/engineering/break_room)
+"aJw" = (
+/obj/machinery/igniter/incinerator_toxmix,
+/mob/living/basic/chicken{
+	desc = "A timeless classic.";
+	name = "Kentucky"
+	},
+/turf/open/floor/engine/vacuum,
+/area/station/science/mixing/chamber)
 "aJK" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment,
@@ -1556,15 +1564,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/genetics)
-"aMv" = (
-/obj/machinery/igniter/incinerator_toxmix,
-/mob/living/simple_animal/chicken{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=1,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A timeless classic.";
-	name = "Kentucky"
-	},
-/turf/open/floor/engine/vacuum,
-/area/station/science/mixing/chamber)
 "aMD" = (
 /turf/closed/wall/r_wall/rust,
 /area/station/security/office)
@@ -4024,6 +4023,11 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/hos)
+"bFC" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/mob/living/basic/butterfly,
+/turf/open/floor/grass,
+/area/station/service/chapel)
 "bFF" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/rust,
@@ -7210,22 +7214,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/medbay/central)
-"cUK" = (
-/obj/structure/cable/yellow,
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/station/cargo/exploration_prep)
 "cUM" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/neutral{
@@ -20407,22 +20395,6 @@
 	broken = 1
 	},
 /area/station/maintenance/port)
-"hnI" = (
-/obj/structure/destructible/cult/item_dispenser/archives/library,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/flashlight/lantern{
-	pixel_x = 4
-	},
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/station/service/library)
 "hnW" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/techstorage/rnd_all,
@@ -23465,21 +23437,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"inC" = (
-/obj/structure/flora/grass/jungle,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -22
-	},
-/mob/living/simple_animal/chicken{
-	desc = "The arch-nemesis of Kentucky.";
-	name = "Popeye";
-	real_name = "Featherbottom"
-	},
-/turf/open/floor/grass,
-/area/station/service/hydroponics)
 "inJ" = (
 /obj/machinery/button/door{
 	id = "xeno3";
@@ -35816,6 +35773,21 @@
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
+"mrz" = (
+/obj/structure/flora/grass/jungle,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/airalarm/directional/west{
+	pixel_x = -22
+	},
+/mob/living/basic/chicken{
+	desc = "The arch-nemesis of Kentucky.";
+	name = "Popeye";
+	real_name = "Featherbottom"
+	},
+/turf/open/floor/grass,
+/area/station/service/hydroponics)
 "mrA" = (
 /obj/machinery/light{
 	dir = 1
@@ -39971,14 +39943,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/central)
-"nHW" = (
-/mob/living/simple_animal/butterfly,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/turf/open/floor/grass,
-/area/station/service/chapel)
 "nIj" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
@@ -41799,18 +41763,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/storage)
-"opu" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/butterfly{
-	name = "Lisa, PsyD"
-	},
-/obj/structure/flora/grass/jungle/b,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
-/turf/open/floor/grass,
-/area/station/medical/storage)
 "opA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -44644,6 +44596,14 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/station/engineering/main)
+"pnd" = (
+/mob/living/basic/butterfly,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/turf/open/floor/grass,
+/area/station/service/chapel)
 "pnk" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -45568,6 +45528,20 @@
 	},
 /turf/open/floor/plating,
 /area/station/commons/vacant_room/commissary)
+"pFN" = (
+/obj/structure/bed/dogbed/renault,
+/obj/machinery/button/door{
+	id = "captain_escape";
+	name = "Tactical Relocation Toggle";
+	pixel_x = 6;
+	pixel_y = -24
+	},
+/mob/living/basic/pet/fox/renault,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/station/command/heads_quarters/captain)
 "pFZ" = (
 /obj/structure/curtain,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -46682,6 +46656,22 @@
 	},
 /turf/open/floor/plating/airless,
 /area/misc/space/nearstation)
+"pZJ" = (
+/obj/structure/destructible/cult/item_dispenser/archives/library,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/flashlight/lantern{
+	pixel_x = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/station/service/library)
 "pZK" = (
 /obj/machinery/power/apc{
 	areastring = "/area/station/medical/morgue";
@@ -47295,6 +47285,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/service/bar/atrium)
+"qjR" = (
+/obj/machinery/requests_console{
+	name = "Virology RC";
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/bed/dogbed/runtime{
+	name = "Victors's bed"
+	},
+/mob/living/basic/pet/hamster/vector,
+/turf/open/floor/iron/freezer,
+/area/station/medical/virology)
 "qjU" = (
 /obj/structure/closet/secure_closet/hos,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -53640,20 +53644,6 @@
 	burnt = 1
 	},
 /area/station/engineering/main)
-"syb" = (
-/obj/machinery/requests_console{
-	name = "Virology RC";
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
-	dir = 4
-	},
-/obj/structure/bed/dogbed/runtime{
-	name = "Victors's bed"
-	},
-/mob/living/simple_animal/pet/hamster/vector,
-/turf/open/floor/iron/freezer,
-/area/station/medical/virology)
 "syk" = (
 /mob/living/simple_animal/bot/secbot{
 	arrest_type = 1;
@@ -54581,6 +54571,14 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron/showroomfloor,
 /area/station/cargo/exploration_prep)
+"sQC" = (
+/obj/structure/cable/yellow,
+/mob/living/basic/turkey/tom,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/station/cargo/exploration_prep)
 "sQM" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
@@ -54649,16 +54647,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/fore)
-"sRV" = (
-/mob/living/simple_animal/sloth/citrus,
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/station/cargo/sorting)
 "sSl" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
@@ -56107,11 +56095,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"tsq" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/butterfly,
-/turf/open/floor/grass,
-/area/station/service/chapel)
 "tsO" = (
 /obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -61256,6 +61239,18 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/office)
+"vaw" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/window/reinforced/spawner/directional/west,
+/mob/living/basic/butterfly{
+	name = "Lisa, PsyD"
+	},
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/floor/grass,
+/area/station/medical/storage)
 "vaM" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -62330,20 +62325,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/storage)
-"vvo" = (
-/obj/structure/bed/dogbed/renault,
-/obj/machinery/button/door{
-	id = "captain_escape";
-	name = "Tactical Relocation Toggle";
-	pixel_x = 6;
-	pixel_y = -24
-	},
-/mob/living/simple_animal/pet/fox/Renault,
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/turf/open/floor/wood,
-/area/station/command/heads_quarters/captain)
 "vvv" = (
 /obj/machinery/flasher/portable,
 /obj/machinery/camera/motion/directional/east{
@@ -63428,6 +63409,16 @@
 /obj/machinery/status_display/ai,
 /turf/closed/wall,
 /area/station/hallway/secondary/exit/departure_lounge)
+"vOR" = (
+/mob/living/basic/sloth/citrus,
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/cargo/sorting)
 "vOV" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plating/asteroid/airless{
@@ -63457,6 +63448,10 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/station/security/brig/upper)
+"vPh" = (
+/mob/living/basic/goat/pete,
+/turf/open/floor/iron/showroomfloor,
+/area/station/service/kitchen)
 "vPk" = (
 /mob/living/simple_animal/bot/cleanbot/medbay,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -69309,12 +69304,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
-"xPt" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/station/service/kitchen)
 "xPx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
@@ -89268,7 +89257,7 @@ bap
 aPH
 aPH
 dlg
-opu
+vaw
 ksu
 rev
 mvA
@@ -92878,7 +92867,7 @@ cYu
 wQB
 fkZ
 klT
-syb
+qjR
 xbs
 joY
 qZo
@@ -95685,7 +95674,7 @@ aRz
 hrA
 sDV
 msK
-tsq
+bFC
 ooE
 vwZ
 dsA
@@ -95967,7 +95956,7 @@ dGn
 feh
 qHw
 cAO
-hnI
+pZJ
 rjS
 cAO
 wpj
@@ -96457,7 +96446,7 @@ jBX
 sDV
 xJO
 jNp
-nHW
+pnd
 oAc
 jhx
 nBW
@@ -102658,7 +102647,7 @@ puy
 gfg
 uHl
 lOQ
-vvo
+pFN
 dyi
 dyi
 hvc
@@ -103669,7 +103658,7 @@ raZ
 fNo
 joR
 kvH
-xPt
+vPh
 iLu
 ujh
 arf
@@ -104455,7 +104444,7 @@ ldn
 dBz
 eSa
 oFl
-inC
+mrz
 bLl
 vBo
 vBo
@@ -107798,7 +107787,7 @@ jux
 nzH
 wul
 uXx
-sRV
+vOR
 uYD
 klh
 kwm
@@ -111610,7 +111599,7 @@ iRg
 usu
 cgH
 tRo
-cUK
+sQC
 qev
 jnI
 mpA
@@ -112650,7 +112639,7 @@ hWW
 oaR
 kYp
 tGe
-aMv
+aJw
 obt
 jok
 ovp

@@ -311,15 +311,18 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(get_dist(get_turf(src), get_turf(user)) <= 1)
 		promptExit(user)
 
-/turf/closed/indestructible/hoteldoor/AltClick(mob/user)
-	. = ..()
-	if(get_dist(get_turf(src), get_turf(user)) <= 1)
-		to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
-		user.set_mob_eye_to(parentSphere)
-		var/datum/action/peephole_cancel/PHC = new
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
-		PHC.Grant(user)
-		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_hbeye))
+/turf/closed/indestructible/hoteldoor/click_alt(mob/user)
+	if(user.is_blind())
+		to_chat(user, span_warning("Drats! Your vision is too poor to use this!"))
+		return CLICK_ACTION_BLOCKING
+
+	to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
+	user.set_mob_eye_to(parentSphere)
+	var/datum/action/peephole_cancel/PHC = new
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
+	PHC.Grant(user)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_hbeye))
+	return CLICK_ACTION_SUCCESS
 
 /turf/closed/indestructible/hoteldoor/proc/check_hbeye(mob/user, atom/oldloc, direction)
 	SIGNAL_HANDLER

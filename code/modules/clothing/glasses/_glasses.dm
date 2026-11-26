@@ -10,6 +10,10 @@
 	equip_delay_other = 25
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = 250)
+	gender = PLURAL
+	pickup_sound = "glasses_pickup"
+	drop_sound = "glasses_drop"
+	equip_sound = "glasses_equip"
 	var/vision_flags = 0
 	var/darkness_view = 2//Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
@@ -85,6 +89,9 @@
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
+	pickup_sound = "goggles_pickup"
+	drop_sound = "goggles_drop"
+	equip_sound = "goggles_equip"
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -133,7 +140,9 @@
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/glasses_science
 	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_RESEARCH_SCANNER)
-
+	pickup_sound = "goggles_pickup"
+	drop_sound = "goggles_drop"
+	equip_sound = "goggles_equip"
 
 /datum/armor/glasses_science
 	fire = 80
@@ -147,7 +156,6 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/science_prescription
 	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_NEARSIGHTED_CORRECTED)
-
 
 /datum/armor/science_prescription
 	fire = 20
@@ -195,6 +203,10 @@
 	icon_state = "eyepatch"
 	inhand_icon_state = null
 	dog_fashion = /datum/dog_fashion/head/eyepatch
+	pickup_sound = null
+	drop_sound = null
+	equip_sound = null
+	custom_materials = null
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
@@ -210,6 +222,9 @@
 	inhand_icon_state = "glasses"
 	vision_flags = SEE_OBJS
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
+	pickup_sound = "goggles_pickup"
+	drop_sound = "goggles_drop"
+	equip_sound = "goggles_equip"
 
 /obj/item/clothing/glasses/material/mining
 	name = "optical material scanner"
@@ -368,6 +383,9 @@
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_cover = GLASSESCOVERSEYES
 	glass_colour_type = /datum/client_colour/glass_colour/gray
+	pickup_sound = "goggles_pickup"
+	drop_sound = "goggles_drop"
+	equip_sound = "goggles_equip"
 
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -449,6 +467,9 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/red
+	pickup_sound = "goggles_pickup"
+	drop_sound = "goggles_drop"
+	equip_sound = "goggles_equip"
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
 	. = ..()
@@ -494,12 +515,18 @@
 	desc = "A pair of goggles meant for low temperatures."
 	icon_state = "cold"
 	inhand_icon_state = "cold"
+	pickup_sound = "goggles_pickup"
+	drop_sound = "goggles_drop"
+	equip_sound = "goggles_equip"
 
 /obj/item/clothing/glasses/heat
 	name = "heat goggles"
 	desc = "A pair of goggles meant for high temperatures."
 	icon_state = "heat"
 	inhand_icon_state = "heat"
+	pickup_sound = "goggles_pickup"
+	drop_sound = "goggles_drop"
+	equip_sound = "goggles_equip"
 
 /obj/item/clothing/glasses/orange
 	name = "orange glasses"
@@ -617,21 +644,20 @@
 	start_cooldown()
 	return TRUE
 */
-/obj/item/clothing/glasses/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(glass_colour_type && !force_glass_colour && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.client)
-			if(H.client.prefs)
-				if(src == H.glasses)
-					var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
-					H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
-					if(!current_color)
-						to_chat(H, "You will now see glasses colors.")
-					else
-						to_chat(H, "You will no longer see glasses colors.")
-					H.update_glasses_color(src, TRUE)
+/obj/item/clothing/glasses/click_alt(mob/user)
+	if(!glass_colour_type || force_glass_colour || !ishuman(user))
+		return NONE
+	var/mob/living/carbon/human/H = user
+	if(src != H.glasses || !H.client?.prefs)
+		return NONE
+	var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
+	H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
+	if(!current_color)
+		to_chat(H, "You will now see glasses colors.")
+	else
+		to_chat(H, "You will no longer see glasses colors.")
+	H.update_glasses_color(src, TRUE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type

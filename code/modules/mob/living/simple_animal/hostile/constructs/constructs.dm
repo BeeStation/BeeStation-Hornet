@@ -27,7 +27,6 @@
 	maxbodytemp = INFINITY
 	healable = 0
 	faction = list(FACTION_CULT)
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	pressure_resistance = 100
 	unique_name = 1
@@ -86,6 +85,7 @@
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_SPACEWALK), INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	grant_actions_by_list(construct_spells)
 
 	var/spell_count = 1

@@ -15,6 +15,7 @@
 	flags_1 = parent_type::flags_1 | UNPAINTABLE_1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	interaction_flags_mouse_drop = NEED_HANDS
 	strip_delay = 10 SECONDS
 	armor_type = /datum/armor/none
 	actions_types = list(
@@ -32,6 +33,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.5
 	alternate_worn_layer = HANDS_LAYER+0.1 //we want it to go above generally everything, but not hands
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	/// The MOD's theme, decides on some stuff like armor and statistics.
 	var/datum/mod_theme/theme = /datum/mod_theme
 	/// Looks of the MOD.

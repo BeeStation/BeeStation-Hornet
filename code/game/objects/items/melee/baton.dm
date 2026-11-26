@@ -17,9 +17,9 @@
 	var/cooldown = 0
 	COOLDOWN_DECLARE(cooldown_check)
 	/// The length of the knockdown applied to a struck living mob, if they are disoriented.
-	var/knockdown_time = (6 SECONDS)
+	var/knockdown_time = 6 SECONDS
 	/// If affect_cyborg is TRUE, this is how long we stun cyborgs for on a hit.
-	var/stun_time_cyborg = (5 SECONDS)
+	var/stun_time_cyborg = 5 SECONDS
 	/// The length of the knockdown applied to the user on clumsy_check()
 	var/clumsy_knockdown_time = 18 SECONDS
 	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
@@ -267,6 +267,7 @@
 	knockdown_time = 5 SECONDS
 	stun_animation = TRUE
 	custom_price = 120
+
 /obj/item/conversion_kit
 	name = "conversion kit"
 	desc = "A strange box containing wood working tools and an instruction paper to turn stun batons into something else."
@@ -292,9 +293,15 @@
 	knockdown_time = 3 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
 	active = FALSE
+	var/folded_drop_sound = 'sound/items/baton/telescopic_baton_folded_drop.ogg'
+	var/folded_pickup_sound = 'sound/items/baton/telescopic_baton_folded_pickup.ogg'
+	var/unfolded_drop_sound = 'sound/items/baton/telescopic_baton_unfolded_drop.ogg'
+	var/unfolded_pickup_sound = 'sound/items/baton/telescopic_baton_unfolded_pickup.ogg'
+	pickup_sound = 'sound/items/baton/telescopic_baton_folded_pickup.ogg'
+	drop_sound = 'sound/items/baton/telescopic_baton_folded_drop.ogg'
 
 	/// The sound effect played when our baton is extended.
-	var/on_sound = 'sound/weapons/batonextend.ogg'
+	var/on_sound = 'sound/items/baton/batonextend.ogg'
 	/// The inhand iconstate used when our baton is extended.
 	var/on_inhand_icon_state = "nullrod"
 	/// The force on extension.
@@ -342,7 +349,13 @@
 	inhand_icon_state = active ? on_inhand_icon_state : null // When inactive, there is no inhand icon_state.
 	if(user)
 		balloon_alert(user, active ? "extended" : "collapsed")
-	playsound(user ? user : src, on_sound, 50, TRUE)
+	if(!active)
+		drop_sound = folded_drop_sound
+		pickup_sound = folded_pickup_sound
+	else
+		drop_sound = unfolded_drop_sound
+		pickup_sound = unfolded_pickup_sound
+	playsound(src, on_sound, 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 //Contractor Baton
 /obj/item/melee/baton/telescopic/contractor_baton
@@ -366,11 +379,14 @@
 	clumsy_knockdown_time = 24 SECONDS
 	affect_cyborg = TRUE
 	electrical = TRUE
-	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 
 	on_inhand_icon_state = "contractor_baton_on"
-	on_sound = 'sound/weapons/contractorbatonextend.ogg'
+	on_sound = 'sound/items/baton/contractorbatonextend.ogg'
+	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 	active_force = 16
+
+	unfolded_drop_sound = 'sound/items/baton/contractor_baton_unfolded_pickup.ogg'
+	unfolded_pickup_sound = 'sound/items/baton/contractor_baton_unfolded_pickup.ogg'
 
 /obj/item/melee/baton/telescopic/contractor_baton/additional_effects_non_cyborg(mob/living/target, mob/living/user)
 	target.set_jitter_if_lower(20 SECONDS)
@@ -399,6 +415,7 @@
 	desc = "A stun baton for incapacitating people with."
 	desc_controls = "Left click to stun, right click to harm."
 	icon_state = "stunbaton"
+	base_icon_state = "stunbaton"
 	inhand_icon_state = "baton"
 	worn_icon_state = "baton"
 
@@ -422,6 +439,14 @@
 	light_on = FALSE
 	light_color = LIGHT_COLOR_ORANGE
 	light_power = 0.5
+
+	hitsound = "swing_hit"
+	drop_sound = 'sound/items/baton/stun_baton_inactive_drop.ogg'
+	pickup_sound = 'sound/items/baton/stun_baton_inactive_pickup.ogg'
+	var/inactive_drop_sound = 'sound/items/baton/stun_baton_inactive_drop.ogg'
+	var/inactive_pickup_sound = 'sound/items/baton/stun_baton_inactive_pickup.ogg'
+	var/active_drop_sound = 'sound/items/baton/stun_baton_active_drop.ogg'
+	var/active_pickup_sound = 'sound/items/baton/stun_baton_active_pickup.ogg'
 
 	var/throw_stun_chance = 35
 	var/obj/item/stock_parts/cell/cell
@@ -486,14 +511,14 @@
 		update_appearance()
 
 /obj/item/melee/baton/security/update_icon_state()
+	. = ..()
 	if(active)
-		icon_state = "[initial(icon_state)]_active"
-		return ..()
+		icon_state = "[base_icon_state]_active"
+		return
 	if(!cell)
-		icon_state = "[initial(icon_state)]_nocell"
-		return ..()
-	icon_state = "[initial(icon_state)]"
-	return ..()
+		icon_state = "[base_icon_state]_nocell"
+		return
+	icon_state = base_icon_state
 
 /obj/item/melee/baton/security/examine(mob/user)
 	. = ..()
@@ -535,25 +560,44 @@
 	return FALSE
 
 /obj/item/melee/baton/security/attack_self(mob/user)
-	if(cell?.charge >= cell_hit_cost)
-		active = !active
-		balloon_alert(user, "turned [active ? "on" : "off"]")
-		playsound(src, "sparks", 75, TRUE, -1)
-		toggle_light(user)
-		do_sparks(1, TRUE, src)
+	if(cell?.charge >= cell_hit_cost && !active)
+		turn_on(user)
+		balloon_alert(user, "turned on")
 	else
-		active = FALSE
+		turn_off()
 		if(!cell)
 			balloon_alert(user, "no power source!")
-		else
+		else if(cell?.charge < cell_hit_cost)
 			balloon_alert(user, "out of charge!")
-	update_appearance()
+		else
+			balloon_alert(user, "turned off")
 	add_fingerprint(user)
 
 /// Toggles the stun baton's light
-/obj/item/melee/baton/security/proc/toggle_light(mob/user)
+/obj/item/melee/baton/security/proc/toggle_light()
 	set_light_on(!light_on)
 	return
+
+/obj/item/melee/baton/security/proc/turn_on(mob/user)
+	if(active)
+		return
+	active = TRUE
+	playsound(src, "sparks", 75, TRUE, -1)
+	update_appearance(UPDATE_ICON_STATE)
+	toggle_light()
+	do_sparks(1, TRUE, src)
+	drop_sound = active_drop_sound
+	pickup_sound = active_pickup_sound
+
+/obj/item/melee/baton/security/proc/turn_off()
+	if(!active)
+		return
+	active = FALSE
+	set_light_on(FALSE)
+	update_appearance(UPDATE_ICON_STATE)
+	playsound(src, "sparks", 75, TRUE, -1)
+	drop_sound = inactive_drop_sound
+	pickup_sound = inactive_pickup_sound
 
 /obj/item/melee/baton/security/proc/deductcharge(deducted_charge)
 	if(!cell)
@@ -563,10 +607,7 @@
 	. = cell.use(deducted_charge)
 	if(active && cell.charge < cell_hit_cost)
 		//we're below minimum, turn off
-		active = FALSE
-		set_light_on(FALSE)
-		update_appearance()
-		playsound(src, "sparks", 75, TRUE, -1)
+		turn_off()
 
 /obj/item/melee/baton/security/clumsy_check(mob/living/carbon/human/user)
 	. = ..()
@@ -639,11 +680,10 @@
 /obj/item/melee/baton/security/proc/scramble_mode()
 	if (!cell || cell.charge < cell_hit_cost)
 		return
-	active = !active
-	toggle_light()
-	do_sparks(1, TRUE, src)
-	playsound(src, "sparks", 75, TRUE, -1)
-	update_appearance()
+	if(active)
+		turn_off()
+	else
+		turn_on()
 
 //This one starts with a cell pre-installed.
 /obj/item/melee/baton/security/loaded

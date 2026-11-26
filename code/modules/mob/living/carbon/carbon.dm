@@ -36,6 +36,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!held_index)
 		held_index = (active_hand_index % held_items.len)+1
 
+	if(!isnum(held_index))
+		CRASH("You passed [held_index] into swap_hand instead of a number. WTF man")
+
 	var/oindex = active_hand_index
 	active_hand_index = held_index
 	if(hud_used)
@@ -72,8 +75,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	return ..()
 
-/mob/living/carbon/CtrlShiftClick(mob/user)
-	..()
+/mob/living/carbon/click_ctrl_shift(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
 		carbon_user.give(src)
@@ -230,7 +232,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/Topic(href, href_list)
 	..()
-	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
+	if(href_list["embedded_object"] && usr.can_perform_action(src, NEED_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
 			return
@@ -508,6 +510,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	..()
 	if(dna)
 		dna.real_name = real_name
+	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
+	if(my_head)
+		my_head.real_name = real_name
 
 /mob/living/carbon/set_body_position(new_value)
 	. = ..()

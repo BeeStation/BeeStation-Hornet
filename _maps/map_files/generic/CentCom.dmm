@@ -7376,15 +7376,6 @@
 	},
 /turf/open/floor/engine/cult,
 /area/centcom/wizard_station)
-"asX" = (
-/obj/structure/showcase{
-	desc = "A historical figure of great importance to the wizard federation. He spent his long life learning magic, stealing artifacts, and harassing idiots with swords. May he rest forever, Rodney.";
-	icon = 'icons/mob/simple/mob.dmi';
-	icon_state = "nim";
-	name = "wizard of yendor showcase"
-	},
-/turf/open/floor/engine/cult,
-/area/centcom/wizard_station)
 "asY" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Supplypod Loading"
@@ -9688,10 +9679,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/centcom/ctf)
-"azo" = (
-/obj/structure/destructible/cult/item_dispenser/archives,
-/turf/open/floor/engine/cult,
-/area/centcom/wizard_station)
 "azp" = (
 /obj/structure/closet/crate{
 	opened = 1
@@ -9868,13 +9855,6 @@
 /area/centcom/syndicate_mothership/control)
 "azN" = (
 /obj/structure/bookcase/random/reference,
-/turf/open/floor/engine/cult,
-/area/centcom/wizard_station)
-"azO" = (
-/obj/structure/destructible/cult/item_dispenser/altar{
-	desc = "An altar dedicated to the Wizards' Federation"
-	},
-/obj/item/knife/ritual,
 /turf/open/floor/engine/cult,
 /area/centcom/wizard_station)
 "azP" = (
@@ -12166,13 +12146,6 @@
 /obj/structure/curtain,
 /turf/open/floor/iron/white/textured,
 /area/centcom/tdome/observation)
-"aFT" = (
-/obj/structure/destructible/cult/item_dispenser/forge{
-	desc = "An engine used in powering the wizard's ship";
-	name = "magma engine"
-	},
-/turf/open/floor/engine/cult,
-/area/centcom/wizard_station)
 "aFU" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -20654,6 +20627,15 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
+"fvM" = (
+/obj/structure/showcase{
+	desc = "A historical figure of great importance to the wizard federation. He spent his long life learning magic, stealing artifacts, and harassing idiots with swords. May he rest forever, Rodney.";
+	icon = 'icons/mob/simple/mob.dmi';
+	icon_state = "nim";
+	name = "wizard of yendor showcase"
+	},
+/turf/open/floor/engine/cult,
+/area/centcom/wizard_station)
 "fzn" = (
 /obj/structure/chair{
 	dir = 1
@@ -21151,11 +21133,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/syndicate_mothership/control)
-"ico" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/chicken,
-/turf/open/floor/grass,
-/area/centcom/central_command_areas/holding)
 "ieM" = (
 /obj/machinery/vending/boozeomat,
 /turf/closed/indestructible/syndicate,
@@ -21738,6 +21715,10 @@
 /obj/structure/flora/tree/dead,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
+"lCk" = (
+/obj/structure/destructible/cult/item_dispenser/archives,
+/turf/open/floor/engine/cult,
+/area/centcom/wizard_station)
 "lCF" = (
 /mob/living/simple_animal/bot/medbot/nukie{
 	name = "\improper Hijikata";
@@ -22634,6 +22615,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"raq" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/mob/living/basic/chicken,
+/turf/open/floor/grass,
+/area/centcom/central_command_areas/holding)
 "rgk" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -23166,6 +23152,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
+"uRV" = (
+/obj/structure/destructible/cult/item_dispenser/altar{
+	desc = "An altar dedicated to the Wizards' Federation"
+	},
+/obj/item/knife/ritual,
+/turf/open/floor/engine/cult,
+/area/centcom/wizard_station)
 "vcG" = (
 /obj/structure/closet/cardboard,
 /obj/effect/turf_decal/trimline/neutral/warning,
@@ -23294,6 +23287,13 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/centcom/syndicate_mothership/control)
+"wdd" = (
+/obj/structure/destructible/cult/item_dispenser/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/turf/open/floor/engine/cult,
+/area/centcom/wizard_station)
 "wfV" = (
 /obj/effect/turf_decal/bot,
 /turf/closed/indestructible/riveted,
@@ -28408,9 +28408,9 @@ aqE
 aqE
 aqE
 ayC
-azo
+lCk
 azN
-azo
+lCk
 aBf
 aqE
 aAx
@@ -29179,9 +29179,9 @@ avj
 avj
 aqE
 ayC
-azo
+lCk
 aqZ
-azo
+lCk
 aBf
 aqE
 aqZ
@@ -29965,7 +29965,7 @@ aqE
 aqE
 aqZ
 aqZ
-aFT
+wdd
 iPx
 aqE
 alI
@@ -30465,7 +30465,7 @@ aqZ
 ayb
 aqZ
 aqZ
-azO
+uRV
 aAy
 aqZ
 aBS
@@ -30969,7 +30969,7 @@ alI
 aqE
 aqE
 arX
-asX
+fvM
 aqE
 aqE
 aqE
@@ -30993,7 +30993,7 @@ aqE
 aqE
 aEY
 aqZ
-aFT
+wdd
 iPx
 aqE
 alI
@@ -49746,7 +49746,7 @@ aNd
 aTq
 aXk
 rxh
-ico
+raq
 aNd
 azZ
 aFh

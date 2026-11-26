@@ -183,7 +183,7 @@
 	name = "Vomit"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 	button_icon_state = "vomit"
-	button_icon = 'icons/mob/animal.dmi'
+	button_icon = 'icons/mob/simple/animal.dmi'
 	cooldown_time = 250
 	text_cooldown = FALSE
 	shared_cooldown = NONE

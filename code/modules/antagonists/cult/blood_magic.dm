@@ -509,9 +509,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 		uses--
 		var/turf/origin = get_turf(user)
 		if(do_teleport(L, dest, channel = TELEPORT_CHANNEL_CULT))
-			origin.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"), \
-				span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
-			dest.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
+			origin.visible_message(
+				span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"),
+				span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"),
+				span_hear("You hear a sharp crack."),
+			)
+			dest.visible_message(
+				span_warning("There is a boom of outrushing air as something appears above the rune!"),
+				blind_message = span_hear("You hear a boom."),
+			)
+			playsound(origin, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(dest, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		..()
 
 //Shackles

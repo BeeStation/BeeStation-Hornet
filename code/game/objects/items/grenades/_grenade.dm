@@ -27,6 +27,8 @@
 	action_slots = ALL
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	pickup_sound = 'sound/items/handling/grenade/grenade_pick_up.ogg'
+	drop_sound = 'sound/items/handling/grenade/grenade_drop.ogg'
 	/// Bitfields which prevent the grenade from detonating if set. Includes ([GRENADE_DUD]|[GRENADE_USED])
 	var/dud_flags = NONE
 	var/active = 0

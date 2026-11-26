@@ -758,8 +758,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	mode = TURRET_LETHAL
 	stun_projectile = /obj/projectile/bullet
 	lethal_projectile = /obj/projectile/bullet
-	lethal_projectile_sound = 'sound/weapons/gunshot.ogg'
-	stun_projectile_sound = 'sound/weapons/gunshot.ogg'
+	lethal_projectile_sound = 'sound/weapons/gun/pistol/shot.ogg'
+	stun_projectile_sound = 'sound/weapons/gun/pistol/shot.ogg'
 	faction = list(FACTION_SYNDICATE)
 
 /obj/machinery/porta_turret/syndicate/Initialize(mapload)
@@ -812,8 +812,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	shot_delay = 0.3 SECONDS
 	stun_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
 	lethal_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
-	lethal_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
-	stun_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
+	lethal_projectile_sound = 'sound/weapons/gun/smg/shot.ogg'
+	stun_projectile_sound = 'sound/weapons/gun/smg/shot.ogg'
 	armor_type = /datum/armor/syndicate_shuttle
 
 
@@ -919,7 +919,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	density = FALSE
 	req_access = list(ACCESS_AI_UPLOAD)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
+	interaction_flags_click = ALLOW_SILICON_REACH
 	/// Variable dictating if linked turrets are active and will shoot targets
 	var/enabled = TRUE
 	/// Variable dictating if linked turrets will shoot lethal projectiles

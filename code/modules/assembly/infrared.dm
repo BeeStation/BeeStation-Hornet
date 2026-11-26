@@ -5,8 +5,8 @@
 	custom_materials = list(/datum/material/iron=1000, /datum/material/glass=500)
 	is_position_sensitive = TRUE
 	item_flags = NO_PIXEL_RANDOM_DROP
-	drop_sound = 'sound/items/handling/component_drop.ogg'
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component/component_pickup.ogg'
 	set_dir_on_move = FALSE
 	var/on = FALSE // Whether the beam is beaming
 	var/visible = FALSE 	// Whether the beam is visible

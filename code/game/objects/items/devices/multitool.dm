@@ -24,8 +24,8 @@
 	throwforce = 0
 	throw_range = 7
 	throw_speed = 3
-	drop_sound = 'sound/items/handling/multitool_drop.ogg'
-	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/multitool_drop.ogg'
+	pickup_sound =  'sound/items/handling/tools/multitool_pickup.ogg'
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	toolspeed = 1
 	usesound = 'sound/weapons/empty.ogg'

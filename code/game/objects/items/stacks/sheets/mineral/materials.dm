@@ -30,6 +30,8 @@ Mineral Sheets
 	throw_range = 5
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "sandstone"
+	drop_sound = "stone_drop"
+	pickup_sound = "stone_pickup"
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/closed/wall/mineral/sandstone
 
@@ -44,6 +46,8 @@ Mineral Sheets
 	inhand_icon_state = "sheet-diamond"
 	singular_name = "diamond"
 	sheettype = "diamond"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/carbon = 20)
 	point_value = 25
@@ -88,6 +92,8 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/plasma
 	material_type = /datum/material/plasma
 	walltype = /turf/closed/wall/mineral/plasma
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

@@ -1,3 +1,13 @@
+2026-11-01:
+  r1ks-iwnl:
+  - rscadd: Makes announcement hallucinations more believable.
+  - rscadd: Expanded battle hallucinations.
+  - rscadd: Xeno hallucination tries to vent out after tackling you.
+  - balance: Fire hallucination deals significant stamina damage again.
+  - bugfix: Fixed stray bullet hallucination not firing from specific sides of the
+      screen
+  - bugfix: Fixed sound hallucinations picking space tiles as a source.
+  - code_imp: /datum/heretic_knowledge/final doesn't use the final keyword now.
 2026-11-02:
   mrmanlikesbt:
   - bugfix: Fixed things which can have goliath hide plates applied as armor throwing
@@ -7,6 +17,13 @@
   - map: Fixed the RadStation command airlock not requiring command access.
   - map: Fixed the RadStation command airlock not automatically closing one of the
       doors when the other one was opened.
+  - bugfix: Modsuits constructed in robotics now start off on the Nanotrasen frequency
+  - bugfix: Using a multitool to copy a buffer onto an item with storage will no longer
+      put the multitool in said item. An example of this would be modsuits.
+  - qol: MODlink labels on MODsuits can now be changed.
+  - tweak: The power cell of a modlink scryer is now removed with a screwdriver instead
+      of RMB.
+  - code_imp: Cleaned up some multitool buffer code.
 2026-11-03:
   Isaac:
   - balance: Revenant Blight can be cured by sleeping at stage 5
@@ -23,6 +40,10 @@
   - map: Fixes a handful of overlapping, and displaced items + Gives Radstation Ian
       A Bone
   - bugfix: Bronze Floor Tiles now pry up Bronze Floor Tiles, not Bronze Tiles
+  Isaacnml:
+  - map: Replaced the ERT clown modsuit with a regular clown modsuit in random room
+      spawn
+  - bugfix: Throwing your energy katana will still keep recharging it's charges
   Tsar-Salat:
   - balance: Ninja cloaking is back to partial-invisibility, with a 3 second cooldown
       and no limit on its use. It breaks on bump, attacking, or throwing
@@ -51,10 +72,24 @@
   - balance: the weak variant of improvised 7.62 ammo now destroys the gun firing
       it slower, additionally, the mosin is more durable, allowing it to handle twice
       as many of your homemade munitions as the pipe rifle before breaking entirely.
+  mrmanlikesbt:
+  - github: Added a GitHub changelog entry
+  - qol: 'The "Report Issue" button in the top right of your screen now directs you
+      to the proper bug report form instead of a blank issue template. Additionally,
+      it will auto-fill available info such as: reporting client version, round ID,
+      round date, and active test merges.'
 2026-11-06:
   DrDuckedGoose:
   - bugfix: Fix math & APC files
+  mrmanlikesbt:
+  - bugfix: Fixed the Ripley MK2 conversion-kit deleting the Ripley's manipulator.
 2026-11-07:
+  Isaac:
+  - balance: Revenant Blight can be cured by sleeping at stage 5
+  - bugfix: C4/X4 should work if placed on a window or door again
+  - bugfix: Vampires are shown in the round end window again
+  Isaac, san7890:
+  - bugfix: Flaky byond test
   Isaacnml:
   - bugfix: "Fixed stray markup and team colors in CTF flag capture and victory announcements.\xBF"
   - qol: CTF now tells players how long they have left before they can respawn
@@ -74,12 +109,17 @@
   - bugfix: Xenoarchaeology radio announcements now report the bonus applied to the
       reward, CORRECTLY
   - bugfix: Compact NTOS radar now supports scanning and selecting targets
+  - bugfix: ERT members have access to central command's frequency, again
+  mrmanlikesbt, ma44:
+  - bugfix: Fixed some potential exploits with the voting panel and air alarm
 2026-11-09:
   Isaac, moocowswag:
   - rscadd: "Welders keep repairing APC covers until they\u2019re fixed or welding\
       \ is interrupted."
   - rscadd: Broken APC covers can be replaced with a new frame, closing the panel,
       will turn on the power, Engineering borgs can fit the frame with a screwdriver
+  Isaacnml:
+  - bugfix: Awe shouldn't last forever anymore
   mrmanlikesbt, Arkatos, Melbert, Sealed101, vinylspiders:
   - qol: Interacting with a cyborg chassis now uses TGUI instead of a HTML menu.
   - qol: Added screentips for cyborg chassis.
@@ -118,6 +158,7 @@
   - tweak: Agent ID cards steal temp access as permanent access.
   - bugfix: cryo reopens job slots again
   - bugfix: a second ID in a PDA no longer mutates the access of the first ID
+  - bugfix: fixes energy gun ammo pips
 2026-11-11:
   Kubsius:
   - tweak: allowed speech component to have language options
@@ -129,6 +170,14 @@
   - map: Tweaked positions of supermatter gas meters, decals, and some portable atmos
       equipment.
 2026-11-12:
+  Aramix:
+  - bugfix: fixed xenobiology's warping bluespace rune not showing its inventory
+  Tsar-Salat:
+  - bugfix: fixes debug spawn menu verb
+  mrmanlikesbt:
+  - code_imp: RBMK code has been cleaned up.
+  - bugfix: Fixed being able to construct an RBMK without all of its required ports.
+  - spellcheck: Fixed the RBMK box part names being proper nouns.
   mrmanlikesbt, vinylspiders:
   - github: Tool installation, .NET setup, and artifact downloading have been removed
       from the GitHub CI Suite workflow. This should hopefully make status checks
@@ -166,6 +215,18 @@
     - rscadd: Biosuits and beekeeper suit sprites now altar when worn by digitigrade
         mobs.
     - rscadd: Aprons and overalls sprites now altar when worn by digitigrade mobs.
+  rkz, RimiNosha, strandsofivy, jlsnow301:
+  - refactor: The latejoin menu is now TGUI
+  - qol: You'll also be able to see why you can't join a job, instead of it being
+      invisible
+  - code_imp: Department UI colors have been made more distinct
+  rkz, mcbalaam, Ez-Briz, smartkar, AnturK, Lemon, joje3003, jlsnow301, kashargul, cabinetonfire, TealSeer:
+  - admin: Added a new TGUI spawn panel, removing it's ancestors - HTML "Create X"
+      panels
+  - admin: Converted the Spawn verb into a TGUI input, featuring for dynamic search
+      and RegEx support
+  - admin: adds admin keybind, Ctrl + Shift + LMB to View Variables
+  - admin: adds admin keybind, Ctrl + LMB to Player Panel
 2026-11-13:
   Tsar-Salat:
   - bugfix: prisoners no longer get skeleton access or are considered in its pop counter
@@ -174,6 +235,7 @@
       launch task has been created to use it. It's primary features include hot-reloading.
       This means that you can make changes to the game's code in real-time without
       having to recompile the whole project and start a new server.
+  - bugfix: Fixed not being able to link techweb or telecommunication buffers.
 2026-11-15:
   Baherain:
   - bugfix: Changed addiction tolerance of Morphine from 10u to 25u, to match the
@@ -183,18 +245,33 @@
       own medibot!
   - rscadd: New UI design for all bots
   - bugfix: You wont hit a medibot when trying to insert a bag inside
+  SAY-5:
+  - bugfix: Prisoner management consoles rebuilt from their circuit board are now
+      prisoner management consoles again instead of a generic computer.
   Ucksus:
   - bugfix: fixed Clock component not using Clock divider correctly
   afonsofpuga-a11y:
   - bugfix: Fixed your chat being spammed with errors when trying to craft something
       with cable coils.
+  mrmanlikesbt:
+  - bugfix: Fixed 17x15 sized title screens being offset by one turf to the right
+      on a localhost server.
+  - github: Removed an unused configuration for file labeling on GitHub
 2026-11-17:
+  BotTierPC:
+  - bugfix: Fixes Psyphoza Cap's not rendering mutant color correctly, and applies
+      their proper colored vision once more.
   BotTierPC, Amanitaspooder:
   - rscadd: Adds A Lantern Varient, The Paper Lantern! This, And Mining Lanterns Are
       Both Now Buildable In The Misc Tab Of The Crafting Menu!
+  DrDuckedGoose:
+  - bugfix: Fixes metastation corpses spawning outside their homes, spooky!
   Programs-The-Station:
   - rscadd: Adds a for-each wiremod component, which will iterate over a list one
       item at a time.
+  - rscadd: Adds an Is Null Wiremod Component. It does what it says on the box.
+  afonsofpuga-a11y:
+  - bugfix: multi-z cables not connecting between Z levels.
 2026-11-18:
   BotTierPC, Racc-Off, BlerpFish, Rkz:
   - rscadd: Added the Spoon! Can be printed in Autolathes or bought from the Dinnerware
@@ -214,6 +291,9 @@
   - bugfix: fixed cargo crate export values being 1 credit. crates are now all recyclable
       through exports again
   - bugfix: xenoartifact pearls can be extracted again
+  mrmanlikesbt:
+  - github: libcurl is no longer cached in the CI Suite because libcurl sucks and
+      was very inconsistent.
 2026-11-19:
   SunShine214, Niko432, Racc-Off, Wrill:
   - rscadd: Added the CDR (Condensate Decay Reactor), which decays gases to make power!
@@ -221,11 +301,114 @@
       the NTnet store!
   - rscadd: Added a new pump_gas_volume proc to gas_mixture, which... pumps volume!
   - rscdel: Removed the TEG.
+  Tsar-Salat:
+  - rscadd: stamina is now an independent datum as opposed to a damage type
+  - rscadd: carbons can now sprint by holding down shift whilst walking/running. Sprinting
+      consumes stamina for each tile moved across.
+  - balance: accordingly, running has had its move delay upped a bit
+  - rscadd: items now do stamina damage in addition to their regular damage. Items
+      specifically designed for crowd control or subduing (beanbag shotgun shells)
+      do a lot of stamina damage.
+  - balance: most medicines or reagents that reduced received stamina damage now instead
+      up the regen rate of stamina
+  - balance: diona now have less base slowdown, but cannot sprint
   Ucksus:
   - balance: discovery scanner now returns a reasonable amount of discovery points
       from artifacts.
+  VmpOS2NHSkhkejA9:
+  - bugfix: the wizard's mirror is magic again. turns out polishing it broke the magic.
   mrmanlikesbt:
   - bugfix: Fixed various TGUI text inputs crashing when pressing Enter
 2026-11-20:
+  VmpOS2NHSkhkejA9:
+  - rscadd: debrained carbons (humanoids, mostly) will now say their soul is elsewhere
+      when examined
+  - tweak: examining a dead animal will now show whether or not it has a soul
+  - tweak: medical huds will now show whether dead animals are revivable or not
+  - bugfix: mobs no longer say they have suicided twice when examined, with the text
+      instead replacing the death text.
+  - bugfix: recycling items no longer always returns 0.0005 sheets of material
   mrmanlikesbt, PowerfulBacon:
   - refactor: The stack_trace() proc has been refactored to be a little more sane
+2026-11-22:
+  BotTierPC:
+  - bugfix: Fixes Psyphoza Overlay Applying UNDER Blind Effects, making Psyphoza hallucinate
+      colors once again.
+  rkz, Shroopy, SmArtKar, Melbert:
+  - rscadd: humanoids now blink.
+  - rscadd: other species like moths don't visibly blink, whilst lizards blink asynchronously
+  - qol: Implanted HUDs can now be toggled on and off with an action.
+  - image: Eyes now display their color on their organ sprite, instead of always being
+      displayed as blue.
+  - bugfix: Fixed an issue where some NPC/midround humans would not get their eye
+      color set correctly
+  - refactor: Refactored how facial offsets interact with eye rendering, potentially
+      optimizing future species that use this feature.
+  - refactor: Refactored hair and eye rendering a bit, they're now rendered separately
+      to the head - report any oddities with either. Lips too but to a lesser degree.
+2026-11-23:
+  DrDuckedGoose:
+  - balance: Reduced artifact bonus duck values, less discovery & research points.
+  - bugfix: Fixes artifacts being sold infinitely
+  mrmanlikesbt:
+  - bugfix: Fixed some trinary atmospherics components (filters and mixers) dropping
+      a flipped version of themselves when unwrenched
+2026-11-24:
+  BotTierPC, BiancaWilkson:
+  - tweak: Cardboard tubes now bonk, and thunk people hit while playing a new sound
+      effect.
+  - sound: Adds a new sound resembling cardboard hitting an object
+  Ghommie, timothymtorres, jlsnow301, Melbert, SyncIt21, 00-Steven, the-sushi:
+  - qol: Add hotkeys to APCs for AIs and borgs. Toggle environmental (ctrl + shift),
+      toggle lighting (shift), toggle equipment (alt), and toggle breaker (ctrl).
+  - qol: Many items which previously required you to stand to alt-click now don't,
+      such as bedsheets and spray cans
+  - qol: improved feedback messages when an action cannot be done
+  - qol: shift+alt will open the tgui loot panel on any tile without being intercepted
+      by items that may be on the tile
+  - tweak: Non-human mobs now also benefit from held id cards and some economy features
+      (dexterity checks still apply).
+  - refactor: Refactored, improve, and rename canUseTopic to be can_perform_action
+      that now uses bitflags to determine if a mob can perform an action.
+  - refactor: Mouse drag & drop attack chain has been refactored. Report any bugs
+      on GitHub
+  - refactor: alt right click has been refactored. report bugs on github
+  - refactor: Ctrl click & Ctrl shift click has been refactored. Please report bugs
+      on GitHub
+  - bugfix: Alt click interactions have been refactored, which may lead to unintentional
+      changes to gameplay. Report any issues, please.
+  - bugfix: Fix runtimes for IV drips, food processors, and gibber
+  - bugfix: Fix pAIs interacting with machinery via alt/ctrl clicking.
+  - code_imp: most actions now properly check for recursive locs & better adjacency
+  - code_imp: improved alt & ctrl click code
+  - code_imp: improved mouse drag & drop code
+  - code_imp: adds a shift+alt click on proc for living mobs to explicitly open the
+      turf statpanel in addition to the already existing alt bind
+  mrmanlikesbt, grungussuss, TheBoondock, timothymtorres, actioninja, MrMelbert, LemonInTheDark, Beebblie, JohnFulpWillard:
+  - sound: A ton of sounds have been added to various item interactions in the game.
+  - image: Portals have a new sprite
+  - balance: Silenced guns can no longer be heard through walls
+  - qol: Internals now have a visual indicator above them displaying how much gas
+      is left
+  mrmanlikesbt, tralezab, coiax, Ghommie, LemonInTheDark, san7890, Ben10Omintrix,:
+  - refactor: Several animals have been converted from the deprecated simple animal
+      framework to basic mobs. This means that they should be smarter and more performant.
+      If you see anything wrong, please open an issue report.
+  - sound: 'The following animals now make idle sounds: chickens, cows, snakes, crabs,
+      cardinals, cockroaches, and turkeys'
+  - bugfix: Fixed the Easter exclusive "Rabbit Release" event not spawning rabbits
+  - bugfix: Being moved around by conveyor belts no longer plays footsteps
+2026-11-25:
+  Isaacnml:
+  - admin: Midrounds forced by admins will bypass minimum pop requirements, bus at
+      your own risk
+  - bugfix: Mechs require the welder to be on to continue it's steps
+  - bugfix: Autolathes will actually print you the correct amount of items
+  - bugfix: Malf AI's nuke will stop if they shunt to an APC
+  - bugfix: Malf AI's nuke music will stop if they shunt to an APC
+  - bugfix: Awe shouldn't take you out of a mech anymore
+  - bugfix: Mouse spawned by breeding other mice will keep who originally tamed them
+  - bugfix: Cleanbots shouldn't get stuck trying to clean a mess they cant reach
+  - bugfix: Orebag module shouldn't void materials anymore
+  - bugfix: Boris Module now shows up in the correct category
+  - balance: Nuka Cola wont instantly irradiate you

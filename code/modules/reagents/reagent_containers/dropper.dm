@@ -61,6 +61,7 @@
 				span_danger("[user] squirts something into [target]'s eyes!"),
 				span_userdanger("[user] squirts something into your eyes!"),
 			)
+			SEND_SIGNAL(target, COMSIG_MOB_REAGENTS_DROPPED_INTO_EYES, user, src, reagents, fraction)
 			reagents.expose(target, TOUCH, fraction)
 			log_combat(user, target, "squirted", reagents.get_reagent_log_string())
 

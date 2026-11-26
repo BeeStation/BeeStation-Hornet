@@ -29,7 +29,7 @@
 
 /obj/item/food/pizza/make_processable()
 	if(slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, 6, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, 6, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = "knife_slice")
 		AddElement(/datum/element/processable, TOOL_SAW, slice_type, 6, 4.5 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 		AddElement(/datum/element/processable, TOOL_SCALPEL, slice_type, 6, 6 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
@@ -43,8 +43,10 @@
 	decomp_type = /obj/item/food/pizzaslice/moldy
 	crafting_complexity = FOOD_COMPLEXITY_2
 
+/*
 /obj/item/food/pizzaslice/make_processable()
-	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, 1, 1 SECONDS, table_required = TRUE, screentip_verb = "Flatten")
+	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, /obj/item/stack/sheet/pizza, 1, 1 SECONDS, table_required = TRUE, screentip_verb = "Flatten", , sound_to_play = "rolling_pin_rolling")
+*/
 
 /obj/item/food/pizza/margherita
 	name = "pizza margherita"

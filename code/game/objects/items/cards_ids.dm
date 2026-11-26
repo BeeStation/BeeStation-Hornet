@@ -24,6 +24,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/id_card/id_card_pickup.ogg'
+	drop_sound = 'sound/items/handling/id_card/id_card_drop.ogg'
 	item_flags = ISWEAPON
 
 	/// Cached icon that has been built for this card. Intended to be displayed in chat. Cardboards IDs and actual IDs use it.
@@ -154,11 +156,12 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
+	interaction_flags_click = FORBID_TELEKINESIS_REACH
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	trade_flags = TRADE_NOT_SELLABLE
 	flags_1 = UNPAINTABLE_1
-	
+
 	/// The name registered on the card (for example: Dr Bryan See)
 	var/registered_name = null
 	/// Registered owner's age.
@@ -516,7 +519,7 @@
 
 /obj/item/card/id/Topic(href, href_list)
 	. = ..()
-	if(!usr.canUseTopic(src, BE_CLOSE))
+	if(!usr.can_perform_action(src))
 		return
 
 	if(href_list["look_at_id"])
@@ -623,12 +626,10 @@
 	return total
 
 /obj/item/card/id/proc/alt_click_can_use_id(mob/living/user)
-	if(!isliving(user))
-		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!isliving(user) || QDELETED(user) || QDELETED(src))
 		return
 
-	return TRUE
+	return user.can_perform_action(src, interaction_flags_click | FORBID_TELEKINESIS_REACH)
 
 // Returns true if new account was set.
 /obj/item/card/id/proc/set_new_account(mob/living/user)
@@ -655,35 +656,35 @@
 	to_chat(user, span_warning("The account ID number provided is invalid."))
 	return
 
-/obj/item/card/id/AltClick(mob/living/user)
+/obj/item/card/id/click_alt(mob/living/user)
 	if(!alt_click_can_use_id(user))
-		return
+		return NONE
 
 	if(!registered_account)
 		set_new_account(user)
-		return
+		return CLICK_ACTION_SUCCESS
 
 	if (world.time < registered_account.withdrawDelay)
 		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
-		return
+		return CLICK_ACTION_BLOCKING
 
-	//var/current_balance = registered_account.account_balance
 	var/amount_to_remove = round(tgui_input_number(user, "How much do you want to withdraw? Current: [registered_account.account_balance] cr", "Withdraw Funds", 0, registered_account.account_balance, 0))
 
 	if(isnull(amount_to_remove) || amount_to_remove <= 0)
-		return
+		return CLICK_ACTION_BLOCKING
 	if(!alt_click_can_use_id(user))
-		return
+		return CLICK_ACTION_BLOCKING
 	if(registered_account.adjust_money(-amount_to_remove))
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
 		to_chat(user, span_notice("You withdraw [amount_to_remove] credits into a holochip."))
 		SSblackbox.record_feedback("amount", "credits_removed", amount_to_remove)
 		log_econ("[amount_to_remove] credits were removed from [src] owned by [src.registered_name]")
-		return
+		return CLICK_ACTION_SUCCESS
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
 		registered_account.bank_card_talk(span_warning("ERROR: The linked account requires [difference] more credit\s to perform that withdrawal."), TRUE)
+		return CLICK_ACTION_BLOCKING
 
 /obj/item/card/id/proc/get_temporary_access_examine()
 	. = list()
@@ -1239,6 +1240,7 @@ do { \
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
 		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
 		assignment = target_job || assignment
+		playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 		to_chat(user, span_notice("You scribble the name [target_job] onto the slip."))
 		update_label()
 
