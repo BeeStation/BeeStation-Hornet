@@ -176,6 +176,7 @@
 		UnregisterSignal(parent.plant_item, COMSIG_ATOM_EXAMINE)
 		UnregisterSignal(parent, COMSIG_PLANT_PLANTED)
 		UnregisterSignal(parent, COMSIG_PLANT_UPROOTED)
+		UnregisterSignal(parent, COMSIG_QDELETING)
 	//Shack up with the new rockstar
 	parent = _parent
 	if(!parent)

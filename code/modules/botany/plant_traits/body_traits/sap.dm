@@ -19,15 +19,17 @@
 
 /datum/plant_trait/body/sap/setup_component_parent(datum/source)
 	. = ..()
+	if(plant_comp)
+		UnregisterSignal(plant_comp, COMSIG_PLANT_BEE_BUFF)
+		UnregisterSignal(plant_comp, COMSIG_QDELETING)
 	plant_comp = source
 	if(!istype(plant_comp))
 		plant_comp = null
 		return
 	RegisterSignal(plant_comp, COMSIG_PLANT_BEE_BUFF, PROC_REF(catch_bee))
-	RegisterSignal(plant_comp, COMSIG_QDELETING, PROC_REF(catch_qdel))
 
-/datum/plant_trait/body/sap/proc/catch_qdel(datum/source)
-	SIGNAL_HANDLER
+/datum/plant_trait/body/sap/catch_component_qdel(datum/source)
+	. = ..()
 
 	plant_comp = null
 
