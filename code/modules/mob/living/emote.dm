@@ -285,10 +285,6 @@
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
 	sound_wall_ignore = TRUE
 
-/datum/emote/living/scream/get_sound(mob/living/user)
-	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
-		return 'sound/mobs/non-humanoids/cat/scream_cat.ogg'
-
 /datum/emote/living/scream/select_message_type(mob/user, message, intentional)
 	. = ..()
 	if(!intentional && isanimal_or_basicmob(user))
@@ -831,12 +827,14 @@
 /// Emotes shared by felinids and real cats
 /datum/emote/living/cat
 	abstract_type = /datum/emote/living/cat
+	cooldown = 3 SECONDS
 
 /proc/pick_cat_meow_sound()
 	var/static/list/meow_sounds = list(
-		'sound/mobs/non-humanoids/cat/cat_meow1.ogg' = 33,
-		'sound/mobs/non-humanoids/cat/cat_meow2.ogg' = 33,
-		'sound/mobs/non-humanoids/cat/cat_meow3.ogg' = 33,
+		'sound/mobs/non-humanoids/cat/cat_meow1.ogg' = 28,
+		'sound/mobs/non-humanoids/cat/cat_meow2.ogg' = 28,
+		'sound/mobs/non-humanoids/cat/cat_meow3.ogg' = 28,
+		'sound/mobs/non-humanoids/cat/mggaow.ogg' = 15,
 		'sound/mobs/non-humanoids/cat/oranges_meow1.ogg' = 1, // Ultra rare meow sound
 	)
 	return pick_weight(meow_sounds)
