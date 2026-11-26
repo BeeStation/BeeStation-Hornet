@@ -41,7 +41,8 @@
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	if(iszombie(M) && old_species && !special)
-		M.set_species(old_species)
+		// Could runtime and drop organs in null loc land, time unti after
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, set_species), old_species), 0)
 	if(timer_id)
 		deltimer(timer_id)
 
@@ -88,6 +89,7 @@
 	//Fully heal the zombie's damage the first time they rise
 	C.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
 	C.cure_all_traumas(TRAUMA_RESILIENCE_ABSOLUTE)
+	C.stamina.adjust(INFINITY)
 	if(C.heal_and_revive(0, span_danger("[C] suddenly convulses, as [C.p_they()][stand_up ? " stagger to [C.p_their()] feet and" : ""] gain a ravenous hunger in [C.p_their()] eyes!")))
 		return
 	C.grab_ghost()

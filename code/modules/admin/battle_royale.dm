@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/fireaxe,
 		/obj/item/stack/sheet/telecrystal/five,
 		/obj/item/stack/sheet/telecrystal/twenty,
-		/obj/item/mod/control/pre_equipped/traitor
+		/obj/item/mod/control/pre_equipped/traitor,
 	))
 
 GLOBAL_LIST_INIT(battle_royale_insane_loot, list(

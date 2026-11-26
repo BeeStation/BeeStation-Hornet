@@ -69,7 +69,7 @@
 	icon_keyboard = "med_key"
 	density = TRUE
 	circuit = /obj/item/circuitboard/computer/scan_consolenew
-
+	interaction_flags_click = ALLOW_SILICON_REACH
 	light_color = LIGHT_COLOR_BLUE
 	req_access = list(ACCESS_GENETICS)
 	clicksound = null
@@ -231,11 +231,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
-/obj/machinery/computer/scan_consolenew/AltClick(mob/user)
-	// Make sure the user can interact with the machine.
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/machinery/computer/scan_consolenew/click_alt(mob/user)
 	eject_disk(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/computer/scan_consolenew/proc/calculate_timeouts()
 	if(!scanner_operational())
@@ -1650,7 +1648,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 			scanner_occupant.real_name = buffer_slot["name"]
 			scanner_occupant.name = buffer_slot["name"]
 			scanner_occupant.dna.unique_enzymes = buffer_slot["UE"]
-			scanner_occupant.dna.blood_type = buffer_slot["blood_type"]
+			scanner_occupant.set_blood_type(buffer_slot["blood_type"])
 			. = TRUE
 
 	if(.)

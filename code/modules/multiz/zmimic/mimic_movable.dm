@@ -231,7 +231,7 @@
 	else if (!destruction_timer)
 		destruction_timer = QDEL_IN_STOPPABLE(src, 10 SECONDS)
 
-/atom/movable/openspace/mimic/newtonian_move(direction, instant)
+/atom/movable/openspace/mimic/newtonian_move(direction, instant, start_delay)
 	return TRUE
 
 /atom/movable/openspace/mimic/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range = 0)

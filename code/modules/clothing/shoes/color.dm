@@ -1,10 +1,20 @@
 /obj/item/clothing/shoes/sneakers
+	dying_key = DYE_REGISTRY_SNEAKERS
 	icon_state = "sneakers"
-	greyscale_colors = "#545454#ffffff"
 	custom_price = 20 // For all sneakers
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
+	greyscale_colors = "#545454#ffffff"
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
+	bodyshapes_with_variations = BODYSHAPE_DIGITIGRADE
 	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/clothing/shoes/sneakers/get_general_color(icon/base_icon)
+	var/colors = SSgreyscale.ParseColorString(greyscale_colors)
+	return colors ? colors[1] : ..()
+
+/obj/item/clothing/shoes/sneakers/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	return icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "sneakers_worn")
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"

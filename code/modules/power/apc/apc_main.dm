@@ -17,6 +17,7 @@
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
+	interaction_flags_click = ALLOW_SILICON_REACH
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
@@ -25,10 +26,8 @@
 	light_power = 0.85
 
 	FASTDMM_PROP(\
-		set_instance_vars(\
-			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
-			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
-		),\
+		pixel_x = (dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT)),\
+		pixel_y = (dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)),\
 		dir_amount = 4\
 	)
 
@@ -45,6 +44,8 @@
 	var/cell_type = /obj/item/stock_parts/cell/high/plus	//Base cell has 150 kW. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	///State of the cover (closed, opened, removed)
 	var/opened = APC_COVER_CLOSED
+	/// Whether closing the replacement cover should restart the APC.
+	var/restart_on_cover_close = FALSE
 	///Is the APC shorted and not working?
 	var/shorted = 0
 	///State of the lighting channel (off, auto off, on, auto on)
@@ -301,9 +302,24 @@
 	if (context.accept_silicons())
 		context.add_ctrl_click_action("Toggle Power")
 
+	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			context.add_left_click_tool_action("Pry Off Cover", TOOL_CROWBAR)
+	else
+		if(has_electronics && opened != APC_COVER_REMOVED && get_integrity() < max_integrity)
+			context.add_left_click_tool_action("Repair Cover", TOOL_WELDER)
+		if(opened == APC_COVER_REMOVED && has_electronics && terminal)
+			context.add_left_click_item_action("Replace Cover", /obj/item/wallframe/apc)
+		if(opened == APC_COVER_OPENED && !integration_cog && has_electronics != APC_ELECTRONICS_INSTALLED)
+			context.add_left_click_tool_action("Close Cover", TOOL_CROWBAR)
+
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			. += "The broken cover can be pried off with a crowbar."
+		else if(has_electronics && terminal)
+			. += "The missing cover can be replaced using a new APC frame."
 		return
 	if(opened)
 		if(has_electronics && terminal)
@@ -327,16 +343,16 @@
 		else
 			. += "The cover is closed."
 
-	. += span_notice("Alt-Click the APC to [ locked ? "unlock" : "lock"] the interface.")
+	. += span_notice("Alt-Click the APC to [locked ? "unlock" : "lock"] the interface.")
 
 	if(issilicon(user))
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")
 
-/obj/machinery/power/apc/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
-		return
-	else
-		togglelock(user)
+/obj/machinery/power/apc/click_alt(mob/user)
+	if(!isturf(loc))
+		return NONE
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -476,12 +492,15 @@
 				else
 					locked = !locked
 					update_appearance()
+					usr.animate_interact(src)
 					. = TRUE
 		if("cover")
 			coverlocked = !coverlocked
+			usr.animate_interact(src)
 			. = TRUE
 		if("breaker")
 			toggle_breaker(usr)
+			usr.animate_interact(src)
 			. = TRUE
 		if("toggle_nightshift")
 			toggle_nightshift_lights()
@@ -491,6 +510,7 @@
 			if(!chargemode)
 				charging = APC_NOT_CHARGING
 				update_appearance()
+			usr.animate_interact(src)
 			. = TRUE
 		if("channel")
 			if(params["eqp"])
@@ -507,10 +527,12 @@
 				update()
 			else
 				return FALSE
+			usr.animate_interact(src)
 			. = TRUE
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
 				overload_lighting()
+				usr.animate_interact(src)
 				. = TRUE
 		if("hack")
 			if(get_malf_status(usr))
@@ -526,6 +548,7 @@
 				. = TRUE
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
+			usr.animate_interact(src)
 			for(var/obj/machinery/light/L in area)
 				if(!initial(L.no_emergency)) //If there was an override set on creation, keep that override
 					L.no_emergency = emergency_lights

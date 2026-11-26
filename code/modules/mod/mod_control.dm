@@ -12,8 +12,10 @@
 	icon_state = "standard-control"
 	inhand_icon_state = "mod_control"
 	base_icon_state = "control"
+	flags_1 = parent_type::flags_1 | UNPAINTABLE_1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	interaction_flags_mouse_drop = NEED_HANDS
 	strip_delay = 10 SECONDS
 	armor_type = /datum/armor/none
 	actions_types = list(
@@ -31,6 +33,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.5
 	alternate_worn_layer = HANDS_LAYER+0.1 //we want it to go above generally everything, but not hands
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	/// The MOD's theme, decides on some stuff like armor and statistics.
 	var/datum/mod_theme/theme = /datum/mod_theme
 	/// Looks of the MOD.
@@ -105,6 +108,8 @@
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
+	if(theme.hardlight_texture)
+		install(new /obj/item/mod/module/hardlight_projector(src))
 	START_PROCESSING(SSobj, src)
 	AddElement(/datum/element/drag_pickup)
 
@@ -194,6 +199,7 @@
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
+	return ..()
 
 /obj/item/mod/control/dropped(mob/user)
 	. = ..()

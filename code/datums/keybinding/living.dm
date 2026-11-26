@@ -101,13 +101,13 @@
 	if(.)
 		return
 	var/mob/living/M = user.mob
-	M.toggle_move_intent()
+	M.set_next_usable_move_intent()
 	return TRUE
 
 /datum/keybinding/living/toggle_move_intent/up(client/user)
 	. = ..()
 	var/mob/living/M = user.mob
-	M.toggle_move_intent()
+	M.set_next_usable_move_intent()
 	return TRUE
 
 /datum/keybinding/living/toggle_move_intent_alternative
@@ -122,7 +122,7 @@
 	if(.)
 		return
 	var/mob/living/M = user.mob
-	M.toggle_move_intent()
+	M.set_next_usable_move_intent()
 	return TRUE
 
 /datum/keybinding/living/look_up

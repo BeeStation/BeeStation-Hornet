@@ -39,6 +39,6 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("apply a random color to the target"))
 
-/datum/xenoartifact_trait/major/color/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/color/random/trigger(datum/source, _priority, atom/override)
 	color = pick(possible_colors)
 	return ..()

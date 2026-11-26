@@ -54,6 +54,8 @@
 #define APPROVED_CIRCUITS_FILE "approved_circuits.json"
 /// File location for hallucination lines
 #define HALLUCINATION_FILE "hallucination.json"
+/// File location for ninja lines
+#define NINJA_FILE "ninja.json"
 
 /// Accent files
 #define MEDIEVAL_SPEECH_FILE 'strings/accent_medieval.json'

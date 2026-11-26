@@ -65,18 +65,18 @@
 	user.undershirt = random_undershirt(user.gender)
 	user.socks = random_socks(user.gender)
 	var/new_eye_color = random_eye_color()
-	user.eye_color_left = new_eye_color
-	user.eye_color_right = new_eye_color
+	user.set_eye_color(new_eye_color)
 
 	if(prev_disfigured)
 		REMOVE_TRAIT(user, TRAIT_DISFIGURED, null)
-	user.dna.features = random_features()
+	user.dna.features = user.dna.species.randomize_features() | prev_features
+	user.dna.features[FEATURE_MUTANT_COLOR] = "#[random_color()]"
 
 	// Apply Appearance
 	user.override_voice = user.name
 	user.update_body() // Outfit and underwear, also body.
-	user.update_mutant_bodyparts() // Lizard tails etc
-	user.update_body_parts()
+	user.update_hair()
+	user.update_eyes()
 
 	to_chat(owner, span_warning("You mystify the air around your person. Your identity is now altered."))
 
@@ -100,8 +100,7 @@
 	user.underwear = prev_underwear
 	user.undershirt = prev_undershirt
 	user.socks = prev_socks
-	user.eye_color_left = prev_eye_color
-	user.eye_color_right = prev_eye_color
+	user.set_eye_color(prev_eye_color)
 
 	if(prev_disfigured)
 		//We are ASSUMING husk. // user.status_flags |= DISFIGURED // Restore "Unknown" disfigurement
@@ -111,7 +110,8 @@
 	// Apply Appearance
 	user.override_voice = null
 	user.update_body() // Outfit and underwear, also body.
-	user.update_body_parts() // Body itself, maybe skin color?
+	user.update_hair()
+	user.update_eyes()
 
 	cast_effect() // POOF
 	owner.balloon_alert(owner, "veil turned off.")

@@ -457,7 +457,7 @@ world
 			var/list/process = process_set ? appearance.overlays : appearance.underlays
 			process = process.Copy()
 			var/i = 1
-			while (i < length(process))
+			while (i <= length(process))
 				if (i > 10000)
 					CRASH("Number of overlays/underlays exceeded 10000, infinite loop possible. Aborting to avoid server crash.")
 				var/image/current = process[i]
@@ -637,7 +637,7 @@ world
 			continue//If layer is greater than what we need, skip it.
 		var/icon/image_overlay = new(I.icon,I.icon_state)//Blend only works with icon objects.
 		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
-		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
+		alpha_mask.Blend(image_overlay, ICON_OR)//OR so they are lumped together in a nice overlay.
 	return alpha_mask//And now return the mask.
 
 /**
@@ -669,6 +669,7 @@ world
 	// result for the matching pixels, while starting with a base color of white everywhere.
 	mask_icon.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 255,255,255,-255, 1,1,1,1)
 	return mask_icon
+
 
 /mob/proc/AddCamoOverlay(atom/A)//A is the atom which we are using as the overlay.
 	var/icon/opacity_icon = new(A.icon, A.icon_state)//Don't really care for overlays/underlays.
@@ -758,7 +759,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 	var/image/final_image = image(icon, icon_state=icon_state, loc = A)
 
-	if(ispath(SA, /mob/living/simple_animal/butterfly))
+	if(ispath(SA, /mob/living/basic/butterfly))
 		final_image.color = rgb(rand(0,255), rand(0,255), rand(0,255))
 
 	// For debugging

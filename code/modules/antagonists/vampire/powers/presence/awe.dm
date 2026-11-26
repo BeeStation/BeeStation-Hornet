@@ -78,7 +78,7 @@
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/awed)
 
 /datum/status_effect/awed/refresh()
-	duration = world.time + initial(duration)
+	duration = initial(duration)
 
 /datum/status_effect/awed/tick(seconds_between_ticks)
 	if(QDELETED(source_vampire) || source_vampire.stat == DEAD)
@@ -107,13 +107,13 @@
 			// Step Towards
 			if(4)
 				owner.face_atom(source_vampire)
-				if(owner.body_position == STANDING_UP && get_step(owner.loc, get_dir(owner.loc, source_vampire.loc)) != source_vampire.loc)
+				if(owner.body_position == STANDING_UP && !ismecha(owner.loc) && get_step(owner.loc, get_dir(owner.loc, source_vampire.loc)) != source_vampire.loc)
 					owner.visible_message(span_warning("[owner] stumbles."), span_awe("You suddenly stumble..."))
 					owner.Move(get_step(owner.loc, get_dir(owner.loc, source_vampire.loc)))
 			// Wobbly Knees
 			if(5)
 				owner.face_atom(source_vampire)
-				if(owner.body_position == STANDING_UP && owner.getStaminaLoss() == 0)
+				if(owner.body_position == STANDING_UP && owner.stamina.loss == 0)
 					owner.visible_message(span_warning("[owner] seems quite wobbly on [owner.p_their()] feet."), span_awe("Your knees feel wobbly..."))
 					owner.apply_damage(rand(10,30), STAMINA, owner.get_bodypart(BODY_ZONE_L_LEG), FALSE, TRUE)
 					owner.apply_damage(rand(10,30), STAMINA, owner.get_bodypart(BODY_ZONE_R_LEG), FALSE, TRUE)

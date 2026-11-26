@@ -138,9 +138,9 @@
 	. = ..()
 	update_appearance()
 
-/obj/item/clothing/head/utility/hardhat/welding/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		toggle_welding_screen(user)
+/obj/item/clothing/head/utility/hardhat/welding/click_alt(mob/user)
+	toggle_welding_screen(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/head/utility/hardhat/welding/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_welding_screen))
@@ -193,7 +193,7 @@
 	inhand_icon_state = null
 	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	hair_mask = ""
+	hair_mask = null
 	clothing_flags = SNUG_FIT
 	armor_type = /datum/armor/hardhat_pumpkinhead
 	light_range = 2 //luminosity when on
@@ -213,7 +213,7 @@
 	inhand_icon_state = null
 	hat_type = "reindeer"
 	flags_inv = 0
-	hair_mask = ""
+	hair_mask = null
 	armor_type = /datum/armor/none
 	light_range = 1 //luminosity when on
 

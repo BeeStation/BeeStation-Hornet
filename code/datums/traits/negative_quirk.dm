@@ -90,11 +90,11 @@
 	var/obj/item/storage/pill_bottle/mannitol/braintumor/P = new(get_turf(H))
 
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
 	)
-	where = H.equip_in_one_of_slots(P, slots, FALSE)
+	where = H.equip_in_one_of_slots(P, slots, FALSE, indirect_action = TRUE)
 
 /datum/quirk/brainproblems/post_spawn()
 	if(where)
@@ -228,11 +228,11 @@
 	)
 	heirloom = new heirloom_type(get_turf(quirk_target))
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
 	)
-	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
+	where = H.equip_in_one_of_slots(heirloom, slots, FALSE, indirect_action = TRUE) || "at your feet"
 
 /datum/quirk/family_heirloom/post_spawn()
 	if(where == "in your backpack")
@@ -343,9 +343,9 @@
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_target)
 	if(T.get_lumcount() <= LIGHTING_TILE_IS_DARK)
-		if(quirk_target.move_intent == MOVE_INTENT_RUN)
+		if(!MOVING_DELIBERATELY(quirk_target))
 			to_chat(quirk_target, span_warning("Easy, easy, take it slow... you're in the dark..."))
-			quirk_target.toggle_move_intent()
+			quirk_target.set_move_intent(/datum/move_intent/walk)
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "nyctophobia", /datum/mood_event/nyctophobia)
 	else
 		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "nyctophobia")
@@ -554,17 +554,17 @@
 	if (accessory_type)
 		accessory_instance = new accessory_type(current_turf)
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
 	)
-	where_drug = H.equip_in_one_of_slots(drug_instance, slots, FALSE) || "at your feet"
+	where_drug = H.equip_in_one_of_slots(drug_instance, slots, FALSE, indirect_action = TRUE) || "at your feet"
 	if (accessory_instance)
-		where_accessory = H.equip_in_one_of_slots(accessory_instance, slots, FALSE) || "at your feet"
+		where_accessory = H.equip_in_one_of_slots(accessory_instance, slots, FALSE, indirect_action = TRUE) || "at your feet"
 	announce_drugs()
 
 /datum/quirk/junkie/post_spawn()
-	if(where_drug == "in your backpack" || where_accessory == "in your backpack")
+	if(where_drug == LOCATION_BACKPACK || where_accessory == LOCATION_BACKPACK)
 		var/mob/living/carbon/human/H = quirk_target
 		H.back.atom_storage.show_contents(H)
 
@@ -663,9 +663,9 @@
 	if(!drink_instance)
 		drink_instance = pick(drink_types)
 	drink_instance = new drink_instance()
-	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
+	var/list/slots = list(LOCATION_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
-	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE) || "at your feet"
+	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE, indirect_action = TRUE) || "at your feet"
 
 /datum/quirk/alcoholic/post_spawn()
 	to_chat(quirk_target, span_boldnotice("There is a small bottle of [drink_instance] [where_drink]. You only have a single bottle, might have to find some more..."))

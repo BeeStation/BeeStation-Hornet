@@ -217,6 +217,14 @@
 	var/datum/movespeed_modifier/config_walk_run/M = get_cached_movespeed_modifier(/datum/movespeed_modifier/config_walk_run/walk)
 	M.sync()
 
+/datum/config_entry/number/movedelay/sprint_delay
+	integer = FALSE
+
+/datum/config_entry/number/movedelay/sprint_delay/ValidateAndSet()
+	. = ..()
+	var/datum/movespeed_modifier/config_walk_run/M = get_cached_movespeed_modifier(/datum/movespeed_modifier/config_walk_run/sprint)
+	M.sync()
+
 /////////////////////////////////////////////////
 
 /datum/config_entry/flag/roundstart_away	//Will random away mission be loaded.
@@ -333,13 +341,17 @@
 //Mob spam prevention
 /datum/config_entry/number/max_cube_monkeys
 	config_entry_value = 100
+
 /datum/config_entry/number/ratcap
 	config_entry_value = 64
 	min_val = 0
+
 /datum/config_entry/number/max_chickens
-	config_entry_value = 100
+	config_entry_value = 50
+
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
+
 /datum/config_entry/number/max_slimeperson_bodies
 	config_entry_value = 10
 

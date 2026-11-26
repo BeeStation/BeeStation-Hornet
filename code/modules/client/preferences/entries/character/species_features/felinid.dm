@@ -3,16 +3,16 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE
-	relevant_mutant_bodypart = "tail_human"
+	relevant_organ = /obj/item/organ/tail/cat
 
 /datum/preference/choiced/tail_human/init_possible_values()
-	return assoc_to_keys(GLOB.tails_roundstart_list_human)
+	return assoc_to_keys(GLOB.tails_list_felinid)
 
 /datum/preference/choiced/tail_human/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["tail_human"] = value
+	target.dna.features[FEATURE_TAIL_CAT] = value
 
 /datum/preference/choiced/tail_human/create_default_value()
-	var/datum/sprite_accessory/tails/human/cat/tail = /datum/sprite_accessory/tails/human/cat
+	var/datum/sprite_accessory/tails/felinid/cat/tail = /datum/sprite_accessory/tails/felinid/cat
 	return initial(tail.name)
 
 /datum/preference/choiced/ears
@@ -20,13 +20,13 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE
-	relevant_mutant_bodypart = "ears"
+	relevant_organ = /obj/item/organ/ears/cat
 
 /datum/preference/choiced/ears/init_possible_values()
 	return assoc_to_keys(GLOB.ears_list)
 
 /datum/preference/choiced/ears/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["ears"] = value
+	target.dna.features[FEATURE_EARS] = value
 
 /datum/preference/choiced/ears/create_default_value()
 	var/datum/sprite_accessory/ears/cat/ears = /datum/sprite_accessory/ears/cat

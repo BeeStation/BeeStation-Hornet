@@ -109,7 +109,6 @@
 		/datum/action/item_action/toggle_spacesuit
 	)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
-	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/hardsuit_type
 	/// Set when the helmet is destroyed, blocks making a new one until a bulb is fitted
 	var/helmet_broken = FALSE
@@ -128,8 +127,6 @@
 	bleed = 70
 
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
-	if(jetpack && ispath(jetpack))
-		jetpack = new jetpack(src)
 	. = ..()
 	if(!helmettype)
 		return
@@ -145,8 +142,6 @@
 	)
 
 /obj/item/clothing/suit/space/hardsuit/Destroy()
-	if(isatom(jetpack))
-		QDEL_NULL(jetpack)
 	helmet = null
 	return ..()
 
@@ -197,32 +192,7 @@
 		. += span_notice(" The helmet on [src] seems to be malfunctioning. It's light bulb needs to be replaced.")
 
 /obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, list/modifiers)
-	if(istype(I, /obj/item/tank/jetpack/suit))
-		if(jetpack)
-			to_chat(user, span_warning("[src] already has a jetpack installed."))
-			return
-		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING)) //Make sure the player is not wearing the suit before applying the upgrade.
-			to_chat(user, span_warning("You cannot install the upgrade to [src] while wearing it."))
-			return
-
-		if(user.transferItemToLoc(I, src))
-			jetpack = I
-			to_chat(user, span_notice("You successfully install the jetpack into [src]."))
-			return
-	else if(!cell_cover_open && I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(!jetpack)
-			to_chat(user, span_warning("[src] has no jetpack installed."))
-			return
-		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
-			to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
-			return
-
-		jetpack.turn_off(user)
-		jetpack.forceMove(drop_location())
-		jetpack = null
-		to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
-		return
-	else if(istype(I, /obj/item/light) && helmettype)
+	if(istype(I, /obj/item/light) && helmettype)
 		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
 			to_chat(user, span_warning("You cannot replace the bulb in the helmet of [src] while wearing it."))
 			return
@@ -241,25 +211,6 @@
 			to_chat(user, span_notice("You have successfully repaired [src]'s helmet."))
 			new /obj/item/light/bulb/broken(drop_location())
 	return ..()
-
-
-/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
-	..()
-	if(isatom(jetpack))
-		if(slot == ITEM_SLOT_OCLOTHING)
-			jetpack.update_known_user(user)
-			for(var/X in jetpack.actions)
-				var/datum/action/A = X
-				A.Grant(user)
-
-/obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
-	..()
-	if(isatom(jetpack))
-		jetpack.turn_off()
-		jetpack.lose_known_user()
-		for(var/X in jetpack.actions)
-			var/datum/action/A = X
-			A.Remove(user)
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)
@@ -386,9 +337,6 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner,
 		/obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/extinguisher)
 
-
-	//Chief Engineer's hardsuit
-
 /datum/armor/engine_atmos
 	melee = 30
 	bullet = 5
@@ -399,55 +347,6 @@
 	fire = 100
 	acid = 75
 	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/head/helmet/space/hardsuit/engine/elite
-	name = "advanced hardsuit helmet"
-	desc = "An advanced helmet designed for work in a hazardous, low pressure environment. Shines with a high polish."
-	icon_state = "hardsuit0-white"
-	inhand_icon_state = "ce_helm"
-	hardsuit_type = "white"
-	armor_type = /datum/armor/engine_elite
-	heat_protection = HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-
-
-/datum/armor/engine_elite
-	melee = 40
-	bullet = 5
-	laser = 20
-	energy = 15
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 90
-	stamina = 30
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/engine/elite
-	icon_state = "hardsuit-white"
-	name = "advanced hardsuit"
-	desc = "An advanced suit that protects against hazardous, low pressure environments. Shines with a high polish."
-	inhand_icon_state = "ce_hardsuit"
-	armor_type = /datum/armor/engine_elite
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
-	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/upgraded/plus
-
-	//Mining hardsuit
-
-/datum/armor/engine_elite
-	melee = 40
-	bullet = 5
-	laser = 10
-	energy = 20
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 90
-	stamina = 30
 	bleed = 70
 
 /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -725,51 +624,8 @@
 	. = ..()
 	allowed = GLOB.security_hardsuit_allowed
 
-	//Head of Security hardsuit
-/obj/item/clothing/head/helmet/space/hardsuit/security/hos
-	name = "head of security's hardsuit helmet"
-	desc = "A bulky, armored helmet designed to protect security personnel in low pressure environments. This one has markings for the head of security."
-	icon_state = "hardsuit0-hos"
-	hardsuit_type = "hos"
-	armor_type = /datum/armor/security_hos
-
-
-
-/datum/armor/security_hos
-	melee = 35
-	bullet = 35
-	laser = 30
-	energy = 50
-	bomb = 40
-	bio = 100
-	fire = 75
-	acid = 75
-	stamina = 50
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/security/head_of_security
-	icon_state = "hardsuit-hos"
-	name = "head of security's hardsuit"
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
-	desc = "A bulky, armored suit designed to protect security personnel in low pressure environments. This one has markings for the head of security."
-	armor_type = /datum/armor/security_head_of_security
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
-	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/upgraded/plus
 
 	//SWAT MKII
-
-/datum/armor/security_head_of_security
-	melee = 35
-	bullet = 35
-	laser = 30
-	energy = 50
-	bomb = 40
-	bio = 100
-	fire = 75
-	acid = 75
-	stamina = 50
-	bleed = 70
 
 /obj/item/clothing/head/helmet/space/hardsuit/swat
 	name = "\improper MK.II SWAT Helmet"
@@ -896,52 +752,6 @@
 	stamina = 30
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/shielded
-	name = "shielded hardsuit"
-	desc = "A hardsuit with built in energy shielding. Will rapidly recharge when not under fire."
-	icon_state = "hardsuit-hos"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
-	allowed = null
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
-	armor_type = /datum/armor/hardsuit_shielded
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
-	/// How many charges total the shielding has
-	var/shield_integrity = 60
-	/// How long after we've been shot before we can start recharging.
-	var/recharge_delay = 20 SECONDS
-	/// How quickly the shield recharges each charge once it starts charging
-	var/recharge_rate = 1 SECONDS
-	/// The icon for the shield
-	var/shield_icon = "shield-old"
-
-/datum/armor/hardsuit_shielded
-	melee = 30
-	bullet = 15
-	laser = 30
-	energy = 40
-	bomb = 10
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 60
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/shielded/Initialize(mapload)
-	. = ..()
-	if(!allowed)
-		allowed = GLOB.advanced_hardsuit_allowed
-	AddComponent(
-		/datum/component/shielded, \
-		max_integrity = shield_integrity, \
-		recharge_start_delay = recharge_delay, \
-		charge_increment_delay = recharge_rate, \
-		shield_icon = shield_icon \
-	)
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
 ///////////////Capture the Flag////////////////////
 
 // SHIELDED VEST
@@ -962,7 +772,7 @@
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"
-	var/shield_integrity = 150
+	var/shield_integrity = 300 // Enough for 2 regular rifle shots or 5 pistol shots
 	var/charge_recovery = 30
 	var/recharge_start_delay = 20 SECONDS
 	var/charge_increment_delay = 1 SECONDS
@@ -1021,6 +831,5 @@
 	inhand_icon_state = "ert_command"
 	team_shield_icon = "shield-old"
 	greyscale_colors = COLOR_DARK_CYAN
-
 
 #undef HARDSUIT_EMP_BURN

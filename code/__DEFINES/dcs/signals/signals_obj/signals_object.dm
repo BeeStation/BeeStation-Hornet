@@ -33,6 +33,8 @@
 
 /// Called in /obj/structure/closet/PopulateContents()
 #define COMSIG_CLOSET_CONTENTS_INITIALIZED "closet_initialize_contents"
+/// Called after a closet is opened: (mob/living/user, force)
+#define COMSIG_CLOSET_POST_OPEN "closet_post_open"
 
 /// Sent from /obj/item/update_weight_class(). (old_w_class, new_w_class)
 #define COMSIG_ITEM_WEIGHT_CLASS_CHANGED "item_weight_class_changed"
@@ -40,3 +42,18 @@
 #define COMSIG_ATOM_CONTENTS_WEIGHT_CLASS_CHANGED "atom_contents_weight_class_changed"
 /// Sent from /datum/component/reflection when the reflection is updated to the mob reflecting: (atom/movable/reflecting_in, obj/effect/abstract/reflection)
 #define COMSIG_REFLECTION_UPDATED "reflection_updated"
+
+// Jetpack things
+// Please kill me
+
+//called in /obj/item/tank/jetpack/proc/turn_on() : ()
+#define COMSIG_JETPACK_ACTIVATED "jetpack_activated"
+	#define JETPACK_ACTIVATION_FAILED (1<<0)
+//called in /obj/item/tank/jetpack/proc/turn_off() : ()
+#define COMSIG_JETPACK_DEACTIVATED "jetpack_deactivated"
+
+//called in /obj/item/organ/cyberimp/chest/thrusters/proc/toggle() : ()
+#define COMSIG_THRUSTER_ACTIVATED "jetmodule_activated"
+	#define THRUSTER_ACTIVATION_FAILED (1<<0)
+//called in /obj/item/organ/cyberimp/chest/thrusters/proc/toggle() : ()
+#define COMSIG_THRUSTER_DEACTIVATED "jetmodule_deactivated"

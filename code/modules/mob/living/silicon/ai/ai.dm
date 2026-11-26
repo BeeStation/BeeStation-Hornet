@@ -28,7 +28,9 @@
 	can_buckle_to = FALSE
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list(CAMERA_NETWORK_STATION)
-	var/list/connected_robots = list()
+
+	/// Lazy List of robots currently synced to the AI
+	VAR_FINAL/list/mob/living/silicon/robot/connected_robots
 
 	/// Station alert datum for showing alerts UI
 	var/datum/station_alert/alert_control
@@ -211,6 +213,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/Destroy()
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
+
+	// Release linked cyborgs before deleting the resources they access through us.
+	for(var/mob/living/silicon/robot/cyborg in connected_robots)
+		if(cyborg.connected_ai == src)
+			cyborg.set_connected_ai(null)
+	LAZYNULL(connected_robots)
+
 	SSshuttle.autoEvac()
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	QDEL_NULL(spark_system)
@@ -282,7 +291,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		tab_data["System integrity"] = GENERATE_STAT_TEXT("[(health+100)/2]%")
 		if(isturf(loc)) //only show if we're "in" a core
 			tab_data["Backup Power"] = GENERATE_STAT_TEXT("[battery/2]%")
-		tab_data["Connected cyborgs"] = GENERATE_STAT_TEXT("[connected_robots.len]")
+		tab_data["Connected cyborgs"] = GENERATE_STAT_TEXT("[LAZYLEN(connected_robots)]")
 		var/index = 0
 		for(var/mob/living/silicon/robot/R in connected_robots)
 			var/robot_status = "Nominal"
@@ -636,19 +645,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 		if("Animal")
 			var/list/icon_list = list(
-			"bear" = 'icons/mob/animal.dmi',
-			"carp" = 'icons/mob/animal.dmi',
-			"chicken" = 'icons/mob/animal.dmi',
-			"corgi" = 'icons/mob/pets.dmi',
-			"cow" = 'icons/mob/animal.dmi',
-			"crab" = 'icons/mob/animal.dmi',
-			"fox" = 'icons/mob/pets.dmi',
-			"goat" = 'icons/mob/animal.dmi',
-			"cat" = 'icons/mob/pets.dmi',
-			"cat2" = 'icons/mob/pets.dmi',
-			"poly" = 'icons/mob/animal.dmi',
-			"pug" = 'icons/mob/pets.dmi',
-			"spider" = 'icons/mob/animal.dmi'
+			"bear" = 'icons/mob/simple/animal.dmi',
+			"carp" = 'icons/mob/simple/animal.dmi',
+			"chicken" = 'icons/mob/simple/animal.dmi',
+			"corgi" = 'icons/mob/simple/pets.dmi',
+			"cow" = 'icons/mob/simple/animal.dmi',
+			"crab" = 'icons/mob/simple/animal.dmi',
+			"fox" = 'icons/mob/simple/pets.dmi',
+			"goat" = 'icons/mob/simple/animal.dmi',
+			"cat" = 'icons/mob/simple/pets.dmi',
+			"cat2" = 'icons/mob/simple/pets.dmi',
+			"poly" = 'icons/mob/simple/animal.dmi',
+			"pug" = 'icons/mob/simple/pets.dmi',
+			"spider" = 'icons/mob/simple/animal.dmi'
 			)
 
 			input = tgui_input_list(user, "Please select a hologram:", "Animal Choice", sort_list(icon_list))
@@ -777,11 +786,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		to_chat(user, "[span_boldnotice("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
 
-/mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+/mob/living/silicon/ai/can_perform_action(atom/target, action_bitflags)
 	if(control_disabled)
 		to_chat(src, span_warning("You can't do that right now!"))
 		return FALSE
-	return can_see(M) && ..() //stop AIs from leaving windows open and using then after they lose vision
+	return can_see(target) && ..() //stop AIs from leaving windows open and using then after they lose vision
 
 /mob/living/silicon/ai/proc/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras
@@ -808,7 +817,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(living_speaker.wear_id)
 				var/obj/item/card/id/has_id = living_speaker.wear_id.GetID()
 				if(has_id)
-					jobpart = has_id.assignment
+					jobpart = has_id.get_assignment()
 		if(istype(speaker, /obj/effect/overlay/holo_pad_hologram))
 			var/obj/effect/overlay/holo_pad_hologram/holo = speaker
 			if(holo.Impersonation?.job)
@@ -846,7 +855,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		if(S.wear_id)
 			var/obj/item/card/id/I = S.wear_id.GetID()
 			if(I)
-				jobpart = "[I.assignment]"
+				jobpart = "[I.get_assignment()]"
 
 	// duplication part from `game/say.dm` to make a language icon
 	var/language_icon = ""

@@ -57,7 +57,6 @@
 	maxbodytemp = 1500
 	faction = list(FACTION_CARP)
 	pressure_resistance = 200
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
@@ -85,11 +84,12 @@
 
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
 	. = ..()
+	add_traits(list(TRAIT_SPACEWALK, TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_NO_FLOATING_ANIM, TRAIT_HEALS_FROM_CARP_RIFTS), INNATE_TRAIT)
 	gust = new
 	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
-	add_traits(list(TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SPACEWALK), INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)

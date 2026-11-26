@@ -18,6 +18,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLOORED "floored"
 /// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
 #define TRAIT_FORCED_STANDING "forcedstanding"
+///Slows the user, with additional effects based on the source.
+#define TRAIT_DISORIENTED "disoriented"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"
 /// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
@@ -27,6 +29,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 #define TRAIT_INCAPACITATED "incapacitated"
+///User's stamina is over the STAMINA_EXHAUSTION_THRESHOLD
+#define TRAIT_EXHAUSTED "exhausted"
+///User is sprinting, full speed ahead
+#define TRAIT_SPRINTING "sprinting"
+///User cannot sprint
+#define TRAIT_NO_SPRINT "no_sprint"
+///Exhaustion doesn't slow the user, stop their sprint or force a whisper, but stuns still land
+#define TRAIT_SECOND_WIND "second_wind"
+///All stamina loss, from attacks, stuns or exertion, drains this mob's power instead, see [COMSIG_LIVING_DRAIN_STAMINA_POWER]
+#define TRAIT_STAMINA_DRAINS_POWER "stamina_drains_power"
+/// In softcrit.
+#define TRAIT_SOFT_CRITICAL_CONDITION "soft-critical-condition"
 //In some kind of critical condition. Is able to succumb.
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 /// Whitelist for mobs that can read or write
@@ -59,8 +73,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 /// Causes death-like unconsciousness
 #define TRAIT_DEATHCOMA "deathcoma"
-#define TRAIT_FAKEDEATH "fakedeath" //Makes the owner appear as dead to most forms of medical examination
-#define TRAIT_DISFIGURED		"disfigured"
+/// The mob has the stasis effect.
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
+/// Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_FAKEDEATH "fakedeath"
+/// When applied to a mob's head, their face will be unrecognizable and get displayed as Unknown
+#define TRAIT_DISFIGURED "disfigured"
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
@@ -116,8 +135,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AGENDER "agender"
 /// Species with this trait use skin tones for coloration
 #define TRAIT_USES_SKINTONES "uses_skintones"
-/// Species with this trait have markings (this SUCKS, remove this later in favor of bodypart overlays)
-#define TRAIT_HAS_MARKINGS "has_markings"
 /// Species with this trait use mutant colors for coloration
 #define TRAIT_MUTANT_COLORS "mutcolors"
 /// Species with this trait have mutant colors that cannot be chosen by the player, nor altered ingame by external means
@@ -128,8 +145,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_UNDERWEAR "no_underwear"
 /// Humans with this trait cannot have socks
 #define TRAIT_NO_SOCKS "no_socks"
-/// This carbon doesn't show an overlay when they have no brain
-#define TRAIT_NO_DEBRAIN_OVERLAY "no_debrain_overlay"
 /// Humans with this trait cannot get augmentation surgery
 #define TRAIT_NO_AUGMENTS "no_augments"
 /// No eating, bitch
@@ -263,8 +278,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
 #define TRAIT_BEEFRIEND "beefriend"
 #define TRAIT_PASSTABLE "passtable"
-#define TRAIT_BLUSHING "blushing"
-#define TRAIT_CRYING "crying"
 #define TRAIT_NOBLOCK "noblock"
 #define TRAIT_NANITECOMPATIBLE "nanitecompatible"
 /// Can have synth (IPC) upgrades
@@ -280,7 +293,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DRINKSBLOOD "drinks_blood"
 #define TRAIT_SOMMELIER "sommelier"  // shows different booze power flavor texts
 #define TRAIT_BARMASTER "bar_master" // always can identify reagents
-#define TRAIT_MOTH_BURNT "moth_burnt"
 /// From anti-convulsant medication against seizures.
 #define TRAIT_ANTICONVULSANT "anticonvulsant"
 #define TRAIT_BLOODSHOT_EYES "bloodshot_eyes"
@@ -383,6 +395,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait which means whatever has this is dancing by a dance machine
 #define TRAIT_DISCO_DANCER "disco_dancer"
 
+// Element traits
+
+/// Required by the waddling element since there are multiple sources of it.
+#define TRAIT_WADDLING "trait_waddling"
+/// Required by the on_hit_effect element, which is in turn added by other elements.
+#define TRAIT_ON_HIT_EFFECT "trait_on_hit_effect"
+
 /**
  * Atom Traits
  */
@@ -426,6 +445,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FOOD_FRIED "food_fried"
 /// If this item's been made by a chef instead of spawned by the map or admins
 #define TRAIT_FOOD_CHEF_MADE "food_made_by_chef"
+/// scoops bites of food
+#define TRAIT_UTENSIL "utensil"
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
 #define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
 #define TRAIT_DOOR_PRYER		"door-pryer"	//Item can be used on airlocks to pry them open (even when powered)
@@ -554,6 +575,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
+/// Lets the mob move in zero gravity without anything to push off from
+#define TRAIT_FREE_FLOAT_MOVEMENT "free_float_movement"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -664,5 +687,20 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This clothing protects the user from radiation.
 /// This should not be used on clothing_traits, but should be applied to the clothing itself.
 #define TRAIT_RADIATION_PROTECTED_CLOTHING "radiation_protected_clothing"
+
+/// This mob heals from carp rifts.
+#define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
+
+/// Humans with this trait do not blink
+#define TRAIT_PREVENT_BLINKING "prevent_blinking"
+
+/// Prevents animations for blinking from looping
+#define TRAIT_PREVENT_BLINK_LOOPS "prevent_blink_loops"
+
+/// Mob doesn't get closed eyelids overlay when it gets knocked out cold or dies
+#define TRAIT_NO_EYELIDS "no_eyelids"
 
 // END TRAIT DEFINES

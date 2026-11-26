@@ -1,7 +1,16 @@
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 
 /obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
-	. = TRUE
+	. = ITEM_INTERACT_SUCCESS
+	if((machine_stat & BROKEN) && opened != APC_COVER_REMOVED)
+		balloon_alert(user, "prying off cover")
+		if(!W.use_tool(src, user, 5 SECONDS, volume = 50) || !(machine_stat & BROKEN) || opened == APC_COVER_REMOVED)
+			return ITEM_INTERACT_BLOCKING
+		opened = APC_COVER_REMOVED
+		balloon_alert(user, "cover removed")
+		update_appearance()
+		return ITEM_INTERACT_SUCCESS
+
 	if (opened)
 		if(integration_cog)
 			to_chat(user, span_notice("You begin prying something out of the APC."))
@@ -46,6 +55,10 @@
 		else if (opened!=APC_COVER_REMOVED)
 			opened = APC_COVER_CLOSED
 			coverlocked = TRUE //closing cover relocks it
+			if(restart_on_cover_close)
+				restart_on_cover_close = FALSE
+				if(!operating && has_electronics == APC_ELECTRONICS_SECURED && terminal)
+					toggle_breaker(user)
 			update_appearance()
 			return
 	else if (!(machine_stat & BROKEN))
@@ -104,6 +117,28 @@
 		return TRUE
 
 /obj/machinery/power/apc/welder_act(mob/living/user, obj/item/W)
+	if(has_electronics)
+		if(opened == APC_COVER_REMOVED)
+			balloon_alert(user, "no cover to repair!")
+			return ITEM_INTERACT_BLOCKING
+		if(machine_stat & BROKEN)
+			balloon_alert(user, "too damaged to repair!")
+			return ITEM_INTERACT_BLOCKING
+		if(get_integrity() >= max_integrity)
+			balloon_alert(user, "no repairs needed!")
+			return ITEM_INTERACT_BLOCKING
+		if(!W.tool_start_check(user, amount = 0))
+			return ITEM_INTERACT_BLOCKING
+		balloon_alert(user, "repairing")
+		while(get_integrity() < max_integrity)
+			if(!W.use_tool(src, user, 4 SECONDS, volume = 50))
+				return ITEM_INTERACT_BLOCKING
+			if(!has_electronics || (machine_stat & BROKEN) || opened == APC_COVER_REMOVED)
+				return ITEM_INTERACT_BLOCKING
+			if(repair_damage(50))
+				balloon_alert(user, "repaired")
+		return ITEM_INTERACT_SUCCESS
+
 	if (opened && !has_electronics && !terminal)
 		if(!W.tool_start_check(user, amount=3))
 			return
@@ -122,7 +157,7 @@
 					"[user.name] has cut [src] from the wall with [W].",\
 					span_notice("You cut the APC frame from the wall."))
 			qdel(src)
-			return TRUE
+			return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/power/apc/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS)

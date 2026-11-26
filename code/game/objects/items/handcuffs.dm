@@ -29,8 +29,15 @@
 	breakouttime = 1 MINUTES
 	armor_type = /datum/armor/restraints_handcuffs
 	custom_price = 15
+	pickup_sound = 'sound/items/handling/handcuffs/handcuffs_pick_up.ogg'
+	drop_sound = 'sound/items/handling/handcuffs/handcuffs_drop.ogg'
+
+	/// Sound that plays when starting to put handcuffs on someone
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
-	var/trashtype = null //for disposable cuffs
+	/// Sound that plays when restrain is successful
+	var/cuffsuccesssound = 'sound/items/handcuff_finish.ogg'
+	/// for disposable cuffs
+	var/trashtype = null
 
 /obj/item/restraints/handcuffs/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "handcuffs")
@@ -39,37 +46,44 @@
 	fire = 50
 	acid = 50
 
-/obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
-	if(!istype(C))
+/obj/item/restraints/handcuffs/attack(mob/living/carbon/victim, mob/living/user)
+	if(!istype(victim))
 		return
 
-	SEND_SIGNAL(C, COMSIG_CARBON_CUFF_ATTEMPTED, user)
+	SEND_SIGNAL(victim, COMSIG_CARBON_CUFF_ATTEMPTED, user)
 
-	if(iscarbon(user) && (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50)))
+	user.do_item_attack_animation(victim, used_item = src)
+
+	if(iscarbon(user) && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("Uh... how do those things work?!"))
-		apply_cuffs(user,user)
+		apply_cuffs(user, user)
 		return
 
-	if(!C.handcuffed)
-		if(C.canBeHandcuffed())
-			C.visible_message(span_danger("[user] is trying to put [src.name] on [C]!"), \
-								span_userdanger("[user] is trying to put [src.name] on you!"))
+	if(victim.handcuffed)
+		return
+	if(!victim.canBeHandcuffed())
+		to_chat(user, span_warning("[victim] doesn't have two hands..."))
 
-			playsound(loc, cuffsound, 30, 1, -2)
-			if(do_after(user, 4 SECONDS, C) && C.canBeHandcuffed())
-				if(iscyborg(user))
-					apply_cuffs(C, user, TRUE)
-				else
-					apply_cuffs(C, user)
-				C.visible_message(span_notice("[user] handcuffs [C]."), \
-									span_userdanger("[user] handcuffs you."))
-				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
+	victim.visible_message(
+		span_danger("[user] is trying to put [src] on [victim]!"),
+		span_userdanger("[user] is trying to put [src] on you!"),
+	)
 
-				log_combat(user, C, "handcuffed", important = FALSE)
-			else
-				to_chat(user, span_warning("You fail to handcuff [C]!"))
-		else
-			to_chat(user, span_warning("[C] doesn't have two hands..."))
+	playsound(loc, cuffsound, 30, TRUE, -2)
+	if(!do_after(user, 4 SECONDS, victim) && victim.canBeHandcuffed())
+		to_chat(user, span_warning("You fail to handcuff [victim]!"))
+		return
+
+	apply_cuffs(victim, user, dispense = iscyborg(user))
+	playsound(loc, cuffsuccesssound, 30, TRUE, -2)
+
+	victim.visible_message(
+		span_notice("[user] handcuffs [victim]."),
+		span_userdanger("[user] handcuffs you."),
+	)
+
+	log_combat(user, victim, "handcuffed", important = FALSE)
+	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 /obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, dispense = 0)
 	if(target.handcuffed)
@@ -358,7 +372,7 @@
   * Attempts to legcuff someone with the bola
   *
   * Arguments:
-  * * C - the carbon that we will try to ensnare
+  * * target - the carbon that we will try to ensnare
   */
 /obj/item/restraints/legcuffs/bola/proc/ensnare(mob/living/carbon/target)
 	if(!target.legcuffed && target.num_legs >= 2)

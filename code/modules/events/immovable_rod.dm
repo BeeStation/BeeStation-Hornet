@@ -42,7 +42,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod
 	name = "immovable rod"
 	desc = "What the fuck is that?"
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/obj/anomaly.dmi'
 	icon_state = "immrod"
 	throwforce = 100
 	move_force = INFINITY
@@ -145,7 +145,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		qdel(src)
 		qdel(other)
 
-/obj/effect/immovablerod/Process_Spacemove()
+/obj/effect/immovablerod/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/effect/immovablerod/proc/penetrate(mob/living/L)

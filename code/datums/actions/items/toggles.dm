@@ -80,6 +80,14 @@
 		return FALSE
 	return ..()
 
+/datum/action/item_action/toggle_hud
+	name = "Toggle Implant HUD"
+	desc = "Disables your HUD implant's visuals. You can still access examine information."
+
+/datum/action/item_action/toggle_hud/on_activate(mob/user, atom/target, trigger_flags)
+	var/obj/item/organ/cyberimp/eyes/hud/hud_implant = master
+	hud_implant.toggle_hud(owner)
+
 /datum/action/item_action/wheelys
 	name = "Toggle Wheels"
 	desc = "Pops out or in your shoes' wheels."

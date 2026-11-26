@@ -92,6 +92,8 @@
 	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
+		if(P.disorient_length && takes_stamina_damage())
+			Disorient(P.disorient_length, P.disorient_damage, paralyze = P.disorient_status_length, stack_status = P.disorient_stack_status, protection = armor)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK
@@ -130,7 +132,6 @@
 		var/obj/item/I = AM
 		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
-		var/volume = I.get_volume_by_throwforce_and_or_w_class()
 		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)
 			skipcatch = TRUE
@@ -139,25 +140,13 @@
 		if(blocked)
 			return TRUE
 
-		if (I.throwforce > 0) //If the weapon's throwforce is greater than zero...
-			if (I.throwhitsound) //...and throwhitsound is defined...
-				playsound(loc, I.throwhitsound, volume, 1, -1) //...play the weapon's throwhitsound.
-			else if(I.hitsound) //Otherwise, if the weapon's hitsound is defined...
-				playsound(loc, I.hitsound, volume, 1, -1) //...play the weapon's hitsound.
-			else if(!I.throwhitsound) //Otherwise, if throwhitsound isn't defined...
-				playsound(loc, 'sound/weapons/genhit.ogg',volume, 1, -1) //...play genhit.ogg.
-
-		else if(!I.throwhitsound && I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
-			playsound(loc, 'sound/weapons/genhit.ogg', volume, 1, -1)//...play genhit.ogg
-		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
-			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
 		if(!blocked)
 			visible_message(span_danger("[src] is hit by [I]!"), \
 							span_userdanger("You're hit by [I]!"))
 			var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor)
 
-			var/mob/thrown_by = I.thrownby?.resolve()
+			var/mob/thrown_by = throwingdatum?.get_thrower()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
 			if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
@@ -405,7 +394,7 @@
 	if(!(flags & SHOCK_ILLUSION))
 		adjustFireLoss(shock_damage)
 	else
-		adjustStaminaLoss(shock_damage)
+		stamina.adjust(-shock_damage)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
 			span_danger("[src] was shocked by \the [source]!"),
@@ -547,7 +536,7 @@
 
 /// Universal disarm effect, can be used by other components that also want a similar effect to pushback
 /// and stun.
-/mob/living/proc/disarm_effect(mob/living/carbon/attacker, silent = FALSE)
+/mob/living/carbon/proc/disarm_effect(mob/living/carbon/attacker, silent = FALSE)
 	var/turf/target_oldturf = loc
 	var/shove_dir = get_dir(attacker.loc, target_oldturf)
 	var/turf/target_shove_turf = get_step(loc, shove_dir)
@@ -573,15 +562,25 @@
 		var/target_held_item = get_active_held_item()
 		if(target_held_item)
 			if (!silent)
-				visible_message(span_danger("[attacker.name] kicks \the [target_held_item] out of [src]'s hand!"),
-								span_danger("[attacker.name] kicks \the [target_held_item] out of your hand!"), null, COMBAT_MESSAGE_RANGE)
+				visible_message(
+					span_danger("[attacker.name] kicks \the [target_held_item] out of [src]'s hand!"),
+					span_danger("[attacker.name] kicks \the [target_held_item] out of your hand!"),
+					null,
+					COMBAT_MESSAGE_RANGE
+				)
 			log_combat(attacker, src, "disarms [target_held_item]", "disarm")
+			dropItemToGround(target_held_item)
 		else
 			if (!silent)
-				visible_message(span_danger("[attacker.name] kicks [name] onto [p_their()] side!"),
-								span_danger("[attacker.name] kicks you onto your side!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(attacker, src, "kicks", "disarm", "onto their side (paralyzing)")
-		Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
+				visible_message(
+					span_danger("[attacker.name] kicks [name] onto [p_their()] side!"),
+					span_danger("[attacker.name] kicks you onto your side!"),
+					null,
+					COMBAT_MESSAGE_RANGE
+				)
+			log_combat(attacker, src, "kicks", "in the chest")
+		apply_damage(STAMINA_DISARM_DMG * 4, STAMINA, BODY_ZONE_CHEST, spread_damage = TRUE)
+		adjustOxyLoss(10) //Knock the wind right out of his sails
 	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
 		var/directional_blocked = FALSE
 		if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
@@ -599,42 +598,71 @@
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			Immobilize(SHOVE_IMMOBILIZE_SOLID)
 			if (!silent)
-				attacker.visible_message(span_danger("[attacker.name] shoves [name], knocking [p_them()] down!"),
-					span_danger("You shove [name], knocking [p_them()] down!"), null, COMBAT_MESSAGE_RANGE)
+				attacker.visible_message(
+					span_danger("[attacker.name] shoves [name], knocking [p_them()] down!"),
+					span_danger("You shove [name], knocking [p_them()] down!"),
+					null,
+					COMBAT_MESSAGE_RANGE
+				)
 			log_combat(attacker, src, "shoved", "disarm", "knocking them down")
 		else if(target_table)
 			Paralyze(SHOVE_KNOCKDOWN_TABLE)
 			if (!silent)
-				attacker.visible_message(span_danger("[attacker.name] shoves [name] onto \the [target_table]!"),
-					span_danger("You shove [name] onto \the [target_table]!"), null, COMBAT_MESSAGE_RANGE)
+				attacker.visible_message(
+					span_danger("[attacker.name] shoves [name] onto \the [target_table]!"),
+					span_danger("You shove [name] onto \the [target_table]!"),
+					null,
+					COMBAT_MESSAGE_RANGE
+				)
 			throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
 			log_combat(attacker, src, "shoved", "disarm", "onto [target_table] (table)")
 		else if(target_collateral_human)
 			Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 			target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
 			if (!silent)
-				attacker.visible_message(span_danger("[attacker.name] shoves [name] into [target_collateral_human.name]!"),
-					span_danger("You shove [name] into [target_collateral_human.name]!"), null, COMBAT_MESSAGE_RANGE)
+				attacker.visible_message(
+					span_danger("[attacker.name] shoves [name] into [target_collateral_human.name]!"),
+					span_danger("You shove [name] into [target_collateral_human.name]!"),
+					null,
+					COMBAT_MESSAGE_RANGE
+				)
 			log_combat(attacker, src, "shoved", "disarm", "into [target_collateral_human.name]")
-		else if(target_disposal_bin)
+		else if(target_disposal_bin || target_pool)
+			var/atom/target_container = target_disposal_bin || target_pool
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
-			forceMove(target_disposal_bin)
+			forceMove(target_container)
 			if (!silent)
-				attacker.visible_message(span_danger("[attacker.name] shoves [name] into \the [target_disposal_bin]!"),
-					span_danger("You shove [name] into \the [target_disposal_bin]!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(attacker, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
-		else if(target_pool)
-			Knockdown(SHOVE_KNOCKDOWN_SOLID)
-			forceMove(target_pool)
-			if (!silent)
-				attacker.visible_message(span_danger("[attacker.name] shoves [name] into \the [target_pool]!"),
-					span_danger("You shove [name] into \the [target_pool]!"), null, COMBAT_MESSAGE_RANGE)
-			log_combat(attacker, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
+				attacker.visible_message(
+					span_danger("[attacker.name] shoves [name] into \the [target_container]!"),
+					span_danger("You shove [name] into \the [target_container]!"),
+					null,
+					COMBAT_MESSAGE_RANGE
+				)
+			log_combat(attacker, src, "shoved", "disarm", "into [target_container] ([target_disposal_bin ? "disposal bin" : "swimming pool"])")
 	else
+		var/append_message = ""
+		var/disarm_success_chance = min(stamina.loss_as_percent/2 + 10, 60)
+		if(prob(disarm_success_chance) && length(held_items))
+			var/list/dropped = list()
+			for(var/obj/item/I in held_items)
+				if(dropItemToGround(I))
+					if (!silent)
+						visible_message(
+							span_danger("<b>[src]</b> loses [p_their()] grip on [I]!"),
+							span_userdanger("You drop [I]!"),
+							null,
+							COMBAT_MESSAGE_RANGE
+						)
+					dropped += I
+			append_message = "causing them to drop [length(dropped) ? english_list(dropped) : "nothing"]"
 		if (!silent)
-			attacker.visible_message(span_danger("[attacker.name] shoves [name]!"),
-				span_danger("You shove [name]!"), null, COMBAT_MESSAGE_RANGE)
-		log_combat(attacker, src, "shoved", "disarm")
+			attacker.visible_message(
+				span_danger("[attacker.name] shoves [name]!"),
+				span_danger("You shove [name]!"),
+				null,
+				COMBAT_MESSAGE_RANGE
+			)
+		log_combat(attacker, src, "shoved", append_message)
 
 /** Handles exposing a mob to reagents.
   *

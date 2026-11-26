@@ -8,7 +8,7 @@
 	lighting_colour_bulb = "#ffdcb7"
 	area_flags = VALID_TERRITORY | CULT_PERMITTED | UNIQUE_AREA | FLORA_ALLOWED
 	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
-	ambient_buzz_vol = 10
+	ambient_buzz_vol = 20
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	camera_networks = list(CAMERA_NETWORK_MINE)
 
@@ -107,7 +107,6 @@
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LAVALAND
 	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
-	ambient_buzz_vol = 20
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
 	color_correction = /datum/client_colour/area_color/warm
 

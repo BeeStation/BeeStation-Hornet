@@ -177,7 +177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 		qdel(src)
 		return
 
-/obj/effect/meteor/Process_Spacemove(movement_dir = 0)
+/obj/effect/meteor/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE //Keeps us from drifting for no reason
 
 /obj/effect/meteor/Bump(atom/A)
@@ -271,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 	pass_flags = PASSTABLE | PASSGRILLE
 	hits = 1
 	hitpwr = 3
-	meteorsound = 'sound/weapons/gunshot_smg.ogg'
+	meteorsound = 'sound/weapons/gun/smg/shot.ogg'
 	meteordrop = list(/obj/item/stack/ore/glass)
 	threat = 1
 

@@ -28,9 +28,6 @@
 /turf/open/floor/plating/get_turf_texture()
 	return GLOB.turf_texture_plating
 
-/turf/open/floor/plating/broken
-	broken = TRUE
-
 /turf/open/floor/plating/examine(mob/user)
 	. = ..()
 	if(broken || burnt)
@@ -187,6 +184,6 @@
 
 /turf/open/floor/plating/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 

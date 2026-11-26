@@ -65,11 +65,12 @@ GLOBAL_LIST_INIT(cursed_animal_masks, list(
 	if(clothing_flags & VOICEBOX_TOGGLABLE)
 		. += span_notice("Its voicebox is currently [clothing_flags & VOICEBOX_DISABLED ? "disabled" : "enabled"]. <b>Alt-click</b> to toggle it.")
 
-/obj/item/clothing/mask/animal/AltClick(mob/user)
+/obj/item/clothing/mask/animal/click_alt(mob/user)
 	if(!(clothing_flags & VOICEBOX_TOGGLABLE))
 		return
 	clothing_flags ^= VOICEBOX_DISABLED
 	to_chat(user, span_notice("You [clothing_flags & VOICEBOX_DISABLED ? "disabled" : "enabled"] [src]'s voicebox."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/mask/animal/proc/make_cursed() //apply cursed effects.
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)
@@ -90,6 +91,7 @@ GLOBAL_LIST_INIT(cursed_animal_masks, list(
 				RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 			to_chat(M, span_userdanger("[src] was cursed!"))
 			M.update_worn_mask()
+			M.refresh_obscured()
 
 /obj/item/clothing/mask/animal/proc/clear_curse()
 	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)

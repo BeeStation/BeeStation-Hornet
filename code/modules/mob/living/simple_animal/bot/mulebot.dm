@@ -15,7 +15,7 @@
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	animate_movement = FORWARD_STEPS
+	animate_movement = SLIDE_STEPS
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -360,15 +360,8 @@
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
-/mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
-	if(..())
-		return
-	var/mob/living/L = user
-
-	if (!istype(L))
-		return
-
-	if(user.incapacitated || (istype(L) && L.body_position == LYING_DOWN))
+/mob/living/simple_animal/bot/mulebot/mouse_drop_receive(atom/movable/AM, mob/user, params)
+	if(!isliving(user))
 		return
 
 	if(!istype(AM) || isdead(AM) || iscameramob(AM) || istype(AM, /obj/effect/dummy/phased_mob))

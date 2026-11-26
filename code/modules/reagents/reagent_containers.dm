@@ -37,6 +37,8 @@
 	var/fill_icon_state
 	///Icon for the "label", if the holder was renamed
 	var/label_icon
+	/// The sound this container makes when picked up, dropped if there is liquid inside.
+	var/reagent_container_liquid_sound = "default_liquid_slosh"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
@@ -177,11 +179,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 /obj/item/reagent_containers/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	splash_reagents(hit_atom, throwingdatum?.get_thrower(), was_thrown = TRUE, allow_closed_splash = FALSE)
+	if(!.)
+		splash_reagents(hit_atom, throwingdatum?.get_thrower(), was_thrown = TRUE, allow_closed_splash = FALSE)
 
-/obj/item/reagent_containers/proc/bartender_check(atom/target)
+/obj/item/reagent_containers/proc/bartender_check(atom/target, mob/thrown_by)
 	. = FALSE
-	var/mob/thrown_by = thrownby?.resolve()
 	if(target.CanPass(src, get_dir(target, src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
 		. = TRUE
 
@@ -294,3 +296,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 	target.update_appearance()
 	return ITEM_INTERACT_SUCCESS
+
+/obj/item/reagent_containers/dropped(mob/user, silent)
+	. = ..()
+	if(reagent_container_liquid_sound && reagents.total_volume > 0)
+		playsound(src, reagent_container_liquid_sound, LIQUID_SLOSHING_SOUND_VOLUME, vary = TRUE, ignore_walls = FALSE)
+
+/obj/item/reagent_containers/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if((slot & ITEM_SLOT_HANDS) && reagent_container_liquid_sound && reagents.total_volume > 0)
+		playsound(src, reagent_container_liquid_sound, LIQUID_SLOSHING_SOUND_VOLUME, vary = TRUE, ignore_walls = FALSE)

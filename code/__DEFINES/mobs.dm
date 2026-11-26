@@ -13,9 +13,16 @@
 #define CURRENT_DEAD_PLAYERS "dead_players_list"
 #define CURRENT_OBSERVERS "current_observers_list"
 
-//movement intent defines for the move_intent var
-#define MOVE_INTENT_WALK "walk"
-#define MOVE_INTENT_RUN  "run"
+//movement intent flags, see [/datum/move_intent]
+///Careful movement that avoids slipping and stepping on things
+#define MOVE_INTENT_DELIBERATE (1<<0)
+///Burns extra nutrition
+#define MOVE_INTENT_EXERTIVE (1<<1)
+///Costs stamina
+#define MOVE_INTENT_QUICK (1<<2)
+
+#define MOVING_DELIBERATELY(X) (X.move_intent.flags & MOVE_INTENT_DELIBERATE)
+#define MOVING_QUICKLY(X) (X.move_intent.flags & MOVE_INTENT_QUICK)
 
 // Bleed rates
 // See blood.dm for calculations
@@ -80,6 +87,8 @@
 #define MOB_REPTILE (1 << 8)
 /// The mob is a spooky phantasm or an evil ghast of such nature.
 #define MOB_SPIRIT (1 << 9)
+///The mob is a plant-based species, benefitting from light but suffering from darkness and plantkillers.
+#define MOB_PLANT (1 << 10)
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
@@ -94,20 +103,24 @@
 #define BODYTYPE_ORGANIC (1<<0)
 ///The limb is robotic.
 #define BODYTYPE_ROBOTIC (1<<1)
-///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
-#define BODYTYPE_HUMANOID (1<<2)
-///The limb is digitigrade.
-#define BODYTYPE_DIGITIGRADE (1<<3)
-///The limb fits the monkey mold.
-#define BODYTYPE_MONKEY (1<<4)
-///The limb is snouted.
-#define BODYTYPE_SNOUTED (1<<5)
 ///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
-#define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<2)
 ///The limb is from a xenomorph.
-#define BODYTYPE_ALIEN (1<<7)
+#define BODYTYPE_ALIEN (1<<3)
 ///The limb is from a golem
-#define BODYTYPE_GOLEM (1<<8)
+#define BODYTYPE_GOLEM (1<<4)
+/// Analagous to BODYSHAPE_DIGITIGRADE, though this one is not removed if the mob's shape changed
+#define BODYTYPE_DIGITIGRADE (1<<5)
+
+// Bodyshape defines for how things can be worn, i.e., what "shape" the mob sprite is
+///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
+#define BODYSHAPE_HUMANOID (1<<0)
+///The limb fits the monkey mold.
+#define BODYSHAPE_MONKEY (1<<1)
+///The limb is digitigrade.
+#define BODYSHAPE_DIGITIGRADE (1<<2)
+///The limb is snouted.
+#define BODYSHAPE_SNOUTED (1<<3)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -148,9 +161,6 @@
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSMOBS_DT/3)
 
-#define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
-#define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
-
 #define HEAT_DAMAGE_LEVEL_1 1 //Amount of damage applied when your body temperature just passes the 360.15k safety point
 #define HEAT_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 400K point
 #define HEAT_DAMAGE_LEVEL_3 4 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
@@ -170,6 +180,7 @@
 
 //Brain Damage defines
 #define BRAIN_DAMAGE_MILD 20
+#define BRAIN_DAMAGE_ASYNC_BLINKING 60
 #define BRAIN_DAMAGE_SEVERE 100
 #define BRAIN_DAMAGE_DEATH 200
 
@@ -225,7 +236,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 //wing defines
 #define WINGS_COSMETIC 0 //Absolutely fucking useless
 #define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
-#define WINGS_FLYING 2 //can generate lift and fly if atmos is present
+#define WINGS_AIRWORTHY 2 //can generate lift and fly if atmos is present
 #define WINGS_MAGIC 3 //can fly regardless of atmos
 
 //Health hud screws for carbon mobs
@@ -462,9 +473,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define AI_CAMERA_LUMINOSITY	5
 #define AI_VOX //! Comment out if you don't want VOX to be enabled and have players download the voice sounds.
 
-// /obj/item/bodypart on_mob_life() retval flag
-#define BODYPART_LIFE_UPDATE_HEALTH (1<<0)
-
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180
 
@@ -581,8 +589,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define BODYPARTS_LAYER 33
 /// certain mutantrace features (snout, body markings) that must appear above the body parts
 #define BODY_ADJ_LAYER 32
-/// underwear, undershirts, socks, eyes, lips(makeup)
-#define BODY_LAYER 30
+/// Underwear, undershirts, socks
+#define BODY_LAYER 31
+/// Eyes and eyelids
+#define EYES_LAYER 30
 /// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
 #define FRONT_MUTATIONS_LAYER 29
 /// damage indicators (cuts and burns)
@@ -642,6 +652,21 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The highest most layer for mob overlays
 #define HIGHEST_LAYER 1
 
+// Legacy mutant bodypart layering defines for icon states
+// Don't change these without updating all relevant icon states
+#define EXTERNAL_FRONT "FRONT"
+#define EXTERNAL_ADJACENT "ADJ"
+#define EXTERNAL_BEHIND "BEHIND"
+
+// Bitflags for external organs restylability
+#define EXTERNAL_RESTYLE_ALL ALL
+/// This organ allows restyle through plant restyling (like secateurs)
+#define EXTERNAL_RESTYLE_PLANT (1 << 0)
+/// This organ allows restyling with flesh restyling stuff (surgery or something idk)
+#define EXTERNAL_RESTYLE_FLESH (1 << 1)
+/// This organ allows restyling with enamel restyling (like a fucking file or something?). It's for horns and shit
+#define EXTERNAL_RESTYLE_ENAMEL (1 << 2)
+
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
 //IT DOESN'T OK, IT MEANS "UNDER"
@@ -656,13 +681,32 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The layer above mutant body parts
 #define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
 
-//used by canUseTopic()
-/// If silicons need to be next to the atom to use this
-#define BE_CLOSE TRUE
-/// If other mobs (monkeys, aliens, etc) can use this
-#define NO_DEXTERITY TRUE // I had to change 20+ files because some non-dnd-playing fuckchumbis can't spell "dexterity"
-// If telekinesis you can use it from a distance
-#define NO_TK TRUE
+/// If gravity must be present to perform action (can't use pens without gravity)
+#define NEED_GRAVITY (1<<0)
+/// If reading is required to perform action (can't read a book if you are illiterate)
+#define NEED_LITERACY (1<<1)
+/// If lighting must be present to perform action (can't heal someone in the dark)
+#define NEED_LIGHT (1<<2)
+/// If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+#define NEED_DEXTERITY (1<<3)
+/// If hands are required to perform action (can't use objects that require hands if you are a cyborg)
+#define NEED_HANDS (1<<4)
+/// If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+#define FORBID_TELEKINESIS_REACH (1<<5)
+/// If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+#define ALLOW_SILICON_REACH (1<<6)
+/// If resting on the floor is allowed to perform action (pAIs can play music while resting)
+#define ALLOW_RESTING (1<<7)
+/// If this is accessible to creatures with ventcrawl capabilities
+#define NEED_VENTCRAWL (1<<8)
+/// Skips adjacency checks
+#define BYPASS_ADJACENCY (1<<9)
+/// Skips reccursive loc checks
+#define NOT_INSIDE_TARGET (1<<10)
+/// Checks for base adjacency, but silences the error
+#define SILENT_ADJACENCY (1<<11)
+/// Allows pAIs to perform an action
+#define ALLOW_PAI (1<<12)
 
 /// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
 #define RESIZE_DEFAULT_SIZE 1

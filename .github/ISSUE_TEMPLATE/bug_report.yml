@@ -2,19 +2,22 @@ name: Bug Report
 description: Create a report to help us improve
 title: "[Bug]: "
 labels: ["Bug"]
+type: bug
 body:
   - type: markdown
     attributes:
       value: |
         > _Thanks for filing a bug ticket. We appreciate your time and effort! If you need real-time support, consider joining us on Discord!_
+
   - type: input
-    id: byond
+    id: reporting-version
     attributes:
       label: BYOND Version
       description: What version of BYOND are you using?
-      placeholder: "514.1589"
+      placeholder: "516.1688"
     validations:
       required: false
+
   - type: input
     id: round-date
     attributes:
@@ -22,6 +25,7 @@ body:
       placeholder: "YYYY/MM/DD"
     validations:
       required: false
+
   - type: input
     id: round-id
     attributes:
@@ -29,8 +33,9 @@ body:
       placeholder: "12345"
     validations:
       required: false
+
   - type: textarea
-    id: testmerges
+    id: test-merges
     attributes:
       label: Test merges
       description: A list of currently active test merges (you can get this from the Message of the Day when you connect to the server, or the `Show Server Revision` OOC verb)
@@ -39,9 +44,11 @@ body:
         - #pr-number2
     validations:
       required: false
+
   - type: markdown
     attributes:
       value: ------
+
   - type: textarea
     id: description
     attributes:
@@ -51,6 +58,7 @@ body:
       value: "When I did [...], I noticed [...]"
     validations:
       required: true
+
   - type: textarea
     id: expected-behavior
     attributes:
@@ -60,6 +68,7 @@ body:
       value: "I expected [...]"
     validations:
       required: true
+
   - type: textarea
     id: reproduction
     attributes:

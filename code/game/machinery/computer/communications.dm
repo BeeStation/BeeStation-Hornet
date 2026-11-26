@@ -119,7 +119,7 @@
 					to_chat(usr, span_warning("You need to swipe your ID!"))
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
-				if (!(ACCESS_CAPTAIN in id_card.access))
+				if (!(ACCESS_CAPTAIN in id_card.GetAccess()))
 					to_chat(usr, span_warning("You are not authorized to do this!"))
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
@@ -318,12 +318,13 @@
 				authorize_name = "Unknown"
 				to_chat(usr, span_warning("[src] lets out a quiet alarm as its login is overridden."))
 				playsound(src, 'sound/machines/terminal_alert.ogg', 25, FALSE)
-			else
-				var/obj/item/card/id/id_card = usr.get_idcard(hand_first = TRUE)
+			else if(isliving(usr))
+				var/mob/living/living_user = usr
+				var/obj/item/card/id/id_card = living_user.get_idcard(hand_first = TRUE)
 				if (check_access(id_card))
 					authenticated = TRUE
-					authorize_access = id_card.access
-					authorize_name = "[id_card.registered_name] - [id_card.assignment]"
+					authorize_access = id_card.GetAccess()
+					authorize_name = "[id_card.registered_name] - [id_card.get_assignment()]"
 
 			state = STATE_MESSAGES
 			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
@@ -547,7 +548,7 @@
 		to_chat(user, span_alert("Intercomms recharging. Please stand by."))
 		return
 	var/input = tgui_input_text(user, "Please choose a message to announce to the station crew.", "Make Priority Announcement")
-	if(!input || !user.canUseTopic(src, !issilicon(usr)))
+	if(!input || !user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, span_warning("You cannot send an announcement that contains prohibited words."))

@@ -36,10 +36,10 @@
 	return ..()
 
 /turf/closed/mineral/proc/Spread_Vein()
-	var/spreadChance = initial(mineralType.spreadChance)
-	if(spreadChance)
+	var/spread_chance = initial(mineralType.spread_chance)
+	if(spread_chance)
 		for(var/dir in GLOB.cardinals)
-			if(prob(spreadChance))
+			if(prob(spread_chance))
 				var/turf/T = get_step(src, dir)
 				var/turf/closed/mineral/random/M = T
 				if(istype(M) && !M.mineralType)
@@ -608,6 +608,7 @@
 		stage = GIBTONITE_DETONATE
 		explosion(bombturf,1,2,5, adminlog = 0)
 		turf_destruction()
+		return
 
 	if(stage == GIBTONITE_STABLE) //Gibtonite deposit is now benign and extractable. Depending on how close you were to it blowing up before defusing, you get better quality ore.
 		var/obj/item/gibtonite/G = new (src)

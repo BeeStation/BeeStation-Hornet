@@ -39,7 +39,10 @@
 			MiddleClickOn(A, params)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK))
-		AltClickOn(A)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			AltClickSecondaryOn(A)
+		else
+			AltClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
@@ -50,6 +53,35 @@
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
+
+// Open "View Variables" menu for target
+/mob/dead/observer/CtrlShiftClickOn(atom/target)
+	if(isobserver(target) && check_rights_for(client, R_SPAWN))
+		var/mob/dead/observer/target_ghost = target
+		target_ghost.change_mob_type(/mob/living/carbon/human, null, null, TRUE) //always delmob, ghosts shouldn't be left lingering
+		return
+	if(!check_rights_for(client, R_DEBUG))
+		return ..()
+	client.debug_variables(target)
+
+// Open "Show Player Panel" menu for target mob
+/mob/dead/observer/CtrlClickOn(atom/target)
+	if(!ismob(target) || !check_rights_for(client, R_ADMIN))
+		return ..()
+	client.holder.show_player_panel(target)
+
+/mob/add_context_self(datum/screentip_context/context, mob/user)
+	SHOULD_CALL_PARENT(FALSE) //NO CACHING
+	if(!context.accept_mob_type(/mob/dead/observer))
+		return
+	if(check_rights_for(user.client, R_ADMIN))
+		context.add_ctrl_click_action("Player panel")
+	if(isobserver(src) && check_rights_for(user.client, R_SPAWN))
+		context.add_ctrl_shift_click_action("Spawn as human")
+	else if(check_rights_for(user.client, R_DEBUG))
+		context.add_ctrl_shift_click_action("View variables")
+	if(check_rights_for(user.client, R_DEBUG))
+		context.add_alt_right_click_action("Tag datum")
 
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
 /atom/proc/attack_ghost(mob/dead/observer/user)

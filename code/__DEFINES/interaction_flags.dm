@@ -14,8 +14,12 @@
 #define INTERACT_ATOM_ALLOW_USER_LOCATION			(1<<9)  //! allows this atom to skip the adjacency check
 /// ignores mobility check
 #define INTERACT_ATOM_IGNORE_MOBILITY (1<<10)
-/// mousedrops onto this atom skip the adjacency check. for screen elements, which do their own reach checking
+// Bypass all adjacency checks for mouse drop
 #define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<11)
+/// Bypass all can_perform_action checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY (1<<12)
+/// Bypass all adjacency and other checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS (INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT | INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY)
 
 #define INTERACT_ITEM_ATTACK_HAND_PICKUP (1<<0)		//! attempt pickup on attack_hand for items
 
@@ -29,3 +33,10 @@
 												//This flag determines if a machine set_machine's the user when the user uses it, making updateUsrDialog make the user re-call interact() on it.
 												//THIS FLAG IS ON ALL MACHINES BY DEFAULT, NEEDS TO BE RE-EVALUATED LATER!!
 
+#define INTERACT_GENERIC "interact"
+#define INTERACT_HELP "help"
+#define INTERACT_DISARM "disarm"
+#define INTERACT_HARM "harm"
+#define INTERACT_GRAB "grab"
+#define INTERACT_PULL "pull"
+#define INTERACT_UNPULL "unpull"

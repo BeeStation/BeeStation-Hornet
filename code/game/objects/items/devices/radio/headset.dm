@@ -26,11 +26,14 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	subspace_transmission = TRUE
 	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
-	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
-
+	interaction_flags_mouse_drop = FORBID_TELEKINESIS_REACH
 	slot_flags = ITEM_SLOT_EARS
 	dog_fashion = null
+	equip_sound = "headset_equip"
+	pickup_sound = "headset_pickup"
+	drop_sound = 'sound/items/handling/headset/headset_drop.ogg'
 	var/obj/item/encryptionkey/keyslot2 = null
+	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 	var/callout_capable = FALSE
 
 /obj/item/radio/headset/suicide_act(mob/living/carbon/user)
@@ -43,7 +46,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	if(callout_capable)
 		desc += span_notice("It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments.")
 
-	if(item_flags & PICKED_UP && loc == user)
+	if(item_flags & IN_INVENTORY && loc == user)
 		// construction of frequency description
 		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
 		if(translate_binary)
@@ -98,6 +101,10 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/ui_data(mob/user)
 	. = ..()
 	.["headset"] = TRUE
+
+/obj/item/radio/headset/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(user == over)
+		return attack_self(user)
 
 /obj/item/radio/headset/syndicate //disguised to look like a normal headset for stealth ops
 
@@ -304,7 +311,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	keyslot2 = null
 
 /obj/item/radio/headset/headset_cent/commander
-	keyslot = /obj/item/encryptionkey/heads/captain
+	keyslot2 = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/headset_cent/debug
 	keyslot = /obj/item/encryptionkey/debug
@@ -314,7 +321,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A headset especially for emergency response personnel. Protects ears from flashbangs."
 	icon_state = "cent_headset_alt"
 	worn_icon_state = "cent_headset_alt"
-	keyslot = null
 	bang_protect = 1
 
 /obj/item/radio/headset/silicon/pai
@@ -393,9 +399,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 		for(var/ch_name in channels)
 			secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
-/obj/item/radio/headset/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user) || user.incapacitated)
-		return
-	if (command)
-		use_command = !use_command
-		to_chat(user, span_notice("You toggle high-volume mode [use_command ? "on" : "off"]."))
+/obj/item/radio/headset/click_alt(mob/living/user)
+	if (!command)
+		return CLICK_ACTION_BLOCKING
+	use_command = !use_command
+	to_chat(user, span_notice("You toggle high-volume mode [use_command ? "on" : "off"]."))
+	return CLICK_ACTION_SUCCESS

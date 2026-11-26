@@ -55,12 +55,11 @@
 	stored.attack_self(user)
 
 //Alt click drops stored item
-/obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/borg/apparatus/click_alt(mob/living/silicon/robot/user)
 	if(!stored || !issilicon(user))
-		return ..()
+		return CLICK_ACTION_BLOCKING
 	stored.forceMove(user.drop_location())
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/borg/apparatus/pre_attack(atom/atom, mob/living/user, list/modifiers)
 	if(stored)
@@ -219,16 +218,15 @@
 		. += "Nothing."
 	. += span_notice(" <i>Alt-click</i> will drop the currently stored organ. ")
 
-/obj/item/borg/apparatus/organ_storage/AltClick(mob/living/silicon/robot/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/borg/apparatus/organ_storage/click_alt(mob/living/silicon/robot/user)
 	if(!stored)
 		to_chat(user, span_notice("[src] is empty."))
-		return
+		return CLICK_ACTION_BLOCKING
 
 	var/obj/item/organ = stored
 	user.visible_message(span_notice("[user] dumps [organ] from [src]."), span_notice("You dump [organ] from [src]."))
 	organ.forceMove(drop_location())
+	return CLICK_ACTION_SUCCESS
 
 ///Apparatus to allow Engineering/Sabo borgs to manipulate any material sheets.
 /obj/item/borg/apparatus/sheet_manipulator

@@ -23,6 +23,7 @@
 	var/atom/movable/movable = component_parent.parent
 	if(ismovable(movable))
 		movable.anchored = FALSE
+	UnregisterSignal(movable, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH))
 	return ..()
 
 /datum/xenoartifact_trait/minor/anchor/trigger(datum/source, _priority, atom/override)
@@ -42,6 +43,6 @@
 	//Anchor
 	if(ismovable(movable) && isturf(movable.loc))
 		movable.anchored = !movable.anchored
-		playsound(get_turf(component_parent?.parent), 'sound/items/handling/wrench_pickup.ogg', 50, TRUE)
+		playsound(get_turf(component_parent?.parent), 'sound/items/handling/tools/wrench_pickup.ogg', 50, TRUE)
 	//Message
 	movable.visible_message("<span class='warning'>[movable] [movable.anchored ? "anchors to" : "unanchors from"] [get_turf(movable)]!</span>", allow_inside_usr = TRUE)

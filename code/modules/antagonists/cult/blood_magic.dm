@@ -465,9 +465,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 		uses--
 		var/turf/origin = get_turf(user)
 		if(do_teleport(L, dest, channel = TELEPORT_CHANNEL_CULT))
-			origin.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"), \
-				span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
-			dest.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
+			origin.visible_message(
+				span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"),
+				span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"),
+				span_hear("You hear a sharp crack."),
+			)
+			dest.visible_message(
+				span_warning("There is a boom of outrushing air as something appears above the rune!"),
+				blind_message = span_hear("You hear a boom."),
+			)
+			playsound(origin, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(dest, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		..()
 
 //Shackles
@@ -495,7 +503,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 		if(do_after(user, 3 SECONDS, C))
 			if(!C.handcuffed)
 				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
-				C.update_handcuffed()
 				C.adjust_silence(10 SECONDS)
 				to_chat(user, span_notice("You shackle [C]."))
 				log_combat(user, C, "shackled", src)
@@ -583,7 +590,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					make_new_construct_from_class(construct_class, THEME_CULT, candidate, user, FALSE, T)
 					SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 					uses--
-					candidate.mmi = null
 					qdel(candidate)
 					channeling = FALSE
 				else

@@ -47,7 +47,7 @@
 		return equipped_item.w_class <= dexterity.max_w_class && QDELETED(dexterity.internal_storage)
 	return ..()
 
-/mob/living/simple_animal/hostile/holoparasite/equip_to_slot(obj/item/equipping, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/equip_to_slot(obj/item/equipping, slot, initial = FALSE)
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity) || !is_manifested() || !can_use_abilities)
 		return

@@ -21,7 +21,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The icon for holding in hand icon states for the right hand.
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-	var/supports_variations_flags = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
+	///This is a bitfield that defines what variations exist for bodyparts like Digi legs. See: code\_DEFINES\inventory.dm
+	var/supports_variations_flags = NONE
+	/// This is a bitfield that defines which bodyshapes this item is capable of rendering, used by build_worn_icon()
+	var/bodyshapes_with_variations = NONE
 
 	//Dimensions of the icon file used when this item is worn, eg: hats.dmi
 	//eg: 32x32 sprite, 64x64 sprite, etc.
@@ -66,8 +69,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/hitsound = null
 	/// If it's a tool, this is the sound played when the tool is used. For example when you use a wrench it goes *ccTCTHCHHTHCHT*
 	var/usesound = null
-	/// The sound played when you throw it at something and it hits that something.
-	var/throwhitsound = null
 	///Used when yate into a mob
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot
@@ -153,8 +154,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/sprite_sheets = null
 	///A bitfield of species that the item cannot be worn by.
 	var/species_restricted = null
-	///A weakref to the mob who threw the item
-	var/datum/weakref/thrownby = null
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
@@ -245,6 +244,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// How many charges get restored, when using this item to restore shield
 	var/added_shield = 0
 
+	/// Has the item been reskinned?
+	var/current_skin
+	/// Radial menu options for reskinning, usually built when first needed.
+	var/list/unique_reskin
+	/// Icon states for each reskin option. Items with this set can be reskinned by alt-clicking.
+	var/list/unique_reskin_icon
+	/*___________*/
+	/*Goon Combat*/
+	/*‾‾‾‾‾‾‾‾‾‾‾*/
+	var/stamina_cost = STAMINA_SWING_COST_ITEM
+	var/stamina_damage = STAMINA_DAMAGE_ITEM
+	var/stamina_critical_chance = STAMINA_CRITICAL_RATE_ITEM
+	var/stamina_critical_modifier = STAMINA_CRITICAL_MODIFIER
+
+	var/combat_click_delay = CLICK_CD_MELEE
+
 /obj/item/Initialize(mapload)
 	if(attack_verb_continuous)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
@@ -292,6 +307,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
+	if(unique_reskin_icon)
+		RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(on_click_alt_reskin))
+
+
 /obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
@@ -303,6 +322,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		remove_item_action(action)
 	QDEL_NULL(rpg_loot)
 	return ..()
+
+/obj/item/examine(mob/user)
+	. = ..()
+	if(unique_reskin_icon && !current_skin)
+		. += span_notice("Alt-click it to reskin it.")
+
+/obj/item/click_ctrl(mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	//If the item is on the ground & not anchored we allow the player to drag it
+	. = item_ctrl_click(user)
+	if(. & CLICK_ACTION_ANY)
+		return (isturf(loc) && !anchored) ? NONE : . //allow the object to get dragged on the floor
+
+/// Subtypes only override this proc for ctrl click purposes. obeys same principles as ctrl_click()
+/obj/item/proc/item_ctrl_click(mob/user)
+	SHOULD_CALL_PARENT(FALSE)
+	return NONE
 
 /// Called when an action associated with our item is deleted
 /obj/item/proc/on_action_deleted(datum/source)
@@ -407,7 +444,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	set category = "Object"
 	set src in oview(1)
 
-	if(!isturf(loc) || usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!isturf(loc) || usr.stat > SOFT_CRIT || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(usr))
@@ -622,7 +659,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(blockhand?.bodypart_disabled)
 		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
-	else if(owner.getStaminaLoss() >= 45)
+	else if(owner.stamina.loss_as_percent >= 45)
 		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
 	if((block_flags & BLOCKING_ACTIVE) && owner.get_active_held_item() != src) //you can still parry with the offhand
@@ -644,12 +681,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	switch(relative_dir)
 		if(180, -180) //Check for head on attack
 			if(canblock)
-				playsound(src, block_sound, 50, 1)
+				playsound(src, block_sound, 50, TRUE)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 				return TRUE
 		if(135, 225, -135, -225) //Check for forward diagonals
 			if(canblock)
-				playsound(src, block_sound, 50, 1)
+				playsound(src, block_sound, 50, TRUE)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 				return TRUE
 	return FALSE
@@ -682,7 +719,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = 0
 
 		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
-		else if(!I.damtype == BRUTE)
+		else if(I.damtype != BRUTE)
 			attackforce = (attackforce * 0.8)
 
 		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
@@ -716,7 +753,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(hitby, /mob/living/simple_animal))
 		var/mob/living/simple_animal/simplemob = hitby
 		if(simplemob.hardattacks)
-			attackforce = attackforce * 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
+			attackforce *= 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
 
 	//We are ready to deal stamina damage to our owner
 	owner.apply_damage(min(attackforce, 35), STAMINA, blocked = block_power)
@@ -756,18 +793,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)))
 
 	item_flags &= ~BEING_REMOVED
-	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	SEND_SIGNAL(user, COMSIG_MOB_DROPPED_ITEM, src, loc)
-	if(item_flags & SLOWS_WHILE_IN_HAND)
-		user?.update_equipment_speed_mods()
 	remove_outline()
 	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 	log_item(user, INVESTIGATE_VERB_DROPPED)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
-	user?.update_equipment_speed_mods()
 	user.refresh_self_screentips()
 
 	if(item_flags & DROPDEL && !QDELETED(src))
@@ -777,7 +810,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
-	item_flags |= PICKED_UP
 	if(item_flags & WAS_THROWN)
 		item_flags &= ~WAS_THROWN
 	if(verbs && user.client)
@@ -790,11 +822,21 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /**
+ * Returns the toolspeed for this item modified by it's users tool proficiency. If there is no user, it simply returns the toolspeed.
+ * * user the mob to check for tool proficiency
+ */
+/obj/item/proc/get_toolspeed(mob/user)
+	if(isliving(user))
+		var/mob/living/living_user = user
+		return toolspeed * living_user.tool_proficiency
+	return toolspeed
+
+/**
  * Called after an item is placed in an equipment slot. Runs equipped(), then sends a signal.
  * This should be called last or near-to-last, after all other inventory code stuff is handled.
  *
  * Arguments:
- * * user is mob that equipped it * * user is mob that equipped it
+ * * user is mob that equipped it
  * * slot uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
  * * initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
  */
@@ -806,16 +848,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return TRUE
 
 /**
- * Returns the toolspeed for this item modified by it's users tool proficiency. If there is no user, it simply returns the toolspeed.
- * * user the mob to check for tool proficiency
- */
-/obj/item/proc/get_toolspeed(mob/user)
-	if(isliving(user))
-		var/mob/living/living_user = user
-		return toolspeed * living_user.tool_proficiency
-	return toolspeed
-
-/**
  * To be overwritten to only perform visual tasks;
  * this is directly called instead of `equipped` on visual-only features like human dummies equipping outfits.
  *
@@ -823,7 +855,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * polling ghosts while it's just being equipped as a visual preview for a dummy.
  */
 /obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
-	return
+	return TRUE
 
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
@@ -843,18 +875,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)), PROC_REF(update_slot_icon), override = TRUE)
 
-	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
-		user.update_equipment_speed_mods()
 	if(ismonkey(user)) //Only generate icons if we have to
 		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 	if(!initial)
-		if(equip_sound && slot_flags)
+		if(equip_sound && (slot_flags & slot))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == ITEM_SLOT_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
-	user.update_equipment_speed_mods()
 
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot
@@ -871,7 +900,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/action)
-	if(slot == ITEM_SLOT_BACKPACK || slot == ITEM_SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there
+	if(!slot) // Equipped into storage
+		return FALSE
+	if(slot & (ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED)) // These aren't true slots, so avoid granting actions there
 		return FALSE
 	return TRUE
 
@@ -948,7 +979,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	add_fingerprint(user)
 
-	playsound(loc, src.hitsound, 30, 1, -1)
+	playsound(loc, src.hitsound, 30, TRUE, -1)
 
 	user.do_attack_animation(M)
 
@@ -1009,67 +1040,48 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = ..()
 	do_drop_animation(master_storage.parent)
 
-/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(QDELETED(hit_atom))
-		return
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum) & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
-		return
-
-	if(get_temperature() && isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		L.ignite_mob()
-	var/itempush = 1
+/obj/item/pre_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/impact_flags = ..()
 	if(w_class < WEIGHT_CLASS_NORMAL)
-		itempush = 0 //too light to push anything
-	if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
-		var/volume = get_volume_by_throwforce_and_or_w_class()
-		if (throwforce > 0)
-			if (mob_throw_hit_sound)
-				playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
-			else if(hitsound)
-				playsound(hit_atom, hitsound, volume, TRUE, -1)
-			else
-				playsound(hit_atom, 'sound/weapons/genhit.ogg',volume, TRUE, -1)
-		else
-			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
-	var/obj/item/modular_computer/comp
-	var/obj/item/computer_hardware/processor_unit/cpu
-	for(var/obj/item/modular_computer/M in contents)
-		cpu = M.all_components[MC_CPU]
-		if(cpu?.hacked)
-			comp = M
-		break
-	if(comp)
-		if(!cpu)
-			return
-		var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
-		var/turf/start = get_turf(src)
-		if(!comp.enabled)
-			new /obj/effect/particle_effect/sparks(start)
-			playsound(start, "sparks", 50, 1)
-			return
-		if(!target)
-			return
-		// The better the CPU the farther it goes, and the more battery it needs
-		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(start, "sparks", 50, 1)
-		playsound(target, "sparks", 50, 1)
-		do_dash(src, start, target, 0, TRUE)
-		comp.use_power((250 * cpu.max_idle_programs))
-	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
+		impact_flags |= COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH
+	if(!(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND) && get_temperature() && isliving(hit_atom))
+		var/mob/living/victim = hit_atom
+		victim.ignite_mob()
+	return impact_flags
 
+/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(.)
+		return
+	for(var/obj/item/modular_computer/computer in contents)
+		if(computer.hacked_throw_blink(src))
+			break
+	if(QDELETED(hit_atom) || !isliving(hit_atom))
+		return
+
+	var/volume = get_volume_by_throwforce_and_or_w_class()
+	if(!volume)
+		return
+	if (throwforce > 0)
+		if (mob_throw_hit_sound)
+			playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
+		else if(hitsound)
+			playsound(hit_atom, hitsound, volume, TRUE, -1)
+		else
+			playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+	else
+		playsound(hit_atom, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
-	thrownby = WEAKREF(thrower)
 	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
 		. = callback.Invoke()
-	item_flags &= ~PICKED_UP
+	item_flags &= ~IN_INVENTORY
 	if(!pixel_y && !pixel_x && !(item_flags & NO_PIXEL_RANDOM_DROP))
 		pixel_x = rand(-8,8)
 		pixel_y = rand(-8,8)
@@ -1217,31 +1229,88 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
 	return TRUE
 
-/obj/item/proc/set_force_string()
+/obj/item/proc/damagetype2text()
+	. += list()
+	if(damtype == BURN)
+		. += "BURN"
+	if(damtype == BRUTE)
+		. += "BRUTE"
+	if(damtype == TOX)
+		. += "TOXIN"
+	if(sharpness >= SHARP)
+		. += "CUT"
+	if(!sharpness && damtype == BRUTE)
+		. += "CRUSH"
+	return english_list(., "NONE")
+
+/obj/item/proc/force2text()
 	switch(force)
-		if(0 to 4)
-			force_string = "very low"
-		if(4 to 7)
-			force_string = "low"
-		if(7 to 10)
-			force_string = "medium"
-		if(10 to 11)
-			force_string = "high"
-		if(11 to 20) //12 is the force of a toolbox
-			force_string = "robust"
+		if(-INFINITY to 0)
+			return "Harmless"
+		if(0 to 2)
+			return "Very Low"
+		if(2 to 6)
+			return "Low"
+		if(6 to 12)
+			return "Average"
+		if(12 to 16)
+			return "High"
+		if(16 to 30)
+			return "Very High"
+		if(30 to INFINITY)
+			return "You could really hurt somebody with this thing!"
+
+/obj/item/proc/staminadamage2text()
+	switch(stamina_damage)
+		if(-INFINITY to 0)
+			return "Harmless"
+		if(0 to 5)
+			return "Very Low"
+		if(5 to 10)
+			return "Low"
+		if(10 to 20)
+			return "Average"
 		if(20 to 25)
-			force_string = "very robust"
-		else
-			force_string = "exceptionally robust"
-	last_force_string_check = force
+			return "High"
+		if(25 to 35)
+			return "Very High"
+		if(35 to INFINITY)
+			return "This will take the wind out of your sails."
+
+/obj/item/proc/staminacost2text()
+	switch(stamina_cost)
+		if(-INFINITY to 0)
+			return "None"
+		if(0 to 5)
+			return "Very Low"
+		if(5 to 10)
+			return "Low"
+		if(10 to 15)
+			return "Average"
+		if(15 to 25)
+			return "High"
+		if(25 to 35)
+			return "Very High"
+		if(35 to INFINITY)
+			return "This will take the wind out of your sails."
+
+/obj/item/proc/tooltipContent(list/url_mappings)
+	RETURN_TYPE(/list)
+	. = list()
+	. += desc
+	if(!stamina_damage && !force)
+		return
+	. += "<hr>"
+	if(item_flags & FORCE_STRING_OVERRIDE)
+		. += "<img src='[url_mappings["attack.png"]]'>Lethality: [force_string]<br>"
+	else
+		. += "<img src='[url_mappings["attack.png"]]'>Lethality: [force2text()], type: [damagetype2text()]<br>"
+	. += "<img src='[url_mappings["stamina.png"]]'>Stamina: [staminadamage2text()]<br>"
+	. += "<img src='[url_mappings["stamcost.png"]]'>Stamina Cost: [staminacost2text()]<br>"
 
 /obj/item/proc/openTip(location, control, params, user)
-	if(last_force_string_check != force && !(item_flags & FORCE_STRING_OVERRIDE))
-		set_force_string()
-	if(!(item_flags & FORCE_STRING_OVERRIDE))
-		openToolTip(user,src,params,title = name,content = "[desc]<br>[force ? "<b>Force:</b> [force_string]" : ""]",theme = "")
-	else
-		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
+	var/content = jointext(tooltipContent(get_asset_datum(/datum/asset/simple/namespaced/common).get_url_mappings()), "")
+	openToolTip(user,src,params,title = name,content = content,theme = "")
 
 /obj/item/MouseEntered(location, control, params)
 	..()
@@ -1256,8 +1325,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				apply_outline()
 
-/obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+/obj/item/base_mouse_drop_handler(atom/over, src_location, over_location, params)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	. = ..()
+
 	remove_outline()
 
 /obj/item/MouseExited()
@@ -1342,7 +1414,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(islist(usesound))
 			played_sound = pick(usesound)
 
-		playsound(target, played_sound, volume, 1)
+		playsound(target, played_sound, volume, TRUE)
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
 /obj/item/proc/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
@@ -1352,19 +1424,26 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/get_part_rating()
 	return FALSE
 
+/**
+ * this proc override makes sure that even if DoUnEquip is not properly called through the appropriate channels,
+ * it'll still be called if we find that the item has the IN_INVENTORY flag.
+ *
+ * THIS IS BY NO MEAN AN EXCUSE TO KNOWINGLY AVOID CALLING THE RIGHT PROCS FOR INVENTORY MANAGEMENT,
+ * BUT A FALLBACK IN THE CASE WE MISTAKINGLY DON'T, TO MAKE SURE THINGS WORK AS INTENDED SINCE
+ * INVENTORY MANAGEMENT HAS A LOT MORE TO IT THAN JUST CALLING A PROC OR TWO MANUALLY.
+ */
 /obj/item/doMove(atom/destination)
-	if (ismob(loc))
-		var/mob/M = loc
-		var/hand_index = M.get_held_index_of_item(src)
-		if(hand_index)
-			M.held_items[hand_index] = null
-			M.update_held_items()
-			if(M.client)
-				M.client.screen -= src
-			layer = initial(layer)
-			plane = initial(plane)
-			dropped(M, FALSE)
-	return ..()
+	if (!(item_flags & IN_INVENTORY))
+		return ..()
+
+	if(!ismob(loc))
+		stack_trace("[src] had the IN_INVENTORY flag but the location was not a mob!")
+		item_flags &= ~IN_INVENTORY
+		return ..()
+
+	var/mob/owner = loc
+	// This should remove the IN_INVENTORY flag. Otherwise we'll end up having a loop
+	return owner.transferItemToLoc(src, destination, force = TRUE, silent = TRUE, animated = FALSE)
 
 /obj/item/proc/embedded(atom/embedded_target)
 
@@ -1453,18 +1532,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 
 	AddElement(/datum/element/embed,\
-		embed_chance = (!isnull(embedding["embed_chance"]) ? embedding["embed_chance"] : EMBED_CHANCE),\
-		fall_chance = (!isnull(embedding["fall_chance"]) ? embedding["fall_chance"] : EMBEDDED_ITEM_FALLOUT),\
-		pain_chance = (!isnull(embedding["pain_chance"]) ? embedding["pain_chance"] : EMBEDDED_PAIN_CHANCE),\
-		pain_mult = (!isnull(embedding["pain_mult"]) ? embedding["pain_mult"] : EMBEDDED_PAIN_MULTIPLIER),\
-		max_damage_mult = (!isnull(embedding["max_damage_mult"]) ? embedding["max_damage_mult"] : EMBEDDED_MAX_DAMAGE_MULTIPLIER),\
-		remove_pain_mult = (!isnull(embedding["remove_pain_mult"]) ? embedding["remove_pain_mult"] : EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER),\
-		rip_time = (!isnull(embedding["rip_time"]) ? embedding["rip_time"] : EMBEDDED_UNSAFE_REMOVAL_TIME),\
-		ignore_throwspeed_threshold = (!isnull(embedding["ignore_throwspeed_threshold"]) ? embedding["ignore_throwspeed_threshold"] : FALSE),\
-		jostle_chance = (!isnull(embedding["jostle_chance"]) ? embedding["jostle_chance"] : EMBEDDED_JOSTLE_CHANCE),\
-		jostle_pain_mult = (!isnull(embedding["jostle_pain_mult"]) ? embedding["jostle_pain_mult"] : EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
-		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT),\
-		armour_block = (!isnull(embedding["armour_block"]) ? embedding["armour_block"] : EMBEDDED_ARMOUR_BLOCK))
+		embed_chance = (embedding["embed_chance"] || EMBED_CHANCE),\
+		fall_chance = (embedding["fall_chance"] || EMBEDDED_ITEM_FALLOUT),\
+		pain_chance = (embedding["pain_chance"] || EMBEDDED_PAIN_CHANCE),\
+		pain_mult = (embedding["pain_mult"] || EMBEDDED_PAIN_MULTIPLIER),\
+		max_damage_mult = (embedding["max_damage_mult"] || EMBEDDED_MAX_DAMAGE_MULTIPLIER),\
+		remove_pain_mult = (embedding["remove_pain_mult"] || EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER),\
+		rip_time = (embedding["rip_time"] || EMBEDDED_UNSAFE_REMOVAL_TIME),\
+		ignore_throwspeed_threshold = (embedding["ignore_throwspeed_threshold"] || FALSE),\
+		jostle_chance = (embedding["jostle_chance"] || EMBEDDED_JOSTLE_CHANCE),\
+		jostle_pain_mult = (embedding["jostle_pain_mult"] || EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
+		pain_stam_pct = (embedding["pain_stam_pct"] || EMBEDDED_PAIN_STAM_PCT),\
+		armour_block = (embedding["armour_block"] || EMBEDDED_ARMOUR_BLOCK))
 	return TRUE
 
 /// How many different types of mats will be counted in a bite?
@@ -1488,7 +1567,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * * discover_after - if the item will be discovered after being chomped (FALSE will usually mean it was swallowed, TRUE will usually mean it was bitten into and discovered)
  */
 /obj/item/proc/on_accidental_consumption(mob/living/carbon/victim, mob/living/carbon/user, obj/item/source_item, discover_after = TRUE)
-	if(get_sharpness() && force >= 5) //if we've got something sharp with a decent force (ie, not plastic)
+	if(sharpness && force >= 5) //if we've got something sharp with a decent force (ie, not plastic)
 		INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "scream")
 		victim.visible_message(span_warning("[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!"), \
 							span_boldwarning("OH GOD! Was that a crunch? That didn't feel good at all!!"))

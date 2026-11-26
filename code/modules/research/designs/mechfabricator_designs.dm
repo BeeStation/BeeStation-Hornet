@@ -847,7 +847,7 @@
 	build_path = /obj/item/borg/upgrade/ai
 	materials = list(/datum/material/iron = 1200, /datum/material/glass = 1500, /datum/material/gold = 200)
 	construction_time = 50
-	category = list(RND_CATEGORY_EXOSUIT_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_CONTROL_INTERFACES)
+	category = list(RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CONTROL_INTERFACES)
 	search_metadata = "boris"
 
 /datum/design/borg_upgrade_rped

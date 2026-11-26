@@ -477,89 +477,6 @@
 
 	return FALSE
 
-/**
-  * Try to equip an item to a slot on the mob
-  *
-  * This is a SAFE proc. Use this instead of equip_to_slot()!
-  *
-  * set qdel_on_fail to have it delete W if it fails to equip
-  *
-  * set disable_warning to disable the 'you are unable to equip that' warning.
-  *
-  * unset redraw_mob to prevent the mob icons from being redrawn at the end.
- *
- * Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
- *
- * set indirect_action to allow insertions into "soft" locked objects, things that are easily opened by the owning mob
- */
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE, indirect_action = FALSE)
-	if(!istype(W) || QDELETED(W)) //This qdeleted is to prevent stupid behavior with things that qdel during init, like say stacks
-		return FALSE
-	if(!W.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, indirect_action = indirect_action))
-		if(qdel_on_fail)
-			qdel(W)
-		else if(!disable_warning)
-			to_chat(src, span_warning("You are unable to equip that!"))
-		return FALSE
-	equip_to_slot(W, slot, initial, redraw_mob, indirect_action = indirect_action) //This proc should not ever fail.
-	return TRUE
-
-/**
-  * Actually equips an item to a slot (UNSAFE)
-  *
-  * This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on
-  * whether you can or can't equip need to be done before! Use mob_can_equip() for that task.
-  *
-  *In most cases you will want to use equip_to_slot_if_possible()
-  */
-/mob/proc/equip_to_slot(obj/item/equipping, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
-	return
-
-/**
-  * Equip an item to the slot or delete
-  *
-  * This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to
-  * equip people when the round starts and when events happen and such.
-  *
-  * Also bypasses equip delay checks, since the mob isn't actually putting it on.
- * Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
- * set indirect_action to allow insertions into "soft" locked objects, things that are easily opened by the owning mob
- */
-/mob/proc/equip_to_slot_or_del(obj/item/W, slot, initial = FALSE, indirect_action = FALSE)
-	return equip_to_slot_if_possible(W, slot, TRUE, TRUE, FALSE, TRUE, initial, indirect_action)
-
-/**
-  * Auto equip the passed in item the appropriate slot based on equipment priority
-  *
-  * puts the item "W" into an appropriate slot in a human's inventory
-  *
-  * returns 0 if it cannot, 1 if successful
- */
-/mob/proc/equip_to_appropriate_slot(obj/item/W, qdel_on_fail = FALSE, indirect_action = FALSE)
-	if(!istype(W))
-		return FALSE
-	var/slot_priority = W.slot_equipment_priority
-
-	if(!slot_priority)
-		slot_priority = list( \
-			ITEM_SLOT_BACK, ITEM_SLOT_ID,\
-			ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
-			ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_NECK,\
-			ITEM_SLOT_FEET, ITEM_SLOT_GLOVES,\
-			ITEM_SLOT_EARS, ITEM_SLOT_EYES,\
-			ITEM_SLOT_BELT, ITEM_SLOT_SUITSTORE,\
-			ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET,\
-			ITEM_SLOT_DEX_STORAGE\
-		)
-
-	for(var/slot in slot_priority)
-		if(equip_to_slot_if_possible(W, slot, disable_warning = TRUE, redraw_mob = TRUE, indirect_action = indirect_action))
-			return TRUE
-
-	if(qdel_on_fail)
-		qdel(W)
-	return FALSE
-
 /// Convinience proc. Collects crap that fails to equip either onto the mob's back, or drops it.
 /// Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(obj/item/item_to_equip, slot)
@@ -868,7 +785,7 @@
 	return TRUE
 
 /mob/living/carbon/can_eye_contact()
-	return !(wear_mask?.flags_inv & HIDEFACE)
+	return !(obscured_slots & HIDEFACE)
 
 /**
   * Called by using Activate Held Object with an empty hand/limb
@@ -1073,20 +990,6 @@
 	set category = null
 	return
 
-/**
-  * Controls if a mouse drop succeeds (return null if it doesnt)
-  */
-/mob/MouseDrop(mob/M)
-	. = ..()
-	if(M != usr)
-		return
-	if(usr == src)
-		return
-	if(!Adjacent(usr))
-		return
-	if(isAI(M))
-		return
-
 /datum/action/proc/get_stat_label()
 	var/label = ""
 	var/time_left = max(next_use_time - world.time, 0)
@@ -1230,7 +1133,7 @@
 			("<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>"),
 			("<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>"),
 		)
-		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
 		playsound(src, 'sound/magic/magic_block_holy.ogg', 50, TRUE)
 
@@ -1298,13 +1201,39 @@
 		return TRUE
 	return Adjacent(A)
 
-///Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+/**
+ * Checks whether a mob can perform an action to interact with an object
+ *
+ * The default behavior checks if the mob is:
+ * * Directly adjacent (1-tile radius)
+ * * Standing up (not resting)
+ * * Allows telekinesis to be used to skip adjacent checks (if they have DNA mutation)
+ * *
+ * action_bitflags: (see code/__DEFINES/mobs.dm)
+ * * NEED_GRAVITY - If gravity must be present to perform action (can't use pens without gravity)
+ * * NEED_LITERACY - If reading is required to perform action (can't read a book if you are illiterate)
+ * * NEED_LIGHT - If lighting must be present to perform action (can't heal someone in the dark)
+ * * NEED_DEXTERITY - If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+ * * NEED_HANDS - If hands are required to perform action (can't pickup items if you are a cyborg)
+ * * FORBID_TELEKINESIS_REACH - If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+ * * ALLOW_SILICON_REACH - If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+ * * ALLOW_RESTING - If resting on the floor is allowed to perform action ()
+ * * ALLOW_VENTCRAWL - Mobs with ventcrawl traits can alt-click this to vent
+ * * BYPASS_ADJACENCY - The target does not have to be adjacent
+ * * SILENT_ADJACENCY - Adjacency is required but errors are not printed
+ * * NOT_INSIDE_TARGET - The target maybe adjacent but the mob should not be inside the target
+ * * ALLOW_PAI - Allows pAIs to perform an action
+ *
+ * silence_adjacency: Sometimes we want to use this proc to check interaction without allowing it to throw errors for base case adjacency
+ * Alt click uses this, as otherwise you can detect what is interactable from a distance via the error message
+**/
+/mob/proc/can_perform_action(atom/target, action_bitflags)
 	return
 
 ///Can this mob use storage
 /mob/proc/canUseStorage()
 	return FALSE
+
 /**
   * Check if the other mob has any factions the same as us
   *
@@ -1560,13 +1489,6 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 
 	return TRUE
 
-///Get the id card on this mob
-/mob/proc/get_idcard(hand_first)
-	return
-
-/mob/proc/get_id_in_hand()
-	return
-
 /**
   * Get the mob VV dropdown extras
   */
@@ -1580,6 +1502,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	VV_DROPDOWN_OPTION(VV_HK_GODMODE, "Toggle Godmode")
 	VV_DROPDOWN_OPTION(VV_HK_DROP_ALL, "Drop Everything")
 	VV_DROPDOWN_OPTION(VV_HK_REGEN_ICONS, "Regenerate Icons")
+	VV_DROPDOWN_OPTION(VV_HK_REGEN_ICONS_FULL, "Regenerate Icons & Clear Stuck Overlays")
 	VV_DROPDOWN_OPTION(VV_HK_PLAYER_PANEL, "Show player panel")
 	VV_DROPDOWN_OPTION(VV_HK_BUILDMODE, "Toggle Buildmode")
 	VV_DROPDOWN_OPTION(VV_HK_DIRECT_CONTROL, "Assume Direct Control")
@@ -1589,6 +1512,12 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 /mob/vv_do_topic(list/href_list)
 	. = ..()
 	if(href_list[VV_HK_REGEN_ICONS] && check_rights(R_ADMIN))
+		regenerate_icons()
+
+	if(href_list[VV_HK_REGEN_ICONS_FULL])
+		if(!check_rights(NONE))
+			return
+		cut_overlays()
 		regenerate_icons()
 
 	if(href_list[VV_HK_PLAYER_PANEL] && check_rights(R_ADMIN))
@@ -1629,7 +1558,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
   */
 /mob/vv_get_var(var_name)
 	switch(var_name)
-		if("logging")
+		if(NAMEOF(src, logging))
 			return debug_variable(var_name, logging, 0, src, FALSE)
 	. = ..()
 
@@ -1654,18 +1583,13 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	nutrition = max(0, change)
 
 /mob/proc/update_equipment_speed_mods()
-	var/speedies = equipped_speed_mods()
+	var/speedies = 0
+	for(var/obj/item/thing as anything in get_equipped_speed_mod_items())
+		speedies += thing.slowdown
 	if(!speedies)
 		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
 	else
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
-
-/// Gets the combined speed modification of all worn items
-/// Except base mob type doesnt really wear items
-/mob/proc/equipped_speed_mods()
-	for(var/obj/item/I in held_items)
-		if(I.item_flags & SLOWS_WHILE_IN_HAND)
-			. += I.slowdown
 
 // Returns TRUE if the hearer should hear radio noises
 /mob/proc/hears_radio()
@@ -1677,6 +1601,52 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .) // this is sent after stat is assigned so anything reading src.stat will see the value
+
+/mob/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, control_object))
+			var/obj/O = var_value
+			if(!istype(O) || (O.obj_flags & DANGEROUS_POSSESSION))
+				return FALSE
+		if(NAMEOF(src, machine))
+			set_machine(var_value)
+			. =  TRUE
+		if(NAMEOF(src, focus))
+			set_focus(var_value)
+			. =  TRUE
+		if(NAMEOF(src, nutrition))
+			set_nutrition(var_value)
+			. =  TRUE
+		if(NAMEOF(src, stat))
+			set_stat(var_value)
+			. =  TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
+	var/slowdown_edit = (var_name == NAMEOF(src, cached_multiplicative_slowdown))
+	var/diff
+	if(slowdown_edit && isnum(cached_multiplicative_slowdown) && isnum(var_value))
+		remove_movespeed_modifier(/datum/movespeed_modifier/admin_varedit)
+		diff = var_value - cached_multiplicative_slowdown
+
+	. = ..()
+
+	if(. && slowdown_edit && isnum(diff))
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/admin_varedit, multiplicative_slowdown = diff)
+
+/// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
+/// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
+/mob/proc/become_uncliented()
+	if(!canon_client)
+		return
+
+	for(var/datum/callback/CB as anything in canon_client.player_details.post_logout_callbacks)
+		CB.Invoke()
+
+	clear_important_client_contents()
+	canon_client = null
 
 /mob/key_down(key, client/client, full_key)
 	..()

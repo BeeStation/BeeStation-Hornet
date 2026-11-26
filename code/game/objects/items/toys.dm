@@ -109,7 +109,7 @@
 				to_chat(user, span_notice("You fill the balloon with the contents of [I]."))
 				I.reagents.trans_to(src, 10, transfered_by = user)
 				update_icon()
-	else if(I.get_sharpness())
+	else if(I.sharpness)
 		balloon_burst()
 	else
 		return ..()
@@ -262,13 +262,15 @@
 	add_fingerprint(user)
 	if (src.bullets < 1)
 		user.show_message(span_warning("*click*"), MSG_AUDIBLE)
-		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
+		playsound(src, 'sound/weapons/gun/revolver/dry_fire.ogg', 30, TRUE)
 		return
-	playsound(user, 'sound/weapons/gunshot.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun/pistol/shot.ogg', 100, TRUE)
 	src.bullets--
-	user.visible_message(span_danger("[user] fires [src] at [target]!"), \
-						span_danger("You fire [src] at [target]!"), \
-						span_italics("You hear a gunshot!"))
+	user.visible_message(
+		span_danger("[user] fires [src] at [target]!"),
+		span_danger("You fire [src] at [target]!"),
+		span_italics("You hear a gunshot!"),
+	)
 
 /obj/item/toy/ammo
 	abstract_type = /obj/item/toy/ammo
@@ -425,8 +427,8 @@
 	var/active = FALSE
 	icon = 'icons/obj/items_and_weapons.dmi'
 	hitsound = 'sound/weapons/smash.ogg'
-	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/toolbox/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox/toolbox_pickup.ogg'
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	item_flags = ISWEAPON
@@ -494,7 +496,7 @@
 
 /obj/item/dualsaber/toy/impale(mob/living/user)//Stops Toy Dualsabers from injuring clowns
 	to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on [src]."))
-	user.adjustStaminaLoss(25)
+	user.stamina.adjust(-25)
 
 /obj/item/toy/katana
 	name = "replica katana"
@@ -560,7 +562,7 @@
 	SIGNAL_HANDLER
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.move_intent == MOVE_INTENT_RUN)
+		if(issilicon(H) || !MOVING_DELIBERATELY(M))
 			to_chat(M, span_danger("You step on the snap pop!"))
 			pop_burst(2, 0)
 
@@ -877,6 +879,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	item_flags = ISWEAPON
+	interaction_flags_click = NEED_DEXTERITY|FORBID_TELEKINESIS_REACH|ALLOW_RESTING
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -948,7 +951,6 @@
 	var/O = src
 	H.apply_card_vars(H,O)
 	popleft(cards)
-	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message(span_notice("[user] draws a card from the deck."), span_notice("You draw a card from the deck."))
 	update_icon()
@@ -1032,7 +1034,6 @@
 	C.parentdeck = parentdeck
 	C.cardname = choice
 	C.apply_card_vars(C,O)
-	C.pickup(cardUser)
 	cardUser.put_in_hands(C)
 	cardUser.visible_message(span_notice("[cardUser] draws a card from [cardUser.p_their()] hand."), span_notice("You take the [C.cardname] from your hand."))
 
@@ -1044,7 +1045,6 @@
 		N.cardname = currenthand[1]
 		N.apply_card_vars(N,O)
 		qdel(src)
-		N.pickup(cardUser)
 		cardUser.put_in_hands(N)
 		to_chat(cardUser, span_notice("You also take [currenthand[1]] and hold it."))
 
@@ -1130,7 +1130,7 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+	if(!ishuman(usr) || !usr.can_perform_action(src))
 		return
 	if(!flipped)
 		src.flipped = 1
@@ -1159,7 +1159,6 @@
 			to_chat(user, span_notice("You combine the [C.cardname] and the [src.cardname] into a hand."))
 			qdel(C)
 			qdel(src)
-			H.pickup(user)
 			user.put_in_active_hand(H)
 		else
 			to_chat(user, span_warning("You can't mix cards from other decks!"))
@@ -1748,13 +1747,15 @@
 /obj/item/toy/cards/deck/cyborg/update_icon()
 	icon_state = "deck_[deckstyle]_full"
 
-/obj/item/toy/cards/deck/cyborg/CtrlClick(mob/user)
-	..()
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		if(R.cell?.use(300))
-			populate_deck()
-			to_chat(user, span_notice("You fabricate a new set of cards."))
+/obj/item/toy/cards/deck/cyborg/item_ctrl_click(mob/user)
+	if(!iscyborg(user))
+		return NONE
+	var/mob/living/silicon/robot/R = user
+	if(!R.cell?.use(300))
+		return CLICK_ACTION_BLOCKING
+	populate_deck()
+	to_chat(user, span_notice("You fabricate a new set of cards."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/cards/deck/cyborg/afterattack(atom/A, mob/user, proximity)
 	. = ..()

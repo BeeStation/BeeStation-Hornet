@@ -86,8 +86,8 @@
 	.["stock"] = list()
 
 	if(isliving(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/card/id/id_card = H?.get_idcard(TRUE)
+		var/mob/living/living_user = user
+		var/obj/item/card/id/id_card = living_user.get_idcard(TRUE)
 		if(!target_account)
 			target_account = id_card?.registered_account
 		if(target_account)
@@ -104,8 +104,8 @@
 				R = find_record(id_card.registered_account.account_holder, GLOB.manifest.general)
 			if(R)
 				.["user"]["job"] = R.rank
-			else if(id_card.assignment)
-				.["user"]["job"] = id_card.assignment
+			else if(id_card.get_assignment())
+				.["user"]["job"] = id_card.get_assignment()
 			else if(id_card.registered_account?.account_job)
 				.["user"]["job"] = id_card.registered_account.account_job.title
 
@@ -137,7 +137,10 @@
 		if("vend") // Changed from "purchase" to "vend" for compatibility
 			var/datum/bank_account/target_account = bound_bank_account
 			if(!target_account) // if bound_bank_account is null, it means you need to get a new account
-				var/obj/item/card/id/I = M.get_idcard(TRUE)
+				var/obj/item/card/id/I
+				if(isliving(M))
+					var/mob/living/living_user = M
+					I = living_user.get_idcard(TRUE)
 				if(!istype(I))
 					to_chat(usr, span_alert("Error: An ID is required!"))
 					z_flick(icon_deny, src)

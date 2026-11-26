@@ -9,8 +9,8 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
+	drop_sound = 'sound/items/handling/paper/paper_drop.ogg'
+	pickup_sound = 'sound/items/handling/paper/paper_pickup.ogg'
 	throwforce = 0
 	throw_range = 1
 	throw_speed = 1
@@ -54,7 +54,6 @@
 		/obj/item/clothing/shoes/laceup = 1,
 		/obj/item/storage/belt/military/army = 1,
 		/obj/item/tank/jetpack/carbondioxide = 1,
-		/obj/item/tank/jetpack/suit = 1,
 		/obj/item/clothing/ears/headphones = 1,
 		/obj/item/camera = 1,
 		/obj/item/gps = 1,

@@ -96,10 +96,9 @@
 	if(has_cooldown)
 		COOLDOWN_START(src, play_cooldown, added_cooldown + get_sound_length(user))
 
-/obj/item/soundsynth/AltClick(mob/living/carbon/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/soundsynth/click_alt(mob/user)
 	pick_sound()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/soundsynth/attack(mob/living/target, mob/living/user, def_zone)
 	if(target == user)

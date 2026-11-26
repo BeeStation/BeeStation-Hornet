@@ -140,7 +140,7 @@
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(dna && dna.species)
-		var/spec_return = dna.species.spec_hitby(AM, src)
+		var/spec_return = dna.species.spec_hitby(AM, src, throwingdatum)
 		if(spec_return)
 			return spec_return
 	var/obj/item/I
@@ -148,7 +148,7 @@
 	if(istype(AM, /obj/item))
 		I = AM
 		throwpower = I.throwforce
-		if(I.thrownby == WEAKREF(src)) //No throwing stuff at yourself to trigger hit reactions
+		if(throwingdatum?.get_thrower() == src) //No throwing stuff at yourself to trigger hit reactions
 			return ..()
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = FALSE
@@ -447,7 +447,7 @@
 		//If they can't, they're missing their heart and this would runtime
 		if(undergoing_cardiac_arrest() && can_heartattack() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-			if(heart.Restart() && stat == CONSCIOUS)
+			if(heart.Restart() && stat <= SOFT_CRIT)
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
 
@@ -455,17 +455,9 @@
 	. = ..()
 	if(. & EMP_PROTECT_CONTENTS)
 		return
-	var/informed = FALSE
 	for(var/obj/item/bodypart/bodypart in src.bodyparts)
 		if(!IS_ORGANIC_LIMB(bodypart))
-			if(!informed)
-				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
-				informed = TRUE
-			if(prob(30/severity)) //Random chance to disable and burn limbs
-				bodypart.receive_damage(burn = 5)
-				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-			else
-				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
+			bodypart.emp_act(severity)
 			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
 				if(prob(5))
 					bodypart.dismember(BRUTE)
@@ -675,8 +667,8 @@
 	else if (is_bandaged())
 		combined_msg += span_danger("Your [bleed_msg] is bandaged!")
 
-	if(getStaminaLoss())
-		if(getStaminaLoss() > 30)
+	if(stamina.loss)
+		if(HAS_TRAIT(src, TRAIT_EXHAUSTED))
 			combined_msg += span_info("You're completely exhausted.")
 		else
 			combined_msg += span_info("You feel fatigued.")
@@ -754,29 +746,28 @@
 
 /mob/living/carbon/human/proc/burn_clothing(delta_time, stacks)
 	var/list/burning_items = list()
-	var/covered = check_covered_slots()
 	//HEAD//
 
-	if(glasses && !(covered & ITEM_SLOT_EYES))
+	if(glasses && !(covered_slots & HIDEEYES))
 		burning_items += glasses
-	if(wear_mask && !(covered & ITEM_SLOT_MASK))
+	if(wear_mask && !(covered_slots & HIDEMASK))
 		burning_items += wear_mask
-	if(wear_neck && !(covered & ITEM_SLOT_NECK))
+	if(wear_neck && !(covered_slots & HIDENECK))
 		burning_items += wear_neck
-	if(ears && !(covered & ITEM_SLOT_EARS))
+	if(ears && !(covered_slots & HIDEEARS))
 		burning_items += ears
 	if(head)
 		burning_items += head
 
 	//CHEST//
-	if(w_uniform && !(covered & ITEM_SLOT_ICLOTHING))
+	if(w_uniform && !(covered_slots & HIDEJUMPSUIT))
 		burning_items += w_uniform
 	if(wear_suit)
 		burning_items += wear_suit
 
 	//ARMS & HANDS//
 	var/obj/item/clothing/arm_clothes = null
-	if(gloves && !(covered & ITEM_SLOT_GLOVES))
+	if(gloves && !(covered_slots & HIDEGLOVES))
 		arm_clothes = gloves
 	else if(wear_suit && ((wear_suit.body_parts_covered & HANDS) || (wear_suit.body_parts_covered & ARMS)))
 		arm_clothes = wear_suit
@@ -787,7 +778,7 @@
 
 	//LEGS & FEET//
 	var/obj/item/clothing/leg_clothes = null
-	if(shoes && !(covered & ITEM_SLOT_FEET))
+	if(shoes && !(covered_slots & HIDESHOES))
 		leg_clothes = shoes
 	else if(wear_suit && ((wear_suit.body_parts_covered & FEET) || (wear_suit.body_parts_covered & LEGS)))
 		leg_clothes = wear_suit

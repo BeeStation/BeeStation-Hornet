@@ -380,6 +380,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	maxcharge = 3 KILOWATT
 	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"

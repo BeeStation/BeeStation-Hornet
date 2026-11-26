@@ -32,7 +32,7 @@
 	. = ..()
 	if(QDELETED(src))
 		return FALSE
-	if(owner.getStaminaLoss() >= 45 && !is_energy_shield)
+	if(owner.stamina.loss_as_percent >= 45 && !is_energy_shield)
 		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			shatter(owner)
@@ -98,9 +98,10 @@
 	custom_materials = list(/datum/material/glass=7500, /datum/material/iron=1000)
 	attack_verb_continuous = list("shoves", "bashes")
 	attack_verb_simple = list("shove", "bash")
-	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
 	custom_price = 100
+	pickup_sound = 'sound/items/handling/shield/plastic_shield_pick_up.ogg'
+	drop_sound = 'sound/items/handling/shield/plastic_shield_drop.ogg'
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/sheet/mineral/titanium))
@@ -354,5 +355,5 @@
 	slot_flags = active ? ITEM_SLOT_BACK : null
 	if(user)
 		balloon_alert(user, active ? "extended" : "collapsed")
-	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+	playsound(src, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE

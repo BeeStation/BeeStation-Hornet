@@ -206,7 +206,7 @@
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
-		var/mob/thrown_by = I.thrownby?.resolve()
+		var/mob/thrown_by = throwingdatum?.get_thrower()
 		if(I.throwforce < src.health && thrown_by && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
@@ -224,7 +224,6 @@
 		return
 	if(!C.handcuffed)
 		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
-		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()
 
@@ -247,7 +246,8 @@
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
+	if(C.takes_stamina_damage())
+		C.Disorient(6 SECONDS, 130, paralyze = 8 SECONDS, stack_status = FALSE, protection = armor_block, electrical = TRUE)
 	C.set_stutter(10 SECONDS)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\
@@ -298,8 +298,8 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
-			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) ||  target.getStaminaLoss() < 100)
+			// see if he got away. If he's no longer adjacent or inside a closet or about to get up, we hunt again.
+			if( !Adjacent(target) || !isturf(target.loc) || !target.IsParalyzed())
 				back_to_hunt()
 				return
 
@@ -326,7 +326,7 @@
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.getStaminaLoss() < 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && !target.IsParalyzed())) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			else //Try arresting again if the target escapes.

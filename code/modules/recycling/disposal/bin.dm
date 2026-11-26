@@ -123,9 +123,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	return TRUE
 
 //mouse drop another mob or self
-/obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
-	if(..())
-		return
+/obj/machinery/disposal/mouse_drop_receive(mob/living/target, mob/living/user, params)
 	if(istype(target))
 		stuff_mob_in(target, user)
 

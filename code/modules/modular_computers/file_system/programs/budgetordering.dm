@@ -29,9 +29,9 @@
 
 /datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user) //gets access from id on person or inserted one
 	var/obj/item/card/id/id
-	if(ishuman(user))
-		var/mob/living/carbon/human/U = user
-		id = U.get_idcard(TRUE)
+	if(isliving(user) && !issilicon(user))
+		var/mob/living/living_user = user
+		id = living_user.get_idcard(TRUE)
 	else if(computer)
 		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		id = card_slot?.GetID()
@@ -53,7 +53,7 @@
 	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)
 	if(get_buyer_id(user))
-		if((ACCESS_QM in id_card.access) || (ACCESS_HEADS in id_card.access))
+		if((ACCESS_QM in id_card.GetAccess()) || (ACCESS_HEADS in id_card.GetAccess()))
 			requestonly = FALSE
 			buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE
@@ -189,7 +189,7 @@
 				rank = "Silicon"
 
 			var/datum/bank_account/account
-			if(self_paid && ishuman(usr))
+			if(self_paid)
 				var/obj/item/card/id/id_card = get_buyer_id(usr)
 				if(!istype(id_card))
 					computer.say("No ID card detected.")

@@ -16,7 +16,7 @@ Slimecrossing Armor
 	armor_type = /datum/armor/mask_nobreath
 	flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
-
+	interaction_flags_mouse_drop = NEED_HANDS
 
 /datum/armor/mask_nobreath
 	bio = 50
@@ -143,6 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
 	clothing_flags = THICKMATERIAL
+	texture_type = /datum/bodypart_texture/mesh/biosuit_dark
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/heavy/adamantine/equipped(mob/user, slot)

@@ -3,6 +3,8 @@
 	desc = "Holds food. Powerful. Good for morale when you're not eating your spaghetti off of a desk."
 	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "plate"
+	pickup_sound = "food_plate_pickup"
+	drop_sound = "food_plate_drop"
 	w_class = WEIGHT_CLASS_BULKY //No backpack.
 	custom_price = 5
 	///How many things fit on this plate?
@@ -26,7 +28,7 @@
 		AddElement(/datum/element/shatters_when_thrown)
 
 /obj/item/plate/attackby(obj/item/I, mob/user, list/modifiers)
-	if(!IS_EDIBLE(I))
+	if(!IS_EDIBLE(I) && !HAS_TRAIT(I, TRAIT_UTENSIL))
 		balloon_alert(user, "not food!")
 		return
 	if(I.w_class > biggest_w_class)
@@ -49,11 +51,10 @@
 /obj/item/plate/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(!iscarbon(A))
 		return
-	if(!contents.len)
-		return
-	var/obj/item/object_to_eat = contents[1]
-	A.attackby(object_to_eat, user)
-	return TRUE //No normal attack
+	for(var/obj/item/object_to_eat in contents)
+		if(IS_EDIBLE(object_to_eat))
+			A.attackby(object_to_eat, user)
+			return TRUE //No normal attack
 
 /obj/item/plate/IsContainedAtomAccessible(atom/contained, atom/movable/user)
 	return TRUE

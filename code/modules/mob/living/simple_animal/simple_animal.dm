@@ -1,7 +1,7 @@
 /mob/living/simple_animal
 	abstract_type = /mob/living/simple_animal
 	name = "animal"
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
@@ -42,10 +42,6 @@
 	///Harm-intent verb in present simple tense.
 	var/response_harm_simple = "hit"
 	var/force_threshold = 0 //Minimum force required to deal any damage
-	///Maximum amount of stamina damage the mob can be inflicted with total
-	var/max_staminaloss = 200
-	///How much stamina the mob recovers per second
-	var/stamina_recovery = 5
 
 	//Temperature effect
 	var/minbodytemp = 250
@@ -113,8 +109,6 @@
 	var/dextrous = FALSE //If the creature has, and can use, hands
 	var/dextrous_hud_type = /datum/hud/dextrous
 
-	///If the creature should have an innate TRAIT_MOVE_FLYING trait added on init that is also toggled off/on on death/revival.
-	var/is_flying_animal = FALSE
 	//If the creature should play its bobbing up and down animation.
 	var/no_flying_animation
 
@@ -169,17 +163,8 @@
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
 		add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP), ROUNDSTART_TRAIT)
-	if(is_flying_animal)
-		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
-
-/*
-/mob/living/simple_animal/Life(delta_time = SSMOBS_DT, times_fired)
-	. = ..()
-	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
-*/
 
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src
@@ -198,12 +183,6 @@
 /mob/living/simple_animal/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
-		if(NAMEOF(src, is_flying_animal))
-			if(stat != DEAD)
-				if(!is_flying_animal)
-					REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
-				else
-					ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 		if(NAMEOF(src, no_flying_animation))
 			if(!no_flying_animation)
 				REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
@@ -212,8 +191,9 @@
 
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
-	if(stat == DEAD)
-		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
+	if(stat != DEAD)
+		return
+	. += generate_death_examine_text()
 
 /mob/living/simple_animal/updatehealth()
 	. = ..()
@@ -228,6 +208,16 @@
 		else
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
+
+/**
+ * Updates the simple mob's stamina loss.
+ *
+ * Updates the speed and staminaloss of a given simplemob.
+ * Reduces the stamina loss by stamina_recovery
+ */
+/mob/living/simple_animal/on_stamina_update()
+	. = ..()
+	set_varspeed(initial(speed) + (stamina.loss * 0.06))
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -437,8 +427,6 @@
 		del_on_death = FALSE
 		qdel(src)
 	else
-		if(is_flying_animal)
-			REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 		if(no_flying_animation)
 			REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 		health = 0
@@ -472,8 +460,6 @@
 	icon = initial(icon)
 	icon_state = icon_living
 	density = initial(density)
-	if(is_flying_animal)
-		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(no_flying_animation)
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 
@@ -546,8 +532,9 @@
 
 	return ..()
 
+//Will always check hands first, because access_card is internal to the mob and can't be removed or swapped.
 /mob/living/simple_animal/get_idcard(hand_first)
-	return access_card
+	return (..() || access_card)
 
 /mob/living/simple_animal/can_hold_items(obj/item/I)
 	return dextrous && ..()
@@ -588,8 +575,8 @@
 			H.update_icon()
 	refresh_self_screentips()
 
-/mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE)
-	. = ..(I, del_on_fail, merge_stacks)
+/mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE, ignore_animation = TRUE, visuals_only = FALSE)
+	. = ..()
 	update_held_items()
 
 /mob/living/simple_animal/update_held_items()

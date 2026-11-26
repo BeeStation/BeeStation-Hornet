@@ -20,10 +20,10 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_MUTANT_COLORS,
 		TRAIT_REVIVESBYHEALING,
-		TRAIT_NO_DEBRAIN_OVERLAY,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_UPGRADE_COMPATIBLE,
 		TRAIT_UNHUSKABLE,
+		TRAIT_STAMINA_DRAINS_POWER,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -35,12 +35,10 @@
 	mutantheart = /obj/item/organ/heart/cybernetic/ipc
 	mutantlungs = null
 	mutantappendix = null
-	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
-	mutant_bodyparts = list(
-		"mcolor" = "#7D7D7D",
-		"ipc_screen" = "Static",
-		"ipc_antenna" = "None",
-		"ipc_chassis" = "Morpheus Cyberkinetics (Custom)"
+	mutant_organs = list(
+		/obj/item/organ/cyberimp/arm/power_cord,
+		/obj/item/organ/ipc_screen = "Static",
+		/obj/item/organ/ipc_antenna = SPRITE_ACCESSORY_NONE,
 	)
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
@@ -51,7 +49,7 @@
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
 	allow_numbers_in_name = TRUE
-	deathsound = "sound/voice/borg_deathsound.ogg"
+	deathsound = 'sound/voice/borg_deathsound.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
@@ -75,23 +73,24 @@
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
-/datum/species/ipc/on_species_gain(mob/living/carbon/C)
+/datum/species/ipc/on_species_gain(mob/living/carbon/carbon)
 	. = ..()
-	if(ishuman(C) && !change_screen)
+	if(ishuman(carbon) && !change_screen)
 		change_screen = new
-		change_screen.Grant(C)
+		change_screen.Grant(carbon)
 
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
+	if(ishuman(carbon))
+		var/mob/living/carbon/human/H = carbon
 		H.physiology.bleed_mod *= 0.1
 
-	controller = new(C)
-	controller.saved_identification = "[C.real_name || C.name] :: INTERNAL"
+	controller = new(carbon)
+	controller.saved_identification = "[carbon.real_name || carbon.name] :: INTERNAL"
 	controller.messenger_invisible = TRUE
 	controller_action = new
-	controller_action.Grant(C)
+	controller_action.Grant(carbon)
 
-	RegisterSignal(C, COMSIG_LIVING_REVIVE, PROC_REF(mechanical_revival))
+	RegisterSignal(controller, COMSIG_QDELETING, PROC_REF(controller_deleted))
+	RegisterSignal(carbon, COMSIG_LIVING_REVIVE, PROC_REF(mechanical_revival))
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -101,9 +100,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 10
-	if(controller_action)
-		controller_action.Remove(C)
-	QDEL_NULL(controller)
+
+	// controller should exist, but could be null at this point. This should handle action removal as well.
+	qdel(controller)
 	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
 /datum/species/ipc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
@@ -113,24 +112,29 @@
 		source.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
 		to_chat(source, span_danger("You feel weak."))
 
+/datum/species/ipc/proc/controller_deleted()
+	UnregisterSignal(controller, COMSIG_QDELETING)
+	controller = null
+	controller_action?.Remove(controller_action.owner)
+	controller_action = null
+
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
 	if(!gibbed)
-		controller.shutdown_computer()
-	// access cell over DNA is intended, otherwise a dead screen gets saved T-T
-	var/obj/item/organ/stomach/electrical/ipc/battery = C.get_organ_slot(ORGAN_SLOT_STOMACH)
-	saved_screen = istype(battery) ? battery.get_true_screen(C) : C.dna.features["ipc_screen"]
-	C.dna.features["ipc_screen"] = "BSOD"
-	C.update_body()
+		controller?.shutdown_computer()
+	var/obj/item/organ/ipc_screen/screen = C.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	if(screen)
+		saved_screen = screen.bodypart_overlay.sprite_datum.name
+		screen.set_screen("BSOD")
 	addtimer(CALLBACK(src, PROC_REF(post_death), C), 5 SECONDS)
 
 /datum/species/ipc/proc/post_death(mob/living/carbon/C)
 	if(C.stat < DEAD)
 		return
-	C.dna.features["ipc_screen"] = null //Turns off screen on death
-	C.update_body()
+	var/obj/item/organ/ipc_screen/screen = C.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_powered(FALSE)
 
 /datum/action/innate/access_controller
 	name = "Access Internal Controller"
@@ -163,9 +167,10 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
-	H.dna.features["ipc_screen"] = screen_choice
+	H.dna.features[FEATURE_IPC_SCREEN] = screen_choice
 	H.eye_color_left = sanitize_hexcolor(color_choice)
-	H.update_body()
+	var/obj/item/organ/ipc_screen/screen = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_screen(screen_choice)
 
 /obj/item/apc_powercord
 	name = "power cord"
@@ -252,9 +257,11 @@
 
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
-	H.dna.features["ipc_screen"] = "BSOD"
+	var/obj/item/organ/ipc_screen/screen = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	if(screen)
+		screen.set_powered(TRUE)
+		screen.set_screen("BSOD")
 	INVOKE_ASYNC(src, PROC_REF(declare_revival), H)
-	H.update_body()
 
 /datum/species/ipc/proc/declare_revival(mob/living/carbon/human/H)
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")
@@ -271,7 +278,9 @@
 	if(H.stat == DEAD)
 		return
 	H.say("Unit [H.real_name] is fully functional. Have a nice day.")
-	H.dna.features["ipc_screen"] = saved_screen
+	var/obj/item/organ/ipc_screen/screen = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	if(screen && saved_screen)
+		screen.set_screen(saved_screen)
 
 /datum/species/ipc/get_harm_descriptors()
 	return list(
@@ -286,7 +295,7 @@
 
 /// Restyles the target's limbs to match their "ipc_chassis" feature
 /datum/species/ipc/proc/apply_chassis(mob/living/carbon/C)
-	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]] || GLOB.ipc_chassis_list[mutant_bodyparts["ipc_chassis"]]
+	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]] || GLOB.ipc_chassis_list[/datum/sprite_accessory/ipc_chassis/mcgreyscale::name]
 
 	for(var/obj/item/bodypart/BP as anything in C.bodyparts)
 		if((BP.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (BP.bodypart_flags & BODYPART_IMPLANTED))
@@ -294,6 +303,11 @@
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
 		BP.limb_id = chassis_of_choice.limbs_id
 		BP.should_draw_greyscale = !!chassis_of_choice.color_src
+
+/datum/species/ipc/get_features()
+	var/list/features = ..()
+	features |= "feature_ipc_chassis"
+	return features
 
 /datum/species/ipc/get_species_description()
 	return "The newest in artificial life, IPCs are entirely robotic, synthetic life, made of motors, circuits, and wires \
@@ -324,6 +338,12 @@
 			SPECIES_PERK_ICON = "magnet",
 			SPECIES_PERK_NAME = "EMP Vulnerable",
 			SPECIES_PERK_DESC = "IPC organs are cybernetic, and thus susceptible to electromagnetic interference. Getting hit by an EMP may stop your heart.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "battery-quarter",
+			SPECIES_PERK_NAME = "Power Drain",
+			SPECIES_PERK_DESC = "You never tire. However, blows from weapons, disablers, exertion and EMPs will drain your charge, with stun batons and tasers draining it fast. Once you're in low power, stuns lock you up until you recharge your battery.",
 		),
 	)
 

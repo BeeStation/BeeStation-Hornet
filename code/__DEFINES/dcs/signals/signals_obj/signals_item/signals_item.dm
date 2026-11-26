@@ -131,8 +131,6 @@
 	#define COMPONENT_BUFFER_STORE_SUCCESS (1 << 0)
 /// Puts a target atom into the push (datum/source, mob/user)
 #define COMSIG_ITEM_FLUSH_BUFFER "flush_buffer"
-/// Tries to get the contained buffer from an atom
-#define COMSIG_ITEM_GET_BUFFER "get_buffer"
 
 // Deployable signals
 /// Tell a deployable item to force its deployment  (datum/source, atom/location)
@@ -174,3 +172,8 @@
 
 /// Called by poison paper when a user applies it (atom/target, mob/living/user)
 #define COMSIG_POISON_PAPER_APPLIED "posion_paper_applied"
+
+/// Sent from /obj/item/organ/wings/proc/open_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_OPENED "wings_opened"
+/// Sent from /obj/item/organ/wings/proc/close_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_CLOSED "wings_closed"

@@ -73,17 +73,18 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/vampire/AltClick(mob/user)
-	. = ..()
-	if(user == owner && user.Adjacent(src))
-		balloon_alert(user, "unbolt [src]?")
-		var/static/list/unsecure_options = list(
-			"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
-			"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"),
-		)
-		var/unsecure_response = show_radial_menu(user, src, unsecure_options, radius = 36, require_near = TRUE)
-		if(unsecure_response == "Yes")
-			unbolt(user)
+/obj/structure/vampire/click_alt(mob/user)
+	if(user != owner || !user.Adjacent(src))
+		return NONE
+	balloon_alert(user, "unbolt [src]?")
+	var/static/list/unsecure_options = list(
+		"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
+		"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"),
+	)
+	var/unsecure_response = show_radial_menu(user, src, unsecure_options, radius = 36, require_near = TRUE)
+	if(unsecure_response == "Yes")
+		unbolt(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/vampire/vassalrack
 	name = "vassalization rack"
@@ -130,9 +131,7 @@
 	new /obj/item/stack/rods(loc, 4)
 	qdel(src)
 
-/obj/structure/vampire/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
-	if(..())
-		return
+/obj/structure/vampire/vassalrack/mouse_drop_receive(atom/movable/movable_atom, mob/user, params)
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
 		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))

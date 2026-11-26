@@ -52,7 +52,7 @@
 	if(I.registered_name == registered_name)
 		togglelock(user, FALSE)
 		return
-	if(((ACCESS_CAPTAIN in I.access) || (ACCESS_ALL_PERSONAL_LOCKERS in I.access)) && registered_name)
+	if(((ACCESS_CAPTAIN in I.GetAccess()) || (ACCESS_ALL_PERSONAL_LOCKERS in I.GetAccess())) && registered_name)
 		registered_name = null
 		balloon_alert_to_viewers("<font color='#ec8907'>Warning!</font> ID registry <font color='#ad3098'>purged!</font>")
 		to_chat(user, "Locker ID registry purged.")
@@ -81,7 +81,10 @@
 		return TRUE
 	if(!registered_name)
 		return ..()
-	var/obj/item/card/id/I = user.get_idcard()
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/living_user = user
+	var/obj/item/card/id/I = living_user.get_idcard()
 	if(!I)
 		return FALSE
 	if(I.registered_name == registered_name)

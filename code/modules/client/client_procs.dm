@@ -284,6 +284,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		mob_logout = TRUE
 		GLOB.disconnected_mobs[src.ckey] = my_mob // now we know on login that we've signed out from this mob and can reassociate.
 	if(!gc_destroyed)
+		gc_destroyed = world.time
+		if (!QDELING(src))
+			stack_trace("Client does not purport to be QDELING, this is going to cause bugs in other places!")
+
+		SEND_SIGNAL(src, COMSIG_QDELETING, TRUE)
 		Destroy() //Clean up signals and timers.
 	if(mob_logout)
 		// Destroy() has to run first because it cleans up our references on the mob
@@ -292,6 +297,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return ..()
 
 /client/Destroy()
+	if(mob)
+		mob.become_uncliented()
+
 	GLOB.clients_unsafe -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
@@ -627,6 +635,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		CRASH("change_view called without argument.")
 
 	view = new_size
+	SEND_SIGNAL(src, COMSIG_VIEW_SET, new_size)
 	apply_clickcatcher()
 	mob.reload_fullscreen()
 	if (isliving(mob))

@@ -73,13 +73,11 @@
  * * gibbed - Was the mob gibbed?
 */
 /mob/living/proc/death(gibbed)
-	var/was_dead_before = stat == DEAD
 
 	if(!gibbed && (death_sound || death_message || (living_flags & ALWAYS_DEATHGASP)))
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 
 	set_stat(DEAD)
-	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
 	timeofdeath = world.time
 	station_timestamp_timeofdeath = station_time_timestamp()
@@ -90,11 +88,8 @@
 		if(mind.name && mind.active && !istype(T.loc, /area/centcom/ctf))
 			deadchat_broadcast(" has died at <b>[get_area_name(T)]</b>.", "<b>[mind.name]</b>", follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 		mind.store_memory("Time of death: [station_timestamp_timeofdeath]")
-	remove_from_alive_mob_list()
 	if(playable)
 		remove_from_spawner_menu()
-	if(!gibbed && !was_dead_before)
-		add_to_dead_mob_list()
 
 	SetSleeping(0, 0)
 

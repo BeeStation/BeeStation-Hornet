@@ -36,12 +36,12 @@
 
 /datum/greyscale_config/carp
 	name = "Space Carp"
-	icon_file = 'icons/mob/carp.dmi'
+	icon_file = 'icons/mob/simple/carp.dmi'
 	json_config = 'code/datums/greyscale/json_configs/carp.json'
 
 /datum/greyscale_config/garden_gnome
 	name = "Garden Gnome"
-	icon_file = 'icons/mob/garden_gnome.dmi'
+	icon_file = 'icons/mob/simple/garden_gnome.dmi'
 	json_config = 'code/datums/greyscale/json_configs/garden_gnome.json'
 
 /datum/greyscale_config/carp/disk_mouth
@@ -399,3 +399,15 @@
 /datum/greyscale_config/labcoat/worn
 	name = "Labcoat (Worn)"
 	icon_file = 'icons/mob/clothing/suits/labcoat.dmi'
+
+// Digi Stuff
+
+/datum/greyscale_config/digitigrade
+	name = "Digitigrade Clothes"
+	icon_file = 'icons/mob/clothing/digi_template_equipment.dmi'
+	json_config = 'code/datums/greyscale/json_configs/digitigrade.json'
+
+/datum/greyscale_config/digitigrade_underwear
+	name = "Digitigrade Underwear"
+	icon_file = 'icons/mob/clothing/digi_template_underwear.dmi'
+	json_config = 'code/datums/greyscale/json_configs/digitigrade_underwear.json'

@@ -39,8 +39,6 @@
 	/// Typecache of items that can always be inserted into this storage, regardless of size.
 	///Do not set directly, use set_holdable
 	VAR_FINAL/list/obj/item/exception_hold
-	/// A trait an item must have to be inserted into this storage.
-	var/can_hold_trait
 	/// For use with an exception typecache:
 	/// The maximum amount of items of the exception type that can be inserted into this storage.
 	var/exception_max = INFINITY
@@ -55,7 +53,7 @@
 	/// Path for the item's rustle sound when removing items.
 	var/remove_rustle_sound = null
 	/// The sound to play when we open/access the storage
-	var/open_sound
+	var/open_sound = "rustle"
 	var/open_sound_vary = TRUE
 
 	/// The maximum amount of items that can be inserted into this storage.
@@ -424,8 +422,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/can_hold_it = isnull(can_hold) || is_type_in_typecache(to_insert, can_hold) || is_type_in_typecache(to_insert, exception_hold)
 	var/cant_hold_it = is_type_in_typecache(to_insert, cant_hold)
 	var/trait_says_no = HAS_TRAIT(to_insert, TRAIT_NO_STORAGE_INSERT)
-	var/missing_trait = !isnull(can_hold_trait) && !HAS_TRAIT(to_insert, can_hold_trait)
-	if(!can_hold_it || cant_hold_it || trait_says_no || missing_trait)
+	if(!can_hold_it || cant_hold_it || trait_says_no)
 		if(messages && user)
 			user.balloon_alert(user, "can't hold!")
 		return FALSE
@@ -487,8 +484,13 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	SEND_SIGNAL(parent, COMSIG_ATOM_STORED_ITEM, to_insert, user, force)
 	SEND_SIGNAL(src, COMSIG_STORAGE_STORED_ITEM, to_insert, user, force)
-	to_insert.forceMove(real_location)
-	item_insertion_feedback(user, to_insert, override)
+	if(ismob(to_insert.loc))
+		var/mob/item_carrier = to_insert.loc
+		item_carrier.transferItemToLoc(to_insert, real_location) // This allows has_unequipped() to be properly called.
+	else
+		to_insert.forceMove(real_location)
+	if (messages)
+		item_insertion_feedback(user, to_insert, override)
 	parent.update_appearance()
 	return TRUE
 
@@ -499,7 +501,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if (src != user.active_storage)
 		return
 
-	if (!user.canUseTopic(parent, be_close = TRUE, no_tk = TRUE))
+	if (!user.can_perform_action(parent, FORBID_TELEKINESIS_REACH))
 		return
 
 	if (target.loc != real_location) // what even
@@ -566,7 +568,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	if(do_rustle && rustle_sound)
-		playsound(parent, rustle_sound, 50, TRUE, -5)
+		playsound(parent, rustle_sound, 50, rustle_vary, -5)
 
 	if(!silent_for_user)
 		to_chat(user, span_notice("You put [thing] [insert_preposition]to [parent]."))
@@ -595,10 +597,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		reset_item(thing)
 		thing.forceMove(remove_to_loc)
 
-		if(!silent && do_rustle && rustle_sound)
+		if(!silent && do_rustle)
 			if(remove_rustle_sound)
 				playsound(parent, remove_rustle_sound, 50, TRUE, -5)
-			else
+			else if(rustle_sound)
 				playsound(parent, rustle_sound, 50, TRUE, -5)
 	else
 		thing.moveToNullspace()
@@ -817,12 +819,13 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/on_mousedrop_onto(datum/source, atom/over_object, mob/user)
 	SIGNAL_HANDLER
 
-	if(ismecha(user.loc) || user.incapacitated || !user.canUseStorage())
+	if(ismecha(user.loc) || !user.canUseStorage())
 		return
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
-		if(real_location.loc != user || !user.canUseTopic(parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+		if(parent.loc != user || !user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 			return NONE
+
 		if(isitem(parent))
 			var/obj/item/item_parent = parent
 			if(!item_parent.can_mob_unequip(user))
@@ -834,7 +837,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 	if(over_object == user)
-		if(!user.canUseTopic(parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+		if(!user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 			return NONE
 
 		parent.add_fingerprint(user)
@@ -844,7 +847,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(istype(over_object, /atom/movable/screen) || ismob(over_object))
 		return NONE
 
-	if(!user.canUseTopic(over_object, be_close = TRUE, no_tk = TRUE))
+	if(!user.can_perform_action(over_object, FORBID_TELEKINESIS_REACH))
 		return NONE
 
 	parent.add_fingerprint(user)
@@ -904,15 +907,12 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 	if(dropping != user.get_active_held_item())
 		return
+	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH))
+		return
 	if(dropping.atom_storage) // If it has storage it should be trying to dump, not insert.
 		return
-
 	if(!iscarbon(user) && !isdrone(user))
 		return
-	var/mob/living/user_living = user
-	if(user_living.incapacitated)
-		return
-
 	attempt_insert(dropping, user)
 	return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
@@ -965,7 +965,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(open_storage), to_show)
-	return COMPONENT_NO_AFTERATTACK
+	if(display_contents)
+		return COMPONENT_NO_AFTERATTACK
 
 /// Opens the storage to the mob, showing them the contents to their UI.
 /datum/storage/proc/open_storage(mob/to_show)
@@ -973,11 +974,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		show_contents(to_show)
 		return FALSE
 
-	if(!parent.IsReachableBy(to_show))
-		parent.balloon_alert(to_show, "can't reach!")
-		return FALSE
-
-	if(!isliving(to_show) || to_show.incapacitated)
+	if(!isliving(to_show) || !to_show.can_perform_action(parent, ALLOW_RESTING | FORBID_TELEKINESIS_REACH))
 		return FALSE
 
 	if(locked)
@@ -998,6 +995,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 				span_warning("[to_show] draws [to_remove] from [parent]!"),
 				span_notice("You draw [to_remove] from [parent]."),
 			)
+			to_show.animate_interact(real_location)
 		return TRUE
 
 	// If nothing else, then we want to open the thing, so do that
@@ -1007,9 +1005,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(animated)
 		animate_parent()
 
-	if(do_rustle && rustle_sound)
-		playsound(parent, rustle_sound, 50, TRUE, -5)
+	if(do_rustle && open_sound && !silent)
+		playsound(parent, open_sound, 50, open_sound_vary, -5)
 
+	if(!silent)
+		to_show.animate_interact(real_location)
 	return TRUE
 
 /// Async version of putting something into a mobs hand.

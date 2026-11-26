@@ -311,21 +311,25 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(get_dist(get_turf(src), get_turf(user)) <= 1)
 		promptExit(user)
 
-/turf/closed/indestructible/hoteldoor/AltClick(mob/user)
-	. = ..()
-	if(get_dist(get_turf(src), get_turf(user)) <= 1)
-		to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
-		user.set_mob_eye_to(parentSphere)
-		user.set_machine(src)
-		var/datum/action/peepholeCancel/PHC = new
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
-		PHC.Grant(user)
+/turf/closed/indestructible/hoteldoor/click_alt(mob/user)
+	if(user.is_blind())
+		to_chat(user, span_warning("Drats! Your vision is too poor to use this!"))
+		return CLICK_ACTION_BLOCKING
+
+	to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
+	user.set_mob_eye_to(parentSphere)
+	user.set_machine(src)
+	var/datum/action/peepholeCancel/PHC = new
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
+	PHC.Grant(user)
+	return CLICK_ACTION_SUCCESS
 
 /turf/closed/indestructible/hoteldoor/check_eye(mob/user)
-	if(get_dist(get_turf(src), get_turf(user)) >= 2)
-		user.unset_machine()
-		for(var/datum/action/peepholeCancel/PHC in user.actions)
-			PHC.trigger()
+	if(get_dist(get_turf(src), get_turf(user)) < 2)
+		return
+	user.unset_machine()
+	for(var/datum/action/peepholeCancel/PHC in user.actions)
+		PHC.trigger()
 
 /datum/action/peepholeCancel
 	name = "Cancel View"

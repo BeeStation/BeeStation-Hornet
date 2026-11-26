@@ -22,7 +22,7 @@
 		|| QDELETED(parent) \
 		|| QDELETED(real_location) \
 		|| QDELETED(user) \
-		|| !user.canUseTopic(parent, BE_CLOSE, iscarbon(user)) \
+		|| !user.can_perform_action(parent, NEED_DEXTERITY) \
 		|| !can_insert(to_insert, user) \
 	)
 		return

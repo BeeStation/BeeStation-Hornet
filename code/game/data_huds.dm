@@ -100,7 +100,7 @@
 		return "health-100" //what's our health? it doesn't matter, we're dead, or faking
 	var/maxi_health = M.maxHealth
 	if(iscarbon(M) && M.health < 0)
-		maxi_health = 100 //so crit shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
+		maxi_health = -M.death_threshold //crit is shown as progress toward death, so it shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
 	var/resulthealth = (M.health / maxi_health) * 100
 	switch(resulthealth)
 		if(100 to INFINITY)
@@ -155,7 +155,12 @@
 /mob/living/proc/med_hud_set_status()
 	SIGNAL_HANDLER
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		set_hud_image_state(STATUS_HUD, "huddead")
+		if(!client && !get_ghost(FALSE, TRUE))
+			set_hud_image_state(STATUS_HUD, "huddead-permanent")
+		else if(!client && key)
+			set_hud_image_state(STATUS_HUD, "huddead-ssd")
+		else
+			set_hud_image_state(STATUS_HUD, "huddefib")
 		return FALSE
 
 	set_hud_image_state(STATUS_HUD, "hudhealthy")
@@ -167,7 +172,7 @@
 		return FALSE
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		if(!client && !get_ghost(FALSE, TRUE))
+		if((!client && !get_ghost(FALSE, TRUE)) || suiciding)
 			set_hud_image_state(STATUS_HUD, "huddead-permanent")
 		else if(station_timestamp_timeofdeath)
 			var/time_since_death = round(world.time - timeofdeath)

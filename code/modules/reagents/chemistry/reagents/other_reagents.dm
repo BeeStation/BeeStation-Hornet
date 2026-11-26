@@ -388,7 +388,7 @@
 	if(IS_CULTIST(affected_mob))
 		need_mob_update += affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 		need_mob_update += affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
+		affected_mob.stamina.adjust(10 * REM * delta_time)
 		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
@@ -500,7 +500,7 @@
 					human.skin_tone = "caucasian1"
 		//take current alien color and darken it slightly
 		else if(HAS_TRAIT(human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(human, TRAIT_FIXED_MUTANT_COLORS))
-			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
+			var/list/existing_color = rgb2num(human.dna.features[FEATURE_MUTANT_COLOR])
 			var/list/darkened_color = list()
 			// Reduces each part of the color by 16
 			for(var/channel in existing_color)
@@ -510,7 +510,7 @@
 			var/list/new_hsv = rgb2hsv(new_color)
 			// Can't get too dark now
 			if(new_hsv[3] >= 50)
-				human.dna.features["mcolor"] = new_color
+				human.dna.features[FEATURE_MUTANT_COLOR] = new_color
 		human.regenerate_icons()
 
 /datum/reagent/spraytan/overdose_start(mob/living/carbon/affected_mob)
@@ -529,7 +529,7 @@
 		if(HAS_TRAIT(affected_human, TRAIT_USES_SKINTONES))
 			affected_human.skin_tone = "orange"
 		else if(HAS_TRAIT(affected_human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(affected_human, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
-			affected_human.dna.features["mcolor"] = COLOR_ORANGE
+			affected_human.dna.features[FEATURE_MUTANT_COLOR] = COLOR_ORANGE
 		affected_human.regenerate_icons()
 
 /datum/reagent/spraytan/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -804,7 +804,7 @@
 		return
 	to_chat(H, span_warning("<b>You grit your teeth in pain as your body rapidly mutates!</b>"))
 	H.visible_message("<b>[H]</b> suddenly transforms!")
-	randomize_human(H)
+	randomize_human_normie(H)
 
 /datum/reagent/aslimetoxin
 	name = "Advanced Mutation Toxin"
@@ -2069,9 +2069,10 @@
 
 /datum/reagent/peaceborg/tire/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/healthcomp = (100 - affected_mob.health) //DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
-	if(affected_mob.getStaminaLoss() < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
-		affected_mob.adjustStaminaLoss(10 * REM * delta_time)
+	var/stun_threshold = affected_mob.stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER
+	var/drain = min(35 * REM * delta_time, affected_mob.stamina.current - stun_threshold)
+	if(drain > 0)
+		affected_mob.stamina.adjust(-drain)
 	if(DT_PROB(16, delta_time))
 		to_chat(affected_mob, "You should sit down and take a rest...")
 
@@ -2121,7 +2122,7 @@
 	if(IS_HERETIC_OR_MONSTER(affected_mob))
 		affected_mob.adjust_drowsiness(-10 * REM * delta_time)
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
+		affected_mob.stamina.adjust(10 * REM * delta_time)
 		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)

@@ -8,6 +8,7 @@
 	max_integrity = 200
 	integrity_failure = 0.25
 	layer = ABOVE_WINDOW_LAYER
+	interaction_flags_click = NEED_HANDS
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 
@@ -112,15 +113,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
 /obj/structure/extinguisher_cabinet/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-		return
+/obj/structure/extinguisher_cabinet/click_alt(mob/user)
 	toggle_cabinet(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/extinguisher_cabinet/proc/toggle_cabinet(mob/user)
 	if(opened && broken)
 		to_chat(user, span_warning("[src] is broken open."))
 	else
+		user.animate_interact(src)
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 		opened = !opened
 		update_icon()
@@ -140,8 +141,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
 /obj/structure/extinguisher_cabinet/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		broken = 1
-		opened = 1
+		broken = TRUE
+		opened = TRUE
 		if(stored_extinguisher)
 			stored_extinguisher.forceMove(loc)
 			stored_extinguisher = null

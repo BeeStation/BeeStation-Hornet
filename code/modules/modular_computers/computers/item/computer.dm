@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	integrity_failure = 0.5
 	max_integrity = 100
 	armor_type = /datum/armor/item_modular_computer
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -205,14 +206,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/proc/play_ping()
 	playsound(loc, 'sound/machines/ping.ogg', get_clamped_volume(), FALSE, -1)
 
-/obj/item/modular_computer/AltClick(mob/user)
-	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return FALSE
+/obj/item/modular_computer/click_alt(mob/user)
+	if(issilicon(user))
+		return NONE
 	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(!card_slot2?.try_eject(user))
-		return card_slot?.try_eject(user)
-	return TRUE
+	if(card_slot2?.try_eject(user) || card_slot?.try_eject(user))
+		return CLICK_ACTION_SUCCESS
+	return NONE
 
 // Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
 /obj/item/modular_computer/GetAccess()
@@ -265,11 +266,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return TRUE
 	return FALSE
 
-/obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
-	var/mob/M = usr
-	if((!istype(over_object, /atom/movable/screen)) && usr.canUseTopic(src, BE_CLOSE))
-		return attack_self(M)
-	return ..()
+/obj/item/modular_computer/mouse_drop_dragged(atom/over_object, mob/user)
+	if(!istype(over_object, /atom/movable/screen))
+		return attack_self(user)
 
 /obj/item/modular_computer/attack_silicon(mob/user)
 	return attack_self(user)
@@ -314,27 +313,30 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
 
-/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // Teleporting for hacked CPU's
+/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(!.)
+		hacked_throw_blink(src)
+
+/obj/item/modular_computer/proc/hacked_throw_blink(atom/movable/thrown)
 	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
-	if(!cpu)
-		return
-	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
-	var/turf/start = get_turf(src)
-	if(!target)
-		return
-	if(!cpu.hacked)
-		return
+	if(!cpu?.hacked)
+		return FALSE
+	var/turf/start = get_turf(thrown)
 	if(!enabled)
 		new /obj/effect/particle_effect/sparks(start)
 		playsound(start, "sparks", 50, 1)
-		return
+		return TRUE
+	var/turf/target = get_blink_destination(start, thrown.dir, (cpu.max_idle_programs * 2))
+	if(!target)
+		return TRUE
 	// The better the CPU the farther it goes, and the more battery it needs
 	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
 	playsound(start, "sparks", 50, 1)
 	playsound(target, "sparks", 50, 1)
-	do_dash(src, start, target, 0, TRUE)
+	do_dash(thrown, start, target, 0, TRUE)
 	use_power((250 * cpu.max_idle_programs))
-	return
+	return TRUE
 
 /obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
 	var/turf/t = start
@@ -360,6 +362,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		. += span_warning("It is damaged.")
 
 	. += get_modular_computer_parts_examine(user)
+	var/obj/item/card/id/stored_id = GetID()
+	if(stored_id)
+		. += stored_id.get_temporary_access_examine()
 
 /obj/item/modular_computer/update_overlays()
 	. = ..()
@@ -674,7 +679,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
 	saved_identification = name || card_slot?.stored_card.registered_name || saved_identification
-	saved_job = job_name || card_slot?.stored_card?.assignment || saved_job
+	saved_job = job_name || card_slot?.stored_card?.get_assignment() || saved_job
 	id?.UpdateDisplay()
 
 /**

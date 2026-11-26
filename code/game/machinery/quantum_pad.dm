@@ -62,6 +62,9 @@
 		wires.interact(user)
 		return TRUE
 
+	if(default_deconstruction_crowbar(I))
+		return
+
 	if(panel_open)
 		return
 
@@ -75,9 +78,6 @@
 			if(do_after(user, 40, target = src))
 				to_chat(user, span_notice("You complete the link between [K] and [src]."))
 				K.qpad = src
-
-	if(default_deconstruction_crowbar(I))
-		return
 
 	return ..()
 

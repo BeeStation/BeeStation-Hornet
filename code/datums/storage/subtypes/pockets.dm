@@ -2,7 +2,7 @@
 	max_slots = 2
 	max_specific_storage = WEIGHT_CLASS_NORMAL
 	max_total_storage = 50
-	rustle_sound = FALSE
+	do_rustle = FALSE
 
 /datum/storage/pockets/attempt_insert(obj/item/to_insert, mob/user, override, force, messages)
 	. = ..()
@@ -13,7 +13,7 @@
 		return
 
 	if(quickdraw)
-		to_chat(user, span_notice("You discreetly slip [to_insert] into [parent]. Right-click to remove it."))
+		to_chat(user, span_notice("You discreetly slip [to_insert] into [parent]. Right-click [parent] to remove it."))
 	else
 		to_chat(user, span_notice("You discreetly slip [to_insert] into [parent]."))
 
@@ -162,40 +162,36 @@
 	max_total_storage,
 )
 	. = ..()
-	set_holdable(
-		list( //Same items as a PDA
-			/obj/item/pen,
-			/obj/item/toy/crayon,
-			/obj/item/lipstick,
-			/obj/item/flashlight/pen,
-			/obj/item/cigarette,
-		)
-	)
+	// Same items as a PDA
+	set_holdable(list(
+		/obj/item/pen,
+		/obj/item/toy/crayon,
+		/obj/item/lipstick,
+		/obj/item/flashlight/pen,
+		/obj/item/cigarette,
+	))
 
 /datum/storage/pockets/holster
 	max_slots = 2
 	max_specific_storage  = WEIGHT_CLASS_LARGE
+	open_sound = 'sound/items/handling/holster_open.ogg'
 
 /datum/storage/pockets/holster/New()
 	. = ..()
-	set_holdable(
-		list(
-			/obj/item/gun/ballistic/automatic/pistol,
-			/obj/item/gun/ballistic/revolver,
-			/obj/item/ammo_box,
-			/obj/item/ammo_casing
-		)
-	)
+	set_holdable(list(
+		/obj/item/gun/ballistic/automatic/pistol,
+		/obj/item/gun/ballistic/revolver,
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing
+	))
 
 /datum/storage/pockets/holster/detective/New()
 	. = ..()
-	set_holdable(
-		list(
-			/obj/item/gun/ballistic/revolver/detective,
-			/obj/item/ammo_box/c38,
-			/obj/item/ammo_casing/c38
-			)
-		)
+	set_holdable(list(
+		/obj/item/gun/ballistic/revolver/detective,
+		/obj/item/ammo_box/c38,
+		/obj/item/ammo_casing/c38
+	))
 
 /datum/storage/pockets/helmet
 	max_slots = 2
@@ -209,14 +205,12 @@
 	max_total_storage,
 )
 	. = ..()
-	set_holdable(
-		list(
-			/obj/item/reagent_containers/cup/glass/bottle/vodka,
-			/obj/item/reagent_containers/cup/glass/bottle/molotov,
-			/obj/item/reagent_containers/cup/glass/drinkingglass,
-			/obj/item/ammo_box/a762
-			)
-		)
+	set_holdable(list(
+		/obj/item/reagent_containers/cup/glass/bottle/vodka,
+		/obj/item/reagent_containers/cup/glass/bottle/molotov,
+		/obj/item/reagent_containers/cup/glass/drinkingglass,
+		/obj/item/ammo_box/a762,
+	))
 
 /datum/storage/pockets/void_cloak
 	quickdraw = TRUE

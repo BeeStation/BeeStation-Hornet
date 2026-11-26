@@ -44,13 +44,13 @@ SUBSYSTEM_DEF(traumas)
 			/mob/living/simple_animal/bot/ed209,
 		)),
 		"lizards" = typecacheof(list(
-			/mob/living/simple_animal/hostile/lizard,
+			/mob/living/basic/lizard,
 		)),
 		"skeletons" = typecacheof(list(
 			/mob/living/simple_animal/hostile/skeleton,
 		)),
 		"snakes" = typecacheof(list(
-			/mob/living/simple_animal/hostile/retaliate/poison/snake,
+			/mob/living/basic/snake,
 		)),
 		"robots" = typecacheof(list(
 			/mob/living/silicon/robot,
@@ -75,13 +75,13 @@ SUBSYSTEM_DEF(traumas)
 			/mob/living/simple_animal/bot/secbot,
 			/mob/living/simple_animal/bot/ed209,
 			/mob/living/simple_animal/drone,
-			/mob/living/simple_animal/pet/penguin,
+			/mob/living/basic/pet/penguin,
 		)),
 		"birds" = typecacheof(list(
 			/mob/living/simple_animal/parrot,
-			/mob/living/simple_animal/chick,
-			/mob/living/simple_animal/chicken,
-			/mob/living/simple_animal/pet/penguin,
+			/mob/living/basic/chick,
+			/mob/living/basic/chicken,
+			/mob/living/basic/pet/penguin,
 		)),
 		"anime" = typecacheof(list(
 			/mob/living/simple_animal/hostile/holoparasite,
@@ -166,10 +166,10 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/abductor/silencer,
 			/obj/item/abductor/gizmo,
 			/obj/item/clothing/under/rank/centcom/official,
-			/obj/item/clothing/suit/space/hardsuit/ert,
-			/obj/item/clothing/suit/space/hardsuit/ert/sec,
-			/obj/item/clothing/suit/space/hardsuit/ert/engi,
-			/obj/item/clothing/suit/space/hardsuit/ert/med,
+			/obj/item/mod/control/pre_equipped/responsory,
+			/obj/item/mod/control/pre_equipped/responsory/security,
+			/obj/item/mod/control/pre_equipped/responsory/engineer,
+			/obj/item/mod/control/pre_equipped/responsory/medic,
 			/obj/item/clothing/suit/space/hardsuit/deathsquad,
 			/obj/item/clothing/head/helmet/space/hardsuit/deathsquad,
 			/obj/machinery/door/airlock/centcom

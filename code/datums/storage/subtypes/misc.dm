@@ -40,3 +40,30 @@
 	max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	max_slots = 1000
 	max_total_storage = 1000
+
+///Pill bottle
+/datum/storage/pillbottle
+	allow_quick_gather = TRUE
+	open_sound = 'sound/items/handling/pill_bottle/pill_bottle_open.ogg'
+	open_sound_vary = FALSE
+
+/datum/storage/pillbottle/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound)
+	. = ..()
+	set_holdable(list(
+		/obj/item/reagent_containers/applicator,
+	))
+
+/// Stasis fish case
+/datum/storage/fish_case
+	max_slots = 1
+	can_hold_description = "fish and aquarium equipment"
+
+/datum/storage/fish_case/can_insert(obj/item/to_insert, mob/user, messages = TRUE, force = STORAGE_NOT_LOCKED)
+	. = ..()
+	if(!.)
+		return
+
+	if(!HAS_TRAIT(to_insert, TRAIT_FISH_CASE_COMPATIBILE))
+		if(messages && user)
+			user.balloon_alert(user, "can't hold!")
+		return FALSE

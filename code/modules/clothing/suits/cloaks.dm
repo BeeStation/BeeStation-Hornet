@@ -120,6 +120,9 @@
 	custom_price = 10000
 	max_demand = 10
 
+/obj/item/clothing/suit/hooded/cloak/drake/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/drake)
 
 /datum/armor/cloak_drake
 	melee = 70
@@ -143,6 +146,9 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	high_pressure_multiplier = 0.4
 
+/obj/item/clothing/head/hooded/cloakhood/drake/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/drake)
 
 /datum/armor/cloakhood_drake
 	melee = 70

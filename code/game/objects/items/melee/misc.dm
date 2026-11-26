@@ -371,7 +371,7 @@
 	inhand_icon_state = active ? "nullrod" : null
 	if(user)
 		balloon_alert(user, "[active ? "extended" : "collapsed"] [src]")
-	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+	playsound(src, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
@@ -423,7 +423,7 @@
 		beam = user.Beam(target, icon_state = "rped_upgrade", time = 10 SECONDS)
 	else if (user.Adjacent(target))
 		to_chat(user, span_notice("You extend [src] towards [target]."))
-		playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
+		playsound(src.loc, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 	else
 		return
 	finish_roasting(user, target)
@@ -438,7 +438,7 @@
 		update_appearance()
 	else
 		QDEL_NULL(beam)
-		playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+		playsound(src, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 		to_chat(user, span_notice("You put [src] away."))
 
 /obj/item/melee/knockback_stick
@@ -496,6 +496,7 @@
 	var/non_harm_force = 3
 	/// Stamina damage dealt
 	var/stamina_force = 25
+	stamina_damage = 0
 
 // #11200 Review - TEMP: Hacky code to deal with force string for this item.
 /obj/item/melee/tonfa/openTip(location, control, params, mob/living/user)
@@ -512,7 +513,7 @@
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, span_danger("You hit yourself over the head."))
-		user.adjustStaminaLoss(stamina_force)
+		user.stamina.adjust(-stamina_force)
 
 		// Deal full damage
 		force = initial(force)
@@ -545,8 +546,8 @@
 		log_combat(user, target, "attacked", src)
 
 		// If the target has a lot of stamina loss, knock them down
-		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.getStaminaLoss() > 22)
-			var/effectiveness = CLAMP01((target.getStaminaLoss() - 22) / 50)
+		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.stamina.loss_as_percent > 22)
+			var/effectiveness = CLAMP01((target.stamina.loss_as_percent - 22) / 50)
 			log_combat(user, target, "knocked-down", src, "(additional effect)")
 			// Move the target back upon knockdown, to give them some time to recover
 			var/shove_dir = get_dir(user.loc, target.loc)

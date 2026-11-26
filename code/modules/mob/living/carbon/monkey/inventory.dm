@@ -36,7 +36,7 @@
 			return TRUE
 	return FALSE //Unsupported slot
 
-/mob/living/carbon/monkey/equip_to_slot(obj/item/equipping, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
+/mob/living/carbon/monkey/equip_to_slot(obj/item/equipping, slot, initial = FALSE)
 	if(!..()) //a check failed or the item has already found its slot
 		return
 
@@ -50,7 +50,7 @@
 
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
-		equipping.on_equipped(src, slot)
+		has_equipped(equipping, slot, initial)
 
 	return not_handled //For future deeper overrides
 

@@ -14,7 +14,7 @@
 	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	scan_state = "rock_Uranium"
-	spreadChance = 5
+	spread_chance = 5
 	merge_type = /obj/item/stack/ore/uranium
 
 STACKSIZE_MACRO(/obj/item/stack/ore/uranium)
@@ -31,7 +31,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/uranium)
 	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/iron
 	scan_state = "rock_Iron"
-	spreadChance = 20
+	spread_chance = 20
 	merge_type = /obj/item/stack/ore/iron
 
 STACKSIZE_MACRO(/obj/item/stack/ore/iron)
@@ -61,7 +61,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 		C.visible_message(span_danger("[C]'s eye protection blocks the sand!"), span_warning("Your eye protection blocks the sand!"))
 		return
 	C.adjust_eye_blur(12 SECONDS)
-	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
+	C.stamina.adjust(-15)//the pain from your eyes burning does stamina damage
 	C.adjust_confusion(5 SECONDS)
 	to_chat(C, span_userdanger("\The [src] gets into your eyes! The pain, it burns!"))
 	qdel(src)
@@ -103,7 +103,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/glass/basalt)
 	mats_per_unit = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	scan_state = "rock_Plasma"
-	spreadChance = 8
+	spread_chance = 8
 	merge_type = /obj/item/stack/ore/plasma
 
 /obj/item/stack/ore/plasma/welder_act(mob/living/user, obj/item/I)
@@ -124,7 +124,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/plasma)
 	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/copper
 	scan_state = "rock_Copper"
-	spreadChance = 5
+	spread_chance = 5
 	merge_type = /obj/item/stack/ore/copper
 
 STACKSIZE_MACRO(/obj/item/stack/ore/copper)
@@ -141,7 +141,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/copper)
 	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/silver
 	scan_state = "rock_Silver"
-	spreadChance = 5
+	spread_chance = 5
 	merge_type = /obj/item/stack/ore/silver
 
 STACKSIZE_MACRO(/obj/item/stack/ore/silver)
@@ -158,7 +158,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/silver)
 	mats_per_unit = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/gold
 	scan_state = "rock_Gold"
-	spreadChance = 5
+	spread_chance = 5
 	merge_type = /obj/item/stack/ore/gold
 
 STACKSIZE_MACRO(/obj/item/stack/ore/gold)
@@ -207,7 +207,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bananium)
 	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/titanium
 	scan_state = "rock_Titanium"
-	spreadChance = 5
+	spread_chance = 5
 	merge_type = /obj/item/stack/ore/titanium
 
 STACKSIZE_MACRO(/obj/item/stack/ore/titanium)

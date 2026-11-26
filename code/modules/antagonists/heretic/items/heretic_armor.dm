@@ -6,6 +6,7 @@
 	inhand_icon_state = null
 	flags_inv = HIDESHOES | HIDEJUMPSUIT | HIDEBELT
 	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	clothing_flags = THICKMATERIAL
 	transparent_protection = HIDEGLOVES | HIDESUITSTORAGE | HIDEJUMPSUIT | HIDESHOES | HIDENECK
 	cold_protection = FULL_BODY
@@ -14,6 +15,8 @@
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Slightly better than normal cult robes
 	armor_type = /datum/armor/eldritch_armor
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/heretic
 	/// Whether the hood is flipped up
 	var/hood_up = FALSE
 
@@ -55,6 +58,16 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flash_protect = FLASH_PROTECTION_WELDER
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	clothing_flags = THICKMATERIAL | SNUG_FIT
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/heretic
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/Initialize(mapload)
+	. = ..()
+	if(texture_type)
+		AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, texture_type)
+
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/equipped(mob/user, slot)
 	..()
@@ -68,7 +81,10 @@
 	. = ..()
 	AddElement(/datum/element/heretic_focus)
 
-
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/Initialize(mapload)
+	. = ..()
+	if(texture_type)
+		AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, texture_type)
 
 // Void cloak. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void

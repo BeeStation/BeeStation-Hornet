@@ -1,6 +1,7 @@
 /* Kitchen tools
  * Contains:
  *		Fork
+ *		Spoon
  *		Kitchen knives
  *		Ritual Knife
  *		Butcher's cleaver
@@ -32,8 +33,8 @@
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
-	var/datum/reagent/forkload //used to eat omelette
-
+	pickup_sound = "cutlery_pickup"
+	drop_sound = "cutlery_drop"
 
 /datum/armor/kitchen_fork
 	fire = 50
@@ -44,26 +45,42 @@
 	playsound(src, 'sound/items/eatfood.ogg', 50, 1)
 	return BRUTELOSS
 
+/obj/item/kitchen/fork/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/utensil, "forkloaded", "forkful", 'sound/items/eatfood.ogg')
+
 /obj/item/kitchen/fork/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M))
 		return ..()
 
-	if(forkload)
-		if(M == user)
-			M.visible_message(span_notice("[user] eats a delicious forkful of omelette!"))
-			M.reagents.add_reagent(forkload.type, 1)
-		else
-			M.visible_message(span_notice("[user] feeds [M] a delicious forkful of omelette!"))
-			M.reagents.add_reagent(forkload.type, 1)
-		icon_state = "fork"
-		forkload = null
-
-	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
+	if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
 			return TRUE
 	return ..()
+
+/obj/item/kitchen/spoon
+	name = "spoon"
+	desc = "Like a fork, but more round and shallow."
+	icon_state = "spoon"
+	force = 5
+	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 5
+	custom_price = 5
+	custom_materials = list(/datum/material/iron=80)
+	obj_flags = CONDUCTS_ELECTRICITY
+	attack_verb_continuous = list("attacks", "slaps", "pokes")
+	attack_verb_simple = list("attack", "slap", "poke")
+	armor_type = /datum/armor/kitchen_fork
+	pickup_sound = "cutlery_pickup"
+	drop_sound = "cutlery_drop"
+
+/obj/item/kitchen/spoon/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/utensil, "spoonloaded", "spoonful", 'sound/items/drink.ogg', TRUE)
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"
@@ -73,16 +90,24 @@
 	name = "rolling pin"
 	desc = "Used to knock out the Bartender."
 	icon_state = "rolling_pin"
+	worn_icon_state = "rolling_pin"
+
 	force = 8
-	throwforce = 5
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
+	stamina_damage = 40
+	stamina_cost = 15
+	stamina_critical_chance = 2
+
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.5)
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
 	custom_price = 20
 	tool_behaviour = TOOL_ROLLINGPIN
+	pickup_sound = "rolling_pin_pickup"
+	drop_sound = "rolling_pin_drop"
 
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

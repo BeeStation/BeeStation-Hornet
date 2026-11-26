@@ -619,7 +619,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	sac_target.set_eye_blur_if_lower(100 SECONDS)
 	sac_target.set_dizzy_if_lower(60 SECONDS)
 	sac_target.AdjustKnockdown(80)
-	sac_target.adjustStaminaLoss(120)
+	sac_target.stamina.adjust(-120)
 
 	// Glad i'm outta there, though!
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived", /datum/mood_event/shadow_realm_live)

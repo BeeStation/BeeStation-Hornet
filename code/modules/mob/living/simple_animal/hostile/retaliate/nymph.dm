@@ -3,7 +3,7 @@
 /mob/living/simple_animal/hostile/retaliate/nymph
 	name = "diona nymph"
 	desc = "Is that a plant?"
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "nymph"
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"
@@ -16,7 +16,6 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "nymph"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	hud_type = /datum/hud/nymph
@@ -231,7 +230,7 @@
 		adult.dna.features = features
 	else
 		adult.fully_replace_character_name(name, generate_random_name_species_based(gender = gender, species_type = /datum/species/diona))
-		adult.dna.features["mcolor"] = sanitize_hexcolor(RANDOM_COLOUR)
+		adult.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(RANDOM_COLOUR)
 	if(mind)
 		mind.transfer_to(adult)
 	else

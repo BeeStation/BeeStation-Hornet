@@ -58,7 +58,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(!istype(H))
 		return
 	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
-	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || H.body_position == LYING_DOWN || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.move_intent == MOVE_INTENT_WALK || H.bodytype & BODYTYPE_DIGITIGRADE))
+	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || H.body_position == LYING_DOWN || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || MOVING_DELIBERATELY(H) || H.bodyshape & BODYSHAPE_DIGITIGRADE))
 		return
 	if(HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) || ((world.time >= last_bump + 100) && prob(5)))
 		to_chat(H, span_warning("You stub your toe on the [name]!"))
@@ -165,18 +165,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(pushed_mob.loc != loc) //Something prevented the tabling
 		return
 	pushed_mob.Knockdown(30)
-	pushed_mob.apply_damage(40, STAMINA)
-	if(user.mind?.martial_art?.smashes_tables)
+	pushed_mob.apply_damage(10, BRUTE)
+	pushed_mob.stamina.adjust(-40)
+	if(user.mind?.martial_art.smashes_tables && user.mind?.martial_art.can_use(user))
 		deconstruct(FALSE)
 	if(pushed_mob.nutrition > NUTRITION_LEVEL_FAT) //lol
 		deconstruct(FALSE)
-		playsound(pushed_mob, "sound/effects/meteorimpact.ogg", 90, TRUE)
+		playsound(pushed_mob, 'sound/effects/meteorimpact.ogg', 90, TRUE)
 		pushed_mob.visible_message(span_dangerbold("[user] slams [pushed_mob] onto \the [src], breaking it!"), \
 									span_dangerbold("[user] slams you onto \the [src]!"))
 		log_combat(user, pushed_mob, "tabled", null, "onto [src]", important = FALSE)
 		SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_fat) //it's soul
 		return
-	playsound(pushed_mob, "sound/effects/tableslam.ogg", 90, TRUE)
+	playsound(pushed_mob, 'sound/effects/tableslam.ogg', 90, TRUE)
 	pushed_mob.visible_message(span_danger("[user] slams [pushed_mob] onto \the [src]!"), \
 								span_userdanger("[user] slams you onto \the [src]!"))
 	log_combat(user, pushed_mob, "tabled", null, "onto [src]", important = FALSE)
@@ -184,12 +185,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 
 /obj/structure/table/proc/tableheadsmash(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.Knockdown(30)
-	pushed_mob?.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
-	pushed_mob.apply_damage(60, STAMINA)
+	var/obj/item/bodypart/banged_limb = pushed_mob.get_bodypart(user.get_combat_bodyzone(pushed_mob)) || pushed_mob.get_bodypart(BODY_ZONE_HEAD)
+	pushed_mob.apply_damage(30, BRUTE, banged_limb)
+	pushed_mob.stamina.adjust(-60)
 	take_damage(50)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
-	playsound(pushed_mob, "sound/effects/tableheadsmash.ogg", 90, TRUE)
+	playsound(pushed_mob, 'sound/effects/tableheadsmash.ogg', 90, TRUE)
 	pushed_mob.visible_message(span_danger("[user] smashes [pushed_mob]'s head against \the [src]!"),
 								span_userdanger("[user] smashes your head against \the [src]"))
 	log_combat(user, pushed_mob, "head slammed", null, "against [src]")
@@ -243,13 +245,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		return TRUE
 
 	if(!user.combat_mode && !(I.item_flags & ABSTRACT))
-		if(user.transferItemToLoc(I, drop_location(), silent = FALSE))
-			//Center the icon where the user clicked.
-			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
-				return
-			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
-			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+		var/x_offset = 0
+		var/y_offset = 0
+		// Items are centered by default, but we move them if click ICON_X and ICON_Y are available
+		if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
+			// Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+			x_offset = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+			y_offset = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+		if(user.transfer_item_to_turf(I, get_turf(src), x_offset, y_offset, silent = FALSE))
 			return TRUE
 	else
 		return ..()
@@ -299,7 +302,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	smoothing_groups = list(SMOOTH_GROUP_GLASS_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_GLASS_TABLES)
 	buildstack = /obj/item/stack/sheet/glass
-	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/table_glass
@@ -713,8 +715,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
 		return TRUE
 
-/obj/structure/rack/MouseDrop_T(atom/dropping, mob/user, params)
-	. = ..()
+/obj/structure/rack/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!isitem(dropping) || user.get_active_held_item() != dropping)
 		return
 	if(!user.dropItemToGround(dropping))
@@ -728,7 +729,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		return .
 	if((tool.item_flags & ABSTRACT) || (user.combat_mode && !(tool.item_flags & NOBLUDGEON)))
 		return NONE
-	if(user.transferItemToLoc(tool, get_turf(src), silent = FALSE))
+	if(user.transfer_item_to_turf(tool, get_turf(src), silent = FALSE))
 		return ITEM_INTERACT_SUCCESS
 	return ITEM_INTERACT_BLOCKING
 

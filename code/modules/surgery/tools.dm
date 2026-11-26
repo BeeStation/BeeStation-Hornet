@@ -199,11 +199,16 @@
 	inhand_icon_state = "scalpel"
 	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = SURGICAL_TOOL
-	force = 10
 	w_class = WEIGHT_CLASS_TINY
+
+	force = 10
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
+	stamina_damage = 5
+	stamina_cost = 5
+	stamina_critical_chance = 35
+
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -248,14 +253,19 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = SURGICAL_TOOL
+
 	force = 12 //These are not large saws, their big threat is how bad the bleeding is.
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9
 	throw_speed = 2
 	throw_range = 5
+	stamina_damage = 5
+	stamina_cost = 5
+	stamina_critical_chance = 35
+
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
 	attack_verb_simple = list("attack", "slash", "saw", "cut")
@@ -274,7 +284,7 @@
 	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "saw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -294,7 +304,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "hacksaw"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	inhand_icon_state = "wrench"

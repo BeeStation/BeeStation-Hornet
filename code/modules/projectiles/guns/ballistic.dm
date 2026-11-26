@@ -4,26 +4,28 @@
 	name = "projectile gun"
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_LARGE
+	pickup_sound = 'sound/items/handling/gun/gun_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gun/gun_drop.ogg'
 
 	//sound info vars
-	var/load_sound = "gun_insert_full_magazine"
-	var/load_empty_sound = "gun_insert_empty_magazine"
+	var/load_sound = 'sound/weapons/gun/general/magazine_insert_full.ogg'
+	var/load_empty_sound = 'sound/weapons/gun/general/magazine_insert_empty.ogg'
 	var/load_sound_volume = 40
 	var/load_sound_vary = TRUE
-	var/rack_sound = "gun_slide_lock"
-	var/half_rack_sound = "gun_slide_lock" //Only needs to be used on BOLT_TYPE_PUMP guns, for Ctrl-Click functionality
+	var/rack_sound = 'sound/weapons/gun/general/bolt_rack.ogg'
+	var/half_rack_sound = 'sound/weapons/gun/general/bolt_rack.ogg' //Only needs to be used on BOLT_TYPE_PUMP guns, for Ctrl-Click functionality
 	var/rack_sound_volume = 60
 	var/rack_sound_vary = TRUE
-	var/lock_back_sound = "sound/weapons/pistollock.ogg"
+	var/lock_back_sound = 'sound/weapons/gun/general/slide_lock_1.ogg'
 	var/lock_back_sound_volume = 60
 	var/lock_back_sound_vary = TRUE
-	var/eject_sound = "gun_remove_empty_magazine"
-	var/eject_empty_sound = "gun_remove_full_magazine"
+	var/eject_sound = 'sound/weapons/gun/general/magazine_remove_full.ogg'
+	var/eject_empty_sound = 'sound/weapons/gun/general/magazine_remove_empty.ogg'
 	var/eject_sound_volume = 40
 	var/eject_sound_vary = TRUE
-	var/bolt_drop_sound = 'sound/weapons/gun_chamber_round.ogg'
+	var/bolt_drop_sound = 'sound/weapons/gun/general/bolt_drop.ogg'
 	var/bolt_drop_sound_volume = 60
-	var/empty_alarm_sound = 'sound/weapons/smg_empty_alarm.ogg'
+	var/empty_alarm_sound = 'sound/weapons/gun/general/empty_alarm.ogg'
 	var/empty_alarm_volume = 70
 	var/empty_alarm_vary = TRUE
 
@@ -35,7 +37,6 @@
 	var/empty_indicator = FALSE //Whether the sprite has an indicator for being empty or not.
 	var/empty_alarm = FALSE //Whether the gun alarms when empty or not.
 	var/special_mags = FALSE //Whether the gun supports multiple special mag types
-	var/alarmed = FALSE
 	//Additional info related to the actual chambering, and to allow loading bullets directly into battery / into var/chambered
 	//Copies the caliber of the magazine in the gun during Initialize() | Must be explicitly set on the gun if it spawns without a magazine ;)
 	var/list/caliber = list()
@@ -267,7 +268,6 @@
 		if (bolt_type == BOLT_TYPE_OPEN && !bolt_locked)
 			chamber_round()
 		update_icon()
-		alarmed = FALSE
 		return TRUE
 	else
 		to_chat(user, span_warning("You cannot seem to get \the [src] out of your hands!"))
@@ -389,34 +389,31 @@
 	update_weight_class(w_class + S.w_class) //so pistols do not fit in pockets when suppressed
 	update_icon()
 
-/obj/item/gun/ballistic/AltClick(mob/user)
-	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
-		reskin_obj(user)
-		return
-	if(loc == user)
-		if(suppressed && can_unsuppress)
-			if(!user.is_holding(src))
-				return
-			to_chat(user, span_notice("You unscrew \the [suppressed] from \the [src]."))
-			var/obj/item/suppressor/S = suppressed
-			user.put_in_hands(S)
-			update_weight_class(w_class - S.w_class)
-			suppressed = null
-			update_icon()
-			return
+/obj/item/gun/ballistic/click_alt(mob/user)
+	if(!suppressed || !can_unsuppress)
+		return CLICK_ACTION_BLOCKING
+	var/obj/item/suppressor/S = suppressed
+	if(!user.is_holding(src))
+		return CLICK_ACTION_BLOCKING
+	balloon_alert(user, "[S.name] removed")
+	user.put_in_hands(S)
+	update_weight_class(w_class - S.w_class)
+	suppressed = null
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
-/obj/item/gun/ballistic/CtrlClick(mob/user)
-	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user && !bolt_locked)
-		to_chat(user, span_notice("You lock open the [bolt_wording] of \the [src]."))
-		playsound(src, half_rack_sound, rack_sound_volume, rack_sound_vary)
-		if (chambered)
-			eject_chamber()
-		else
-			chamber_round()
-		bolt_locked = TRUE
-		update_icon()
-		return
-	..()
+/obj/item/gun/ballistic/item_ctrl_click(mob/user)
+	if(bolt_type != BOLT_TYPE_PUMP || !is_wielded || loc != user || bolt_locked)
+		return NONE
+	to_chat(user, span_notice("You lock open the [bolt_wording] of \the [src]."))
+	playsound(src, half_rack_sound, rack_sound_volume, rack_sound_vary)
+	if (chambered)
+		eject_chamber()
+	else
+		chamber_round()
+	bolt_locked = TRUE
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/ballistic/proc/prefire_empty_checks()
 	if (!chambered && !get_ammo())
@@ -428,9 +425,8 @@
 
 /obj/item/gun/ballistic/proc/postfire_empty_checks()
 	if (!chambered && !get_ammo())
-		if (!alarmed && empty_alarm)
+		if (empty_alarm)
 			playsound(src, empty_alarm_sound, empty_alarm_volume, empty_alarm_vary)
-			alarmed = TRUE
 			update_icon()
 		if (bolt_type == BOLT_TYPE_LOCKING && semi_auto)
 			bolt_locked = TRUE

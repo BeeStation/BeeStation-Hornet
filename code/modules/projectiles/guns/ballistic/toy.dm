@@ -4,7 +4,7 @@
 	icon_state = "saber"
 	inhand_icon_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
-	fire_sound = 'sound/weapons/gunshot_smg.ogg'
+	fire_sound = 'sound/items/syringeproj.ogg'
 	force = 0
 	throwforce = 0
 	can_suppress = TRUE
@@ -34,7 +34,7 @@
 	bolt_type = BOLT_TYPE_LOCKING
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
-	fire_sound = 'sound/weapons/gunshot.ogg'
+	fire_sound = 'sound/items/syringeproj.ogg'
 	burst_size = 1
 	fire_delay = 0
 	automatic = 0
@@ -59,6 +59,7 @@
 	force = 0
 	throwforce = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy
+	fire_sound = 'sound/items/syringeproj.ogg'
 	clumsy_check = FALSE
 	item_flags = NONE
 	casing_ejector = FALSE
@@ -93,6 +94,7 @@
 	can_suppress = TRUE
 	item_flags = NONE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
+	fire_sound = 'sound/items/syringeproj.ogg'
 	casing_ejector = FALSE
 	clumsy_check = FALSE
 
@@ -113,6 +115,7 @@
 	can_suppress = FALSE
 	item_flags = NONE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
+	fire_sound = 'sound/items/syringeproj.ogg'
 	casing_ejector = FALSE
 	clumsy_check = FALSE
 

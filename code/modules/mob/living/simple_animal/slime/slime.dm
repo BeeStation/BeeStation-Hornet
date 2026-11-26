@@ -154,7 +154,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	set_target(null)
 	set_leader(null)
 	clear_friends()
-	remove_from_spawner_menu()
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -251,7 +250,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 						O.attack_slime(src)
 						attack_cooldown = world.time + attack_cooldown_time
 
-/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 2
 
 /mob/living/simple_animal/slime/get_stat_tab_status()
@@ -293,12 +292,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		return
 	powerlevel = 0 // oh no, the power!
 
-/mob/living/simple_animal/slime/MouseDrop(atom/movable/A as mob|obj)
-	if(isliving(A) && A != src && usr == src)
+/mob/living/simple_animal/slime/mouse_drop_dragged(atom/A, mob/user, src_location, over_location, params)
+	if(isliving(A) && A != src && user == src)
 		var/mob/living/Food = A
 		if(CanFeedon(Food))
 			Feedon(Food)
-	return ..()
 
 /mob/living/simple_animal/slime/doUnEquip(obj/item/W, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
 	return

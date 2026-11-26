@@ -195,7 +195,7 @@
 	else
 		brain.apply_organ_damage(rand(20, 40), HOLOPARA_MAX_BRAIN_DAMAGE)
 	// straight to stamcrit with you!!
-	new_body.take_overall_damage(stamina = rand(new_body.maxHealth * 1.1, new_body.maxHealth * 1.5), updating_health = TRUE)
+	new_body.stamina.adjust(-new_body.stamina.maximum)
 	new_body.set_confusion_if_lower(2 MINUTES)
 	to_chat(owner, span_userdanger("The process of moving your mind and its manifestations to a new body greatly strains both your mind and body!"))
 
@@ -222,7 +222,7 @@
 	SIGNAL_HANDLER
 	if(!death_two_electric_boogaloo || !is_active() || HAS_TRAIT(source, TRAIT_NODEATH))
 		return
-	if(IS_IN_STASIS(source))
+	if(HAS_TRAIT(source, TRAIT_STASIS))
 		// Your disintegration is delayed... for now.
 		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in holoparasites)
 			if(holopara.stat == DEAD)

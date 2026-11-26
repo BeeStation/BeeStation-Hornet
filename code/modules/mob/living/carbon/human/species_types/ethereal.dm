@@ -39,6 +39,11 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
 	)
 
+/datum/species/ethereal/randomize_features()
+	var/list/features = ..()
+	features[FEATURE_MUTANT_COLOR] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+	return features
+
 /datum/species/ethereal/on_species_gain(mob/living/carbon/human/new_ethereal, datum/species/old_species)
 	. = ..()
 	if(!ishuman(new_ethereal))
@@ -119,7 +124,7 @@
 /datum/species/ethereal/get_features()
 	var/list/features = ..()
 
-	features += "feature_ethcolor"
+	features |= "feature_ethcolor"
 
 	return features
 

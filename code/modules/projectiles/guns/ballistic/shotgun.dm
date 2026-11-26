@@ -9,13 +9,15 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	custom_price = 300
-	fire_sound = "sound/weapons/shotgunshot.ogg"
+	fire_sound = 'sound/weapons/gun/shotgun/shot.ogg'
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90
-	rack_sound = "sound/weapons/shotgunpump.ogg"
-	half_rack_sound = "sound/weapons/shotgunpump_open.ogg"
-	bolt_drop_sound = "sound/weapons/shotgunpump_close.ogg"
-	load_sound = "sound/weapons/shotguninsert.ogg"
+	rack_sound = 'sound/weapons/gun/shotgun/rack.ogg'
+	half_rack_sound = 'sound/weapons/gun/shotgun/open_rack.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/shotgun/close_rack.ogg'
+	load_sound = 'sound/weapons/gun/shotgun/insert_shell.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/shotgun/shotgun_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/shotgun/shotgun_pickup1.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	obj_flags = CONDUCTS_ELECTRICITY
@@ -79,13 +81,13 @@
 	w_class = WEIGHT_CLASS_HUGE
 	custom_price = 300
 
-/obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
-	if(loc == user)
-		if(!user.is_holding(src))
-			return
-		semi_auto = !semi_auto
-		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
-		to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
+/obj/item/gun/ballistic/shotgun/automatic/combat/click_alt(mob/user)
+	if(!user.is_holding(src))
+		return CLICK_ACTION_BLOCKING
+	semi_auto = !semi_auto
+	playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
+	to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
 	. = ..()
@@ -125,6 +127,7 @@
 	icon_state = "cycler"
 	worn_icon_state = "cshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
@@ -156,14 +159,13 @@
 	alternate_magazine = current_mag
 	toggled = !toggled
 	if(toggled)
-		to_chat(user, "You switch to tube B.")
+		balloon_alert(user, "switched to tube B")
 	else
-		to_chat(user, "You switch to tube A.")
+		balloon_alert(user, "switched to tube A")
 
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-		return
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	rack()
+	return CLICK_ACTION_SUCCESS
 
 // Bulldog shotgun //
 
@@ -182,6 +184,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
+	fire_sound = 'sound/weapons/gun/shotgun/shot_alt.ogg'
 	spread_unwielded = 8
 	actions_types = list()
 	mag_display = TRUE
@@ -389,8 +392,8 @@
 	inhand_icon_state = "leveraction"
 	icon_state = "leveraction"
 	worn_icon_state = "shotgun"
-	rack_sound = "sound/weapons/leveractionrack.ogg"
-	fire_sound = "sound/weapons/leveractionshot.ogg"
+	rack_sound = 'sound/weapons/leveractionrack.ogg'
+	fire_sound = 'sound/weapons/leveractionshot.ogg'
 	vary_fire_sound = FALSE
 	rack_sound_vary = FALSE
 	recoil = 1

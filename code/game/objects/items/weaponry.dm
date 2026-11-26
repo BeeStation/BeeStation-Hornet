@@ -421,7 +421,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/switchblade/attack_self(mob/user)
 	extended = !extended
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/baton/batonextend.ogg', 50, 1)
 	if(extended)
 		force = extended_force
 		w_class = WEIGHT_CLASS_NORMAL
@@ -864,7 +864,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	strong_against = typecacheof(list(
 		/mob/living/simple_animal/hostile/poison/bees,
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/butterfly,
 		/mob/living/basic/cockroach,
 		/obj/item/queen_bee,
 	))
@@ -912,10 +912,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	SEND_SIGNAL(M, COMSIG_LIVING_SLAPPED, user)
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/L = M
-		if(L && L.dna && L.dna.species)
-			L.dna.species.stop_wagging_tail(M)
+	if(iscarbon(M))
+		var/mob/living/carbon/potential_tailed = M
+		potential_tailed.unwag_tail()
 	user.do_attack_animation(M)
 
 	var/slap_volume = 50
@@ -1030,6 +1029,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	custom_price = 100
 	var/breakforce = 30
 	var/stamforce = 15
+	stamina_damage = 0
 
 /obj/item/club/attack(mob/living/M, mob/living/user)
 	if(ishuman(M))
@@ -1057,7 +1057,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		last_force_string_check = force
 		return ..()
 
-/obj/item/club/set_force_string()
+/obj/item/club/force2text()
 	// If we do need to calculate the new force string, make sure we are using the original force
 	force = initial(force)
 	return ..()

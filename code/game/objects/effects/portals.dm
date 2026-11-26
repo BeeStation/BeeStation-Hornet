@@ -5,8 +5,10 @@
 	var/turf/actual_destination = get_teleport_turf(destination, accuracy)
 	var/obj/effect/portal/P1 = new newtype(source, _creator, _lifespan, null, FALSE, null, atmos_link_override)
 	var/obj/effect/portal/P2 = new newtype(actual_destination, _creator, _lifespan, P1, TRUE, null, atmos_link_override)
-	if(!istype(P1)||!istype(P2))
+	if(!istype(P1) || !istype(P2))
 		return
+	playsound(P1, "portal_created", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(P2, "portal_created", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	P1.link_portal(P2)
 	P1.hardlinked = TRUE
 	return list(P1, P2)
@@ -14,7 +16,7 @@
 /obj/effect/portal
 	name = "portal"
 	desc = "Looks unstable. Best to test it with the clown."
-	icon = 'icons/obj/stationobjs.dmi'
+	icon = 'icons/obj/anomaly.dmi'
 	icon_state = "portal"
 	anchored = TRUE
 	density = TRUE // dense for receiving bumbs
@@ -41,22 +43,23 @@
 	animate(src, 1 SECONDS, transform = matrix() * 1.2, easing = SINE_EASING)
 	animate(transform = matrix() * 0.6, 1.7 SECONDS, easing = QUAD_EASING)
 	animate(transform = matrix() * 0, alpha = 0, 0.3 SECONDS, easing = QUAD_EASING)
-	QDEL_IN(src, 3 SECONDS)
-	if (linked)
-		linked.dispel()
+	addtimer(CALLBACK(src, PROC_REF(expire)), 3 SECONDS, TIMER_DELETE_ME)
+	linked?.dispel()
+
+/obj/effect/portal/proc/expire()
+	playsound(loc, 'sound/effects/portal/portal_close.ogg', 50, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
+	qdel(src)
 
 /obj/effect/portal/anom
 	name = "wormhole"
-	icon = 'icons/obj/objects.dmi'
 	icon_state = "anom"
 	layer = RIPPLE_LAYER
 	mech_sized = TRUE
 	teleport_channel = TELEPORT_CHANNEL_WORMHOLE
 
 /obj/effect/portal/Move(newloc)
-	for(var/T in newloc)
-		if(istype(T, /obj/effect/portal))
-			return FALSE
+	for(var/obj/effect/portal/P in newloc)
+		return FALSE
 	return ..()
 
 /obj/effect/portal/attackby(obj/item/W, mob/user, list/modifiers)
@@ -67,7 +70,8 @@
 /obj/effect/portal/Bumped(atom/movable/bumper)
 	teleport(bumper)
 
-/obj/effect/portal/newtonian_move(direction, instant = FALSE) // Prevents portals spawned by jaunter/handtele from floating into space when relocated to an adjacent tile.
+// Prevents portals spawned by jaunter/handtele from floating into space when relocated to an adjacent tile.
+/obj/effect/portal/newtonian_move(direction, instant = FALSE, start_delay = 0)
 	return TRUE
 
 /obj/effect/portal/CanAllowThrough(atom/movable/mover, border_dir)
@@ -95,7 +99,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 		. = INITIALIZE_HINT_QDEL
 		CRASH("Somebody fucked up.")
 	if(_lifespan > 0)
-		addtimer(CALLBACK(src, PROC_REF(dispel)), _lifespan)
+		addtimer(CALLBACK(src, PROC_REF(dispel)), _lifespan, TIMER_DELETE_ME)
 	if(!isnull(atmos_link_override))
 		atmos_link = atmos_link_override
 	link_portal(_linked)
@@ -158,9 +162,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 	GLOB.portals -= src
 	unlink_atmos()
 	if(hardlinked && !QDELETED(linked))
-		QDEL_NULL(linked)
-	else
-		linked = null
+		linked.expire()
+	linked = null
 	return ..()
 
 /obj/effect/portal/attack_ghost(mob/dead/observer/O)
@@ -182,10 +185,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 		no_effect = TRUE
 	else
 		last_effect = world.time
+
+	var/turf/start_turf = get_turf(M)
 	if(do_teleport(M, real_target, innate_accuracy_penalty, no_effects = no_effect, channel = teleport_channel, no_wake = TRUE))
 		if(istype(M, /obj/projectile))
 			var/obj/projectile/P = M
 			P.ignore_source_check = TRUE
+		playsound(start_turf, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(real_target, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		return TRUE
 	return FALSE
 

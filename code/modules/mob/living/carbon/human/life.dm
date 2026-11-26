@@ -29,7 +29,7 @@
 
 	//Body temperature stability and damage
 	dna.species.handle_body_temperature(src, delta_time, times_fired)
-	if(!IS_IN_STASIS(src))
+	if(!HAS_TRAIT(src, TRAIT_STASIS))
 		if(stat != DEAD)
 			//heart attack stuff
 			handle_heart(delta_time)
@@ -87,7 +87,13 @@
 	else
 		if(istype(L, /obj/item/organ/lungs))
 			var/obj/item/organ/lungs/lun = L
-			lun.check_breath(breath,src)
+			if(lun.check_breath(breath,src))
+				return
+			// Failed a breath for one reason or another.
+			set_eye_blur(6 SECONDS)
+			if(prob(20))
+				spawn(-1)
+					emote("gasp")
 
 /// Environment handlers for species
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)

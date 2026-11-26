@@ -1,6 +1,6 @@
 /obj/structure/spawner
 	name = "monster nest"
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "hole"
 	max_integrity = 100
 

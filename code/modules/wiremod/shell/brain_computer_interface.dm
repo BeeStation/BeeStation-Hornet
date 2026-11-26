@@ -335,14 +335,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	return overlays
 
-/obj/machinery/bci_implanter/AltClick(mob/user)
+/obj/machinery/bci_implanter/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(!user.Adjacent(src) || !can_interact(user))
+	if (. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return .
+
+	if(!user.Adjacent(src))
 		return
 
-	if(locked)
+	if (locked)
 		balloon_alert(user, "it's locked!")
-		return ..()
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if (isnull(bci_to_implant))
 		balloon_alert(user, "no bci inserted!")
@@ -350,9 +353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 		user.put_in_hands(bci_to_implant)
 		balloon_alert(user, "ejected bci")
 
-	bci_to_implant = null
-
-	return ..()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/bci_implanter/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if (!occupant && default_deconstruction_screwdriver(user, icon_state, icon_state, weapon))

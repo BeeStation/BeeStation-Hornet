@@ -23,8 +23,12 @@
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
 	custom_price = 100
+	interaction_flags_click = NEED_LITERACY|NEED_LIGHT|ALLOW_RESTING
+	/// Verbose/condensed
 	var/mode = SCANNER_VERBOSE
+	/// HEALTH/WOUND
 	var/scanmode = SCANMODE_HEALTH
+	/// Advanced health analyzer
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
@@ -59,7 +63,7 @@
 
 	user.visible_message(span_notice("[user] analyzes [M]'s vitals."))
 	balloon_alert(user, "analyzing vitals")
-	playsound(user.loc, 'sound/effects/fastbeep.ogg', 10)
+	playsound(user, 'sound/items/healthanalyzer.ogg', 50)
 
 	switch (scanmode)
 		if (SCANMODE_HEALTH)
@@ -133,9 +137,9 @@
 		else
 			render_list += "<span class='alert ml-1'>Subject has been husked.</span>\n"
 
-	if(target.getStaminaLoss())
+	if(target.stamina.loss_as_percent)
 		if(advanced)
-			render_list += "<span class='alert ml-1'>Fatigue level: [target.getStaminaLoss()]%.</span>\n"
+			render_list += "<span class='alert ml-1'>Fatigue level: [target.stamina.loss_as_percent]%.</span>\n"
 		else
 			render_list += "<span class='alert ml-1'>Subject appears to be suffering from fatigue.</span>\n"
 	if (target.getCloneLoss())
@@ -296,8 +300,7 @@
 			|| targetspecies.mutanttongue != initial(targetspecies.mutanttongue) \
 			|| targetspecies.mutantliver != initial(targetspecies.mutantliver) \
 			|| targetspecies.mutantstomach != initial(targetspecies.mutantstomach) \
-			|| targetspecies.mutantappendix != initial(targetspecies.mutantappendix) \
-			|| targetspecies.mutantwings != initial(targetspecies.mutantwings)
+			|| targetspecies.mutantappendix != initial(targetspecies.mutantappendix)
 
 		render_list += "<span class='info ml-1'>Species: [targetspecies.name][mutant ? "-derived mutant" : ""]</span>\n"
 		var/core_temperature_message = "Core temperature: [round(humantarget.coretemperature-T0C, 0.1)] &deg;C ([round(humantarget.coretemperature*1.8-459.67,0.1)] &deg;F)"
@@ -603,14 +606,11 @@
 
 	to_chat(user, examine_block(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
-/obj/item/healthanalyzer/AltClick(mob/user)
-	..()
-
-	if(!user.canUseTopic(src, be_close = TRUE) || !user.can_read(src))
-		return
+/obj/item/healthanalyzer/click_alt(mob/user)
 
 	mode = !mode
 	to_chat(user, mode == SCANNER_VERBOSE ? "The scanner now shows specific limb damage." : "The scanner no longer shows limb damage.")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"

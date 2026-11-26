@@ -250,3 +250,5 @@
 		movedelay = slow_pressure_step_in
 		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in flat_equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)
+	if(overclock_mode)
+		movedelay /= overclock_coeff

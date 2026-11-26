@@ -156,13 +156,13 @@
 /datum/symptom/heal/coma/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/heal_amt = 4 * actual_power
 
-	var/list/parts = M.get_damaged_bodyparts(1,1)
+	var/list/parts = M.get_damaged_bodyparts(brute = 1, burn = 1, required_bodytype = BODYTYPE_ORGANIC)
 
 	if(!parts.len)
 		return
 
-	for(var/obj/item/bodypart/bodypart in parts)
-		if(bodypart.heal_damage(heal_amt/parts.len, heal_amt/parts.len, required_bodytype = BODYTYPE_ORGANIC))
+	for(var/obj/item/bodypart/bodypart as anything in parts)
+		if(bodypart.heal_damage(brute = heal_amt/parts.len, burn = heal_amt/parts.len, required_bodytype = BODYTYPE_ORGANIC))
 			M.update_damage_overlays()
 
 	if(active_coma && M.getBruteLoss() + M.getFireLoss() == 0)
@@ -641,7 +641,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = /datum/blood_type/universal
+		H.set_blood_type(/datum/blood_type/universal)
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -690,7 +690,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 	if(bloodtypearchive && ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
-		H.dna.blood_type = bloodtypearchive
+		H.set_blood_type(bloodtypearchive)
 
 /datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need to have blood, or at least a shared blood reagent, for most of the other uses
 	var/gainedpoints = 0
@@ -987,7 +987,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.emote("twitch")
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
-			M.adjustStaminaLoss((-5 * power), 0)
+			M.stamina.adjust(-(-5 * power))
 			M.set_drowsiness_if_lower(4 SECONDS * power)
 			M.AdjustSleeping(-10 * power)
 			M.AdjustUnconscious(-10 * power)

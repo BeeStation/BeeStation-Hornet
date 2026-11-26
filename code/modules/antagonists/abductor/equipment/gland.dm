@@ -127,7 +127,7 @@
 /obj/item/organ/heart/gland/heals/activate()
 	to_chat(owner, span_notice("You feel curiously revitalized."))
 	owner.adjustToxLoss(-20, FALSE, TRUE)
-	owner.heal_bodypart_damage(20, 20, 0, TRUE)
+	owner.heal_bodypart_damage(20, 20)
 	owner.adjustOxyLoss(-20)
 
 /obj/item/organ/heart/gland/slime
@@ -198,7 +198,7 @@
 
 /obj/item/organ/heart/gland/pop/activate()
 	to_chat(owner, span_notice("You feel unlike yourself."))
-	randomize_human(owner, TRUE)
+	randomize_human(owner)
 	var/species = pick(list(/datum/species/human, /datum/species/lizard, /datum/species/moth, /datum/species/fly))
 	owner.set_species(species)
 
