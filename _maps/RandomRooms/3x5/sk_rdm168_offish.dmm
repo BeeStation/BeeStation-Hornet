@@ -17,15 +17,13 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "h" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "l" = (
 /obj/item/stack/tile/wood,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "q" = (
 /turf/open/floor/wood,
@@ -59,9 +57,8 @@
 /obj/item/storage/fish_case/random,
 /obj/structure/safe/floor,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "G" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -86,9 +83,8 @@
 "S" = (
 /obj/structure/table/wood,
 /obj/item/fish_feed,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"

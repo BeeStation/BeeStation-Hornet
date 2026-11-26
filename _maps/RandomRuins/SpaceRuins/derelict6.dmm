@@ -32,9 +32,8 @@
 /area/template_noop)
 "ak" = (
 /obj/item/stack/rods,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "al" = (
 /obj/structure/broken_flooring/singular/directional/east,
@@ -53,9 +52,8 @@
 /area/ruin/unpowered)
 "ao" = (
 /obj/structure/closet/emcloset,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "ar" = (
 /obj/structure/girder,
@@ -63,9 +61,8 @@
 /area/ruin/unpowered)
 "as" = (
 /obj/item/stack/sheet/iron,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "at" = (
 /obj/item/stack/rods,
@@ -85,9 +82,8 @@
 /area/ruin/unpowered)
 "ay" = (
 /obj/item/stack/tile/iron,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "az" = (
 /obj/structure/broken_flooring/plating/directional/west{
@@ -117,9 +113,8 @@
 /obj/machinery/light/broken{
 	dir = 1
 	},
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "aQ" = (
 /obj/item/stack/tile/iron,
@@ -128,9 +123,8 @@
 "aU" = (
 /obj/structure/table/wood,
 /obj/item/shard,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "aY" = (
 /obj/structure/lattice,
@@ -143,27 +137,23 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "be" = (
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "bk" = (
 /obj/structure/table_frame/wood,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "bl" = (
 /obj/structure/girder,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "bm" = (
 /obj/item/chair,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "bo" = (
 /obj/item/stack/rods,
@@ -172,16 +162,14 @@
 "bp" = (
 /obj/item/stack/sheet/iron,
 /obj/structure/girder,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "br" = (
 /obj/structure/girder,
 /obj/item/stack/sheet/iron,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "bt" = (
 /obj/structure/broken_flooring/side/directional/north,
@@ -265,9 +253,8 @@
 "cI" = (
 /obj/structure/table/wood,
 /obj/item/plate,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "hu" = (
 /obj/structure/table_frame,
@@ -297,9 +284,8 @@
 "mz" = (
 /obj/item/stack/sheet/iron,
 /obj/item/clothing/head/utility/chefhat,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "nf" = (
 /obj/item/plate,
@@ -328,9 +314,8 @@
 "vS" = (
 /obj/item/stack/sheet/iron,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "yC" = (
 /turf/open/floor/iron/cafeteria/airless,

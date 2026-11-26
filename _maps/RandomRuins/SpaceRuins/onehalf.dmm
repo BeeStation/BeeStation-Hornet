@@ -111,9 +111,8 @@
 /area/ruin/space/has_grav/onehalf/hallway)
 "ay" = (
 /obj/structure/table_frame,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "az" = (
 /obj/machinery/washing_machine,
@@ -168,9 +167,8 @@
 /turf/template_noop,
 /area/ruin/space/has_grav/onehalf/hallway)
 "aJ" = (
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "aK" = (
 /obj/machinery/iv_drip,
@@ -352,9 +350,8 @@
 /area/ruin/space/has_grav/onehalf/drone_bay)
 "bf" = (
 /obj/item/stack/sheet/iron,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bg" = (
 /obj/structure/disposalpipe/broken{
@@ -363,18 +360,16 @@
 /obj/item/stack/cable_coil/cut{
 	amount = 2
 	},
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bj" = (
 /obj/structure/disposalpipe/segment{
@@ -388,9 +383,8 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bm" = (
 /obj/structure/disposalpipe/junction{
@@ -462,17 +456,15 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bx" = (
 /obj/structure/disposalpipe/segment{
@@ -485,9 +477,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bz" = (
 /obj/structure/disposalpipe/segment{
@@ -558,21 +549,18 @@
 /area/ruin/space/has_grav/onehalf/hallway)
 "bL" = (
 /obj/structure/closet/emcloset,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bM" = (
 /obj/machinery/vending/coffee,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bN" = (
 /obj/machinery/vending/snack,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bO" = (
 /obj/structure/disposalpipe/trunk{
@@ -607,9 +595,8 @@
 "bX" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/stack/rods,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bY" = (
 /obj/structure/grille,
@@ -672,9 +659,8 @@
 	dir = 1
 	},
 /obj/item/shard,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "ci" = (
 /obj/structure/lattice,
@@ -768,9 +754,8 @@
 /area/ruin/space/has_grav/onehalf/hallway)
 "cu" = (
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "cv" = (
 /obj/structure/girder/reinforced,
@@ -859,9 +844,8 @@
 /turf/template_noop,
 /area/ruin/space/has_grav/onehalf/hallway)
 "cL" = (
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "cM" = (
 /obj/machinery/light{
@@ -902,9 +886,8 @@
 /area/ruin/space/has_grav/onehalf/bridge)
 "cX" = (
 /obj/structure/cable/yellow,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "cY" = (
 /obj/structure/table/reinforced,
@@ -930,16 +913,14 @@
 "dc" = (
 /obj/structure/grille/broken,
 /obj/structure/cable/yellow,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "dd" = (
 /obj/structure/grille,
 /obj/item/shard,
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "dh" = (
 /obj/item/stack/sheet/plasteel,
