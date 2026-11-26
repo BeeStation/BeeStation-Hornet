@@ -111,7 +111,7 @@
 
 	if(prob(capitalize_prob))
 		var/exclamation = pick("!", "!!", "!!!")
-		message = uppertext(message)
+		message = sanitize(uppertext(message))
 		message += "[stutter_char(exclamation)]"
 
 	message_args[TREAT_MESSAGE_ARG] = sanitize(message)

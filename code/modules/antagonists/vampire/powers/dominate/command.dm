@@ -141,7 +141,7 @@
 
 /datum/action/vampire/targeted/command/proc/get_single_word_command()
 	. = TRUE
-	var/command = tgui_input_text(owner, "What would you like to command?", "Input a command", "STOP", encode = FALSE, timeout = 2 MINUTES)
+	var/command = tgui_input_text(owner, "What would you like to command?", "Input a command", "STOP", timeout = 2 MINUTES)
 	if(QDELETED(src))
 		return FALSE
 	if(CHAT_FILTER_CHECK(command))

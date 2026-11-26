@@ -212,7 +212,7 @@
 					to_chat(usr, span_warning("The console flashes a message: 'NOTICE: Decryption key too short!'"))
 				else if(length(newkey) > 16)
 					to_chat(usr, span_warning("The console flashes a message: 'NOTICE: Decryption key too long!'"))
-				else if(newkey && newkey != "")
+				else if(newkey)
 					linked_server.decryptkey = newkey
 					to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Decryption key set.'"))
 			else
