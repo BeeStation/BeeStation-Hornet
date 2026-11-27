@@ -37,8 +37,8 @@
 
 /datum/techweb_node/New()
 	// Make lists associative for faster lookup
-	make_associative(prerequisite_nodes)
-	make_associative(unlocked_designs)
+	prerequisite_nodes = make_associative(prerequisite_nodes)
+	unlocked_designs = make_associative(unlocked_designs)
 
 /datum/techweb_node/Destroy(force)
 	SSresearch.techweb_nodes -= type

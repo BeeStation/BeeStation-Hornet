@@ -113,9 +113,9 @@
 			if(!disk)
 				return FALSE
 
-			var/design_path = text2path(params["program_id"])
+			var/design_path = text2path(params["program_path"])
 			//check if it's a valid design
-			if(!ispath(design_path, /datum/design/nanites))
+			if(!ispath(design_path, /datum/design/nanites) || !linked_techweb.researched_designs[design_path])
 				return FALSE
 			var/datum/design/nanites/downloaded = SSresearch.techweb_designs[design_path]
 

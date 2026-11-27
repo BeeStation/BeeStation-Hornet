@@ -163,13 +163,15 @@
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/tech_disk))
 			var/obj/item/disk/tech_disk/tech_disk = held_item
-			for(var/design_path in tech_disk.stored_nodes)
-				var/datum/design/surgery/surgery_design = SSresearch.techweb_designs[design_path]
-				if(!istype(surgery_design))
-					continue
-				if(!(surgery_design.surgery in advanced_surgeries))
-					surgeries_to_add += surgery_design.surgery
-					new_surgeries++
+			for(var/node_path in tech_disk.stored_nodes)
+				var/datum/techweb_node/node = SSresearch.techweb_nodes[node_path]
+				for(var/design_path in node.unlocked_designs)
+					if(!ispath(design_path, /datum/design/surgery))
+						continue
+					var/datum/design/surgery/surgery_design = SSresearch.techweb_designs[design_path]
+					if(!(surgery_design.surgery in advanced_surgeries))
+						surgeries_to_add += surgery_design.surgery
+						new_surgeries++
 		else if(istype(held_item, /obj/item/disk/nuclear))
 			// funny joke message
 			to_chat(owner, span_warning("Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!"))

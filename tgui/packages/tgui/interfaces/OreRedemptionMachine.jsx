@@ -54,13 +54,13 @@ export const OreRedemptionMachine = (props) => {
         </Section>
         <Section title="Alloys">
           <Table>
-            {alloys.map((material) => (
+            {alloys.map((alloy) => (
               <MaterialRow
-                key={material.id}
-                material={material}
+                key={alloy.path}
+                material={alloy}
                 onRelease={(amount) =>
                   act('Smelt', {
-                    id: material.id,
+                    path: alloy.path,
                     sheets: amount,
                   })
                 }

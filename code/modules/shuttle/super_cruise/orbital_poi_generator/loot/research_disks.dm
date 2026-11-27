@@ -57,5 +57,6 @@
 		new /obj/effect/spawner/random/ruinloot/basic(loc)
 		return INITIALIZE_HINT_QDEL
 
-	stored_nodes = list(pick(possible_nodes))
+	// don't forget that it has to be assoc
+	stored_nodes = list(pick(possible_nodes) = TRUE)
 	return ..()

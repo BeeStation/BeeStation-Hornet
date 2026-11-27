@@ -249,13 +249,11 @@
 	update_node_status(node)
 	recalculate_tiers()
 
-	var/log_message = "[id]/[organization] researched node [node.type]"
 	if(apply_cost)
 		var/list/node_cost = node.get_price(src)
 		for(var/point_type in node_cost)
 			node_cost[point_type] *= -1
 		adjust_multiple_points(node_cost)
-		log_message += " at the cost of [json_encode(node_cost)]"
 
 	node_added(node, research_source)
 	//Add to our researched list

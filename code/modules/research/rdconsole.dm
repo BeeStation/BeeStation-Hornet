@@ -134,7 +134,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 
 	say("Successfully researched [unlocked_node.display_name].")
 
-	var/logname
+	var/logname = "Unknown"
 	if(isAI(user))
 		logname = "AI [user.name]"
 	else if(iscyborg(user))
@@ -148,8 +148,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 		var/obj/item/card/id/idcard = user.get_active_held_item()
 		if(istype(idcard))
 			logname = "[idcard.registered_name]"
-	else
-		logname = "Unknown"
 
 	stored_research.research_logs += list(list(
 		"node_name" = unlocked_node.display_name,
@@ -210,11 +208,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 
 	if (t_disk)
 		data["t_disk"] = list(
-			"stored_research" = t_disk.stored_nodes
+			"stored_research" = SANITIZE_LIST(t_disk.stored_nodes)
 		)
 	if (d_disk)
 		data["d_disk"] = list(
-			"blueprints" = d_disk.blueprints
+			"blueprints" = SANITIZE_LIST(d_disk.blueprints)
 		)
 
 	// Serialize all nodes to display
@@ -267,7 +265,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 				node_cache[compressed_id]["unlocked_designs"] += compress_id(unlocked_design)
 		if (LAZYLEN(node.unlocked_nodes))
 			node_cache[compressed_id]["unlocked_nodes"] = list()
-			for (var/unlocked_node in node.unlocked_designs)
+			for (var/unlocked_node in node.unlocked_nodes)
 				node_cache[compressed_id]["unlocked_nodes"] += compress_id(unlocked_node)
 
 	// Build design cache
