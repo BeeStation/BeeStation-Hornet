@@ -68,13 +68,13 @@
 		eater.visible_message(span_notice("[user] starts feeding [eater] a [bite_word] of food..."), span_userdanger("[user] starts feeding you a [bite_word]..."))
 		if(!do_after(user, 1.5 SECONDS, eater, extra_checks = CALLBACK(src, PROC_REF(can_keep_feeding), source, user)))
 			return
-		log_combat(user, eater, "fed", source.reagents.log_list(), important = FALSE)
+		log_combat(user, eater, "fed", source.reagents.get_reagent_log_string(), important = FALSE)
 		eater.visible_message(span_notice("[user] feeds [eater] a [bite_word] of food!"))
 	else
 		eater.visible_message(span_notice("[user] eats a [bite_word] of food!"), span_notice("You eat a [bite_word] of food!"))
 	playsound(eater, eat_sound, 25, TRUE)
 	SEND_SIGNAL(source, COMSIG_ITEM_UTENSIL_FED, eater, user, source.reagents.total_volume)
-	source.reagents.trans_to(eater, source.reagents.total_volume, transfered_by = user, method = INGEST)
+	source.reagents.trans_to(eater, source.reagents.total_volume, transferred_by = user, methods = INGEST)
 	source.update_appearance(UPDATE_OVERLAYS)
 
 /datum/element/utensil/proc/can_keep_feeding(obj/item/source, mob/living/user)

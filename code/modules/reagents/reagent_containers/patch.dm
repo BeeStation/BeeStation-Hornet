@@ -40,7 +40,7 @@
 /obj/item/reagent_containers/applicator/patch/on_consumption(mob/consumer, mob/giver, obj/item/bodypart/affected_limb)
 	if(reagents.total_volume)
 		reagents.expose(consumer, PATCH, affecting = affected_limb)
-		reagents.trans_to(consumer, reagents.total_volume, transfered_by = giver)
+		reagents.trans_to(consumer, reagents.total_volume, transferred_by = giver)
 	qdel(src)
 
 /obj/item/reagent_containers/applicator/patch/styptic

@@ -108,7 +108,7 @@ Borg Hypospray
 		var/fraction = min(amount_per_transfer_from_this/R.total_volume, 1)
 		R.expose(M, INJECT, fraction)
 		if(M.reagents)
-			var/trans = R.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
+			var/trans = R.trans_to(M, amount_per_transfer_from_this, transferred_by = user)
 			to_chat(user, span_notice("[trans] unit\s injected.  [R.total_volume] unit\s remaining."))
 
 	var/list/injected = list()
@@ -252,7 +252,7 @@ Borg Shaker
 			to_chat(user, span_notice("[target] is full."))
 			return
 
-		var/trans = R.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+		var/trans = R.trans_to(target, amount_per_transfer_from_this, transferred_by = user)
 		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
 
 /obj/item/reagent_containers/borghypo/borgshaker/DescribeContents()

@@ -95,7 +95,7 @@
 
 	. = COMPONENT_CANCEL_ATTACK_CHAIN // No hurting other cultists.
 
-	if(!target.reagents.get_reagent(/datum/reagent/water/holywater))
+	if(!target.reagents.has_reagent(/datum/reagent/water/holywater))
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(do_purge_holywater), user)

@@ -4,7 +4,8 @@
 	description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
 	reagent_state = SOLID
 	color = "#550000"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sweet tasting metal"
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -22,7 +23,8 @@
 	name = "Nitroglycerin"
 	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "oil"
 
 /datum/reagent/stabilizing_agent
@@ -30,7 +32,7 @@
 	description = "Keeps unstable chemicals stable. This does not work on everything."
 	reagent_state = LIQUID
 	color = COLOR_YELLOW
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "metal"
 
 /datum/reagent/clf3
@@ -38,7 +40,8 @@
 	description = "Makes a temporary 3x3 fireball when it comes into existence, so be careful when mixing. ClF3 applied to a surface burns things that wouldn't otherwise burn, sometimes through the very floors of the station and exposing it to the vacuum of space."
 	reagent_state = LIQUID
 	color = "#FFC8C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
@@ -72,11 +75,12 @@
 		if(prob(reac_volume))
 			EX_ACT(wall, EXPLODE_DEVASTATE)
 
-/datum/reagent/clf3/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/clf3/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
 	if(!istype(exposed_mob))
 		return
 
-	if(method != INGEST && method != INJECT)
+	if(!(methods & (INGEST|INJECT)))
 		exposed_mob.adjust_fire_stacks(min(reac_volume/5, 10))
 		exposed_mob.ignite_mob()
 		if(!locate(/obj/effect/hotspot) in exposed_mob.loc)
@@ -87,7 +91,8 @@
 	description = "Sends everything flying from the detonation point."
 	reagent_state = LIQUID
 	color = "#5A64C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "air and bitterness"
 
 /datum/reagent/liquid_dark_matter
@@ -95,7 +100,8 @@
 	description = "Sucks everything into the detonation point."
 	reagent_state = LIQUID
 	color = "#210021"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "compressed bitterness"
 
 /datum/reagent/blackpowder
@@ -103,7 +109,8 @@
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
 	color = COLOR_BLACK
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	taste_description = "salt"
 
@@ -132,7 +139,8 @@
 	description = "Makes a very bright flash."
 	reagent_state = LIQUID
 	color = "#C8C8C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 
 /datum/reagent/smoke_powder
@@ -140,7 +148,8 @@
 	description = "Makes a large cloud of smoke that can carry reagents."
 	reagent_state = LIQUID
 	color = "#C8C8C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "smoke"
 
 /datum/reagent/sonic_powder
@@ -148,7 +157,8 @@
 	description = "Makes a deafening noise."
 	reagent_state = LIQUID
 	color = "#C8C8C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "loud noises"
 
 /datum/reagent/phlogiston
@@ -156,12 +166,13 @@
 	description = "Catches you on fire and makes you ignite."
 	reagent_state = LIQUID
 	color = "#FA00AF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/phlogiston/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/phlogiston/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
 	exposed_mob.adjust_fire_stacks(1)
 	var/burndmg = max(0.3 * exposed_mob.fire_stacks, 0.3)
@@ -180,7 +191,8 @@
 	description = "Very flammable."
 	reagent_state = LIQUID
 	color = "#FA00AF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
@@ -189,18 +201,20 @@
 	. = ..()
 	affected_mob.adjust_fire_stacks(1 * REM * delta_time)
 
-/datum/reagent/napalm/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/napalm/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
 	if(!istype(exposed_mob))
 		return
 
-	if(method != INGEST && method != INJECT)
+	if(!(methods & (INGEST|INJECT)))
 		exposed_mob.adjust_fire_stacks(min(reac_volume / 4, 20))
 
 /datum/reagent/cryostylane
 	name = "Cryostylane"
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Cryostylane slowly cools all other reagents in the container 0K."
 	color = "#0000DC"
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "bitterness"
 	self_consuming = TRUE
@@ -232,7 +246,8 @@
 	name = "Pyrosium"
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents in the container."
 	color = "#64FAC8"
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "bitterness"
 	self_consuming = TRUE
@@ -253,7 +268,8 @@
 	description = "An unstable, electrically-charged metallic slurry. Periodically electrocutes its victim, and makes electrocutions against them more deadly. Excessively heating teslium results in dangerous destabilization. Do not allow to come into contact with water."
 	reagent_state = LIQUID
 	color = "#20324D" //RGB: 32, 50, 77
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "charged metal"
 	self_consuming = TRUE
@@ -290,7 +306,7 @@
 	description = "Electrically-charged jelly. Boosts Oozeling's nervous system, but only shocks other lifeforms."
 	reagent_state = LIQUID
 	color = "#CAFF43"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "jelly"
 	overdose_threshold = 30
 
@@ -319,7 +335,7 @@
 	description = "A historical fire suppressant. Originally believed to simply displace oxygen to starve fires, it actually interferes with the combustion reaction itself. Vastly superior to the cheap water-based extinguishers found on NT vessels."
 	reagent_state = LIQUID
 	color = "#A6FAFF55"
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "the inside of a fire extinguisher"
 
 /datum/reagent/firefighting_foam/expose_turf(turf/open/exposed_turf, reac_volume)
@@ -346,7 +362,7 @@
 	. = ..()
 	exposed_obj.extinguish()
 
-/datum/reagent/firefighting_foam/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/firefighting_foam/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
-	if(method in list(VAPOR, TOUCH))
+	if(methods & (VAPOR|TOUCH))
 		exposed_mob.extinguish_mob()

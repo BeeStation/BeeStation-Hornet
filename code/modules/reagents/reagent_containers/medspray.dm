@@ -84,7 +84,7 @@
 		to_chat(M, span_notice("You [apply_method] yourself with [src]."))
 
 	else
-		log_combat(user, M, "attempted to apply", src, reagents.log_list())
+		log_combat(user, M, "attempted to apply", src, reagents.get_reagent_log_string())
 		M.visible_message(span_danger("[user] attempts to [apply_method] [src] on [M]."), \
 							span_userdanger("[user] attempts to [apply_method] [src] on [M]."))
 		if(!do_after(user, 3 SECONDS, target = M))
@@ -98,11 +98,11 @@
 		return
 
 	else
-		log_combat(user, M, "applied", src, reagents.log_list())
+		log_combat(user, M, "applied", src, reagents.get_reagent_log_string())
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 		reagents.expose(M, apply_type, fraction, affecting = affecting)
-		reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
+		reagents.trans_to(M, amount_per_transfer_from_this, transferred_by = user)
 	return
 
 /obj/item/reagent_containers/medspray/styptic

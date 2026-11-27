@@ -36,10 +36,11 @@
 	name = "Pressurized Slime"
 	taste_description = "a sponge"
 	color = "#AAAABB"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/pressurized_slime/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
-	reac_volume = ..()
+/datum/reagent/blob/pressurized_slime/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(M, methods, reac_volume, show_message, touch_protection, O)
 	var/turf/open/T = get_turf(M)
 	if(istype(T) && prob(reac_volume))
 		T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)

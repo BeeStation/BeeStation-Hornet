@@ -4,7 +4,8 @@
 	color = "#404030" // rgb: 64, 64, 48
 	nutriment_factor = 0
 	taste_description = "alcohol"
-	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT | CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/beer
 	fallback_icon = 'icons/obj/drinks/bottles.dmi'
@@ -74,12 +75,12 @@
 		else
 			exposed_obj.visible_message(span_warning("[exposed_obj]'s ink is smeared by [name], but doesn't wash away!"))
 
-/datum/reagent/consumable/ethanol/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
+/datum/reagent/consumable/ethanol/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
 	. = ..()
 	if(!isliving(exposed_mob))
 		return
 
-	if(method in list(TOUCH, VAPOR, PATCH))
+	if(methods & (TOUCH|VAPOR|PATCH))
 		exposed_mob.adjust_fire_stacks(reac_volume / 15)
 
 		if(iscarbon(exposed_mob))
@@ -94,7 +95,7 @@
 	name = "Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. Still popular today."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "mild carbonated malt"
@@ -108,7 +109,7 @@
 /datum/reagent/consumable/ethanol/beer/light
 	name = "Light Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety has reduced calorie and alcohol content."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 5 //Space Europeans hate it
 	taste_description = "dish water"
 
@@ -121,7 +122,7 @@
 	name = "Green Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety is dyed a festive green."
 	color = "#A8E61D"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "green piss water"
 
 /datum/glass_style/drinking_glass/beer/green
@@ -143,7 +144,7 @@
 	name = "Kahlua"
 	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 
 /datum/glass_style/shot_glass/kahlua
@@ -169,7 +170,7 @@
 	name = "Whiskey"
 	description = "A superb and well-aged single-malt whiskey. Damn."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
 	taste_description = "molasses"
 
@@ -187,7 +188,7 @@
 	name = "Thirteen Loko"
 	description = "A potent mixture of caffeine and alcohol."
 	color = "#102000" // rgb: 16, 32, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 80
 	quality = DRINK_GOOD
@@ -253,7 +254,8 @@
 	name = "Vodka"
 	description = "Number one drink AND fueling choice for Russians worldwide."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL | REAGENT_CLEANS
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED | REAGENT_CLEANS
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 65
 	taste_description = "grain alcohol"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/vodka
@@ -272,7 +274,7 @@
 	name = "Bilk"
 	description = "This appears to be beer mixed with milk. Disgusting."
 	color = "#895C4C" // rgb: 137, 92, 76
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	boozepwr = 15
 	taste_description = "desperation and lactate"
@@ -293,7 +295,7 @@
 	name = "Three Mile Island Iced Tea"
 	description = "Made for a woman, but strong enough for a man."
 	color = "#666340" // rgb: 102, 99, 64
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
 	taste_description = "dryness"
@@ -313,7 +315,7 @@
 	name = "Gin"
 	description = "It's gin. In space. I say, good sir."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 	taste_description = "an alcoholic christmas tree"
 
@@ -327,7 +329,7 @@
 	name = "Rum"
 	description = "Yohoho and all that."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 60
 	taste_description = "spiked butterscotch"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/rum
@@ -346,7 +348,7 @@
 	name = "Tequila"
 	description = "A strong and mildly flavoured Mexican produced spirit. Feeling thirsty, hombre?"
 	color = "#FFFF91" // rgb: 255, 255, 145
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 70
 	taste_description = "paint stripper"
 
@@ -364,7 +366,7 @@
 	name = "Vermouth"
 	description = "You suddenly feel a craving for a martini..."
 	color = "#91FF91" // rgb: 145, 255, 145
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 	taste_description = "dry alcohol"
 
@@ -382,7 +384,7 @@
 	name = "Wine"
 	description = "A premium alcoholic beverage made from distilled grape juice."
 	color = "#7E4043" // rgb: 126, 64, 67
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 35
 	taste_description = "bitter sweetness"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/wine
@@ -401,7 +403,7 @@
 	name = "Lizard wine"
 	description = "An alcoholic beverage from Space China, made by infusing lizard tails in ethanol."
 	color = "#7E4043" // rgb: 126, 64, 67
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_FANTASTIC
 	taste_description = "scaley sweetness"
@@ -410,7 +412,7 @@
 	name = "Grappa"
 	description = "A fine Italian brandy for when regular wine just isn't alcoholic enough for you."
 	color = "#F8EBF1"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	taste_description = "classy bitter sweetness"
 
@@ -424,7 +426,7 @@
 	name = "Cognac"
 	description = "A sweet and strongly alcoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
 	color = "#AB3C05" // rgb: 171, 60, 5
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
 	taste_description = "classy French brandy"
 
@@ -442,7 +444,7 @@
 	name = "Absinthe"
 	description = "A powerful alcoholic drink. Rumored to cause hallucinations, but does not."
 	color = rgb(10, 206, 0)
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 80 //Very strong even by default
 	taste_description = "death and licorice"
 
@@ -465,7 +467,7 @@
 	name = "Hooch"
 	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 100
 	taste_description = "pure resignation"
 	addiction_types = list(/datum/addiction/maintenance_drugs = 600)
@@ -486,7 +488,7 @@
 	name = "Ale"
 	description = "A dark alcoholic beverage made with malted barley and yeast."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 65
 	taste_description = "hearty barley ale"
 
@@ -500,7 +502,7 @@
 	name = "Goldschlager"
 	description = "100 proof cinnamon schnapps, made for alcoholic teen girls on spring break."
 	color = "#FFFF91" // rgb: 255, 255, 145
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_VERYGOOD
 	taste_description = "burning cinnamon"
@@ -520,7 +522,7 @@
 	name = "Patron"
 	description = "Tequila with silver in it, a favorite of alcoholic women in the club scene."
 	color = "#585840" // rgb: 88, 88, 64
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_VERYGOOD
 	taste_description = "metallic and expensive"
@@ -541,7 +543,7 @@
 	name = "Gin and Tonic"
 	description = "An all time classic, mild cocktail."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "mild and tart"
@@ -558,7 +560,7 @@
 	description = "Rum mixed with cola."
 	taste_description = "cola"
 	color = "#3E1B00"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	quality = DRINK_NICE
 
@@ -572,7 +574,7 @@
 	name = "Cuba Libre"
 	description = "Viva la Revolucion! Viva Cuba Libre!"
 	color = "#3E1B00" // rgb: 62, 27, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "a refreshing marriage of citrus and rum"
@@ -599,7 +601,7 @@
 	name = "Whiskey Cola"
 	description = "Whiskey mixed with cola. Surprisingly refreshing."
 	color = "#3E1B00" // rgb: 62, 27, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "cola"
@@ -614,7 +616,7 @@
 	name = "Classic Martini"
 	description = "Vermouth with Gin. Not quite how 007 enjoyed it, but still delicious."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_NICE
 	taste_description = "dry class"
@@ -629,7 +631,7 @@
 	name = "Vodka Martini"
 	description = "Vodka with Gin. Not quite how 007 enjoyed it, but still delicious."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 65
 	quality = DRINK_NICE
 	taste_description = "shaken, not stirred"
@@ -644,7 +646,7 @@
 	name = "White Russian"
 	description = "That's just, like, your opinion, man..."
 	color = "#A68340" // rgb: 166, 131, 64
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "bitter cream"
@@ -660,7 +662,7 @@
 	name = "Screwdriver"
 	description = "Vodka mixed with plain ol' orange juice. The result is surprisingly delicious."
 	color = "#A68310" // rgb: 166, 131, 16
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 55
 	quality = DRINK_NICE
 	taste_description = "oranges"
@@ -684,7 +686,7 @@
 	name = "Booger"
 	description = "Ewww..."
 	color = "#8CFF8C" // rgb: 140, 255, 140
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	taste_description = "sweet 'n creamy"
 
@@ -699,7 +701,7 @@
 	name = "Bloody Mary"
 	description = "A strange yet pleasurable mixture made of vodka, tomato, and lime juice. Or at least you THINK the red stuff is tomato juice."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 55
 	quality = DRINK_GOOD
 	taste_description = "tomatoes with a hint of lime"
@@ -720,7 +722,7 @@
 	name = "Brave Bull"
 	description = "It's just as effective as Dutch-Courage!"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_NICE
 	taste_description = "alcoholic bravery"
@@ -752,7 +754,7 @@
 	name = "Tequila Sunrise"
 	description = "Tequila, Grenadine, and Orange Juice."
 	color = "#FFE48C" // rgb: 255, 228, 140
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_GOOD
 	taste_description = "oranges with a hint of pomegranate"
@@ -792,7 +794,7 @@
 	name = "Toxins Special"
 	description = "This thing is ON FIRE! CALL THE DAMN SHUTTLE!"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_VERYGOOD
 	taste_description = "spicy toxins"
@@ -817,7 +819,7 @@
 	name = "Beepsky Smash"
 	description = "Drink this and prepare for the LAW."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90 //THE FIST OF THE LAW IS STRONG AND HARD
 	quality = DRINK_GOOD
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
@@ -866,7 +868,7 @@
 	name = "Irish Cream"
 	description = "Whiskey-imbued cream. What else would you expect from the Irish?"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_NICE
 	taste_description = "creamy alcohol"
@@ -881,7 +883,7 @@
 	name = "The Manly Dorf"
 	description = "Beer and Ale brought together in a delicious mix. Intended for true men only."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 100 //For the manly only
 	quality = DRINK_NICE
 	taste_description = "hair on your chest and your chin"
@@ -915,7 +917,7 @@
 	name = "Long Island Iced Tea"
 	description = "The entire liquor cabinet brought together in a delicious mix. Intended for middle-aged alcoholic women only."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "a mixture of cola and alcohol"
@@ -931,7 +933,7 @@
 	name = "Moonshine"
 	description = "You've really hit rock bottom now. Your liver packed its bags and left last night."
 	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha) (like water)
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 95
 	taste_description = "bitterness"
 
@@ -945,7 +947,7 @@
 	name = "B-52"
 	description = "Coffee, Irish Cream, and cognac. You will get bombed."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 85
 	quality = DRINK_GOOD
 	taste_description = "angry and irish"
@@ -970,7 +972,7 @@
 	name = "Irish Coffee"
 	description = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "giving up on the day"
@@ -986,7 +988,7 @@
 	name = "Margarita"
 	description = "On the rocks with salt on the rim. Arriba~!"
 	color = "#8CFF8C" // rgb: 140, 255, 140
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "dry and salty"
@@ -1002,7 +1004,7 @@
 	name = "Black Russian"
 	description = "For the lactose-intolerant. Still as classy as a White Russian."
 	color = "#360000" // rgb: 54, 0, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "bitterness"
@@ -1018,7 +1020,7 @@
 	name = "Manhattan"
 	description = "The Detective's undercover drink of choice. He never could stomach gin."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 30
 	quality = DRINK_NICE
 	taste_description = "mild dryness"
@@ -1034,7 +1036,7 @@
 	name = "Manhattan Project"
 	description = "A scientist's drink of choice. Great for pondering ways to blow up the station."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_VERYGOOD
 	taste_description = "death, the destroyer of worlds"
@@ -1054,7 +1056,7 @@
 	name = "Whiskey Soda"
 	description = "For the more refined griffon."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "soda"
@@ -1069,7 +1071,7 @@
 	name = "Anti-freeze"
 	description = "The ultimate refreshment. Not what it sounds like."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "Jack Frost's piss"
@@ -1089,7 +1091,7 @@
 	name = "Barefoot"
 	description = "Barefoot and pregnant."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_VERYGOOD
 	taste_description = "creamy berries"
@@ -1113,7 +1115,7 @@
 	name = "Snow White"
 	description = "A cold refreshment."
 	color = COLOR_WHITE // rgb: 255, 255, 255
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "refreshing cold"
@@ -1129,7 +1131,7 @@
 	name = "Demon's Blood"
 	description = "AHHHH!!!!"
 	color = "#820000" // rgb: 130, 0, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 75
 	quality = DRINK_VERYGOOD
 	taste_description = "sweet tasting iron"
@@ -1166,7 +1168,7 @@
 	name = "Devil's Kiss"
 	description = "A creepy time!"
 	color = "#A68310" // rgb: 166, 131, 16
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_VERYGOOD
 	taste_description = "bitter iron"
@@ -1212,7 +1214,7 @@
 	name = "Vodka and Tonic"
 	description = "For when a gin and tonic isn't Russian enough."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_NICE
 	taste_description = "tart bitterness"
@@ -1228,7 +1230,7 @@
 	name = "Gin Fizz"
 	description = "Refreshingly lemony, deliciously dry."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_GOOD
 	taste_description = "dry, tart lemons"
@@ -1244,7 +1246,7 @@
 	name = "Bahama Mama"
 	description = "A tropical cocktail with a complex blend of flavors."
 	color = "#FF7F3B" // rgb: 255, 127, 59
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "pineapple, coconut, and a hint of coffee"
@@ -1260,7 +1262,7 @@
 	name = "Singulo"
 	description = "A blue-space beverage!"
 	color = "#2E6671" // rgb: 46, 102, 113
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "concentrated matter"
@@ -1276,7 +1278,7 @@
 	name = "Sbiten"
 	description = "A spicy Vodka! Might be a little hot for the little guys!"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_GOOD
 	taste_description = "hot and spice"
@@ -1296,7 +1298,7 @@
 	name = "Red Mead"
 	description = "The true Viking drink! Even though it has a strange red color."
 	color = "#C73C00" // rgb: 199, 60, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 31 //Red drinks are stronger
 	quality = DRINK_GOOD
 	taste_description = "sweet and salty alcohol"
@@ -1312,7 +1314,7 @@
 	name = "Mead"
 	description = "A Viking drink, though a cheap one."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 30
 	quality = DRINK_NICE
@@ -1329,7 +1331,7 @@
 	name = "Iced Beer"
 	description = "A beer which is so cold the air around it freezes."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 15
 	taste_description = "refreshingly cold"
 
@@ -1347,7 +1349,7 @@
 	name = "Grog"
 	description = "Watered down rum. Nanotrasen approved!"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 1 //Basically nothing
 	taste_description = "a poor excuse for alcohol"
 
@@ -1362,7 +1364,7 @@
 	name = "Aloe"
 	description = "So very, very, very good."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "sweet 'n creamy"
@@ -1377,7 +1379,7 @@
 	name = "Andalusia"
 	description = "A nice, strangely named drink."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	quality = DRINK_GOOD
 	taste_description = "lemons"
@@ -1392,7 +1394,7 @@
 	name = "Allies Cocktail"
 	description = "A drink made from your allies. Not as sweet as those made from your enemies."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 45
 	quality = DRINK_NICE
 	taste_description = "bitter yet free"
@@ -1408,7 +1410,7 @@
 	name = "Acid Spit"
 	description = "A drink for the daring! Made from 20% more live aliens."
 	color = "#365000" // rgb: 54, 80, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_VERYGOOD
 	taste_description = "stomach acid"
@@ -1423,7 +1425,7 @@
 	name = "Amasec"
 	description = "Official drink of the Nanotrasen Gun-Club!"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "dark and metallic"
@@ -1439,7 +1441,7 @@
 	name = "Changeling Sting"
 	description = "You take a tiny sip and feel a burning sensation..."
 	color = "#2E6671" // rgb: 46, 102, 113
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 95
 	quality = DRINK_GOOD
 	taste_description = "your brain coming out your nose"
@@ -1461,7 +1463,7 @@
 	name = "Irish Car Bomb"
 	description = "Mmm, tastes like chocolate cake..."
 	color = "#2E6671" // rgb: 46, 102, 113
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_GOOD
 	taste_description = "delicious anger"
@@ -1476,7 +1478,7 @@
 	name = "Syndicate Bomb"
 	description = "Tastes like terrorism!"
 	color = "#2E6671" // rgb: 46, 102, 113
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90
 	quality = DRINK_GOOD
 	taste_description = "purified antagonism"
@@ -1497,7 +1499,7 @@
 	name = "Erika Surprise"
 	description = "The surprise is, it's green!"
 	color = "#2E6671" // rgb: 46, 102, 113
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_VERYGOOD
 	taste_description = "tartness and bananas"
@@ -1514,7 +1516,7 @@
 	description = "Only for the experienced. You think you see sand floating in the glass."
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#2E6671" // rgb: 46, 102, 113
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 65
 	quality = DRINK_GOOD
 	taste_description = "a beach"
@@ -1531,7 +1533,7 @@
 	description = "A drink from Clown Heaven."
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#FFFF91" // rgb: 255, 255, 140
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_GOOD
 	taste_description = "a bad joke"
@@ -1554,7 +1556,7 @@
 	description = "A drink from Mime Heaven."
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	boozepwr = 59 //Proof that clowns are better than mimes right here
 	quality = DRINK_GOOD
 	taste_description = "a pencil eraser"
@@ -1577,7 +1579,7 @@
 	name = "Drunken Blumpkin"
 	description = "A weird mix of whiskey and blumpkin juice."
 	color = "#1EA0FF" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_VERYGOOD
 	taste_description = "molasses and a mouthful of pool water"
@@ -1593,7 +1595,7 @@
 	name = "Whiskey Sour"
 	description = "Lemon juice mixed with whiskey and a dash of sugar. Surprisingly satisfying."
 	color = rgb(255, 201, 49)
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "sour lemons"
@@ -1608,7 +1610,7 @@
 	name = "Hard Cider"
 	description = "Tastes like autumn. No wait, fall!"
 	color = "#CD6839"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "the season that <i>falls</i> between summer and winter"
@@ -1627,7 +1629,7 @@
 	name = "Fetching Fizz"
 	description = "Whiskey sour/iron/uranium mixture resulting in a highly magnetic slurry. Mild alcohol content." //Requires no alcohol to make but has alcohol anyway because ~magic~
 	color = rgb(255, 91, 15)
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_VERYGOOD
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
@@ -1650,7 +1652,7 @@
 	name = "Hearty Punch"
 	description = "Brave bull/syndicate bomb/absinthe mixture resulting in an energizing beverage. Mild alcohol content."
 	color = rgb(140, 0, 0)
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90
 	quality = DRINK_VERYGOOD
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
@@ -1679,7 +1681,7 @@
 	name = "Bacchus' Blessing"
 	description = "Unidentifiable mixture. Unmeasurably high alcohol content."
 	color = rgb(51, 19, 3) //Sickly brown
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 300 //I warned you
 	taste_description = "a wall of bricks"
 
@@ -1693,7 +1695,7 @@
 	name = "Atomic Bomb"
 	description = "Nuclear proliferation never tasted so good."
 	color = "#666300" // rgb: 102, 99, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 0 //custom drunk effect
 	quality = DRINK_FANTASTIC
 	taste_description = "da bomb"
@@ -1724,7 +1726,7 @@
 	name = "Pan-Galactic Gargle Blaster"
 	description = "Whoah, this stuff looks volatile!"
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 0 //custom drunk effect
 	quality = DRINK_GOOD
 	taste_description = "your brains smashed out by a lemon wrapped around a gold brick"
@@ -1755,7 +1757,7 @@
 	name = "Neurotoxin"
 	description = "A strong neurotoxin that puts the subject into a death-like state."
 	color = "#2E2E61" // rgb: 46, 46, 97
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_VERYGOOD
 	taste_description = "a numbing sensation"
@@ -1810,7 +1812,7 @@
 	name = "Hippie's Delight"
 	description = "You just don't get it maaaan."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 0
 	boozepwr = 0 //custom drunk effect
 	quality = DRINK_FANTASTIC
@@ -1860,7 +1862,7 @@
 	name = "Eggnog"
 	description = "For enjoying the most wonderful time of the year."
 	color = "#fcfdc6" // rgb: 252, 253, 198
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	boozepwr = 1
 	quality = DRINK_VERYGOOD
@@ -1884,7 +1886,7 @@
 	name = "Nar'Sour"
 	description = "Side effects include self-mutilation and hoarding plasteel."
 	color = COLOR_DARK_RED
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
 	taste_description = "blood"
@@ -1905,7 +1907,7 @@
 	name = "Triple Sec"
 	description = "A sweet and vibrant orange liqueur."
 	color = "#ffcc66"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 30
 	taste_description = "a warm flowery orange taste which recalls the ocean air and summer wind of the caribbean"
 
@@ -1919,7 +1921,7 @@
 	name = "Creme de Menthe"
 	description = "A minty liqueur excellent for refreshing, cool drinks."
 	color = "#00cc00"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a minty, cool, and invigorating splash of cold streamwater"
 
@@ -1933,7 +1935,7 @@
 	name = "Creme de Cacao"
 	description = "A chocolatey liqueur excellent for adding dessert notes to beverages and bribing sororities."
 	color = "#996633"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a slick and aromatic hint of chocolates swirling in a bite of alcohol"
 
@@ -1947,7 +1949,7 @@
 	name = "Creme de Coconut"
 	description = "A coconut liqueur for smooth, creamy, tropical drinks."
 	color = "#F7F0D0"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a sweet milky flavor with notes of toasted sugar"
 
@@ -1961,7 +1963,7 @@
 	name = "Quadruple Sec"
 	description = "Kicks just as hard as licking the power cell on a baton, but tastier."
 	color = BLOOD_COLOR_RED
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "an invigorating bitter freshness which suffuses your being; no enemy of the station will go unrobusted this day"
@@ -1985,7 +1987,7 @@
 	name = "Quintuple Sec"
 	description = "Law, Order, Alcohol, and Police Brutality distilled into one single elixir of JUSTICE."
 	color = COLOR_MOSTLY_PURE_RED
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_FANTASTIC
 	taste_description = "THE LAW"
@@ -2011,7 +2013,7 @@
 	name = "Grasshopper"
 	description = "A fresh and sweet dessert shooter. Difficult to look manly while drinking this."
 	color = COLOR_VIBRANT_LIME
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_GOOD
 	taste_description = "chocolate and mint dancing around your mouth"
@@ -2027,7 +2029,7 @@
 	name = "Stinger"
 	description = "A snappy way to end the day."
 	color = "#ccff99"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "a slap on the face in the best possible way"
@@ -2043,7 +2045,7 @@
 	name = "Bastion Bourbon"
 	description = "Soothing hot herbal brew with restorative properties. Hints of citrus and berry flavors."
 	color = COLOR_CYAN
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 30
 	quality = DRINK_FANTASTIC
 	taste_description = "hot herbal brew with a hint of fruit"
@@ -2094,7 +2096,7 @@
 	name = "Squirt Cider"
 	description = "Fermented squirt extract with a nose of stale bread and ocean water. Whatever a squirt is."
 	color = COLOR_RED
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	taste_description = "stale bread with a staler aftertaste"
 	nutriment_factor = 2 * REAGENTS_METABOLISM
@@ -2118,7 +2120,7 @@
 	name = "Fringe Weaver"
 	description = "Bubbly, classy, and undoubtedly strong - a Glitch City classic."
 	color = "#FFEAC4"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 90 //classy hooch, essentially, but lower pwr to make up for slightly easier access
 	quality = DRINK_GOOD
 	taste_description = "ethylic alcohol with a hint of sugar"
@@ -2134,7 +2136,7 @@
 	name = "Sugar Rush"
 	description = "Sweet, light, and fruity - as girly as it gets."
 	color = "#FF226C"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_GOOD
 	taste_description = "your arteries clogging with sugar"
@@ -2155,7 +2157,7 @@
 	name = "Crevice Spike"
 	description = "Sour, bitter, and smashingly sobering. Doesn't sober up light affected_mobs."
 	color = "#5BD231"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = -10 //sobers you up - ideally, one would drink to get hit with brute damage now to avoid alcohol problems later
 	quality = DRINK_VERYGOOD
 	taste_description = "a bitter SPIKE with a sour aftertaste"
@@ -2175,7 +2177,7 @@
 	name = "Sake"
 	description = "A sweet rice wine of questionable legality and extreme potency."
 	color = "#DDDDDD"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 70
 	taste_description = "sweet rice wine"
 
@@ -2189,7 +2191,7 @@
 	name = "Peppermint Patty"
 	description = "This lightly alcoholic drink combines the benefits of menthol and cocoa."
 	color = "#45ca7a"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "mint and chocolate"
 	boozepwr = 25
 	quality = DRINK_GOOD
@@ -2210,7 +2212,7 @@
 	name = "Alexander"
 	description = "Named after a Greek hero, this mix is said to embolden a user's shield as if they were in a phalanx."
 	color = "#F5E9D3"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_GOOD
 	taste_description = "bitter, creamy cacao"
@@ -2248,7 +2250,7 @@
 	name = "Sidecar"
 	description = "The one ride you'll gladly give up the wheel for."
 	color = "#FFC55B"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_GOOD
 	taste_description = "delicious freedom"
@@ -2264,7 +2266,7 @@
 	name = "Between the Sheets"
 	description = "A provocatively named classic. Funny enough, doctors recommend drinking it before taking a nap."
 	color = "#F4C35A"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 80
 	quality = DRINK_GOOD
 	taste_description = "seduction"
@@ -2298,7 +2300,7 @@
 	name = "Kamikaze"
 	description = "Divinely windy."
 	color = "#EEF191"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_GOOD
 	taste_description = "divine windiness"
@@ -2314,7 +2316,7 @@
 	name = "Mojito"
 	description = "A drink that looks as refreshing as it tastes."
 	color = "#DFFAD9"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 30
 	quality = DRINK_GOOD
 	taste_description = "refreshing mint"
@@ -2330,7 +2332,7 @@
 	name = "Fernet"
 	description = "An incredibly bitter herbal liqueur used as a digestif."
 	color = "#1B2E24" // rgb: 27, 46, 36
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 80
 	taste_description = "utter bitterness"
 
@@ -2351,7 +2353,7 @@
 	name = "Fernet Cola"
 	description = "A very popular and bittersweet digestif, ideal after a heavy meal. Best served on a sawed-off cola bottle as per tradition."
 	color = "#390600" // rgb: 57, 6,
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "sweet relief"
@@ -2375,7 +2377,7 @@
 	name = "Fanciulli"
 	description = "What if the Manhattan coctail ACTUALLY used a bitter herb liquour? Helps you sobers up. Doesn't sober up light affected_mobs." //also causes a bit of stamina damage to symbolize the afterdrink lazyness
 	color = "#CA933F" // rgb: 202, 147, 63
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = -10
 	quality = DRINK_NICE
 	taste_description = "a sweet sobering mix"
@@ -2400,7 +2402,7 @@
 	name = "Branca Menta"
 	description = "A refreshing mixture of bitter Fernet with mint creme liquour."
 	color = "#4B5746" // rgb: 75, 87, 70
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "a bitter freshness"
@@ -2425,7 +2427,7 @@
 	description = "A bubbling glass of blank paper. Just looking at it makes you feel fresh."
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#DCDCDC" // rgb: 220, 220, 220
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 20
 	quality = DRINK_GOOD
 	taste_description = "bubbling possibility"
@@ -2448,7 +2450,8 @@
 	name = "Fruit Wine"
 	description = "A wine made from grown plants."
 	color = COLOR_WHITE
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = NONE
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
 	taste_description = "bad coding"
@@ -2475,6 +2478,7 @@
 	generate_data_info(data)
 
 /datum/reagent/consumable/ethanol/fruit_wine/on_merge(list/mix_data, new_total)
+	. = ..()
 	var/diff = (new_total/volume)
 	if(diff < 1)
 		color = BlendRGB(color, mix_data["color"], diff / 2) //The percentage difference over two, so that they take average if equal.
@@ -2563,7 +2567,7 @@
 	name = "Champagne"
 	description = "A sparkling wine known for its ability to strike fast and hard."
 	color = "#ffffc1"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 40
 	taste_description = "auspicious occasions and bad decisions"
 
@@ -2577,7 +2581,7 @@
 	name = "Wizz Fizz"
 	description = "A magical potion, fizzy and wild! However the taste, you will find, is quite mild."
 	color = "#4235d0" //Just pretend that the triple-sec was blue curacao.
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "friendship! It is magic, after all"
@@ -2605,7 +2609,7 @@
 	name = "Bug Spray"
 	description = "A harsh, acrid, bitter drink, for those who need something to brace themselves."
 	color = "#33ff33"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_GOOD
 	taste_description = "the pain of ten thousand slain mosquitos"
@@ -2633,7 +2637,7 @@
 	name = "Applejack"
 	description = "The perfect beverage for when you feel the need to horse around."
 	color = "#ff6633"
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	randomized_spawns = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "an honest day's work at the orchard"
 
@@ -2647,7 +2651,7 @@
 	name = "Jack Rose"
 	description = "A light cocktail perfect for sipping with a slice of pie."
 	color = "#ff6633"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 15
 	quality = DRINK_NICE
 	taste_description = "a sweet and sour slice of apple"
@@ -2667,7 +2671,7 @@
 	name = "Turbo"
 	description = "A turbulent cocktail associated with outlaw hoverbike racing. Not for the faint of heart."
 	color = "#e94c3a"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 85
 	quality = DRINK_VERYGOOD
 	taste_description = "the outlaw spirit"
@@ -2691,7 +2695,7 @@
 	name = "Old Timer"
 	description = "An archaic potation enjoyed by old coots of all ages."
 	color = "#996835"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
 	taste_description = "simpler times"
@@ -2727,7 +2731,7 @@
 	name = "Rubberneck"
 	description = "A quality rubberneck should not contain any gross natural ingredients."
 	color = "#ffe65b"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_GOOD
 	taste_description = "artifical fruityness"
@@ -2743,7 +2747,7 @@
 	name = "Duplex"
 	description = "An inseparable combination of two fruity drinks."
 	color = "#50e5cf"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_NICE
 	taste_description = "green apples and blue raspberries"
@@ -2759,7 +2763,7 @@
 	name = "Trappist Beer"
 	description = "A strong dark ale brewed by space-monks."
 	color = "#390c00"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	quality = DRINK_VERYGOOD
 	taste_description = "dried plums and malt"
@@ -2782,7 +2786,7 @@
 /datum/reagent/consumable/ethanol/blazaam
 	name = "Blazaam"
 	description = "A strange drink that few people seem to remember existing. Doubles as a Berenstain remover."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY // don't put CHEMICAL_GOAL_BARTENDER_SERVING. peach juice is totally RNG to get
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY // don't put CHEMICAL_GOAL_BARTENDER_SERVING. peach juice is totally RNG to get
 	boozepwr = 70
 	quality = DRINK_FANTASTIC
 	taste_description = "alternate realities"
@@ -2811,7 +2815,7 @@
 /datum/reagent/consumable/ethanol/planet_cracker
 	name = "Planet Cracker"
 	description = "This jubilant drink celebrates humanity's triumph over the alien menace. May be offensive to non-human crewmembers."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_FANTASTIC
 	taste_description = "triumph with a hint of bitterness"
@@ -2828,7 +2832,7 @@
 	description = "Extremely hot; not for the faint of heart!"
 	boozepwr = 40
 	color = "#fe8308" // 254, 131, 8
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_FANTASTIC
 	taste_description = "fiery, with an aftertaste of burnt flesh"
 
@@ -2852,7 +2856,7 @@
 	description = "Dulls your pain. Your emotional pain, that is."
 	boozepwr = 20
 	color = "#EAD677"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_NICE
 	taste_description = "sugary tartness"
 
@@ -2868,7 +2872,7 @@
 	description = "A fresh pineapple drink with coconut rum. Yum."
 	boozepwr = 40
 	color = "#FFF1B2"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_FANTASTIC
 	taste_description = "pineapple, coconut, and a hint of the ocean"
 
@@ -2883,7 +2887,7 @@
 	name = "Plasma Flood"
 	description = "Not very popular with plasmamen, for obvious reasons."
 	color = "#630480" // rgb: 99, 4, 128
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	boozepwr = 60
 	quality = DRINK_NICE
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
@@ -2911,7 +2915,7 @@
 	name = "Fourth Wall"
 	description = "This substance seems like it shouldn't exist."
 	color = "#0b43a3"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 0 //I feel like brain traumas is enough
 	quality = DRINK_GOOD
 	metabolization_rate = 0.3
@@ -2965,7 +2969,7 @@
 /datum/reagent/consumable/ethanol/ratvander
 	name = "Rat'vander Cocktail"
 	description = "Side effects include hoarding brass and hatred of blood."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
 	taste_description = "sweet brass"
@@ -2988,7 +2992,7 @@
 /datum/reagent/consumable/ethanol/icewing
 	name = "Icewing"
 	description = "A frost beam on ice."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 50
 	quality = DRINK_FANTASTIC
 	taste_description = "frostburn"
@@ -3010,7 +3014,7 @@
 /datum/reagent/consumable/ethanol/sarsaparilliansunset
 	name = "Sarsaparillian Sunset"
 	description = "The taste of the waste."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 70
 	quality = DRINK_FANTASTIC
 	taste_description = "pleasant burning"
@@ -3061,7 +3065,7 @@
 /datum/reagent/consumable/ethanol/beesknees
 	name = "Bee's Knees"
 	description = "This has way too much honey."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = 0
 	taste_description = "sweeter mead"
@@ -3097,7 +3101,7 @@
 	name = "Faster-Than-Liver"
 	description = "A beverage born among the stars, it's said drinking too much feels just like FTL transit."
 	color = "#0D0D0D" // rgb: 13, 13, 13
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 52
 	taste_description = "empty space"
 

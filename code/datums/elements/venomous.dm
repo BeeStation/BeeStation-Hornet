@@ -51,8 +51,8 @@
 		target = target,
 		amount = tmp_holder.total_volume,
 		multiplier = 1,
-		method = INJECT,
-		transfered_by = astype(element_owner, /mob),
+		methods = INJECT,
+		transferred_by = astype(element_owner, /mob),
 		show_message = FALSE,
 	)
 	qdel(tmp_holder)

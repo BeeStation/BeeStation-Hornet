@@ -17,7 +17,6 @@
 	name = "Metabolites"
 	color = "#FAFF00"
 	description = "You should never see this. Contact an administrator or coder"
-	chemical_flags = CHEMICAL_NOT_DEFINED
 
 /datum/reagent/metabolite/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

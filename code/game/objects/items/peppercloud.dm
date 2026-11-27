@@ -49,7 +49,7 @@
 			return
 
 		playsound(src.loc, 'sound/effects/spray.ogg', 50, 1, -6)
-		var/trans = target.reagents.trans_to(src, 75, transfered_by = user) //transfer 75u , using the spray's transfer amount would take too long to refill
+		var/trans = target.reagents.trans_to(src, 75, transferred_by = user) //transfer 75u , using the spray's transfer amount would take too long to refill
 		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [target]."))
 		return
 
@@ -88,7 +88,7 @@
 	for (var/datum/reagent/reagent in reagents.reagent_list)
 		if (istype(reagent, /datum/reagent/consumable/condensedcapsaicin))
 			continue
-		reagents.remove_reagent(reagent.type, reagent.volume, TRUE)
+		reagents.remove_reagent(reagent.type, reagent.volume)
 		reagents_removed = TRUE
 	if (reagents_removed)
 		reagents.handle_reactions()

@@ -286,13 +286,13 @@ GLOBAL_LIST_EMPTY(pool_filters)
 					continue
 				var/datum/reagents/splash_holder = new/datum/reagents(trans_amount) //Take some of our reagents out, react them with the pool denizens.
 				splash_holder.my_atom = water
-				reagents.trans_to(splash_holder, trans_amount, transfered_by = src)
+				reagents.trans_to(splash_holder, trans_amount, transferred_by = src)
 				splash_holder.chem_temp = current_temperature
 				if(DT_PROB(80, delta_time))
 					splash_holder.expose(M, TOUCH)
 				else //Sometimes the water penetrates a lil deeper than just a splosh.
 					splash_holder.expose(M, INGEST)
-				splash_holder.trans_to(M, trans_amount, transfered_by = src)	//Actually put reagents in the mob
+				splash_holder.trans_to(M, trans_amount, transferred_by = src)	//Actually put reagents in the mob
 				qdel(splash_holder)
 				var/mob/living/carbon/C = M
 				if(current_temperature <= 283.5) //Colder than 10 degrees is going to make you very cold

@@ -92,7 +92,7 @@
 
 	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target_mob, user)
 	var/fraction = min(gulp_size / reagents.total_volume, 1)
-	reagents.trans_to(target_mob, gulp_size, transfered_by = user, method = INGEST)
+	reagents.trans_to(target_mob, gulp_size, transferred_by = user, methods = INGEST)
 	checkLiked(fraction, target_mob)
 	playsound(target_mob, 'sound/items/drink.ogg', rand(10,50), TRUE)
 	var/list/datum/disease/diseases_to_add
@@ -143,7 +143,7 @@
 		to_chat(user, span_notice("[src] is full."))
 		return ITEM_INTERACT_BLOCKING
 	to_chat(user, span_notice("You break [tool] in [src]."))
-	tool.reagents.trans_to(src, tool.reagents.total_volume, transfered_by = user)
+	tool.reagents.trans_to(src, tool.reagents.total_volume, transferred_by = user)
 	qdel(tool)
 	return ITEM_INTERACT_SUCCESS
 
@@ -340,7 +340,7 @@
 		if(reagents.total_volume < 1)
 			user.balloon_alert(user, "empty!")
 			return ITEM_INTERACT_BLOCKING
-		reagents.trans_to(tool, 5, transfered_by = user)
+		reagents.trans_to(tool, 5, transferred_by = user)
 		user.balloon_alert(user, "doused [tool]")
 		playsound(src, 'sound/effects/slosh.ogg', 25, TRUE)
 		return ITEM_INTERACT_SUCCESS
@@ -422,7 +422,7 @@
 		user.stamina.adjust(-40, TRUE)
 
 		//food and pills
-		grinded.reagents?.trans_to(src, grinded.reagents.total_volume, transfered_by = user)
+		grinded.reagents?.trans_to(src, grinded.reagents.total_volume, transferred_by = user)
 		if(grinded.juice_typepath) //prioritize juicing
 			grinded.on_juice()
 			reagents.add_reagent_list(grinded.juice_typepath)
@@ -472,7 +472,7 @@
 	drop_sound = 'sound/items/handling/drink/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drink/drinkglass_pickup.ogg'
 
-/obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
+/obj/item/reagent_containers/cup/coconutcup/on_reagent_change()
 	if (reagents && reagents.total_volume > 0)
 		icon_state = "coconutcup_full"
 	else

@@ -324,12 +324,12 @@
 	if(chem_allowed(chem))
 		var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
 		if (!synthesizing)
-			stored_vial.reagents.trans_to(occupant, 10 / efficiency, efficiency, transfered_by = user)
+			stored_vial.reagents.trans_to(occupant, 10 / efficiency, efficiency, transferred_by = user)
 		else
-			stored_vial.reagents.copy_to(occupant, 10)
+			stored_vial.reagents.trans_to(occupant, 10, copy_only = TRUE)
 		if(user)
 			playsound(src, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE, 2)
-			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagents()] into", addition = "via [src]", important = FALSE)
+			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagent_log_string()] into", addition = "via [src]", important = FALSE)
 		use_power(100)
 		return TRUE
 

@@ -111,7 +111,7 @@
 	broken_egg.pixel_x = pixel_x
 	broken_egg.pixel_y = pixel_y
 	playsound(get_turf(user), 'sound/items/sheath.ogg', 40, TRUE)
-	reagents.copy_to(broken_egg,reagents.total_volume)
+	reagents.trans_to(broken_egg, reagents.total_volume, copy_only = TRUE)
 
 	var/obj/machinery/griddle/hit_griddle = target
 	hit_griddle.AddToGrill(broken_egg, user)

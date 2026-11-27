@@ -26,7 +26,7 @@
 		else
 			. += span_notice("It seems [round(reagents.total_volume/volume*100)]% filled.")
 
-/obj/item/reagent_containers/blood/on_reagent_change(changetype)
+/obj/item/reagent_containers/blood/on_reagent_change()
 	if(reagents)
 		var/datum/reagent/blood/new_reagent = reagents.has_reagent(/datum/reagent/blood)
 		if(new_reagent && new_reagent.data && new_reagent.data["blood_type"])
@@ -138,7 +138,7 @@
 			span_notice("[attacker] forces [victim] to drink from \the [src]."),
 			span_notice("You force [victim] to drink from \the [src]."))
 
-		reagents.trans_to(victim, to_feed, transfered_by = attacker, method = INGEST)
+		reagents.trans_to(victim, to_feed, transferred_by = attacker, methods = INGEST)
 
 		// I would add more flavor, but I don't want to make this an antag check
 		if(vampiredatum?.my_clan?.blood_drink_type != VAMPIRE_DRINK_SNOBBY)
@@ -161,7 +161,7 @@
 		span_notice("[victim] sucks the contents out of \the [src]!"),
 		span_notice("You feed from \the [src]."))
 
-	reagents.trans_to(victim, to_feed, transfered_by = attacker, method = INGEST)
+	reagents.trans_to(victim, to_feed, transferred_by = attacker, methods = INGEST)
 	vampiredatum?.adjust_vitae(to_feed / 4)
 	playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
 

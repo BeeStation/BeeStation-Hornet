@@ -8,7 +8,6 @@
 /datum/reagent/medicine
 	abstract_type = /datum/reagent/medicine
 	name = "Medicine"
-	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "bitterness"
 
 /datum/reagent/medicine/New()
@@ -20,7 +19,8 @@
 	name = "Leporazine"
 	description = "Leporazine will effectively regulate a patient's body temperature, ensuring it never leaves safe levels."
 	color = "#DB90C6"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
@@ -47,7 +47,7 @@
 	name = "Adminordrazine"
 	description = "It's magic. We don't have to explain it."
 	color = "#E0BB00" //golden for the gods
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "badmins"
 	/// Flags to fullheal every metabolism tick
 	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS|HEAL_ORGANS)
@@ -68,7 +68,8 @@
 	name = "Synaptizine"
 	description = "Increases resistance to stuns as well as reducing drowsiness and hallucinations."
 	color = COLOR_MAGENTA
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE | CHEMICAL_GOAL_BOTANIST_HARVEST
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -87,7 +88,8 @@
 	name = "Diphen-Synaptizine"
 	description = "Reduces drowsiness, hallucinations, and Histamine from body."
 	color = "#EC536D" // rgb: 236, 83, 109
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -105,7 +107,8 @@
 	name = "Inacusiate"
 	description = "Rapidly repairs damage to the patient's ears to cure deafness, assuming the source of said deafness isn't from genetic mutations, chronic deafness, or a total defecit of ears." //by "chronic" deafness, we mean people with the "deaf" quirk
 	color = "#606060" //inacusiate is light grey, oculine is dark grey
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 
 /datum/reagent/medicine/inacusiate/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -119,7 +122,8 @@
 	name = "Cryoxadone"
 	description = "A chemical mixture with almost magical healing powers. Its main limitation is that the patient's body temperature must be under 270K for it to metabolise correctly."
 	color = "#0000C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "blue"
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -142,7 +146,8 @@
 	name = "Clonexadone"
 	description = "A chemical that derives from Cryoxadone. It specializes in healing clone damage, but nothing else. Requires very cold temperatures to properly metabolize, and metabolizes quicker than cryoxadone."
 	color = "#3D3DC6"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "muscle"
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
@@ -160,7 +165,8 @@
 	name = "Pyroxadone"
 	description = "A mixture of cryoxadone and slime jelly, that apparently inverses the requirement for its activation."
 	color = "#f7832a"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "spicy jelly"
 
 /datum/reagent/medicine/pyroxadone/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -196,7 +202,8 @@
 	description = "A powder derived from fish toxin, Rezadone can effectively treat genetic damage as well as restoring minor wounds. Overdose will cause intense nausea and minor toxin damage."
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 	taste_description = "fish"
 
@@ -216,7 +223,7 @@
 	affected_mob.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 
-/datum/reagent/medicine/rezadone/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/medicine/rezadone/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
 	if(iscarbon(exposed_mob))
 		var/mob/living/carbon/patient = exposed_mob
@@ -228,7 +235,8 @@
 	name = "Spaceacillin"
 	description = "Spaceacillin will prevent a patient from conventionally spreading any diseases they are currently infected with."
 	color = "#E1F2E6"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
@@ -237,19 +245,20 @@
 	description = "If used in patch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
 	metabolite = /datum/reagent/metabolite/medicine/silver_sulfadiazine
 
-/datum/reagent/medicine/silver_sulfadiazine/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
+/datum/reagent/medicine/silver_sulfadiazine/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	. = ..()
 	if(iscarbon(exposed_mob) && exposed_mob.stat != DEAD)
-		if(method in list(INGEST, VAPOR, INJECT))
+		if(methods & (INGEST|VAPOR|INJECT))
 			exposed_mob.adjustToxLoss(0.5 * reac_volume, required_biotype = affected_biotype)
 			if(show_message)
 				to_chat(exposed_mob, span_warning("You don't feel so good..."))
-		else if(exposed_mob.getFireLoss() && method == PATCH)
+		else if(exposed_mob.getFireLoss() && (methods & PATCH))
 			if(affecting.heal_damage(burn = reac_volume))
 				exposed_mob.update_damage_overlays()
 			exposed_mob.stamina.adjust(-reac_volume*2)
@@ -273,7 +282,8 @@
 	description = "Stimulates the healing of severe burns. Overdosing will double the effectiveness of healing the burns while also dealing toxin and liver damage"
 	reagent_state = LIQUID
 	color = "#1E8BFF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 
@@ -300,19 +310,20 @@
 	description = "If used in patch-based applications, immediately restores bruising. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#FF9696"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
 	metabolite = /datum/reagent/metabolite/medicine/styptic_powder
 
-/datum/reagent/medicine/styptic_powder/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
+/datum/reagent/medicine/styptic_powder/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	. = ..()
 	if(iscarbon(exposed_mob) && exposed_mob.stat != DEAD)
-		if(method in list(INGEST, VAPOR, INJECT))
+		if(methods & (INGEST|VAPOR|INJECT))
 			exposed_mob.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(exposed_mob, span_warning("You don't feel so good..."))
-		else if(exposed_mob.getBruteLoss() && method == PATCH)
+		else if(exposed_mob.getBruteLoss() && (methods & PATCH))
 			if(affecting.heal_damage(reac_volume))
 				exposed_mob.update_damage_overlays()
 			exposed_mob.stamina.adjust(-reac_volume*2)
@@ -336,7 +347,8 @@
 	description = "Has a 33% chance per metabolism cycle to heal brute and burn damage. Can be used as a temporary blood substitute."
 	reagent_state = LIQUID
 	color = "#DCDCDC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	taste_description = "sweetness and salt"
@@ -382,7 +394,8 @@
 	description = "A powerful painkiller. Restores bruising and burns in addition to making the patient believe they are fully healed."
 	reagent_state = LIQUID
 	color = "#6D6374"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/mine_salve/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -393,10 +406,10 @@
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
-/datum/reagent/medicine/mine_salve/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1)
+/datum/reagent/medicine/mine_salve/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1)
 	. = ..()
 	if(iscarbon(exposed_mob) && exposed_mob.stat != DEAD)
-		if(method in list(INGEST, VAPOR, INJECT))
+		if(methods & (INGEST|VAPOR|INJECT))
 			exposed_mob.adjust_nutrition(-5)
 			if(show_message)
 				to_chat(exposed_mob, span_warning("Your stomach feels empty and cramps!"))
@@ -422,13 +435,14 @@
 	description = "Has a 100% chance of instantly healing brute and burn damage. One unit of the chemical will heal one point of damage. Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 125
 
-/datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
+/datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	. = ..()
-	if(!iscarbon(exposed_mob) || method != PATCH)
+	if(!iscarbon(exposed_mob) || !(methods & PATCH))
 		return
 	if(exposed_mob.stat == DEAD)
 		show_message = FALSE
@@ -464,7 +478,8 @@
 	description = "Heals mild toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
 	reagent_state = LIQUID
 	color = COLOR_BLACK
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = REAGENTS_METABOLISM
 	taste_description = "ash"
 	process_flags = ORGANIC
@@ -485,7 +500,8 @@
 	description = "Neutralizes harmful chemical compounds inside synthetic systems."
 	reagent_state = LIQUID
 	color = "#F1C40F"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	process_flags = SYNTHETIC
 	affected_biotype = MOB_ROBOTIC
@@ -508,7 +524,8 @@
 	name = "Liquid Solder"
 	description = "Repairs brain damage in synthetics."
 	color = "#727272"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "metallic"
 	process_flags = SYNTHETIC
 	affected_biotype = MOB_ROBOTIC
@@ -528,7 +545,8 @@
 	description = "Slowly heals all damage types. Overdose will cause damage in all types instead."
 	reagent_state = LIQUID
 	color = "#DCDCDC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	var/healing = 0.5
@@ -558,7 +576,8 @@
 	description = "Quickly purges the body of all chemicals. Toxin damage is dealt if the patient is in good condition."
 	reagent_state = LIQUID
 	color = "#19C832"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "acid"
 
@@ -578,7 +597,8 @@
 	description = "Heals low toxin damage while the patient is irradiated, and will halt the damaging effects of radiation."
 	reagent_state = LIQUID
 	color = "#BAA15D"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
@@ -598,7 +618,8 @@
 	description = "Reduces massive amounts of toxin damage while purging other chemicals from the body."
 	reagent_state = LIQUID
 	color = "#E6FFF0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
@@ -621,7 +642,8 @@
 	description = "Stimulates the healing of severe bruises. Overdosing will double the effectiveness of healing the bruises while also dealing toxin and liver damage."
 	reagent_state = LIQUID
 	color = "#D2D2D2"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 
@@ -648,7 +670,8 @@
 	description = "Rapidly restores oxygen deprivation as well as preventing more of it to an extent."
 	reagent_state = LIQUID
 	color = COLOR_CYAN
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	overdose_threshold = 25
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
@@ -671,7 +694,8 @@
 	description = "Extremely rapidly restores oxygen deprivation, but causes minor toxin damage. Overdose causes significant damage to the lungs."
 	reagent_state = LIQUID
 	color = "#FF6464"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
@@ -694,7 +718,8 @@
 	description = "Increases stun resistance and movement speed. Overdose deals toxin damage and inhibits breathing."
 	reagent_state = LIQUID
 	color = "#D2FFFA"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	addiction_types = list(/datum/addiction/stimulants = 4) //1.6 per 2 seconds
@@ -740,7 +765,8 @@
 	description = "Rapidly purges the body of Histamine and reduces jitteriness. Slight chance of causing drowsiness."
 	reagent_state = LIQUID
 	color = "#64FFE6"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -755,7 +781,8 @@
 	description = "A painkiller that allows the patient to move at full speed even in bulky objects. Causes drowsiness and eventually unconsciousness in high doses. Overdose will cause a variety of effects, ranging from minor to lethal."
 	reagent_state = LIQUID
 	color = "#A9FBFB"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	addiction_types = list(/datum/addiction/opioids = 25)
@@ -790,7 +817,8 @@
 	description = "Quickly restores eye damage, cures nearsightedness, and has a chance to restore vision to the blind."
 	reagent_state = LIQUID
 	color = "#404040" //ucline is dark grey, inacusiate is light grey
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "dull toxin"
 
@@ -819,7 +847,8 @@
 	description = "If a patient is in critical condition, rapidly heals all damage types as well as regulating oxygen in the body. Excellent for stabilizing wounded patients. Has the side effects of causing minor confusion."
 	reagent_state = LIQUID
 	color = "#1D3535" //slightly more blue, like epinephrine
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	added_traits = list(TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)
@@ -853,7 +882,8 @@
 	description = "Minor boost to stun resistance. Slowly heals damage if a patient is in critical condition, as well as regulating oxygen loss. Overdose causes weakness and toxin damage."
 	reagent_state = LIQUID
 	color = "#D2FFFA"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	metabolized_traits = list(TRAIT_NOCRITDAMAGE)
@@ -900,11 +930,12 @@
 	description = "A miracle drug capable of bringing the dead back to life. Only functions when applied by patch or spray, if the target has less than 100 brute and burn damage (independent of one another) and hasn't been husked. Causes slight damage to the living."
 	reagent_state = LIQUID
 	color = "#A0E85E"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "magnets"
 
-/datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
 	if(exposed_mob.stat == DEAD)
 		if(exposed_mob.suiciding) //they are never coming back
@@ -934,7 +965,8 @@
 	name = "Mannitol"
 	description = "Efficiently restores brain damage."
 	color = "#A0A0A0" //mannitol is light grey, neurine is lighter grey"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE | CHEMICAL_GOAL_BOTANIST_HARVEST
 
 /datum/reagent/medicine/mannitol/on_mob_add(mob/living/carbon/affected_mob)
 	. = ..()
@@ -959,7 +991,8 @@
 	name = "Neurine"
 	description = "Reacts with neural tissue, helping reform damaged connections. Can cure minor traumas and treat seizure disorders."
 	color = COLOR_SILVER //ditto
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/medicine/neurine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -979,7 +1012,8 @@
 	name = "Mutadone"
 	description = "Removes jitteriness and restores genetic defects."
 	color = "#5096C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	taste_description = "acid"
 
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -992,7 +1026,8 @@
 	name = "Antihol"
 	description = "Purges alcoholic substance from the patient's body and eliminates its side effects. Less effective in light drinkers."
 	color = "#00B4C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "raw egg"
 	/// All status effects we remove on metabolize.
 	/// Does not include drunk (despite what you may thing) as that's decreased gradually
@@ -1008,7 +1043,7 @@
 	if(!HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
 		for(var/effect in status_effects_to_clear)
 			affected_mob.remove_status_effect(effect)
-	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
+	affected_mob.reagents.remove_reagent(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, include_subtypes = TRUE)
 	if(affected_mob.adjustToxLoss(-0.2 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
 		. = UPDATE_MOB_HEALTH
 	affected_mob.adjust_drunk_effect(-10 * REM * delta_time)
@@ -1018,7 +1053,8 @@
 	name = "Amphetamine"
 	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
 	color = "#78008C"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 
@@ -1061,7 +1097,8 @@
 	name = "Pump-Up"
 	description = "Makes you immune to damage slowdown, resistant to all other kinds of slowdown and gives a minor speed boost. Overdose causes weakness and toxin damage."
 	color = "#78008C"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE, TRAIT_BATON_RESISTANCE, TRAIT_IGNOREDAMAGESLOWDOWN)
@@ -1099,7 +1136,8 @@
 	description = "Increases sugar depletion rates."
 	reagent_state = LIQUID
 	color = "#FFFFF0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1113,7 +1151,8 @@
 	description = "Restores bruising. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#bf0000"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	metabolite = /datum/reagent/metabolite/medicine/bicaridine
 	overdose_threshold = 30
@@ -1135,7 +1174,8 @@
 	description = "Restores oxygen loss. Overdose causes it instead."
 	reagent_state = LIQUID
 	color = "#0080FF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1153,7 +1193,8 @@
 	description = "Restores oxygen loss. Overdose causes large amounts of damage to the heart. It is highly effective."
 	reagent_state = LIQUID
 	color = "#0040FF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 25
 
 /datum/reagent/medicine/dexalinp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1174,7 +1215,8 @@
 	description = "Restores fire damage. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#FFa800"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	metabolite = /datum/reagent/metabolite/medicine/kelotane
 	overdose_threshold = 30
@@ -1196,7 +1238,8 @@
 	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#00a000"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "a roll of gauze"
 	metabolite = /datum/reagent/metabolite/medicine/antitoxin
@@ -1219,7 +1262,8 @@
 	description = "Carthatoline is strong evacuant used to treat severe poisoning."
 	reagent_state = LIQUID
 	color = "#225722"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	overdose_threshold = 25
 
 /datum/reagent/medicine/carthatoline/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1242,7 +1286,8 @@
 	description = "A medicine which prevents vomiting."
 	reagent_state = LIQUID
 	color = "#cecece"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	metabolized_traits = list(TRAIT_NOVOMIT)
@@ -1267,7 +1312,8 @@
 	taste_description = "glue"
 	reagent_state = LIQUID
 	color = "#D2691E"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = REM * 3.75
 	overdose_threshold = 10
 
@@ -1292,7 +1338,8 @@
 	description = "Stabilizes the breathing of patients. Good for those in critical condition."
 	reagent_state = LIQUID
 	color = "#A4D8D8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/medicine/inaprovaline/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1304,7 +1351,8 @@
 	description = "Has a high chance to heal all types of damage. Overdose causes toxin damage and liver damage."
 	reagent_state = LIQUID
 	color = "#707A00" //tricord's component chems mixed together, olive.
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 3 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	taste_description = "grossness"
@@ -1333,7 +1381,8 @@
 	description = "Gradually regenerates all types of damage, without harming slime anatomy."
 	reagent_state = LIQUID
 	color = "#CC23FF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "jelly"
 
 /datum/reagent/medicine/regen_jelly/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1349,7 +1398,7 @@
 	description = "Miniature medical robots that swiftly restore bodily damage."
 	reagent_state = SOLID
 	color = "#555555"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -1378,7 +1427,8 @@
 	name = "Earthsblood"
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
 	color = "#FFAF00"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	overdose_threshold = 25
 	addiction_types = list(/datum/addiction/hallucinogens = 14)
 
@@ -1413,7 +1463,8 @@
 	description = "Increases depletion rates for most stimulating/hallucinogenic drugs. Reduces druggy effects and jitteriness. Severe stamina regeneration penalty, causes drowsiness. Small chance of brain damage."
 	reagent_state = LIQUID
 	color = "#27870a"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1440,7 +1491,7 @@
 	name = "Lavaland Extract"
 	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
 	color = "#6B372E" //dark and red like lavaland
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1460,7 +1511,8 @@
 	name = "Changeling Adrenaline"
 	description = "Reduces the duration of unconsciousness, knockdown and stuns. Restores stamina, but deals toxin damage when overdosed."
 	color = "#C1151D"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 
 /datum/reagent/medicine/changelingadrenaline/on_mob_metabolize(mob/living/carbon/affected_mob)
@@ -1485,7 +1537,8 @@
 	name = "Changeling Haste"
 	description = "Drastically increases movement speed."
 	color = "#AE151D"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/changelinghaste/on_mob_metabolize(mob/living/affected_mob)
@@ -1502,7 +1555,8 @@
 	name = "Corazone"
 	description = "A medication used to assist in healing the heart and to stabalize the heart and liver."
 	color = "#F49797"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 20
 	self_consuming = TRUE
 	metabolized_traits = list(TRAIT_STABLEHEART, TRAIT_STABLELIVER)
@@ -1519,7 +1573,8 @@
 /datum/reagent/medicine/muscle_stimulant
 	name = "Muscle Stimulant"
 	description = "A potent chemical that allows someone under its influence to be at full physical ability even when under massive amounts of pain."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	addiction_types = list(/datum/addiction/stimulants = 4) //0.8 per 2 seconds
 
 /datum/reagent/medicine/muscle_stimulant/on_mob_metabolize(mob/living/carbon/affected_mob)
@@ -1535,7 +1590,8 @@
 	description = "Long-lasting sleep suppressant that very slightly reduces stun and knockdown times. Overdosing has horrendous side effects and deals lethal oxygen damage, will knock you unconscious if not dealt with."
 	reagent_state = LIQUID
 	color = "#BEF7D8" // palish blue white
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	overdose_threshold = 20 // with the random effects this might be awesome or might kill you at less than 10u (extensively tested)
 	taste_description = "salt" // it actually does taste salty
@@ -1610,7 +1666,8 @@
 	description = "Suppresses anxiety and other various forms of mental distress. Overdose causes hallucinations and minor toxin damage."
 	reagent_state = LIQUID
 	color = "#07E79E"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	metabolized_traits = list(TRAIT_FEARLESS)
@@ -1639,7 +1696,8 @@
 	description = "A thistle derrived hepatoprotective flavolignan mixture that help reverse damage to the liver."
 	reagent_state = SOLID
 	color = "#FFFFD0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/silibinin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1651,7 +1709,8 @@
 	description = "A purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is a powerful pharmaceutical drug which provides minor healing and prevents bloodloss, making it incredibly useful for the synthesis of other drugs."
 	reagent_state = SOLID
 	color = "#9423FF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 50
 	taste_description = "numbing bitterness"
@@ -1669,9 +1728,9 @@
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
-/datum/reagent/medicine/polypyr/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/medicine/polypyr/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
-	if(method == TOUCH || method == VAPOR)
+	if(methods & (TOUCH|VAPOR))
 		if(ishuman(exposed_mob) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/exposed_human = exposed_mob
 			exposed_human.set_facial_haircolor("#9922ff", update = FALSE)
@@ -1687,7 +1746,7 @@
 	description = "Rapidly heals a patient out of crit by regenerating damaged cells and causing blood to clot, preventing bleeding. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
 	reagent_state = LIQUID
 	color = COLOR_BLACK
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	metabolized_traits = list(TRAIT_NO_BLEEDING)

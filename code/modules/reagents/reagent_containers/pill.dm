@@ -38,7 +38,7 @@
 		span_notice("You dissolve [src] in [target]."),
 		vision_distance = 2,
 	)
-	reagents.trans_to(target, reagents.total_volume, transfered_by = user)
+	reagents.trans_to(target, reagents.total_volume, transferred_by = user)
 	qdel(src)
 	return ITEM_INTERACT_SUCCESS
 
@@ -47,7 +47,7 @@
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), consumer, span_notice("[pick(strings(REDPILL_FILE, "redpill_questions"))]")), 5 SECONDS)
 
 	if(reagents.total_volume)
-		reagents.trans_to(consumer, reagents.total_volume, transfered_by = giver, method = INGEST)
+		reagents.trans_to(consumer, reagents.total_volume, transferred_by = giver, methods = INGEST)
 	qdel(src)
 
 /obj/item/reagent_containers/applicator/pill/canconsume(mob/eater, mob/user)

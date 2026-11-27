@@ -42,7 +42,7 @@
 					if(!safe_thing.reagents)
 						safe_thing.create_reagents(100)
 
-					trans = round(reagents.trans_to(safe_thing, amount_per_transfer_from_this, transfered_by = user, method = TOUCH), CHEMICAL_VOLUME_ROUNDING)
+					trans = round(reagents.trans_to(safe_thing, amount_per_transfer_from_this, transferred_by = user, methods = TOUCH), CHEMICAL_VOLUME_ROUNDING)
 
 					target.visible_message(
 						span_danger("[user] tries to squirt something into [target]'s eyes, but fails!"),
@@ -65,7 +65,7 @@
 			reagents.expose(target, TOUCH, fraction)
 			log_combat(user, target, "squirted", reagents.get_reagent_log_string())
 
-		trans = round(reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
+		trans = round(reagents.trans_to(target, amount_per_transfer_from_this, transferred_by = user), CHEMICAL_VOLUME_ROUNDING)
 		if(trans)
 			to_chat(user, span_notice("You transfer [trans] unit[trans == 1 ? "" : "s"] of the solution."))
 		playsound(src, 'sound/effects/droplet.ogg', 70, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -81,7 +81,7 @@
 		to_chat(user, span_warning("[target] is empty!"))
 		return ITEM_INTERACT_BLOCKING
 
-	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
+	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this, transferred_by = user), CHEMICAL_VOLUME_ROUNDING)
 	if(trans)
 		to_chat(user, span_notice("You fill [src] with [trans] unit[trans == 1 ? "" : "s"] of the solution."))
 

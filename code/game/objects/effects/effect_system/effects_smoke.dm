@@ -96,7 +96,7 @@
 		for(var/mob/living/L in T)
 			smoke_mob(L)
 		var/obj/effect/particle_effect/smoke/S = new type(T)
-		reagents.copy_to(S, reagents.total_volume)
+		reagents.trans_to(S, reagents.total_volume, copy_only = TRUE)
 		S.setDir(pick(GLOB.cardinals))
 		S.amount = amount-1
 		S.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -272,7 +272,7 @@
 	if(C.internal != null || C.has_smoke_protection())
 		return 0
 	var/fraction = 1/initial(lifetime)
-	reagents.copy_to(C, fraction*reagents.total_volume)
+	reagents.trans_to(C, fraction*reagents.total_volume, copy_only = TRUE)
 	reagents.expose(M, INGEST, fraction)
 	if(isapid(C))
 		C.SetSleeping(50) // Bees sleep when smoked
@@ -303,7 +303,7 @@
 	else
 		location = get_turf(loca)
 	amount = radius
-	carry.copy_to(chemholder, carry.total_volume)
+	carry.trans_to(chemholder, carry.total_volume, copy_only = TRUE)
 	src.circle = circle
 
 	if(!silent)
@@ -335,7 +335,7 @@
 	var/obj/effect/particle_effect/smoke/chem/S = new effect_type(location)
 
 	if(chemholder.reagents.total_volume > 1) // can't split 1 very well
-		chemholder.reagents.copy_to(S, chemholder.reagents.total_volume)
+		chemholder.reagents.trans_to(S, chemholder.reagents.total_volume, copy_only = TRUE)
 
 	if(mixcolor)
 		S.add_atom_colour(mixcolor, FIXED_COLOUR_PRIORITY) // give the smoke color, if it has any to begin with

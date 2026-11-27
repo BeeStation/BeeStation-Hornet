@@ -1,7 +1,8 @@
 /datum/reagent/blood
 	name = "Blood"
 	color = BLOOD_COLOR_RED
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	taste_description = "iron"
 	taste_mult = 1.3
@@ -31,7 +32,8 @@
 	desc = "Are you sure this is tomato juice?"
 	icon_state = "glass_red"
 
-/datum/reagent/blood/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/blood/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
@@ -39,14 +41,14 @@
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 				continue
 
-			if((method == TOUCH || method == VAPOR) && (D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
+			if((methods & (TOUCH|VAPOR)) && (D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 				exposed_mob.ContactContractDisease(D)
 			else //ingest, patch or inject
 				exposed_mob.ForceContractDisease(D)
 
 	if(iscarbon(exposed_mob))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
-		if(exposed_carbon.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(exposed_carbon, TRAIT_DRINKSBLOOD))))
+		if(exposed_carbon.get_blood_id() == /datum/reagent/blood && ((methods & INJECT) || ((methods & INGEST) && HAS_TRAIT(exposed_carbon, TRAIT_DRINKSBLOOD))))
 			if(data && data["blood_type"])
 				var/datum/blood_type/blood_type = data["blood_type"]
 				if(blood_type.type in exposed_carbon.dna.blood_type.compatible_types)
@@ -136,7 +138,8 @@
 /datum/reagent/liquidgibs
 	name = "Liquid gibs"
 	color = "#FF9966"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	description = "You don't even want to think about what's in here."
 	taste_description = "gross iron"
 
@@ -148,17 +151,19 @@
 	//data must contain virus type
 	name = "Vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "slime"
 
-/datum/reagent/vaccine/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(islist(data) && (method == INGEST || method == INJECT))
+/datum/reagent/vaccine/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if(islist(data) && (methods & (INGEST|INJECT)))
 		for(var/datum/disease/disease in exposed_mob.diseases)
 			if(disease.GetDiseaseID() in data)
 				disease.cure()
 		exposed_mob.disease_resistances |= data
 
 /datum/reagent/vaccine/on_merge(list/mix_data, new_total)
+	. = ..()
 	if(istype(data))
 		src.data |= data.Copy()
 
@@ -166,7 +171,7 @@
 	name = "Corgium"
 	description = "A happy looking liquid that you feel compelled to consume if you want a better life."
 	color = "#ecca7f"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "dog treats"
 	var/mob/living/resulting_mob
 
@@ -187,7 +192,8 @@
 	name = "Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha)
-	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | REAGENT_CLEANS // because we want to give it to oozelings
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED | REAGENT_CLEANS // because we want to give it to oozelings
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL
 	taste_description = "water"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
@@ -261,23 +267,23 @@
 /**
  * Water reaction to a mob
  */
-/datum/reagent/water/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with water can help put them out!
+/datum/reagent/water/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)//Splashing people with water can help put them out!
 	. = ..()
 	if(!istype(exposed_mob))
 		return
 	if(isoozeling(exposed_mob))
 		var/touch_mod = 0
-		if(method in list(TOUCH, VAPOR)) // No melting if you have skin protection
+		if(methods & (TOUCH|VAPOR)) // No melting if you have skin protection
 			touch_mod = exposed_mob.getarmor(null, BIO) * 0.01
 		exposed_mob.blood_volume = max(exposed_mob.blood_volume - 30 * (1 - touch_mod), 0)
 		if(touch_mod < 0.9)
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
 
-	if(method == TOUCH)
+	if(methods & TOUCH)
 		exposed_mob.extinguish_mob() // extinguish removes all fire stacks
 		exposed_mob.adjust_wet_stacks(reac_volume * WATER_TO_WET_STACKS_FACTOR_TOUCH) // Water makes you wet, at a 50% water-to-wet-stacks ratio. Which, in turn, gives you some mild protection from being set on fire!
 
-	if(method == VAPOR)
+	if(methods & VAPOR)
 		exposed_mob.adjust_wet_stacks(reac_volume * WATER_TO_WET_STACKS_FACTOR_VAPOR) // Spraying someone with water with the hope to put them out is just simply too funny to me not to add it.
 
 #undef WATER_TO_WET_STACKS_FACTOR_TOUCH
@@ -287,7 +293,8 @@
 	name = "Holy Water"
 	description = "Water blessed by some deity."
 	color = "#E0E8EF" // rgb: 224, 232, 239
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_UNAFFECTED_BY_METABOLISM | REAGENT_CLEANS
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED | REAGENT_UNAFFECTED_BY_METABOLISM | REAGENT_CLEANS
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/holywater
 
@@ -373,10 +380,10 @@
 	self_consuming = TRUE
 	metabolized_traits = list(TRAIT_NO_BLEEDING)
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM //1u/tick
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
-/datum/reagent/fuel/unholywater/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR)
+/datum/reagent/fuel/unholywater/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	if(methods & (TOUCH|VAPOR))
 		exposed_mob.reagents?.add_reagent(type,reac_volume/4)
 		return
 	return ..()
@@ -410,7 +417,8 @@
 	description = "YOUR FLESH! IT BURNS!"
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -426,14 +434,15 @@
 /datum/reagent/medicine/omnizine/godblood
 	name = "Godblood"
 	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 150
 
 /datum/reagent/lube
 	name = "Space Lube"
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	color = "#009CA8" // rgb: 0, 156, 168
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "cherry" // by popular demand
 	var/lube_kind = TURF_WET_LUBE ///What kind of slipperiness gets added to turfs.
 
@@ -450,7 +459,7 @@
 /datum/reagent/lube/superlube
 	name = "Super Duper Lube"
 	description = "This \[REDACTED\] has been outlawed after the incident on \[DATA EXPUNGED\]."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	lube_kind = TURF_WET_SUPERLUBE
 
 
@@ -458,20 +467,21 @@
 	name = "Spray Tan"
 	description = "A substance applied to the skin to darken the skin."
 	color = "#FFC080" // rgb: 255, 196, 128  Bright orange
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 10 * REAGENTS_METABOLISM // very fast, so it can be applied rapidly.  But this changes on an overdose
 	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
 	taste_description = "sour oranges"
 
-/datum/reagent/spraytan/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1)
+/datum/reagent/spraytan/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1)
 	. = ..()
 	if(!ishuman(exposed_mob))
 		return
 
-	if(method == INGEST && show_message)
+	if((methods & INGEST) && show_message)
 		to_chat(exposed_mob, span_notice("That tasted horrible."))
 
-	if(method == PATCH || method == VAPOR)
+	if(methods & (PATCH|VAPOR))
 		var/mob/living/carbon/human/human = exposed_mob
 
 		if(HAS_TRAIT(human, TRAIT_USES_SKINTONES))
@@ -552,7 +562,7 @@
 	name = "Stable Mutation Toxin"
 	description = "A humanizing toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM //metabolizes to prevent micro-dosage
 	taste_description = "slime"
 	var/race = /datum/species/human
@@ -600,14 +610,16 @@
 	name = "Mutation Toxin"
 	description = "A corruptive toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/oozeling/slime
 
 /datum/reagent/mutationtoxin/unstable
 	name = "Unstable Mutation Toxin"
 	description = "A mostly safe mutation toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = list(/datum/species/oozeling/slime,
 						/datum/species/human,
 						/datum/species/human/felinid,
@@ -622,7 +634,8 @@
 /datum/reagent/mutationtoxin/felinid
 	name = "Felinid Mutation Toxin"
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/human/felinid
 	taste_description = "something nyat good"
 
@@ -630,7 +643,8 @@
 	name = "Lizard Mutation Toxin"
 	description = "A lizarding toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/lizard
 	taste_description = "dragon's breath but not as cool"
 
@@ -638,7 +652,8 @@
 	name = "Fly Mutation Toxin"
 	description = "An insectifying toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/fly
 	taste_description = "trash"
 
@@ -646,7 +661,8 @@
 	name = "Moth Mutation Toxin"
 	description = "A glowing toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/moth
 	taste_description = "clothing"
 
@@ -654,7 +670,8 @@
 	name = "Apid Mutation Toxin"
 	description = "A sweet-smelling toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/apid
 	taste_description = "honey"
 
@@ -662,7 +679,7 @@
 	name = "Diona Mutation Toxin"
 	description = "A vegetalizing toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/diona
 	taste_description = "flowers"
 
@@ -670,7 +687,8 @@
 	name = "Imperfect Mutation Toxin"
 	description = "A jellyfying toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = list(/datum/species/oozeling/slime,
 					/datum/species/oozeling/luminescent,
 					/datum/species/oozeling/stargazer)
@@ -680,7 +698,8 @@
 	name = "Golem Mutation Toxin"
 	description = "A crystal toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/golem
 	taste_description = "rocks"
 
@@ -698,7 +717,8 @@
 	name = "Abductor Mutation Toxin"
 	description = "An alien toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/abductor
 	taste_description = "something out of this world... no, universe!"
 
@@ -706,7 +726,8 @@
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/ethereal
 	taste_description = "shocking"
 
@@ -714,7 +735,8 @@
 	name = "Oozeling Mutation Toxin"
 	description = "An oozing toxin"
 	color = "#611e80" //RGB: 97, 30, 128
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/oozeling
 	taste_description = "burning ooze"
 
@@ -722,7 +744,8 @@
 	name = "IPC Mutation Toxin"
 	description = "A metallic toxin"
 	color = "#5EFF3B"
-	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/ipc
 	taste_description = "copper wire"
 
@@ -731,7 +754,7 @@
 	name = "Skeleton Mutation Toxin"
 	description = "A scary toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/skeleton
 	taste_description = "milk... and lots of it"
 
@@ -739,7 +762,7 @@
 	name = "Zombie Mutation Toxin"
 	description = "An undead toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/zombie //Not the infectious kind. The days of xenobio zombie outbreaks are long past.
 	taste_description = "brai...nothing in particular"
 
@@ -747,7 +770,7 @@
 	name = "Zombie Mutation Toxin"
 	description = "An undead toxin... kinda..."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/human/krokodil_addict //Not the infectious kind. The days of xenobio zombie outbreaks are long past.
 	taste_description = "krokodil"
 
@@ -756,7 +779,7 @@
 	name = "Ash Mutation Toxin"
 	description = "An ashen toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/lizard/ashwalker
 	taste_description = "savagery"
 
@@ -766,7 +789,7 @@
 	name = "Shadow Mutation Toxin"
 	description = "A dark toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/shadow
 	taste_description = "the night"
 
@@ -774,7 +797,7 @@
 	name = "Plasma Mutation Toxin"
 	description = "A plasma-based toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/plasmaman
 	taste_description = "plasma"
 
@@ -782,7 +805,7 @@
 	name = "Psyphoza Mutation Toxin"
 	description = "A fungal-based toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	race = /datum/species/psyphoza
 	taste_description = "fungus"
 
@@ -794,7 +817,8 @@
 	name = "Mulligan Toxin"
 	description = "This toxin will rapidly change the DNA of human beings. Commonly used by Syndicate spies and assassins in need of an emergency ID change."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_RNG_FUN
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_FUN
 	metabolization_rate = INFINITY
 	taste_description = "slime"
 
@@ -810,28 +834,30 @@
 	name = "Advanced Mutation Toxin"
 	description = "An advanced corruptive toxin produced by slimes."
 	color = "#13BC5E" // rgb: 19, 188, 94
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "slime"
 
-/datum/reagent/aslimetoxin/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method != TOUCH)
+/datum/reagent/aslimetoxin/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & TOUCH))
 		exposed_mob.ForceContractDisease(new /datum/disease/transformation/slime(), FALSE, TRUE)
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
 	description = "An advanced corruptive toxin produced by something terrible."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "decay"
 
-/datum/reagent/gluttonytoxin/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/gluttonytoxin/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
 	exposed_mob.ForceContractDisease(new /datum/disease/transformation/morph(), FALSE, TRUE)
 
 /datum/reagent/serotrotium
 	name = "Serotrotium"
 	description = "A chemical compound that promotes concentrated production of the serotonin neurotransmitter in humans."
 	color = "#202040" // rgb: 20, 20, 40
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "bitterness"
 
@@ -845,7 +871,8 @@
 	description = "A colorless, odorless gas. Grows on trees but is still pretty valuable."
 	reagent_state = GAS
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0 // oderless and tasteless
 
 /datum/reagent/oxygen/expose_obj(obj/exposed_obj, reac_volume)
@@ -864,7 +891,8 @@
 	description = "A highly ductile metal. Things made out of copper aren't very durable, but it makes a decent material for electrical wiring."
 	reagent_state = SOLID
 	color = "#6E3B08" // rgb: 110, 59, 8
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "metal"
 
 /datum/reagent/copper/expose_obj(obj/exposed_obj, reac_volume)
@@ -880,7 +908,8 @@
 	description = "A colorless, odorless, tasteless gas. A simple asphyxiant that can silently displace vital oxygen."
 	reagent_state = GAS
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
 
 /datum/reagent/nitrogen/expose_obj(obj/exposed_obj, reac_volume)
@@ -899,7 +928,8 @@
 	description = "A colorless, odorless, nonmetallic, tasteless, highly combustible diatomic gas."
 	reagent_state = GAS
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
 
 /datum/reagent/potassium
@@ -907,21 +937,23 @@
 	description = "A soft, low-melting solid that can easily be cut with a knife. Reacts violently with water."
 	reagent_state = SOLID
 	color = "#A0A0A0" // rgb: 160, 160, 160
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "sweetness"
 
 /datum/reagent/mercury
 	name = "Mercury"
 	description = "A curious metal that's a liquid at room temperature. Neurodegenerative and very bad for the mind."
 	color = COLOR_WEBSAFE_DARK_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED // because brain damage is fun
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	taste_mult = 0 // apparently tasteless.
 
 /datum/reagent/mercury/lead_acetate
 	name = "Lead Acetate"
 	description = "A sweet neurotoxic chemical. The secret of Roman sweet wine."
 	color = "#AAAAAA"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
 	taste_description = "sweetness"
 	taste_mult = 3
 
@@ -939,7 +971,8 @@
 	description = "A sickly yellow solid mostly known for its nasty smell. It's actually much more helpful than it looks in biochemisty."
 	reagent_state = SOLID
 	color = "#BF8C00" // rgb: 191, 140, 0
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "rotten eggs"
 
 /datum/reagent/carbon
@@ -947,7 +980,8 @@
 	description = "A crumbly black solid that, while unexciting on a physical level, forms the base of all known life. Kind of a big deal."
 	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "sour chalk"
 
 /datum/reagent/carbon/expose_turf(turf/exposed_turf, reac_volume)
@@ -964,7 +998,8 @@
 	description = "A pale yellow gas that's well known as an oxidizer. While it forms many harmless molecules in its elemental form it is far from harmless."
 	reagent_state = GAS
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "chlorine"
 
 /datum/reagent/chlorine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -977,7 +1012,8 @@
 	description = "A comically-reactive chemical element. The universe does not want this stuff to exist in this form in the slightest."
 	reagent_state = GAS
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "acid"
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -991,7 +1027,8 @@
 	description = "A soft silver metal that can easily be cut with a knife. It's not salt just yet, so refrain from putting in on your chips."
 	reagent_state = SOLID
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "salty metal"
 
 /datum/reagent/phosphorus
@@ -999,7 +1036,8 @@
 	description = "A ruddy red powder that burns readily. Though it comes in many colors, the general theme is always the same."
 	reagent_state = SOLID
 	color = "#832828" // rgb: 131, 40, 40
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "vinegar"
 
 /datum/reagent/lithium
@@ -1007,7 +1045,8 @@
 	description = "A silver metal, its claim to fame is its remarkably low density. Using it is a bit too effective in calming oneself down."
 	reagent_state = SOLID
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because it is fun
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED // because it is fun
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	taste_description = "metal"
 
 /datum/reagent/lithium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1021,24 +1060,26 @@
 	name = "Glycerol"
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
 	color = COLOR_GRAY
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sweetness"
 
 /datum/reagent/space_cleaner/sterilizine
 	name = "Sterilizine"
 	description = "Sterilizes wounds in preparation for surgery."
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "bitterness"
 
-/datum/reagent/space_cleaner/sterilizine/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/space_cleaner/sterilizine/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
 	if(!iscarbon(exposed_mob))
 		return
 
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 
-	if(method in list(TOUCH, VAPOR, PATCH))
+	if(methods & (TOUCH|VAPOR|PATCH))
 		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.2, surgery.speed_modifier)
 			// +20% surgery speed on each step, useful while operating in less-than-perfect conditions
@@ -1047,7 +1088,8 @@
 	name = "Iron"
 	description = "Pure iron is a metal."
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	reagent_state = SOLID
 	taste_description = "iron"
 
@@ -1062,7 +1104,8 @@
 	description = "Gold is a dense, soft, shiny metal and the most malleable and ductile metal known."
 	reagent_state = SOLID
 	color = "#F7C430" // rgb: 247, 196, 48
-	chemical_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_BOTANY
 	taste_description = "expensive metal"
 
 /datum/reagent/silver
@@ -1070,7 +1113,8 @@
 	description = "A soft, white, lustrous transition metal, it has the highest electrical conductivity of any element and the highest thermal conductivity of any metal."
 	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "expensive yet reasonable metal"
 
 /datum/reagent/uranium
@@ -1078,7 +1122,8 @@
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the inside of a reactor"
 	process_flags = ORGANIC | SYNTHETIC
 	default_container = /obj/effect/decal/cleanable/greenglow
@@ -1115,7 +1160,7 @@
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "the colour blue and regret"
 	process_flags = ORGANIC | SYNTHETIC
 	rad_power = 2
@@ -1126,13 +1171,14 @@
 	description = "A dust composed of microscopic bluespace crystals, with minor space-warping properties."
 	reagent_state = SOLID
 	color = "#0000CC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "fizzling blue"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/bluespace/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/bluespace/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
-	if(method == TOUCH || method == VAPOR)
+	if(methods & (TOUCH|VAPOR))
 		do_teleport(exposed_mob, get_turf(exposed_mob), reac_volume / 5, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE) //4 tiles per crystal
 
 /datum/reagent/bluespace/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1151,7 +1197,8 @@
 	description = "A silvery white and ductile member of the boron group of chemical elements."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "metal"
 
 /datum/reagent/silicon
@@ -1159,14 +1206,16 @@
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
 
 /datum/reagent/fuel
 	name = "Welding Fuel"
 	description = "Required for welders. Flammable."
 	color = "#660000" // rgb: 102, 0, 0
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "gross metal"
 	process_flags = ORGANIC | SYNTHETIC
 	addiction_types = list(/datum/addiction/alcohol = 300)
@@ -1177,8 +1226,8 @@
 	desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	icon_state = "dr_gibb_glass"
 
-/datum/reagent/fuel/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
-	if(method == TOUCH || method == VAPOR)
+/datum/reagent/fuel/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
+	if(methods & (TOUCH|VAPOR))
 		exposed_mob.adjust_fire_stacks(reac_volume / 10)
 		return
 	..()
@@ -1192,7 +1241,8 @@
 	name = "Space Cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
 	color = "#A5F0EE" // rgb: 165, 240, 238
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_CLEANS
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED | REAGENT_CLEANS
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
 	addiction_types = list(/datum/addiction/stimulants = 14)
 	reagent_weight = 0.6 //so it sprays further
@@ -1224,16 +1274,18 @@
 		if(slime.adjustToxLoss(rand(5,10), updating_health = FALSE, required_biotype = affected_biotype))
 			return UPDATE_MOB_HEALTH
 
-/datum/reagent/space_cleaner/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR)
+/datum/reagent/space_cleaner/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if(methods & (TOUCH|VAPOR))
 		exposed_mob.wash(clean_types)
-	else if(method == INGEST || method == INJECT) //why the fuck did you drink space cleaner you fucking buffoon
+	else if(methods & (INGEST|INJECT)) //why the fuck did you drink space cleaner you fucking buffoon
 		toxic = TRUE
 
 /datum/reagent/space_cleaner/ez_clean
 	name = "EZ Clean"
 	description = "A powerful, acidic cleaner sold by Waffle Co. Affects organic matter while leaving other objects unaffected."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "acid"
 
@@ -1243,9 +1295,9 @@
 	affected_mob.adjustFireLoss(1.665 * delta_time)
 	affected_mob.adjustToxLoss(1.665 * delta_time)
 
-/datum/reagent/space_cleaner/ez_clean/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/space_cleaner/ez_clean/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
-	if((method == TOUCH || method == VAPOR) && !issilicon(exposed_mob))
+	if((methods & (TOUCH|VAPOR)) && !issilicon(exposed_mob))
 		exposed_mob.adjustBruteLoss(1.5, updating_health = FALSE)
 		exposed_mob.adjustFireLoss(1.5, updating_health = TRUE)
 
@@ -1253,7 +1305,8 @@
 	name = "Cryptobiolin"
 	description = "Cryptobiolin causes confusion and dizziness."
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "sourness"
 
@@ -1274,7 +1327,8 @@
 	name = "Impedrezene"
 	description = "Impedrezene is a narcotic that impedes one's ability by slowing down the higher brain cell functions."
 	color = "#C8A5DC" // rgb: 200, 165, 220A
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "numbness"
 	addiction_types = list(/datum/addiction/opioids = 120)
 
@@ -1292,51 +1346,55 @@
 	name = "Nanomachines"
 	description = "Microscopic construction robots."
 	color = "#535E66" // rgb: 83, 94, 102
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "sludge"
 
-/datum/reagent/nanomachines/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if((method in list(PATCH, INGEST, INJECT)) || (method == VAPOR && prob(min(reac_volume, 100) * (1 - touch_protection))))
+/datum/reagent/nanomachines/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	. = ..()
+	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume, 100) * (1 - touch_protection))))
 		exposed_mob.ForceContractDisease(new /datum/disease/transformation/robot(), FALSE, TRUE)
 
 /datum/reagent/xenomicrobes
 	name = "Xenomicrobes"
 	description = "Microbes with an entirely alien cellular structure."
 	color = "#535E66" // rgb: 83, 94, 102
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "sludge"
 
-/datum/reagent/xenomicrobes/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if((method in list(PATCH, INGEST, INJECT)) || (method == VAPOR && prob(min(reac_volume, 100) * (1 - touch_protection))))
+/datum/reagent/xenomicrobes/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	. = ..()
+	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume, 100) * (1 - touch_protection))))
 		exposed_mob.ForceContractDisease(new /datum/disease/transformation/xeno(), FALSE, TRUE)
 
 /datum/reagent/fungalspores
 	name = "Tubercle bacillus Cosmosis microbes"
 	description = "Active fungal spores."
 	color = "#92D17D" // rgb: 146, 209, 125
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "slime"
 
-/datum/reagent/fungalspores/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if((method in list(PATCH, INGEST, INJECT)) || (method == VAPOR && prob(min(reac_volume, 100) * (1 - touch_protection))))
+/datum/reagent/fungalspores/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	. = ..()
+	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume, 100) * (1 - touch_protection))))
 		exposed_mob.ForceContractDisease(new /datum/disease/tuberculosis(), FALSE, TRUE)
 
 /datum/reagent/snail
 	name = "Agent-S"
 	description = "Virological agent that infects the subject with Gastrolosis."
 	color = COLOR_VERY_DARK_LIME_GREEN
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "goo"
 
-/datum/reagent/snail/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if((method in list(PATCH, INGEST, INJECT)) || (method == VAPOR && prob(min(reac_volume, 100) * (1 - touch_protection))))
+/datum/reagent/snail/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	. = ..()
+	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume, 100) * (1 - touch_protection))))
 		exposed_mob.ForceContractDisease(new /datum/disease/gastrolosis(), FALSE, TRUE)
 
 /datum/reagent/fluorosurfactant//foam precursor
 	name = "Fluorosurfactant"
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	color = "#9E6B38" // rgb: 158, 107, 56
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "metal"
 
 /datum/reagent/foaming_agent// Metal foaming agent. This is lithium hydride. Add other recipes (e.g. LiH + H2O -> LiOH + H2) eventually.
@@ -1344,7 +1402,7 @@
 	description = "An agent that yields metallic foam when mixed with light metal and a strong acid."
 	reagent_state = SOLID
 	color = "#664B63" // rgb: 102, 75, 99
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "metal"
 
 /datum/reagent/smart_foaming_agent //Smart foaming agent. Functions similarly to metal foam, but conforms to walls.
@@ -1352,7 +1410,7 @@
 	description = "An agent that yields metallic foam which conforms to area boundaries when mixed with light metal and a strong acid."
 	reagent_state = SOLID
 	color = "#664B63" // rgb: 102, 75, 99
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "metal"
 
 /datum/reagent/ammonia
@@ -1360,14 +1418,14 @@
 	description = "A caustic substance commonly used in fertilizer or household cleaners."
 	reagent_state = GAS
 	color = "#404030" // rgb: 64, 64, 48
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "mordant"
 
 /datum/reagent/diethylamine
 	name = "Diethylamine"
 	description = "A secondary amine, mildly corrosive."
 	color = "#604030" // rgb: 96, 64, 48
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "iron"
 
 /datum/reagent/carbondioxide
@@ -1375,7 +1433,7 @@
 	reagent_state = GAS
 	description = "A gas commonly produced by burning carbon fuels. You're constantly producing this in your lungs."
 	color = "#B0B0B0" // rgb : 192, 192, 192
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "something unknowable"
 
 /datum/reagent/carbondioxide/expose_obj(obj/exposed_obj, reac_volume)
@@ -1395,7 +1453,7 @@
 	reagent_state = LIQUID
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	color = COLOR_GRAY
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "sweetness"
 
 /datum/reagent/nitrous_oxide/expose_obj(obj/exposed_obj, reac_volume)
@@ -1408,8 +1466,9 @@
 	if(istype(exposed_turf))
 		exposed_turf.atmos_spawn_air("[GAS_N2O]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
-/datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == VAPOR)
+/datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if(methods & VAPOR)
 		// apply 2 seconds of drowsiness per unit applied, with a min duration of 4 seconds
 		var/drowsiness_to_apply = max(round(reac_volume, 1) * 2 SECONDS, 4 SECONDS)
 		exposed_mob.adjust_drowsiness(drowsiness_to_apply)
@@ -1423,7 +1482,6 @@
 	reagent_state = SOLID
 	color = COLOR_WHITE
 	color_intensity = 50
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the back of class"
 
 	var/colorname = "none"
@@ -1494,44 +1552,44 @@
 
 /datum/reagent/colorful_reagent/powder/red/crayon
 	name = "Red Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 /datum/reagent/colorful_reagent/powder/orange/crayon
 	name = "Orange Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 /datum/reagent/colorful_reagent/powder/yellow/crayon
 	name = "Yellow Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 /datum/reagent/colorful_reagent/powder/green/crayon
 	name = "Green Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 /datum/reagent/colorful_reagent/powder/blue/crayon
 	name = "Blue Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 /datum/reagent/colorful_reagent/powder/purple/crayon
 	name = "Purple Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 //datum/reagent/colorful_reagent/powder/invisible/crayon
 
 /datum/reagent/colorful_reagent/powder/black/crayon
 	name = "Black Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 /datum/reagent/colorful_reagent/powder/white/crayon
 	name = "White Crayon Powder"
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	can_colour_mobs = FALSE
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
@@ -1540,7 +1598,6 @@
 	name = "Generic nutriment"
 	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
 	color = COLOR_BLACK
-	chemical_flags = CHEMICAL_NOT_DEFINED // this shouldn't exist
 	var/tox_prob = 0
 	taste_description = "plant food"
 
@@ -1554,28 +1611,32 @@
 	name = "E-Z-Nutrient"
 	description = "Cheap and extremely common type of plant nutriment."
 	color = "#376400" // RBG: 50, 100, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 5
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
 	description = "Unstable nutriment that makes plants mutate more often than usual."
 	color = "#1A1E4D" // RBG: 26, 30, 77
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 13
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
 	description = "Very potent nutriment that prevents plants from mutating."
 	color = "#9D9D00" // RBG: 157, 157, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 8
 
 /datum/reagent/plantnutriment/slimenutriment
 	name = "Living Fertiliser"
 	description = "A viscous fluid that clings to living tissue and speeds up growth, in exchange for yield."
 	color = "#6ed8db"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 17
 
 // GOON OTHERS
@@ -1585,7 +1646,8 @@
 	description = "Burns in a small smoky fire, mostly used to get Ash."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "oil"
 	process_flags = ORGANIC | SYNTHETIC
 	default_container = /obj/effect/decal/cleanable/oil
@@ -1595,7 +1657,8 @@
 	description = "Non-flammable plasma locked into a liquid form that cannot ignite or become gaseous/solid."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "bitterness"
 	taste_mult = 1.5
 	process_flags = ORGANIC | SYNTHETIC
@@ -1609,7 +1672,8 @@
 	description = "Commonly added to table salt as a nutrient. On its own it tastes far less pleasing."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "metal"
 
 /datum/reagent/carpet
@@ -1617,7 +1681,7 @@
 	description = "For those that need a more creative way to roll out a red carpet."
 	reagent_state = LIQUID
 	color = "#771100" //The color of the average carpet! Carpets are brown, not pink!
-	chemical_flags = NONE //Way too many of these to be fair to the bartender!
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED //Way too many of these to be fair to the bartender!
 	taste_description = "carpet" // Your tongue feels furry.
 	var/carpet_type = /turf/open/floor/carpet
 
@@ -1711,7 +1775,8 @@
 	description = "A brownish liquid that's highly reactive. Useful for stopping free radicals, but not intended for human consumption."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_BASIC_ELEMENT
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_BASIC_ELEMENT
 	taste_description = "chemicals"
 
 /datum/reagent/phenol
@@ -1719,7 +1784,8 @@
 	description = "An aromatic ring of carbon with a hydroxyl group. A useful precursor to some medicines, but has no healing properties on its own."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_BOTANY
 	taste_description = "acid"
 
 /datum/reagent/ash
@@ -1727,7 +1793,8 @@
 	description = "Phoenixes supposedly rise from this, but you've never seen it."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_BOTANY
 	taste_description = "ash"
 	default_container = /obj/effect/decal/cleanable/ash
 
@@ -1736,7 +1803,8 @@
 	description = "A slick liquid with carcinogenic properties. Has a multitude of mundane uses in everyday life."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_BOTANY
 	taste_description = "acid"
 
 /datum/reagent/colorful_reagent
@@ -1744,7 +1812,8 @@
 	description = "Thoroughly sample the rainbow."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "rainbows"
 
 	var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
@@ -1766,12 +1835,14 @@
 	description = "Has a high chance of making you look like a mad scientist."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	var/list/potential_colors = list("#00aadd","#aa00ff","#ff7733","#dd1144","#dd1144","#00bb55","#00aadd","#ff7733","#ffcc22","#008844","#0055ee","#dd2222","#ffaa00") // fucking hair code
 	taste_description = "sourness"
 
-/datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
+/datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if((methods & (TOUCH|VAPOR)) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_facial_haircolor(pick(potential_colors), update = FALSE)
 		exposed_human.set_haircolor(pick(potential_colors), update = TRUE)
@@ -1781,11 +1852,13 @@
 	description = "A solution to hair loss across the world."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
 
-/datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
+/datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if((methods & (TOUCH|VAPOR)) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		var/datum/sprite_accessory/hair/picked_hair = GLOB.hairstyles_list[pick(GLOB.hairstyles_list)]
 		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hairstyles_list[pick(GLOB.facial_hairstyles_list)]
@@ -1797,11 +1870,13 @@
 	description = "A concentrated solution to hair loss across the world."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
 
-/datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
+/datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if((methods & (TOUCH|VAPOR)) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_facial_hairstyle("Beard (Very Long)", update = FALSE)
 		exposed_human.set_hairstyle("Very Long Hair", update = TRUE)
@@ -1824,11 +1899,13 @@
 	description = "Unleash the funk within you."
 	reagent_state = LIQUID
 	color = "#FF8800"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "funky sugar"
 
-/datum/reagent/barbers_afro_mania/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
+/datum/reagent/barbers_afro_mania/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if((methods & (TOUCH|VAPOR)) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_hairstyle("Afro (Large)", update = TRUE)
 
@@ -1837,11 +1914,13 @@
 	description = "It seems I messed up. Time to go bald."
 	reagent_state = LIQUID
 	color = "#C0FFAB"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "hairloss"
 
-/datum/reagent/barbers_shaving_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
+/datum/reagent/barbers_shaving_aid/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if((methods & (TOUCH|VAPOR)) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_facial_hairstyle("Shaved", update = FALSE)
 		exposed_human.set_hairstyle("Bald 2", update = TRUE)
@@ -1851,14 +1930,15 @@
 	description = "A fairly innocuous chemical which can be used to improve the potency of various plant species."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	chemical_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "cool salt"
 
 /datum/reagent/lye
 	name = "Lye"
 	description = "Also known as sodium hydroxide. As a profession, making this is somewhat underwhelming."
 	reagent_state = LIQUID
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	color = "#FFFFD6" // very very light yellow
 	taste_description = "acid"
 
@@ -1867,7 +1947,7 @@
 	description = "A desiccant. Can be used to dry things."
 	reagent_state = LIQUID
 	color = "#A70FFF"
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "dryness"
 
 /datum/reagent/drying_agent/expose_turf(turf/exposed_turf, reac_volume)
@@ -1890,7 +1970,8 @@
 	name = "Royal Bee Jelly"
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "strange honey"
 
 /datum/reagent/royal_bee_jelly/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1909,11 +1990,11 @@
 		host, upon which, the secondary structures activate and take control \
 		of the host body."
 	color = "#123524" // RGB (18, 53, 36)
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN // romerol zombie outbreak from a maint pill? how can this go not fun.
+	randomized_spawns = CHEMICAL_RNG_FUN // romerol zombie outbreak from a maint pill? how can this go not fun.
 	metabolization_rate = INFINITY
 	taste_description = "brains"
 
-/datum/reagent/romerol/expose_mob(mob/living/carbon/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/romerol/expose_mob(mob/living/carbon/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
 	if(!exposed_mob.get_organ_slot(ORGAN_SLOT_ZOMBIE))
 		var/obj/item/organ/zombie_infection/infection = new()
@@ -1924,7 +2005,7 @@
 	description = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	reagent_state = LIQUID
 	color = "#00f041"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 
 /datum/reagent/magillitis/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1935,7 +2016,8 @@
 	name = "Growth Serum"
 	description = "A commercial chemical designed to help older men in the bedroom."//not really it just makes you a giant
 	color = COLOR_RED
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness" // apparently what viagra tastes like
 
 	var/current_size = RESIZE_DEFAULT_SIZE
@@ -1969,14 +2051,15 @@
 	name = "Plastic Polymers"
 	description = "The petroleum-based components of plastic."
 	color = "#f7eded"
-	chemical_flags = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	taste_description = "plastic"
 
 /datum/reagent/glitter
 	name = "light pink glitter"
 	description = "light pink sparkles that get everywhere."
 	color = COLOR_WHITE //base colour of decal is light pink
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	taste_description = "plastic"
 	reagent_state = SOLID
 
@@ -2015,7 +2098,8 @@
 	name = "Pax"
 	description = "A colorless liquid that suppresses violent urges in its subjects."
 	color = "#AAAAAA55"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "water"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	metabolized_traits = list(TRAIT_PACIFISM)
@@ -2023,16 +2107,16 @@
 /datum/reagent/pax/peaceborg
 	name = "Synthpax"
 	description = "A colorless liquid that suppresses violent urges in its subjects. Cheaper to synthesize than normal Pax, but wears off faster."
-	chemical_flags = NONE
+	randomized_spawns = NONE
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/peaceborg
-	chemical_flags = CHEMICAL_NOT_DEFINED
 
 /datum/reagent/peaceborg/confuse
 	name = "Dizzying Solution"
 	description = "Makes the target off balance and dizzy."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "dizziness"
 
@@ -2046,7 +2130,8 @@
 /datum/reagent/peaceborg/inabizine
 	name = "Inabizine"
 	description = "Induces muscle relaxation, which makes holding objects and standing difficult."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "relaxing"
 
@@ -2063,7 +2148,8 @@
 /datum/reagent/peaceborg/tire
 	name = "Tiring Solution"
 	description = "An very mild stamina toxin that wears out the target. Completely harmless."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "tiredness"
 
@@ -2080,25 +2166,27 @@
 	name = "Tranquility"
 	description = "A highly mutative liquid of unknown origin."
 	color = "#9A6750" //RGB: 154, 103, 80
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	taste_description = "inner peace"
+	penetrates_skin = NONE
+	var/datum/disease/transformation/gondola_disease = /datum/disease/transformation/gondola
 
-/datum/reagent/tranquility/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if((method in list(PATCH, INGEST, INJECT)) || (method == VAPOR && prob(min(reac_volume, 100) * (1 - touch_protection))))
-		exposed_mob.ForceContractDisease(new /datum/disease/transformation/gondola(), FALSE, TRUE)
+/datum/reagent/tranquility/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	. = ..()
+	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume, 100) * (1 - touch_protection))))
+		exposed_mob.ForceContractDisease(new gondola_disease, FALSE, TRUE)
 
 /datum/reagent/liquidadamantine
 	name = "Liquid Adamantine"
 	description = "A legengary lifegiving metal liquified."
 	color = "#10cca6" //RGB: 16, 204, 166
-	chemical_flags = CHEMICAL_NOT_SYNTH
 	taste_description = "lifegiiving metal"
 
 /datum/reagent/spider_extract
 	name = "Spider Extract"
 	description = "A highly specialized extract coming from the Australicus sector, used to create broodmother spiders."
 	color = "#ED2939"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	taste_description = "upside down"
 
 // unholy water, but for heretics.
@@ -2113,7 +2201,8 @@
 	taste_description = "Ag'hsj'saje'sh"
 	self_consuming = TRUE
 	color = "#1f8016"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM //0.5u/second
 
 /datum/reagent/eldritch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -2142,7 +2231,8 @@
 	name = "Ratvarian Light"
 	description = "A special concoction said to have been blessed by an ancient god. Makes the consumer glow with literal enlightenment."
 	color = "#B5A642"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "enlightenment"
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	var/datum/language_holder/prev_language
@@ -2241,7 +2331,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/eldritchkiss
 	name = "Eldritch Kiss"
 	description = "The lingering touch of eldritch hands pulses through your veins."
-	chemical_flags = CHEMICAL_NOT_SYNTH
 	process_flags = ORGANIC | SYNTHETIC //i think this is how this works
 	self_consuming = TRUE //not having a liver will not deny the fairness of the elder gods
 
@@ -2304,11 +2393,11 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	ant_damage = 0
 	to_chat(living_anthill, span_notice("You feel like the last of the ants are out of your system."))
 
-/datum/reagent/ants/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/ants/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
-	if(!iscarbon(exposed_mob) || (method in list(INGEST, INJECT)))
+	if(!iscarbon(exposed_mob) || (methods & (INGEST|INJECT)))
 		return
-	if(method in list(PATCH, TOUCH, VAPOR))
+	if(methods & (PATCH|TOUCH|VAPOR))
 		amount_left = round(reac_volume,0.1)
 		exposed_mob.apply_status_effect(/datum/status_effect/ants, amount_left)
 

@@ -1,36 +1,58 @@
+/**
+ * #Chemical Reaction
+ *
+ * Datum that makes the magic between reagents happen.
+ *
+ * Chemical reactions is a class that is instantiated and stored in a global list 'chemical_reactions_list'
+ */
 /datum/chemical_reaction
 	var/name = null
 	var/id = null
-	var/list/results = new/list()
-	var/list/required_reagents = new/list()
-	var/list/required_catalysts = new/list()
+	///Results of the chemical reactions
+	var/list/results = list()
+	///Required chemicals that are USED in the reaction
+	var/list/required_reagents = list()
+	///Required chemicals that must be present in the container but are not USED.
+	var/list/required_catalysts = list()
 	var/list/hints = list()
 
 	/// If required_container will check for the exact type, or will also accept subtypes
 	var/required_container_accepts_subtypes = FALSE
-	/// the exact container path required for the reaction to happen, typepath
+	/// If required_container_accepts_subtypes is FALSE, the exact type of what container this reaction can take place in. Otherwise, what type including subtypes are acceptable.
 	var/atom/required_container
-	/// Set this to true to call pre_reaction_other_checks() on react and do some more interesting reaction logic
 	var/required_other = FALSE
 
-	var/mob_react = TRUE //Determines if a chemical reaction can occur inside a mob
+	///Determines if a chemical reaction can occur inside a mob
+	var/mob_react = TRUE
+	///The message shown to nearby people upon mixing, if applicable
+	var/mix_message = "The solution begins to bubble."
+	///The sound played upon mixing, if applicable
+	var/mix_sound = 'sound/effects/bubbles.ogg'
 
+	/// Set to TRUE if you want the recipe to only react when it's BELOW the required temp.
+	var/is_cold_recipe = FALSE
+	///Required temperature for the reaction to begin, for fermimechanics it defines the lower area of bell curve for determining heat based rate reactions, aka the minimum
 	var/required_temp = 0
-	var/is_cold_recipe = 0 // Set to 1 if you want the recipe to only react when it's BELOW the required temp.
-	var/mix_message = "The solution begins to bubble." //The message shown to nearby people upon mixing, if applicable
-	var/mix_sound = 'sound/effects/bubbles.ogg' //The sound played upon mixing, if applicable
-
-	/// Tags for the reactions
+	/// Upper end for above (i.e. the end of the curve section defined by temp_exponent_factor)
+	var/optimal_temp = 500
+	/// Temperature at which reaction explodes - If any reaction is this hot, it explodes!
+	var/overheat_temp = 900
+	/// How sharp the temperature exponential curve is (to the power of value)
+	var/temp_exponent_factor = 2
+	/// How much the temperature changes per unit of chem used. without REACTION_HEAT_ARBITARY flag the rate of change depends on the holder heat capacity else results are more accurate
+	var/thermic_constant = 0
+	/// Optimal/max rate possible if all conditions are perfect
+	var/rate_up_lim = 30
+	/// bitflags for clear conversions; see code/__DEFINES/reagents.dm
+	var/reaction_flags = REACTION_INSTANT
+	///Tagging vars
+	///A bitflag var for tagging reagents for the reagent loopup functon
 	var/reaction_tags = NONE
 
-// Extra checks for the reaction to occur.
-/datum/chemical_reaction/proc/can_react(datum/reagents/holder)
-	SHOULD_CALL_PARENT(TRUE)
-	SHOULD_BE_PURE(TRUE)
-	return TRUE
+///REACTION PROCS
 
 /**
- * Checks if this reaction can occur. Only is ran if required_other is set to TRUE.
+ * Checks if this reaction can occur.
  */
 /datum/chemical_reaction/proc/pre_reaction_other_checks(datum/reagents/holder)
 	return TRUE
@@ -39,7 +61,7 @@
  * Shit that happens on reaction
  * Only procs at the START of a reaction
  * use reaction_step() for each step of a reaction
- * or reaction_end() when the reaction stops
+ * or reaction_finish() when the reaction stops
  * If reaction_flags & REACTION_INSTANT then this is the only proc that is called.
  *
  * Proc where the additional magic happens.
@@ -48,9 +70,57 @@
  * * holder - the datum that holds this reagent, be it a beaker or anything else
  * * created_volume - volume created when this is mixed. look at 'var/list/results'.
  */
-/datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	return
 	//I recommend you set the result amount to the total volume of all components.
+
+/**
+ * Stuff that occurs in the middle of a reaction
+ * Only procs DURING a reaction
+ * If reaction_flags & REACTION_INSTANT then this isn't called
+ * returning END_REACTION will END the reaction
+ *
+ * Arguments:
+ * * holder - the datum that holds this reagent, be it a beaker or anything else
+ * * reaction - the equilibrium reaction holder that is reaction is processed within - use this to edit delta_t
+ * * step_reaction_vol - volume created per step
+ *
+ * Outputs:
+ * * returning END_REACTION will end the associated reaction - flagging it for deletion and preventing any reaction in that timestep from happening. Make sure to set the vars in the holder to one that can't start it from starting up again.
+ */
+/datum/chemical_reaction/proc/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
+	return
+
+/**
+ * Stuff that should happen at the end of the reaction.
+ *
+ * Proc where the additional magic happens.
+ * You dont want to handle mob spawning in this since there is a dedicated proc for that.client
+ * Arguments:
+ * * holder - the datum that holds this reagent, be it a beaker or anything else
+ * * react_volume - volume created across the whole reaction
+ */
+/datum/chemical_reaction/proc/reaction_finish(datum/reagents/holder, datum/equilibrium/reaction, react_vol)
+	return
+
+/**
+ * Occurs when a reation is overheated (i.e. past its overheat_temp)
+ * Will be called every tick in the reaction that it is overheated
+ * If you want this to be a once only proc (i.e. the reaction is stopped after) set equilibrium.to_delete = TRUE
+ * The above is useful if you're writing an explosion
+ * By default the parent proc will reduce the final yield slightly. If you don't want that don't add ..()
+ *
+ * Arguments:
+ * * holder - the datum that holds this reagent, be it a beaker or anything else
+ * * equilibrium - the equilibrium datum that contains the equilibrium reaction properties and methods
+ * * step_volume_added - how much product (across all products) was added for this single step
+ */
+/datum/chemical_reaction/proc/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
+	for(var/datum/reagent/reagent as anything in holder.reagent_list)
+		if(!results[reagent.type])
+			continue
+		reagent.volume *= 0.98 //Slowly lower yield per tick
+	holder.update_total()
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = FACTION_CHEMICAL_SUMMON, random = TRUE)
 	if(holder && holder.my_atom)
@@ -106,6 +176,3 @@
 			else
 				if(step_towards(X, T) && moving_power > 1)
 					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step_towards), X, T), 2)
-
-/datum/chemical_reaction/proc/check_other() //override this proc if using required_other, and return TRUE to allow the chemical reaction. Slime cores do not use this.
-	return FALSE

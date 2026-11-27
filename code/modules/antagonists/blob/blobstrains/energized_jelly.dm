@@ -25,10 +25,11 @@
 	name = "Energized Jelly"
 	taste_description = "gelatin"
 	color = "#EFD65A"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/energized_jelly/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
-	reac_volume = ..()
+/datum/reagent/blob/energized_jelly/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(M, methods, reac_volume, show_message, touch_protection, O)
 	M.losebreath += round(0.2*reac_volume)
 	M.stamina.adjust(-reac_volume)
 	if(M)

@@ -50,10 +50,10 @@
 	//If your liver is failing or you lack a metabolism then we use the liverless version of metabolize
 	if((organ_flags & ORGAN_FAILING) || HAS_TRAIT(owner, TRAIT_LIVERLESS_METABOLISM))
 		owner.reagents.end_metabolization(keep_liverless = TRUE)
-		owner.reagents.metabolize(owner, delta_time, times_fired, can_overdose=TRUE, liverless=TRUE)
+		owner.reagents.metabolize(owner, delta_time, can_overdose=TRUE, liverless=TRUE)
 		return
 
-	owner.reagents?.metabolize(owner, delta_time, times_fired, can_overdose=TRUE)
+	owner.reagents?.metabolize(owner, delta_time, can_overdose=TRUE)
 
 /obj/item/organ/liver/handle_failing_organs(delta_time)
 	if(HAS_TRAIT(owner, TRAIT_STABLELIVER) || HAS_TRAIT(owner, TRAIT_LIVERLESS_METABOLISM))

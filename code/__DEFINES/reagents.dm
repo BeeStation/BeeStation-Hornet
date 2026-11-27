@@ -31,19 +31,24 @@
 #define SEALED_CONTAINER (1<<9)
 /// Prevents splashing for open reagent containers
 #define NO_SPLASH (1<<10)
+/// Applied to a reagent holder, all of the reactions in the reagents datum will be instant. Meant to be used for things like smoke effects where reactions aren't meant to occur
+#define REAGENT_HOLDER_INSTANT_REACT (1<<11)
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER (REFILLABLE | DRAINABLE | TRANSPARENT)
 
+// Reagent exposure methods.
 /// Splashing
-#define TOUCH 1
+#define TOUCH (1<<0)
 /// Ingestion
-#define INGEST 2
+#define INGEST (1<<1)
 /// Foam, spray, blob attack
-#define VAPOR 3
+#define VAPOR (1<<2)
 /// Patches
-#define PATCH 4
+#define PATCH (1<<3)
 /// Syringes
-#define INJECT 5
+#define INJECT (1<<4)
+/// Exclusive to just plumbing. if set we use the round robin technique else we use proportional
+#define LINEAR (1<<5)
 
 /// Reagent effect multiplier - adjusts all effects according to metabolism rate
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)
@@ -58,12 +63,6 @@
 
 /// When returned by on_mob_life(), on_mob_dead(), overdose_start() or overdose_processed(), will cause the mob to updatehealth() afterwards
 #define UPDATE_MOB_HEALTH 1
-
-/// Defines passed through to the on_reagent_change proc
-#define DEL_REAGENT 1 // reagent deleted (fully cleared)
-#define ADD_REAGENT 2 // reagent added
-#define REM_REAGENT 3 // reagent removed (may still exist)
-#define CLEAR_REAGENTS 4 // all reagents were cleared
 
 // How long do mime drinks silence the drinker (if they are a mime)?
 #define MIMEDRINK_SILENCE_DURATION 1 MINUTES
@@ -103,37 +102,60 @@
 #define CHEMICAL_VOLUME_ROUNDING 0.01
 /// the default temperature at which chemicals are added to reagent holders at
 #define DEFAULT_REAGENT_TEMPERATURE 300
+///The maximum temperature a reagent holder can attain
+#define CHEMICAL_MAXIMUM_TEMPERATURE 99999
+
+// Chemical reaction flags, for determining reaction specialties
+///Used to create instant reactions
+#define REACTION_INSTANT (1<<1)
+/// Used to force reactions to create a specific amount of heat per 1u created. So if thermic_constant = 5, for 1u of reagent produced, the heat will be forced up arbitarily by 5 irresepective of other reagents. If you use this, keep in mind standard thermic_constant values are 100x what it should be with this enabled.
+#define REACTION_HEAT_ARBITARY (1<<2)
+/// Used to bypass the chem_master transfer block (This is needed for competitive reactions unless you have an end state programmed). More stuff might be added later. When defining this, please add in the comments the associated reactions that it competes with
+#define REACTION_COMPETITIVE (1<<3)
+
+/// Used for overheat_temp - This sets the overheat so high it effectively has no overheat temperature.
+#define NO_OVERHEAT 99999
+////Used to force an equlibrium to end a reaction in reaction_step() (i.e. in a reaction_step() proc return END_REACTION to end it)
+#define END_REACTION "end_reaction"
+
+//flags used by holder.dm to locate an reagent
+///Direct type
+#define REAGENT_STRICT_TYPE (1<<0)
+///Parent type but not sub types for e.g. if param is obj/item it will look for obj/item/stack but not obj/item/stack/sheet
+#define REAGENT_PARENT_TYPE (1<<1)
+///same as istype() check
+#define REAGENT_SUB_TYPE (1<<2)
 
 //reagent bitflags, used for altering how they works
 ///allows on_mob_dead() if present in a dead body
 #define REAGENT_DEAD_PROCESS (1<<0)
+///Doesn't appear on handheld health analyzers.
+#define REAGENT_INVISIBLE (1<<1)
+///Lets a given reagent be synthesized important for random reagents and things like the odysseus syringe gun(Replaces the old can_synth variable)
+#define REAGENT_CAN_BE_SYNTHESIZED (1<<4)
+///Does this reagent clean things?
+#define REAGENT_CLEANS (1<<7)
 /// If present, when metabolizing out of a mob, we divide by the mob's metabolism rather than multiply.
 /// Without this flag: Higher metabolism means the reagent exits the system faster.
 /// With this flag: Higher metabolism means the reagent exits the system slower.
-#define REAGENT_REVERSE_METABOLISM (1<<10)
+#define REAGENT_REVERSE_METABOLISM (1<<9)
 /// If present, this reagent will not be affected by the mob's metabolism at all, meaning it exits at a fixed rate for all mobs.
 /// Supercedes [REAGENT_REVERSE_METABOLISM].
-#define REAGENT_UNAFFECTED_BY_METABOLISM (1<<11)
+#define REAGENT_UNAFFECTED_BY_METABOLISM (1<<10)
 
-// synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
-#define CHEMICAL_NOT_DEFINED   (1<<0)  // identical to CHEMICAL_NOT_SYNTH, but it is good to label when you are not sure which flag you should set on it, or something that shouldn't exist in the game. - i.e) medicine parent type
-#define CHEMICAL_NOT_SYNTH     (1<<0)  // no it can't.
-
-// RNG part - having this flag will allow the RNG system to put in.
+// RNG part (randomized_spawns) - having this flag will allow the RNG system to put in.
 // if a reagent hasn't a relevant flag, it wouldn't come out from RNG theme - i.e.) maint pill
 
 // basic chemicals in chemistry - currently used in botany RNG (not yet - refactored for prepration)
-#define CHEMICAL_BASIC_ELEMENT (1<<1)
+#define CHEMICAL_BASIC_ELEMENT (1<<0)
 // basic chemicals in bartending - currently used in botany RNG (not yet - refactored for prepration)
-#define CHEMICAL_BASIC_DRINK (1<<2)
+#define CHEMICAL_BASIC_DRINK (1<<1)
 /// it spawns in general stuff - i.e: vent, abductor gland
-#define CHEMICAL_RNG_GENERAL (1<<3)
+#define CHEMICAL_RNG_GENERAL (1<<2)
 /// it spawns in maint pill or something else nasty. This usually has a dramatically interesting list including admin stuff minus some lame ones.
-#define CHEMICAL_RNG_FUN (1<<4)
+#define CHEMICAL_RNG_FUN (1<<3)
 /// it spawns in botany strange seeds
-#define CHEMICAL_RNG_BOTANY (1<<5)
-/// Does this reagent clean things?
-#define REAGENT_CLEANS (1<<6)
+#define CHEMICAL_RNG_BOTANY (1<<4)
 
 // crew objective part - having this flag will allow an objective having a reagent
 // Note: to be not disruptive for adding another rng define, goal flags starts at (1<<23) and reversed. (because 23 is max)

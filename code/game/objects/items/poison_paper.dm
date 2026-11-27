@@ -52,7 +52,7 @@
 		icon_state = "[initial(icon_state)]_used"
 	return ..()
 
-/obj/item/poison_paper/on_reagent_change(changetype)
+/obj/item/poison_paper/on_reagent_change()
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
 

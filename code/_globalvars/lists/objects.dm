@@ -28,13 +28,6 @@ GLOBAL_LIST_EMPTY(deliverybeacontags)
 /// List of all singularity components that exist
 GLOBAL_LIST_EMPTY_TYPED(singularities, /datum/component/singularity)
 
-/// list of all /datum/chemical_reaction datums indexed by their typepath. Use this for general lookup stuff
-GLOBAL_LIST(chemical_reactions_list)
-/// list of all /datum/chemical_reaction datums. Used during chemical reactions. Indexed by REACTANT types
-GLOBAL_LIST(chemical_reactions_list_reactant_index)
-/// list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
-GLOBAL_LIST(chemical_reagents_list)
-
 /// list of all surgeries by name, associated with their path.
 GLOBAL_LIST_EMPTY(surgeries_list)
 

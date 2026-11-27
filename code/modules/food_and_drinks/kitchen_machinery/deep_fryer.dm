@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 			to_chat(user, span_warning("There's nothing to dissolve [weapon] in!"))
 			return
 		user.visible_message(span_notice("[user] drops [weapon] into [src]."), span_notice("You dissolve [weapon] in [src]."))
-		weapon.reagents.trans_to(src, weapon.reagents.total_volume, transfered_by = user)
+		weapon.reagents.trans_to(src, weapon.reagents.total_volume, transferred_by = user)
 		qdel(weapon)
 		return
 	// Make sure we have cooking oil
@@ -231,7 +231,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		log_combat(user, dunking_target, "fryer slammed")
 		var/bio_multiplier = dunking_target.getarmor(BODY_ZONE_HEAD, BIO) * 0.01
 		dunking_target.apply_damage(min(30 * bio_multiplier, reagents.total_volume), BURN, BODY_ZONE_HEAD)
-		reagents.remove_any((reagents.total_volume/2))
+		reagents.remove_all((reagents.total_volume/2))
 		dunking_target.Paralyze(60)
 		user.changeNext_move(CLICK_CD_MELEE)
 	return ..()

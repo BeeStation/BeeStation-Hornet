@@ -34,7 +34,7 @@
 	if(bci.owner.reagents.total_volume + bci.reagents.total_volume > bci.owner.reagents.maximum_volume)
 		return
 	var/contained = bci.reagents.get_reagent_log_string()
-	var/units = bci.reagents.trans_to(bci.owner.reagents, bci.reagents.total_volume, method = INJECT)
+	var/units = bci.reagents.trans_to(bci.owner.reagents, bci.reagents.total_volume, methods = INJECT)
 	if(units)
 		injected.set_output(COMPONENT_SIGNAL)
 		log_combat(bci.owner, bci.owner, "injected", bci, "which had [contained]")

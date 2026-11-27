@@ -105,7 +105,7 @@
 	if(Adjacent(target) && user.Adjacent(target))
 		if(beaker)
 			user.visible_message(span_warning("[user] attaches [src] to [target]."), span_notice("You attach [src] to [target]."))
-			log_combat(user, target, "attached", src, "containing: [beaker.name] - ([beaker.reagents.log_list()])", important = FALSE)
+			log_combat(user, target, "attached", src, "containing: [beaker.name] - ([beaker.reagents.get_reagent_log_string()])", important = FALSE)
 			add_fingerprint(user)
 			attached = target
 			START_PROCESSING(SSmachines, src)
@@ -123,7 +123,7 @@
 			return
 		beaker = W
 		to_chat(user, span_notice("You attach [W] to [src]."))
-		user.log_message("attached a [W] to [src] at [AREACOORD(src)] containing ([beaker.reagents.log_list()])", LOG_ATTACK)
+		user.log_message("attached a [W] to [src] at [AREACOORD(src)] containing ([beaker.reagents.get_reagent_log_string()])", LOG_ATTACK)
 		add_fingerprint(user)
 		update_icon()
 		return
@@ -154,7 +154,7 @@
 				if(istype(beaker, /obj/item/reagent_containers/blood))
 					// speed up transfer on blood packs
 					transfer_amount *= 2
-				beaker.reagents.trans_to(attached, transfer_amount * delta_time * 0.5, method = INJECT, show_message = FALSE) //make reagents reacts, but don't spam messages
+				beaker.reagents.trans_to(attached, transfer_amount * delta_time * 0.5, methods = INJECT, show_message = FALSE) //make reagents reacts, but don't spam messages
 				update_icon()
 
 		// Take blood

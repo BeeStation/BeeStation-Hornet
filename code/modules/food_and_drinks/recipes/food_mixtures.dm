@@ -9,7 +9,7 @@
 	/// Typepath of food that is created on reaction
 	var/atom/resulting_food_path
 
-/datum/chemical_reaction/food/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	if(resulting_food_path)
 		var/atom/location = holder.my_atom.drop_location()
 		for(var/i in 1 to created_volume)

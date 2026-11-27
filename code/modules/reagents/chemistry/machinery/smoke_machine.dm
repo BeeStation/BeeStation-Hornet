@@ -19,8 +19,8 @@
 
 /datum/effect_system/smoke_spread/chem/smoke_machine/set_up(datum/reagents/carry, setting=1, efficiency=10, loc, silent=FALSE, circle = TRUE)
 	amount = setting
-	carry.copy_to(chemholder, 20)
-	carry.remove_any(amount * 16 / efficiency)
+	carry.trans_to(chemholder, 20, copy_only = TRUE)
+	carry.remove_all(amount * 16 / efficiency)
 	location = loc
 	src.circle = circle
 
@@ -90,7 +90,7 @@
 	add_fingerprint(user)
 	if(istype(I, /obj/item/reagent_containers) && I.is_open_container())
 		var/obj/item/reagent_containers/RC = I
-		var/units = RC.reagents.trans_to(src, RC.amount_per_transfer_from_this, transfered_by = user)
+		var/units = RC.reagents.trans_to(src, RC.amount_per_transfer_from_this, transferred_by = user)
 		if(units)
 			to_chat(user, span_notice("You transfer [units] units of the solution to [src]."))
 			return

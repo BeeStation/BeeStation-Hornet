@@ -5,7 +5,8 @@
 	name = "Toxin"
 	description = "A toxic chemical."
 	color = "#CF3600" // rgb: 207, 54, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 	taste_mult = 1.2
 	///The amount of toxin damage this will cause when metabolized (also used to calculate liver damage)
@@ -29,7 +30,6 @@
 	name = "Amatoxin"
 	description = "A powerful poison derived from certain species of mushroom."
 	color = "#792300" // rgb: 121, 35, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 2.5
 	taste_description = "mushroom"
 
@@ -37,7 +37,7 @@
 	name = "Unstable Mutagen"
 	description = "Might cause unpredictable mutations. Keep away from children."
 	color = COLOR_VIBRANT_LIME
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "slime"
 	taste_mult = 0.9
@@ -45,14 +45,14 @@
 	/// The chance to gain a positive mutation
 	var/positive_mutation_prob = 2
 
-/datum/reagent/toxin/mutagen/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/toxin/mutagen/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
 	if(!exposed_mob.can_mutate() || !iscarbon(exposed_mob))
 		return // No robots, AIs, aliens, Ians or other mobs should be affected by this.
 
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 
-	if((method == VAPOR && prob(min(33, reac_volume))) || (method in list(INGEST, PATCH, INJECT)))
+	if(((methods & VAPOR) && prob(min(33, reac_volume))) || (methods & (INGEST|PATCH|INJECT)))
 		exposed_carbon.random_mutate_unique_identity()
 		if(prob(positive_mutation_prob))
 			exposed_carbon.easy_random_mutate(POSITIVE)
@@ -73,7 +73,7 @@
 	specific_heat = SPECIFIC_HEAT_PLASMA
 	taste_mult = 1.5
 	color = "#8228A0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 3
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -99,9 +99,9 @@
 
 	exposed_turf.atmos_spawn_air("[GAS_PLASMA]=[volume];[TURF_TEMPERATURE(holder?.chem_temp || T20C)]")
 
-/datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
+/datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	. = ..()
-	if(method == TOUCH || method == VAPOR)
+	if(methods & (TOUCH|VAPOR))
 		exposed_mob.adjust_fire_stacks(reac_volume / 5)
 		return
 
@@ -112,7 +112,7 @@
 	taste_description = "thick and smokey"
 	specific_heat = SPECIFIC_HEAT_PLASMA
 	toxpwr = 3
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/toxin/hot_ice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -138,7 +138,7 @@
 	name = "Lexorin"
 	description = "A powerful poison used to stop respiration."
 	color = "#7DC3A0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
 	taste_description = "acid"
 
@@ -159,7 +159,7 @@
 	name = "Slime Jelly"
 	description = "A gooey semi-liquid produced from Oozelings"
 	color = "#801E28" // rgb: 128, 30, 40
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
 	taste_description = "slime"
 	taste_mult = 1.3
@@ -178,7 +178,7 @@
 	name = "Mint Toxin"
 	description = "Useful for dealing with undesirable customers."
 	color = "#CF3600" // rgb: 207, 54, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	toxpwr = 0
 	taste_description = "mint"
 
@@ -194,7 +194,6 @@
 	description = "A deadly neurotoxin produced by the dreaded spess carp."
 	silent_toxin = TRUE
 	color = "#003333" // rgb: 0, 51, 51
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 1
 	taste_description = "fish"
 
@@ -209,7 +208,7 @@
 	silent_toxin = TRUE
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
 	taste_description = "death"
 
@@ -230,7 +229,7 @@
 	description = "A strong neurotoxin that slows metabolism to a death-like state while keeping the patient fully active. Causes toxin buildup if used too long."
 	reagent_state = SOLID
 	color = "#664700" // rgb: 102, 71, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0.8
 	taste_description = "death"
 	metabolized_traits = list(TRAIT_FAKEDEATH)
@@ -243,7 +242,6 @@
 	name = "Mindbreaker Toxin"
 	description = "A mild hallucinogen. Beneficial to some mental patients."
 	color = "#B31008" // rgb: 139, 166, 233
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "sourness"
 	addiction_types = list(/datum/addiction/hallucinogens = 60)
@@ -263,7 +261,7 @@
 	name = "Plant-B-Gone"
 	description = "A harmful toxic mixture to kill plantlife. Do not ingest!"
 	color = "#49002E" // rgb: 73, 0, 46
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 1
 	taste_mult = 1
 
@@ -278,8 +276,9 @@
 		var/obj/structure/spacevine/vine = exposed_obj
 		vine.on_chem_effect(src)
 
-/datum/reagent/toxin/plantbgone/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == VAPOR && iscarbon(exposed_mob))
+/datum/reagent/toxin/plantbgone/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	if((methods & VAPOR) && iscarbon(exposed_mob))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
 		if(!exposed_carbon.wear_mask) // If not wearing a mask
 			exposed_carbon.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10))
@@ -288,16 +287,15 @@
 	name = "Weed Killer"
 	description = "A harmful toxic mixture to kill weeds. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 
 /datum/reagent/toxin/pestkiller
 	name = "Pest Killer"
 	description = "A harmful toxic mixture to kill pests. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 1
 
-/datum/reagent/toxin/pestkiller/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/toxin/pestkiller/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
 	. = ..()
 	if(exposed_mob.mob_biotypes & MOB_BUG)
 		exposed_mob.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10), updating_health = TRUE)
@@ -306,7 +304,7 @@
 	name = "Spore Toxin"
 	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 1
 
 /datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -319,7 +317,7 @@
 	name = "Burning Spore Toxin"
 	description = "A natural toxin produced by blob spores that induces combustion in its victim."
 	color = "#9ACD32"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0.5
 	taste_description = "burning"
 
@@ -334,7 +332,7 @@
 	silent_toxin = TRUE
 	reagent_state = SOLID
 	color = "#000067" // rgb: 0, 0, 103
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
@@ -355,7 +353,7 @@
 	name = "Strong Beer"
 	description = "A specially-engineered sedative disguised as beer. It induces instant sleep in its target."
 	color = "#664300" // rgb: 102, 67, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "piss water"
 
@@ -386,7 +384,7 @@
 	description = "Finely ground coffee beans, used to make coffee."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0.5
 
 /datum/reagent/toxin/teapowder
@@ -394,7 +392,7 @@
 	description = "Finely shredded tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0.1
 	taste_description = "green tea"
 
@@ -403,7 +401,7 @@
 	description = "A less potent version of mute toxin which prevents a victim from speaking loudly."
 	silent_toxin = TRUE
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0
 	taste_description = "alcohol"
 	metabolized_traits = list(TRAIT_WHISPER_ONLY, TRAIT_EMOTEMUTE)
@@ -413,7 +411,7 @@
 	description = "A nonlethal poison that inhibits speech in its victim."
 	silent_toxin = TRUE
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0
 	taste_description = "silence"
 	metabolized_traits = list(TRAIT_MUTE)
@@ -423,7 +421,7 @@
 	description = "A nonlethal poison that causes extreme fatigue and weakness in its victim."
 	silent_toxin = TRUE
 	color = "#6E2828"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	data = 30
 	toxpwr = 0
 
@@ -446,7 +444,7 @@
 	description = "An extremely radioactive material in liquid form. Ingestion results in fatal irradiation."
 	reagent_state = LIQUID
 	color = "#787878"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 	process_flags = ORGANIC | SYNTHETIC
@@ -470,7 +468,7 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#FA6464"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	toxpwr = 0
@@ -507,7 +505,7 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#B4004B"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 1
 
@@ -522,7 +520,7 @@
 	description = "An exotic poison extracted from highly toxic fauna. Causes scaling amounts of toxin damage and bruising depending and dosage. Often decays into Histamine."
 	reagent_state = LIQUID
 	color = "#F0FFF0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 
@@ -543,7 +541,7 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	reagent_state = LIQUID
 	color = "#6c9919"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0.25
 
 /datum/reagent/toxin/apidvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -558,7 +556,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	reagent_state = LIQUID
 	color = "#00A080"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0.5
 
 /datum/reagent/toxin/spidervenom/on_mob_metabolize(mob/living/carbon/affected_mob)
@@ -586,7 +584,7 @@
 	description = "Fentanyl will inhibit brain function and cause toxin damage before eventually incapacitating its victim."
 	reagent_state = LIQUID
 	color = "#64916E"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
 	addiction_types = list(/datum/addiction/opioids = 25)
@@ -605,7 +603,7 @@
 	description = "An infamous poison known for its use in assassination. Causes small amounts of toxin damage with a small chance of oxygen damage or a stun."
 	reagent_state = LIQUID
 	color = "#00B4FF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 1.25
 
@@ -624,7 +622,7 @@
 	description = "The result of some abomination of cookery, food so bad it's toxic."
 	reagent_state = LIQUID
 	color = "#d6d6d8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0.5
 	taste_description = "bad cooking"
@@ -635,7 +633,7 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#C8C8C8"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	toxpwr = 0
 
@@ -667,7 +665,7 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#7F10C0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 2.5
 
@@ -702,7 +700,7 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 	taste_mult = 0 // undetectable, I guess?
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/toxin/pancuronium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -719,7 +717,7 @@
 	color = "#6496FA"
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	toxpwr = 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -735,7 +733,7 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#7DC3A0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 0.5
 
@@ -750,7 +748,6 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = COLOR_WHITE
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
@@ -767,7 +764,6 @@
 	taste_description = "mothballs"
 	reagent_state = LIQUID
 	color = "#F0FFF0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
 
@@ -784,7 +780,7 @@
 	description = "Coniine metabolizes extremely slowly, but deals high amounts of toxin damage and stops breathing."
 	reagent_state = LIQUID
 	color = "#7DC3A0"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.06 * REAGENTS_METABOLISM
 	toxpwr = 1.75
 
@@ -797,7 +793,7 @@
 	description = "A powerful emetic, causes uncontrollable vomiting.  May result in vomiting organs at high doses."
 	reagent_state = LIQUID
 	color = "#2f6617" //A sickly green color
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = REAGENTS_METABOLISM
 	overdose_threshold = 29
 	toxpwr = 0
@@ -830,7 +826,7 @@
 	description = "Causes slight toxin damage followed by chain-stunning and oxygen damage."
 	reagent_state = LIQUID
 	color = "#191919"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 1
 
@@ -847,7 +843,7 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#C8C8C8" //RGB: 200, 200, 200
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	toxpwr = 0
 
@@ -863,7 +859,7 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	toxpwr = 0.5
 	taste_description = "spinning"
@@ -891,7 +887,7 @@
 	description = "A toxin that quickly purges medicines and metabolizes very slowly."
 	reagent_state = LIQUID
 	color = "#3C5133"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.08 * REAGENTS_METABOLISM
 	toxpwr = 0.15
 
@@ -910,23 +906,24 @@
 	name = "Sulfuric Acid"
 	description = "A strong mineral acid with the molecular formula H2SO4."
 	color = "#00FF32"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 1
 	var/acidpwr = 10 //the amount of protection removed from the armour
 	taste_description = "acid"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/acid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+/datum/reagent/toxin/acid/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
 	if(!iscarbon(exposed_mob))
 		return
 
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 	reac_volume = round(reac_volume,0.1)
-	if(method == INGEST)
+	if(methods & INGEST)
 		exposed_carbon.adjustBruteLoss(min(6 * toxpwr, reac_volume * toxpwr))
 		return
-	if(method == INJECT)
+	if(methods & INJECT)
 		exposed_carbon.adjustBruteLoss(1.5 * min(6 * toxpwr, reac_volume * toxpwr))
 		return
 	exposed_carbon.acid_act(acidpwr, reac_volume)
@@ -951,7 +948,7 @@
 	name = "Fluorosulfuric acid"
 	description = "Fluorosulfuric acid is an extremely corrosive chemical substance."
 	color = "#5050FF"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 2
 	acidpwr = 42.0
 
@@ -964,7 +961,7 @@
 	name = "Toxin Microcapsules"
 	description = "Causes heavy toxin damage after a brief time of inactivity."
 	reagent_state = LIQUID
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0 //stays in the system until active.
 	toxpwr = 0
 
@@ -988,7 +985,7 @@
 	description = "A nonlethal neurotoxin that interferes with the victim's ability to gesture."
 	silent_toxin = TRUE
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "stillness"
 	metabolized_traits = list(TRAIT_EMOTEMUTE)
@@ -998,7 +995,7 @@
 	description = "A strange substance that looks a lot like water. Drinking it is oddly tempting. Oof ouch."
 	silent_toxin = TRUE //no point spamming them even more.
 	color = "#AAAAAA77" //RGBA: 170, 170, 170, 77
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
 	taste_description = "bone hurting"
 	overdose_threshold = 50
@@ -1058,7 +1055,7 @@
 	description = "A horrible cardiotoxin that protects the humble bungo pit."
 	silent_toxin = TRUE
 	color = "#EBFF8E"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
 	taste_description = "tannin"
@@ -1082,7 +1079,8 @@
 	name = "Morph venom"
 	description = "Deadly venom of shapeshifting creature."
 	color = "#3cff00"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	chemical_flags = NONE
+	randomized_spawns = CHEMICAL_RNG_FUN
 	toxpwr = 2
 	taste_description = "salt"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
@@ -1105,14 +1103,15 @@
 	description = "An extremely lethal contact nerve agent which causes difficulty breathing, vomiting, organ failure, and severe brain damage, even in small doses."
 	silent_toxin = TRUE
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	chemical_flags = CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 	toxpwr = 0
 	taste_description = "bitterness"
 	// 1 every 20 seconds
 	metabolization_rate = 0.05
 
 // Always transfers to the mob no matter what
-/datum/reagent/toxin/sarin/expose_mob(mob/living/exposed_mob, method, reac_volume, show_message, touch_protection, obj/item/bodypart/affecting)
+/datum/reagent/toxin/sarin/expose_mob(mob/living/exposed_mob, methods, reac_volume, show_message, touch_protection, obj/item/bodypart/affecting)
+	. = ..()
 	if(!istype(exposed_mob))
 		return FALSE
 	if(exposed_mob.reagents)

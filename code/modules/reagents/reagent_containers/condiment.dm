@@ -62,7 +62,7 @@
 			span_warning("[user] fed you from [src]."),
 		)
 		log_combat(user, target, "fed", reagents.get_reagent_log_string())
-	reagents.trans_to(target, 10, transfered_by = user, method = INGEST)
+	reagents.trans_to(target, 10, transferred_by = user, methods = INGEST)
 	playsound(target, 'sound/items/drink.ogg', rand(10, 50), TRUE)
 	return ITEM_INTERACT_SUCCESS
 
@@ -421,14 +421,15 @@
 			qdel(src)
 			return ITEM_INTERACT_BLOCKING
 		to_chat(user, span_notice("You tear open [src] above [target] and the condiments drip onto it."))
-		reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+		reagents.trans_to(target, amount_per_transfer_from_this, transferred_by = user)
 		qdel(src)
 		return ITEM_INTERACT_SUCCESS
 	return ..()
 
-/obj/item/reagent_containers/condiment/pack/on_reagent_change(changetype)
+/obj/item/reagent_containers/condiment/pack/on_reagent_change()
 	if(reagents.reagent_list.len > 0)
-		var/main_reagent = reagents.get_master_reagent_id()
+		var/datum/reagent/master_reagent = reagents.get_master_reagent()
+		var/main_reagent = master_reagent?.type
 		if(main_reagent in possible_states)
 			var/list/temp_list = possible_states[main_reagent]
 			icon_state = temp_list[1]

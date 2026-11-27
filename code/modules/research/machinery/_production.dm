@@ -161,7 +161,7 @@
 	SIGNAL_HANDLER
 	ui_update()
 
-/obj/machinery/rnd/production/on_reagent_change(changetype)
+/obj/machinery/rnd/production/on_reagent_change()
 	. = ..()
 	ui_update()
 

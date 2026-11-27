@@ -165,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		return TRUE
 
 	if(reagents)
-		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+		reagents.trans_to(target_holder, reagents.total_volume, transferred_by = user)
 	var/available_volume = target_holder.maximum_volume - target_holder.total_volume
 
 	//compute total volume of reagents that will be occupied by grind_results
