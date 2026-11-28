@@ -962,16 +962,16 @@
 	},
 /obj/structure/closet/crate/wooden,
 /obj/item/reagent_containers/cup/beaker/large{
-	list_reagents = list(/datum/reagent/blackpowder = 100)
+	list_reagents = list(/datum/reagent/gunpowder = 100)
 	},
 /obj/item/reagent_containers/cup/beaker/large{
-	list_reagents = list(/datum/reagent/blackpowder = 100)
+	list_reagents = list(/datum/reagent/gunpowder = 100)
 	},
 /obj/item/reagent_containers/cup/beaker/large{
-	list_reagents = list(/datum/reagent/blackpowder = 100)
+	list_reagents = list(/datum/reagent/gunpowder = 100)
 	},
 /obj/item/reagent_containers/cup/beaker/large{
-	list_reagents = list(/datum/reagent/blackpowder = 100)
+	list_reagents = list(/datum/reagent/gunpowder = 100)
 	},
 /obj/item/lighter/greyscale,
 /obj/item/storage/box/beakers/variety,
