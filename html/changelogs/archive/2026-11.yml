@@ -412,3 +412,6 @@
   - bugfix: Orebag module shouldn't void materials anymore
   - bugfix: Boris Module now shows up in the correct category
   - balance: Nuka Cola wont instantly irradiate you
+2026-11-28:
+  mrmanlikesbt:
+  - bugfix: Fixed the shuttle subsystem sometimes taking 30 seconds to initialize

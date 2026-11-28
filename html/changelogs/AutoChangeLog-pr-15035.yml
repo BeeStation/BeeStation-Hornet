@@ -1,4 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed the shuttle subsystem sometimes taking 30 seconds to initialize
