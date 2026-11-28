@@ -29,6 +29,7 @@
 #include "combat.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
+#include "container_sanity.dm"
 /*
 #include "create_and_destroy.dm"
 */
@@ -94,7 +95,9 @@
 #include "reagent_id_typos.dm"
 #include "reagent_mob_expose.dm"
 #include "reagent_mod_procs.dm"
+#include "reagent_names.dm"
 #include "reagent_recipe_collisions.dm"
+#include "reagent_transfer.dm"
 #include "say.dm"
 #include "screenshot_basic.dm"
 #include "screenshot_debrain.dm"
