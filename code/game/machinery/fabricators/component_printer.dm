@@ -193,8 +193,8 @@
 	for (var/list/D as anything in scanned_designs)
 		//Calculate cost
 		var/list/material_cost = list()
-		for(var/mat_id in D["materials"])
-			material_cost[mat_id] = D["materials"][mat_id] * creation_efficiency
+		for(var/mat_id, mat_cost in D["materials"])
+			material_cost[mat_id] = mat_cost * creation_efficiency
 
 		//Add
 		designs["[index]"] = list(
@@ -211,19 +211,12 @@
 	return data
 
 /obj/machinery/module_duplicator/crowbar_act(mob/living/user, obj/item/tool)
-	if(..())
-		return TRUE
-	return default_deconstruction_crowbar(tool)
+	if(default_deconstruction_crowbar(tool))
+		return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_BLOCKING
 
 /obj/machinery/module_duplicator/screwdriver_act(mob/living/user, obj/item/tool)
-	if(..())
-		return TRUE
-	return default_deconstruction_screwdriver(user, "module-fab-o", "module-fab-idle", tool)
+	if(default_deconstruction_screwdriver(user, "module-fab-o", "module-fab-idle", tool))
+		return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_BLOCKING
 
-/obj/machinery/module_duplicator/proc/get_material_cost_data(list/materials)
-	var/list/data = list()
-
-	for (var/datum/material/material_type as anything in materials)
-		data[initial(material_type.name)] = materials[material_type]
-
-	return data

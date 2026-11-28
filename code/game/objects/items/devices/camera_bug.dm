@@ -208,7 +208,7 @@
 		track_mode = text2num(href_list["mode"])
 	if("monitor" in href_list)
 		//You can't locate on a list with keys
-		var/list/cameras = flatten_list(bugged_cameras)
+		var/list/cameras = assoc_to_values(bugged_cameras)
 		var/datum/weakref/camera_ref = locate(href_list["monitor"]) in cameras
 		var/obj/machinery/camera/camera = camera_ref.resolve()
 		if(camera && istype(camera))
@@ -230,7 +230,7 @@
 				track_mode = BUGMODE_TRACK
 	if("emp" in href_list)
 		//You can't locate on a list with keys
-		var/list/cameras = flatten_list(bugged_cameras)
+		var/list/cameras = assoc_to_values(bugged_cameras)
 		var/datum/weakref/camera_ref = locate(href_list["emp"]) in cameras
 		var/obj/machinery/camera/camera = camera_ref.resolve()
 		if(camera && istype(camera) && camera.bug == src)
@@ -247,7 +247,7 @@
 		return
 	if("view" in href_list)
 		//You can't locate on a list with keys
-		var/list/cameras = flatten_list(bugged_cameras)
+		var/list/cameras = assoc_to_values(bugged_cameras)
 		var/datum/weakref/camera_ref = locate(href_list["view"]) in cameras
 		var/obj/machinery/camera/camera = camera_ref.resolve()
 		if(camera && istype(camera))

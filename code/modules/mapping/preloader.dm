@@ -5,7 +5,6 @@ GLOBAL_LIST_INIT(_preloader_path, null)
 
 /// Preloader datum
 /datum/map_preloader
-	parent_type = /datum
 	var/list/attributes
 	var/target_path
 

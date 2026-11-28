@@ -48,7 +48,7 @@
 		to_chat(user, span_warning("[A] is holographic, no datapoints can be extracted."))
 		return
 	scanned = TRUE
-	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)
+	linked_techweb.adjust_points(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)
 	linked_techweb.scanned_atoms[discover_id] = TRUE
 	playsound(user, 'sound/machines/terminal_success.ogg', 60)
 	to_chat(user, span_notice("New datapoint scanned, [point_reward] discovery points gained."))
@@ -87,7 +87,7 @@
 			linked_techweb.scanned_atoms[discover_id] = TRUE
 	scanned = TRUE
 	if(total_payout)
-		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, total_payout)
+		linked_techweb.adjust_points(TECHWEB_POINT_TYPE_DISCOVERY, total_payout)
 		playsound(user, 'sound/machines/terminal_success.ogg', 60)
 		to_chat(user, span_notice("New datapoint scanned, [total_payout] discovery points gained.\n[discovered_trait_count] new traits discovered!"))
 		pulse_effect(get_turf(atom_parent), 4)

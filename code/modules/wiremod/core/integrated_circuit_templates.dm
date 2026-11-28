@@ -3,19 +3,8 @@
 	/// The name from approved_circuits.json to load
 	var/template_name = "hello_world"
 
-//The research design template
-/datum/design/integrated_circuit_template
-	name = "Hello, World!"
-	desc = "A simple \"Hello, World\" circuit."
-	id = "template_circuit"
-	build_path = /obj/item/integrated_circuit/template/hello_world
-	category = list(RND_CATEGORY_TEMPLATES)
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 3550, /datum/material/copper = 550) //Hello world costs
-	build_type = COMPONENT_PRINTER
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
 /obj/item/integrated_circuit/template/Initialize(mapload)
-	.=..()
+	. = ..()
 
 	var/list/errors = list()
 	var/circuit_json = pick(strings(APPROVED_CIRCUITS_FILE, template_name))
@@ -30,132 +19,56 @@
 /obj/item/integrated_circuit/template/hello_world
 	template_name = "hello_world"
 
-/datum/design/integrated_circuit_template/hello_world
-	name = "1. Hello, World!"
-	desc = "A simple \"Hello, World\" circuit."
-	id = "template_hello_world"
-	build_path = /obj/item/integrated_circuit/template/hello_world
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 3550, /datum/material/copper = 650)
-
 //Greeter
 /obj/item/integrated_circuit/template/greeter
 	template_name = "greeter"
-
-/datum/design/integrated_circuit_template/greeter
-	name = "2. Greeter"
-	desc = "A simple circuit which greets you."
-	id = "template_greeter"
-	build_path = /obj/item/integrated_circuit/template/greeter
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 5050, /datum/material/copper = 1100)
 
 //Ticker
 /obj/item/integrated_circuit/template/ticker
 	template_name = "ticker"
 
-/datum/design/integrated_circuit_template/ticker
-	name = "3. Ticker"
-	desc = "Tick Tock, a circuit which keeps time."
-	id = "template_ticker"
-	build_path = /obj/item/integrated_circuit/template/ticker
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 4550, /datum/material/copper = 950)
-
 //Simple Math
 /obj/item/integrated_circuit/template/simple_math
 	template_name = "simple_math"
-
-/datum/design/integrated_circuit_template/simple_math
-	name = "4. Simple Math"
-	desc = "A simple circuit which does basic math and tells you if it is greater than 5."
-	id = "template_simple_math"
-	build_path = /obj/item/integrated_circuit/template/simple_math
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 4050, /datum/material/copper = 800)
 
 //Times Table
 /obj/item/integrated_circuit/template/times_table
 	template_name = "times_table"
 
-/datum/design/integrated_circuit_template/times_table
-	name = "5. Times Table"
-	desc = "You needed to learn your 7 times table, right?"
-	id = "template_times_table"
-	build_path = /obj/item/integrated_circuit/template/times_table
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 5550, /datum/material/copper = 1250)
-
 //Coin Flip
 /obj/item/integrated_circuit/template/coin_flip
 	template_name = "coin_flip"
 
-/datum/design/integrated_circuit_template/coin_flip
-	name = "6. Coin Flip"
-	desc = "A Simple Coin Flipper"
-	id = "template_coin_flip"
-	build_path = /obj/item/integrated_circuit/template/coin_flip
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 5050, /datum/material/copper = 1100)
-
 //Atmos Safety Checker
 /obj/item/integrated_circuit/template/atmos_checker
 	template_name = "atmos_check"
-
-/datum/design/integrated_circuit_template/atmos_checker
-	name = "7. Atmos Safety Checker"
-	desc = "Is your air safe? Find out!"
-	id = "template_atmos_checker"
-	build_path = /obj/item/integrated_circuit/template/atmos_checker
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 10050, /datum/material/copper = 2600)
 
 ///ADVANCED TEMPLATES
 //Broken Universal Translator
 /obj/item/integrated_circuit/template/broken_translator
 	template_name = "broken_translator"
 
-/datum/design/integrated_circuit_template/broken_translator
-	name = "A1. Broken Translator"
-	desc = "A translator that doesn't work"
-	id = "template_broken_translator"
-	build_path = /obj/item/integrated_circuit/template/broken_translator
-	materials = list(/datum/material/iron = 6700, /datum/material/glass = 4550, /datum/material/copper = 950)
-
 //NTNet Scanning Gate
 /obj/item/integrated_circuit/template/scanning_gate
 	template_name = "scanning_gate"
-
-/datum/design/integrated_circuit_template/scanning_gate
-	name = "A2. NTNet Scanning Gate"
-	desc = "A wireless scanning gate"
-	id = "template_scanning_gate"
-	build_path = /obj/item/integrated_circuit/template/scanning_gate
-	materials = list(/datum/material/iron = 13700, /datum/material/glass = 7050, /datum/material/copper = 1100)
 
 //Vending Circuit
 /obj/item/integrated_circuit/template/vending_circuit
 	template_name = "vending_circuit"
 
-/datum/design/integrated_circuit_template/vending_circuit
-	name = "A3. Vending Circuit"
-	desc = "A simple vending machine circuit"
-	id = "template_circuit_vendor"
-	build_path = /obj/item/integrated_circuit/template/vending_circuit
-	materials = list(/datum/material/iron = 11700, /datum/material/glass = 6050, /datum/material/gold = 50, /datum/material/copper = 1400)
-
 /obj/item/clipboard/preloaded/circuit_templates
 	name="\improper Professor's Notes"
-	papers_to_add = list(/obj/item/paper/guides/circuits/greeting,
-						/obj/item/paper/guides/circuits/hello_world,
-						/obj/item/paper/guides/circuits/greeter,
-						/obj/item/paper/guides/circuits/ticker,
-						/obj/item/paper/guides/circuits/simple_math,
-						/obj/item/paper/guides/circuits/times_table,
-						/obj/item/paper/guides/circuits/coin_flip,
-						/obj/item/paper/guides/circuits/atmos_check,
-						/obj/item/paper/guides/circuits/advanced_circuits,
-						)
-
-/datum/design/integrated_circuit_template/professors_notes //Printable at circuit fabs for ease of finding. Yes, it's not really realistic, but this is a tutorial.
-	name = "0. The Professor's Notes"
-	desc = "I could use some help! Please read me!"
-	id = "template_notes"
-	build_path = /obj/item/clipboard/preloaded/circuit_templates
-	materials = list(/datum/material/iron = 3000) //Ehh, seems about right.
+	papers_to_add = list(
+		/obj/item/paper/guides/circuits/greeting,
+		/obj/item/paper/guides/circuits/hello_world,
+		/obj/item/paper/guides/circuits/greeter,
+		/obj/item/paper/guides/circuits/ticker,
+		/obj/item/paper/guides/circuits/simple_math,
+		/obj/item/paper/guides/circuits/times_table,
+		/obj/item/paper/guides/circuits/coin_flip,
+		/obj/item/paper/guides/circuits/atmos_check,
+		/obj/item/paper/guides/circuits/advanced_circuits,
+	)
 
 /obj/item/paper/guides/circuits/greeting
 	name = "paper - Greetings!"

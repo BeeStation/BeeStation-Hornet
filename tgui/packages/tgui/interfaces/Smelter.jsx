@@ -83,11 +83,11 @@ export const Smelter = (props) => {
           <Table>
             {materials.map((material) => (
               <MaterialRow
-                key={material.id}
+                key={material.ref}
                 material={material}
                 onRelease={() =>
                   act('Material', {
-                    id: material.id,
+                    ref: material.ref,
                   })
                 }
               />
@@ -96,13 +96,13 @@ export const Smelter = (props) => {
         </Section>
         <Section title="Alloys">
           <Table>
-            {alloys.map((material) => (
+            {alloys.map((alloy) => (
               <MaterialRow
-                key={material.id}
-                material={material}
+                key={alloy.path}
+                material={alloy}
                 onRelease={() =>
                   act('Alloy', {
-                    id: material.id,
+                    path: alloy.path,
                   })
                 }
               />

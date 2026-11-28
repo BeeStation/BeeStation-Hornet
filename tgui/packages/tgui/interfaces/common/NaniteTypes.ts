@@ -3,7 +3,10 @@ import type { BooleanLike } from 'tgui-core/react';
 export type NaniteProgram = {
   name: string;
   desc: string;
-  id: number;
+  /** Index of the program in a nanite swarm (cloud backups) */
+  id?: number;
+  /** Design typepath (program hub) */
+  path?: string;
   activated: BooleanLike;
   can_trigger: BooleanLike;
   use_rate: number;

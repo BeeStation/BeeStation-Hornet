@@ -1,7 +1,5 @@
 ///How much power it costs to deconstruct an item.
 #define DESTRUCTIVE_ANALYZER_POWER_USAGE (BASE_MACHINE_IDLE_CONSUMPTION * 2.5)
-///The 'ID' for deconstructing items for Research points instead of nodes.
-#define DESTRUCTIVE_ANALYZER_DESTROY_POINTS "research_points"
 
 /**
  * ## Destructive Analyzer
@@ -57,43 +55,37 @@
 		data["item_icon"] = icon2base64(getFlatIcon(image(icon = loaded_item.icon, icon_state = loaded_item.icon_state), no_anim = TRUE))
 		data["indestructible"] = !(loaded_item.resistance_flags & INDESTRUCTIBLE)
 		data["loaded_item"] = loaded_item
-		data["already_deconstructed"] = !!stored_research.deconstructed_items[loaded_item.type]
-		var/list/points = techweb_item_point_check(loaded_item)
-		data["recoverable_points"] = techweb_point_display_generic(points)
+		data["already_deconstructed"] = !!stored_research.deconstructed_items?[loaded_item.type]
+		data["recoverable_points"] = techweb_point_display_generic(SSresearch.techweb_point_items[loaded_item.type])
 
-		var/list/boostable_nodes = techweb_item_unlock_check(loaded_item)
-		for(var/id in boostable_nodes)
-			var/datum/techweb_node/unlockable_node = SSresearch.techweb_node_by_id(id)
-			var/list/node_data = list()
-			node_data["node_name"] = unlockable_node.display_name
-			node_data["node_id"] = unlockable_node.id
-			node_data["node_hidden"] = !!stored_research.hidden_nodes[unlockable_node.id]
-			data["node_data"] += list(node_data)
+		var/list/boostable_nodes = SSresearch.techweb_unlock_items[loaded_item.type]
+		for(var/node_path in boostable_nodes)
+			var/datum/techweb_node/unlockable_node = SSresearch.techweb_nodes[node_path]
+			data["node_data"] += list(list(
+				"node_name" = unlockable_node.display_name,
+				"node_path" = node_path,
+				"node_hidden" = !!stored_research.hidden_nodes?[node_path],
+			))
 	else
 		data["loaded_item"] = null
 	return data
 
-/obj/machinery/rnd/destructive_analyzer/ui_static_data(mob/user)
-	var/list/data = list()
-	data["research_point_id"] = DESTRUCTIVE_ANALYZER_DESTROY_POINTS
-	return data
-
-/obj/machinery/rnd/destructive_analyzer/ui_act(action, params, datum/tgui/ui)
+/obj/machinery/rnd/destructive_analyzer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
 
-	var/mob/user = usr
 	switch(action)
 		if("eject_item")
 			if(busy)
-				balloon_alert(user, "already busy!")
+				balloon_alert(ui.user, "already busy!")
 				return TRUE
 			if(loaded_item)
 				unload_item()
 				return TRUE
 		if("deconstruct")
-			if(!user_try_decon_id(params["deconstruct_id"]))
+			var/node_path = text2path(params["deconstruct_path"])
+			if(!try_deconstruct_loaded_item(node_path))
 				say("Destructive analysis failed!")
 			return TRUE
 
@@ -119,8 +111,9 @@
 
 /**
  * Destroys an item by going through all its contents (including itself) and calling destroy_item_individual
- * Args:
- * gain_research_points - Whether deconstructing each individual item should check for research points to boost.
+ * Arguments:
+ *
+ * * gain_research_points - Whether deconstructing each individual item should check for research points to boost.
  */
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item(gain_research_points = FALSE)
 	if(QDELETED(loaded_item) || QDELETED(src))
@@ -139,9 +132,10 @@
 
 /**
  * Destroys the individual provided item
- * Args:
- * thing - The thing being destroyed. Generally an object, but it can be a mob too, such as intellicards and pAIs.
- * gain_research_points - Whether deconstructing this should give research points to the stored techweb, if applicable.
+ *
+ * Arguments:
+ * * thing - The thing being destroyed. Generally an object, but it can be a mob too, such as intellicards and pAIs.
+ * * gain_research_points - Whether deconstructing this should give research points to the stored techweb, if applicable.
  */
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item_individual(obj/item/thing, gain_research_points = FALSE)
 	if(isliving(thing))
@@ -149,37 +143,38 @@
 		if(mob_thing.stat != DEAD)
 			mob_thing.investigate_log("has been killed by a destructive analyzer.", INVESTIGATE_DEATHS)
 		mob_thing.death()
-	var/list/point_value = techweb_item_point_check(thing)
-	if(point_value && !stored_research.deconstructed_items[thing.type])
+	var/list/points = SSresearch.techweb_point_items[thing.type]
+	if(length(points) && !stored_research.deconstructed_items[thing.type])
 		stored_research.deconstructed_items[thing.type] = TRUE
-		stored_research.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = point_value))
+		stored_research.adjust_multiple_points(points)
 	qdel(thing)
 
 /**
- * Attempts to destroy the loaded item using a provided research id.
- * Args:
- * id - The techweb ID node that we're meant to unlock if applicable.
+ * Attempts to destroy the loaded item using a provided techweb node path.
+ * If no node path is provided, we will deconstruct for points instead
+ *
+ * Arguments:
+ * * node_path - The techweb node that we're meant to unlock if applicable.
  */
-/obj/machinery/rnd/destructive_analyzer/proc/user_try_decon_id(id)
+/obj/machinery/rnd/destructive_analyzer/proc/try_deconstruct_loaded_item(node_path)
 	if(!istype(loaded_item))
 		return FALSE
-	if(isnull(id))
+
+	if(isnull(node_path))
+		return destroy_item(gain_research_points = TRUE)
+
+	if(!stored_research.hidden_nodes[node_path])
 		return FALSE
 
 	var/item_type = loaded_item.type
-	if(id == DESTRUCTIVE_ANALYZER_DESTROY_POINTS)
-		if(!destroy_item(gain_research_points = TRUE))
-			return FALSE
-		return TRUE
-
-	var/datum/techweb_node/node_to_discover = SSresearch.techweb_node_by_id(id)
-	if(!istype(node_to_discover))
+	// no href exploits for you
+	if(!(node_path in SSresearch.techweb_unlock_items[item_type]))
 		return FALSE
+
 	if(!destroy_item())
 		return FALSE
-	SSblackbox.record_feedback("nested tally", "item_deconstructed", 1, list("[node_to_discover.id]", "[item_type]"))
-	stored_research.unhide_node(node_to_discover)
+	SSblackbox.record_feedback("nested tally", "item_deconstructed", 1, list("[node_path]", "[item_type]"))
+	stored_research.unhide_node(SSresearch.techweb_nodes[node_path])
 	return TRUE
 
-#undef DESTRUCTIVE_ANALYZER_DESTROY_POINTS
 #undef DESTRUCTIVE_ANALYZER_POWER_USAGE

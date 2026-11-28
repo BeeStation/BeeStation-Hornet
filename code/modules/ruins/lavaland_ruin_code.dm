@@ -9,15 +9,11 @@
 	name = "Golem Creation Disk"
 	desc = "A gift from the Liberator."
 	icon_state = "datadisk1"
-
-/obj/item/disk/design_disk/golem_shell/Initialize(mapload)
-	. = ..()
-	blueprints += new /datum/design/golem_shell()
+	blueprints = list(/datum/design/golem_shell)
 
 /datum/design/golem_shell
 	name = "Golem Shell Construction"
 	desc = "Allows for the construction of a Golem Shell."
-	id = "golem"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 40000)
 	build_path = /obj/item/golem_shell

@@ -85,13 +85,13 @@ export const DesignBrowser = <T extends Design = Design>(props: Props<T>) => {
       let path = '';
 
       for (const node of nodes) {
-        parent.descendants[design.id] = design;
+        parent.descendants[design.path] = design;
         path += `/${node}`;
         parent.subcategories[node] ||= makeCategory<T>(node, path);
         parent = parent.subcategories[node];
       }
 
-      parent.descendants[design.id] = design;
+      parent.descendants[design.path] = design;
       parent.children.push(design);
     }
   }

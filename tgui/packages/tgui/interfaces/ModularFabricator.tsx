@@ -22,11 +22,11 @@ import { affordableAmount, availableFor } from './Fabricator';
 type QueueEntry = {
   name: string;
   amount: number;
-  design_id: string;
+  design_path: string;
 };
 
 type CurrentBuild = {
-  design_id: string;
+  design_path: string;
   name: string;
   progress: number;
 };
@@ -80,7 +80,7 @@ export const ModularFabricator = () => {
                             onClick={() =>
                               act('build', {
                                 designs: category.children.map(
-                                  (design) => design.id,
+                                  (design) => design.path,
                                 ),
                               })
                             }
@@ -136,8 +136,8 @@ const Recipe = (props: { design: Design; available: MaterialMap }) => {
   // Machines without a queue print as soon as a design is clicked, the way the protolathe does.
   const queue = (amount: number) =>
     data.uses_queue
-      ? act('queue_item', { design_id: props.design.id, amount })
-      : act('build', { design_id: props.design.id, amount });
+      ? act('queue_item', { design_path: props.design.path, amount })
+      : act('build', { design_path: props.design.path, amount });
 
   return (
     <div className="FabricatorRecipe">
@@ -220,7 +220,7 @@ const CustomQueue = (props: { design: Design; available: MaterialMap }) => {
         content={`×${max}`}
         onCommit={(_event, value: string) =>
           act(data.uses_queue ? 'queue_item' : 'build', {
-            design_id: props.design.id,
+            design_path: props.design.path,
             amount: value,
           })
         }
@@ -235,7 +235,7 @@ const SidePanel = (props: { availableMaterials: MaterialMap }) => {
 
   const materialCosts: MaterialMap = {};
   for (const entry of queue) {
-    const design = data.designs[entry.design_id];
+    const design = data.designs[entry.design_path];
     for (const [material, cost] of Object.entries(design?.cost || {})) {
       materialCosts[material] =
         (materialCosts[material] || 0) + cost * entry.amount;
@@ -302,11 +302,11 @@ const SidePanel = (props: { availableMaterials: MaterialMap }) => {
             <Stack.Item grow>
               <div className="Fabricator__Queue">
                 {queue.map((entry) => (
-                  <div key={entry.design_id} className="FabricatorRecipe">
+                  <div key={entry.design_path} className="FabricatorRecipe">
                     <Tooltip
                       content={
                         <MaterialCostSequence
-                          design={data.designs[entry.design_id]}
+                          design={data.designs[entry.design_path]}
                           amount={entry.amount}
                           available={props.availableMaterials}
                         />
@@ -329,7 +329,7 @@ const SidePanel = (props: { availableMaterials: MaterialMap }) => {
                         ])}
                         onClick={() =>
                           act('queue_remove_one', {
-                            design_id: entry.design_id,
+                            design_path: entry.design_path,
                           })
                         }
                       >
@@ -340,7 +340,7 @@ const SidePanel = (props: { availableMaterials: MaterialMap }) => {
                       <div
                         className="FabricatorRecipe__Button FabricatorRecipe__Button--icon"
                         onClick={() =>
-                          act('clear_item', { design_id: entry.design_id })
+                          act('clear_item', { design_path: entry.design_path })
                         }
                       >
                         <Icon name="minus-circle" />

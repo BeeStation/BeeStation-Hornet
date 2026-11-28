@@ -169,9 +169,10 @@
 	var/datum/bank_account/engineering_bank = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)//x4 coils give ~ 768 credits per minute
 	engineering_bank?.adjust_money(min(power_removed, 3)*2)
 
-	if(linked_techweb)
-		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_GENERIC, min(power_removed, 3) / 4)
-		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min(power_removed, 3) / 4)
+	linked_techweb?.adjust_multiple_points(list(
+		TECHWEB_POINT_TYPE_GENERIC = min(power_removed, 3) / 4,
+		TECHWEB_POINT_TYPE_DISCOVERY = min(power_removed, 3) / 4,
+	))
 
 	return max(power - power_removed, 0)
 

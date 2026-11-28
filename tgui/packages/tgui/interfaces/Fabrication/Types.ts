@@ -33,7 +33,7 @@ export type Design = {
   cost: MaterialMap;
   /** Reagent name -> units. Empty for designs that need none. */
   reagentCost: MaterialMap;
-  id: string;
+  path: string;
   categories: string[];
   icon: string;
   constructionTime: number;
