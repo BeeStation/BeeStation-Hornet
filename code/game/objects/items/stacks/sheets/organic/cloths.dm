@@ -18,8 +18,8 @@ Various Cloths
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cotton
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/cloth/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth/cloth_pickup.ogg'
 	var/pull_effort = 10
 	var/loom_result = /obj/item/stack/sheet/cotton/cloth
 	/// A lazily initiated "food" version of the cloth for moths
@@ -74,8 +74,8 @@ Various Cloths
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cotton/cloth/durathread
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/cloth/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/cotton/cloth/durathread/get_recipes()
 	return GLOB.durathread_recipes
@@ -91,8 +91,8 @@ Various Cloths
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/silk
 	icon = 'icons/obj/stacks/organic.dmi'
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/cloth/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/silk/get_recipes()
 	return GLOB.silk_recipes

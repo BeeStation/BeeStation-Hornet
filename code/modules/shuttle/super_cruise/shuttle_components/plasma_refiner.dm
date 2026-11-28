@@ -33,18 +33,18 @@
 
 	. = ..()
 
-/obj/machinery/atmospherics/components/unary/plasma_refiner/AltClick(mob/living/user)
+/obj/machinery/atmospherics/components/unary/plasma_refiner/click_alt(mob/user)
 	var/datum/gas_mixture/air_contents = airs[1]
 	if(!air_contents)
-		return
+		return NONE
 	var/plasmoles = air_contents.moles[/datum/gas/plasma]
-	if(plasmoles >= 100)
-		var/obj/item/stack/sheet/mineral/plasma/P = new(drop_location(), 1)
-		air_contents.adjust_gas(/datum/gas/plasma, -100)
-		say("100 moles of plasma consumed. A sheet of [P.name] has been created.")
-	else
+	if(plasmoles < 100)
 		say("Insufficient plasma. At least 100 moles of plasma are required. There are currently [plasmoles] moles of plasma.")
-	return ..()
+		return CLICK_ACTION_BLOCKING
+	var/obj/item/stack/sheet/mineral/plasma/P = new(drop_location(), 1)
+	air_contents.adjust_gas(/datum/gas/plasma, -100)
+	say("100 moles of plasma consumed. A sheet of [P.name] has been created.")
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/unary/plasma_refiner/RefreshParts()
 	. = ..()

@@ -42,6 +42,18 @@
 	if(!component_parent?.parent || !istype(component_parent.parent, /obj/structure/closet))
 		return FALSE
 
+/datum/xenoartifact_trait/activator/weighted/closet/register_parent(datum/source)
+	. = ..()
+	if(!component_parent?.parent)
+		return
+	RegisterSignal(component_parent.parent, COMSIG_CLOSET_POST_OPEN, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+
+/datum/xenoartifact_trait/activator/weighted/closet/remove_parent(datum/source, pensive)
+	if(!component_parent?.parent)
+		return ..()
+	UnregisterSignal(component_parent.parent, COMSIG_CLOSET_POST_OPEN)
+	return ..()
+
 /datum/xenoartifact_trait/activator/weighted/closet/trigger_artifact(atom/target, type = XENOA_ACTIVATION_CONTACT, force)
 	var/obj/structure/closet/C = component_parent.parent
 	//Trait check - This is different from an anti artifact check and should be done here to avoid activations, this trait is a helper essentially

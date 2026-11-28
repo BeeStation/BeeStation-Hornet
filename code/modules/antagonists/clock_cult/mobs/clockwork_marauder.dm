@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 /mob/living/simple_animal/hostile/clockwork_marauder
 	name = "clockwork marauder"
 	desc = "A brass machine of destruction,"
-	icon = 'icons/mob/clockwork_mobs.dmi'
+	icon = 'icons/mob/simple/clockwork_mobs.dmi'
 	icon_state = "clockwork_marauder"
 	icon_dead = "anime_fragment"
 	combat_mode = TRUE
@@ -16,7 +16,6 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	is_flying_animal = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	pass_flags = PASSTABLE
@@ -44,10 +43,11 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 /mob/living/simple_animal/hostile/clockwork_marauder/Initialize(mapload)
 	. = ..()
 	GLOB.clockwork_marauders += src
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/clockwork_marauder/Destroy()
 	GLOB.clockwork_marauders -= src
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/clockwork_marauder/Login()
 	. = ..()

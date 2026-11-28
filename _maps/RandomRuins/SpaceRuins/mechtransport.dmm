@@ -166,9 +166,8 @@
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "R" = (
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "S" = (
 /obj/item/stack/rods,

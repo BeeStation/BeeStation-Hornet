@@ -86,7 +86,7 @@
 		to_chat(user, span_warning("Take the cap off first!"))
 		return
 	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in sort_list(possible_appearances)
-	if(!new_appearance || !crayon || !user.canUseTopic(src, BE_CLOSE))
+	if(!new_appearance || !crayon || !user.can_perform_action(src))
 		return
 	if(!do_after(user, 1 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM))
 		return

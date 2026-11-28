@@ -14,21 +14,18 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/item/ammo_casing/spent,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "g" = (
 /obj/item/ammo_casing/shotgun/improvised,
@@ -45,9 +42,8 @@
 /obj/effect/decal/cleanable/blood/gibs/core,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/trap/nexus/trickyspawner/shitsec,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "i" = (
 /obj/item/trash/raisins,
@@ -56,9 +52,8 @@
 /area/template_noop)
 "j" = (
 /obj/item/trash/syndi_cakes,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/blood/gibs/up,
@@ -70,9 +65,8 @@
 /area/template_noop)
 "T" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"

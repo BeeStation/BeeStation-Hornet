@@ -55,6 +55,10 @@ export class TextArea extends Component {
       const { editing } = this.state;
       const { onChange, onInput, onEnter, onKey } = this.props;
       if (e.key === KEY.Enter) {
+        if (e.shiftKey) {
+          return;
+        }
+
         this.setEditing(false);
         if (onChange) {
           onChange(e, e.target.value);
@@ -62,7 +66,9 @@ export class TextArea extends Component {
         if (onInput) {
           onInput(e, e.target.value);
         }
-        onEnter(e, e.target.value);
+        if (onEnter) {
+          onEnter(e, e.target.value);
+        }
         if (this.props.selfClear) {
           e.target.value = '';
           e.target.blur();

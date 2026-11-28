@@ -151,6 +151,13 @@
 				if (linked_cable._last_repropogation_update != unique_propogation_identifier)
 					linked_cable._last_repropogation_update = unique_propogation_identifier
 					to_process += linked_cable
+			if (processing_wire.up && processing_wire.up._last_repropogation_update != unique_propogation_identifier)
+				processing_wire.up._last_repropogation_update = unique_propogation_identifier
+				to_process += processing_wire.up
+			if (processing_wire.down && processing_wire.down._last_repropogation_update != unique_propogation_identifier)
+				processing_wire.down._last_repropogation_update = unique_propogation_identifier
+				to_process += processing_wire.down
+
 	for (var/obj/structure/cable/processing_wire as anything in powernet_id_array)
 		var/datum/powernet/new_powernet = powernet_id_array[processing_wire]
 		new_powernet.add_cable(processing_wire)

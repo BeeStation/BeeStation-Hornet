@@ -364,8 +364,9 @@
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_location)
 	charges--
 	check_charges()
-	playsound(new_location, 'sound/effects/phasein.ogg', 25, 1)
-	playsound(new_location, "sparks", 50, 1)
+	playsound(original_location, 'sound/effects/portal/portal_travel.ogg', 50, 1, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(destination, 'sound/effects/phasein.ogg', 25, 1, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(destination, 'sound/effects/portal/portal_travel.ogg', 50, 1, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/item/teleporter/proc/telefrag(mob/user, turf/fragging_location)
 	for(var/mob/living/target in fragging_location)//Hit everything in the turf

@@ -17,6 +17,10 @@
 	icon_state = "backpack"
 	inhand_icon_state = "backpack"
 	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
+
+	stamina_damage = 0
+	stamina_cost = 0
+
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -25,6 +29,9 @@
 	max_integrity = 300
 	custom_price = 50
 	storage_type = /datum/storage/backpack
+	pickup_sound = 'sound/items/handling/backpack/backpack_pickup.ogg'
+	drop_sound = 'sound/items/handling/backpack/backpack_drop.ogg'
+	equip_sound = 'sound/items/equip/backpack_equip.ogg'
 
 /*
  * Backpack Types
@@ -39,6 +46,8 @@
 	item_flags = NO_MAT_REDEMPTION
 	armor_type = /datum/armor/backpack_holding
 	storage_type = /datum/storage/bag_of_holding
+	pickup_sound = null
+	drop_sound = null
 
 /datum/armor/backpack_holding
 	fire = 60

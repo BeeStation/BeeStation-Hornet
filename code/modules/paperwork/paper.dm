@@ -19,11 +19,13 @@
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	worn_icon_state = "paper"
 	custom_fire_overlay = "paper_onfire_overlay"
+
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
+	drop_sound = 'sound/items/handling/paper/paper_drop.ogg'
+	pickup_sound = 'sound/items/handling/paper/paper_pickup.ogg'
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
@@ -626,6 +628,8 @@
 
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
 			var/writing_implement_data = holding.get_writing_implement_details()
+
+			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 
 			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_FUN))
 

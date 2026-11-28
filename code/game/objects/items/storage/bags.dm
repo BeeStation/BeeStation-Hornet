@@ -394,6 +394,8 @@
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=3000)
+	pickup_sound = "tray_pickup"
+	drop_sound = "tray_drop"
 
 /obj/item/storage/bag/tray/Initialize(mapload)
 	. = ..()

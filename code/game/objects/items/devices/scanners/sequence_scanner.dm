@@ -26,7 +26,7 @@
 	if(!HAS_TRAIT(M, TRAIT_GENELESS) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message(span_notice("[user] analyzes [M]'s genetic sequence."))
 		balloon_alert(user, "sequence analyzed")
-		playsound(src, 'sound/effects/fastbeep.ogg', 20)
+		playsound(user, 'sound/items/healthanalyzer.ogg', 50)
 		gene_scan(M, user)
 		return
 
@@ -54,7 +54,7 @@
 /obj/item/sequence_scanner/proc/gene_scan(mob/living/carbon/C, mob/living/user)
 	if(!iscarbon(C) || !C.has_dna())
 		return
-		
+
 	buffer = C.dna.mutation_index
 	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
 	genescan(C, user, discovered)
@@ -69,7 +69,7 @@
 	var/answer = tgui_input_list(user, "Analyze Potential", "Sequence Analyzer", sort_list(options))
 	if(isnull(answer))
 		return
-	if(!ready || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!ready || !user.can_perform_action(src, NEED_LITERACY|FORBID_TELEKINESIS_REACH))
 		return
 
 	var/sequence

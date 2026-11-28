@@ -165,7 +165,15 @@
 	desc = "A tube... of cardboard."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
+	attack_verb_continuous = list("bonks", "thunks")
+	attack_verb_simple = list("bonked", "thunked")
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 5
+	item_flags = ISWEAPON
+
+/obj/item/c_tube/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/items/cardboard_bonk.ogg' = 1), 50)
+

@@ -9,10 +9,12 @@
 	siemens_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
+	drop_sound = 'sound/items/handling/gloves/glove_drop.ogg'
+	pickup_sound = 'sound/items/handling/gloves/glove_pick_up.ogg'
 	attack_verb_continuous = list("challenges")
 	attack_verb_simple = list("challenge")
-	strip_delay = 20
-	equip_delay_other = 40
+	strip_delay = 2 SECONDS
+	equip_delay_other = 4 SECONDS
 	dying_key = DYE_REGISTRY_GLOVES
 
 	// Path variable. If defined, will produced the type through interaction with wirecutters.

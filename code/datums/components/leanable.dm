@@ -47,6 +47,8 @@
 		return
 	if(ISDIAGONALDIR(get_dir(leaner, source)) || ((get_dir(leaner, source)) == SOUTH)) //Not leaning on a corner, idiot, or a south wall because it looks bad
 		return
+	if(get_step(leaner, get_dir(leaner, source)) != get_turf(source))
+		return
 	if(!is_currently_leanable) //Is the object currently able to be leaned on?
 		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 

@@ -7,6 +7,8 @@
 	icon_state = "sheet-leather"
 	inhand_icon_state = "sheet-leather"
 	icon = 'icons/obj/stacks/organic.dmi'
+	pickup_sound = 'sound/items/handling/materials/skin_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/skin_drop.ogg'
 	merge_type = /obj/item/stack/sheet/leather
 
 /obj/item/stack/sheet/leather/get_recipes()

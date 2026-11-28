@@ -189,15 +189,13 @@
 	quick_remove_item(/obj/item/cigarette, user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/item/storage/fancy/cigarettes/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/storage/fancy/cigarettes/click_alt(mob/user)
 	var/obj/item/lighter = locate(/obj/item/lighter) in contents
 	if(lighter)
 		quick_remove_item(lighter, user)
 	else
 		quick_remove_item(/obj/item/cigarette, user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/fancy/cigarettes/add_context_self(datum/screentip_context/context, mob/user)
 	if(locate(/obj/item/lighter) in contents)

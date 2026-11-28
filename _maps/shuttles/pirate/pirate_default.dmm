@@ -55,9 +55,8 @@
 	icon_state = "lattice-74"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "ce" = (
 /obj/structure/shuttle/engine/propulsion/right{
@@ -123,7 +122,7 @@
 "dP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/glass{
 	pixel_x = 16;
 	pixel_y = -3
@@ -382,7 +381,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/door/airlock/hatch{
 	name = "Engineering"
 	},
@@ -494,7 +493,8 @@
 	pixel_x = 7;
 	pixel_y = 11
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/pirate)
 "oa" = (
 /obj/effect/turf_decal/weather/dirt/corner,
@@ -538,9 +538,8 @@
 /obj/structure/fluff/fans{
 	pixel_x = -24
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "oW" = (
 /obj/effect/turf_decal/numbers,
@@ -706,9 +705,8 @@
 	icon_state = "lattice-29"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "rN" = (
 /obj/structure/chair/wood{
@@ -723,7 +721,8 @@
 /obj/machinery/light,
 /obj/machinery/airalarm/directional/west,
 /obj/effect/mapping_helpers/airalarm/all_access,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/pirate)
 "sf" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
@@ -834,7 +833,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "tL" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "uc" = (
@@ -1171,7 +1170,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Ev" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
@@ -1209,7 +1208,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Fd" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /obj/structure/cable/yellow,
@@ -1225,7 +1224,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
@@ -1234,7 +1233,8 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/pirate)
 "Fr" = (
 /obj/machinery/door/airlock/external/glass{
@@ -1261,7 +1261,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/item/stock_parts/scanning_module{
 	pixel_x = 8
 	},
@@ -1285,9 +1285,8 @@
 "FY" = (
 /obj/structure/girder/reinforced,
 /obj/effect/turf_decal/weather/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "FZ" = (
 /obj/machinery/portable_thermomachine,
@@ -1478,7 +1477,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "MW" = (
@@ -1555,7 +1554,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Oj" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/cable/yellow,
 /obj/item/extinguisher,
 /turf/open/floor/pod/light,
@@ -1862,7 +1861,8 @@
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris{
 	pixel_y = 32
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/pirate)
 "UY" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -1947,9 +1947,8 @@
 	pixel_x = 11;
 	pixel_y = 2
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "Wm" = (
 /obj/structure/table/wood/poker,
@@ -2042,7 +2041,7 @@
 /obj/effect/decal/cleanable/glass{
 	pixel_y = -10
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
@@ -2085,7 +2084,8 @@
 "Yz" = (
 /obj/structure/girder/reinforced,
 /obj/structure/barricade/wooden,
-/turf/open/floor/plating/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "YF" = (
 /obj/machinery/door/poddoor/shutters/preopen{

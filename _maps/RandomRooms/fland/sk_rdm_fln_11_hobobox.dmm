@@ -46,15 +46,13 @@
 "j" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "k" = (
 /obj/structure/bonfire,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "m" = (
 /obj/structure/grille/broken,
@@ -77,9 +75,8 @@
 "r" = (
 /obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/glass,
@@ -117,9 +114,8 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/maintenance/two,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "E" = (
 /obj/item/trash/boritos,
@@ -136,9 +132,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "I" = (
 /obj/item/storage/bag/trash{
@@ -176,9 +171,8 @@
 /area/template_noop)
 "S" = (
 /obj/structure/barricade/wooden/crude,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "T" = (
 /obj/machinery/door/airlock/maintenance/external/glass,

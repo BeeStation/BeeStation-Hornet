@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/components/binary/temperature_gate
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon_state = "tgate_map-3"
 	name = "temperature gate"
 	desc = "An activable gate that compares the input temperature with the interface set temperature to check if the gas can flow from the input side to the output side or not."
@@ -23,21 +24,24 @@
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize target temperature")
 
-/obj/machinery/atmospherics/components/binary/temperature_gate/CtrlClick(mob/user)
-	if(can_interact(user))
+/obj/machinery/atmospherics/components/binary/temperature_gate/click_ctrl(mob/user)
+	if(is_operational)
 		on = !on
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
-/obj/machinery/atmospherics/components/binary/temperature_gate/AltClick(mob/user)
-	if(can_interact(user))
-		target_temperature = max_temperature
-		balloon_alert(user, "target temperature set to [target_temperature] K")
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-		update_icon()
-	return ..()
+/obj/machinery/atmospherics/components/binary/temperature_gate/click_alt(mob/user)
+	if(target_temperature == max_temperature)
+		return CLICK_ACTION_BLOCKING
+
+	target_temperature = max_temperature
+	balloon_alert(user, "target temperature set to [target_temperature] K")
+	investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/atmospherics/components/binary/temperature_gate/examine(mob/user)

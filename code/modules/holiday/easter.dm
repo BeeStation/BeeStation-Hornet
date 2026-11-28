@@ -20,15 +20,15 @@
 /datum/round_event/rabbitrelease/announce(fake)
 	priority_announce("Unidentified furry objects detected coming aboard [station_name()]. Beware of Adorable-ness.", "Fluffy Alert", ANNOUNCER_ALIENS)
 
-
 /datum/round_event/rabbitrelease/start()
-	for(var/obj/effect/landmark/R in GLOB.landmarks_list)
-		if(R.name != "blobspawn")
-			if(prob(35))
-				if(isspaceturf(R.loc))
-					new /mob/living/simple_animal/rabbit/easter/space(R.loc)
-				else
-					new /mob/living/simple_animal/rabbit(R.loc)
+	for(var/obj/effect/landmark/blobstart/R in GLOB.landmarks_list)
+		if(!prob(35))
+			continue
+
+		if(isspaceturf(R.loc))
+			new /mob/living/basic/rabbit/easter/space(R.loc)
+		else
+			new /mob/living/basic/rabbit(R.loc)
 
 /obj/item/storage/basket
 	name = "basket"
@@ -95,7 +95,7 @@
 	//righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
 	obj_flags = UNIQUE_RENAME
 
-/obj/item/surprise_egg/loaded/Initialize(mapload)
+/obj/item/surprise_egg/Initialize(mapload)
 	. = ..()
 	var/eggcolor = pick("blue","green","mime","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"

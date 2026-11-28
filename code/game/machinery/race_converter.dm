@@ -120,15 +120,15 @@
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 40, FALSE)
 			open_machine()
 
-/obj/machinery/species_converter/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE) || processing)
-		return
+/obj/machinery/species_converter/click_alt(mob/user)
+	if(processing)
+		return NONE
 	if(user == occupant)
 		to_chat(user, span_warning("You can't reach the controls from inside!"))
-		return
+		return CLICK_ACTION_BLOCKING
 	if(brainwash && changed)
 		to_chat(user, span_warning("The species controller is locked!"))
-		return
+		return CLICK_ACTION_BLOCKING
 	var/list/allowed = get_selectable_species()
 	if(!dangerous)
 		allowed -= "plasmaman"
@@ -137,6 +137,7 @@
 		desired_race = GLOB.species_list[choice]
 		changed = TRUE
 		to_chat(user, span_notice("You change \the [src]'s desired race setting to [initial(desired_race.name)]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/species_converter/on_emag(mob/user)
 	..()

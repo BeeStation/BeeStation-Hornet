@@ -4,9 +4,8 @@
 /area/template_noop)
 "c" = (
 /obj/item/paper/crumpled,
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/template_noop)
 "d" = (
 /obj/item/airlock_painter,
@@ -15,9 +14,8 @@
 /turf/open/space,
 /area/template_noop)
 "e" = (
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/template_noop)
 "f" = (
 /obj/structure/lattice,

@@ -114,7 +114,7 @@
 		return
 	H.visible_message(span_notice("[H] begins to hold still and concentrate on weaving a cocoon..."), \
 	span_notice("You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)"))
-	H.adjustStaminaLoss(20, FALSE) //this is here to deter people from spamming it if they get interrupted
+	H.stamina.adjust(-20, TRUE) //this is here to deter people from spamming it if they get interrupted
 	if(do_after(H, COCOON_WEAVE_DELAY, H, timed_action_flags = IGNORE_HELD_ITEM))
 		if(!ismoth(H))
 			to_chat(H, span_warning("You have lost your mandibles and cannot weave anymore!."))
@@ -189,7 +189,7 @@
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
 			H.SetSleeping(0, FALSE)
 		H.remove_status_effect(/datum/status_effect/cocooned)
-		H.dna.species.handle_body(H)
+		H.update_eyes()
 		H.forceMove(loc)
 		H.log_message("[key_name(H)] [done_regenerating ? "has emerged" : "was forcefully ejected"] from their cocoon with a nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
 		if(done_regenerating)

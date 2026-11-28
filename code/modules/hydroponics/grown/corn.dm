@@ -28,6 +28,8 @@
 	tastes = list("corn" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/whiskey
 	discovery_points = TECHWEB_TIER_1_POINTS
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 /*
 /obj/item/food/grown/corn/make_microwaveable()
@@ -45,7 +47,7 @@
 	throw_range = 7
 
 /obj/item/grown/corncob/attackby(obj/item/W, mob/user, list/modifiers)
-	if(W.get_sharpness())
+	if(W.sharpness)
 		to_chat(user, span_notice("You use [W] to fashion a pipe out of the corn cob!"))
 		new /obj/item/cigarette/pipe/cobpipe (user.loc)
 		qdel(src)

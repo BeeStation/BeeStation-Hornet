@@ -108,7 +108,7 @@ In all, this is a lot like the monkey code. /N
 		if(CLONE)
 			adjustCloneLoss(damage)
 		if(STAMINA)
-			adjustStaminaLoss(damage)
+			CRASH("attack_animal tried to modify stamina!")
 
 /mob/living/carbon/alien/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))

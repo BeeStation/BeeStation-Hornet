@@ -10,7 +10,7 @@
 	pixel_x = -6;
 	pixel_y = 8
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "d" = (
@@ -121,7 +121,7 @@
 "A" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "B" = (
@@ -162,7 +162,7 @@
 "K" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/broken_bottle,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "M" = (

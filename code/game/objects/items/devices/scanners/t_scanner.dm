@@ -49,9 +49,9 @@
 		icon_state = copytext_char(icon_state, 1, -1) + "[on]"
 	return ..()
 
-/obj/item/t_scanner/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		toggle_mode(user)
+/obj/item/t_scanner/click_alt(mob/user)
+	toggle_mode(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/t_scanner/attack_self(mob/user)
 	toggle_on()

@@ -30,7 +30,7 @@
 /datum/xenoartifact_trait/major/flash/proc/flash(turf/T, mob/living/M)
 	if(M.stat == DEAD)	//They're dead!
 		return
-	var/distance = max(0,get_dist(get_turf(src),T))
+	var/distance = max(0, get_dist(get_turf(component_parent.parent), T))
 	//When distance is 0, will be 1
 	//When distance is 7, will be 0
 	//Can be less than 0 due to hearers being a circular radius.
@@ -46,7 +46,7 @@
 /datum/xenoartifact_trait/major/flash/proc/bang(turf/T, mob/living/M)
 	if(M.stat == DEAD)
 		return
-	var/distance = max(0,get_dist(get_turf(src),T))
+	var/distance = max(0, get_dist(get_turf(component_parent.parent), T))
 	M.show_message("<span class='warning'>BANG</span>", MSG_AUDIBLE)
 	var/atom/atom_parent = component_parent.parent
 	if(!distance || atom_parent.loc == M || atom_parent.loc == M.loc)	//Stop allahu akbarring rooms with this.

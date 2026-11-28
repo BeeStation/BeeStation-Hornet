@@ -6,11 +6,12 @@
 	icon_state = "sniper"
 	inhand_icon_state = "sniper"
 	worn_icon_state = "sniper"
-	fire_sound = "sound/weapons/sniper_shot.ogg"
+	fire_sound = 'sound/weapons/gun/sniper/shot.ogg'
 	fire_sound_volume = 90
-	load_sound = "sound/weapons/sniper_mag_insert.ogg"
-	rack_sound = "sound/weapons/sniper_rack_open.ogg"
-	bolt_drop_sound = 'sound/weapons/sniper_rack_close.ogg'
+	load_sound = 'sound/weapons/gun/sniper/mag_insert.ogg'
+	rack_sound = 'sound/weapons/gun/sniper/rack.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/sniper/rack_close.ogg'
+	suppressed_sound = 'sound/weapons/gun/general/heavy_shot_suppressed.ogg'
 	recoil = 1.5
 	weapon_weight = WEAPON_HEAVY
 	bolt_type = BOLT_TYPE_TWO_STEP

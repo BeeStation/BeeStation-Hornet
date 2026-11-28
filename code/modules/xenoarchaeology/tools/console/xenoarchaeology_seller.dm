@@ -122,6 +122,11 @@
 	cost = 0
 	can_secure = FALSE
 
+/datum/supply_pack/science_listing/generate(atom/A, datum/bank_account/paying_account)
+	. = ..()
+	var/obj/structure/closet/crate/crate = .
+	crate.custom_price = 0
+
 #undef SELLER_PERSONALITY_GENEROUS
 #undef SELLER_PERSONALITY_NORMAL
 #undef SELLER_PERSONALITY_STINGY

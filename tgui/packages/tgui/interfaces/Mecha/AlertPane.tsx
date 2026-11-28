@@ -35,7 +35,7 @@ export const AlertPane = (props) => {
         (!!overclock_mode || !!can_use_overclock) && (
           <Button
             icon="forward"
-            onClick={() => !!can_use_overclock && act('toggle_overclock')}
+            onClick={() => act('toggle_overclock')}
             color={
               overclock_mode &&
               (overclock_temp_percentage > 1

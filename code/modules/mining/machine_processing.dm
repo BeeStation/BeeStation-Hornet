@@ -83,11 +83,12 @@
 	machine.console = null
 	return ..()
 
-/obj/machinery/mineral/processing_unit_console/AltClick()
+/obj/machinery/mineral/processing_unit_console/click_alt(mob/user)
 	if(anchored)
-		return ..()
+		return NONE
 	setDir(turn(dir, 90))
 	handle_pixel_offset()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/mineral/processing_unit_console/proc/handle_pixel_offset()
 	pixel_x = 0
@@ -127,8 +128,10 @@
 				to_chat(usr, span_warning("No points to claim."))
 				return
 
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			var/obj/item/card/id/I
+			if(isliving(usr))
+				var/mob/living/living_user = usr
+				I = living_user.get_idcard(TRUE)
 			if(!I)
 				to_chat(usr, span_warning("No ID detected."))
 				return
@@ -256,16 +259,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 	point_upgrade = point_upgrade_temp
 	smelt_amount = round(smelt_amount_temp, 1)
 
-/obj/machinery/mineral/processing_unit/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(panel_open)
-		input_dir = turn(input_dir, -90)
-		output_dir = turn(output_dir, -90)
-		to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
-		unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
-		register_input_turf() // register the new one
-		return TRUE
+/obj/machinery/mineral/processing_unit/click_alt(mob/user)
+	if(!panel_open)
+		return NONE
+	input_dir = turn(input_dir, -90)
+	output_dir = turn(output_dir, -90)
+	to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
+	unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
+	register_input_turf() // register the new one
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/mineral/processing_unit/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))

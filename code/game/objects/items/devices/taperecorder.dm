@@ -13,8 +13,8 @@
 	force = 2
 	throwforce = 2
 	speech_span = SPAN_TAPE_RECORDER
-	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
-	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
+	drop_sound = 'sound/items/handling/tape_recorder/taperecorder_drop.ogg'
+	pickup_sound = 'sound/items/handling/tape_recorder/taperecorder_pickup.ogg'
 	var/recording = FALSE
 	var/playing = FALSE
 	var/playsleepseconds = 0
@@ -384,8 +384,8 @@
 	force = 1
 	throwforce = 0
 	obj_flags = UNIQUE_RENAME //my mixtape
-	drop_sound = 'sound/items/handling/tape_drop.ogg'
-	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
+	drop_sound = 'sound/items/handling/tape_recorder/tape_drop.ogg'
+	pickup_sound = 'sound/items/handling/tape_recorder/tape_pickup.ogg'
 	///Because we can't expect God to do all the work.
 	var/initial_icon_state
 	var/max_capacity = 10 MINUTES

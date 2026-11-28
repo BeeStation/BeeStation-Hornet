@@ -66,7 +66,7 @@
 	owner.setOxyLoss(0, FALSE)
 	// get back on your feet
 	owner.resting = FALSE
-	owner.setStaminaLoss(0)
+	owner.stamina.adjust(INFINITY)
 	owner.SetSleeping(0)
 	owner.SetUnconscious(0)
 	owner.SetAllImmobility(0, TRUE)

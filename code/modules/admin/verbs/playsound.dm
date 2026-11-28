@@ -35,7 +35,7 @@
 	message_admins("[key_name_admin(usr)] played sound [sound]")
 
 	for(var/mob/player_mob as anything in GLOB.player_list)
-		player_mob.client?.sound_channel_initial_volumes["[CHANNEL_ADMIN]"] = vol
+		player_mob.client?.sound_channel_initial_volumes[CHANNEL_ADMIN] = vol
 
 		var/volume_modifier = player_mob.client?.prefs.read_preference(/datum/preference/numeric/volume/sound_midi_volume)
 		admin_sound.volume = vol * player_mob.client.admin_music_volume * (volume_modifier / 100)

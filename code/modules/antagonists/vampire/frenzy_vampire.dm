@@ -18,8 +18,8 @@
 	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/frenzy
 
-	/// We give stamina resistance when we have the frenzy status effect. Let's keep track of it
-	var/previous_stamina_mod
+	/// Stamina damage multiplier while frenzied
+	var/stamina_resist = 0.4
 	/// The stored vampire antag datum
 	var/datum/antagonist/vampire/vampiredatum
 
@@ -61,8 +61,7 @@
 	// Stamina modifier
 	if (ishuman(carbon_owner))
 		var/mob/living/carbon/human/human_owner = carbon_owner
-		previous_stamina_mod = human_owner.physiology.stamina_mod
-		human_owner.physiology.stamina_mod *= 0.4
+		human_owner.physiology.stamina_mod *= stamina_resist
 
 	// Traits
 	carbon_owner.add_traits(frenzy_traits, TRAIT_STATUS_EFFECT(id))
@@ -83,7 +82,7 @@
 	// Stamina modifier
 	if (ishuman(carbon_owner))
 		var/mob/living/carbon/human/human_owner = carbon_owner
-		human_owner.physiology.stamina_mod = previous_stamina_mod
+		human_owner.physiology.stamina_mod /= stamina_resist
 
 	// Traits
 	carbon_owner.remove_traits(frenzy_traits, TRAIT_STATUS_EFFECT(id))

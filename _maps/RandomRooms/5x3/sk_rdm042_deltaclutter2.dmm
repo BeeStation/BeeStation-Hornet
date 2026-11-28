@@ -10,9 +10,8 @@
 /obj/structure/easel,
 /obj/item/canvas/twentythree_twentythree,
 /obj/item/canvas/twentythree_twentythree,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25,9 +24,8 @@
 /obj/item/storage/crayons,
 /obj/item/storage/crayons,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "e" = (
 /obj/structure/table/wood,
@@ -37,9 +35,8 @@
 /area/template_noop)
 "f" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "g" = (
 /mob/living/basic/cockroach,
@@ -51,26 +48,23 @@
 "i" = (
 /obj/structure/table/wood,
 /obj/item/camera,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "j" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "l" = (
 /obj/machinery/photocopier,

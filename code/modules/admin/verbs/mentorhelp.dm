@@ -97,7 +97,7 @@ AUTH_CLIENT_VERB(mentorhelp)
 	span_class = "mentorhelp"
 	handling_name = "mentor"
 	verb_name = "Mentorhelp"
-	reply_sound = "sound/items/bikehorn.ogg"
+	reply_sound = 'sound/items/bikehorn.ogg'
 	message_type = MESSAGE_TYPE_MENTORPM
 
 /datum/help_ticket/mentor/New(client/C)

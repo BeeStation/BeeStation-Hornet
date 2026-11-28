@@ -44,13 +44,14 @@
 	to_chat(user, span_notice("You put [I] into [src]."))
 	return
 
-/obj/structure/janitorialcart/AltClick(mob/user)
+/obj/structure/janitorialcart/click_alt(mob/user)
 	if(!mymop)
-		return
+		return NONE
 	balloon_alert(user, "Removed [mymop]")
 	user.put_in_hands(mymop)
 	mymop = null
 	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, list/modifiers)
 

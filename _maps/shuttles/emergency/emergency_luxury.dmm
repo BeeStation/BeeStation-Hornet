@@ -8,9 +8,8 @@
 "ac" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/escape/luxury)
 "ad" = (
 /obj/machinery/door/airlock/gold,
@@ -282,9 +281,8 @@
 /area/shuttle/escape/luxury)
 "ex" = (
 /obj/machinery/light/small,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/escape/luxury)
 "hA" = (
 /obj/structure/table/optable,
@@ -339,9 +337,8 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "Cx" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/escape/luxury)
 "CU" = (
 /obj/effect/turf_decal/pool/corner,

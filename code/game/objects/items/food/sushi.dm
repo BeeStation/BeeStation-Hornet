@@ -15,7 +15,7 @@
 
 /obj/item/food/sushi_roll/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = "knife_slice")
 
 /obj/item/food/sushi_slice
 	abstract_type = /obj/item/food/sushi_slice

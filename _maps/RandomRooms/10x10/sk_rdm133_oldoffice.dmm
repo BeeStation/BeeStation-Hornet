@@ -72,9 +72,8 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "q" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "r" = (
 /obj/structure/table,
@@ -91,9 +90,8 @@
 /area/template_noop)
 "t" = (
 /obj/effect/decal/cleanable/ash,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "u" = (
 /obj/structure/chair{
@@ -114,9 +112,8 @@
 /area/template_noop)
 "x" = (
 /obj/item/paper/crumpled,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "y" = (
 /obj/structure/table,
@@ -176,9 +173,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "J" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "K" = (
 /obj/item/chair,

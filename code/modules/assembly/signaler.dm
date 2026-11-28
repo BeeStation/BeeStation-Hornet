@@ -7,8 +7,8 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/iron=400, /datum/material/glass=120)
 	attachable = TRUE
-	drop_sound = 'sound/items/handling/component_drop.ogg'
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component/component_pickup.ogg'
 
 	var/code = DEFAULT_SIGNALER_CODE /// The code sent by this signaler.
 	var/frequency = FREQ_SIGNALER	/// The frequency this signaler is set to.

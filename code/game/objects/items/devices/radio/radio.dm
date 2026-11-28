@@ -1,6 +1,7 @@
 #define FREQ_LISTENING (1<<0)
 
 /obj/item/radio
+	interaction_flags_click = ALLOW_SILICON_REACH
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
 	icon_state = "walkietalkie"
@@ -159,21 +160,19 @@
 	recalculateChannels()
 	ui_update()
 
-/obj/item/radio/AltClick(mob/user)
-	if(headset)
-		. = ..()
-	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
-		set_broadcasting(!broadcasting)
-		to_chat(user, span_notice("You toggle broadcasting [broadcasting ? "on" : "off"]."))
-		ui_update()
+/obj/item/radio/click_alt(mob/user)
+	set_broadcasting(!broadcasting)
+	to_chat(user, span_notice("You toggle broadcasting [broadcasting ? "on" : "off"]."))
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
-/obj/item/radio/CtrlShiftClick(mob/user)
+/obj/item/radio/click_ctrl_shift(mob/user)
 	if(headset)
-		. = ..()
-	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
-		set_listening(!listening)
-		to_chat(user, span_notice("You toggle speaker [listening ? "on" : "off"]."))
-		ui_update()
+		return NONE
+	set_listening(!listening)
+	to_chat(user, span_notice("You toggle speaker [listening ? "on" : "off"]."))
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))

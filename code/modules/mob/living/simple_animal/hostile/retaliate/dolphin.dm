@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/retaliate/dolphin
 	name = "space dolphin"
 	desc = "A dolphin in space."
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "dolphin"
 	icon_living = "dolphin"
 	icon_dead = "dolphin_dead"
@@ -44,4 +44,4 @@
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.adjustStaminaLoss(8)
+		H.stamina.adjust(-8)

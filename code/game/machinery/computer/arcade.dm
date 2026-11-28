@@ -709,7 +709,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(isliving(usr))
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
-					var/S = new /obj/anomaly/singularity/stationary(usr.loc)
+					var/S = new /obj/anomaly/singularity/stationary/tiny(usr.loc)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, say), "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else
@@ -726,7 +726,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	else if(href_list["killcrew"]) //shoot a crewmember
 		if(gameStatus == ORION_STATUS_NORMAL || event == ORION_TRAIL_LING)
 			var/sheriff = remove_crewmember() //I shot the sheriff
-			playsound(loc,'sound/weapons/gunshot.ogg', 100, 1)
+			playsound(loc,'sound/weapons/gun/pistol/shot.ogg', 100, 1)
 			killed_crew++
 
 			var/mob/living/user = usr

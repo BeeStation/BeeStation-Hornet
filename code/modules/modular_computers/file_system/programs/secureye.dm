@@ -92,7 +92,7 @@
 			else
 				camera_ref = null
 			ui_update()
-			playsound(src, get_sfx("terminal_type"), 5, FALSE)
+			playsound(src, "terminal_type", 5, FALSE)
 
 			if(isnull(camera_ref))
 				return TRUE

@@ -294,11 +294,36 @@
 		I.pixel_y = rand(-6, 6)
 	I.do_drop_animation(src)
 
+/// Unequips and transfers an item to a given turf, if possible.
+/mob/proc/transfer_item_to_turf(
+	obj/item/to_transfer,
+	turf/new_loc,
+	x_offset = 0,
+	y_offset = 0,
+	force = FALSE,
+	silent = FALSE,
+	drop_item_inventory = TRUE,
+)
+	if(!doUnEquip(to_transfer, force, new_loc, FALSE, drop_item_inventory, silent = silent))
+		return FALSE
+	if(QDELETED(to_transfer)) // Some items may get deleted upon getting unequipped.
+		return FALSE
+	to_transfer.pixel_x = to_transfer.base_pixel_x + x_offset
+	to_transfer.pixel_y = to_transfer.base_pixel_y + y_offset
+	to_transfer.do_drop_animation(src)
+	return TRUE
+
 //for when the item will be immediately placed in a loc other than the ground
 /mob/proc/transferItemToLoc(obj/item/I, newloc = null, force = FALSE, silent = TRUE, animated = null)
 	. = doUnEquip(I, force, newloc, FALSE, silent = silent)
 	if(!.)
 		return
+	// This proc wears a lot of hats for moving items around in different ways,
+	// so we assume unhandled cases for checking to animate can safely be handled
+	// with the same logic we handle animating putting items in container (container on your person isn't animated)
+	if(isnull(animated))
+		// If the item's ultimate location is us, we don't animate putting it wherever
+		animated = newloc && get(newloc, /mob) != src
 	if(animated)
 		I.do_pickup_animation(newloc, src)
 

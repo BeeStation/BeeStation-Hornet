@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(4)
 			carbon_mob.adjustCloneLoss(-heal_amt)
 		if(5)
-			carbon_mob.adjustStaminaLoss(-heal_amt)
+			carbon_mob.stamina.adjust(heal_amt)
 		if(6 to 10)
 			carbon_mob.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_HEART,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS), -heal_amt)
 
@@ -558,7 +558,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_mob = user
-	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/basic/pet/dog/corgi,/mob/living/basic/pet/dog/pug,/mob/living/basic/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/basic/pet/cat/kitten,/mob/living/basic/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
+	var/mob/living/basic/pet/chosen_pet = pick(
+		/mob/living/basic/pet/dog/corgi,
+		/mob/living/basic/pet/dog/pug,
+		/mob/living/basic/pet/dog/bullterrier,
+		/mob/living/basic/pet/fox,
+		/mob/living/basic/pet/cat/kitten,
+		/mob/living/basic/pet/cat/space,
+		/mob/living/basic/pet/penguin/emperor,
+	)
 	chosen_pet = new chosen_pet(get_turf(human_mob))
 	human_mob.forceMove(chosen_pet)
 	human_mob.mind.transfer_to(chosen_pet)

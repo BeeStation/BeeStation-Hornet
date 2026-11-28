@@ -66,9 +66,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "kn" = (
 /obj/machinery/light{
@@ -142,9 +141,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "sh" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "sZ" = (
 /obj/structure/curtain,
@@ -156,9 +154,8 @@
 /area/template_noop)
 "uF" = (
 /obj/item/trash/popcorn,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "xe" = (
 /obj/effect/landmark/blobstart,
@@ -207,9 +204,8 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "HU" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "HZ" = (
 /obj/item/chair/stool,
@@ -217,9 +213,8 @@
 /area/template_noop)
 "Ig" = (
 /obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Jb" = (
 /obj/structure/table,

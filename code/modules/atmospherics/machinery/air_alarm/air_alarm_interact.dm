@@ -60,27 +60,29 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/airalarm/AltClick(mob/user)
+/obj/machinery/airalarm/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 	if(!can_interact(user))
 		return
+	if(!user.can_perform_action(src, ALLOW_SILICON_REACH) || !isturf(loc))
+		return
 	togglelock(user)
-	return TRUE
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/airalarm/proc/togglelock(mob/living/user)
 	if(machine_stat & (NOPOWER|BROKEN))
-		to_chat(user, "<span class = 'warning'>It does nothing!</span>")
+		to_chat(user, span_warning("It does nothing!"))
 	else
 		if(issiliconoradminghost(user))
 			locked = !locked
 			return
 		if(src.allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 			locked = !locked
-			to_chat(user, "<span class = 'notice'>You [ locked ? "lock" : "unlock"] the air alarm interface.</span>")
+			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the air alarm interface."))
 			if(!locked)
 				ui_interact(user)
 		else
-			to_chat(user, "<span class = 'danger'>Access denied.</span>")
+			to_chat(user, span_danger("Access denied."))
 
 /obj/machinery/airalarm/on_emag(mob/user)
 	. = ..()

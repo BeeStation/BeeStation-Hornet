@@ -20,9 +20,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "g" = (
 /obj/item/chair,
@@ -33,15 +32,13 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "j" = (
 /obj/structure/girder,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "k" = (
 /obj/structure/girder,
@@ -49,9 +46,8 @@
 /area/template_noop)
 "l" = (
 /obj/effect/spawner/random/maintenance,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"

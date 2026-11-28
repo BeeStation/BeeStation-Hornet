@@ -5,8 +5,8 @@
 	name = "suit"
 	icon = 'icons/obj/clothing/suits/default.dmi'
 	var/fire_resist = T0C+100
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/cloth/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth/cloth_pickup.ogg'
 	allowed = list(
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman,

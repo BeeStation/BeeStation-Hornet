@@ -221,10 +221,8 @@
 /obj/machinery/public_nanite_chamber/interact(mob/user)
 	toggle_open(user)
 
-/obj/machinery/public_nanite_chamber/MouseDrop_T(mob/target, mob/user)
-	if(..())
-		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) || !Adjacent(target) || !user.Adjacent(target) || !iscarbon(target))
+/obj/machinery/public_nanite_chamber/mouse_drop_receive(mob/target, mob/user, params)
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH) || !Adjacent(target) || !user.Adjacent(target) || !iscarbon(target))
 		return
 	if(close_machine(target, attacker = user))
 		log_combat(user, target, "inserted", null, "into [src].")

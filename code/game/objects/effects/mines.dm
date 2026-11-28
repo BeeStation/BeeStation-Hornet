@@ -234,7 +234,7 @@
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
-		victim.adjustStaminaLoss(stun_time)
+		victim.stamina.adjust(-stun_time)
 		victim.adjustBruteLoss(damage)
 
 /obj/effect/mine/shrapnel

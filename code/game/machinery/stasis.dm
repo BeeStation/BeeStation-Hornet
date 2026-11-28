@@ -11,6 +11,7 @@
 	buckle_dir = SOUTH
 	circuit = /obj/item/circuitboard/machine/stasis
 	fair_market_price = 10
+	interaction_flags_click = ALLOW_SILICON_REACH
 	use_power = IDLE_POWER_USE
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 3
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
@@ -72,13 +73,20 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, frequency = sound_freq)
 		last_stasis_sound = _running
 
-/obj/machinery/stasis/AltClick(mob/user)
-	if(world.time >= stasis_can_toggle && user.canUseTopic(src, !issilicon(user)))
-		stasis_enabled = !stasis_enabled
-		stasis_can_toggle = world.time + STASIS_TOGGLE_COOLDOWN
-		playsound(src, 'sound/machines/click.ogg', 60, TRUE)
-		play_power_sound()
-		update_icon()
+/obj/machinery/stasis/click_alt(mob/user)
+	if(world.time < stasis_can_toggle)
+		return CLICK_ACTION_BLOCKING
+	stasis_enabled = !stasis_enabled
+	stasis_can_toggle = world.time + STASIS_TOGGLE_COOLDOWN
+	playsound(src, 'sound/machines/click.ogg', 60, TRUE)
+	user.visible_message(
+		span_notice("\The [src] [stasis_enabled ? "powers on" : "shuts down"]."),
+		span_notice("You [stasis_enabled ? "power on" : "shut down"] \the [src]."),
+		span_hear("You hear a nearby machine [stasis_enabled ? "power on" : "shut down"].")
+	)
+	play_power_sound()
+	update_appearance()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/stasis/Exited(atom/movable/gone, direction)
 	if(gone == occupant)

@@ -36,7 +36,6 @@
 	src.max_eggs_held = max_eggs_held
 	src.egg_laid_callback = egg_laid_callback
 
-
 	START_PROCESSING(SSobj, src)
 
 /datum/component/egg_layer/RegisterWithParent()
@@ -61,12 +60,12 @@
 	if(isliving(at_least_atom))
 		var/mob/living/potentially_dead_horse = at_least_atom
 		if(potentially_dead_horse.stat == DEAD)
-			to_chat(attacker, "<span class='warning'>[parent] is dead!</span>")
+			to_chat(attacker, span_warning("[parent] is dead!"))
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(eggs_left > max_eggs_held)
-		to_chat(attacker, "<span class='warning'>[parent] doesn't seem hungry!</span>")
+		to_chat(attacker, span_warning("[parent] doesn't seem hungry!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
-	attacker.visible_message("<span class='notice'>[attacker] hand-feeds [food] to [parent].</span>", "<span class='notice'>You hand-feed [food] to [parent].</span>")
+	attacker.visible_message(span_notice("[attacker] hand-feeds [food] to [parent]."), span_notice("You hand-feed [food] to [parent]."))
 	at_least_atom.visible_message(pick(feed_messages))
 	qdel(food)
 	eggs_left += min(eggs_left + eggs_added_from_eating, max_eggs_held)
@@ -82,7 +81,7 @@
 	if(!eggs_left || !DT_PROB(1.5, delta_time))
 		return
 
-	at_least_atom.visible_message("<span class='alertalien'>[at_least_atom] [pick(lay_messages)]</span>")
+	at_least_atom.visible_message(span_alertalien("[at_least_atom] [pick(lay_messages)]"))
 	eggs_left--
 	var/obj/item/egg = new egg_type(get_turf(at_least_atom))
 	egg.pixel_x = rand(-6, 6)

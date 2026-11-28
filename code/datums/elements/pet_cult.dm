@@ -9,7 +9,7 @@
 	///our pet cult icon state
 	var/pet_cult_icon_state
 
-/datum/element/cultist_pet/Attach(datum/target, pet_cult_icon = 'icons/mob/pets.dmi', pet_cult_icon_state)
+/datum/element/cultist_pet/Attach(datum/target, pet_cult_icon = 'icons/mob/simple/pets.dmi', pet_cult_icon_state)
 	. = ..()
 
 	if(!isliving(target))
@@ -36,7 +36,7 @@
 	SIGNAL_HANDLER
 
 	if(isnull(source.mind) && (FACTION_CULT in source.faction)) //cult indicator we show for non sentient pets
-		var/image/cult_indicator = image(icon = 'icons/mob/pets.dmi', icon_state = "pet_cult_indicator", layer = ABOVE_GAME_PLANE)
+		var/image/cult_indicator = image(icon = 'icons/mob/simple/pets.dmi', icon_state = "pet_cult_indicator", layer = ABOVE_GAME_PLANE)
 		overlays += cult_indicator
 
 /datum/element/cultist_pet/proc/on_icon_state_updated(mob/living/basic/source)

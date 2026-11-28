@@ -3,6 +3,7 @@ import {
   type ComponentType,
   createElement,
   type ReactNode,
+  useEffect,
   useState,
 } from 'react';
 import {
@@ -16,8 +17,8 @@ import {
 } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 
-import { sendAct } from '../../../../backend';
-import { createSetPreference } from '../../data';
+import { sendAct, useBackend } from '../../../../backend';
+import { createSetPreference, type PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 
@@ -110,6 +111,7 @@ export function TextInput(props: FeatureValueProps<string, string>) {
   return (
     <Input
       value={value}
+      updateOnPropsChange
       onChange={(e, newValue) => handleSetValue(newValue)}
       width="100%"
     />
@@ -240,15 +242,20 @@ export function FeatureValueInput(props: {
 
   act: typeof sendAct;
 }) {
+  const { data } = useBackend<PreferencesMenuData>();
   const feature = props.feature;
+  const predictable = feature.predictable === undefined || feature.predictable;
 
-  const [predictedValue, setPredictedValue] =
-    feature.predictable === undefined || feature.predictable
-      ? useState(props.value)
-      : [props.value, () => {}];
+  const [predictedValue, setPredictedValue] = useState(props.value);
+
+  useEffect(() => {
+    setPredictedValue(props.value);
+  }, [data.active_slot, props.value]);
 
   function changeValue(newValue: unknown) {
-    setPredictedValue(newValue);
+    if (predictable) {
+      setPredictedValue(newValue);
+    }
     createSetPreference(props.act, props.featureId)(newValue);
   }
 
@@ -262,7 +269,7 @@ export function FeatureValueInput(props: {
           shrink: props.shrink,
 
           handleSetValue: changeValue,
-          value: predictedValue,
+          value: predictable ? predictedValue : props.value,
         });
       }}
     />

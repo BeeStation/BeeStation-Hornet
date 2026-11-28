@@ -23,7 +23,6 @@
 	status_flags = 0
 	wander = FALSE
 	density = FALSE
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_TINY
@@ -87,6 +86,7 @@
 	trigger_event.Grant(src)
 	//Wooooo, you are a ghost
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+	AddElement(/datum/element/simple_flying)
 	internal_radio = new(src)
 
 	cogs = GLOB.installed_integration_cogs

@@ -165,7 +165,7 @@
 		sound_to_play.volume = volume_override || volume //Use volume as fallback if theres no override
 
 		if(HAS_UNIQUE_SOUND_CHANNEL(sound_to_play))
-			astype(parent, /mob)?.client?.sound_channel_initial_volumes["[sound_to_play.channel]"] = sound_to_play.volume
+			astype(parent, /mob)?.client?.sound_channel_initial_volumes[sound_to_play.channel] = sound_to_play.volume
 		if(ispath(volume_preference))
 			var/pref_volume = astype(parent, /mob)?.client?.prefs?.read_preference(volume_preference)
 			sound_to_play.volume *= pref_volume / 100

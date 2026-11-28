@@ -10,12 +10,19 @@
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	material_flags = MATERIAL_EFFECTS
-	var/points = 0 //How many points this ore gets you from the ore redemption machine
-	var/refined_type = null //What this ore defaults to being refined into
 	novariants = TRUE // Ore stacks handle their icon updates themselves to keep the illusion that there's more going
+	drop_sound = "stone_drop"
+	pickup_sound = "stone_pickup"
+	/// How many points this ore gets you from the ore redemption machine
+	var/points = 0
+	/// What this ore defaults to being refined into
+	var/refined_type = null
+
 	var/list/stack_overlays
-	var/scan_state = "" //Used by mineral turfs for their scan overlay.
-	var/spreadChance = 0 //Also used by mineral turfs for spreading veins
+	/// Used by mineral turfs for their scan overlay.
+	var/scan_state = ""
+	/// Chance that we'll spawn as a vein rather than a sole tile
+	var/spread_chance = 0
 
 /obj/item/stack/ore/update_icon()
 	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (LAZYLEN(stack_overlays)+1)
@@ -24,7 +31,7 @@
 	else if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
 		cut_overlays()
 		if (LAZYLEN(stack_overlays)-difference <= 0)
-			stack_overlays = null;
+			stack_overlays = null
 		else
 			stack_overlays.len += difference
 	else if(difference > 0)			//amount > stack_overlays, add some.

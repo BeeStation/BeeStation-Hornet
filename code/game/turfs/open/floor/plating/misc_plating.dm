@@ -200,7 +200,7 @@
 		var/datum/component/swimming/S = Obj.GetComponent(/datum/component/swimming) //Handling admin TPs here.
 		S?.ClearFromParent()
 
-/turf/open/MouseDrop_T(atom/dropping, mob/user)
+/turf/open/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
 		return
 	var/atom/movable/AM = dropping
@@ -213,7 +213,7 @@
 	else
 		. = ..()
 
-/turf/open/floor/plating/beach/water/MouseDrop_T(atom/dropping, mob/user)
+/turf/open/floor/plating/beach/water/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
 		return
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming) //If they're already swimming, don't let them start swimming again.

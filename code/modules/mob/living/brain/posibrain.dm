@@ -81,17 +81,14 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	update_appearance()
 	addtimer(CALLBACK(src, PROC_REF(check_success)), ask_delay)
 
-/obj/item/mmi/posibrain/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
-	var/input_seed = tgui_input_text(user, "Enter a personality seed", "Enter seed", ask_role, MAX_NAME_LEN)
-	if(isnull(input_seed))
-		return
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/mmi/posibrain/click_alt(mob/living/user)
+	var/input_seed = tgui_input_text(user, "Enter a personality seed", "Enter seed", ask_role, max_length = MAX_NAME_LEN)
+	if(isnull(input_seed) || !user.can_perform_action(src))
+		return CLICK_ACTION_BLOCKING
 	to_chat(user, span_notice("You set the personality seed to \"[input_seed]\"."))
 	ask_role = input_seed
 	update_appearance()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/mmi/posibrain/proc/check_success()
 	searching = FALSE

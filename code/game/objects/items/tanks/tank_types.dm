@@ -8,12 +8,12 @@
  */
 /obj/item/tank/internals
 	icon_state = "oxygen"
+	interaction_flags_click = FORBID_TELEKINESIS_REACH|NEED_HANDS|ALLOW_RESTING
 
 /// Allows carbon to toggle internals via AltClick of the equipped tank.
-/obj/item/tank/internals/AltClick(mob/user)
-	..()
-	if((loc == user) && (user.canUseTopic(src, TRUE, FALSE, TRUE)))
-		toggle_internals(user)
+/obj/item/tank/internals/click_alt(mob/user)
+	toggle_internals(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/tank/internals/examine(mob/user)
 	. = ..()
@@ -174,7 +174,11 @@
 	worn_icon = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	force = 4
+
+	force = 1
+	stamina_damage = 20
+	stamina_cost = 8
+
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 

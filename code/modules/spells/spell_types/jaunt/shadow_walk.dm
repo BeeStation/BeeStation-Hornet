@@ -22,7 +22,7 @@
 	playsound(cast_turf, 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)
 	user.visible_message(("<span class='boldwarning'>[user] melts into the shadows!</span>"))
 	user.SetAllImmobility(0)
-	user.setStaminaLoss(0, FALSE)
+	user.stamina.adjust(INFINITY)
 	enter_jaunt(user)
 
 /obj/effect/dummy/phased_mob/shadow
@@ -50,7 +50,7 @@
 
 	if(light_amount < 0.2 && !QDELETED(jaunter) && isliving(jaunter)) //heal in the dark
 		var/mob/living/living_jaunter = jaunter
-		living_jaunter.heal_overall_damage((healing_rate * delta_time), (healing_rate * delta_time), 0, BODYTYPE_ORGANIC)
+		living_jaunter.heal_overall_damage((healing_rate * delta_time), (healing_rate * delta_time), required_bodytype = BODYTYPE_ORGANIC)
 
 /obj/effect/dummy/phased_mob/shadow/relaymove(mob/living/user, direction)
 	var/turf/oldloc = loc

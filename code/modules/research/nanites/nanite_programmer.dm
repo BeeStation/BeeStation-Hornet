@@ -9,6 +9,7 @@
 	anchored = TRUE
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/nanite_programmer
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 /obj/machinery/nanite_programmer/Initialize(mapload)
 	. = ..()
@@ -42,11 +43,12 @@
 	program = null
 	ui_update()
 
-/obj/machinery/nanite_programmer/AltClick(mob/user)
-	if(disk && user.canUseTopic(src, !issilicon(user)))
-		to_chat(user, span_notice("You take out [disk] from [src]."))
-		eject(user)
-	return
+/obj/machinery/nanite_programmer/click_alt(mob/user)
+	if(!disk)
+		return NONE
+	to_chat(user, span_notice("You take out [disk] from [src]."))
+	eject(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/nanite_programmer/ui_state(mob/user)

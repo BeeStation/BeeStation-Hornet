@@ -40,17 +40,16 @@
 		return
 	. = ..()
 
-/obj/machinery/anesthetic_machine/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(attached_tank)// If attached tank, remove it.
-		attached_tank.forceMove(loc)
-		to_chat(user, span_notice("You remove \the [attached_tank]."))
-		attached_tank = null
-		update_icon()
-		if(mask_out)
-			retract_mask()
+/obj/machinery/anesthetic_machine/click_alt(mob/user)
+	if(!attached_tank)
+		return NONE
+	attached_tank.forceMove(loc)
+	to_chat(user, span_notice("You remove \the [attached_tank]."))
+	attached_tank = null
+	update_icon()
+	if(mask_out)
+		retract_mask()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/anesthetic_machine/proc/retract_mask()
 	if(mask_out)
@@ -65,26 +64,25 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/anesthetic_machine/MouseDrop(mob/living/carbon/target)
-	. = ..()
+/obj/machinery/anesthetic_machine/mouse_drop_dragged(mob/living/carbon/target, mob/user, src_location, over_location, params)
 	if(!iscarbon(target))
 		return
-	if(Adjacent(target) && usr.Adjacent(target))
+	if(Adjacent(target) && user.Adjacent(target))
 		if(attached_tank && !mask_out)
-			usr.visible_message(span_warning("[usr] attempts to attach \the [src] to [target]."), span_notice("You attempt to attach \the [src] to [target]."))
-			if(!do_after(usr, target != usr ? (7 SECONDS) : (1 SECONDS), target))
+			user.visible_message(span_warning("[user] attempts to attach \the [src] to [target]."), span_notice("You attempt to attach \the [src] to [target]."))
+			if(!do_after(user, target != user ? (7 SECONDS) : (1 SECONDS), target))
 				return
 			if(!target.equip_to_appropriate_slot(attached_mask))
-				to_chat(usr, span_warning("You are unable to attach \the [src] to [target]!"))
+				to_chat(user, span_warning("You are unable to attach \the [src] to [target]!"))
 				return
 			else
-				usr.visible_message(span_warning("[usr] attaches \the [src] to [target]."), span_notice("You attach \the [src] to [target]."))
+				user.visible_message(span_warning("[user] attaches \the [src] to [target]."), span_notice("You attach \the [src] to [target]."))
 				target.external = attached_tank
 				mask_out = TRUE
 				START_PROCESSING(SSmachines, src)
 				update_icon()
 		else
-			to_chat(usr, span_warning("[mask_out ? "The machine is already in use!" : "The machine has no attached tank!"]"))
+			to_chat(user, span_warning("[mask_out ? "The machine is already in use!" : "The machine has no attached tank!"]"))
 
 /obj/machinery/anesthetic_machine/process()
 	if(!mask_out) // If not on someone, stop processing

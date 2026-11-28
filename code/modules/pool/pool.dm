@@ -68,7 +68,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		var/datum/component/swimming/S = Obj.GetComponent(/datum/component/swimming) //Handling admin TPs here.
 		S?.ClearFromParent()
 
-/turf/open/MouseDrop_T(atom/dropping, mob/user)
+/turf/open/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
 		return
 	var/atom/movable/AM = dropping
@@ -81,7 +81,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	else
 		. = ..()
 
-/turf/open/indestructible/sound/pool/MouseDrop_T(atom/dropping, mob/user)
+/turf/open/indestructible/sound/pool/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
 		return
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming) //If they're already swimming, don't let them start swimming again.

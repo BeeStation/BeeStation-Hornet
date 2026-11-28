@@ -257,11 +257,9 @@
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
-/mob/living/silicon/robot/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/mob/living/silicon/robot/click_alt(mob/user)
 	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /mob/living/silicon/robot/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if (user.combat_mode)
@@ -710,7 +708,7 @@
 		if(AI_NOTIFICATION_CYBORG_DISCONNECTED) //Tampering with the wires
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Remote telemetry lost with [name].")]<br>")
 
-/mob/living/silicon/robot/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+/mob/living/silicon/robot/can_perform_action(atom/target, action_bitflags)
 	if(lockcharge || low_power_mode)
 		to_chat(src, span_warning("You can't do that right now!"))
 		return FALSE

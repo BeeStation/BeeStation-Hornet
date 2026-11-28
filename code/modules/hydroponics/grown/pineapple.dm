@@ -34,4 +34,4 @@
 	wine_power = 40
 
 /obj/item/food/grown/pineapple/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/pineappleslice, 3, 15, screentip_verb = "Cut")
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/pineappleslice, 3, 15, screentip_verb = "Cut", sound_to_play = "knife_slice")

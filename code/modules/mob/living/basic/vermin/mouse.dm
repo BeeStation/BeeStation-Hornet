@@ -54,7 +54,7 @@
 	message = "squeak!"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	vary = TRUE
-	sound = 'sound/effects/mousesqueek.ogg'
+	sound = 'sound/mobs/non-humanoids/mouse/mousesqueek.ogg'
 
 /mob/living/basic/mouse/Initialize(mapload, tame = FALSE, new_body_color)
 	. = ..()
@@ -69,7 +69,7 @@
 		body_color = pick("brown", "gray", "white")
 	held_state = "mouse_[body_color]" // not handled by variety element
 	AddElement(/datum/element/animal_variety, "mouse", body_color, FALSE)
-	AddComponent(/datum/component/squeak, list('sound/effects/mousesqueek.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list('sound/mobs/non-humanoids/mouse/mousesqueek.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -79,7 +79,7 @@
 	AddComponent(/datum/component/swarming, 16, 16) //max_x, max_y
 
 /mob/living/basic/mouse/proc/make_tameable()
-	if (tame)
+	if(tame)
 		faction |= FACTION_NEUTRAL
 	else
 		var/static/list/food_types = list(/obj/item/food/cheese)
@@ -211,7 +211,15 @@
 
 /// Creates a new mouse based on this mouse's subtype.
 /mob/living/basic/mouse/proc/create_a_new_rat()
-	new /mob/living/basic/mouse(loc, /* tame = */ tame)
+	var/mob/living/basic/mouse/offspring = new(loc, /* tame = */ tame)
+	inherit_friends(offspring)
+
+/// Passes this mouse's tamer to their offspring
+/mob/living/basic/mouse/proc/inherit_friends(mob/living/basic/mouse/offspring)
+	var/list/friends = ai_controller?.blackboard[BB_FRIENDS_LIST]
+	for(var/mob/living/friend as anything in friends)
+		if(!QDELETED(friend))
+			offspring.befriend(friend)
 
 /// Biting into a cable will cause a mouse to get shocked and die if applicable. Or do nothing if they're lucky.
 /mob/living/basic/mouse/proc/try_bite_cable(obj/structure/cable/cable)
@@ -275,7 +283,8 @@
 	AddElement(/datum/element/pet_bonus, "squeak")
 
 /mob/living/basic/mouse/brown/tom/create_a_new_rat()
-	new /mob/living/basic/mouse/brown(loc, /* tame = */ tame) // dominant gene
+	var/mob/living/basic/mouse/offspring = new /mob/living/basic/mouse/brown(loc, /* tame = */ tame) // dominant gene
+	inherit_friends(offspring)
 
 /mob/living/basic/mouse/rat
 	name = "rat"
@@ -299,7 +308,7 @@
 /obj/item/food/deadmouse
 	name = "dead mouse"
 	desc = "They look like somebody dropped the bass on it. A lizard's favorite meal."
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "mouse_gray_dead"
 	bite_consumption = 3
 	eatverbs = list("devour")

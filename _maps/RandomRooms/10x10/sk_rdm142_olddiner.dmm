@@ -18,17 +18,15 @@
 /area/template_noop)
 "hL" = (
 /obj/structure/table_frame/wood,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "ig" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "iU" = (
 /obj/structure/closet/firecloset,
@@ -119,9 +117,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "yH" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "ze" = (
 /turf/open/floor/plating,
@@ -145,9 +142,8 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "Bw" = (
 /obj/machinery/light/small{
@@ -161,14 +157,12 @@
 "Dz" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Eg" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "FF" = (
 /obj/structure/sign/warning/no_smoking/circle,
@@ -204,9 +198,8 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "Ok" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Os" = (
 /obj/item/chair/wood,

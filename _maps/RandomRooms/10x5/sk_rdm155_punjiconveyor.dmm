@@ -6,9 +6,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "i" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -25,9 +24,8 @@
 /obj/structure/punji_sticks,
 /obj/item/restraints/handcuffs/cable,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "r" = (
 /obj/item/wirerod,
@@ -74,9 +72,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "P" = (
 /obj/item/trash/sosjerky{

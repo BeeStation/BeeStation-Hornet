@@ -76,7 +76,7 @@ SUBSYSTEM_DEF(ambience)
 		if (pref_volume > 0 && (!ambience_hearer.client?.buzz_playing || ambience_hearer.client?.buzz_playing != buzz_info))
 			SEND_SOUND(ambience_hearer, sound(buzz_area.ambient_buzz, repeat = TRUE, wait = FALSE, volume = buzz_area.ambient_buzz_vol * (pref_volume / 100), channel = CHANNEL_BUZZ))
 
-			ambience_hearer.client?.sound_channel_initial_volumes["[CHANNEL_BUZZ]"] = buzz_area.ambient_buzz_vol
+			ambience_hearer.client?.sound_channel_initial_volumes[CHANNEL_BUZZ] = buzz_area.ambient_buzz_vol
 			// It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
 			ambience_hearer.client?.buzz_playing = buzz_info
 		return
@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(ambience)
 
 	var/pref_volume = ambience_hearer.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ambience_volume)
 	if(pref_volume > 0)
-		ambience_hearer.client?.sound_channel_initial_volumes["[CHANNEL_AMBIENT_EFFECTS]"] = 45
+		ambience_hearer.client?.sound_channel_initial_volumes[CHANNEL_AMBIENT_EFFECTS] = 45
 		SEND_SOUND(ambience_hearer, sound(effect_to_play, repeat = FALSE, volume = 45 * (pref_volume / 100), channel = CHANNEL_AMBIENT_EFFECTS))
 
 /// Play background music, the more OOC ambience, like eerie space music
@@ -102,5 +102,5 @@ SUBSYSTEM_DEF(ambience)
 
 	var/pref_volume = ambience_hearer.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ambience_volume)
 	if(pref_volume > 0)
-		ambience_hearer.client?.sound_channel_initial_volumes["[CHANNEL_AMBIENT_MUSIC]"] = 75
+		ambience_hearer.client?.sound_channel_initial_volumes[CHANNEL_AMBIENT_MUSIC] = 75
 		SEND_SOUND(ambience_hearer, sound(music_to_play, repeat = FALSE, volume = 75 * (pref_volume / 100), channel = CHANNEL_AMBIENT_MUSIC))

@@ -158,6 +158,16 @@
 	/// Slurring applied on projectile hit
 	var/slur = 0 SECONDS
 
+	// Disorient vars
+	/// Duration of disorient status effect
+	var/disorient_length = 0 SECONDS
+	/// Stamina damage applied
+	var/disorient_damage = 0
+	/// Paralyze duration if target is exhausted
+	var/disorient_status_length = 0 SECONDS
+	/// If FALSE, repeat hits refresh the paralyze instead of adding to it. For pellets and bursts.
+	var/disorient_stack_status = TRUE
+
 	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
 	var/dismemberment = 0
 	var/impact_effect_type //what type of impact effect to show when hitting something
@@ -212,7 +222,8 @@
  */
 /obj/projectile/proc/on_hit(atom/target, blocked = FALSE, pierce_hit)
 	if(fired_from)
-		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
+		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle, def_zone, blocked, pierce_hit)
+
 	// i know that this is probably more with wands and gun mods in mind, but it's a bit silly that the projectile on_hit signal doesn't ping the projectile itself.
 	// maybe we care what the projectile thinks! See about combining these via args some time when it's not 5AM
 	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, def_zone)

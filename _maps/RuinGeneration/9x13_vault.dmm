@@ -49,9 +49,8 @@
 /area/ruin/powered)
 "t" = (
 /obj/item/weldingtool/mini,
-/turf/open/floor/plating/airless{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating/airless,
 /area/ruin/powered)
 "u" = (
 /obj/effect/turf_decal/stripes/corner{

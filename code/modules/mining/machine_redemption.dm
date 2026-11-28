@@ -191,16 +191,15 @@
 		smelt_ore(O)
 	return ..()
 
-/obj/machinery/mineral/ore_redemption/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(panel_open)
-		input_dir = turn(input_dir, -90)
-		output_dir = turn(output_dir, -90)
-		to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
-		unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
-		register_input_turf() // register the new one
-		return TRUE
+/obj/machinery/mineral/ore_redemption/click_alt(mob/living/user)
+	if(!panel_open)
+		return CLICK_ACTION_BLOCKING
+	input_dir = turn(input_dir, -90)
+	output_dir = turn(output_dir, -90)
+	to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
+	unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
+	register_input_turf() // register the new one
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/mineral/ore_redemption/ui_state(mob/user)

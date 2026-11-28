@@ -76,6 +76,8 @@
 		target_step = steps[target_index]
 
 	if(I.tool_behaviour)
+		if(!I.tool_use_check(user, 0))
+			return FALSE
 		INVOKE_ASYNC(I, TYPE_PROC_REF(/obj/item, use_tool), parent, user, 0, 0, 50)
 		return TRUE
 

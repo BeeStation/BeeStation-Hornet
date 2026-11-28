@@ -65,6 +65,6 @@
 	ai_movement = /datum/ai_movement/basic_avoidance
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/random_speech/cockroach,
+		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/find_and_hunt_target/cockroach,
 	)

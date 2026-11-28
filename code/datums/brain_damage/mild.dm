@@ -118,7 +118,7 @@
 	return ..()
 
 /datum/brain_trauma/mild/healthy/on_life(delta_time, times_fired)
-	owner.adjustStaminaLoss(-2.5 * delta_time) //no pain, no fatigue
+	owner.stamina.adjust(2.5 * delta_time) //no pain, no fatigue
 
 /datum/brain_trauma/mild/healthy/on_lose()
 	owner.remove_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
@@ -133,7 +133,7 @@
 
 /datum/brain_trauma/mild/muscle_weakness/on_life(delta_time, times_fired)
 	var/fall_chance = 1
-	if(owner.move_intent == MOVE_INTENT_RUN)
+	if(!MOVING_DELIBERATELY(owner))
 		fall_chance += 2
 	if(DT_PROB(0.5 * fall_chance, delta_time) && owner.body_position == STANDING_UP)
 		to_chat(owner, span_warning("Your leg gives out!"))
@@ -148,7 +148,7 @@
 
 	else if(DT_PROB(1.5, delta_time))
 		to_chat(owner, span_warning("You feel a sudden weakness in your muscles!"))
-		owner.adjustStaminaLoss(50)
+		owner.stamina.adjust(-50)
 	..()
 
 /datum/brain_trauma/mild/muscle_spasms

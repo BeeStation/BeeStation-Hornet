@@ -5,7 +5,7 @@
 /mob/living/simple_animal/hostile/mimite
 	name = "Mimite"
 	desc = "A creature of unknown origin, it enjoys hiding in plain sight to ambush its prey"
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "mimite"
 	icon_living = "mimite"
 	pass_flags = PASSTABLE

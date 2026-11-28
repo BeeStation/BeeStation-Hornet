@@ -29,9 +29,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "j" = (
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -42,9 +41,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "k" = (
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -65,9 +63,8 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "s" = (
 /obj/structure/cable,
@@ -93,9 +90,8 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/cable,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "w" = (
 /obj/structure/cable,
@@ -124,9 +120,8 @@
 "M" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
 /obj/effect/turf_decal/stripes/line{

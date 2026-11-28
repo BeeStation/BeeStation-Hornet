@@ -81,7 +81,10 @@
 		return TRUE
 	if(!registered_name)
 		return ..()
-	var/obj/item/card/id/I = user.get_idcard()
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/living_user = user
+	var/obj/item/card/id/I = living_user.get_idcard()
 	if(!I)
 		return FALSE
 	if(I.registered_name == registered_name)

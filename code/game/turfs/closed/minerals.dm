@@ -36,10 +36,10 @@
 	return ..()
 
 /turf/closed/mineral/proc/Spread_Vein()
-	var/spreadChance = initial(mineralType.spreadChance)
-	if(spreadChance)
+	var/spread_chance = initial(mineralType.spread_chance)
+	if(spread_chance)
 		for(var/dir in GLOB.cardinals)
-			if(prob(spreadChance))
+			if(prob(spread_chance))
 				var/turf/T = get_step(src, dir)
 				var/turf/closed/mineral/random/M = T
 				if(istype(M) && !M.mineralType)

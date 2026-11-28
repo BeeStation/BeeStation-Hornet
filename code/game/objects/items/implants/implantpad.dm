@@ -9,6 +9,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	interaction_flags_click = FORBID_TELEKINESIS_REACH
 	var/obj/item/implantcase/case = null
 
 /obj/item/implantpad/update_icon_state()
@@ -32,12 +33,10 @@
 	updateSelfDialog()
 	. = ..()
 
-/obj/item/implantpad/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
+/obj/item/implantpad/click_alt(mob/user)
 	if(!case)
 		to_chat(user, span_warning("There's no implant to remove from [src]."))
-		return
+		return CLICK_ACTION_BLOCKING
 
 	user.put_in_hands(case)
 
@@ -47,6 +46,7 @@
 
 	updateSelfDialog()
 	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/implantpad/attackby(obj/item/implantcase/C, mob/user, list/modifiers)
 	if(istype(C, /obj/item/implantcase) && !case)
@@ -59,7 +59,7 @@
 		return ..()
 
 /obj/item/implantpad/ui_interact(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		user.unset_machine(src)
 		user << browse(null, "window=implantpad")
 		return

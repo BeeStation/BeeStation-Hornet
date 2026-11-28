@@ -36,12 +36,12 @@
 
 /datum/greyscale_config/carp
 	name = "Space Carp"
-	icon_file = 'icons/mob/carp.dmi'
+	icon_file = 'icons/mob/simple/carp.dmi'
 	json_config = 'code/datums/greyscale/json_configs/carp.json'
 
 /datum/greyscale_config/garden_gnome
 	name = "Garden Gnome"
-	icon_file = 'icons/mob/garden_gnome.dmi'
+	icon_file = 'icons/mob/simple/garden_gnome.dmi'
 	json_config = 'code/datums/greyscale/json_configs/garden_gnome.json'
 
 /datum/greyscale_config/carp/disk_mouth

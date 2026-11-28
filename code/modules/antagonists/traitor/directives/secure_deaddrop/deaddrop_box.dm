@@ -26,4 +26,4 @@
 	locked = TRUE
 	emp_shielded = TRUE
 	quickdraw = FALSE
-	rustle_sound = FALSE
+	do_rustle = FALSE

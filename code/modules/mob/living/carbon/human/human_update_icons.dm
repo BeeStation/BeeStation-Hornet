@@ -53,29 +53,27 @@ There are several things that need to be remembered:
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
-
-	if(!..())
-		update_body()
-		update_hair()
-		update_worn_undersuit()
-		update_worn_id()
-		update_worn_gloves()
-		update_worn_glasses()
-		update_worn_ears()
-		update_worn_shoes()
-		update_suit_storage()
-		update_worn_mask()
-		update_worn_head()
-		update_worn_belt()
-		update_worn_back()
-		update_worn_oversuit()
-		update_pockets()
-		update_worn_neck()
-		update_transform()
-		//mutations
-		update_mutations_overlay()
-		//damage overlays
-		update_damage_overlays()
+	. = ..()
+	update_worn_undersuit()
+	update_worn_id()
+	update_worn_glasses()
+	update_worn_gloves()
+	update_worn_ears()
+	update_worn_shoes()
+	update_suit_storage()
+	update_worn_mask()
+	update_worn_head()
+	update_worn_belt()
+	update_worn_back()
+	update_worn_oversuit()
+	update_pockets()
+	update_worn_neck()
+	update_transform()
+	update_mutations_overlay()
+	update_damage_overlays()
+	// These are done via parent call update_body(), keeping them here for clarity
+	// update_hair()
+	// update_eyes()
 
 /mob/living/carbon/human/update_clothing(slot_flags)
 	if(slot_flags & ITEM_SLOT_BACK)
@@ -920,8 +918,104 @@ generate/load female uniform sprites matching all previously decided variables
 					observers = null
 					break
 
-// Only renders the head of the human
-/mob/living/carbon/human/proc/update_body_parts_head_only(update_limb_data)
+/mob/living/carbon/human/update_body(is_creating = FALSE)
+	remove_overlay(BODY_LAYER)
+
+	var/list/body_overlays = list()
+	body_overlays += get_underwear_overlays()
+
+	if(length(body_overlays))
+		overlays_standing[BODY_LAYER] = body_overlays
+		apply_overlay(BODY_LAYER)
+
+	// parent call will update the actual bodyparts
+	return ..()
+
+/// Returns a list of all underclothing overlays to be applied to the mob
+/mob/living/carbon/human/proc/get_underwear_overlays()
+	. = list()
+	if(HAS_TRAIT(src, TRAIT_HUSK) || HAS_TRAIT(src, TRAIT_NO_UNDERWEAR))
+		return .
+
+	var/body_type = MALE
+	if(dna.species.sexes)
+		var/obj/item/bodypart/chest/our_chest = get_bodypart(BODY_ZONE_CHEST)
+		if(our_chest?.is_dimorphic)
+			body_type = physique
+
+	if(underwear)
+		var/datum/sprite_accessory/clothing/underwear/undie_accessory = GLOB.underwear_list[underwear]
+		var/mutable_appearance/underwear_overlay = undie_accessory?.make_appearance(underwear_color, body_type, bodyshape)
+		if(underwear_overlay)
+			. += underwear_overlay
+
+	if(undershirt)
+		var/datum/sprite_accessory/clothing/undershirt/shirt_accessory = GLOB.undershirt_list[undershirt]
+		var/mutable_appearance/shirt_overlay = shirt_accessory?.make_appearance(null, body_type, bodyshape)
+		if(shirt_overlay)
+			. += shirt_overlay
+
+	if(socks && num_legs >= 2 && !(bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(src, TRAIT_NO_SOCKS)))
+		var/datum/sprite_accessory/clothing/socks/sock_accessory = GLOB.socks_list[socks]
+		var/mutable_appearance/socks_overlay = sock_accessory?.make_appearance(null, body_type, bodyshape)
+		if(socks_overlay)
+			. += socks_overlay
+
+	return .
+
+/// Updates eye sprites if relevant
+/mob/living/proc/update_eyes(refresh = TRUE)
+	return
+
+/mob/living/carbon/human/update_eyes(refresh = TRUE)
+	remove_overlay(EYES_LAYER)
+
+	var/obj/item/bodypart/head/noggin = get_bodypart(BODY_ZONE_HEAD)
+	if(isnull(noggin) || noggin.is_husked)
+		return
+
+	if(refresh)
+		var/obj/item/organ/eyes/eyes = locate() in noggin
+		eyes?.refresh(src, call_update = FALSE)
+
+	var/list/eye_overlays = noggin.get_eye_overlays()
+	if(length(eye_overlays))
+		overlays_standing[EYES_LAYER] = eye_overlays
+		apply_overlay(EYES_LAYER)
+
+/// Updates hair sprites if relevant
+/mob/living/proc/update_hair()
+	return
+
+/mob/living/carbon/human/update_hair()
+	remove_overlay(HAIR_LAYER)
+
+	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
+	var/list/head_overlays = head?.get_hair_overlays()
+	if(length(head_overlays))
+		overlays_standing[HAIR_LAYER] = head_overlays
+		apply_overlay(HAIR_LAYER)
+
+/// Updates face (as of now, only eye) offsets
+/mob/living/carbon/human/update_face_offset()
+	var/list/eye_overlays = overlays_standing[EYES_LAYER]
+
+	if(HAS_TRAIT(src, TRAIT_HUSK) || !length(eye_overlays))
+		return
+
+	remove_overlay(EYES_LAYER)
+
+	var/obj/item/bodypart/head/noggin = get_bodypart(BODY_ZONE_HEAD)
+	for (var/mutable_appearance/overlay as anything in eye_overlays)
+		overlay.pixel_x = 0
+		overlay.pixel_y = 0
+		noggin.worn_face_offset.apply_offset(overlay)
+
+	overlays_standing[EYES_LAYER] = eye_overlays
+	apply_overlay(EYES_LAYER)
+
+/// Makes all aspects of the mob invisibile but the head and its associated sprites
+/mob/living/carbon/human/proc/render_only_head()
 	if(!dna?.species)
 		return
 
@@ -930,10 +1024,12 @@ generate/load female uniform sprites matching all previously decided variables
 	if(!istype(my_head))
 		return
 
-	my_head.update_limb(is_creating = update_limb_data)
-
+	cut_overlays()
+	my_head.update_limb()
 	add_overlay(my_head.get_limb_icon())
 	update_worn_head()
 	update_worn_mask()
+	update_eyes()
+	update_hair()
 
 #undef RESOLVE_ICON_STATE

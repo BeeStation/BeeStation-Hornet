@@ -499,6 +499,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 				movesuccess = TRUE
 	if(movedsomething)
 		..()
+		playsound(src, 'sound/effects/portal/portal_travel.ogg', 50, TRUE)
+		playsound(target, 'sound/effects/portal/portal_travel.ogg', 50, TRUE)
 		if(moveuserlater)
 			if(do_teleport(user, target, channel = TELEPORT_CHANNEL_CULT))
 				movesuccess = TRUE
@@ -521,7 +523,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 /obj/effect/rune/teleport/proc/handle_portal(portal_type, turf/origin)
 	var/turf/T = get_turf(src)
 	close_portal() // To avoid stacking descriptions/animations
-	playsound(T, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg', 'sound/effects/sparks4.ogg'), 100, TRUE, 14)
+	playsound(T, "portal_created", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	inner_portal = new /obj/effect/temp_visual/cult/portal(T)
 	if(portal_type == "space")
 		light_color = color
@@ -533,7 +535,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 	outer_portal = new(T, 600, color)
 	light_range = 4
 	update_light()
-	addtimer(CALLBACK(src, PROC_REF(close_portal)), 600, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(close_portal)), 1 MINUTES, TIMER_UNIQUE)
 
 /obj/effect/rune/teleport/proc/close_portal()
 	QDEL_NULL(inner_portal)
@@ -855,11 +857,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
-	cultist_to_summon.visible_message(span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
-										span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>"))
+	cultist_to_summon.visible_message(
+		span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"),
+		span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>"),
+	)
 	..()
+	var/turf/old_turf = get_turf(cultist_to_summon)
 	if(do_teleport(cultist_to_summon, get_turf(src), no_effects = TRUE, channel = TELEPORT_CHANNEL_CULT))
 		visible_message(span_warning("A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!"))
+		playsound(src, 'sound/effects/portal/portal_travel.ogg', 100, TRUE, SILENCED_SOUND_EXTRARANGE)
+		playsound(old_turf, 'sound/effects/portal/portal_travel.ogg', 100, TRUE, SILENCED_SOUND_EXTRARANGE)
 		qdel(src)
 	else
 		visible_message(span_warning("The air displaces atop [src], however nothing appears."))

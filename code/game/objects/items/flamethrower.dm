@@ -19,9 +19,10 @@
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
+	light_color = LIGHT_COLOR_FIRE
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	var/status = FALSE
 	var/lit = FALSE	//on or off
-	light_color = LIGHT_COLOR_FIRE
 	var/operating = FALSE//cooldown
 	var/obj/item/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
@@ -144,12 +145,15 @@
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
 
-/obj/item/flamethrower/AltClick(mob/user)
-	if(ptank && isliving(user) && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-		user.put_in_hands(ptank)
-		ptank = null
-		to_chat(user, span_notice("You remove the plasma tank from [src]!"))
-		update_icon()
+/obj/item/flamethrower/click_alt(mob/user)
+	if(isnull(ptank))
+		return NONE
+
+	user.put_in_hands(ptank)
+	ptank = null
+	to_chat(user, span_notice("You remove the plasma tank from [src]!"))
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/flamethrower/examine(mob/user)
 	. = ..()

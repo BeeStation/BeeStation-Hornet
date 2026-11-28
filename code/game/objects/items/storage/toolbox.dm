@@ -7,10 +7,16 @@
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	obj_flags = CONDUCTS_ELECTRICITY
-	force = 12
-	throwforce = 12
+
+	force = 6
+	throwforce = 10
 	throw_speed = 2
 	throw_range = 7
+	stamina_damage = 47
+	stamina_cost = 20
+	stamina_critical_chance = 10
+
+
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	attack_verb_continuous = list("robusts")
@@ -18,11 +24,13 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	custom_materials = list(/datum/material/iron = 500) //Toolboxes by default use iron as their core, custom material.
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
+	drop_sound = 'sound/items/handling/toolbox/toolbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbox/toolbox_pickup.ogg'
+	custom_price = 50
+	storage_type = /datum/storage/toolbox
+
 	var/latches = "single_latch"
 	var/has_latches = TRUE
-	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
-	custom_price = 50
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
@@ -31,15 +39,9 @@
 			latches = "double_latch"
 			if(prob(1))
 				latches = "triple_latch"
-	update_icon()
+		update_appearance(UPDATE_OVERLAYS)
 
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
-
-/obj/item/storage/toolbox/update_overlays()
-	. = ..()
-	if(has_latches)
-		. += latches
-
 
 /obj/item/storage/toolbox/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] robusts [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -165,10 +167,7 @@
 	throwforce = 18
 	material_flags = NONE
 	trade_flags = TRADE_CONTRABAND
-
-/obj/item/storage/toolbox/syndicate/Initialize(mapload)
-	. = ..()
-	atom_storage.silent = TRUE
+	storage_type = /datum/storage/toolbox/syndicate
 
 /obj/item/storage/toolbox/syndicate/PopulateContents()
 	new /obj/item/screwdriver/nuke(src)
@@ -206,12 +205,7 @@
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	material_flags = NONE
-
-/obj/item/storage/toolbox/brass/Initialize(mapload)
-	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
-	atom_storage.max_total_storage = 28
-	atom_storage.max_slots = 28
+	storage_type = /datum/storage/toolbox/brass
 
 /obj/item/storage/toolbox/brass/prefilled/PopulateContents()
 	new /obj/item/screwdriver/brass(src)
@@ -231,11 +225,7 @@
 	inhand_icon_state = "artistic_toolbox"
 	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
 	material_flags = NONE
-
-/obj/item/storage/toolbox/artistic/Initialize(mapload)
-	. = ..()
-	atom_storage.max_total_storage = 20
-	atom_storage.max_slots = 10
+	storage_type = /datum/storage/toolbox/artistic
 
 /obj/item/storage/toolbox/artistic/PopulateContents()
 	new /obj/item/storage/crayons(src)
@@ -255,8 +245,8 @@
 	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "ammobox"
 	inhand_icon_state = "ammobox"
-	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
-	pickup_sound =  'sound/items/handling/ammobox_pickup.ogg'
+	drop_sound = 'sound/items/handling/ammobox/ammobox_drop.ogg'
+	pickup_sound =  'sound/items/handling/ammobox/ammobox_pickup.ogg'
 
 /obj/item/storage/toolbox/ammo/PopulateContents()
 	new /obj/item/ammo_box/a762(src)
@@ -270,11 +260,7 @@
 /obj/item/storage/toolbox/ammo/c38
 	name = "ammo crate (.38)"
 	desc = "It contains a few boxes of bullets."
-
-/obj/item/storage/toolbox/ammo/c38/Initialize(mapload)
-	. = ..()
-	atom_storage.max_total_storage = 10
-	atom_storage.max_slots = 5
+	storage_type = /datum/storage/toolbox/c38
 
 /obj/item/storage/toolbox/ammo/c38/PopulateContents()
 	new /obj/item/ammo_box/c38/box(src)

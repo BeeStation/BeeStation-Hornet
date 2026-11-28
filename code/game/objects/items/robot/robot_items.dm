@@ -9,8 +9,14 @@
 	name = "electrically-charged arm"
 	icon_state = "elecarm"
 	var/charge_cost = 30
+	/// Wait time until we can stun again
+	var/cooldown = 2.5 SECONDS
+	COOLDOWN_DECLARE(stun_cooldown)
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
+	if(!COOLDOWN_FINISHED(src, stun_cooldown))
+		to_chat(user, span_warning("[src] isn't ready yet!"))
+		return
 	var/armor_block = M.run_armor_check(attack_flag = STAMINA)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -21,7 +27,9 @@
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(charge_cost))
 			return
-	M.apply_damage(80, STAMINA, blocked = armor_block)
+	COOLDOWN_START(src, stun_cooldown, cooldown)
+	if(M.takes_stamina_damage())
+		M.Disorient(6 SECONDS, 130, paralyze = 6 SECONDS, stack_status = FALSE, protection = armor_block, electrical = TRUE)
 	user.do_attack_animation(M)
 	M.adjust_stutter(10 SECONDS)
 
@@ -907,13 +915,12 @@
 		return ..()
 	stored.attack_self(user, modifiers)
 
-//Alt click drops stored item
-/obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(!stored)
-		return ..()
-	stored.forceMove(get_turf(user))
+//Alt click drops the stored item.
+/obj/item/borg/apparatus/click_alt(mob/living/silicon/robot/user)
+	if(!stored || !issilicon(user))
+		return CLICK_ACTION_BLOCKING
+	stored.forceMove(user.drop_location())
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/borg/apparatus/pre_attack(atom/target, mob/living/user, list/modifiers)
 	if(istype(target.loc, /mob/living/silicon/robot) || istype(target.loc, /obj/item/robot_model) || HAS_TRAIT(target, TRAIT_NODROP))

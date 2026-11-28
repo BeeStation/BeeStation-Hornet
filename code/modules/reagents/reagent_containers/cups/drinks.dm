@@ -179,17 +179,19 @@
 	amount_per_transfer_from_this = 10
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	isGlass = FALSE
+	custom_price = PAYCHECK_EASY * 0.8
+	reagent_container_liquid_sound = "plastic_liquid_slosh"
 	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
+	var/cap_icon = 'icons/obj/drinks/drink_effects.dmi'
 	var/cap_icon_state = "bottle_cap_small"
 	var/start_capped = TRUE
 	var/cap_lost = FALSE
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
-	custom_price = PAYCHECK_EASY * 0.8
 
 /obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	. = ..()
-	cap_overlay = mutable_appearance(icon, cap_icon_state)
+	cap_overlay = mutable_appearance(cap_icon, cap_icon_state)
 	if(start_capped)
 		// this is not done via initial_reagent_flags because it represents state
 		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
@@ -209,27 +211,27 @@
 	else
 		. += span_notice("The cap has been taken off. Alt-click to put a cap on.")
 
-/obj/item/reagent_containers/cup/glass/waterbottle/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/reagent_containers/cup/glass/waterbottle/click_alt(mob/user)
 	if(cap_lost)
 		to_chat(user, span_warning("The cap seems to be missing! Where did it go?"))
-		return
+		return CLICK_ACTION_BLOCKING
 
 	var/fumbled = HAS_TRAIT(user, TRAIT_CLUMSY) && prob(5)
 	if(!is_open_container() || fumbled)
 		reset_container_flags()
-		animate(src, transform = null, time = 2, loop = 0)
+		animate(src, transform = null, time = 0.2 SECONDS, loop = 0)
 		if(fumbled)
 			to_chat(user, span_warning("You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?"))
 			cap_lost = TRUE
 		else
 			to_chat(user, span_notice("You remove the cap from [src]."))
+			playsound(src, 'sound/items/handling/reagent_containers/plastic_bottle/bottle_cap_open.ogg', 50, TRUE)
 	else
 		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
 		to_chat(user, span_notice("You put the cap on [src]."))
+		playsound(loc, 'sound/items/handling/reagent_containers/plastic_bottle/bottle_cap_close.ogg', 50, TRUE)
 	update_appearance()
+	return CLICK_ACTION_SUCCESS
 
 // heehoo bottle flipping
 /obj/item/reagent_containers/cup/glass/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

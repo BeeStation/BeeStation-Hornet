@@ -16,7 +16,9 @@
 	merge_type = /obj/item/stack/rods
 	attack_verb_continuous = list("hits", "bludgeons", "whacks")
 	attack_verb_simple = list("hit", "bludgeon", "whack")
-	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	hitsound = 'sound/weapons/gun/general/grenade_launch.ogg'
+	pickup_sound = 'sound/items/handling/materials/iron_rod_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/metal_drop.ogg'
 	embedding = list()
 	novariants = TRUE
 	matter_amount = 2

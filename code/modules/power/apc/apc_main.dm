@@ -17,6 +17,7 @@
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
+	interaction_flags_click = ALLOW_SILICON_REACH
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
@@ -347,11 +348,11 @@
 	if(issilicon(user))
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")
 
-/obj/machinery/power/apc/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
-		return
-	else
-		togglelock(user)
+/obj/machinery/power/apc/click_alt(mob/user)
+	if(!isturf(loc))
+		return NONE
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -491,12 +492,15 @@
 				else
 					locked = !locked
 					update_appearance()
+					usr.animate_interact(src)
 					. = TRUE
 		if("cover")
 			coverlocked = !coverlocked
+			usr.animate_interact(src)
 			. = TRUE
 		if("breaker")
 			toggle_breaker(usr)
+			usr.animate_interact(src)
 			. = TRUE
 		if("toggle_nightshift")
 			toggle_nightshift_lights()
@@ -506,6 +510,7 @@
 			if(!chargemode)
 				charging = APC_NOT_CHARGING
 				update_appearance()
+			usr.animate_interact(src)
 			. = TRUE
 		if("channel")
 			if(params["eqp"])
@@ -522,10 +527,12 @@
 				update()
 			else
 				return FALSE
+			usr.animate_interact(src)
 			. = TRUE
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
 				overload_lighting()
+				usr.animate_interact(src)
 				. = TRUE
 		if("hack")
 			if(get_malf_status(usr))
@@ -541,6 +548,7 @@
 				. = TRUE
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
+			usr.animate_interact(src)
 			for(var/obj/machinery/light/L in area)
 				if(!initial(L.no_emergency)) //If there was an override set on creation, keep that override
 					L.no_emergency = emergency_lights

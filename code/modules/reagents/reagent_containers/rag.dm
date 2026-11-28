@@ -5,6 +5,8 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
 	item_flags = NOBLUDGEON
+	pickup_sound = "towel_pickup"
+	drop_sound = "towel_drop"
 
 /obj/item/rag/Initialize(mapload)
 	. = ..()

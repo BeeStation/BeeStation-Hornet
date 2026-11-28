@@ -307,12 +307,10 @@
 			to_chat(user, span_info("[src] has been set to attack hostile wildlife."))
 
 /// Handles dropping ore
-/mob/living/simple_animal/hostile/mining_drone/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/mob/living/simple_animal/hostile/mining_drone/click_alt(mob/user)
 	to_chat(user, span_info("You instruct [src] to drop any collected ore."))
 	drop_ore()
+	return CLICK_ACTION_SUCCESS
 
 /// Handles activating installed minebot mods
 /mob/living/simple_animal/hostile/mining_drone/AltClickOn(atom/target)

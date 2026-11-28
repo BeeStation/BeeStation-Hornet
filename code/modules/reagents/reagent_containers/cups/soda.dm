@@ -110,7 +110,7 @@
 			if(iter_mob != target)
 				SEND_SIGNAL(iter_mob, COMSIG_ADD_MOOD_EVENT, "observed_soda_spill", /datum/mood_event/observed_soda_spill, target, src)
 
-	playsound(src, 'sound/effects/can_pop.ogg', 80, TRUE)
+	playsound(src, 'sound/items/can/can_pop.ogg', 80, TRUE)
 	if(!hide_message)
 		visible_message(span_danger("[src] spills over, fizzing its contents all over [target]!"))
 	add_container_flags(OPENCONTAINER)
@@ -142,7 +142,7 @@
 
 /obj/item/reagent_containers/cup/soda_cans/attack_self_secondary(mob/user)
 	if(!is_drainable())
-		playsound(src, 'sound/effects/can_shake.ogg', 50, TRUE)
+		playsound(src, 'sound/items/can/can_shake.ogg', 50, TRUE)
 		user.visible_message("<span class='danger'>[user] shakes [src]!</span>", "<span class='danger'>You shake up [src]!</span>", vision_distance=2)
 		fizziness += SODA_FIZZINESS_SHAKE
 		return

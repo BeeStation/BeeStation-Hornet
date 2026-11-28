@@ -25,7 +25,6 @@ Slimecrossing Items
 	bodypart_type = part.type
 	brute_dam = part.brute_dam
 	burn_dam = part.burn_dam
-	stamina_dam = part.stamina_dam
 
 /mob/living/carbon/proc/apply_saved_bodyparts(list/datum/saved_bodypart/parts)
 	var/list/dont_chop = list()
@@ -36,10 +35,10 @@ Slimecrossing Items
 			saved_part.old_part = new saved_part.bodypart_type
 		if(!already || already != saved_part.old_part)
 			saved_part.old_part.replace_limb(src)
-		saved_part.old_part.heal_damage(INFINITY, INFINITY, INFINITY, null, FALSE)
-		saved_part.old_part.receive_damage(saved_part.brute_dam, saved_part.burn_dam, saved_part.stamina_dam)
+		saved_part.old_part.heal_damage(INFINITY, INFINITY, updating_health = FALSE)
+		saved_part.old_part.receive_damage(saved_part.brute_dam, saved_part.burn_dam,)
 		dont_chop[zone] = TRUE
-		
+
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(dont_chop[BP.body_zone])
 			continue
@@ -190,10 +189,10 @@ Slimecrossing Items
 
 /obj/item/capturedevice/proc/offer_entry(mob/living/M, mob/user)
 	to_chat(user, span_notice("You offer the device to [M]."))
-	if(alert(M, "Would you like to enter [user]'s capture device?", "Gold Capture Device", "Yes", "No") != "Yes")
+	if(tgui_alert(M, "Would you like to enter [user]'s capture device?", "Gold Capture Device", list("Yes", "No")) == "No")
 		to_chat(user, span_warning("[M] refused to enter the device."))
 		return
-	if(!user.canUseTopic(src, BE_CLOSE) || !user.canUseTopic(M, BE_CLOSE))
+	if(!user.can_perform_action(src) && !user.can_perform_action(M))
 		to_chat(user, span_warning("You were too far away from [M]."))
 		to_chat(M, span_warning("You were too far away from [user]."))
 		return

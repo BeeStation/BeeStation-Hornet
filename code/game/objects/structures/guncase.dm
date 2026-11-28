@@ -84,7 +84,7 @@
 		var/obj/item/O = locate(href_list["retrieve"]) in contents
 		if(!O || !istype(O))
 			return
-		if(!usr.canUseTopic(src, BE_CLOSE) || !open)
+		if(!usr.can_perform_action(src) || !open)
 			return
 		if(ishuman(usr))
 			if(!usr.put_in_hands(O))

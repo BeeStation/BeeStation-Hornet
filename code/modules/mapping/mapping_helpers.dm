@@ -909,40 +909,30 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 		T?.make_traction(grip_visual)
 	qdel(src)
 
-//Change this areas turf texture
-/obj/effect/mapping_helpers/tile_breaker
-	name = "area turf texture helper"
-	icon_state = "tile_breaker"
-	late = TRUE
-
-/obj/effect/mapping_helpers/tile_breaker/LateInitialize()
-	var/turf/open/floor/T = get_turf(src)
-	if(istype(T, /turf/open/floor))
-		T.break_tile()
-	qdel(src)
-
 //Virology helper- if virologist is enabled, set airlocks to virology access, set
 /obj/effect/mapping_helpers/virology
 	name = "virology mapping helper"
 	desc = "Place this on each viro airlock to change its access, a smoke machine to turn it to a pet, and a plant to turn it to a virodrobe when virologist is enabled."
+
 /obj/effect/mapping_helpers/virology/Initialize(mapload)
-	.=..()
-	if(CONFIG_GET(flag/allow_virologist))
-		for(var/obj/A in loc)
-			if(istype(A, /obj/machinery/door/airlock/))
-				var/obj/machinery/door/airlock/airlock = A
-				airlock.req_access_txt = "39"
-				if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
-					airlock.name = "Virology Maintenance"
-				else
-					airlock.name = "Virology Lab"
-			if(istype(A, /obj/machinery/smoke_machine))
-				qdel(A)
-				new /obj/structure/bed/dogbed/vector(src.loc)
-				new /mob/living/simple_animal/pet/hamster/vector(src.loc)
-			if(istype(A, /obj/item/kirbyplants/random))
-				qdel(A)
-				new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
+	. = ..()
+	if(!CONFIG_GET(flag/allow_virologist))
+		return
+	for(var/obj/A in loc)
+		if(istype(A, /obj/machinery/door/airlock))
+			var/obj/machinery/door/airlock/airlock = A
+			airlock.req_access_txt = "[ACCESS_VIROLOGY]"
+			if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
+				airlock.name = "Virology Maintenance"
+			else
+				airlock.name = "Virology Lab"
+		else if(istype(A, /obj/machinery/smoke_machine))
+			qdel(A)
+			new /obj/structure/bed/dogbed/vector(src.loc)
+			new /mob/living/basic/pet/hamster/vector(src.loc)
+		else if(istype(A, /obj/item/kirbyplants/random))
+			qdel(A)
+			new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
 
 // automatically connects any portable atmospherics to the connector on the same tile
 /obj/effect/mapping_helpers/atmos_auto_connect
@@ -978,7 +968,6 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 	var/skip_direction
 	/// there are a few stuff that "can_atmos_pass()" is not reliable
 	var/static/list/unliable_atmos_blockers
-
 
 /obj/effect/mapping_helpers/space_window_placer/Initialize(mapload)
 	. = ..()
@@ -1132,7 +1121,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 		qdel(each_placer)
 	init_group.Cut()
 
-/obj/effect/mapping_helpers/Mapper_Comment //exists just to hold it's name and description to allow mappers to add comments to parts of their map in the editor.
+/obj/effect/mapping_helpers/mapper_comment //exists just to hold it's name and description to allow mappers to add comments to parts of their map in the editor.
 	name = "Mapper Comment (Read 'Desc' variable)"
 	desc = "Edit this text to your desired description."
 	icon_state = "Comment"
@@ -1178,24 +1167,30 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	name = "broken floor"
 	icon = 'icons/turf/damaged.dmi'
 	icon_state = "damaged1"
+	color = COLOR_RED
 	layer = ABOVE_NORMAL_TURF_LAYER
 	late = TRUE
 
 /obj/effect/mapping_helpers/broken_floor/LateInitialize()
-	var/turf/open/floor/floor = get_turf(src)
-	floor.break_tile()
+	var/turf/open/floor = get_turf(src)
+	// another mapping helper could've made our turf into a wall
+	if(istype(floor))
+		floor.break_tile()
 	qdel(src)
 
 /obj/effect/mapping_helpers/burnt_floor
 	name = "burnt floor"
 	icon = 'icons/turf/damaged.dmi'
 	icon_state = "floorscorched1"
+	color = COLOR_RED
 	layer = ABOVE_NORMAL_TURF_LAYER
 	late = TRUE
 
 /obj/effect/mapping_helpers/burnt_floor/LateInitialize()
-	var/turf/open/floor/floor = get_turf(src)
-	floor.burn_tile()
+	var/turf/open/floor = get_turf(src)
+	// another mapping helper could've made our turf into a wall
+	if(istype(floor))
+		floor.burn_tile()
 	qdel(src)
 
 ///Applies BROKEN flag to the first found machine on a tile

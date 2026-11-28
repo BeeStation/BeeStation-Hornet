@@ -172,9 +172,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "U" = (
 /obj/structure/table/wood,

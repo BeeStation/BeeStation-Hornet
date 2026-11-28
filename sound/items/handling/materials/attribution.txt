@@ -1,0 +1,20 @@
+
+{
+metal_drop.ogg - https://freesound.org/people/13FPanská_Tolar_David/sounds/378682/ , License: CC0
+metal_pick_up.ogg - https://freesound.org/people/Hotlavaman/sounds/108673/ , License: CC0
+glass_drop.ogg - https://freesound.org/people/Hotlavaman/sounds/108673/ , License: CC0
+glass_pick_up.ogg - https://freesound.org/people/tcrocker68/sounds/235602/ , License: CC0
+wood_pick_up.ogg - https://freesound.org/people/cjosephwalker/sounds/94859/ , License: CC SAMPLING+ 1.0
+wood_drop.ogg - https://freesound.org/people/cjosephwalker/sounds/94859/ , License: CC SAMPLING+ 1.0
+irod_rod_pick_up.ogg - https://freesound.org/people/lostphosphene/sounds/258265/ , License: CC BY 4.0
+plastic_pick_up.ogg - https://freesound.org/people/Jessica190091/sounds/491304/ , License: CC BY 4.0
+plastic_drop.ogg - https://freesound.org/people/martian/sounds/338854/ , License: CC0
+} - edited by sadboysuss
+
+{
+skin_drop.ogg - https://freesound.org/people/Crinkem/sounds/501015/ , License: CC4
+skin_pick_up.ogg - https://freesound.org/people/Crinkem/sounds/501015/ , License CC3
+cardboard_drop and cardboard_pick_up - https://freesound.org/people/newagesoup/sounds/364736/ , License CC0
+}
+
+snow_drop.ogg and snow_pick_up.ogg -- https://freesound.org/people/Vrymaa/sounds/775014/ by Vrymaa (CC0)

@@ -46,11 +46,11 @@ GLOBAL_LIST_INIT(footstep, list(
 		'sound/effects/footstep/wood4.ogg',
 		'sound/effects/footstep/wood5.ogg'), 100, 0),
 	FOOTSTEP_FLOOR = list(list(
-		'sound/effects/footstep/floor1.ogg',
-		'sound/effects/footstep/floor2.ogg',
-		'sound/effects/footstep/floor3.ogg',
-		'sound/effects/footstep/floor4.ogg',
-		'sound/effects/footstep/floor5.ogg'), 75, -1),
+		'goon/sounds/footstep/floor1.ogg',
+		'goon/sounds/footstep/floor2.ogg',
+		'goon/sounds/footstep/floor3.ogg',
+		'goon/sounds/footstep/floor4.ogg',
+		'goon/sounds/footstep/floor5.ogg'), 75, -1),
 	FOOTSTEP_PLATING = list(list(
 		'sound/effects/footstep/plating1.ogg',
 		'sound/effects/footstep/plating2.ogg',

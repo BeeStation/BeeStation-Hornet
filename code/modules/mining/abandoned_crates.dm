@@ -23,42 +23,40 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user, list/modifiers)
-	if(locked)
-		to_chat(user, span_notice("The crate is locked with a Deca-code lock."))
-		var/input = capped_input(usr, "Enter [codelen] digits. All digits must be unique.", "Deca-Code Lock")
-		if(user.canUseTopic(src, BE_CLOSE) && locked)
-			var/list/sanitised = list()
-			var/sanitycheck = TRUE
-			var/char = ""
-			var/length_input = length(input)
-			for(var/i = 1, i <= length_input, i += length(char)) //put the guess into a list
-				char = input[i]
-				sanitised += text2num(char)
-			for(var/i in 1 to length(sanitised) - 1) //compare each digit in the guess to all those following it
-				for(var/j in i + 1 to length(sanitised))
-					if(sanitised[i] == sanitised[j])
-						sanitycheck = FALSE //if a digit is repeated, reject the input
-			if(input == code)
-				if(!spawned_loot)
-					spawn_loot()
-				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
-				togglelock(user)
-			else if(!input || !sanitycheck || length(sanitised) != codelen)
-				to_chat(user, span_notice("You leave the crate alone."))
-			else
-				to_chat(user, span_warning("A red light flashes."))
-				lastattempt = input
-				attempts--
-				if(attempts == 0)
-					boom(user)
-		return
+	if(!locked)
+		return ..()
 
-	return ..()
+	to_chat(user, span_notice("The crate is locked with a Deca-code lock."))
+	var/input = capped_input(usr, "Enter [codelen] digits. All digits must be unique.", "Deca-Code Lock")
+	if(user.can_perform_action(src) && locked)
+		var/list/sanitised = list()
+		var/sanitycheck = TRUE
+		var/char = ""
+		var/length_input = length(input)
+		for(var/i = 1, i <= length_input, i += length(char)) //put the guess into a list
+			char = input[i]
+			sanitised += text2num(char)
+		for(var/i in 1 to length(sanitised) - 1) //compare each digit in the guess to all those following it
+			for(var/j in i + 1 to length(sanitised))
+				if(sanitised[i] == sanitised[j])
+					sanitycheck = FALSE //if a digit is repeated, reject the input
+		if(input == code)
+			if(!spawned_loot)
+				spawn_loot()
+			tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
+			togglelock(user)
+		else if(!input || !sanitycheck || length(sanitised) != codelen)
+			to_chat(user, span_notice("You leave the crate alone."))
+		else
+			to_chat(user, span_warning("A red light flashes."))
+			lastattempt = input
+			attempts--
+			if(attempts == 0)
+				boom(user)
 
-/obj/structure/closet/crate/secure/loot/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	return attack_hand(user) //this helps you not blow up so easily by overriding unlocking which results in an immediate boom.
+/obj/structure/closet/crate/secure/loot/click_alt(mob/living/user)
+	attack_hand(user) //this helps you not blow up so easily by overriding unlocking which results in an immediate boom.
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
 	if(locked)

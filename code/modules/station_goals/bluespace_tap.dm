@@ -124,7 +124,7 @@
 		/mob/living/basic/pet/dog/corgi/ = 5,
 		/mob/living/basic/pet/cat = 5,
 		/mob/living/basic/pet/dog/bullterrier = 5,
-		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/basic/pet/penguin = 5,
 		/mob/living/simple_animal/parrot = 5,
 		/obj/item/slimepotion/sentience = 5,
 		/obj/item/cigarette/cigar/havana = 3,

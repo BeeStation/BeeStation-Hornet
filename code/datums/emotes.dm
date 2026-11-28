@@ -279,6 +279,14 @@
 	user.emotes_used[src] = world.time
 	return TRUE
 
+/**
+ * To get the sound that the emote plays, for special sound interactions depending on the mob.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ *
+ * Returns the sound that will be made while sending the emote.
+ */
 /datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.
 

@@ -91,12 +91,12 @@
 	if(D.stat || D.IsParalyzed())
 		return 0
 	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
-	var/armor_block = D.run_armor_check(affecting, MELEE)
+	var/armor_block = D.run_armor_check(affecting, STAMINA)
 	D.visible_message(span_warning("[A] leg sweeps [D]!"), \
 					span_userdanger("Your legs are sweeped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 	to_chat(A, span_danger("You leg sweep [D]!"))
 	playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
-	D.apply_damage(rand(20,30), STAMINA, affecting, armor_block)
+	D.apply_damage(STAMINA_DAMAGE_UNARMED * 2, STAMINA, affecting, armor_block)
 	D.Knockdown(60)
 	log_combat(A, D, "leg sweeped", name)
 	return TRUE
@@ -142,9 +142,11 @@
 	if(picked_hit_type == "kick" || picked_hit_type == "stomp")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
+		D.stamina.adjust(-STAMINA_DAMAGE_UNARMED * 1.5)
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		D.stamina.adjust(-STAMINA_DAMAGE_UNARMED)
 	D.visible_message(span_danger("[A] [picked_hit_type]s [D]!"), \
 					span_userdanger("You're [picked_hit_type]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 	to_chat(A, span_danger("You [picked_hit_type] [D]!"))
@@ -155,14 +157,14 @@
 	if(check_streak(A,D))
 		return 1
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
+	var/armor_block = D.run_armor_check(affecting, STAMINA)
 	if(D.body_position == STANDING_UP)
 		D.visible_message(span_danger("[A] reprimands [D]!"), \
 					span_userdanger("You're slapped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, span_danger("You jab [D]!"))
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(5,10), STAMINA, affecting, armor_block)
+		D.apply_damage(STAMINA_DAMAGE_UNARMED * 1.5, STAMINA, affecting, armor_block)
 		log_combat(A, D, "punched nonlethally", name)
 	if(D.body_position == LYING_DOWN)
 		D.visible_message(span_danger("[A] reprimands [D]!"), \
@@ -170,9 +172,9 @@
 		to_chat(A, span_danger("You stomp [D]!"))
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(10,15), STAMINA, affecting, armor_block)
+		D.apply_damage(STAMINA_DAMAGE_UNARMED * 2, STAMINA, affecting, armor_block)
 		log_combat(A, D, "stomped nonlethally", name)
-	if(prob(D.getStaminaLoss()))
+	if(prob(D.stamina.loss_as_percent))
 		D.visible_message(span_warning("[D] sputters and recoils in pain!"), span_userdanger("You recoil in pain as you are jabbed in a nerve!"))
 		D.drop_all_held_items()
 	return 1

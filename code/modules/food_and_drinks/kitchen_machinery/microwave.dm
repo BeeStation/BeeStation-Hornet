@@ -208,7 +208,7 @@
 			user.visible_message("[user] starts to fix part of \the [src].", span_notice("You start to fix part of \the [src]..."))
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes part of \the [src].", span_notice("You fix part of \the [src]."))
-				broken = 1 // Fix it a bit
+				broken = TRUE // Fix it a bit
 		else if(broken == 1 && O.tool_behaviour == TOOL_WELDER) // If it's broken and they're doing the wrench
 			user.visible_message("[user] starts to fix part of \the [src].", span_notice("You start to fix part of \the [src]..."))
 			if(O.use_tool(src, user, 20))
@@ -258,14 +258,22 @@
 	..()
 
 /obj/machinery/microwave/attack_hand_secondary(mob/user, list/modifiers)
-	if(user.canUseTopic(src, !issilicon(usr)))
+	if(user.can_perform_action(src, ALLOW_SILICON_REACH))
+		if(!length(ingredients))
+			balloon_alert(user, "it's empty!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 		cook(user)
+
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/microwave/ui_interact(mob/user)
 	. = ..()
 
-	if(operating || panel_open || !anchored || !user.canUseTopic(src, !issilicon(user)))
+	if(!anchored)
+		balloon_alert(user, "not secured!")
+		return
+	if(operating || panel_open || !user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return
 	if(isAI(user) && (machine_stat & NOPOWER))
 		return
@@ -280,7 +288,7 @@
 	var/choice = show_radial_menu(user, src, isAI(user) ? ai_radial_options : radial_options, require_near = !issilicon(user))
 
 	// post choice verification
-	if(operating || panel_open || !anchored || !user.canUseTopic(src, !issilicon(user)))
+	if(operating || panel_open || !anchored || !user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return
 	if(isAI(user) && (machine_stat & NOPOWER))
 		return

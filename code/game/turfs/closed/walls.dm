@@ -48,9 +48,7 @@
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		underlays += underlay_appearance
 
-/turf/closed/wall/MouseDrop_T(atom/dropping, mob/user, params)
-	if(..())
-		return
+/turf/closed/wall/mouse_drop_receive(atom/dropping, mob/user, params)
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of walls & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 

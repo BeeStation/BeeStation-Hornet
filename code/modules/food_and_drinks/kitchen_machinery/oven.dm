@@ -38,7 +38,7 @@
 	. = ..()
 	oven_loop = new(src)
 	if(mapload)
-		add_tray_to_oven(new /obj/item/plate/oven_tray(src)) //Start with a tray
+		add_tray_to_oven(new /obj/item/plate/oven_tray(src), silent = TRUE) //Start with a tray
 
 /obj/machinery/oven/Destroy()
 	used_tray?.invisibility = 0
@@ -98,17 +98,26 @@
 	update_appearance()
 	use_power(active_power_usage)
 
-/obj/machinery/oven/attackby(obj/item/I, mob/user, list/modifiers)
-	if(open && !used_tray && istype(I, /obj/item/plate/oven_tray))
-		if(user.transferItemToLoc(I, src, silent = FALSE))
-			to_chat(user, span_notice("You put [I] in [src]."))
-			add_tray_to_oven(I)
-	else
-		return ..()
+/obj/machinery/oven/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(open && used_tray && tool.atom_storage)
+		return used_tray.item_interaction(user, tool, modifiers)
+
+	if(!open || used_tray || !istype(tool, /obj/item/plate/oven_tray))
+		return NONE
+
+	if(!user.transferItemToLoc(tool, src, silent = FALSE))
+		return ITEM_INTERACT_BLOCKING
+
+	to_chat(user, span_notice("You put [tool] in [src]."))
+	add_tray_to_oven(tool)
+	return ITEM_INTERACT_SUCCESS
 
 ///Adds a tray to the oven, making sure the shit can get baked.
-/obj/machinery/oven/proc/add_tray_to_oven(obj/item/plate/oven_tray)
+/obj/machinery/oven/proc/add_tray_to_oven(obj/item/plate/oven_tray, silent = FALSE)
 	used_tray = oven_tray
+
+	if(!silent)
+		playsound(src, "tray_insert", 50, TRUE)
 
 	if(!open)
 		oven_tray.vis_flags |= VIS_HIDE
@@ -117,14 +126,13 @@
 	oven_tray.pixel_y = OVEN_TRAY_Y_OFFSET
 	oven_tray.pixel_x = OVEN_TRAY_X_OFFSET
 
-	RegisterSignal(used_tray, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
+	RegisterSignal(used_tray, COMSIG_MOVABLE_MOVED, PROC_REF(on_tray_moved))
 	update_baking_audio()
 	update_appearance()
 
 ///Called when the tray is moved out of the oven in some way
-/obj/machinery/oven/proc/ItemMoved(obj/item/oven_tray, atom/OldLoc, Dir, Forced)
+/obj/machinery/oven/proc/on_tray_moved(obj/item/oven_tray, atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
-
 	tray_removed_from_oven(oven_tray)
 
 /obj/machinery/oven/proc/tray_removed_from_oven(obj/item/oven_tray)
@@ -198,16 +206,45 @@
 		return
 
 /obj/machinery/oven/wrench_act(mob/living/user, obj/item/I)
-	..()
 	default_unfasten_wrench(user, I, 2 SECONDS)
-	return TRUE
-
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/plate/oven_tray
 	name = "oven tray"
 	desc = "Time to bake cookies!"
 	icon_state = "oven_tray"
 	max_items = 6
+	pickup_sound = "tray_pickup"
+	drop_sound = "tray_drop"
+
+/obj/item/plate/oven_tray/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(isnull(tool.atom_storage))
+		return NONE
+
+	if(length(contents) >= max_items)
+		balloon_alert(user, "it's full!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(!istype(tool, /obj/item/storage/bag/tray))
+		// Non-tray dumping requires a do_after
+		to_chat(user, span_notice("You start dumping out the contents of [tool] into [src]..."))
+		if(!do_after(user, 2 SECONDS, target = tool))
+			return ITEM_INTERACT_BLOCKING
+
+	var/loaded = 0
+	for(var/obj/tray_item in tool)
+		if(!IS_EDIBLE(tray_item))
+			continue
+		if(length(contents) >= max_items)
+			break
+		if(tool.atom_storage.attempt_remove(tray_item, src))
+			loaded++
+			AddToPlate(tray_item, user)
+	if(loaded)
+		to_chat(user, span_notice("You insert [loaded] item\s into [src]."))
+		update_appearance()
+		return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_BLOCKING
 
 #undef OVEN_SMOKE_STATE_NONE
 #undef OVEN_SMOKE_STATE_GOOD

@@ -12,7 +12,9 @@
 /datum/element/atmos_requirements
 	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH
 	id_arg_index = 2
+	/// An assoc list of "what atmos does this mob require to survive in".
 	var/list/atmos_requirements
+	/// How much (brute) damage we take from being in unsuitable atmos.
 	var/unsuitable_atmos_damage
 
 /datum/element/atmos_requirements/Attach(datum/target, list/atmos_requirements, unsuitable_atmos_damage)
@@ -61,14 +63,22 @@
 			return FALSE
 		return TRUE
 
-	var/list/cached_moles = open_turf.air.moles
-
-	if(!ISINRANGE(cached_moles[/datum/gas/oxygen], min_oxy, (atmos_requirements["max_oxy"] || INFINITY)))
+	var/list/gases = get_atmos_req_list(open_turf)
+	if(!ISINRANGE(gases["oxy"], min_oxy, (atmos_requirements["max_oxy"] || INFINITY)))
 		return FALSE
-	if(!ISINRANGE(cached_moles[/datum/gas/plasma], min_plasma, (atmos_requirements["max_plas"] || INFINITY)))
+	if(!ISINRANGE(gases["plas"], min_plasma, (atmos_requirements["max_plas"] || INFINITY)))
 		return FALSE
-	if(!ISINRANGE(cached_moles[/datum/gas/nitrogen], min_n2, (atmos_requirements["max_n2"] || INFINITY)))
+	if(!ISINRANGE(gases["n2"], min_n2, (atmos_requirements["max_n2"] || INFINITY)))
 		return FALSE
-	if(!ISINRANGE(cached_moles[/datum/gas/carbon_dioxide], min_co2, (atmos_requirements["max_co2"] || INFINITY)))
+	if(!ISINRANGE(gases["co2"], min_co2, (atmos_requirements["max_co2"] || INFINITY)))
 		return FALSE
 	return TRUE
+
+/datum/element/atmos_requirements/proc/get_atmos_req_list(turf/open/open_turf)
+	var/list/cached_moles = open_turf.air.moles
+	return list(
+		"oxy" = cached_moles[/datum/gas/oxygen] + (cached_moles[/datum/gas/pluoxium] * PLUOXIUM_PROPORTION),
+		"plas" = cached_moles[/datum/gas/plasma],
+		"n2" = cached_moles[/datum/gas/nitrogen],
+		"co2" = cached_moles[/datum/gas/carbon_dioxide],
+	)

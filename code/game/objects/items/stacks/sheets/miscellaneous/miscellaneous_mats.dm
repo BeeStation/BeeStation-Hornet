@@ -65,12 +65,14 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/snow
 	name = "snow"
+	singular_name = "snow block"
 	icon_state = "sheet-snow"
 	inhand_icon_state = "sheet-snow"
 	icon = 'icons/obj/stacks/minerals.dmi'
-	singular_name = "snow block"
 	force = 1
 	throwforce = 2
+	pickup_sound = 'sound/items/handling/materials/snow_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/snow_drop.ogg'
 	grind_results = list(/datum/reagent/consumable/ice = 20)
 	merge_type = /obj/item/stack/sheet/snow
 
@@ -85,6 +87,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
 	inhand_icon_state = "sheet-plastic"
+	pickup_sound = 'sound/items/handling/materials/plastic_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/plastic_drop.ogg'
 	mats_per_unit = list(/datum/material/plastic=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 7
 	merge_type = /obj/item/stack/sheet/plastic
@@ -105,6 +109,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
+	pickup_sound = 'sound/items/handling/materials/cardboard_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/cardboard_drop.ogg'
 	merge_type = /obj/item/stack/sheet/cardboard
 
 /obj/item/stack/sheet/cardboard/get_recipes()

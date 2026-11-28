@@ -1,0 +1,7 @@
+{
+	medkit_open.ogg - https://freesound.org/people/Jandre160108/sounds/365866/ , License: CC BY-NC 4.0
+	medkit_drop.ogg - https://freesound.org/people/Jandre160108/sounds/365866/ , License: CC BY-NC 4.0
+	medkit_pick_up.ogg - https://freesound.org/people/blouhond/sounds/440710/ , License: CC BY 4.0
+} - edited by sadboysuss
+
+medkit_rustle.ogg - made by sadboysuss, License: CC BY 4.0

@@ -1,8 +1,8 @@
 /datum/looping_sound/active_outside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
-		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
-		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
+		'sound/weather/ashstorm/outside/active_mid1.ogg',
+		'sound/weather/ashstorm/outside/active_mid1.ogg',
+		'sound/weather/ashstorm/outside/active_mid1.ogg',
 	)
 	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/outside/active_start.ogg'
@@ -14,9 +14,9 @@
 
 /datum/looping_sound/active_inside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/inside/active_mid1.ogg' = 1,
-		'sound/weather/ashstorm/inside/active_mid2.ogg' = 1,
-		'sound/weather/ashstorm/inside/active_mid3.ogg' = 1,
+		'sound/weather/ashstorm/inside/active_mid1.ogg',
+		'sound/weather/ashstorm/inside/active_mid2.ogg',
+		'sound/weather/ashstorm/inside/active_mid3.ogg',
 	)
 	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/inside/active_start.ogg'
@@ -28,9 +28,9 @@
 
 /datum/looping_sound/weak_outside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/outside/weak_mid1.ogg' = 1,
-		'sound/weather/ashstorm/outside/weak_mid2.ogg' = 1,
-		'sound/weather/ashstorm/outside/weak_mid3.ogg' = 1,
+		'sound/weather/ashstorm/outside/weak_mid1.ogg',
+		'sound/weather/ashstorm/outside/weak_mid2.ogg',
+		'sound/weather/ashstorm/outside/weak_mid3.ogg',
 	)
 	mid_length = 10 SECONDS
 	start_sound = 'sound/weather/ashstorm/outside/weak_start.ogg'
@@ -42,9 +42,9 @@
 
 /datum/looping_sound/weak_inside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/inside/weak_mid1.ogg' = 1,
-		'sound/weather/ashstorm/inside/weak_mid2.ogg' = 1,
-		'sound/weather/ashstorm/inside/weak_mid3.ogg' = 1,
+		'sound/weather/ashstorm/inside/weak_mid1.ogg',
+		'sound/weather/ashstorm/inside/weak_mid2.ogg',
+		'sound/weather/ashstorm/inside/weak_mid3.ogg',
 	)
 	mid_length = 10 SECONDS
 	start_sound = 'sound/weather/ashstorm/inside/weak_start.ogg'
@@ -55,7 +55,7 @@
 	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 /datum/looping_sound/void_loop
-	mid_sounds = list('sound/weather/heretic/VoidsEmbrace.ogg'=1)
+	mid_sounds = list('sound/weather/heretic/voids_embrace.ogg')
 	mid_length = 1669 // exact length of the music in ticks
 	volume = 100
 	extra_range = 30

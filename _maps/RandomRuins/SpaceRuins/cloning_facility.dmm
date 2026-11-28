@@ -180,9 +180,8 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "aU" = (
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
 /area/misc/space/nearstation)
 "aV" = (
 /turf/closed/wall/r_wall/rust,

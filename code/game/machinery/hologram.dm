@@ -44,6 +44,8 @@ Possible to do for anyone motivated enough:
 	max_integrity = 300
 	armor_type = /datum/armor/machinery_holopad
 	circuit = /obj/item/circuitboard/machine/holopad
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_IGNORE_MOBILITY
+	interaction_flags_click = ALLOW_SILICON_REACH
 	/// associative lazylist of the form: list(owner of a hologram = hologram representing that owner).
 	var/list/masters
 	/// Holoray-owner link

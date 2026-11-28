@@ -107,7 +107,7 @@
 /obj/item/mod/module/tether/used()
 	if(mod.wearer.has_gravity(get_turf(src)))
 		balloon_alert(mod.wearer, "too much gravity!")
-		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 25, TRUE)
+		playsound(src, 'sound/weapons/gun/general/dry_fire.ogg', 25, TRUE)
 		return FALSE
 	return ..()
 
@@ -118,7 +118,7 @@
 	var/obj/projectile/tether = new /obj/projectile/tether(mod.wearer.loc)
 	tether.preparePixelProjectile(target, mod.wearer)
 	tether.firer = mod.wearer
-	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
+	playsound(src, 'sound/items/baton/batonextend.ogg', 25, TRUE)
 	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_power_cost)
 
@@ -129,8 +129,8 @@
 	damage = 0
 	nodamage = TRUE
 	range = 10
-	hitsound = 'sound/weapons/batonextend.ogg'
-	hitsound_wall = 'sound/weapons/batonextend.ogg'
+	hitsound = 'sound/items/baton/batonextend.ogg'
+	hitsound_wall = 'sound/items/baton/batonextend.ogg'
 	suppressed = SUPPRESSED_VERY
 	hit_threshhold = LATTICE_LAYER
 	/// Reference to the beam following the projectile.

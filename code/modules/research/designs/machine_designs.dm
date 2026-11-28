@@ -42,21 +42,6 @@
 	category = list(RND_CATEGORY_ENGINEERING_MACHINERY)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/board/circulator
-	name = "Machine Design (Circulator Board)"
-	desc = "The circuit board for a circulator."
-	id = "circulator"
-	build_path = /obj/item/circuitboard/machine/circulator
-	category = list(RND_CATEGORY_ENGINEERING_MACHINERY)
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/design/board/teg
-	name = "Machine Design (TEG Board)"
-	desc = "The circuit board for a TEG."
-	id = "teg"
-	build_path = /obj/item/circuitboard/machine/generator
-	category = list(RND_CATEGORY_ENGINEERING_MACHINERY)
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/announcement_system
 	name = "Machine Design (Automated Announcement System Board)"
@@ -97,6 +82,22 @@
 	build_path = /obj/item/circuitboard/machine/power_turbine
 	category = list(RND_CATEGORY_ENGINEERING_MACHINERY)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/cdr
+	name = "Machine Design (Condensate Decay Reactor)"
+	desc = "The circuit board for a condensate decay reactor."
+	id = "cdr"
+	build_path = /obj/item/circuitboard/machine/cdr
+	category = list (RND_CATEGORY_ENGINEERING_MACHINERY)
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/graviton_target
+	name = "Machine Design (Graviton Wave Disperser)"
+	desc = "The circuit board for a graviton wave disperser."
+	id = "graviton_target"
+	build_path = /obj/item/circuitboard/machine/graviton_target
+	category = list (RND_CATEGORY_ENGINEERING_MACHINERY)
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/thermomachine
 	name = "Machine Design (Thermomachine Board)"

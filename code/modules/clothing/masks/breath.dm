@@ -14,6 +14,7 @@
 	visor_flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
 	custom_price = 10
+	interaction_flags_click = NEED_DEXTERITY|ALLOW_RESTING
 
 /datum/armor/mask_breath
 	bio = 50

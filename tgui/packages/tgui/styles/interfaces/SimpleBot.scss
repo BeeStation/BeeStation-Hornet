@@ -1,0 +1,214 @@
+@use '../colors.scss';
+
+.simplebot {
+  --ui-tint: #{colors.$label};
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 6px;
+}
+
+.simplebot_header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--ui-tint);
+    opacity: 0.18;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.simplebot_header_title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .Icon {
+    color: var(--ui-tint);
+  }
+}
+
+.simplebot_header_actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.simplebot_chip {
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.simplebot_body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.simplebot_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 6px;
+}
+
+.simplebot_medbot_row {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.simplebot_card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 62px;
+  padding: 8px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(0, 0, 0, 0.25);
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    border-color 0.15s ease,
+    transform 0.1s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.12;
+    background-color: #888;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+  }
+
+  &.static {
+    cursor: default;
+    align-items: stretch;
+    text-align: left;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  &.wide {
+    grid-column: span 2;
+  }
+
+  &.xwide {
+    grid-column: span 3;
+  }
+
+  &.state-on::before {
+    background-color: colors.$good;
+  }
+
+  &.state-warn::before {
+    background-color: colors.$average;
+  }
+
+  &.state-bad::before {
+    background-color: colors.$bad;
+  }
+
+  &.ui-tint::before {
+    background-color: var(--ui-tint);
+  }
+}
+
+.simplebot_card_label {
+  font-size: 0.85em;
+  font-weight: bold;
+}
+
+.simplebot_card_sub {
+  font-size: 0.75em;
+  opacity: 0.75;
+}
+
+.simplebot_card_caption {
+  font-size: 0.7em;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.simplebot_threshold_row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.simplebot_threshold_label {
+  flex: 0 0 auto;
+  min-width: 70px;
+}
+
+.simplebot_threshold_slider {
+  flex: 1 1 auto;
+}
+
+.simplebot_chip_grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.simplebot_supply_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.simplebot_supply_card .simplebot_supply_row {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.simplebot_supply_card .simplebot_supply_row > :first-child {
+  overflow-wrap: anywhere;
+  font-size: 0.75em;
+}

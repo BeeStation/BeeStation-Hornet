@@ -31,6 +31,9 @@
 	var/obj/item/item_parent = component_parent.parent
 	if(isitem(item_parent))
 		item_parent.slot_flags = old_wearable
+		UnregisterSignal(item_parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+		if(ismob(item_parent.loc))
+			UnregisterSignal(item_parent.loc, list(COMSIG_ATOM_ATTACKBY, COMSIG_MOB_ATTACK_HAND))
 	return ..()
 
 /datum/xenoartifact_trait/minor/ringed/get_dictionary_hint()

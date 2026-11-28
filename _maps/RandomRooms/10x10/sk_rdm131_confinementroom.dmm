@@ -22,9 +22,8 @@
 /area/template_noop)
 "ai" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "ak" = (
 /obj/effect/turf_decal/tile/red{
@@ -40,9 +39,8 @@
 "am" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/xeno,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "ao" = (
 /obj/machinery/door/airlock/security{
@@ -86,16 +84,14 @@
 /area/template_noop)
 "az" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "aA" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "aB" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -184,9 +180,8 @@
 "aP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/doorbolt,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "aQ" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -231,9 +226,8 @@
 "aV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/unsorted/trap,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "aW" = (
 /obj/effect/decal/cleanable/dirt,

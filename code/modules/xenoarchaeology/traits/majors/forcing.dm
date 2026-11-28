@@ -28,7 +28,7 @@
 		return
 	for(var/atom/movable/target in focus)
 		if(target.anchored)
-			return
+			continue
 		var/turf/parent_turf = get_turf(component_parent.parent)
 		var/turf/T
 		if(force_dir)

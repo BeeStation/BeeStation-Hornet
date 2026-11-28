@@ -10,9 +10,11 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	circuit = /obj/item/circuitboard/machine/monkey_recycler
 	var/stored_matter = 0
 	var/cube_production = 0.2
+
 	var/list/connected = list()			//Keeps track of connected xenobio consoles, for deletion in /Destroy()
 
 /obj/machinery/monkey_recycler/Initialize(mapload)
@@ -21,10 +23,11 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		GLOB.monkey_recyclers += src
 
 /obj/machinery/monkey_recycler/Destroy()
-	if(src in GLOB.monkey_recyclers)
-		GLOB.monkey_recyclers -= src
-	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
+	GLOB.monkey_recyclers -= src
+	for(var/thing in connected)
+		var/obj/machinery/computer/camera_advanced/xenobio/console = thing
 		console.connected_recycler = null
+	connected.Cut()
 	return ..()
 
 /obj/machinery/monkey_recycler/RefreshParts()	//Ranges from 0.2 to 0.8 per monkey recycled
@@ -61,9 +64,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	else
 		return ..()
 
-/obj/machinery/monkey_recycler/MouseDrop_T(mob/living/target, mob/living/user)
-	if(..())
-		return
+/obj/machinery/monkey_recycler/mouse_drop_receive(mob/living/target, mob/living/user, params)
 	if(!istype(target))
 		return
 	if(ismonkey(target))

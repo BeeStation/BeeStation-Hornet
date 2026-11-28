@@ -16,6 +16,14 @@ Woods Sheets
 	icon_state = "sheet-wood"
 	inhand_icon_state = "sheet-wood"
 	icon = 'icons/obj/stacks/organic.dmi'
+	pickup_sound = 'sound/items/handling/materials/wood_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/wood_drop.ogg'
+
+	//BONK
+	stamina_damage = 50
+	stamina_cost = 25
+	stamina_critical_chance = 10
+
 	mats_per_unit = list(/datum/material/wood=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "wood"
 	armor_type = /datum/armor/sheet_wood
@@ -24,7 +32,6 @@ Woods Sheets
 	material_type = /datum/material/wood
 	grind_results = list(/datum/reagent/carbon = 20)
 	walltype = /turf/closed/wall/mineral/wood
-
 
 /datum/armor/sheet_wood
 	fire = 50

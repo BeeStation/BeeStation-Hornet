@@ -4,6 +4,8 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
 	custom_price = 100 // Adding this here because only SOME guns were covered by export datums
+	pickup_sound = 'sound/items/handling/gun/gun_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gun/gun_drop.ogg'
 
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell

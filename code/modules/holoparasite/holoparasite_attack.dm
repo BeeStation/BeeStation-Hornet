@@ -47,7 +47,7 @@
 			. = target.attack_hand(src)
 			update_held_items()
 
-	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, .)
 
 /mob/living/simple_animal/hostile/holoparasite/proc/harm_attack(atom/target)
 	if(melee_damage && has_matching_summoner(target))

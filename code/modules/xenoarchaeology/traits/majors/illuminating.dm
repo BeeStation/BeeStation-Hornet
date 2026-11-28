@@ -42,7 +42,7 @@
 /datum/xenoartifact_trait/major/illuminating/catch_move(datum/source, atom/mover, dir)
 	. = ..()
 	var/atom/light_source = component_parent.parent
-	if(!isturf(light_source.loc?.loc))
+	if(!isturf(light_source.loc) && !isturf(light_source.loc?.loc))
 		lit = FALSE
 		do_light(TRUE)
 
@@ -55,8 +55,9 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("create a localised shadow"))
 
-/datum/xenoartifact_trait/major/illuminating/shadow/do_light()
-	lit = !lit
+/datum/xenoartifact_trait/major/illuminating/shadow/do_light(force = FALSE)
+	if(!force)
+		lit = !lit
 	var/atom/light_source = component_parent.parent
 	if(lit)
 		light_source.set_light(component_parent.trait_strength*0.04, min(component_parent.trait_strength*0.1, 10)*-1, color)

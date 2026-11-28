@@ -225,10 +225,8 @@
 		if("toggle_lights")
 			toggle_lights(user = usr)
 		if("toggle_overclock")
-			toggle_overclock()
-			var/datum/action/act = locate(/datum/action/vehicle/sealed/mecha/mech_overclock) in usr.actions
-			act.button_icon_state = "mech_overload_[overclock_mode ? "on" : "off"]"
-			act.update_buttons()
+			if(can_use_overclock || overclock_mode)
+				toggle_overclock()
 		if("repair_int_damage")
 			try_repair_int_damage(usr, params["flag"])
 			return FALSE

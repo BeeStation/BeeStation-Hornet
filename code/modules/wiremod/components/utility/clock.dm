@@ -37,7 +37,7 @@
 
 /obj/item/circuit_component/clock/input_received(datum/port/input/port)
 
-	target_divider = max(target_divider, 1)
+	target_divider = max(divider_port.value, 1)
 
 	if(on.value)
 		start_process()

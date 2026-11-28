@@ -203,8 +203,7 @@
 			var/datum/species/S = H.dna.species
 
 			if (istype(S))
-				H.cut_overlays()
-				H.update_body_parts_head_only()
+				H.render_only_head()
 				H.pixel_y -= GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
 				H.layer += GUILLOTINE_LAYER_DIFF
 			else

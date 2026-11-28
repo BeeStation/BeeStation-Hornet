@@ -312,13 +312,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	held_mob.machine_wash(WM)
 	qdel(src)
 
-/mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
-	WM.bloody_mess = TRUE
-	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
-	gib()
-
 /mob/living/basic/pet/machine_wash(obj/machinery/washing_machine/washer)
 	washer.bloody_mess = TRUE
+	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
 	gib()
 
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
@@ -437,10 +433,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		var/mob/living/L = user.pulling
 		if(L.buckled || L.has_buckled_mobs())
 			return
-		if(state_open)
-			if(istype(L, /mob/living/simple_animal/pet) || istype(L, /mob/living/basic/pet))
-				L.forceMove(src)
-				update_appearance()
+		if(state_open && istype(L, /mob/living/basic/pet))
+			L.forceMove(src)
+			update_appearance()
 		return
 
 	if(!state_open)
@@ -456,18 +451,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
 
-	if(!user.canUseTopic(src, !issilicon(user)))
+	if(!user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy!</span>")
+		to_chat(user, span_warning("[src] is busy!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	if(state_open)
-		to_chat(user, "<span class='warning'>Close the door first!</span>")
+		to_chat(user, span_warning("Close the door first!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	if(bloody_mess)
-		to_chat(user, "<span class='warning'>[src] must be cleaned up first!</span>")
+		to_chat(user, span_warning("[src] must be cleaned up first!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
-	//state_open = FALSE //close the door
 	busy = TRUE
 	update_appearance()
 	bloody_mess = FALSE

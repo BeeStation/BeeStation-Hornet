@@ -251,7 +251,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 			to_chat(user, span_notice("You reverse [src]'s direction."))
 
 	else if(!user.combat_mode)
-		user.transferItemToLoc(I, drop_location())
+		user.transfer_item_to_turf(I, drop_location())
 	else
 		return ..()
 

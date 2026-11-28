@@ -3327,9 +3327,8 @@
 /area/station/security/prison)
 "bmM" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "bmN" = (
 /obj/structure/cable/yellow,
@@ -3848,9 +3847,8 @@
 /obj/machinery/atmospherics/components/tank/air{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "buR" = (
 /obj/effect/landmark/blobstart,
@@ -17554,9 +17552,7 @@
 /turf/open/floor/prison,
 /area/station/security/prison)
 "geb" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen)
 "gef" = (
@@ -25760,7 +25756,7 @@
 /area/station/holodeck/rec_center)
 "ivP" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/basic/pet/fox/renault,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/captain)
@@ -28426,9 +28422,8 @@
 "jlL" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/two,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "jlQ" = (
 /obj/structure/chair/fancy/comfy{
@@ -30462,9 +30457,8 @@
 	},
 /obj/machinery/light/small,
 /obj/machinery/suit_storage_unit/medical,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/medical/morgue)
 "jOV" = (
 /obj/machinery/button/door{
@@ -31885,9 +31879,8 @@
 /area/station/hallway/secondary/command)
 "kmy" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/cargo/exploration_prep)
 "kmH" = (
 /obj/structure/table/reinforced,
@@ -39987,9 +39980,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "mIn" = (
 /obj/structure/disposalpipe/segment{
@@ -40278,9 +40270,8 @@
 "mNr" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/dorms)
 "mNv" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -40570,9 +40561,8 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/dorms)
 "mSK" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -41141,9 +41131,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "ndI" = (
 /obj/effect/turf_decal/trimline/blue/filled/warning{
@@ -42989,7 +42978,7 @@
 /area/station/medical/medbay/lobby)
 "nHa" = (
 /obj/structure/cable/yellow,
-/mob/living/simple_animal/sloth/citrus,
+/mob/living/basic/sloth/citrus,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -43639,9 +43628,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/cargo/exploration_prep)
 "nRc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -47060,9 +47048,8 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/dorms)
 "oOf" = (
 /obj/structure/closet/crate,
@@ -58912,9 +58899,8 @@
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 8
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/cargo/exploration_prep)
 "ssd" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -65869,9 +65855,8 @@
 /obj/item/pen/red,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/dorms)
 "uwR" = (
 /obj/structure/cable/yellow,
@@ -70100,9 +70085,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/medical/morgue)
 "vMF" = (
 /turf/open/floor/circuit/green,
@@ -71725,9 +71709,8 @@
 /area/station/hallway/primary/central)
 "woI" = (
 /obj/item/flashlight/seclite,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/dorms)
 "woO" = (
 /obj/structure/cable/yellow,
@@ -72138,7 +72121,7 @@
 /area/station/maintenance/port/aft)
 "wuC" = (
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "wuD" = (
@@ -76976,7 +76959,7 @@
 "xQF" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	name = "Caroline"
 	},
 /obj/machinery/light/small{
@@ -77616,9 +77599,8 @@
 	name = "Arrivals Distribution Pump";
 	target_pressure = 3000
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "xZZ" = (
 /obj/structure/window/reinforced/spawner/directional/north,

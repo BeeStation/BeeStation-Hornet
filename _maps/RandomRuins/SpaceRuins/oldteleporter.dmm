@@ -19,9 +19,8 @@
 /obj/structure/light_construct/small{
 	dir = 1
 	},
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "h" = (
 /obj/machinery/computer/teleporter{
@@ -49,9 +48,8 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "m" = (
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "n" = (
 /obj/machinery/power/apc{

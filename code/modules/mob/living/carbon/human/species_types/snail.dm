@@ -63,7 +63,9 @@
 	armor_type = /datum/armor/backpack_snail
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
+	drop_sound = null
+	pickup_sound = null
+	equip_sound = null
 
 /datum/armor/backpack_snail
 	melee = 20

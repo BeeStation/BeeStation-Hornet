@@ -173,17 +173,17 @@
 	else
 		return ..()
 
-/obj/item/airlock_painter/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(ink)
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		ink.forceMove(user.drop_location())
-		user.put_in_hands(ink)
-		to_chat(user, span_notice("You remove [ink] from [src]."))
-		ink = null
-		update_icon()
+/obj/item/airlock_painter/click_alt(mob/user)
+	if(!ink)
+		return CLICK_ACTION_BLOCKING
+
+	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+	ink.forceMove(user.drop_location())
+	user.put_in_hands(ink)
+	to_chat(user, span_notice("You remove [ink] from [src]."))
+	ink = null
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/airlock_painter/decal
 	name = "decal painter"

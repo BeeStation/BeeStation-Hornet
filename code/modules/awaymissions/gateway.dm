@@ -65,8 +65,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 		. += ""
 		. += span_info("Use a <b>multi-tool</b> to turn it off.")
 
-/obj/machinery/gateway/MouseDrop_T(atom/movable/AM, mob/user)
-	. = ..()
+/obj/machinery/gateway/mouse_drop_receive(atom/movable/AM, mob/user, params)
 	if(AM == user)
 		try_teleport(AM) // This is so that if you're drag-clicking yourself into the gateway it'll appear as if you're entering it
 	else

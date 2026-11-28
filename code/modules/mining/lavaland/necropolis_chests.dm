@@ -410,7 +410,7 @@
 	inhand_icon_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	fire_sound = 'sound/weapons/batonextend.ogg'
+	fire_sound = 'sound/items/baton/batonextend.ogg'
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | ISWEAPON
 	sharpness = SHARP
@@ -1036,8 +1036,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				FEATURE_LIZARD_MARKINGS = "Dark Tiger Body",
 				"legs" = DIGITIGRADE_LEGS,
 			)
-			H.eye_color_left = "#FEE5A3"
-			H.eye_color_right = "#FEE5A3"
+			H.set_eye_color("#FEE5A3")
 			H.set_species(/datum/species/lizard)
 		if(2)
 			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))

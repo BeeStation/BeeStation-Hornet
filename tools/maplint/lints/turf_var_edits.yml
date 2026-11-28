@@ -1,0 +1,5 @@
+help: "Use the broken/burnt turf mapping helpers"
+/turf/open:
+  banned_variables:
+    - broken
+    - burnt

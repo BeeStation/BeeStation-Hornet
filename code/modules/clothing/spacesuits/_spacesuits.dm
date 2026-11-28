@@ -12,6 +12,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | STACKABLE_HELMET_EXEMPT | HEADINTERNALS
 	armor_type = /datum/armor/helmet_space
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	interaction_flags_click = NEED_DEXTERITY
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -68,11 +69,17 @@
 	actions_types = list(/datum/action/item_action/toggle_spacesuit)
 	pockets = FALSE
 	custom_price = 150
-	var/temperature_setting = BODYTEMP_NORMAL /// The default temperature setting
-	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell /// If this is a path, this gets created as an object in Initialize.
-	var/cell_cover_open = FALSE /// Status of the cell cover on the suit
-	var/thermal_on = FALSE /// Status of the thermal regulator
-	var/show_hud = TRUE /// If this is FALSE the battery status UI will be disabled. This is used for suits that don't use batteries like the changeling's flesh suit mutation.
+	interaction_flags_click = NEED_DEXTERITY
+	/// The default temperature setting
+	var/temperature_setting = BODYTEMP_NORMAL
+	/// If this is a path, this gets created as an object in Initialize.
+	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high
+	/// Status of the cell cover on the suit
+	var/cell_cover_open = FALSE
+	/// Status of the thermal regulator
+	var/thermal_on = FALSE
+	/// If this is FALSE the batery status UI will be disabled. This is used for suits that don't use bateries like the changeling's flesh suit mutation.
+	var/show_hud = TRUE
 
 
 /datum/armor/suit_space
@@ -196,18 +203,16 @@
 	return ..()
 
 /// Open the cell cover when ALT+Click on the suit
-/obj/item/clothing/suit/space/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		return ..()
+/obj/item/clothing/suit/space/click_alt(mob/living/user)
 	toggle_spacesuit_cell(user)
+	return CLICK_ACTION_SUCCESS
 
 /// Remove the cell whent he cover is open on CTRL+Click
-/obj/item/clothing/suit/space/CtrlClick(mob/living/user)
-	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		if(cell_cover_open && cell)
-			remove_cell(user)
-			return
-	return ..()
+/obj/item/clothing/suit/space/item_ctrl_click(mob/user)
+	. = CLICK_ACTION_BLOCKING
+	if(cell_cover_open && cell)
+		remove_cell(user)
+		return CLICK_ACTION_SUCCESS
 
 // Remove the cell when using the suit on its self
 /obj/item/clothing/suit/space/attack_self(mob/user)

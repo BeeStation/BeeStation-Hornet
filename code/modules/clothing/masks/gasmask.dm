@@ -285,7 +285,6 @@
 	to_chat(user, span_notice("The modulator is now [on ? "on" : "off"]!"))
 	return TRUE
 
-/obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/clothing/mask/gas/old/modulator/click_alt(mob/user)
 	attack_self(user)
+	return CLICK_ACTION_SUCCESS

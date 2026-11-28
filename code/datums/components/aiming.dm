@@ -236,7 +236,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 				to_chat(user, span_warning("You can't hold someone at gunpoint with an empty hand!"))
 				return
 			if(!user.pulling || user.pulling != target)
-				target.CtrlClick(user)
+				user.CtrlClickOn(target)
 				return
 			if(user.pulling != target)
 				return

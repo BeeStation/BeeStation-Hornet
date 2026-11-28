@@ -95,6 +95,6 @@
 /obj/item/export_scanner/attack_self(mob/user, modifiers)
 	. = ..()
 	is_on = !is_on
-	playsound(src, 'sound/weapons/pistolrack.ogg', 50)
+	playsound(src, 'sound/weapons/gun/pistol/rack.ogg', 50)
 	z_flick("export_scanner_rack", src)
 	balloon_alert(user, "Scanning: [is_on ? "<font color='#66c427'>Enabled</font>" : "<font color='#c41d1d'>Disabled</font>"]")

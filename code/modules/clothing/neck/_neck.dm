@@ -38,31 +38,32 @@
 	else
 		. += span_notice("Alt-click the tie to tighten it, to fit around your neck.")
 
-/obj/item/clothing/neck/tie/AltClick(mob/user)
-	. = ..()
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
+/obj/item/clothing/neck/tie/click_alt(mob/user)
+	if(!iscarbon(user))
+		return NONE
+	var/mob/living/carbon/C = user
+	if(!user.is_holding(src))
+		if(C.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+			to_chat(user, span_warning("You must be holding [src] in order to loosen it!"))
+		if(C.get_item_by_slot(ITEM_SLOT_NECK) == src)
+			to_chat(user, span_warning("You must be holding [src] in order to tighten it!"))
+		return CLICK_ACTION_BLOCKING
+	if((C.get_item_by_slot(ITEM_SLOT_HEAD) == src) || (C.get_item_by_slot(ITEM_SLOT_NECK) == src))
+		to_chat(user, span_warning("You can't adjust [src] while wearing it!"))
+		return CLICK_ACTION_BLOCKING
+	if(slot_flags & ITEM_SLOT_NECK)
+		slot_flags = ITEM_SLOT_HEAD
+		worn_icon_state += "_head"
 		var/matrix/widen = matrix()
-		if(!user.is_holding(src))
-			if(C.get_item_by_slot(ITEM_SLOT_HEAD) == src)
-				to_chat(user, span_warning("You must be holding [src] in order to loosen it!"))
-			if(C.get_item_by_slot(ITEM_SLOT_NECK) == src)
-				to_chat(user, span_warning("You must be holding [src] in order to tighten it!"))
-			return
-		if((C.get_item_by_slot(ITEM_SLOT_HEAD) == src) || (C.get_item_by_slot(ITEM_SLOT_NECK) == src))
-			to_chat(user, span_warning("You can't adjust [src] while wearing it!"))
-			return
-		if(slot_flags & ITEM_SLOT_NECK)
-			slot_flags = ITEM_SLOT_HEAD
-			worn_icon_state += "_head"
-			widen.Scale(1.25, 1)
-			transform = widen
-			user.visible_message(span_notice("[user] loosens [src]'s knot."), span_notice("You loosen [src]'s knot to fit around your head."))
-		else
-			slot_flags = initial(slot_flags)
-			worn_icon_state = initial(worn_icon_state)
-			transform = initial(transform)
-			user.visible_message(span_notice("[user] tightnens [src]'s knot."), span_notice("You tighten [src]'s knot to fit around your neck."))
+		widen.Scale(1.25, 1)
+		transform = widen
+		user.visible_message(span_notice("[user] loosens [src]'s knot."), span_notice("You loosen [src]'s knot to fit around your head."))
+	else
+		slot_flags = initial(slot_flags)
+		worn_icon_state = initial(worn_icon_state)
+		transform = initial(transform)
+		user.visible_message(span_notice("[user] tightnens [src]'s knot."), span_notice("You tighten [src]'s knot to fit around your neck."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"

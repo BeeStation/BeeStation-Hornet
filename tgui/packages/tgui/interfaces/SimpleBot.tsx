@@ -1,16 +1,7 @@
-import { capitalizeAll, multiline } from 'common/string';
+import { capitalizeAll } from 'common/string';
+import type { CSSProperties } from 'react';
 import { useBackend } from 'tgui/backend';
-import {
-  Button,
-  Flex,
-  Icon,
-  LabeledControls,
-  NoticeBox,
-  Section,
-  Slider,
-  Stack,
-  Tooltip,
-} from 'tgui/components';
+import { Box, Button, Icon, NoticeBox, Slider, Tooltip } from 'tgui/components';
 import { getGasLabel } from 'tgui/constants';
 import { Window } from 'tgui/layouts';
 
@@ -18,6 +9,8 @@ type SimpleBotContext = {
   can_hack: number;
   locked: number;
   emagged: number;
+  model: string;
+  ui_colour: string;
   pai: Pai;
   settings: Settings;
   custom_controls: Controls;
@@ -36,443 +29,582 @@ type Settings = {
   patrol_station: number;
 };
 
-type Controls = {
-  [Control: string]: [Value: number];
+type Controls = Record<string, any>;
+
+const MODEL_ICONS: Record<string, string> = {
+  Medibot: 'vial',
+  Floorbot: 'square',
+  Atmosbot: 'smog',
+  Securitron: 'shield-halved',
+  Cleanbot: 'broom',
+  Firebot: 'fire-extinguisher',
+  'ED-209': 'shield',
+  Honkbot: 'bullhorn',
 };
+
+/** Fontawesome Icons Used For Bot Buttons */
+const TOGGLE_META: Record<string, { icon: string; label?: string }> = {
+  speaker: { icon: 'volume' },
+  crit_alerts: { icon: 'heart-pulse', label: 'Critical Alerts' },
+  stationary_mode: { icon: 'anchor' },
+  synth_epi: { icon: 'syringe', label: 'Synthesize Epinephrine' },
+  check_id: { icon: 'id-badge', label: 'Check ID' },
+  check_weapons: { icon: 'magnifying-glass' },
+  check_warrants: { icon: 'file-alt' },
+  handcuff_targets: { icon: 'handcuffs' },
+  arrest_alert: { icon: 'tower-broadcast' },
+  clean_blood: { icon: 'droplet' },
+  clean_trash: { icon: 'trash-can' },
+  clean_graffiti: { icon: 'spray-can' },
+  pest_control: { icon: 'bugs' },
+  extinguish_fires: { icon: 'fire-extinguisher' },
+  extinguish_people: { icon: 'fire' },
+  tile_hull: { icon: 'gear' },
+  place_tiles: { icon: 'hammer' },
+  place_custom: { icon: 'screwdriver' },
+  repair_damage: { icon: 'wrench' },
+  traction_magnets: { icon: 'magnet' },
+  radio_alerts: { icon: 'tower-cell' },
+};
+
+const THRESHOLD_STYLE = {
+  heal_threshold_brute: { label: 'Brute', color: 'red' },
+  heal_threshold_burn: { label: 'Burn', color: 'orange' },
+  heal_threshold_toxin: { label: 'Toxin', color: 'green' },
+  heal_threshold_oxy: { label: 'Suffocation', color: 'blue' },
+  heal_threshold: { label: 'Total', color: 'white' },
+};
+
+/** Special Keys which need independant handling */
+const SPECIAL_CONTROL_KEYS = new Set([
+  'heal_types',
+  'heal_threshold',
+  'heal_threshold_brute',
+  'heal_threshold_burn',
+  'heal_threshold_toxin',
+  'heal_threshold_oxy',
+  'container',
+  'tile_stack',
+  'line_mode',
+  'ideal_temperature',
+  'temperature_control',
+  'breach_pressure',
+  'scrub_gasses',
+  'sync_tech',
+  'injection_amount',
+]);
 
 export const SimpleBot = (_) => {
   const { data } = useBackend<SimpleBotContext>();
-  const { can_hack, locked } = data;
+  const { can_hack, locked, ui_colour } = data;
   const access = !locked || can_hack;
 
   return (
-    <Window width={450} height={320}>
+    <Window width={550} height={460}>
       <Window.Content>
-        <Stack fill vertical>
-          <Stack.Item>
-            <Section title="Settings" buttons={<TabDisplay />}>
-              {!access ? <NoticeBox>Locked!</NoticeBox> : <SettingsDisplay />}
-            </Section>
-          </Stack.Item>
-          {access && (
-            <Stack.Item grow>
-              <Section fill scrollable title="Controls">
-                <ControlsDisplay />
-              </Section>
-            </Stack.Item>
+        <div
+          className="simplebot"
+          style={{ '--ui-tint': ui_colour || undefined } as CSSProperties}
+        >
+          <BotHeader />
+          {!access ? (
+            <NoticeBox>Locked!</NoticeBox>
+          ) : (
+            <div className="simplebot_body">
+              <CoreSettings />
+              <ControlsGrid />
+            </div>
           )}
-        </Stack>
+        </div>
       </Window.Content>
     </Window>
   );
 };
 
-/** Creates a lock button at the top of the controls */
-const TabDisplay = (_) => {
+/** Bot Header + Alaways Accessible Controls */
+const BotHeader = (_) => {
   const { act, data } = useBackend<SimpleBotContext>();
-  const { can_hack, locked, pai } = data;
-  const { allow_pai } = pai;
+  const { can_hack, locked, emagged, pai, model } = data;
+  const { allow_pai, card_inserted } = pai;
 
   return (
-    <>
-      {!!can_hack && <HackButton />}
-      {!!allow_pai && <PaiButton />}
-      <Button
-        color="transparent"
-        icon={locked ? 'lock' : 'lock-open'}
-        onClick={() => act('lock')}
-        selected={locked}
-        tooltip={`${locked ? 'Unlock' : 'Lock'} the control panel.`}
-      >
-        Controls Lock
-      </Button>
-    </>
+    <div className="simplebot_header">
+      <div className="simplebot_header_title">
+        <Icon name={MODEL_ICONS[model] || 'robot'} size={1.6} />
+        <Box fontSize="1.1em" bold>
+          {model || 'Automated Unit'}
+        </Box>
+      </div>
+      <div className="simplebot_header_actions">
+        {!!allow_pai && (
+          <Tooltip
+            content={
+              card_inserted
+                ? 'Eject the inserted pAI card.'
+                : 'No active pAI card inserted.'
+            }
+          >
+            <Icon
+              className="simplebot_chip"
+              name="robot"
+              color={card_inserted ? 'good' : 'label'}
+              onClick={card_inserted ? () => act('eject_pai') : undefined}
+            />
+          </Tooltip>
+        )}
+        {!!can_hack && (
+          <Tooltip
+            content={
+              emagged
+                ? 'Resets the bot operating system.'
+                : 'Unlocks the safety protocols.'
+            }
+          >
+            <Icon
+              className="simplebot_chip"
+              name={emagged ? 'bug' : 'lock'}
+              color={emagged ? 'bad' : 'label'}
+              onClick={() => act('hack')}
+            />
+          </Tooltip>
+        )}
+        <Tooltip content={`${locked ? 'Unlock' : 'Lock'} the control panel.`}>
+          <Icon
+            className="simplebot_chip"
+            name={locked ? 'lock' : 'lock-open'}
+            color={locked ? 'bad' : 'good'}
+            onClick={() => act('lock')}
+          />
+        </Tooltip>
+      </div>
+    </div>
   );
 };
 
-/** If user is a bad silicon, they can press this button to hack the bot */
-const HackButton = (_) => {
-  const { act, data } = useBackend<SimpleBotContext>();
-  const { can_hack, emagged } = data;
-
-  return (
-    <Button
-      color="danger"
-      disabled={!can_hack}
-      icon={emagged ? 'bug' : 'lock'}
-      onClick={() => act('hack')}
-      selected={!emagged}
-      tooltip={
-        !emagged
-          ? 'Unlocks the safety protocols.'
-          : 'Resets the bot operating system.'
-      }
-    >
-      {emagged ? 'Malfunctional' : 'Safety Lock'}
-    </Button>
-  );
-};
-
-/** Creates a button indicating PAI status and offers the eject action */
-const PaiButton = (_) => {
-  const { act, data } = useBackend<SimpleBotContext>();
-  const { card_inserted } = data.pai;
-
-  if (!card_inserted) {
-    return (
-      <Button
-        color="transparent"
-        icon="robot"
-        tooltip={multiline`Insert an active PAI card to control this device.`}
-      >
-        No PAI Inserted
-      </Button>
-    );
-  } else {
-    return (
-      <Button
-        disabled={!card_inserted}
-        icon="eject"
-        onClick={() => act('eject_pai')}
-        tooltip={multiline`Ejects the current PAI.`}
-      >
-        Eject PAI
-      </Button>
-    );
-  }
-};
-
-/** Displays the bot's standard settings: Power, patrol, etc. */
-const SettingsDisplay = (_) => {
+/** Generic Bot Settings Shared Between All Simplebots. */
+const CoreSettings = (_) => {
   const { act, data } = useBackend<SimpleBotContext>();
   const { settings } = data;
   const { airplane_mode, patrol_station, power, booting, maintenance_lock } =
     settings;
 
-  const color = power ? 'good' : booting ? 'bad' : 'gray';
-
   return (
-    <LabeledControls>
-      <LabeledControls.Item label="Power">
-        <Tooltip content={`Powers ${power ? 'off' : 'on'} the bot.`}>
-          <Icon
-            size={2}
-            name="power-off"
-            color={color}
-            onClick={() => act('power')}
-          />
-        </Tooltip>
-      </LabeledControls.Item>
-      <LabeledControls.Item label="Remote Control">
-        <Tooltip
-          content={`${airplane_mode ? 'Disables' : 'Enables'} remote access via PDA app.`}
-        >
-          <Icon
-            size={2}
-            name="wifi"
-            color={airplane_mode ? 'yellow' : 'gray'}
-            onClick={() => act('airplane')}
-          />
-        </Tooltip>
-      </LabeledControls.Item>
-      <LabeledControls.Item label="Patrol Station">
-        <Tooltip
-          content={`${patrol_station ? 'Disables' : 'Enables'} automatic station patrol.`}
-        >
-          <Icon
-            size={2}
-            name="map-signs"
-            color={patrol_station ? 'good' : 'gray'}
-            onClick={() => act('patrol')}
-          />
-        </Tooltip>
-      </LabeledControls.Item>
-      <LabeledControls.Item label="Maintenance Lock">
-        <Tooltip
-          content={
-            maintenance_lock
-              ? 'Opens the maintenance hatch for repairs.'
-              : 'Closes the maintenance hatch.'
-          }
-        >
-          <Icon
-            size={2}
-            name="toolbox"
-            color={maintenance_lock ? 'yellow' : 'gray'}
-            onClick={() => act('maintenance')}
-          />
-        </Tooltip>
-      </LabeledControls.Item>
-    </LabeledControls>
+    <div className="simplebot_grid">
+      <SettingCard
+        icon="power-off"
+        label="Power"
+        sublabel={power ? 'Online' : booting ? 'Booting\u2026' : 'Offline'}
+        state={power ? 'on' : booting ? 'warn' : 'off'}
+        tooltip={`Powers ${power ? 'off' : 'on'} the bot.`}
+        onClick={() => act('power')}
+      />
+      <SettingCard
+        icon="wifi"
+        label="Remote Control"
+        sublabel={airplane_mode ? 'Enabled' : 'Disabled'}
+        state={airplane_mode ? 'warn' : 'off'}
+        tooltip={`${airplane_mode ? 'Disables' : 'Enables'} remote access via PDA app.`}
+        onClick={() => act('airplane')}
+      />
+      <SettingCard
+        icon="location-arrow"
+        label="Patrol Station"
+        sublabel={patrol_station ? 'Patrolling' : 'Stationary'}
+        state={patrol_station ? 'on' : 'off'}
+        tooltip={`${patrol_station ? 'Disables' : 'Enables'} automatic station patrol.`}
+        onClick={() => act('patrol')}
+      />
+      <SettingCard
+        icon="toolbox"
+        label="Maintenance"
+        sublabel={maintenance_lock ? 'Secured' : 'Open'}
+        state={maintenance_lock ? 'warn' : 'off'}
+        tooltip={
+          maintenance_lock
+            ? 'Opens the maintenance hatch for repairs.'
+            : 'Closes the maintenance hatch.'
+        }
+        onClick={() => act('maintenance')}
+      />
+    </div>
   );
 };
 
-/** Iterates over custom controls.
- * Calls the helper to identify which button to use.
- */
-const ControlsDisplay = (_) => {
+const SettingCard = (props: {
+  icon: string;
+  label: string;
+  sublabel: string;
+  state: 'on' | 'warn' | 'off';
+  tooltip: string;
+  onClick: () => void;
+}) => {
+  const { icon, label, sublabel, state, tooltip, onClick } = props;
+  return (
+    <Tooltip content={tooltip}>
+      <div className={`simplebot_card state-${state}`} onClick={onClick}>
+        <Icon name={icon} size={1.6} />
+        <Box className="simplebot_card_label">{label}</Box>
+        <Box className="simplebot_card_sub">{sublabel}</Box>
+      </div>
+    </Tooltip>
+  );
+};
+
+/* Special Keys Handling */
+const ControlsGrid = (_) => {
   const { data } = useBackend<SimpleBotContext>();
   const { custom_controls } = data;
+  const keys = Object.keys(custom_controls);
+
+  if (!keys.length) {
+    return null;
+  }
+
+  const hasThresholds = keys.some(
+    (key) => key === 'heal_threshold' || key.startsWith('heal_threshold_'),
+  );
+  const toggles = Object.entries(custom_controls).filter(
+    ([key]) => !SPECIAL_CONTROL_KEYS.has(key),
+  );
 
   return (
-    <LabeledControls wrap>
-      {Object.entries(custom_controls).map((control) => {
-        if (control[0] === 'scrub_gasses') {
-          return <ControlHelper key={control[0]} control={control} />;
-        }
+    <div className="simplebot_grid">
+      {hasThresholds && <ThresholdsCard custom_controls={custom_controls} />}
+      {custom_controls.container && 'injection_amount' in custom_controls ? (
+        <div className="simplebot_medbot_row">
+          <SupplyCard custom_controls={custom_controls} />
+          <DoseCard value={custom_controls.injection_amount} />
+        </div>
+      ) : (
+        <>
+          {(custom_controls.container || custom_controls.tile_stack) && (
+            <SupplyCard custom_controls={custom_controls} />
+          )}
+          {'injection_amount' in custom_controls && (
+            <DoseCard value={custom_controls.injection_amount} />
+          )}
+        </>
+      )}
+      {'ideal_temperature' in custom_controls && (
+        <TemperatureCard custom_controls={custom_controls} />
+      )}
+      {'breach_pressure' in custom_controls && (
+        <PressureCard value={custom_controls.breach_pressure} />
+      )}
+      {'sync_tech' in custom_controls && (
+        <SyncCard value={custom_controls.sync_tech} />
+      )}
+      {'line_mode' in custom_controls && (
+        <DirectionCard value={custom_controls.line_mode} />
+      )}
+      {'scrub_gasses' in custom_controls && (
+        <GasCard value={custom_controls.scrub_gasses} />
+      )}
+      {toggles.map(([key, value]) => (
+        <ToggleCard key={key} ctrlKey={key} value={!!value} />
+      ))}
+    </div>
+  );
+};
+
+/** Toggle for Generic Bot Controls. */
+const ToggleCard = (props: { ctrlKey: string; value: boolean }) => {
+  const { act } = useBackend<SimpleBotContext>();
+  const { ctrlKey, value } = props;
+  const meta = TOGGLE_META[ctrlKey];
+  const label = meta?.label || capitalizeAll(ctrlKey.replace(/_/g, ' '));
+
+  return (
+    <Tooltip content={`Toggle ${label.toLowerCase()}.`}>
+      <div
+        className={`simplebot_card state-${value ? 'on' : 'off'}`}
+        onClick={() => act(ctrlKey)}
+      >
+        <Icon name={meta?.icon || 'cog'} size={1.6} />
+        <Box className="simplebot_card_label">{label}</Box>
+      </div>
+    </Tooltip>
+  );
+};
+
+/** Controller For Medbots Healing Theshold  */
+const ThresholdsCard = (props: { custom_controls: Controls }) => {
+  const { act } = useBackend<SimpleBotContext>();
+  const { custom_controls } = props;
+  const types = (custom_controls.heal_types || {}) as Record<string, boolean>;
+  const entries = Object.entries(custom_controls).filter(
+    ([key]) => key === 'heal_threshold' || key.startsWith('heal_threshold_'),
+  );
+
+  return (
+    <div className="simplebot_card wide static">
+      <Box className="simplebot_card_label">
+        <Icon name="heartbeat" mr={1} />
+        Treatment Thresholds
+      </Box>
+      <Box className="simplebot_card_caption">
+        Patients are treated when any enabled threshold is met.
+      </Box>
+      {entries.map(([key, value]) => {
+        const damageType =
+          key === 'heal_threshold'
+            ? 'total'
+            : key.replace('heal_threshold_', '');
+        const style = THRESHOLD_STYLE[key];
+        const enabled = !!types?.[damageType];
         return (
-          <LabeledControls.Item
-            pb={2}
-            key={control[0]}
-            label={capitalizeAll(control[0].replace('_', ' '))}
-          >
-            <ControlHelper control={control} />
-          </LabeledControls.Item>
+          <div className="simplebot_threshold_row" key={key}>
+            <Button
+              compact
+              className="simplebot_threshold_label"
+              color={enabled ? 'good' : 'bad'}
+              tooltip="Toggle checking this damage type."
+              onClick={() => act('heal_type', { damage_type: damageType })}
+            >
+              {style.label}
+            </Button>
+            <Tooltip
+              content={`Treat patients with at least this much ${damageType} damage.`}
+            >
+              <Slider
+                className="simplebot_threshold_slider"
+                minValue={10}
+                maxValue={100}
+                step={5}
+                stepPixelSize={20}
+                unit="%"
+                color={style.color}
+                value={value}
+                onChange={(_, v) =>
+                  act('heal_threshold_type', {
+                    damage_type: damageType,
+                    threshold: v,
+                  })
+                }
+              />
+            </Tooltip>
+          </div>
         );
       })}
-    </LabeledControls>
+    </div>
   );
 };
 
-/** Helper function which identifies which button to create.
- * Might need some fine tuning if you are using more advanced controls.
- */
-const ControlHelper = (props) => {
+/* Medbot Reagent Container and some Tile Stack Handling. */
+const SupplyCard = (props: { custom_controls: Controls }) => {
   const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-  if (control[0] === 'sync_tech') {
-    /** Control is for sync - this is medbot specific */
-    return <MedbotSync control={control} />;
-  } else if (control[0] === 'heal_threshold') {
-    /** Control is a threshold - this is medbot specific */
-    return <MedbotThreshold control={control} />;
-  } else if (control[0] === 'injection_amount') {
-    /** Control is a threshold - this is medbot specific */
-    return <MedbotInjectionThreshold control={control} />;
-  } else if (control[0] === 'container') {
-    return <MedbotBeaker control={control} />;
-  } else if (control[0] === 'tile_stack') {
-    return <FloorbotTiles control={control} />;
-  } else if (control[0] === 'line_mode') {
-    return <FloorbotLine control={control} />;
-  } else if (control[0] === 'breach_pressure') {
-    return <AtmosbotBreachPressure control={control} />;
-  } else if (control[0] === 'ideal_temperature') {
-    return <AtmosbotTargetTemperature control={control} />;
-  } else if (control[0] === 'scrub_gasses') {
-    return <AtmosbotScrubbedGasses control={control} />;
-  } else {
-    /** Control is a boolean of some type */
+  const { custom_controls } = props;
+
+  if (custom_controls.container) {
+    const { reagent_glass, total_volume, maximum_volume } =
+      custom_controls.container;
     return (
-      <Icon
-        color={control[1] ? 'good' : 'gray'}
-        name={control[1] ? 'toggle-on' : 'toggle-off'}
-        size={2}
-        onClick={() => act(control[0])}
-      />
+      <div className="simplebot_card static simplebot_supply_card">
+        <Box className="simplebot_card_label">
+          <Icon name="flask" mr={1} color={reagent_glass ? 'good' : 'label'} />
+          Reagent Supply
+        </Box>
+        <div className="simplebot_supply_row">
+          <Box>
+            {reagent_glass
+              ? `${reagent_glass} [${total_volume}/${maximum_volume}]`
+              : 'Empty'}
+          </Box>
+          <Button
+            compact
+            disabled={!reagent_glass}
+            icon="eject"
+            onClick={() => act('eject')}
+          >
+            Eject
+          </Button>
+        </div>
+      </div>
     );
   }
-};
 
-/** Small button to sync medbots with research. */
-const MedbotSync = (props) => {
-  const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-  const efficiency = Math.round(control[1] * 100);
-
+  const { tilestack, amount, max_amount } = custom_controls.tile_stack;
   return (
-    <Tooltip
-      content={
-        multiline`Synchronize surgical data with research network.
-       Currently at: ` +
-        efficiency +
-        `% efficiency.`
-      }
-    >
-      <Icon
-        color="purple"
-        name="cloud-download-alt"
-        size={2}
-        onClick={() => act('sync_tech')}
-      />
-    </Tooltip>
+    <div className="simplebot_card static">
+      <Box className="simplebot_card_label">
+        <Icon name="th-large" mr={1} color={tilestack ? 'good' : 'label'} />
+        Tile Supply
+      </Box>
+      <div className="simplebot_supply_row">
+        <Box>
+          {tilestack ? `${tilestack} [${amount}/${max_amount}]` : 'Empty'}
+        </Box>
+        <Button
+          compact
+          disabled={!tilestack}
+          icon="eject"
+          onClick={() => act('eject_tiles')}
+        >
+          Eject
+        </Button>
+      </div>
+    </div>
   );
 };
 
-/** Slider button for medbot healing thresholds */
-const MedbotThreshold = (props) => {
+/* Floorbot Tiling Mode Controller  */
+const DirectionCard = (props: { value: any }) => {
   const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-
-  return (
-    <Tooltip content="Adjusts the sensitivity for damage treatment.">
-      <Slider
-        minValue={5}
-        maxValue={95}
-        ranges={{
-          good: [-Infinity, 15],
-          average: [15, 55],
-          bad: [55, Infinity],
-        }}
-        step={5}
-        unit="%"
-        value={control[1]}
-        onChange={(_, value) => act(control[0], { threshold: value })}
-      />
-    </Tooltip>
-  );
-};
-
-/** Slider button for medbot healing thresholds */
-const MedbotInjectionThreshold = (props) => {
-  const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-
-  return (
-    <Tooltip content="Adjusts the dose of chemicals administered.">
-      <Slider
-        minValue={5}
-        maxValue={30}
-        ranges={{
-          good: [-Infinity, 15],
-          average: [15, 25],
-          bad: [25, Infinity],
-        }}
-        step={5}
-        unit="u"
-        value={control[1]}
-        onChange={(_, value) => act(control[0], { inject: value })}
-      />
-    </Tooltip>
-  );
-};
-
-const MedbotBeaker = (props) => {
-  const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-  const [reagent_glass, total_volume, maximum_volume] = [
-    control[1]['reagent_glass'],
-    control[1]['total_volume'],
-    control[1]['maximum_volume'],
-  ];
-
-  return (
-    <Button
-      disabled={!reagent_glass}
-      icon={reagent_glass ? 'eject' : ''}
-      onClick={() => act('eject')}
-      tooltip="Container contained in the bot."
-    >
-      {reagent_glass
-        ? `${reagent_glass} [${total_volume}/${maximum_volume}]`
-        : 'Empty'}
-    </Button>
-  );
-};
-
-/** Tile stacks for floorbots - shows number and eject button */
-const FloorbotTiles = (props) => {
-  const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-  const [tilestack, amount, max_amount] = [
-    control[1]['tilestack'],
-    control[1]['amount'],
-    control[1]['max_amount'],
-  ];
-
-  return (
-    <Button
-      disabled={!tilestack}
-      icon={tilestack ? 'eject' : ''}
-      onClick={() => act('eject_tiles')}
-      tooltip="Floor tiles contained in the bot."
-    >
-      {tilestack ? `${tilestack} [${amount}/${max_amount}]` : 'Empty'}
-    </Button>
-  );
-};
-
-/** Direction indicator for floorbot when line mode is chosen. */
-const FloorbotLine = (props) => {
-  const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
+  const { value } = props;
+  const active = !!value;
 
   return (
     <Tooltip content="Enables straight line tiling mode.">
-      <Icon
-        color={control[1] ? 'good' : 'gray'}
-        name={control[1] ? 'compass' : 'toggle-off'}
+      <div
+        className={`simplebot_card state-${active ? 'on' : 'off'}`}
         onClick={() => act('line_mode')}
-        size={!control[1] ? 2 : 1.5}
       >
-        {' '}
-        {control[1] ? control[1].toString().charAt(0).toUpperCase() : ''}
-      </Icon>
+        <Icon name="compass" size={1.6} />
+        <Box className="simplebot_card_label">Line Mode</Box>
+        <Box className="simplebot_card_sub">
+          {active ? value.toString() : 'Disabled'}
+        </Box>
+      </div>
     </Tooltip>
   );
 };
 
-/** Slider button for atmosbot breach pressure detection thresholds */
-const AtmosbotBreachPressure = (props) => {
+/* Temperature Control Special Key Handling! */
+const TemperatureCard = (props: { custom_controls: Controls }) => {
   const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-
-  return (
-    <Tooltip content="Adjusts the pressure to scan for breaches at.">
-      <Slider
-        minValue={0}
-        maxValue={100}
-        step={5}
-        unit="kPa"
-        value={control[1]}
-        onChange={(_, value) => act(control[0], { pressure: value })}
-      />
-    </Tooltip>
-  );
-};
-
-/** Slider button for atmosbot target temperature */
-const AtmosbotTargetTemperature = (props) => {
-  const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
+  const { custom_controls } = props;
   const [T0C, T20C] = [273.15, 293.15];
+  const hasToggle = 'temperature_control' in custom_controls;
+  const enabled = hasToggle ? !!custom_controls.temperature_control : true;
 
   return (
-    <Tooltip content="Adjusts the target temperature.">
-      <Slider
-        minValue={T0C}
-        maxValue={T20C + 20}
-        step={1}
-        unit="K"
-        value={control[1]}
-        onChange={(_, value) => act(control[0], { temperature: value })}
-      />
+    <div className="simplebot_card wide static">
+      <Box className="simplebot_card_label">
+        <Icon name="thermometer-half" mr={1} />
+        Target Temperature
+        {hasToggle && (
+          <Button
+            compact
+            ml={1}
+            color={enabled ? 'good' : 'bad'}
+            onClick={() => act('temperature_control')}
+          >
+            {enabled ? 'Active' : 'Disabled'}
+          </Button>
+        )}
+      </Box>
+      <Tooltip content="Adjusts the target temperature.">
+        <Slider
+          minValue={T0C}
+          maxValue={T20C + 20}
+          step={1}
+          stepPixelSize={20}
+          unit="K"
+          value={custom_controls.ideal_temperature}
+          onChange={(_, v) => act('ideal_temperature', { temperature: v })}
+        />
+      </Tooltip>
+    </div>
+  );
+};
+
+/** Atmosbot Pressure Scan Controller */
+const PressureCard = (props: { value: number }) => {
+  const { act } = useBackend<SimpleBotContext>();
+
+  return (
+    <div className="simplebot_card wide static">
+      <Box className="simplebot_card_label">
+        <Icon name="wind" mr={1} />
+        Breach Detection
+      </Box>
+      <Tooltip content="Adjusts the pressure to scan for breaches at.">
+        <Slider
+          minValue={0}
+          maxValue={100}
+          step={5}
+          stepPixelSize={20}
+          unit="kPa"
+          value={props.value}
+          onChange={(_, v) => act('breach_pressure', { pressure: v })}
+        />
+      </Tooltip>
+    </div>
+  );
+};
+
+/** Medbot Injection Dose Controller */
+const DoseCard = (props: { value: number }) => {
+  const { act } = useBackend<SimpleBotContext>();
+
+  return (
+    <div className="simplebot_card static">
+      <Box className="simplebot_card_label">
+        <Icon name="syringe" mr={1} />
+        Injection Dose
+      </Box>
+      <Tooltip content="Adjusts the dose of chemicals administered.">
+        <Slider
+          minValue={5}
+          maxValue={30}
+          ranges={{
+            good: [-Infinity, 15],
+            average: [15, 25],
+            bad: [25, Infinity],
+          }}
+          step={5}
+          stepPixelSize={50}
+          unit="u"
+          value={props.value}
+          onChange={(_, v) => act('injection_amount', { inject: v })}
+        />
+      </Tooltip>
+    </div>
+  );
+};
+
+/** Medbot Efficency Synch */
+const SyncCard = (props: { value: number }) => {
+  const { act } = useBackend<SimpleBotContext>();
+  const efficiency = Math.round((props.value || 0) * 100);
+
+  return (
+    <Tooltip
+      content={`Synchronize surgical data with research network. Currently at: ${efficiency}% efficiency.`}
+    >
+      <div className="simplebot_card" onClick={() => act('sync_tech')}>
+        <Icon name="cloud-download-alt" size={1.6} color="purple" />
+        <Box className="simplebot_card_label">Tech Sync</Box>
+        <Box className="simplebot_card_sub">{efficiency}%</Box>
+      </div>
     </Tooltip>
   );
 };
 
-const AtmosbotScrubbedGasses = (props) => {
+/** Atmosbot's Gas Scrubbing Controls */
+const GasCard = (props: { value: Record<string, boolean> }) => {
   const { act } = useBackend<SimpleBotContext>();
-  const { control } = props;
-  const gasses = Object.entries(control[1]);
+  const gasses = Object.entries(props.value || {});
 
   return (
-    <Flex wrap>
-      <Section title="Scrubbed gasses">
-        {gasses.map((gas) => {
-          const gas_id = gas[0];
-          const enabled = gas[1];
-          return (
-            <Button
-              key={gas_id}
-              icon={enabled ? 'check-square-o' : 'square-o'}
-              content={getGasLabel(gas_id)}
-              selected={enabled}
-              onClick={() => act(control[0], { id: gas_id })}
-            />
-          );
-        })}
-      </Section>
-    </Flex>
+    <div className="simplebot_card xwide static">
+      <Box className="simplebot_card_label">
+        <Icon name="wind" mr={1} />
+        Gas Scrubbing
+      </Box>
+      <div className="simplebot_chip_grid">
+        {gasses.map(([gasId, enabled]) => (
+          <Button
+            key={gasId}
+            compact
+            icon={enabled ? 'check-square-o' : 'square-o'}
+            selected={!!enabled}
+            onClick={() => act('scrub_gasses', { id: gasId })}
+          >
+            {getGasLabel(gasId)}
+          </Button>
+        ))}
+      </div>
+    </div>
   );
 };

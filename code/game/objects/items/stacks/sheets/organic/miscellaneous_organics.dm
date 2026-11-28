@@ -7,6 +7,8 @@
 	icon_state = "chitin"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/xenochitin
+	pickup_sound = 'sound/items/handling/materials/skin_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/skin_drop.ogg'
 
 /obj/item/xenos_claw
 	name = "alien claw"
@@ -37,6 +39,8 @@
 	throw_range = 3
 	grind_results = list(/datum/reagent/carbon = 10)
 	merge_type = /obj/item/stack/sheet/bone
+	drop_sound = null
+	pickup_sound = null
 
 /* Sinew */
 
@@ -48,7 +52,8 @@
 	icon_state = "sinew"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/sinew
-
+	drop_sound = 'sound/effects/meatslap.ogg'
+	pickup_sound = 'sound/effects/meatslap.ogg'
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/cable/sinew, 1, crafting_flags = NONE, category = CAT_EQUIPMENT), \

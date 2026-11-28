@@ -36,9 +36,8 @@
 /obj/structure/chair/fancy/sofa/old/left{
 	color = "#c45c57"
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/centcom/tdome/arena)
 "h" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
@@ -63,9 +62,8 @@
 	color = "#c45c57";
 	dir = 4
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/centcom/tdome/arena)
 "l" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
@@ -151,9 +149,8 @@
 /turf/open/floor/carpet/red,
 /area/centcom/tdome/arena)
 "D" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/centcom/tdome/arena)
 "E" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -182,9 +179,8 @@
 	color = "#c45c57";
 	dir = 8
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/centcom/tdome/arena)
 "V" = (
 /obj/structure/railing/corner{

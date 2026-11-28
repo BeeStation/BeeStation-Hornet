@@ -2,7 +2,8 @@
 	. = ..()
 
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_UNKNOWN_APPEARANCE), SIGNAL_REMOVETRAIT(TRAIT_UNKNOWN_APPEARANCE)), PROC_REF(on_unknown_appearance_trait))
-	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_HUSK), SIGNAL_REMOVETRAIT(TRAIT_HUSK)), PROC_REF(refresh_obscured))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_HUSK), SIGNAL_REMOVETRAIT(TRAIT_HUSK)), PROC_REF(husk_trait_toggle))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_UNDERWEAR), SIGNAL_REMOVETRAIT(TRAIT_NO_UNDERWEAR)), PROC_REF(no_underwear_toggle))
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_TRACKED_SENSORS), PROC_REF(add_to_suit_sensors))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_TRACKED_SENSORS), PROC_REF(remove_from_suit_sensors))
@@ -33,3 +34,13 @@
 		add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+
+/mob/living/carbon/human/proc/husk_trait_toggle(datum/source)
+	SIGNAL_HANDLER
+	refresh_obscured()
+	update_body()
+
+/// When [TRAIT_NO_UNDERWEAR] is added or removed we need to update our body to hide or show underwear sprites
+/mob/living/carbon/human/proc/no_underwear_toggle(datum/source)
+	SIGNAL_HANDLER
+	update_body()

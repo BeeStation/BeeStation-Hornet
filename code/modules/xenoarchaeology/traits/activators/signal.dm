@@ -25,10 +25,9 @@
 	//Signal
 	signal = new(list("code" = code))
 	//Frequency
-	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
-	radio_connection.add_listener(src)
+	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, RADIO_SIGNALER)
 
-/datum/xenoartifact_trait/minor/signaller/Destroy(force)
+/datum/xenoartifact_trait/activator/signal/Destroy(force)
 	SSradio.remove_object(src, FREQ_SIGNALER)
 	QDEL_NULL(signal)
 	return ..()
@@ -76,17 +75,18 @@
 	XENOA_TRAIT_HINT_SOUND("sonar pings"))
 
 /datum/xenoartifact_trait/activator/signal/proc/receive_signal(datum/signal/signal)
-	if(!signal)
+	if(!signal || !component_parent)
 		return
 	if(signal.data["code"] != code)
 		return
+	var/triggered = FALSE
 	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
-		trigger_artifact(target, XENOA_ACTIVATION_CONTACT)
+		triggered = trigger_artifact(target, XENOA_ACTIVATION_CONTACT)
 		break
-	if(!length(component_parent.targets))
+	if(!triggered)
 		component_parent.trigger()
 
 /datum/xenoartifact_trait/activator/signal/proc/do_sonar(repeat = TRUE)

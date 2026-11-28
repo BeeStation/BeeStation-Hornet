@@ -331,6 +331,10 @@
 	update_clothing(hidden_slots_to_inventory_slots(added_slots|removed_slots))
 	if((added_slots|removed_slots) & HIDESNOUT)
 		synchronize_bodyshapes()
+	if((added_slots|removed_slots) & (HIDEHAIR|HIDEFACIALHAIR))
+		update_hair()
+	if((added_slots|removed_slots) & HIDEEYES)
+		update_eyes()
 	if((added_slots|removed_slots) & (HIDEJUMPSUIT|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEMUTWINGS|HIDEANTENNAE))
 		update_body()
 

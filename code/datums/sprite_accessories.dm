@@ -1353,7 +1353,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /// This one goes first. Don't move it
 /datum/sprite_accessory/facial_hair/shaved
 	name = "Shaved"
-	icon_state = null
+	icon_state = SPRITE_ACCESSORY_NONE
 	use_default_gender = NEUTER
 
 /datum/sprite_accessory/facial_hair/eyebrows

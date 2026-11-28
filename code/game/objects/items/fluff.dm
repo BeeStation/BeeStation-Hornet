@@ -10,5 +10,5 @@
 	desc = "Dear lord..."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_generic"
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
+	drop_sound = 'sound/items/handling/paper/paper_drop.ogg'
+	pickup_sound = 'sound/items/handling/paper/paper_pickup.ogg'

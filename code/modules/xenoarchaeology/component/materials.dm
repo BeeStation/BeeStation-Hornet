@@ -31,9 +31,9 @@
 	var/list/mask_icon_states = list("map_editor")
 
 	///What rate do we convert custom price to discovery points to?
-	var/dp_rate = 0.01
+	var/dp_rate = 0.0065
 	///What rate do we convert custom price to research points to?
-	var/rnd_rate = 0.05
+	var/rnd_rate = 0.028
 
 	///What traits flags are we associated with
 	var/trait_flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
@@ -90,7 +90,7 @@
 	instability_step = 25
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
 	mask_icon_states = list("mask-uranium1", "mask-uranium2", "mask-uranium2")
-	custom_price = 450
+	custom_price = 300
 	trait_malfunctions = 1
 	max_trait_malfunctions = 2
 	trait_flags = XENOA_URANIUM_TRAIT

@@ -288,6 +288,7 @@
 		qdel(p_blue)
 		p_blue = P
 	crosslink()
+	playsound(P, "portal_created", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /* 3d printer 'pseudo guns' for borgs */
 

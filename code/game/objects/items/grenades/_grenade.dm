@@ -14,13 +14,20 @@
 	worn_icon_state = "grenade"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+
 	throw_speed = 3
 	throw_range = 7
+	stamina_damage = 0
+	stamina_cost = 0
+	stamina_critical_chance = 0
+
 	obj_flags = CONDUCTS_ELECTRICITY
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // We detonate upon being exploded.
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	pickup_sound = 'sound/items/handling/grenade/grenade_pick_up.ogg'
+	drop_sound = 'sound/items/handling/grenade/grenade_drop.ogg'
 	/// Bitfields which prevent the grenade from detonating if set. Includes ([GRENADE_DUD]|[GRENADE_USED])
 	var/dud_flags = NONE
 	var/active = 0

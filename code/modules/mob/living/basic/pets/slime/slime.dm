@@ -239,12 +239,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime/random)
 	tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]/[SLIME_MAX_POWER]")
 	return tab_data
 
-/mob/living/basic/slime/MouseDrop(atom/movable/target_atom as mob|obj)
-	if(isliving(target_atom) && target_atom != src && usr == src)
+/mob/living/basic/slime/mouse_drop_dragged(atom/target_atom, mob/user, src_location, over_location, params)
+	if(isliving(target_atom) && target_atom != src && user == src)
 		var/mob/living/food = target_atom
 		if(can_feed_on(food))
 			start_feeding(food)
-	return ..()
 
 ///Slimes can hop off mobs they have latched onto
 /mob/living/basic/slime/resist_buckle()

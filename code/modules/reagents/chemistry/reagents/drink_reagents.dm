@@ -579,7 +579,7 @@
 		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
 		if(!irradiated_component)
 			irradiated_component = affected_mob.AddComponent(/datum/component/irradiated)
-		irradiated_component.adjust_intensity(3 * REM * delta_time)
+		irradiated_component.adjust_intensity(0.5 * REM * delta_time)
 
 /datum/reagent/consumable/grey_bull
 	name = "Grey Bull"

@@ -8,18 +8,6 @@
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE
 
-/datum/emote/living/carbon/blink
-	key = "blink"
-	key_third_person = "blinks"
-	message = "blinks"
-	emote_type = EMOTE_VISIBLE
-
-/datum/emote/living/carbon/blink_r
-	key = "blink_r"
-	name = "blink (Rapid)"
-	message = "blinks rapidly"
-	emote_type = EMOTE_VISIBLE
-
 /datum/emote/living/carbon/clap
 	key = "clap"
 	key_third_person = "claps"

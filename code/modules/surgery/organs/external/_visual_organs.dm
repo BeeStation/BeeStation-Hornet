@@ -156,16 +156,14 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 /datum/bodypart_overlay/mutant/frills/icon_render_key(obj/item/bodypart/limb)
 	. = ..()
-	var/obj/item/bodypart/head/head = limb
-	if(istype(head) && LAZYLEN(head.hair_masks))
-		. += jointext(head.hair_masks, ",")
+	if(LAZYLEN(limb?.owner?.hair_masks))
+		. += jointext(limb.owner.hair_masks, ",")
 
 /datum/bodypart_overlay/mutant/frills/get_image(obj/item/bodypart/limb, layer_index, layer_real)
-	var/obj/item/bodypart/head/head = limb
-	if(!istype(head) || !LAZYLEN(head.hair_masks))
+	if(!LAZYLEN(limb?.owner?.hair_masks))
 		return ..()
 
-	var/list/hair_masks_to_use = head.hair_masks
+	var/list/hair_masks_to_use = limb.owner.hair_masks
 	var/icon_state_to_use = build_icon_state(layer_index, limb)
 	var/frill_cache_key = "[sprite_datum.type]-[icon_state_to_use]-[jointext(hair_masks_to_use, ",")]"
 	var/static/list/cached_frill_icons
@@ -422,7 +420,12 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 /datum/bodypart_overlay/mutant/psyphoza_cap
 	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	feature_key = FEATURE_PSYPHOZA_CAP
+	color_source = ORGAN_COLOR_OVERRIDE
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+
+/datum/bodypart_overlay/mutant/psyphoza_cap/override_color(obj/item/bodypart/bodypart_owner)
+	var/mob/living/carbon/human/human_owner = bodypart_owner.owner
+	return human_owner?.dna.features[FEATURE_MUTANT_COLOR]
 
 /datum/bodypart_overlay/mutant/psyphoza_cap/get_global_feature_list()
 	return GLOB.psyphoza_cap_list

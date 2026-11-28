@@ -89,9 +89,9 @@
 /obj/item/clothing/head/helmet/space/plasmaman/add_stabilizer()
 	AddComponent(/datum/component/hat_stabilizer, loose_hat = FALSE)
 
-/obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		toggle_welding_screen(user)
+/obj/item/clothing/head/helmet/space/plasmaman/click_alt(mob/user)
+	toggle_welding_screen(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_welding_screen))

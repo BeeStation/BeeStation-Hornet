@@ -78,9 +78,8 @@
 /turf/open/floor/iron/airless,
 /area/station/tcommsat/oldaisat)
 "ar" = (
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
 /area/station/tcommsat/oldaisat)
 "at" = (
 /obj/structure/lattice,

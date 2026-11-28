@@ -39,6 +39,7 @@ jobs:
             _maps
             .github
             code/datums/greyscale/json_configs
+            goon/icons
             icons
             sound/runtime
             strings

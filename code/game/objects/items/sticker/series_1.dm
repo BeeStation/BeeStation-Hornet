@@ -3,8 +3,8 @@
 */
 
 /obj/item/sticker/series_1/get_stats()
-	. = "<span class='notice'>Series 1</span>\n"
-	. += ..()
+	. = ..()
+	. += span_notice("Series 1")
 
 /obj/item/sticker/series_1/generate_unusual()
 	var/obj/emitter/emitter = pick(list(/obj/emitter/electrified, /obj/emitter/snow, /obj/emitter/fire))

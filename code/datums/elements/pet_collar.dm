@@ -8,7 +8,7 @@
 	///iconstate of our collar while resting
 	var/collar_resting_icon_state
 
-/datum/element/wears_collar/Attach(datum/target, collar_icon = 'icons/mob/pets.dmi', collar_resting_icon_state = FALSE, collar_icon_state)
+/datum/element/wears_collar/Attach(datum/target, collar_icon = 'icons/mob/simple/pets.dmi', collar_resting_icon_state = FALSE, collar_icon_state)
 	. = ..()
 
 	if(!isliving(target))

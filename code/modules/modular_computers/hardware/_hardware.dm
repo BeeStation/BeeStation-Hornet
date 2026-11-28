@@ -3,8 +3,8 @@
 	desc = "Unknown Hardware."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
-	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
-	drop_sound = 'sound/items/handling/tape_drop.ogg'
+	pickup_sound = 'sound/items/handling/tape_recorder/tape_pickup.ogg'
+	drop_sound = 'sound/items/handling/tape_recorder/tape_drop.ogg'
 	//Two small paychecks as default, with higher level components going up.
 	custom_price = PAYCHECK_EASY * 2
 
@@ -138,7 +138,7 @@
 		return TRUE
 	power_usage = input
 	new /obj/effect/particle_effect/sparks(get_turf(src))
-	playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
+	playsound(src, 'sound/items/handling/tape_recorder/tape_drop.ogg', 50, TRUE)
 	return TRUE
 
 /obj/item/computer_hardware/multitool_act(mob/living/user, obj/item/I)
@@ -211,7 +211,7 @@
 /obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
 	enabled = !enabled
 	to_chat(user, span_notice("[src] has been [enabled ? "disabled" : "disabled"]."))
-	playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+	playsound(src, 'sound/items/handling/tools/wirecutter_pickup.ogg', 50, TRUE)
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
@@ -263,7 +263,7 @@
 /obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
 	if(open)
 		to_chat(user, span_notice("The component doesn't fit! Try closing the maintenance panel with a screwdriver!"))
-		playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
+		playsound(src, 'sound/items/handling/tape_recorder/tape_drop.ogg', 50, TRUE)
 		return FALSE
 	return can_install
 

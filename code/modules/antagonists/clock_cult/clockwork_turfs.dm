@@ -415,7 +415,7 @@
 	qdel(src)
 
 /obj/machinery/door/airlock/clockwork/proc/attempt_construction(obj/item/I, mob/living/user)
-	if(!I || !user || !user.canUseTopic(src))
+	if(!I || !user || !user.can_perform_action(src))
 		return 0
 	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(construction_state == GEAR_SECURE)

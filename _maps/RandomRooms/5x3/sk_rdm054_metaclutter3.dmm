@@ -35,9 +35,8 @@
 /area/template_noop)
 "d" = (
 /obj/structure/easel,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /obj/structure/closet,
@@ -63,9 +62,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "i" = (
 /obj/structure/rack,

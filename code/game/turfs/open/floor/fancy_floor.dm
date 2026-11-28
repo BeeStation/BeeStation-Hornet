@@ -44,10 +44,6 @@
 /turf/open/floor/wood/broken_states()
 	return GLOB.wood_turf_damage
 
-/turf/open/floor/wood/broken
-	broken = TRUE
-	variant_states = 0
-
 /turf/open/floor/wood/big
 	icon_state = "wood_big"
 	variant_probability = 80
@@ -84,8 +80,8 @@
 
 /turf/open/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
-		broken = 0
-		burnt = 0
+		broken = FALSE
+		burnt = FALSE
 		if(user && !silent)
 			to_chat(user, span_notice("You remove the broken planks."))
 	else

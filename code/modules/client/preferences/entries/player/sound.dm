@@ -1,4 +1,4 @@
-#define SET_CHANNEL_VOLUME_FROM_PREF(client, channel, volume) client?.mob?.set_sound_channel_volume(channel, client?.sound_channel_initial_volumes["[channel]"] * (volume / 100))
+#define SET_CHANNEL_VOLUME_FROM_PREF(client, channel, volume) client?.mob?.set_sound_channel_volume(channel, client?.sound_channel_initial_volumes[channel] * (volume / 100))
 
 /datum/preference/numeric/volume
 	abstract_type = /datum/preference/numeric/volume

@@ -187,14 +187,14 @@
 			if(!is_valid_z_level(ai_turf, player_turf))
 				continue
 
-			player_mob.client?.sound_channel_initial_volumes["[CHANNEL_VOX]"] = 100
+			player_mob.client?.sound_channel_initial_volumes[CHANNEL_VOX] = 100
 
 			var/pref_volume = player_mob.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ai_vox_volume)
 			var/sound/voice = sound(sound_file, wait = TRUE, channel = CHANNEL_VOX, volume = pref_volume)
 			voice.status = SOUND_STREAM
 			SEND_SOUND(player_mob, voice)
 	else
-		only_listener.client?.sound_channel_initial_volumes["[CHANNEL_VOX]"] = 100
+		only_listener.client?.sound_channel_initial_volumes[CHANNEL_VOX] = 100
 
 		var/pref_volume = only_listener.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ai_vox_volume)
 		var/sound/voice = sound(sound_file, wait = TRUE, channel = CHANNEL_VOX, volume = pref_volume)

@@ -89,6 +89,12 @@
 	build_path = /obj/item/circuit_component/compare/comparison
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
+/datum/design/component/for_each
+	name = "For Each Component"
+	id = "comp_foreach"
+	build_path = /obj/item/circuit_component/foreach
+	category = list(RND_CATEGORY_LIST_COMPONENTS)
+
 /datum/design/component/logic
 	name = "Logic Component"
 	id = "comp_logic"
@@ -101,6 +107,11 @@
 	build_path = /obj/item/circuit_component/iterator
 	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
+/datum/design/component/is_null_component
+	name = "Is Null Component"
+	id = "comp_isnull"
+	build_path = /obj/item/circuit_component/is_null
+	category = list(RND_CATEGORY_LOGIC_COMPONENTS)
 
 /datum/design/component/switch_case
 	name = "Switch Case"

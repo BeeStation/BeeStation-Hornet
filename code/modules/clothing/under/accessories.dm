@@ -72,11 +72,12 @@
 /obj/item/clothing/accessory/proc/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
 	return
 
-/obj/item/clothing/accessory/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		if(initial(above_suit))
-			above_suit = !above_suit
-			to_chat(user, "[src] will be worn [above_suit ? "above" : "below"] your suit.")
+/obj/item/clothing/accessory/click_alt(mob/user)
+	if(!initial(above_suit))
+		return NONE
+	above_suit = !above_suit
+	to_chat(user, "[src] will be worn [above_suit ? "above" : "below"] your suit.")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/accessory/examine(mob/user)
 	. = ..()

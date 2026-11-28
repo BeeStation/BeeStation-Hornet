@@ -5,6 +5,7 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/computer/cloning
 	req_access = list(ACCESS_GENETICS) //for modifying records
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/clonepod_type = /obj/machinery/clonepod
 	var/list/connected_pods //Linked cloning pods
@@ -130,16 +131,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	return COMPONENT_BUFFER_RECEIVED
 
-/obj/machinery/computer/cloning/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/machinery/computer/cloning/click_alt(mob/user)
 	eject_disk(user)
+	return CLICK_ACTION_SUCCESS
 
 // --------------------------------------
 // Manages record and disk
 /obj/machinery/computer/cloning/proc/delete_record(mob/user, target_record)
-	var/obj/item/card/id/idcard_for_auth = user.get_idcard(hand_first = TRUE)
+	var/obj/item/card/id/idcard_for_auth
+	if(isliving(user))
+		var/mob/living/living_user = user
+		idcard_for_auth = living_user.get_idcard(hand_first = TRUE)
 	if(!istype(idcard_for_auth) || !check_access(idcard_for_auth))
 		scantemp = "Cannot delete: Access Denied."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)

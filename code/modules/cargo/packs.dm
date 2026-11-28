@@ -2864,13 +2864,13 @@
 	desc = "Not a very dangerous insect, but they do give off a better image than, say, flies or cockroaches."//is that a motherfucking worm reference
 	contraband = TRUE
 	cost = 5000
-	contains = list(/mob/living/simple_animal/butterfly)
+	contains = list(/mob/living/basic/butterfly)
 	crate_name = "entomology samples crate"
 
 /datum/supply_pack/critter/butterfly/generate()
 	. = ..()
 	for(var/i in 1 to 49)
-		new /mob/living/simple_animal/butterfly(.)
+		new /mob/living/basic/butterfly(.)
 
 /datum/supply_pack/critter/cat
 	name = "Cat Crate"
@@ -2914,7 +2914,7 @@
 	name = "Chicken Crate"
 	desc = "The chicken goes bwaak!"
 	cost = 2000
-	contains = list( /mob/living/simple_animal/chick)
+	contains = list(/mob/living/basic/chicken)
 	crate_name = "chicken crate"
 
 /datum/supply_pack/critter/corgi
@@ -2950,14 +2950,14 @@
 	name = "Crab Rocket"
 	desc = "CRAAAAAAB ROCKET. CRAB ROCKET. CRAB ROCKET. CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB ROCKET. CRAFT. ROCKET. BUY. CRAFT ROCKET. CRAB ROOOCKET. CRAB ROOOOCKET. CRAB CRAB CRAB CRAB CRAB CRAB CRAB CRAB ROOOOOOOOOOOOOOOOOOOOOOCK EEEEEEEEEEEEEEEEEEEEEEEEE EEEETTTTTTTTTTTTAAAAAAAAA AAAHHHHHHHHHHHHH. CRAB ROCKET. CRAAAB ROCKEEEEEEEEEGGGGHHHHTT CRAB CRAB CRAABROCKET CRAB ROCKEEEET."//fun fact: i actually spent like 10 minutes and transcribed the entire video.
 	cost = 5000
-	contains = list(/mob/living/simple_animal/crab)
+	contains = list(/mob/living/basic/crab)
 	crate_name = "look sir free crabs"
 	DropPodOnly = TRUE
 
 /datum/supply_pack/critter/crab/generate()
 	. = ..()
 	for(var/i in 1 to 49)
-		new /mob/living/simple_animal/crab(.)
+		new /mob/living/basic/crab(.)
 
 /datum/supply_pack/critter/corgis/exotic
 	name = "Exotic Corgi Crate"
@@ -2971,7 +2971,7 @@
 	name = "Fox Crate"
 	desc = "The fox goes...? Comes with a collar!"//what does the fox say
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/fox,
+	contains = list(/mob/living/basic/pet/fox,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "fox crate"
 
@@ -2979,7 +2979,7 @@
 	name = "Goat Crate"
 	desc = "The goat goes baa! Warranty void if used as a replacement for Pete."
 	cost = 2500
-	contains = list(/mob/living/simple_animal/hostile/retaliate/goat)
+	contains = list(/mob/living/basic/goat)
 	crate_name = "goat crate"
 
 /datum/supply_pack/critter/mothroach
@@ -3019,9 +3019,9 @@
 	desc = "Tired of these MOTHER FUCKING snakes on this MOTHER FUCKING space station? Then this isn't the crate for you. Contains three poisonous snakes."
 	cost = 3000
 	access_budget = ACCESS_SECURITY
-	contains = list(/mob/living/simple_animal/hostile/retaliate/poison/snake,
-					/mob/living/simple_animal/hostile/retaliate/poison/snake,
-					/mob/living/simple_animal/hostile/retaliate/poison/snake)
+	contains = list(/mob/living/basic/snake,
+					/mob/living/basic/snake,
+					/mob/living/basic/snake)
 	crate_name = "snake crate"
 
 /datum/supply_pack/critter/capybara

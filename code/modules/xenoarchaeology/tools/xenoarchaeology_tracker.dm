@@ -55,10 +55,10 @@
 		say("Error: [target] is not compatible with [src].")
 	playsound(src, sound_in, 50, TRUE)
 
-/obj/item/sticker/artifact_tracker/AltClick(mob/user)
-	. = ..()
+/obj/item/sticker/artifact_tracker/click_alt(mob/user)
 	use_radio = !use_radio
 	to_chat(user, "<span class='[use_radio ? "notice" : "warning"]'>Internal radio [use_radio ? "enabled" : "disabled"].</span>")
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/sticker/artifact_tracker/unstick(atom/override)

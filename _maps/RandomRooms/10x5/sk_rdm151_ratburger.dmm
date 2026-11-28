@@ -25,9 +25,8 @@
 /turf/closed/wall,
 /area/template_noop)
 "k" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "l" = (
 /obj/machinery/microwave,
@@ -58,9 +57,8 @@
 "q" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/landmark/blobstart,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "r" = (
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -69,9 +67,8 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "y" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "z" = (
 /mob/living/basic/mouse/brown,
@@ -116,9 +113,8 @@
 /obj/structure/sign/barsign{
 	pixel_y = 32
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "F" = (
 /obj/structure/table,
@@ -205,9 +201,8 @@
 /obj/item/stack/cable_coil,
 /obj/item/knife/butcher,
 /obj/item/clothing/suit/hooded/wintercoat/security,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/blood/old,

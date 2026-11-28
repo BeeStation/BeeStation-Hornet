@@ -8,8 +8,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	icon_state = "antivirus1"
-	drop_sound = 'sound/items/handling/disk_drop.ogg'
-	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
+	drop_sound = 'sound/items/handling/disk/disk_drop.ogg'
+	pickup_sound =  'sound/items/handling/disk/disk_pickup.ogg'
 	var/resistcap = 6 //one higher than what it can cure
 	virus_defense = ANTIVIRUS_BASIC
 	custom_price = PAYCHECK_MEDIUM
