@@ -28,16 +28,14 @@
 /area/template_noop)
 "f" = (
 /obj/item/kirbyplants/random,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/random,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "h" = (
 /obj/machinery/photocopier,
@@ -48,9 +46,8 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "j" = (
 /obj/machinery/light/small{
@@ -205,9 +202,8 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "N" = (
 /obj/structure/table/wood,
@@ -216,9 +212,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "Q" = (
 /obj/structure/chair/office{
@@ -246,9 +241,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/folder,
 /obj/item/pen,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "U" = (
 /obj/structure/table/wood,

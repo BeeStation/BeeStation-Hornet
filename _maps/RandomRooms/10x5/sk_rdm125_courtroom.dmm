@@ -12,9 +12,8 @@
 /area/template_noop)
 "d" = (
 /obj/structure/table_frame/wood,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "g" = (
 /obj/machinery/light/broken{
@@ -37,15 +36,13 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "l" = (
 /obj/effect/decal/cleanable/ash,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "p" = (
 /obj/machinery/door/window/southleft{
@@ -63,9 +60,8 @@
 /area/template_noop)
 "v" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "A" = (
 /obj/machinery/light,
@@ -81,18 +77,16 @@
 /area/template_noop)
 "C" = (
 /obj/effect/trap/trigger/reusable/random,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "D" = (
 /obj/structure/table_frame/wood,
 /obj/effect/trap/nexus/trickyspawner/shitsec{
 	mobs = 3
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "E" = (
 /obj/structure/chair{

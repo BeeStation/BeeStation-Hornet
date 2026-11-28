@@ -2485,9 +2485,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
 "zA" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -2741,9 +2740,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
 "BC" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -2866,9 +2864,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
 "CP" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
@@ -3407,9 +3404,8 @@
 /turf/open/floor/engine/n2,
 /area/ruin/syndicate_lava_base/engineering)
 "Jz" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
 "JA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4863,9 +4859,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
 "YO" = (
 /obj/structure/extinguisher_cabinet{

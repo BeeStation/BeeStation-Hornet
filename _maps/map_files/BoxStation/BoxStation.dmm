@@ -518,9 +518,8 @@
 "alZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "amb" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -2001,9 +2000,8 @@
 "aWs" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "aWx" = (
 /obj/effect/turf_decal/tile/dark_blue{
@@ -4146,7 +4144,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/opposingcorners,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/item/broken_bottle,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
@@ -6338,7 +6336,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "dah" = (
 /obj/structure/cable/yellow,
@@ -9321,7 +9320,8 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 5
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "edU" = (
 /obj/effect/turf_decal/siding/wood{
@@ -18875,7 +18875,8 @@
 /area/station/commons/dorms)
 "icj" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/security/brig)
 "icn" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -19218,7 +19219,7 @@
 /area/station/maintenance/starboard/fore)
 "iiZ" = (
 /obj/effect/turf_decal/tile/green/opposingcorners,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
@@ -20557,7 +20558,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "iJc" = (
 /obj/machinery/door/airlock/external{
@@ -22983,9 +22985,8 @@
 /area/station/command/meeting_room)
 "jLa" = (
 /obj/structure/cable/yellow,
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "jLj" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -23954,7 +23955,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/opposingcorners,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -24773,9 +24774,8 @@
 /turf/open/floor/carpet/red,
 /area/station/command/heads_quarters/hos)
 "kyp" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "kyq" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -25536,7 +25536,8 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "kMT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -26554,7 +26555,7 @@
 	},
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
 "lfW" = (
@@ -32560,7 +32561,8 @@
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
 "nyG" = (
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/security/brig)
 "nzd" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -33922,7 +33924,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/security/brig)
 "oeR" = (
 /obj/machinery/door/airlock/maintenance,
@@ -34623,7 +34626,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/security/brig)
 "owc" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -35366,9 +35370,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "oJQ" = (
 /obj/structure/fireaxecabinet{
@@ -37805,7 +37808,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/east,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "pKK" = (
 /obj/machinery/nanite_chamber,
@@ -38452,7 +38456,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "pZW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -41624,9 +41629,8 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "rpM" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "rpS" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -42004,7 +42008,7 @@
 /obj/structure/mop_bucket,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/opposingcorners,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
 "rxa" = (
@@ -45161,7 +45165,8 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "sKS" = (
 /obj/machinery/status_display/evac{
@@ -45774,7 +45779,8 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/entertainment/arcade,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/security/brig)
 "sYf" = (
 /obj/structure/chair/office/light{
@@ -46574,7 +46580,7 @@
 /area/station/security/brig)
 "tnr" = (
 /obj/effect/turf_decal/tile/green/opposingcorners,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
@@ -53050,9 +53056,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "vWX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
@@ -55068,7 +55073,7 @@
 /turf/closed/wall,
 /area/station/maintenance/starboard/aft)
 "wPr" = (
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -55088,7 +55093,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/south,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "wPY" = (
 /obj/machinery/vending/cola,

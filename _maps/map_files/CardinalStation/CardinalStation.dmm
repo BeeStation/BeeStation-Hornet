@@ -4555,7 +4555,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "This room was mapped in 2022 and is completely unchanged in the final 2025 version. Janitors had it all figured out before everyone else - BarteG";
 	name = "CardinalStation - Janitor Closet"
 	},
@@ -4879,7 +4879,7 @@
 "biA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "At the moment these are purely for flavor. They make the station feel like it's an actual functioning machine that requires maintenance - BarteG";
 	name = "CardinalStation - Engineering Substations"
 	},
@@ -17869,7 +17869,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical)
 "enE" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "The vault might not have much space access but it's surprisingly easy to break into. It's just one rwall, and rocks that can be destroyed with a pick or *any* explosion - BarteG";
 	name = "CardinalStation - Vault"
 	},
@@ -19719,7 +19719,7 @@
 /area/station/science/research)
 "eJK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/port/central)
 "eJX" = (
@@ -23080,7 +23080,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "fwA" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -25591,7 +25592,8 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "fZC" = (
 /obj/effect/turf_decal/stripes/line,
@@ -29223,7 +29225,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/railing/corner{
 	dir = 1
 	},
@@ -31950,7 +31952,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "These shoot Disabler projectiles so they can work trough the glass. As such, the windows below need something Dense in them to block the shots when you haven't yet entered the chamber - BarteG";
 	name = "CardinalStation - AI Turrets"
 	},
@@ -32378,7 +32380,7 @@
 /area/station/service/theater)
 "hFV" = (
 /obj/effect/turf_decal/box,
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "These are meant to be test sites for explosive and non explosive nades because chem deserves a gimmick. Also it gives chemists an excuse as to why they would me making grenades at work - BarteG";
 	name = "CardinalStation - Chem Test Lab"
 	},
@@ -32887,7 +32889,7 @@
 /area/station/maintenance/port/central)
 "hLn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -33129,7 +33131,7 @@
 	name = "Metal filings"
 	},
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/smooth,
 /area/station/security/prison)
 "hPq" = (
@@ -34127,7 +34129,8 @@
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/atmos)
 "ibE" = (
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "ibF" = (
 /obj/effect/turf_decal/siding/thinplating_new/terracotta{
@@ -36677,7 +36680,7 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "A little satelite for flavor. The only goodies on it are a foam force SMG, a regular camera console and an unrestricted intercom - BarteG";
 	name = "CardinalStation - Syndicate Satelite"
 	},
@@ -39925,7 +39928,7 @@
 /turf/open/floor/iron,
 /area/station/maintenance/department/chapel)
 "jqN" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "This area actually used to be about 4 times the size, but i had to cut it down because the map's huge already - BarteG";
 	name = "CardinalStation - Garden Dome"
 	},
@@ -40780,7 +40783,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/locker)
 "jBL" = (
 /obj/effect/turf_decal/siding/blue/corner{
@@ -44909,7 +44913,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "kAQ" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "There are 6 rooms in maintenance labeled 'M.1-6' which connect with disposal pipes. It's intended as a way to easily move from one part of maintenance to another without having to go trough the huge halls - BarteG";
 	name = "CardinalStation - Labeled Maintenance Rooms"
 	},
@@ -48115,7 +48119,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "Fireplace in a sauna? Yeah sure, that makes sense - BarteG";
 	name = "CardinalStation - Sauna"
 	},
@@ -48330,7 +48334,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "lpM" = (
 /obj/machinery/light/small/directional/west,
@@ -53575,7 +53580,7 @@
 /turf/open/floor/wood/big,
 /area/station/security/detectives_office)
 "mAX" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "A soulful solution to the disposals mass driver shooting things at the AI sat - BarteG";
 	name = "CardinalStation - Trash Island"
 	},
@@ -54397,7 +54402,7 @@
 /area/station/hallway/secondary/entry)
 "mLB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -59535,7 +59540,8 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "nVF" = (
 /obj/machinery/light/small/directional/west,
@@ -60764,7 +60770,7 @@
 /area/station/maintenance/solars/starboard/fore)
 "olA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/department/engine)
 "olB" = (
@@ -60866,7 +60872,7 @@
 "onw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/blood{
@@ -66872,7 +66878,7 @@
 /area/station/medical/medbay/aft)
 "pKd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/department/eva)
 "pKj" = (
@@ -68672,7 +68678,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/department/bridge)
 "qhb" = (
@@ -72288,7 +72294,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "qVO" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "First done by Spocky on a Shiptest ship as far as i know. They are purely visual - BarteG";
 	name = "CardinalStation - Fake holes"
 	},
@@ -76951,7 +76957,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "This one room is the reason why i spent a week making the wall lockers - BarteG";
 	name = "CardinalStation - Coffee Shop"
 	},
@@ -78490,7 +78496,8 @@
 /obj/machinery/light_switch/directional/south{
 	pixel_x = 13
 	},
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/service/library/lounge)
 "svX" = (
 /obj/effect/turf_decal/trimline/white/line{
@@ -79265,7 +79272,7 @@
 /area/station/hallway/primary/port)
 "sEh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/central)
 "sEl" = (
@@ -80165,7 +80172,7 @@
 /area/station/cargo/exploration_prep)
 "sPa" = (
 /obj/structure/lattice,
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "Unshocked window and no motion detecting cameras hopefully make up for the armory being deep inside security - BarteG";
 	name = "CardinalStation - Armory vulnerability"
 	},
@@ -82068,7 +82075,7 @@
 /area/station/maintenance/disposal/incinerator)
 "toa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/blood/innards{
 	pixel_y = -12;
 	pixel_x = -4
@@ -84006,7 +84013,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/club)
@@ -84652,7 +84659,8 @@
 /obj/machinery/digital_clock/directional/north,
 /obj/item/storage/box/matches,
 /obj/structure/closet/crate/bin,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "tWw" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -85639,7 +85647,8 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/locker)
 "ugE" = (
 /obj/effect/turf_decal/siding/dark/corner{
@@ -89079,7 +89088,7 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "This area actually used to be about 4 times the size, but i had to cut it down because the map's huge already - BarteG";
 	name = "CardinalStation - Garden Dome"
 	},
@@ -92851,7 +92860,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "This will be opened properly when the coffee shop PR gets merged - BarteG";
 	name = "CardinalStation - Closed Coffee Shop"
 	},
@@ -93780,7 +93789,8 @@
 /obj/item/lipstick/random,
 /obj/machinery/light/directional/east,
 /obj/machinery/status_display/evac/directional/south,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/locker)
 "vZG" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -94196,7 +94206,7 @@
 /area/station/commons/locker)
 "wfu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
 /area/station/maintenance/department/science/xenobiology)
 "wfI" = (
@@ -95138,7 +95148,8 @@
 	dir = 5
 	},
 /obj/structure/cable/yellow,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "wrA" = (
 /obj/structure/cable/yellow,
@@ -95528,7 +95539,7 @@
 /turf/open/floor/glass/reinforced,
 /area/station/hallway/primary/starboard)
 "wwM" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
+/obj/effect/mapping_helpers/mapper_comment{
 	desc = "I had lots of space to fill and as such, this materialized. It's meant to be sort of hard to find, and not a place that's freqented every shift, though i'm not stopping anyone - BarteG";
 	name = "CardinalStation - Abandoned Club"
 	},
@@ -96542,7 +96553,7 @@
 /area/station/service/hydroponics)
 "wIK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/item/chair,
 /turf/open/floor/iron,
 /area/station/maintenance/department/cargo)
@@ -102435,7 +102446,8 @@
 /area/station/cargo/storage)
 "ycI" = (
 /obj/effect/turf_decal/siding/thinplating_new,
-/turf/open/floor/wood/broken,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/station/commons/locker)
 "ycU" = (
 /obj/structure/disposaloutlet{

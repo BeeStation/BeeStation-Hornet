@@ -317,8 +317,8 @@
 		var/turf/open/floor/floor = victim
 		if(floor.overfloor_placed && floor.floor_tile)
 			new floor.floor_tile(floor)
-		floor.broken = 0
-		floor.burnt = 0
+		floor.broken = FALSE
+		floor.burnt = FALSE
 		floor.make_plating(TRUE)
 
 	if(victim.type == /turf/closed/wall && prob(15) && !HAS_TRAIT(victim, TRAIT_RUSTY))

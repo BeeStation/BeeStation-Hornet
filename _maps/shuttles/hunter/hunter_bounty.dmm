@@ -161,9 +161,8 @@
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "iD" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -553,9 +552,8 @@
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "BE" = (
 /obj/structure/fluff/empty_sleeper{
@@ -734,9 +732,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 10
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "Lo" = (
 /turf/closed/wall/mineral/titanium/survival,
