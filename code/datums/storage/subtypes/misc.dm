@@ -11,14 +11,13 @@
 			/obj/item/holochip,
 			/obj/item/card,
 			/obj/item/cigarette,
-			/obj/item/flashlight/pen,
-			/obj/item/seeds,
-			/obj/item/stack/medical,
-			/obj/item/toy/crayon,
 			/obj/item/coin,
 			/obj/item/dice,
 			/obj/item/disk,
+			/obj/item/flashlight/pen,
+			/obj/item/food/chococoin,
 			/obj/item/implanter,
+			/obj/item/laser_pointer,
 			/obj/item/lighter,
 			/obj/item/lipstick,
 			/obj/item/match,
@@ -28,8 +27,10 @@
 			/obj/item/reagent_containers/dropper,
 			/obj/item/reagent_containers/syringe,
 			/obj/item/screwdriver,
+			/obj/item/seeds,
+			/obj/item/stack/medical,
 			/obj/item/stamp,
-			/obj/item/clothing/accessory/badge,
+			/obj/item/toy/crayon,
 		),
 	)
 
@@ -51,3 +52,18 @@
 	set_holdable(list(
 		/obj/item/reagent_containers/applicator,
 	))
+
+/// Stasis fish case
+/datum/storage/fish_case
+	max_slots = 1
+	can_hold_description = "fish and aquarium equipment"
+
+/datum/storage/fish_case/can_insert(obj/item/to_insert, mob/user, messages = TRUE, force = STORAGE_NOT_LOCKED)
+	. = ..()
+	if(!.)
+		return
+
+	if(!HAS_TRAIT(to_insert, TRAIT_FISH_CASE_COMPATIBILE))
+		if(messages && user)
+			user.balloon_alert(user, "can't hold!")
+		return FALSE

@@ -12,18 +12,24 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	armor_type = /datum/armor/hooded_wintercoat
 	custom_price = 25
-	allowed = list(
-		/obj/item/flashlight,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman,
-		/obj/item/toy,
-		/obj/item/storage/fancy/cigarettes,
-		/obj/item/lighter
-	)
-
+	allowed = list()
 
 /datum/armor/hooded_wintercoat
 	bio = 10
+
+/obj/item/clothing/suit/hooded/wintercoat/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/flashlight,
+		/obj/item/lighter,
+		/obj/item/modular_computer/tablet/pda,
+		/obj/item/radio,
+		/obj/item/storage/bag/books,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+	)
 
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"

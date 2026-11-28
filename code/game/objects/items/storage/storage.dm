@@ -4,7 +4,6 @@
 	icon = 'icons/obj/storage/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	interaction_flags_click = ALLOW_RESTING|FORBID_TELEKINESIS_REACH
-	var/rummage_if_nodrop = TRUE
 	var/empty = FALSE
 	/// Should we preload the contents of this type?
 	/// BE CAREFUL, THERE'S SOME REALLY NASTY SHIT IN THIS TYPEPATH
@@ -24,11 +23,21 @@
 
 	PopulateContents()
 
-	for (var/obj/item/item in src)
-		item.item_flags |= IN_STORAGE
+/obj/item/storage/create_storage(
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+	list/canhold,
+	list/canthold,
+	storage_type,
+)
+	// If no type was passed in, default to what we already have
+	storage_type ||= src.storage_type
+	return ..()
 
-/obj/item/storage/AllowDrop()
-	return FALSE
+///Use this to populate the contents of the storage
+/obj/item/storage/proc/PopulateContents()
+	PROTECTED_PROC(TRUE)
 
 /obj/item/storage/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -41,22 +50,21 @@
 				SSexplosions.low_mov_atom += thing
 
 /obj/item/storage/canStrip(mob/who)
-	. = ..()
-	if(!. && rummage_if_nodrop)
-		return TRUE
+	return TRUE
 
 /obj/item/storage/doStrip(mob/who)
-	if(HAS_TRAIT(src, TRAIT_NODROP) && rummage_if_nodrop)
+	if(HAS_TRAIT(src, TRAIT_NODROP))
 		atom_storage.remove_all()
 		return TRUE
 	return ..()
 
-/obj/item/storage/contents_explosion(severity, target)
-//Cyberboss says: "USE THIS TO FILL IT, NOT INITIALIZE OR NEW"
+/obj/item/storage/AllowDrop()
+	return FALSE
 
-/obj/item/storage/proc/PopulateContents()
-
+///Drops all contents of this storage on the turf of its parent
 /obj/item/storage/proc/emptyStorage()
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	atom_storage.remove_all()
 
 /obj/item/storage/on_object_saved(depth = 0)

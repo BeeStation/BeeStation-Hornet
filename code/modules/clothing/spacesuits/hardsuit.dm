@@ -29,7 +29,6 @@
 
 	var/basestate = "hardsuit"
 	var/on = FALSE
-	var/obj/item/clothing/suit/space/hardsuit/suit
 	var/hardsuit_type = "engineering" //Determines used sprites: hardsuit[on]-[type]
 
 /datum/armor/space_hardsuit
@@ -49,17 +48,6 @@
 	if(geiger_counter)
 		AddComponent(/datum/component/geiger_sound)
 
-/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	// Move to nullspace first to prevent qdel loops
-	moveToNullspace()
-	if(!QDELETED(suit))
-		qdel(suit)
-	suit = null
-
-	if(geiger_counter)
-		qdel(GetComponent(/datum/component/geiger_sound))
-	. = ..()
-
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	if(light_broken)
 		to_chat(user, span_notice("The headlamp has been burnt out... Looks like there's no replacing it."))
@@ -73,21 +61,9 @@
 
 	update_action_buttons()
 
-/obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user)
-	..()
-	suit?.RemoveHelmet()
-
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
 		return 1
-
-/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot)
-	..()
-	if(slot != ITEM_SLOT_HEAD)
-		if(suit)
-			suit.RemoveHelmet()
-		else
-			qdel(src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_hud(mob/user)
 	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
@@ -127,15 +103,15 @@
 	armor_type = /datum/armor/space_hardsuit
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser)
 	siemens_coefficient = 0
+	/// Reference to the helmet object, if it exists
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
 	actions_types = list(
-		/datum/action/item_action/toggle_spacesuit,
-		/datum/action/item_action/toggle_helmet
+		/datum/action/item_action/toggle_spacesuit
 	)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/hardsuit_type
-	/// Whether the helmet is on.
-	var/helmet_on = FALSE
+	/// Set when the helmet is destroyed, blocks making a new one until a bulb is fitted
+	var/helmet_broken = FALSE
 
 
 /datum/armor/space_hardsuit
@@ -149,6 +125,62 @@
 	acid = 75
 	stamina = 20
 	bleed = 70
+
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
+	. = ..()
+	if(!helmettype)
+		return
+	AddComponent(\
+		/datum/component/toggle_attached_clothing,\
+		deployable_type = helmettype,\
+		equipped_slot = ITEM_SLOT_HEAD,\
+		action_name = "Toggle Helmet",\
+		pre_creation_check = CALLBACK(src, PROC_REF(can_create_helmet)),\
+		on_created = CALLBACK(src, PROC_REF(on_helmet_created)),\
+		on_deployed = CALLBACK(src, PROC_REF(on_helmet_engaged)),\
+		on_removed = CALLBACK(src, PROC_REF(on_helmet_disengaged)),\
+	)
+
+/obj/item/clothing/suit/space/hardsuit/Destroy()
+	helmet = null
+	return ..()
+
+/// A destroyed helmet can only be replaced by fitting a new bulb
+/obj/item/clothing/suit/space/hardsuit/proc/can_create_helmet()
+	if(!helmet_broken)
+		return TRUE
+	var/mob/wearer = loc
+	if(ismob(wearer))
+		balloon_alert(wearer, "lightbulb is damaged!")
+	return FALSE
+
+/// Called when the helmet is instantiated
+/obj/item/clothing/suit/space/hardsuit/proc/on_helmet_created(obj/item/clothing/head/helmet/space/hardsuit/new_helmet)
+	SHOULD_CALL_PARENT(TRUE)
+	helmet = new_helmet
+	RegisterSignal(helmet, COMSIG_QDELETING, PROC_REF(on_helmet_deleted))
+
+/// Called when the helmet is deleted, it takes a replacement bulb to get a new one
+/obj/item/clothing/suit/space/hardsuit/proc/on_helmet_deleted()
+	SIGNAL_HANDLER
+	SHOULD_CALL_PARENT(TRUE)
+	helmet = null
+	helmet_broken = TRUE
+
+/// Called when the helmet is engaged
+/obj/item/clothing/suit/space/hardsuit/proc/on_helmet_engaged(obj/item/clothing/head/helmet/space/hardsuit/engaged_helmet)
+	if(ishuman(loc))
+		to_chat(loc, span_notice("You engage the helmet on the hardsuit."))
+	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1)
+
+/// Called when the helmet is put away
+/obj/item/clothing/suit/space/hardsuit/proc/on_helmet_disengaged(obj/item/clothing/head/helmet/space/hardsuit/stowed_helmet)
+	var/mob/living/carbon/human/wearer = ishuman(loc) ? loc : null
+	if(stowed_helmet.on)
+		stowed_helmet.attack_self(wearer)
+	if(wearer)
+		to_chat(wearer, span_notice("The helmet on the hardsuit disengages."))
+	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1)
 
 /obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -173,16 +205,15 @@
 			return
 		if(do_after(user, 5 SECONDS, 1, src))
 			qdel(I)
-			helmet = new helmettype(src)
+			helmet_broken = FALSE
+			var/datum/component/toggle_attached_clothing/helmet_toggle = GetComponent(/datum/component/toggle_attached_clothing)
+			helmet_toggle.create_deployable()
 			to_chat(user, span_notice("You have successfully repaired [src]'s helmet."))
 			new /obj/item/light/bulb/broken(drop_location())
 	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)
-		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet()
-			return
 		if(/datum/action/item_action/toggle_beacon)
 			toggle_beacon(user)
 			return

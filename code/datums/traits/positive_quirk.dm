@@ -153,7 +153,7 @@
 		LOCATION_BACKPACK,
 		LOCATION_HANDS,
 	)
-	H.equip_in_one_of_slots(camera, camera_slots , qdel_on_fail = TRUE)
+	H.equip_in_one_of_slots(camera, camera_slots , qdel_on_fail = TRUE, indirect_action = TRUE)
 	H.regenerate_icons()
 
 /datum/quirk/selfaware
@@ -186,7 +186,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/toy/crayon/spraycan/spraycan = new(get_turf(H))
 	H.put_in_hands(spraycan)
-	H.equip_to_storage(spraycan, ITEM_SLOT_BACK)
+	H.equip_to_storage(spraycan, ITEM_SLOT_BACK, indirect_action = TRUE)
 	H.regenerate_icons()
 
 /datum/quirk/voracious
@@ -228,7 +228,7 @@
 
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_storage(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
+	H.equip_to_storage(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACK, indirect_action = TRUE, del_on_fail = TRUE)
 
 /datum/quirk/computer_whiz
 	name = "Computer Whiz"

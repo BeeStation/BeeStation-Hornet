@@ -56,7 +56,7 @@
 		/obj/item/book/granter/action/spell/blind = 10,
 		/obj/item/clothing/shoes/chameleon/noslip = 10,
 		/obj/item/grenade/plastic = 7,
-		/obj/item/borg/upgrade/ddrill = 3,
+		/obj/item/borg/upgrade/diamond_drill = 3,
 		/obj/item/borg/upgrade/soh = 3,
 	)
 
@@ -77,7 +77,7 @@
 		/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
 		/obj/item/grenade/spawnergrenade/spesscarp = 7,
 		/obj/item/melee/energy/sword = 7,
-		/obj/item/borg/upgrade/ddrill = 7,
+		/obj/item/borg/upgrade/diamond_drill = 7,
 		/obj/item/dnainjector/lasereyesmut = 7,
 		/obj/item/shield/energy = 6,
 		/obj/item/pickaxe/drill/diamonddrill = 6,

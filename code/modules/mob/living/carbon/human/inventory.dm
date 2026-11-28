@@ -131,8 +131,7 @@
 		)
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
-// Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
-/mob/living/carbon/human/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
+/mob/living/carbon/human/equip_to_slot(obj/item/equipping, slot, initial = FALSE)
 	if(!..()) //a check failed or the item has already found its slot
 		return
 
@@ -141,48 +140,47 @@
 		if(ITEM_SLOT_BELT)
 			if(belt)
 				return
-			belt = I
+			belt = equipping
 			update_worn_belt()
 		if(ITEM_SLOT_ID)
 			if(wear_id)
 				return
-			wear_id = I
+			wear_id = equipping
 			sec_hud_set_ID()
 			update_worn_id()
 		if(ITEM_SLOT_EARS)
 			if(ears)
 				return
-			ears = I
+			ears = equipping
 			update_worn_ears()
 		if(ITEM_SLOT_EYES)
 			if(glasses)
 				return
-			glasses = I
-			var/obj/item/clothing/glasses/G = I
-			if(G.glass_colour_type)
-				update_glasses_color(G, 1)
-			if(G.tint)
+			glasses = equipping
+			if(glasses.glass_colour_type)
+				update_glasses_color(glasses, 1)
+			if(glasses.tint)
 				update_tint()
-			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
+			if(glasses.vision_flags || glasses.darkness_view || glasses.invis_override || glasses.invis_view || !isnull(glasses.lighting_alpha))
 				update_sight()
 			update_worn_glasses()
 		if(ITEM_SLOT_GLOVES)
 			if(gloves)
 				return
-			gloves = I
+			gloves = equipping
 			update_worn_gloves()
 		if(ITEM_SLOT_FEET)
 			if(shoes)
 				return
-			shoes = I
+			shoes = equipping
 			update_worn_shoes()
 		if(ITEM_SLOT_OCLOTHING)
 			if(wear_suit)
 				return
 
-			wear_suit = I
+			wear_suit = equipping
 
-			if(I.flags_inv & HIDEJUMPSUIT)
+			if(equipping.flags_inv & HIDEJUMPSUIT)
 				update_worn_undersuit()
 			if(wear_suit.breakouttime) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
@@ -192,18 +190,18 @@
 		if(ITEM_SLOT_ICLOTHING)
 			if(w_uniform)
 				return
-			w_uniform = I
+			w_uniform = equipping
 			update_worn_undersuit()
 		if(ITEM_SLOT_LPOCKET)
-			l_store = I
+			l_store = equipping
 			update_pockets()
 		if(ITEM_SLOT_RPOCKET)
-			r_store = I
+			r_store = equipping
 			update_pockets()
 		if(ITEM_SLOT_SUITSTORE)
 			if(s_store)
 				return
-			s_store = I
+			s_store = equipping
 			update_suit_storage()
 		else
 			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
@@ -211,15 +209,15 @@
 
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
-		has_equipped(I, slot, initial)
+		has_equipped(equipping, slot, initial)
 
 	return not_handled //For future deeper overrides
 
 /mob/living/carbon/human/get_equipped_speed_mod_items()
 	return ..() - list(l_store, r_store, s_store)
 
-/mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
-	. = ..(I, force, newloc, no_move, invdrop, was_thrown) //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
+/mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
+	. = ..(I, force, newloc, no_move, invdrop, silent) //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
 	if(I == wear_suit)
@@ -441,11 +439,10 @@
 		if(!equipped_item.atom_storage?.attempt_insert(thing, src))
 			to_chat(src, span_warning("You can't fit [thing] into your [equipped_item.name]!"))
 		return
-	var/atom/real_location = storage.real_location?.resolve()
-	if(!real_location.contents.len) // nothing to take out
+	if(!storage.real_location.contents.len) // nothing to take out
 		to_chat(src, span_warning("There's nothing in your [equipped_item.name] to take out!"))
 		return
-	var/obj/item/stored = real_location.contents[real_location.contents.len]
+	var/obj/item/stored = storage.real_location.contents[storage.real_location.contents.len]
 	if(!stored || stored.on_found(src))
 		return
 	stored.attack_hand(src) // take out thing from item in storage slot

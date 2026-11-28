@@ -12,10 +12,14 @@
 	obj_flags = INDESTRUCTIBLE
 	storage_type = /datum/storage/deaddrop
 
+/obj/item/storage/deaddrop_box/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_CONTENTS)
+
 /obj/item/storage/deaddrop_box/proc/unlock()
 	// You can now break it to your hearts desire
 	obj_flags &= ~INDESTRUCTIBLE
-	atom_storage.locked = FALSE
+	atom_storage.set_locked(STORAGE_NOT_LOCKED)
 	if (ismob(loc))
 		var/mob/person = loc
 		to_chat(person, "<span class='notice'>[name] unlocks!</span>")
@@ -24,6 +28,5 @@
 
 /datum/storage/deaddrop
 	locked = TRUE
-	emp_shielded = TRUE
 	quickdraw = FALSE
 	do_rustle = FALSE

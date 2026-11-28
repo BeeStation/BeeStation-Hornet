@@ -139,7 +139,7 @@
 		LOCATION_BACKPACK,
 		LOCATION_HANDS,
 	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE, indirect_action = TRUE)
 
 /datum/quirk/mute
 	name = "Mute"
@@ -165,7 +165,7 @@
 		LOCATION_BACKPACK,
 		LOCATION_HANDS,
 	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE, indirect_action = TRUE)
 
 /datum/quirk/spiritual
 	name = "Spiritual"
@@ -179,8 +179,8 @@
 
 /datum/quirk/spiritual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_storage(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
-	H.equip_to_storage(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
+	H.equip_to_storage(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACK, indirect_action = TRUE, del_on_fail = TRUE)
+	H.equip_to_storage(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACK, indirect_action = TRUE, del_on_fail = TRUE)
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE

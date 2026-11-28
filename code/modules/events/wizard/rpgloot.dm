@@ -20,7 +20,7 @@
 			var/obj/item/storage/S = I
 			if(prob(upgrade_scroll_chance) && S.contents.len < I.atom_storage.max_slots && !S.invisibility)
 				var/obj/item/upgradescroll/scroll = new(get_turf(S))
-				I.atom_storage?.attempt_insert(S, scroll, null, TRUE, TRUE)
+				I.atom_storage?.attempt_insert(scroll, override = TRUE, force = STORAGE_SOFT_LOCKED)
 				upgrade_scroll_chance = max(0,upgrade_scroll_chance-100)
 				if(isturf(scroll.loc))
 					qdel(scroll)

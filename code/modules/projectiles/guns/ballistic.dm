@@ -386,7 +386,7 @@
 /obj/item/gun/ballistic/proc/install_suppressor(obj/item/suppressor/S)
 	// this proc assumes that the suppressor is already inside src
 	suppressed = S
-	weight_class_up() //so pistols do not fit in pockets when suppressed
+	update_weight_class(w_class + S.w_class) //so pistols do not fit in pockets when suppressed
 	update_icon()
 
 /obj/item/gun/ballistic/click_alt(mob/user)
@@ -397,7 +397,7 @@
 		return CLICK_ACTION_BLOCKING
 	balloon_alert(user, "[S.name] removed")
 	user.put_in_hands(S)
-	weight_class_down()
+	update_weight_class(w_class - S.w_class)
 	suppressed = null
 	update_icon()
 	return CLICK_ACTION_SUCCESS

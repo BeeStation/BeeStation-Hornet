@@ -365,6 +365,16 @@
 /obj/item/storage/firstaid/tactical/premium
 	name = "premium combat medical kit"
 
+/obj/item/storage/firstaid/tactical/premium/Initialize(mapload)
+	. = ..()
+	atom_storage.set_holdable(GLOB.combat_medkit_holdable + list(
+		/obj/item/mod/module/thread_ripper,
+		/obj/item/mod/module/surgical_processor,
+		/obj/item/mod/module/defibrillator,
+		/obj/item/autosurgeon,
+		/obj/item/storage/box/evilmeds
+		))
+
 /obj/item/storage/firstaid/tactical/premium/PopulateContents()
 	if(empty)
 		return

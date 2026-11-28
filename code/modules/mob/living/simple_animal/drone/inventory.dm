@@ -6,7 +6,7 @@
 //Drone hands
 
 //Does nobody read the comments telling you to not touch shit you souldn't?
-/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
+/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
 	if(..())
 		update_held_items()
 		if(I == head)
@@ -49,37 +49,37 @@
 		return ITEM_SLOT_HEAD
 	return ..()
 
-/mob/living/simple_animal/drone/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
+/mob/living/simple_animal/drone/equip_to_slot(obj/item/equipping, slot, initial = FALSE)
 	if(!slot)
 		return
-	if(!istype(I))
+	if(!istype(equipping))
 		return
 
-	var/index = get_held_index_of_item(I)
+	var/index = get_held_index_of_item(equipping)
 	if(index)
 		held_items[index] = null
 	update_held_items()
 
-	if(I.pulledby)
-		I.pulledby.stop_pulling()
+	if(equipping.pulledby)
+		equipping.pulledby.stop_pulling()
 
-	I.screen_loc = null // will get moved if inventory is visible
-	I.forceMove(src)
-	I.plane = ABOVE_HUD_PLANE
+	equipping.screen_loc = null // will get moved if inventory is visible
+	equipping.forceMove(src)
+	equipping.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
 		if(ITEM_SLOT_HEAD)
-			head = I
+			head = equipping
 			update_worn_head()
 		if(ITEM_SLOT_DEX_STORAGE)
-			internal_storage = I
+			internal_storage = equipping
 			update_inv_internal_storage()
 		else
 			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 			return
 
 	//Call back for item being equipped to drone
-	has_equipped(I, slot, initial)
+	has_equipped(equipping, slot, initial)
 
 /mob/living/simple_animal/drone/getBackSlot()
 	return ITEM_SLOT_DEX_STORAGE

@@ -97,7 +97,7 @@
 			else
 				parcel.base_icon_state = "deliverypackage[size]"
 				parcel.name = "[weight_class_to_text(size)] parcel"
-			parcel.w_class = size
+			parcel.update_weight_class(size)
 			size = min(size, 5)
 			parcel.update_appearance(UPDATE_ICON)
 		else

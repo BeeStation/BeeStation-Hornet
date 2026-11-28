@@ -36,20 +36,6 @@
 	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
 */
 
-/proc/ui_hand_position(i) //values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
-	var/x_off = i % 2 ? 0 : -1
-	var/y_off = round((i-1) / 2)
-	return"CENTER+[x_off]:16,SOUTH+[y_off]:5"
-
-/proc/ui_equip_position(mob/M)
-	var/y_off = round((M.held_items.len-1) / 2) //values based on old equip ui position (CENTER: +/-16,SOUTH+1:5)
-	return "CENTER:-16,SOUTH+[y_off+1]:5"
-
-/proc/ui_swaphand_position(mob/M, which = 1) //values based on old swaphand ui positions (CENTER: +/-16,SOUTH+1:5)
-	var/x_off = which == 1 ? -1 : 0
-	var/y_off = round((M.held_items.len-1) / 2)
-	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
-
 //Lower left, persistent menu
 #define ui_inventory "WEST:6,SOUTH:5"
 
@@ -97,6 +83,7 @@
 #define ui_borg_health "EAST-1:28,CENTER-1:15"
 #define ui_borg_pull "EAST-2:26,SOUTH+1:7"
 #define ui_borg_radio "EAST-1:28,SOUTH+1:7"
+#define ui_borg_floor_changer "EAST-1:28,SOUTH+1:39"
 #define ui_borg_intents "EAST-2:26,SOUTH:5"
 #define ui_borg_lamp "CENTER-3:16, SOUTH:5"
 #define ui_borg_tablet "CENTER-4:16, SOUTH:5"
@@ -107,8 +94,8 @@
 #define ui_borg_store "CENTER+2:16,SOUTH:5"
 #define ui_borg_camera "CENTER+3:21,SOUTH:5"
 #define ui_borg_alerts "CENTER+4:21,SOUTH:5"
-#define ui_borg_language_menu "CENTER+5:21,SOUTH+1:6"
-#define ui_borg_navigate_menu "CENTER+4:19,SOUTH+1:6"
+#define ui_borg_language_menu "CENTER+5:5,SOUTH+1:6"
+#define ui_borg_navigate_menu "CENTER+4:3,SOUTH+1:6"
 
 //AI
 #define ui_ai_core "SOUTH:6,WEST"
@@ -128,7 +115,7 @@
 #define ui_ai_sensor "SOUTH:6,WEST+14"
 #define ui_ai_multicam "SOUTH+1:6,WEST+13"
 #define ui_ai_add_multicam "SOUTH+1:6,WEST+14"
-#define ui_ai_language_menu "SOUTH+1:8,WEST+11:30"
+#define ui_ai_language_menu "SOUTH+1:8,WEST+11:14"
 
 //pAI
 #define ui_pai_software "SOUTH:6,WEST"
@@ -147,7 +134,7 @@
 #define ui_pai_view_images "SOUTH:6,WEST+13"
 #define ui_pai_radio "SOUTH:6,WEST+14"
 #define ui_pai_language_menu "SOUTH+1:8,WEST+13:31"
-#define ui_pai_navigate_menu "SOUTH+1:8,WEST+13:31"
+#define ui_pai_navigate_menu "SOUTH+1:8,WEST+13:15"
 
 //Ghosts
 
@@ -169,23 +156,31 @@
 #define ui_monkey_back "CENTER-2:17,SOUTH:5"	//monkey
 
 #define ui_drone_drop "CENTER+1:18,SOUTH:5"     //maintenance drones
-#define ui_drone_pull "CENTER+2:2,SOUTH:5"      //maintenance drones
+#define ui_drone_pull "CENTER+2:2,SOUTH:21"      //maintenance drones
 #define ui_drone_storage "CENTER-2:14,SOUTH:5"  //maintenance drones
 #define ui_drone_head "CENTER-3:14,SOUTH:5"     //maintenance drones
 
 //Lower right, persistent menu
-#define ui_drop_throw "EAST-1:28,SOUTH+1:7"
+#define ui_rest "EAST-1:28,SOUTH+1:7"
+#define ui_drop_throw "EAST-1:28,SOUTH+1:24"
+#define ui_above_movement_top "EAST-2:26, SOUTH+1:24"
 #define ui_above_movement "EAST-2:26,SOUTH+1:7"
 #define ui_above_intent "EAST-3:24, SOUTH+1:7"
 #define ui_movi "EAST-2:26,SOUTH:5"
 #define ui_acti "EAST-3:24,SOUTH:5"
 #define ui_zonesel "EAST-1:28,SOUTH:5"
 #define ui_acti_alt "EAST-1:28,SOUTH:5"	//alternative intent switcher for when the interface is hidden (F12)
-#define ui_crafting	"EAST-4:38,SOUTH:5"
-#define ui_building "EAST-4:38,SOUTH:21"
-#define ui_language_menu "EAST-4:22,SOUTH:21"
-#define ui_navigate_menu "EAST-4:22,SOUTH:5"
+#define ui_crafting	"EAST-4:22,SOUTH:5"
+#define ui_building "EAST-4:22,SOUTH:21"
+#define ui_language_menu "EAST-4:6,SOUTH:21"
+#define ui_navigate_menu "EAST-4:6,SOUTH:5"
 
+//Humans
+#define ui_human_floor_changer "EAST-4:22,SOUTH:5"
+#define ui_human_crafting "EAST-3:24,SOUTH+1:7"
+#define ui_human_navigate "EAST-3:7,SOUTH+1:7"
+#define ui_human_language "EAST-3:7,SOUTH+1:24"
+#define ui_human_area "EAST-3:24,SOUTH+1:24"
 
 //Upper-middle right (alerts)
 #define ui_alert1 "EAST-1:28,CENTER+5:27"
@@ -209,7 +204,8 @@
 #define ui_alien_queen_finder "EAST,CENTER-3:15"
 #define ui_alien_storage_r "CENTER+1:18,SOUTH:5"
 #define ui_alien_language_menu "EAST-4:20,SOUTH:5"
-#define ui_alien_navigate_menu "EAST-4:20,SOUTH:5"
+#define ui_alien_floor_change "EAST-3:24,SOUTH+1:7"
+#define ui_alien_navigate_menu "EAST-4:4,SOUTH:5"
 
 //constructs
 #define ui_construct_pull "EAST,CENTER-2:15"
@@ -231,8 +227,8 @@
 // Holoparasites
 #define ui_holopara_l_hand			"CENTER:8,SOUTH+1:4"
 #define ui_holopara_r_hand			"CENTER+1:8,SOUTH+1:4"
-#define ui_holopara_pull			"CENTER:24,SOUTH:20"
-#define ui_holopara_pull_dex		"CENTER-1:9,SOUTH+1:2"
+#define ui_holopara_pull			"CENTER:24,SOUTH+1:4"
+#define ui_holopara_pull_dex		"CENTER-1:9,SOUTH+1:18"
 #define ui_holopara_swap_l			"CENTER:8,SOUTH+2:4"
 #define ui_holopara_swap_r			"CENTER+1:8,SOUTH+2:4"
 #define ui_holopara_button(pos)		"CENTER[pos >= 0 ? "+" : ""][pos]:8,SOUTH:5"

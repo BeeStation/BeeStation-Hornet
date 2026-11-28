@@ -259,12 +259,10 @@
 		to_chat(user, "\The [src]'s refill light blinks red.")
 
 /obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.put_in_cart(src, user)
+	if(!J.put_in_cart(src, user))
+		return
 	J.myreplacer = src
 	J.update_icon()
-
-/obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
 
 /obj/item/lightreplacer/bluespace
 	name = "bluespace light replacer"

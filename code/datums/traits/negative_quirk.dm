@@ -94,7 +94,7 @@
 		LOCATION_RPOCKET,
 		LOCATION_BACKPACK,
 	)
-	where = H.equip_in_one_of_slots(P, slots, FALSE)
+	where = H.equip_in_one_of_slots(P, slots, FALSE, indirect_action = TRUE)
 
 /datum/quirk/brainproblems/post_spawn()
 	if(where)
@@ -232,7 +232,7 @@
 		LOCATION_RPOCKET,
 		LOCATION_BACKPACK,
 	)
-	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
+	where = H.equip_in_one_of_slots(heirloom, slots, FALSE, indirect_action = TRUE) || "at your feet"
 
 /datum/quirk/family_heirloom/post_spawn()
 	if(where == "in your backpack")
@@ -558,9 +558,9 @@
 		LOCATION_RPOCKET,
 		LOCATION_BACKPACK,
 	)
-	where_drug = H.equip_in_one_of_slots(drug_instance, slots, FALSE) || "at your feet"
+	where_drug = H.equip_in_one_of_slots(drug_instance, slots, FALSE, indirect_action = TRUE) || "at your feet"
 	if (accessory_instance)
-		where_accessory = H.equip_in_one_of_slots(accessory_instance, slots, FALSE) || "at your feet"
+		where_accessory = H.equip_in_one_of_slots(accessory_instance, slots, FALSE, indirect_action = TRUE) || "at your feet"
 	announce_drugs()
 
 /datum/quirk/junkie/post_spawn()
@@ -665,7 +665,7 @@
 	drink_instance = new drink_instance()
 	var/list/slots = list(LOCATION_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
-	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE) || "at your feet"
+	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE, indirect_action = TRUE) || "at your feet"
 
 /datum/quirk/alcoholic/post_spawn()
 	to_chat(quirk_target, span_boldnotice("There is a small bottle of [drink_instance] [where_drink]. You only have a single bottle, might have to find some more..."))

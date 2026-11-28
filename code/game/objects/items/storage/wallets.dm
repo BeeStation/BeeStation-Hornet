@@ -16,6 +16,11 @@
 	if(isidcard(gone))
 		refresh_id()
 
+/**
+ * Calculates the new front ID.
+ *
+ * Picks the ID card that has the most combined command or higher tier accesses.
+ */
 /obj/item/storage/wallet/proc/refresh_id()
 	front_id = locate(/obj/item/card/id) in contents
 

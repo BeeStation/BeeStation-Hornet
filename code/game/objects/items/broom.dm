@@ -79,6 +79,7 @@
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 30, TRUE, -1)
 
 /obj/item/pushbroom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J) //bless you whoever fixes this copypasta
-	J.put_in_cart(src, user)
+	if(!J.put_in_cart(src, user))
+		return
 	J.mybroom=src
 	J.update_icon()

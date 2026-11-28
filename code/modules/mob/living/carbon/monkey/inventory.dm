@@ -36,26 +36,26 @@
 			return TRUE
 	return FALSE //Unsupported slot
 
-/mob/living/carbon/monkey/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
+/mob/living/carbon/monkey/equip_to_slot(obj/item/equipping, slot, initial = FALSE)
 	if(!..()) //a check failed or the item has already found its slot
 		return
 
 	var/not_handled = FALSE //Added in case we make this type path deeper one day
 	switch(slot)
 		if(ITEM_SLOT_ICLOTHING)
-			w_uniform = I
+			w_uniform = equipping
 			update_worn_undersuit()
 		else
 			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
-		has_equipped(I, slot, initial)
+		has_equipped(equipping, slot, initial)
 
 	return not_handled //For future deeper overrides
 
 //Hopefully this doesn't fuck with anything
-/mob/living/carbon/monkey/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
+/mob/living/carbon/monkey/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return

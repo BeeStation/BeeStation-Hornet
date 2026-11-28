@@ -71,10 +71,7 @@
 	name = "cyborg syndicate pinpointer"
 	desc = "An integrated tracking device, jury-rigged to search for living Syndicate operatives."
 	flags_1 = NONE
-
-/obj/item/pinpointer/syndicate_cyborg/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/pinpointer/syndicate_cyborg/cyborg_unequip(mob/user)
 	if(!active)

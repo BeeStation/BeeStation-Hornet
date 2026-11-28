@@ -105,6 +105,39 @@
 		/obj/item/rollerbed,
 	))
 
+GLOBAL_LIST_INIT(combat_medkit_holdable, list(
+	/obj/item/healthanalyzer,
+	/obj/item/dnainjector,
+	/obj/item/reagent_containers/dropper,
+	/obj/item/reagent_containers/cup/beaker,
+	/obj/item/reagent_containers/cup/bottle,
+	/obj/item/reagent_containers/applicator,
+	/obj/item/reagent_containers/syringe,
+	/obj/item/reagent_containers/medspray,
+	/obj/item/storage/pill_bottle,
+	/obj/item/stack/medical,
+	/obj/item/flashlight/pen,
+	/obj/item/reagent_containers/hypospray,
+	/obj/item/surgical_drapes,
+	/obj/item/scalpel,
+	/obj/item/circular_saw,
+	/obj/item/surgicaldrill,
+	/obj/item/retractor,
+	/obj/item/cautery,
+	/obj/item/hemostat,
+	/obj/item/blood_filter,
+	/obj/item/clothing/neck/stethoscope,
+	/obj/item/reagent_containers/blood,
+	/obj/item/tank/internals/emergency_oxygen,
+	/obj/item/gun/syringe/syndicate,
+	/obj/item/implantcase,
+	/obj/item/implant,
+	/obj/item/implanter,
+	/obj/item/pinpointer/crew,
+	/obj/item/clothing/glasses/hud/health,
+	/obj/item/defibrillator/compact
+))
+
 /// Tactical first-aid kit
 /datum/storage/firstaid/tactical
 	max_specific_storage = WEIGHT_CLASS_LARGE
@@ -113,34 +146,4 @@
 
 /datum/storage/firstaid/tactical/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	. = ..()
-	set_holdable(list(
-		/obj/item/healthanalyzer,
-		/obj/item/dnainjector,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/applicator,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/medspray,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/medical,
-		/obj/item/flashlight/pen,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/surgical_drapes,
-		/obj/item/scalpel,
-		/obj/item/circular_saw,
-		/obj/item/surgicaldrill,
-		/obj/item/retractor,
-		/obj/item/cautery,
-		/obj/item/hemostat,
-		/obj/item/blood_filter,
-		/obj/item/clothing/neck/stethoscope,
-		/obj/item/reagent_containers/blood,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/gun/syringe/syndicate,
-		/obj/item/implantcase,
-		/obj/item/implant,
-		/obj/item/implanter,
-		/obj/item/pinpointer/crew,
-		/obj/item/defibrillator/compact,
-	))
+	set_holdable(GLOB.combat_medkit_holdable)

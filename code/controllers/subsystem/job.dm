@@ -978,7 +978,7 @@ SUBSYSTEM_DEF(job)
 		LOCATION_BACKPACK,
 		LOCATION_HANDS,
 	)
-	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
+	var/where = H.equip_in_one_of_slots(paper, slots, FALSE, indirect_action = TRUE) || "at your feet"
 
 	var/appoint_acting = acting_captain && !has_acting_head(JOB_NAME_CAPTAIN)
 	if(appoint_acting)

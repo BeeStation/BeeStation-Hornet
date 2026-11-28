@@ -96,70 +96,72 @@
 		/obj/item/clockwork/replica_fabricator,
 	))
 
+GLOBAL_LIST_INIT(medbelt_holdable, list(
+	/obj/item/healthanalyzer,
+	/obj/item/dnainjector,
+	/obj/item/reagent_containers/dropper,
+	/obj/item/reagent_containers/cup/beaker,
+	/obj/item/reagent_containers/cup/bottle,
+	/obj/item/reagent_containers/applicator,
+	/obj/item/reagent_containers/syringe,
+	/obj/item/reagent_containers/medspray,
+	/obj/item/lighter,
+	/obj/item/storage/fancy/cigarettes,
+	/obj/item/storage/pill_bottle,
+	/obj/item/stack/medical,
+	/obj/item/flashlight/pen,
+	/obj/item/extinguisher/mini,
+	/obj/item/reagent_containers/hypospray,
+	/obj/item/sensor_device,
+	/obj/item/radio,
+	/obj/item/clothing/gloves,
+	/obj/item/lazarus_injector,
+	/obj/item/bikehorn/rubberducky,
+	/obj/item/clothing/mask/surgical,
+	/obj/item/clothing/mask/breath,
+	/obj/item/clothing/mask/breath/medical,
+	/obj/item/surgical_drapes, //for true paramedics
+	/obj/item/scalpel,
+	/obj/item/circular_saw,
+	/obj/item/surgicaldrill,
+	/obj/item/retractor,
+	/obj/item/cautery,
+	/obj/item/hemostat,
+	/obj/item/blood_filter,
+	/obj/item/geiger_counter,
+	/obj/item/clothing/neck/stethoscope,
+	/obj/item/stamp,
+	/obj/item/clothing/glasses,
+	/obj/item/wrench/medical,
+	/obj/item/clothing/mask/muzzle,
+	/obj/item/storage/bag/chemistry,
+	/obj/item/storage/bag/bio,
+	/obj/item/reagent_containers/blood,
+	/obj/item/tank/internals/emergency_oxygen,
+	/obj/item/gun/syringe/syndicate,
+	/obj/item/implantcase,
+	/obj/item/implant,
+	/obj/item/implanter,
+	/obj/item/pinpointer/crew,
+	/obj/item/holosign_creator/medical,
+	/obj/item/construction/plumbing,
+	/obj/item/plunger,
+	/obj/item/flesh_shears,
+))
+
 /// Medical doctors
 /datum/storage/belt/medical
 
 /datum/storage/belt/medical/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	. = ..()
-	set_holdable(list(
-		/obj/item/healthanalyzer,
-		/obj/item/dnainjector,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/applicator,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/medspray,
-		/obj/item/lighter,
-		/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/medical,
-		/obj/item/flashlight/pen,
-		/obj/item/extinguisher/mini,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/sensor_device,
-		/obj/item/radio,
-		/obj/item/clothing/gloves,
-		/obj/item/lazarus_injector,
-		/obj/item/bikehorn/rubberducky,
-		/obj/item/clothing/mask/surgical,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath/medical,
-		/obj/item/surgical_drapes, //for true paramedics
-		/obj/item/scalpel,
-		/obj/item/circular_saw,
-		/obj/item/surgicaldrill,
-		/obj/item/retractor,
-		/obj/item/cautery,
-		/obj/item/hemostat,
-		/obj/item/blood_filter,
-		/obj/item/geiger_counter,
-		/obj/item/clothing/neck/stethoscope,
-		/obj/item/stamp,
-		/obj/item/clothing/glasses,
-		/obj/item/wrench/medical,
-		/obj/item/clothing/mask/muzzle,
-		/obj/item/storage/bag/chemistry,
-		/obj/item/storage/bag/bio,
-		/obj/item/reagent_containers/blood,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/gun/syringe/syndicate,
-		/obj/item/implantcase,
-		/obj/item/implant,
-		/obj/item/implanter,
-		/obj/item/pinpointer/crew,
-		/obj/item/holosign_creator/medical,
-		/obj/item/construction/plumbing,
-		/obj/item/plunger,
-		/obj/item/flesh_shears,
-	))
+	set_holdable(GLOB.medbelt_holdable)
 
 /// Medical ERT belt
 /datum/storage/belt/medical/ert
 
 /datum/storage/belt/medical/ert/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	. = ..()
-	can_hold[/obj/item/gun/medbeam] = TRUE
+	set_holdable(GLOB.medbelt_holdable + /obj/item/gun/medbeam)
 
 /// Security belt
 /datum/storage/belt/security
