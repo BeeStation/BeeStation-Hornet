@@ -132,7 +132,7 @@ AUTH_CLIENT_VERB(mentorhelp)
 /datum/help_ticket/mentor/NewFrom(datum/help_ticket/old_ticket)
 	if(!..())
 		return FALSE
-	MessageNoRecipient(initial_msg, add_to_ticket = FALSE, sanitized = TRUE) // initial_msg is sanitized already
+	MessageNoRecipient(initial_msg, add_to_ticket = FALSE)
 	return TRUE
 
 /datum/help_ticket/mentor/TimeoutVerb()

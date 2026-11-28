@@ -4,6 +4,8 @@
 #define SHELLEO_ERR ".err"
 #define SHELLEO_OUT ".out"
 /world/proc/shelleo(command)
+	if(IsAdminAdvancedProcCall())
+		return list(1, "", "blocked")
 	var/static/list/shelleo_ids = list()
 	var/stdout = ""
 	var/stderr = ""

@@ -169,6 +169,7 @@
 		if(path.len > 0 && target)
 			if(!bot_move(path[path.len]))
 				add_to_ignore(target)
+				tries = 0
 				set_path(null)
 				target = null
 				mode = BOT_IDLE

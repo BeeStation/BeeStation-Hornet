@@ -13,6 +13,10 @@
 
 #define COLOR_TEXT(color, text) "<font color=\"[color]\">[text]</font>"
 
+/// Look-alikes that scrub_angle_brackets() swaps < and > for
+#define SAFE_LT "˂"
+#define SAFE_GT "˃"
+
 /// type of a chat to send discord servers
 #define CHAT_TYPE_OOC "chat_ooc"
 #define CHAT_TYPE_DEADCHAT "chat_dead"

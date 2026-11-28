@@ -141,7 +141,7 @@
 			if(!linked_server)
 				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
-			var/dkey = capped_input(usr, "Please enter the decryption key.")
+			var/dkey = tgui_input_text(usr, "Please enter the decryption key.", "Decryption Key", encode = FALSE)
 			if(dkey && linked_server.decryptkey == dkey)
 				authenticated = TRUE
 			else
@@ -203,16 +203,16 @@
 			if(!linked_server)
 				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
-			var/dkey = capped_input(usr, "Please enter the decryption key.")
+			var/dkey = tgui_input_text(usr, "Please enter the decryption key.", "Decryption Key", encode = FALSE)
 			if(!dkey)
 				return
 			if(linked_server.decryptkey == dkey)
-				var/newkey = capped_input(usr, "Please enter the new key (4-16 characters):")
+				var/newkey = tgui_input_text(usr, "Please enter the new key (4-16 characters):", "Decryption Key", encode = FALSE)
 				if(length(newkey) < 4)
 					to_chat(usr, span_warning("The console flashes a message: 'NOTICE: Decryption key too short!'"))
 				else if(length(newkey) > 16)
 					to_chat(usr, span_warning("The console flashes a message: 'NOTICE: Decryption key too long!'"))
-				else if(newkey && newkey != "")
+				else if(newkey)
 					linked_server.decryptkey = newkey
 					to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Decryption key set.'"))
 			else

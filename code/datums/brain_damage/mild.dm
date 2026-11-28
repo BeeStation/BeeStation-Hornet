@@ -194,7 +194,7 @@
 	var/static/list/common_words = world.file2list("strings/1000_most_common.txt")
 
 /datum/brain_trauma/mild/expressive_aphasia/handle_speech(datum/source, list/speech_args)
-	var/message = speech_args[SPEECH_MESSAGE]
+	var/message = html_decode(speech_args[SPEECH_MESSAGE])
 	if(message)
 		var/list/message_split = splittext(message, " ")
 		var/list/new_message = list()
@@ -210,7 +210,6 @@
 
 			if(suffix_foundon)
 				word = copytext(word, 1, suffix_foundon)
-			word = html_decode(word)
 
 			if(LOWER_TEXT(word) in common_words)
 				new_message += word + suffix
@@ -226,4 +225,4 @@
 
 		message = jointext(new_message, " ")
 
-	speech_args[SPEECH_MESSAGE] = trim(message)
+	speech_args[SPEECH_MESSAGE] = sanitize(trim(message))

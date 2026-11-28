@@ -29,7 +29,7 @@
 
 	switch(action)
 		if("UpdateNote")
-			src.set_note(params["newnote"])
+			src.set_note(reject_bad_text(params["newnote"]))
 			return TRUE
 
 		if("ShowPaper")

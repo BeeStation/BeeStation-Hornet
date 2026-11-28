@@ -107,7 +107,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			return 0
 	var/obj/item/pai_card/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
-	pai.name = capped_input(choice, "Enter your pAI name:", "pAI Name", "Personal AI")
+	pai.name = tgui_input_text(choice, "Enter your pAI name:", "pAI Name", "Personal AI", MAX_NAME_LEN, encode = FALSE)
 	pai.real_name = pai.name
 	pai.ckey = choice.ckey
 	card.set_personality(pai)

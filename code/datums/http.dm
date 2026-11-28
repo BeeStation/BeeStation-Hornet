@@ -1,3 +1,5 @@
+GENERAL_PROTECT_DATUM(/datum/http_request)
+
 /datum/http_request
 	var/id
 	var/in_progress = FALSE

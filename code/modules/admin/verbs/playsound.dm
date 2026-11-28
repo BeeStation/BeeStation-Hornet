@@ -78,21 +78,21 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 		var/stderr = output[SHELLEO_STDERR]
 		if(errorlevel)
 			to_chat(user, span_boldwarning("yt-dlp URL retrieval FAILED:"))
-			to_chat(user, span_warning("[stderr]"))
+			to_chat(user, span_warning(html_encode(stderr)))
 			return
 		var/list/data
 		try
 			data = json_decode(stdout)
 		catch(var/exception/e)
 			to_chat(user, span_boldwarning("yt-dlp JSON parsing FAILED:"))
-			to_chat(user, span_warning("[e]: [stdout]"))
+			to_chat(user, span_warning(html_encode("[e]: [stdout]")))
 			return
 		if (data["url"])
 			web_sound_url = data["url"]
-		var/title = "[data["title"]]"
+		var/title = html_encode("[data["title"]]")
 		var/webpage_url = title
-		if (data["webpage_url"])
-			webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
+		if (findtext(data["webpage_url"], GLOB.is_http_protocol))
+			webpage_url = "<a href=\"[html_encode(data["webpage_url"])]\">[title]</a>"
 		music_extra_data["duration"] = DisplayTimeText(data["duration"] * 1 SECONDS)
 		music_extra_data["link"] = data["webpage_url"]
 		music_extra_data["artist"] = data["artist"]
@@ -102,7 +102,7 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 		if (duration > 10 MINUTES)
 			if((tgui_alert(user, "This song is over 10 minutes long. Are you sure you want to play it?", "Length Warning!", list("No", "Yes", "Cancel")) != "Yes"))
 				return
-		var/res = tgui_alert(user, "Show the title of and link to this song to the players?\n[title]", "Show Info?", list("Yes", "No", "Cancel"))
+		var/res = tgui_alert(user, "Show the title of and link to this song to the players?\n[data["title"]]", "Show Info?", list("Yes", "No", "Cancel"))
 		switch(res)
 			if("Yes")
 				music_extra_data["title"] = data["title"]

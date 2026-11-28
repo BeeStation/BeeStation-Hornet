@@ -112,16 +112,16 @@ SUBSYSTEM_DEF(pai)
 		return FALSE
 	switch(action)
 		if("submit")
-			candidate.comments = params["candidate"]["comments"]
-			candidate.description = params["candidate"]["description"]
-			candidate.name = params["candidate"]["name"]
+			candidate.comments = reject_bad_name(params["comments"], allow_numbers = TRUE, max_length = MAX_BROADCAST_LEN, strict = TRUE, cap_after_symbols = FALSE) || "Unknown"
+			candidate.description = reject_bad_name(params["description"], allow_numbers = TRUE, max_length = MAX_BROADCAST_LEN, strict = TRUE, cap_after_symbols = FALSE) || "Unknown"
+			candidate.name = reject_bad_name(params["name"], allow_numbers = TRUE, max_length = MAX_NAME_LEN, strict = TRUE, cap_after_symbols = FALSE) || "Unknown"
 			candidate.ready = TRUE
 			ui.close()
 			submit_alert()
 		if("save")
-			candidate.comments = params["candidate"]["comments"]
-			candidate.description = params["candidate"]["description"]
-			candidate.name = params["candidate"]["name"]
+			candidate.comments = reject_bad_name(params["comments"], allow_numbers = TRUE, max_length = MAX_BROADCAST_LEN, strict = TRUE, cap_after_symbols = FALSE) || "Unknown"
+			candidate.description = reject_bad_name(params["description"], allow_numbers = TRUE, max_length = MAX_BROADCAST_LEN, strict = TRUE, cap_after_symbols = FALSE) || "Unknown"
+			candidate.name = reject_bad_name(params["name"], allow_numbers = TRUE, max_length = MAX_NAME_LEN, strict = TRUE, cap_after_symbols = FALSE) || "Unknown"
 			candidate.save(usr)
 		if("delete")
 			if(!candidate.ready)

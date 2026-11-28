@@ -31,6 +31,21 @@
 			index = findtext(t, char)
 	return t
 
+/// Swaps < and > for SAFE_LT and SAFE_GT in a string, or in every string key and value of a (nested) list.
+/proc/scrub_angle_brackets(input)
+	if(istext(input))
+		return replacetext(replacetext(input, "<", SAFE_LT), ">", SAFE_GT)
+	if(!islist(input))
+		return input
+	var/list/output = list()
+	for(var/key, value in input)
+		var/new_key = scrub_angle_brackets(key)
+		if(istext(key) && !isnull(value))
+			output[new_key] = scrub_angle_brackets(value)
+		else
+			output += list(new_key)
+	return output
+
 /// Removes all characters in `repl_chars`
 /proc/sanitize_simple(t,list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)

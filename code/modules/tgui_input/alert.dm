@@ -143,6 +143,9 @@
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
 
+/datum/tgui_modal/ui_allows_angle_brackets()
+	return TRUE // choices are checked against buttons
+
 /datum/tgui_modal/ui_act(action, list/params)
 	. = ..()
 	if (.)

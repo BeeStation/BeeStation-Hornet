@@ -551,6 +551,9 @@
 
 	return data
 
+/obj/item/paper/ui_allows_angle_brackets()
+	return TRUE // paper markup is HTML, sanitized client-side
+
 /obj/item/paper/ui_act(action, params,datum/tgui/ui)
 	if(..())
 		return
