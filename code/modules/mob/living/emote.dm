@@ -840,17 +840,13 @@
 	message = "meows!"
 	message_mime = "meows silently."
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	sound = "cat_meow"
 	vary = TRUE
-
-/datum/emote/living/cat/meow/get_sound(mob/living/user)
-	return "cat_meow"
 
 /datum/emote/living/cat/purr
 	key = "purr"
 	key_third_person = "purrs"
 	message = "purrs."
 	emote_type = EMOTE_AUDIBLE
+	sound = "cat_purr"
 	vary = TRUE
-
-/datum/emote/living/cat/purr/get_sound(mob/living/user)
-	return "cat_purr"
