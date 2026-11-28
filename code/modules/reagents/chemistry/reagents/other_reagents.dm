@@ -767,7 +767,7 @@
 	taste_description = "brai...nothing in particular"
 
 /datum/reagent/mutationtoxin/goofzombie
-	name = "Zombie Mutation Toxin"
+	name = "Krokodil Zombie Mutation Toxin"
 	description = "An undead toxin... kinda..."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
@@ -2111,6 +2111,7 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/peaceborg
+	abstract_type = /datum/reagent/peaceborg
 
 /datum/reagent/peaceborg/confuse
 	name = "Dizzying Solution"
@@ -2334,7 +2335,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	process_flags = ORGANIC | SYNTHETIC //i think this is how this works
 	self_consuming = TRUE //not having a liver will not deny the fairness of the elder gods
 
-/datum/reagent/medicine/eldritchkiss/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/eldritchkiss/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.losebreath = 0
 

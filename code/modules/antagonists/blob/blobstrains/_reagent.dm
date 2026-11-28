@@ -20,6 +20,7 @@
 
 // These can only be applied by blobs. They are what (reagent) blobs are made out of.
 /datum/reagent/blob
+	abstract_type = /datum/reagent/blob
 	color = COLOR_WHITE
 	taste_description = "bad code and slime"
 

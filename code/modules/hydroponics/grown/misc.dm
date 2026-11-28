@@ -162,7 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	plantname = "Cherry Bomb Tree"
 	product = /obj/item/food/grown/cherry_bomb
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1, /datum/reagent/consumable/sugar = 0.1, /datum/reagent/blackpowder = 0.7)
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1, /datum/reagent/consumable/sugar = 0.1, /datum/reagent/gunpowder = 0.7)
 	rarity = 60 //See above
 
 /obj/item/food/grown/cherry_bomb

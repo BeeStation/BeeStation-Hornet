@@ -1117,7 +1117,7 @@
 	affected_mob.AdjustAllImmobility(-80, FALSE)
 	affected_mob.set_jitter_if_lower(20 SECONDS * REM * delta_time)
 
-/datum/reagent/drug/pumpup/overdose_start(mob/living/affected_mob)
+/datum/reagent/medicine/pumpup/overdose_start(mob/living/affected_mob)
 	. = ..()
 	to_chat(affected_mob, span_userdanger("You can't stop shaking, your heart beats faster and faster..."))
 

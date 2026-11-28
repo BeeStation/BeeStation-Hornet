@@ -4,7 +4,7 @@
 		if (!reaction_path::name)
 			TEST_FAIL("The reaction with the path [reaction_path] has no name.")
 
-	var/paths = subtypesof(/datum/reagent)
+	var/paths = valid_subtypesof(/datum/reagent)
 
 	for(var/datum/reagent/path as anything in paths)
 		if (!path::name)

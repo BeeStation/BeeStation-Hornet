@@ -3,7 +3,7 @@
 	abstract_type = /datum/reagent
 
 	/// datums don't have names by default
-	var/name = "Reagent"
+	var/name = ""
 	/// nor do they have descriptions
 	var/description = ""
 	///J/(K*mol)
