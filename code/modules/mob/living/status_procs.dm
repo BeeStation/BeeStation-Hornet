@@ -78,6 +78,19 @@
 		S = apply_status_effect(/datum/status_effect/incapacitating/stun, amount)
 	return S
 
+/mob/living/proc/IsIncapacitated() // Are we incapacitated
+	return has_status_effect(/datum/status_effect/incapacitating/incapacitated)
+
+/mob/living/proc/incapacitate(amount, ignore_canstun = FALSE)
+	if(check_stun_immunity(CANSTUN, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/incapacitated/I = IsIncapacitated()
+	if(I)
+		I.duration = max(amount, I.duration)
+	else if(amount > 0)
+		I = apply_status_effect(/datum/status_effect/incapacitating/incapacitated, amount)
+	return I
+
 ///////////////////////////////// KNOCKDOWN /////////////////////////////////////
 
 /mob/living/proc/IsKnockdown() //If we're knocked down
