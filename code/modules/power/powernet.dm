@@ -76,7 +76,7 @@
 //if the powernet is then empty, delete it
 //Warning : this proc DON'T check if the machine exists
 /datum/powernet/proc/remove_machine(obj/machinery/power/M)
-	nodes -=M
+	nodes -= M
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
@@ -136,7 +136,7 @@
 	for (var/i in 1 to length(cables))
 		// We already belong
 		var/obj/structure/cable/processing_wire = cables[i]
-		if (powernet_id_array[processing_wire] != null)
+		if (!isnull(powernet_id_array[processing_wire]))
 			continue
 		var/datum/powernet/new_powernet = i == 1 ? src : new /datum/powernet
 		var/list/to_process = list(processing_wire)
@@ -147,7 +147,7 @@
 			to_process.len--
 			powernet_id_array[processing_wire] = new_powernet
 			// Process adjacent nodes
-			for (var/obj/structure/cable/linked_cable as anything in processing_wire.connected)
+			for (var/obj/structure/cable/linked_cable as anything in processing_wire.get_connected_cables())
 				if (linked_cable._last_repropogation_update != unique_propogation_identifier)
 					linked_cable._last_repropogation_update = unique_propogation_identifier
 					to_process += linked_cable
