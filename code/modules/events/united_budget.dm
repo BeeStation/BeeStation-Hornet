@@ -14,7 +14,8 @@
 		SSstation.station_traits += new /datum/station_trait/united_budget
 	else
 		return
-
+	/*
+	TODO: Temp disabled - Racc
 	var/datum/bank_account/department/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	for(var/obj/item/card/id/departmental_budget/I in SSeconomy.dep_cards)
 		I.registered_account = D
@@ -22,14 +23,15 @@
 		I.department_name = ACCOUNT_ALL_NAME
 		I.name = "departmental card ([I.department_name])"
 		I.desc = "Provides access to the [I.department_name] budget."
+	*/
 
 	var/money_to_gather = 0
 
 	for(var/datum/bank_account/department/each in SSeconomy.budget_accounts)
 		if(!each.is_nonstation_account())
 			money_to_gather += each.account_balance
-	D.account_balance = round(money_to_gather)
-	D.account_holder = ACCOUNT_ALL_NAME
+	//D.account_balance = round(money_to_gather)
+	//D.account_holder = ACCOUNT_ALL_NAME
 
 //-----------------------------------------------------------------------------------------
 /datum/round_event_control/united_budget_cancel
@@ -52,6 +54,8 @@
 	else
 		return
 
+	/*
+	TODO: Temp disabled - Racc
 	for(var/obj/item/card/id/departmental_budget/I in SSeconomy.dep_cards)
 		var/datum/bank_account/department/B = SSeconomy.get_budget_account(initial(I.department_ID))
 		if(B)
@@ -62,7 +66,6 @@
 			I.department_name = initial(I.department_name)
 			I.name = "departmental card ([I.department_name])"
 			I.desc = "Provides access to the [I.department_name] budget."
-
 	var/datum/bank_account/department/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	D.account_holder = ACCOUNT_CAR_NAME // recover the true name
 
@@ -74,4 +77,5 @@
 	for(var/datum/bank_account/department/each in SSeconomy.budget_accounts)
 		if(!each.is_nonstation_account())
 			each.account_balance = money_to_distribute
+	*/
 
