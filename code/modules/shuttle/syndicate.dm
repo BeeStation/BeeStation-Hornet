@@ -19,7 +19,7 @@
 	recall_docking_port_id = "syndicate_away"
 
 /obj/machinery/computer/shuttle_flight/syndicate/ui_act(action, params)
-	if(!usr.canUseTopic(src))
+	if(!usr.can_perform_action(src))
 		return
 	var/obj/item/circuitboard/computer/syndicate_shuttle/board = circuit
 	if(board.challenge && world.time < SYNDICATE_CHALLENGE_TIMER)

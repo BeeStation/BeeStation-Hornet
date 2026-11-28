@@ -14,6 +14,8 @@ Exotic mineral Sheets
 	inhand_icon_state = "sheet-bananium"
 	singular_name = "bananium sheet"
 	sheettype = "bananium"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/consumable/banana = 20)
 	point_value = 50

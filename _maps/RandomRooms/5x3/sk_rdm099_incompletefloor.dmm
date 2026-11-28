@@ -33,15 +33,6 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"g" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
-"h" = (
-/obj/effect/decal/cleanable/blood/oil/slippery,
-/turf/open/floor/plating,
-/area/template_noop)
 "i" = (
 /turf/open/floor/circuit,
 /area/template_noop)
@@ -79,6 +70,14 @@
 /obj/item/crowbar/large,
 /turf/open/floor/iron,
 /area/template_noop)
+"r" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/blood/oil/slippery,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -87,12 +86,12 @@ k
 "}
 (2,1,1) = {"
 b
-g
+r
 l
 "}
 (3,1,1) = {"
 c
-h
+N
 b
 "}
 (4,1,1) = {"

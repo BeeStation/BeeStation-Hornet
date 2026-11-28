@@ -3,16 +3,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"c" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/cup/glass/bottle/rum{
-	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
-	pixel_x = -6;
-	pixel_y = 8
-	},
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/wood,
-/area/template_noop)
 "d" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
@@ -26,6 +16,12 @@
 /obj/machinery/door/airlock/wood,
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/effect/trap/trigger/reusable,
+/turf/open/floor/wood,
+/area/template_noop)
+"h" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
@@ -99,15 +95,19 @@
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
+"s" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cup/glass/bottle/rum{
+	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "t" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/template_noop)
-"u" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/oil/slippery,
-/obj/effect/trap/nexus/doorbolt,
-/turf/open/floor/wood,
 /area/template_noop)
 "v" = (
 /obj/effect/spawner/random/maintenance,
@@ -116,12 +116,6 @@
 "x" = (
 /obj/machinery/door/airlock/wood,
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
-/turf/open/floor/wood,
-/area/template_noop)
-"A" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/template_noop)
 "B" = (
@@ -159,10 +153,10 @@
 /obj/structure/barricade/wooden/crude,
 /turf/closed/wall/mineral/wood,
 /area/template_noop)
-"K" = (
+"L" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/broken_bottle,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "M" = (
@@ -232,6 +226,12 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/wood,
 /area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil/slippery,
+/obj/effect/trap/nexus/doorbolt,
+/turf/open/floor/wood,
+/area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/personal,
@@ -261,7 +261,7 @@ e
 (3,1,1) = {"
 U
 V
-A
+h
 N
 M
 "}
@@ -274,8 +274,8 @@ C
 "}
 (5,1,1) = {"
 g
-c
-u
+s
+Y
 x
 j
 "}
@@ -289,7 +289,7 @@ D
 (7,1,1) = {"
 I
 Z
-K
+L
 N
 P
 "}

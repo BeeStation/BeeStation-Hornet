@@ -16,19 +16,12 @@
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood,
 /area/template_noop)
-"hL" = (
-/obj/structure/table_frame/wood,
-/turf/open/floor/plating{
-	broken = 1
+"hP" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
 	},
-/area/template_noop)
-"ig" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "iU" = (
 /obj/structure/closet/firecloset,
@@ -36,6 +29,13 @@
 /area/template_noop)
 "ja" = (
 /obj/machinery/door/airlock/wood,
+/turf/open/floor/wood,
+/area/template_noop)
+"lE" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "lT" = (
@@ -60,6 +60,10 @@
 "qm" = (
 /obj/structure/table_frame/wood,
 /turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"sY" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "tO" = (
 /obj/effect/landmark/event_spawn,
@@ -114,15 +118,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"yn" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/plating,
-/area/template_noop)
-"yH" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "ze" = (
 /turf/open/floor/plating,
 /area/template_noop)
@@ -141,14 +136,6 @@
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
-"Bt" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "Bw" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -158,17 +145,16 @@
 "Ch" = (
 /turf/closed/wall,
 /area/template_noop)
-"Dz" = (
+"Ft" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
-"Eg" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
+"FD" = (
+/obj/structure/table_frame/wood,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "FF" = (
 /obj/structure/sign/warning/no_smoking/circle,
@@ -190,6 +176,10 @@
 "Il" = (
 /turf/open/floor/carpet,
 /area/template_noop)
+"KA" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "Ly" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
@@ -199,18 +189,21 @@
 "Mm" = (
 /turf/open/floor/iron/white,
 /area/template_noop)
+"Nf" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
+/area/template_noop)
 "Ny" = (
 /obj/structure/bookcase/random/reference,
 /turf/open/floor/carpet,
 /area/template_noop)
-"Ok" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/template_noop)
 "Os" = (
 /obj/item/chair/wood,
 /turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"OD" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Pi" = (
 /obj/machinery/smartfridge/drinks,
@@ -299,9 +292,9 @@
 
 (1,1,1) = {"
 lT
-Eg
+KA
 dZ
-ig
+lE
 dZ
 SJ
 wr
@@ -322,23 +315,23 @@ SJ
 iU
 "}
 (3,1,1) = {"
-Eg
+KA
 Os
 SJ
 SJ
 dZ
 SJ
 RI
-yH
+sY
 SJ
-Eg
+KA
 "}
 (4,1,1) = {"
 ze
 Zp
 SJ
 qm
-Eg
+KA
 Pi
 Ch
 Ch
@@ -346,8 +339,8 @@ QG
 Ch
 "}
 (5,1,1) = {"
-Eg
-Dz
+KA
+Ft
 Wn
 tO
 gK
@@ -360,13 +353,13 @@ ze
 (6,1,1) = {"
 dZ
 oV
-Bt
+hP
 dZ
 gK
-hL
+FD
 Sl
 ze
-yH
+sY
 Sl
 "}
 (7,1,1) = {"
@@ -398,7 +391,7 @@ vO
 Yt
 FF
 FK
-yn
+Nf
 Sl
 xT
 Ch
@@ -411,7 +404,7 @@ ZF
 Ch
 ya
 Sl
-Ok
+OD
 pI
 Ch
 Il

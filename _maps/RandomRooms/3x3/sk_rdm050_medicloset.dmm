@@ -27,11 +27,6 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/iron,
 /area/template_noop)
-"e" = (
-/obj/effect/decal/cleanable/blood/oil,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/template_noop)
 "f" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/beaker{
@@ -48,16 +43,20 @@
 "h" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"i" = (
+"z" = (
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/structure/rack,
 /obj/item/clothing/suit/toggle/labcoat,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/mask/breath/medical,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -67,11 +66,11 @@ f
 "}
 (2,1,1) = {"
 b
-e
+X
 h
 "}
 (3,1,1) = {"
 c
 h
-i
+z
 "}

@@ -24,6 +24,7 @@
 #include "blood_volume_procs.dm"
 #include "bloody_footprints.dm"
 #include "breath.dm"
+#include "buckle.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "combat.dm"

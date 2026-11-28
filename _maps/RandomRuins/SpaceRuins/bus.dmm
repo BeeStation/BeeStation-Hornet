@@ -12,10 +12,6 @@
 "ad" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
-"ae" = (
-/mob/living/simple_animal/hostile/lizard,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
 "af" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating/asteroid/airless,
@@ -90,10 +86,6 @@
 "av" = (
 /obj/structure/table,
 /obj/item/pai_card,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
-"aw" = (
-/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "ax" = (
@@ -175,13 +167,6 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
-"aL" = (
-/obj/structure/fluff/bus/dense{
-	icon_state = "frontwallbottom"
-	},
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
 "aM" = (
 /obj/structure/fluff/bus/passable{
 	icon_state = "bottomdoor"
@@ -194,17 +179,8 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
-"aO" = (
-/obj/effect/decal/cleanable/blood/gibs/robot_debris/old,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
 "aQ" = (
 /obj/item/rag,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
-"aR" = (
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aS" = (
@@ -265,6 +241,10 @@
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
+"cN" = (
+/mob/living/basic/lizard,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
 "dJ" = (
 /obj/structure/fluff/bus/passable,
 /obj/item/food/meatball,
@@ -290,6 +270,22 @@
 /turf/open/floor/iron/dark/airless{
 	icon_state = "bus"
 	},
+/area/ruin/unpowered/no_grav)
+"lW" = (
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/old,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"mH" = (
+/obj/structure/fluff/bus/dense{
+	icon_state = "frontwallbottom"
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"pR" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "sB" = (
 /obj/structure/fluff/bus/passable/seat{
@@ -333,6 +329,10 @@
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
+"SB" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
 "XA" = (
 /obj/structure/fluff/bus/passable/seat{
 	icon_state = "backseat"
@@ -375,7 +375,7 @@ ab
 ab
 ad
 ad
-aw
+SB
 ad
 ad
 ad
@@ -394,7 +394,7 @@ ab
 ab
 ab
 ad
-aw
+SB
 ad
 EG
 aj
@@ -435,12 +435,12 @@ ad
 ad
 ad
 ad
-aw
+SB
 ad
 aj
 aV
 ba
-aL
+mH
 ad
 ad
 "}
@@ -490,7 +490,7 @@ ab
 ab
 ab
 ab
-ae
+cN
 ad
 aj
 XA
@@ -537,7 +537,7 @@ ap
 aB
 aJ
 ad
-aR
+pR
 ad
 ad
 au
@@ -555,7 +555,7 @@ ad
 aj
 cF
 aC
-aL
+mH
 ad
 ad
 aY
@@ -597,7 +597,7 @@ am
 dJ
 aJ
 ad
-aO
+lW
 ad
 ad
 ad
@@ -675,7 +675,7 @@ ab
 ab
 ad
 ad
-aO
+lW
 ad
 ad
 ad

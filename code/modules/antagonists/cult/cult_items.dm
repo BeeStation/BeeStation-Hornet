@@ -552,8 +552,9 @@ Striking a noncultist, however, will tear their flesh."}
 			if(pulled)
 				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 			new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
-			playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
-			playsound(destination, "sparks", 50, 1)
+			playsound(mobloc, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			playsound(destination, 'sound/effects/portal/portal_travel.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
 		to_chat(C, span_danger("The veil cannot be torn here!"))

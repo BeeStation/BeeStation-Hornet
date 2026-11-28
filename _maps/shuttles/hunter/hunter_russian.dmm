@@ -4,7 +4,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "ca" = (
@@ -61,7 +61,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /obj/structure/girder,
 /obj/effect/decal/cleanable/greenglow,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "gc" = (
@@ -427,7 +427,7 @@
 	pixel_x = 7;
 	pixel_y = 11
 	},
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
@@ -570,7 +570,7 @@
 "Cg" = (
 /obj/item/chair/wood,
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "Ck" = (
@@ -722,7 +722,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
@@ -811,7 +811,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "OG" = (
@@ -947,9 +947,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/turf/open/floor/wood{
-	broken = 1
-	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/hunter)
 "SC" = (
 /obj/effect/turf_decal/box/corners{

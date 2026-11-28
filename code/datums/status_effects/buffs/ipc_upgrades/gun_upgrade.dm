@@ -28,7 +28,7 @@
 
 /datum/status_effect/ipc_upgrade/gun/proc/sling(atom/target, params)
 	if(!drain_cell(firing_power_requirement))
-		playsound(owner, 'sound/weapons/gun_dry_fire.ogg', 50)
+		playsound(owner, 'sound/weapons/gun/general/dry_fire.ogg', 50)
 		return
 	var/obj/projectile/projectile = new projectile_type(get_turf(owner))
 	playsound(owner, projectile_sound, 50, TRUE)

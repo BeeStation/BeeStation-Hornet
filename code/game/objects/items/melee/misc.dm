@@ -375,7 +375,7 @@
 	inhand_icon_state = active ? "nullrod" : null
 	if(user)
 		balloon_alert(user, "[active ? "extended" : "collapsed"] [src]")
-	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+	playsound(src, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
@@ -427,7 +427,7 @@
 		beam = user.Beam(target, icon_state = "rped_upgrade", time = 10 SECONDS)
 	else if (user.Adjacent(target))
 		to_chat(user, span_notice("You extend [src] towards [target]."))
-		playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
+		playsound(src.loc, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 	else
 		return
 	finish_roasting(user, target)
@@ -442,7 +442,7 @@
 		update_appearance()
 	else
 		QDEL_NULL(beam)
-		playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+		playsound(src, 'sound/items/baton/batonextend.ogg', 50, TRUE)
 		to_chat(user, span_notice("You put [src] away."))
 
 /obj/item/melee/knockback_stick

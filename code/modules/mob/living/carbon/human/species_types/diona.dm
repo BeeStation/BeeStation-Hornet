@@ -16,7 +16,7 @@
 		TRAIT_NO_SOCKS,
 		TRAIT_UNHUSKABLE,
 	)
-	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
+	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC | MOB_BUG
 	move_intents = list(/datum/move_intent/walk, /datum/move_intent/run)
 	mutant_organs = list(
 		/obj/item/organ/nymph_organ/r_arm,
@@ -45,7 +45,7 @@
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
-	deathsound = "sound/emotes/diona/death.ogg"
+	deathsound = 'sound/emotes/diona/death.ogg'
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
@@ -290,7 +290,7 @@
 /obj/item/organ/nymph_organ
 	name = "diona nymph"
 	desc = "You should not be seeing this, if you are, please contact a coder."
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "nymph"
 
 /obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, movement_flags)

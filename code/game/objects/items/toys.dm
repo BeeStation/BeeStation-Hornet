@@ -262,13 +262,15 @@
 	add_fingerprint(user)
 	if (src.bullets < 1)
 		user.show_message(span_warning("*click*"), MSG_AUDIBLE)
-		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
+		playsound(src, 'sound/weapons/gun/revolver/dry_fire.ogg', 30, TRUE)
 		return
-	playsound(user, 'sound/weapons/gunshot.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun/pistol/shot.ogg', 100, TRUE)
 	src.bullets--
-	user.visible_message(span_danger("[user] fires [src] at [target]!"), \
-						span_danger("You fire [src] at [target]!"), \
-						span_italics("You hear a gunshot!"))
+	user.visible_message(
+		span_danger("[user] fires [src] at [target]!"),
+		span_danger("You fire [src] at [target]!"),
+		span_italics("You hear a gunshot!"),
+	)
 
 /obj/item/toy/ammo
 	abstract_type = /obj/item/toy/ammo
@@ -425,8 +427,8 @@
 	var/active = FALSE
 	icon = 'icons/obj/items_and_weapons.dmi'
 	hitsound = 'sound/weapons/smash.ogg'
-	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/toolbox/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox/toolbox_pickup.ogg'
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	item_flags = ISWEAPON
@@ -877,6 +879,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	item_flags = ISWEAPON
+	interaction_flags_click = NEED_DEXTERITY|FORBID_TELEKINESIS_REACH|ALLOW_RESTING
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -1127,7 +1130,7 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+	if(!ishuman(usr) || !usr.can_perform_action(src))
 		return
 	if(!flipped)
 		src.flipped = 1
@@ -1744,13 +1747,15 @@
 /obj/item/toy/cards/deck/cyborg/update_icon()
 	icon_state = "deck_[deckstyle]_full"
 
-/obj/item/toy/cards/deck/cyborg/CtrlClick(mob/user)
-	..()
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		if(R.cell?.use(300))
-			populate_deck()
-			to_chat(user, span_notice("You fabricate a new set of cards."))
+/obj/item/toy/cards/deck/cyborg/item_ctrl_click(mob/user)
+	if(!iscyborg(user))
+		return NONE
+	var/mob/living/silicon/robot/R = user
+	if(!R.cell?.use(300))
+		return CLICK_ACTION_BLOCKING
+	populate_deck()
+	to_chat(user, span_notice("You fabricate a new set of cards."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/cards/deck/cyborg/afterattack(atom/A, mob/user, proximity)
 	. = ..()

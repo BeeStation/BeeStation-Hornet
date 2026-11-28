@@ -244,6 +244,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// How many charges get restored, when using this item to restore shield
 	var/added_shield = 0
 
+	/// Has the item been reskinned?
+	var/current_skin
+	/// Radial menu options for reskinning, usually built when first needed.
+	var/list/unique_reskin
+	/// Icon states for each reskin option. Items with this set can be reskinned by alt-clicking.
+	var/list/unique_reskin_icon
 	/*___________*/
 	/*Goon Combat*/
 	/*‾‾‾‾‾‾‾‾‾‾‾*/
@@ -301,6 +307,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
+	if(unique_reskin_icon)
+		RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(on_click_alt_reskin))
+
+
 /obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
@@ -312,6 +322,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		remove_item_action(action)
 	QDEL_NULL(rpg_loot)
 	return ..()
+
+/obj/item/examine(mob/user)
+	. = ..()
+	if(unique_reskin_icon && !current_skin)
+		. += span_notice("Alt-click it to reskin it.")
+
+/obj/item/click_ctrl(mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	//If the item is on the ground & not anchored we allow the player to drag it
+	. = item_ctrl_click(user)
+	if(. & CLICK_ACTION_ANY)
+		return (isturf(loc) && !anchored) ? NONE : . //allow the object to get dragged on the floor
+
+/// Subtypes only override this proc for ctrl click purposes. obeys same principles as ctrl_click()
+/obj/item/proc/item_ctrl_click(mob/user)
+	SHOULD_CALL_PARENT(FALSE)
+	return NONE
 
 /// Called when an action associated with our item is deleted
 /obj/item/proc/on_action_deleted(datum/source)
@@ -657,12 +685,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	switch(relative_dir)
 		if(180, -180) //Check for head on attack
 			if(canblock)
-				playsound(src, block_sound, 50, 1)
+				playsound(src, block_sound, 50, TRUE)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 				return TRUE
 		if(135, 225, -135, -225) //Check for forward diagonals
 			if(canblock)
-				playsound(src, block_sound, 50, 1)
+				playsound(src, block_sound, 50, TRUE)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 				return TRUE
 	return FALSE
@@ -729,7 +757,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(hitby, /mob/living/simple_animal))
 		var/mob/living/simple_animal/simplemob = hitby
 		if(simplemob.hardattacks)
-			attackforce = attackforce * 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
+			attackforce *= 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
 
 	//We are ready to deal stamina damage to our owner
 	owner.apply_damage(min(attackforce, 35), STAMINA, blocked = block_power)
@@ -855,7 +883,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 	if(!initial)
-		if(equip_sound && slot_flags)
+		if(equip_sound && (slot_flags & slot))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == ITEM_SLOT_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
@@ -954,7 +982,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	add_fingerprint(user)
 
-	playsound(loc, src.hitsound, 30, 1, -1)
+	playsound(loc, src.hitsound, 30, TRUE, -1)
 
 	user.do_attack_animation(M)
 
@@ -1046,7 +1074,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
 	else
-		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		playsound(hit_atom, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
@@ -1301,8 +1329,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				apply_outline()
 
-/obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+/obj/item/base_mouse_drop_handler(atom/over, src_location, over_location, params)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	. = ..()
+
 	remove_outline()
 
 /obj/item/MouseExited()
@@ -1387,7 +1418,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(islist(usesound))
 			played_sound = pick(usesound)
 
-		playsound(target, played_sound, volume, 1)
+		playsound(target, played_sound, volume, TRUE)
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
 /obj/item/proc/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
@@ -1505,18 +1536,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 
 	AddElement(/datum/element/embed,\
-		embed_chance = (!isnull(embedding["embed_chance"]) ? embedding["embed_chance"] : EMBED_CHANCE),\
-		fall_chance = (!isnull(embedding["fall_chance"]) ? embedding["fall_chance"] : EMBEDDED_ITEM_FALLOUT),\
-		pain_chance = (!isnull(embedding["pain_chance"]) ? embedding["pain_chance"] : EMBEDDED_PAIN_CHANCE),\
-		pain_mult = (!isnull(embedding["pain_mult"]) ? embedding["pain_mult"] : EMBEDDED_PAIN_MULTIPLIER),\
-		max_damage_mult = (!isnull(embedding["max_damage_mult"]) ? embedding["max_damage_mult"] : EMBEDDED_MAX_DAMAGE_MULTIPLIER),\
-		remove_pain_mult = (!isnull(embedding["remove_pain_mult"]) ? embedding["remove_pain_mult"] : EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER),\
-		rip_time = (!isnull(embedding["rip_time"]) ? embedding["rip_time"] : EMBEDDED_UNSAFE_REMOVAL_TIME),\
-		ignore_throwspeed_threshold = (!isnull(embedding["ignore_throwspeed_threshold"]) ? embedding["ignore_throwspeed_threshold"] : FALSE),\
-		jostle_chance = (!isnull(embedding["jostle_chance"]) ? embedding["jostle_chance"] : EMBEDDED_JOSTLE_CHANCE),\
-		jostle_pain_mult = (!isnull(embedding["jostle_pain_mult"]) ? embedding["jostle_pain_mult"] : EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
-		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT),\
-		armour_block = (!isnull(embedding["armour_block"]) ? embedding["armour_block"] : EMBEDDED_ARMOUR_BLOCK))
+		embed_chance = (embedding["embed_chance"] || EMBED_CHANCE),\
+		fall_chance = (embedding["fall_chance"] || EMBEDDED_ITEM_FALLOUT),\
+		pain_chance = (embedding["pain_chance"] || EMBEDDED_PAIN_CHANCE),\
+		pain_mult = (embedding["pain_mult"] || EMBEDDED_PAIN_MULTIPLIER),\
+		max_damage_mult = (embedding["max_damage_mult"] || EMBEDDED_MAX_DAMAGE_MULTIPLIER),\
+		remove_pain_mult = (embedding["remove_pain_mult"] || EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER),\
+		rip_time = (embedding["rip_time"] || EMBEDDED_UNSAFE_REMOVAL_TIME),\
+		ignore_throwspeed_threshold = (embedding["ignore_throwspeed_threshold"] || FALSE),\
+		jostle_chance = (embedding["jostle_chance"] || EMBEDDED_JOSTLE_CHANCE),\
+		jostle_pain_mult = (embedding["jostle_pain_mult"] || EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
+		pain_stam_pct = (embedding["pain_stam_pct"] || EMBEDDED_PAIN_STAM_PCT),\
+		armour_block = (embedding["armour_block"] || EMBEDDED_ARMOUR_BLOCK))
 	return TRUE
 
 /// How many different types of mats will be counted in a bite?

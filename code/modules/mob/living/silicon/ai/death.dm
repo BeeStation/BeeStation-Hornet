@@ -46,7 +46,7 @@
 
 /mob/living/silicon/ai/proc/ShutOffDoomsdayDevice()
 	if(nuking)
-		stop_soundtrack_music()
+		stop_soundtrack_music(stop_playing = TRUE)
 		SSsecurity_level.set_level(SEC_LEVEL_RED)
 		nuking = FALSE
 		for(var/obj/item/pinpointer/nuke/P in GLOB.pinpointer_list)

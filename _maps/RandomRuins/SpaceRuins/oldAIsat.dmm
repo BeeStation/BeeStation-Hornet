@@ -77,11 +77,6 @@
 	},
 /turf/open/floor/iron/airless,
 /area/station/tcommsat/oldaisat)
-"ar" = (
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
-/area/station/tcommsat/oldaisat)
 "at" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -405,10 +400,6 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/station/tcommsat/oldaisat)
-"bT" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
 "bV" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -727,6 +718,10 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
+"yq" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
 "Ar" = (
 /obj/structure/table,
 /obj/item/hemostat,
@@ -760,6 +755,10 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"Ni" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating/airless,
 /area/station/tcommsat/oldaisat)
 "SX" = (
 /obj/effect/decal/cleanable/blood,
@@ -2322,7 +2321,7 @@ ag
 FE
 ag
 ag
-ar
+yq
 az
 ag
 ag
@@ -2489,15 +2488,15 @@ bH
 dZ
 dZ
 dZ
-bT
+Ni
 dZ
 dZ
 dZ
 ac
 ag
-ar
+yq
 az
-ar
+yq
 ag
 az
 az
@@ -2556,9 +2555,9 @@ ac
 ag
 cn
 az
-ar
-ar
-ar
+yq
+yq
+yq
 az
 cD
 cF
@@ -2672,9 +2671,9 @@ kx
 dZ
 ac
 ag
-ar
+yq
 cs
-ar
+yq
 ag
 ag
 aq
@@ -3068,7 +3067,7 @@ aa
 ad
 ag
 ah
-ar
+yq
 az
 az
 az
@@ -3127,8 +3126,8 @@ aa
 ab
 ah
 ac
-ar
-ar
+yq
+yq
 az
 aY
 bg
@@ -3187,8 +3186,8 @@ aa
 ac
 ab
 ac
-ar
-ar
+yq
+yq
 aZ
 bj
 ag
@@ -3246,8 +3245,8 @@ aa
 ab
 ab
 ac
-ar
-ar
+yq
+yq
 ba
 bk
 ag

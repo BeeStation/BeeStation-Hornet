@@ -130,9 +130,12 @@
 		run_stage ++
 		// Check if we are still within bounds
 		if (run_stage - 1 > length(placing_template.gridSets))
-			if(!no_changeturf)
-				for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
-					var/turf/T = t
+			// Indicate failure to parse any coordinates by nulling bounds
+			// Copy & pasted from /datum/parsed_map/New()
+			if(bounds[MAP_MINX] == 1.#INF)
+				bounds = placing_template.bounds = null
+			if(!no_changeturf && bounds)
+				for(var/turf/T as anything in block(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ], bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ]))
 					//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
 					T.AfterChange(CHANGETURF_IGNORE_AIR)
 

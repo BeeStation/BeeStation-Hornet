@@ -17,16 +17,16 @@
 
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
-	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
-	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/tools/crowbar_pickup.ogg'
 
 	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
 	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 	tool_behaviour = TOOL_CROWBAR
 	toolspeed = 1
 	armor_type = /datum/armor/item_crowbar
-	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
-	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/tools/crowbar_pickup.ogg'
 
 /obj/item/crowbar/Initialize(mapload)
 	. = ..()

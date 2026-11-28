@@ -130,6 +130,11 @@
 	/// Reference to our blindness apperance, essentially just a copy of our apperance but everything is on a specific plane
 	var/mutable_appearance/blind_appearance
 
+	/// Flags to check for in can_perform_action. Used in alt-click & ctrl-click checks
+	var/interaction_flags_click = NONE
+	/// Flags to check for in can_perform_action for mouse drag & drop checks. To bypass checks see interaction_flags_atom mouse drop flags
+	var/interaction_flags_mouse_drop = NONE
+
 /**
   * Top level of the destroy chain for most atoms
   *
@@ -631,7 +636,10 @@
 
 /atom/proc/StartProcessingAtom(mob/living/user, obj/item/process_item, list/chosen_option)
 	var/processing_time = chosen_option[TOOL_PROCESSING_TIME]
+	var/sound_to_play = chosen_option[TOOL_PROCESSING_SOUND]
 	to_chat(user, span_notice("You start working on [src]"))
+	if(sound_to_play)
+		playsound(src, sound_to_play, 50, TRUE)
 	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
 		var/list/atom/created_atoms = list()

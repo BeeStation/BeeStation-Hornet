@@ -13,7 +13,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
 	var/mob/oranges_ear/assigned_oranges_ear
 
-
 	/// Turf bitflags, see code/__DEFINES/flags.dm
 	var/turf_flags = NONE
 	/// If there's a tile over a basic floor that can be ripped out
@@ -62,14 +61,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/list/image/blueprint_data
 
 	var/explosion_level = 0	//for preventing explosion dodging
-	var/explosion_id = 0
 	var/list/explosion_throw_details
 
 	var/requires_activation	//add to air processing after initialize?
 	var/changing_turf = FALSE
 
 	/// Sound played when a shell casing is ejected ontop of the turf.
-	var/bullet_bounce_sound = 'sound/weapons/bulletremove.ogg'
+	var/bullet_bounce_sound = 'sound/weapons/gun/general/mag_bullet_remove.ogg'
 	/// Used by ammo_casing/bounce_away() to determine if the shell casing should make a sizzle sound when it's ejected over the turf. ex: If the turf is supposed to be water, set TRUE.
 	var/bullet_sizzle = FALSE
 

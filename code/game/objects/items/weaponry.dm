@@ -421,7 +421,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/switchblade/attack_self(mob/user)
 	extended = !extended
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/baton/batonextend.ogg', 50, 1)
 	if(extended)
 		force = extended_force
 		w_class = WEIGHT_CLASS_NORMAL
@@ -864,7 +864,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	strong_against = typecacheof(list(
 		/mob/living/simple_animal/hostile/poison/bees,
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/butterfly,
 		/mob/living/basic/cockroach,
 		/obj/item/queen_bee,
 	))

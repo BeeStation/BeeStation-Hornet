@@ -920,25 +920,25 @@
 
 /obj/machinery/vending/ui_data(mob/user)
 	. = list()
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/card
+
 	.["user"] = null
-	if(ishuman(user))
-		H = user
-		card = H.get_idcard(TRUE)
+	if(isliving(user))
+		var/mob/living/living_user = user
+		var/obj/item/card/id/card_used = living_user.get_idcard(TRUE)
 
 		.["user"] = list()
-		if(card?.registered_account)
-			.["user"]["name"] = card.registered_account.account_holder
+		if(card_used?.registered_account)
+			.["user"]["name"] = card_used.registered_account.account_holder
 		else
-			.["user"]["name"] = H.name
-		.["user"]["cash"] = H.get_accessible_cash()
+			.["user"]["name"] = living_user.name
+		.["user"]["cash"] = living_user.get_accessible_cash()
 		.["user"]["job"] = "No Job"
-		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder, GLOB.manifest.general)
-		if(card?.registered_account?.account_job)
-			.["user"]["job"] = card.registered_account.account_job.title
+		var/datum/record/crew/R = find_record(card_used?.registered_account?.account_holder, GLOB.manifest.general)
+		if(card_used?.registered_account?.account_job)
+			.["user"]["job"] = card_used.registered_account.account_job.title
 		if(R)
 			.["user"]["job"] = R.rank
+
 	.["stock"] = list()
 
 	for (var/datum/vending_product/product_record in product_records + coin_records + hidden_records)
@@ -953,13 +953,14 @@
 
 	.["extended_inventory"] = extended_inventory
 
-/obj/machinery/vending/ui_act(action, params)
+/obj/machinery/vending/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
+
 	switch(action)
 		if("vend")
-			. = vend(params)
+			. = vend(params, ui.user)
 		if("select_colors")
 			. = select_colors(params)
 
@@ -1011,11 +1012,13 @@
 		return
 	if(!menu.target.can_interact(usr))
 		return
-	vend(params, menu.split_colors)
+	vend(params, usr, menu.split_colors)
 
-/obj/machinery/vending/proc/vend(list/params, list/greyscale_colors)
+/obj/machinery/vending/proc/vend(list/params, mob/user, list/greyscale_colors)
+	PROTECTED_PROC(TRUE)
+
 	. = TRUE
-	if(!can_vend(usr))
+	if(!can_vend(user))
 		return FALSE
 	vend_ready = FALSE //One thing at a time!!
 	var/datum/vending_product/R = locate(params["ref"])
@@ -1034,7 +1037,7 @@
 			return FALSE
 	else if (!(R in record_to_check))
 		vend_ready = TRUE
-		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
+		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(user)]!")
 		return FALSE
 	if (R.amount <= 0)
 		speak("Sold out of [R.name].")
@@ -1043,8 +1046,8 @@
 		return FALSE
 	if(onstation)
 		var/obj/item/card/id/C
-		if(isliving(usr))
-			var/mob/living/L = usr
+		if(isliving(user))
+			var/mob/living/L = user
 			C = L.get_idcard(TRUE)
 		if(!C)
 			speak("No card found.")
@@ -1077,11 +1080,11 @@
 						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
-	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+	if(last_shopper != REF(user) || purchase_message_cooldown < world.time)
 		var/vend_response = vend_reply || "Thank you for shopping with [src]!"
 		speak(vend_response)
 		purchase_message_cooldown = world.time + 5 SECONDS
-		last_shopper = REF(usr)
+		last_shopper = REF(user)
 	use_power(active_power_usage)
 	if(icon_vend) //Show the vending animation if needed
 		z_flick(icon_vend,src)
@@ -1096,10 +1099,10 @@
 	if(greyscale_colors)
 		vended_item.set_greyscale(colors=greyscale_colors)
 	R.amount--
-	if(IsReachableBy(usr) && usr.put_in_hands(vended_item))
-		to_chat(usr, span_notice("You take [R.name] out of the slot."))
+	if(IsReachableBy(user) && user.put_in_hands(vended_item))
+		to_chat(user, span_notice("You take [R.name] out of the slot."))
 	else
-		to_chat(usr, span_warning("[capitalize(R.name)] falls onto the floor!"))
+		to_chat(user, span_warning("[capitalize(R.name)] falls onto the floor!"))
 	SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 	vend_ready = TRUE
 
@@ -1252,13 +1255,12 @@
 
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
-	if(ishuman(user))
-		H = user
-		C = H.get_idcard(TRUE)
-		if(C?.registered_account && C.registered_account == private_a)
-			return TRUE
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/living_user = user
+	var/obj/item/card/id/C = living_user.get_idcard(TRUE)
+	if(C?.registered_account && C.registered_account == private_a)
+		return TRUE
 
 /obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
@@ -1312,48 +1314,47 @@
 		return
 	switch(action)
 		if("dispense")
-			if(!vend_ready)
+			if(!vend_ready || !isliving(usr))
 				return
+			var/mob/living/living_user = usr
 			var/N = params["item"]
 			var/obj/S
 			vend_ready = FALSE
-			if(ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				var/obj/item/card/id/C = H.get_idcard(TRUE)
+			var/obj/item/card/id/C = living_user.get_idcard(TRUE)
 
-				for(var/obj/O in contents)
-					if(format_text(O.name) == N)
-						S = O
-						break
-				if(S)
-					if(compartmentLoadAccessCheck(usr))
-						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
-						S.forceMove(drop_location())
-						if (IsReachableBy(usr) && usr.put_in_hands(S))
-							to_chat(usr, span_notice("You take [S.name] out of the slot."))
-						else
-							to_chat(usr, span_warning("[capitalize(S.name)] falls onto the floor!"))
-						loaded_items--
-						use_power(active_power_usage)
-						vend_ready = TRUE
-						return TRUE
-					//var/datum/bank_account/account = C?.registered_account
-					if(H.spend_cash(S.custom_price))
-						make_purchase(S, H, N)
-						return TRUE
+			for(var/obj/O in contents)
+				if(format_text(O.name) == N)
+					S = O
+					break
+			if(S)
+				if(compartmentLoadAccessCheck(usr))
+					vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
+					S.forceMove(drop_location())
+					if (IsReachableBy(usr) && usr.put_in_hands(S))
+						to_chat(usr, span_notice("You take [S.name] out of the slot."))
 					else
-						var/additional_message = ""
-						if(!C)
-							additional_message += "No ID card found. "
-						if(!C?.registered_account)
-							additional_message += "No account found. "
-						speak("[additional_message]Not enough funds to purchase [S.name].")
-						z_flick(icon_deny,src)
-						vend_ready = TRUE
-						return
+						to_chat(usr, span_warning("[capitalize(S.name)] falls onto the floor!"))
+					loaded_items--
+					use_power(active_power_usage)
+					vend_ready = TRUE
+					return TRUE
+				//var/datum/bank_account/account = C?.registered_account
+				if(living_user.spend_cash(S.custom_price))
+					make_purchase(S, living_user, N)
+					return TRUE
+				else
+					var/additional_message = ""
+					if(!C)
+						additional_message += "No ID card found. "
+					if(!C?.registered_account)
+						additional_message += "No account found. "
+					speak("[additional_message]Not enough funds to purchase [S.name].")
+					z_flick(icon_deny,src)
+					vend_ready = TRUE
+					return
 			vend_ready = TRUE
 
-/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, N)
+/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/H, N)
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)
@@ -1381,15 +1382,12 @@
 	vend_ready = TRUE
 
 /obj/machinery/vending/custom/attackby(obj/item/I, mob/user, list/modifiers)
-	if(!private_a)
-		var/mob/living/carbon/human/H
-		var/obj/item/card/id/C
-		if(ishuman(user))
-			H = user
-			C = H.get_idcard(TRUE)
-			if(C?.registered_account)
-				private_a = C.registered_account
-				speak("\The [src] has been linked to [C].")
+	if(!private_a && isliving(user))
+		var/mob/living/living_user = user
+		var/obj/item/card/id/C = living_user.get_idcard(TRUE)
+		if(C?.registered_account)
+			private_a = C.registered_account
+			speak("\The [src] has been linked to [C].")
 
 	if(compartmentLoadAccessCheck(user))
 		if(istype(I, /obj/item/pen))

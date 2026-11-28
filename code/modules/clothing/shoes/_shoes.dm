@@ -1,8 +1,11 @@
 /obj/item/clothing/shoes
 	abstract_type = /obj/item/clothing/shoes
 	name = "shoes"
-	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
+	icon = 'icons/obj/clothing/shoes.dmi'
+	pickup_sound = 'sound/items/handling/shoes/sneakers_pickup1.ogg'
+	drop_sound = 'sound/items/handling/shoes/sneakers_drop1.ogg'
+	equip_sound = 'sound/items/equip/sneakers_equip1.ogg'
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	var/chained = 0
 

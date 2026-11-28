@@ -24,6 +24,11 @@
 /obj/structure/rack,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
+"dY" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "eF" = (
 /obj/machinery/shower{
 	dir = 1
@@ -32,10 +37,6 @@
 	pixel_y = -32
 	},
 /turf/open/floor/monotile/steel,
-/area/template_noop)
-"fb" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/iron,
 /area/template_noop)
 "fy" = (
 /obj/machinery/shower,
@@ -61,20 +62,24 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
-"kk" = (
-/obj/item/trash/cheesie,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+"iO" = (
+/obj/item/trash/popcorn,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "kn" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/iron,
+/area/template_noop)
+"kI" = (
+/obj/item/trash/cheesie,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "lo" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -114,18 +119,15 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/iron,
 /area/template_noop)
+"oN" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "oZ" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/monotile/steel,
-/area/template_noop)
-"qz" = (
-/obj/effect/decal/cleanable/blood/oil{
-	icon_state = "floor5"
-	},
-/obj/structure/curtain,
-/turf/open/floor/iron,
 /area/template_noop)
 "qP" = (
 /obj/structure/table,
@@ -141,11 +143,6 @@
 "rx" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"sh" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "sZ" = (
 /obj/structure/curtain,
 /turf/open/floor/iron,
@@ -154,18 +151,19 @@
 /obj/structure/chair/stool,
 /turf/open/floor/plating,
 /area/template_noop)
-"uF" = (
-/obj/item/trash/popcorn,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "xe" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/iron,
 /area/template_noop)
 "xL" = (
 /turf/closed/wall,
+/area/template_noop)
+"yj" = (
+/obj/effect/decal/cleanable/blood/oil{
+	icon_state = "floor5"
+	},
+/obj/structure/curtain,
+/turf/open/floor/iron,
 /area/template_noop)
 "yL" = (
 /obj/structure/chair/stool,
@@ -206,20 +204,9 @@
 /obj/item/stack/spacecash/c20,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
-"HU" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/template_noop)
 "HZ" = (
 /obj/item/chair/stool,
 /turf/open/floor/iron,
-/area/template_noop)
-"Ig" = (
-/obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/template_noop)
 "Jb" = (
 /obj/structure/table,
@@ -230,6 +217,10 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "JJ" = (
+/turf/open/floor/iron,
+/area/template_noop)
+"Kx" = (
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron,
 /area/template_noop)
 "Mj" = (
@@ -254,6 +245,10 @@
 "Pg" = (
 /obj/structure/chair/stool,
 /turf/open/floor/iron,
+/area/template_noop)
+"Pn" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "Qx" = (
 /obj/structure/closet,
@@ -330,7 +325,7 @@ JJ
 yL
 ce
 re
-Ig
+dY
 JJ
 JJ
 JJ
@@ -368,7 +363,7 @@ YW
 TC
 xL
 sZ
-qz
+yj
 Wc
 xL
 "}
@@ -376,12 +371,12 @@ xL
 re
 rx
 HZ
-uF
+iO
 GN
 AU
 JJ
 JJ
-HU
+oN
 oZ
 "}
 (6,1,1) = {"
@@ -399,10 +394,10 @@ re
 (7,1,1) = {"
 mb
 rx
-kk
+kI
 JJ
 JJ
-sh
+Pn
 HZ
 rx
 th
@@ -416,7 +411,7 @@ kn
 YL
 xe
 JJ
-sh
+Pn
 JJ
 UQ
 "}
@@ -426,7 +421,7 @@ nT
 Pf
 JJ
 JJ
-fb
+Kx
 rx
 os
 QK

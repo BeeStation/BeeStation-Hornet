@@ -5,7 +5,7 @@
 /mob/living/simple_animal/hostile/hivebot
 	name = "hivebot"
 	desc = "A small robot."
-	icon = 'icons/mob/hivebot.dmi'
+	icon = 'icons/mob/simple/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
@@ -19,7 +19,7 @@
 	attack_verb_simple = "claw"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	attack_vis_effect = ATTACK_EFFECT_CLAW
-	projectilesound = 'sound/weapons/gunshot.ogg'
+	projectilesound = 'sound/weapons/gun/pistol/shot.ogg'
 	projectiletype = /obj/projectile/hivebotbullet
 	faction = list(FACTION_HIVEBOT)
 	check_friendly_fire = 1

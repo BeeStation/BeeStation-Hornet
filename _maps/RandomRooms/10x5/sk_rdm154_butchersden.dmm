@@ -4,13 +4,18 @@
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/template_noop)
-"c" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/plating,
-/area/template_noop)
 "d" = (
 /obj/structure/closet/toolcloset,
 /obj/item/clothing/suit/jacket/straight_jacket,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -32,19 +37,13 @@
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plating,
 /area/template_noop)
+"t" = (
+/obj/effect/spawner/random/trash/grille_or_waste,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "u" = (
 /turf/closed/wall,
-/area/template_noop)
-"w" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
-"x" = (
-/obj/machinery/gibber,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/plating,
 /area/template_noop)
 "y" = (
 /obj/machinery/computer/crew{
@@ -113,12 +112,6 @@
 /obj/structure/bed,
 /turf/open/floor/plating,
 /area/template_noop)
-"Q" = (
-/obj/effect/spawner/random/trash/grille_or_waste,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "R" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
@@ -127,11 +120,11 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/template_noop)
-"W" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	broken = 1
-	},
+"U" = (
+/obj/machinery/gibber,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
 /area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -142,6 +135,10 @@
 /obj/machinery/computer/records/medical{
 	dir = 4
 	},
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/template_noop)
 
@@ -161,7 +158,7 @@ u
 "}
 (3,1,1) = {"
 O
-x
+U
 F
 Y
 y
@@ -169,7 +166,7 @@ y
 (4,1,1) = {"
 P
 k
-w
+f
 F
 J
 "}
@@ -177,14 +174,14 @@ J
 J
 z
 H
-c
+Z
 F
 "}
 (6,1,1) = {"
-w
+f
 J
 R
-W
+g
 J
 "}
 (7,1,1) = {"
@@ -195,7 +192,7 @@ E
 N
 "}
 (8,1,1) = {"
-Q
+t
 X
 u
 u
@@ -209,7 +206,7 @@ J
 K
 "}
 (10,1,1) = {"
-w
+f
 J
 u
 d

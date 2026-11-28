@@ -48,16 +48,16 @@
 	else
 		open_machine()
 
-/obj/machinery/photobooth/AltClick(mob/user, list/modifiers)
+/obj/machinery/photobooth/attack_hand_secondary(mob/user, list/modifiers)
 	if(taking_pictures)
 		balloon_alert(user, "machine busy!")
-		return TRUE
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	if(occupant)
 		if(allowed(user))
 			start_taking_pictures()
 		else
 			balloon_alert(user, "access denied!")
-		return TRUE
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
 /obj/machinery/photobooth/close_machine(mob/user, density_to_set = TRUE)

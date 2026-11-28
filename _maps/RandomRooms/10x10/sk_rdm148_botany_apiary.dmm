@@ -61,24 +61,9 @@
 /obj/item/seeds/cannabis,
 /turf/open/floor/grass,
 /area/template_noop)
-"l" = (
-/mob/living/simple_animal/butterfly,
-/turf/open/floor/grass,
-/area/template_noop)
 "m" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/grass,
-/area/template_noop)
-"n" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/template_noop)
-"o" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/template_noop)
 "p" = (
 /obj/structure/closet{
@@ -108,26 +93,26 @@
 /obj/item/seeds/cabbage,
 /turf/open/floor/grass,
 /area/template_noop)
-"t" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/plating,
-/area/template_noop)
 "u" = (
 /turf/open/floor/monotile/steel,
-/area/template_noop)
-"v" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "x" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/grass,
 /area/template_noop)
+"y" = (
+/obj/effect/spawner/structure/window,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "D" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/bamboo,
 /turf/open/floor/grass,
+/area/template_noop)
+"E" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "G" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -135,6 +120,10 @@
 /area/template_noop)
 "H" = (
 /turf/closed/wall,
+/area/template_noop)
+"J" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
 /area/template_noop)
 "K" = (
 /obj/item/stack/cable_coil,
@@ -162,11 +151,19 @@
 /obj/item/seeds/ambrosia,
 /turf/open/floor/grass,
 /area/template_noop)
+"S" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "T" = (
 /obj/structure/beebox,
 /turf/open/floor/grass,
 /area/template_noop)
 "U" = (
+/turf/open/floor/grass,
+/area/template_noop)
+"V" = (
+/mob/living/basic/butterfly,
 /turf/open/floor/grass,
 /area/template_noop)
 "X" = (
@@ -192,7 +189,7 @@ a
 a
 a
 a
-o
+E
 a
 a
 "}
@@ -218,10 +215,10 @@ U
 U
 h
 e
-v
+S
 "}
 (4,1,1) = {"
-o
+E
 e
 Q
 U
@@ -234,7 +231,7 @@ a
 "}
 (5,1,1) = {"
 a
-n
+y
 T
 M
 X
@@ -245,13 +242,13 @@ e
 a
 "}
 (6,1,1) = {"
-t
-n
+J
+y
 T
 U
 x
 f
-l
+V
 p
 e
 a
@@ -269,7 +266,7 @@ e
 a
 "}
 (8,1,1) = {"
-o
+E
 e
 k
 Y
@@ -298,7 +295,7 @@ a
 a
 a
 a
-o
+E
 a
 a
 N

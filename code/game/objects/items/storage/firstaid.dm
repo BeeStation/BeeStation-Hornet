@@ -20,11 +20,13 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
+	drop_sound = 'sound/items/handling/medkit/medkit_drop.ogg'
+	pickup_sound = 'sound/items/handling/medkit/medkit_pick_up.ogg'
 	w_class = WEIGHT_CLASS_LARGE
+	storage_type = /datum/storage/firstaid
 	var/skin_type = MEDBOT_SKIN_DEFAULT
 
 /obj/item/storage/firstaid/regular
-	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
 /obj/item/storage/firstaid/regular/suicide_act(mob/living/carbon/user)
@@ -64,61 +66,7 @@
 	skin_type = null
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
-
-/obj/item/storage/firstaid/medical/Initialize(mapload)
-	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
-	atom_storage.max_slots = 12
-	atom_storage.max_total_storage = 24
-	atom_storage.set_holdable(list(
-		/obj/item/healthanalyzer,
-		/obj/item/dnainjector,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/applicator,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/medspray,
-		/obj/item/lighter,
-		/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/medical,
-		/obj/item/flashlight/pen,
-		/obj/item/extinguisher/mini,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/sensor_device,
-		/obj/item/radio,
-		/obj/item/clothing/gloves,
-		/obj/item/lazarus_injector,
-		/obj/item/bikehorn/rubberducky,
-		/obj/item/clothing/mask/surgical,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath/medical,
-		/obj/item/surgical_drapes, //for true paramedics
-		/obj/item/scalpel,
-		/obj/item/circular_saw,
-		/obj/item/surgicaldrill,
-		/obj/item/retractor,
-		/obj/item/cautery,
-		/obj/item/hemostat,
-		/obj/item/blood_filter,
-		/obj/item/geiger_counter,
-		/obj/item/clothing/neck/stethoscope,
-		/obj/item/stamp,
-		/obj/item/clothing/glasses,
-		/obj/item/wrench/medical,
-		/obj/item/clothing/mask/muzzle,
-		/obj/item/storage/bag/chemistry,
-		/obj/item/storage/bag/bio,
-		/obj/item/reagent_containers/blood,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/gun/syringe/syndicate,
-		/obj/item/implantcase,
-		/obj/item/implant,
-		/obj/item/implanter,
-		/obj/item/pinpointer/crew,
-		/obj/item/holosign_creator/medical,
-	))
+	storage_type = /datum/storage/firstaid/medical
 
 /obj/item/storage/firstaid/medical/PopulateContents()
 	var/static/items_inside = list(
@@ -143,51 +91,7 @@
 	skin_type = null
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
-
-/obj/item/storage/firstaid/medical/paramedic/Initialize(mapload)
-	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
-	atom_storage.max_slots = 12
-	atom_storage.max_total_storage = 24
-	atom_storage.set_holdable(list(
-		/obj/item/healthanalyzer,
-		/obj/item/dnainjector,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/applicator,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/medspray,
-		/obj/item/lighter,
-		/obj/item/weldingtool/mini,
-		/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/medical,
-		/obj/item/flashlight/pen,
-		/obj/item/extinguisher/mini,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/sensor_device,
-		/obj/item/radio,
-		/obj/item/clothing/gloves,
-		/obj/item/clothing/mask/surgical,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath/medical,
-		/obj/item/geiger_counter,
-		/obj/item/clothing/neck/stethoscope,
-		/obj/item/stamp,
-		/obj/item/clothing/glasses,
-		/obj/item/wrench/medical,
-		/obj/item/clothing/mask/muzzle,
-		/obj/item/reagent_containers/blood,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/implantcase,
-		/obj/item/implant,
-		/obj/item/implanter,
-		/obj/item/pinpointer/crew,
-		/obj/item/holosign_creator/medical,
-		/obj/item/rollerbed
-		))
-
+	storage_type = /datum/storage/firstaid/medical/paramedic
 
 /obj/item/storage/firstaid/medical/paramedic/PopulateContents()
 	var/static/items_inside = list(
@@ -399,10 +303,6 @@
 	inhand_icon_state = "firstaid-mystery"
 	skin_type = NONE
 
-/obj/item/storage/firstaid/random/Initialize(mapload)
-	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
-
 /obj/item/storage/firstaid/random/PopulateContents()
 	if(empty)
 		return
@@ -442,50 +342,11 @@
 	inhand_icon_state = "firstaid-combat"
 	skin_type = MEDBOT_SKIN_SYNDI
 	w_class = WEIGHT_CLASS_NORMAL
+	storage_type = /datum/storage/firstaid/tactical
 
 /obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
 	icon_state = pick("firstaid-combat","firstaid-combatalt")
-
-/obj/item/storage/firstaid/tactical/Initialize(mapload)
-	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
-	atom_storage.max_slots = 12
-	atom_storage.max_total_storage = 56 //any combination of allowed items
-
-	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
-	atom_storage.set_holdable(list(
-		/obj/item/healthanalyzer,
-		/obj/item/dnainjector,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/applicator,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/medspray,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/medical,
-		/obj/item/flashlight/pen,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/surgical_drapes,
-		/obj/item/scalpel,
-		/obj/item/circular_saw,
-		/obj/item/surgicaldrill,
-		/obj/item/retractor,
-		/obj/item/cautery,
-		/obj/item/hemostat,
-		/obj/item/blood_filter,
-		/obj/item/clothing/neck/stethoscope,
-		/obj/item/reagent_containers/blood,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/gun/syringe/syndicate,
-		/obj/item/implantcase,
-		/obj/item/implant,
-		/obj/item/implanter,
-		/obj/item/pinpointer/crew,
-		/obj/item/defibrillator/compact
-		))
-
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
 	if(empty)
@@ -583,6 +444,9 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	pickup_sound = 'sound/items/handling/pill_bottle/pill_bottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/pill_bottle/pill_bottle_place.ogg'
+	storage_type = /datum/storage/pillbottle
 	var/pill_variance = 100 //probability pill_bottle has a different icon state. Put at 0 for no variance
 	var/pill_type = "pill_canister_"
 
@@ -591,9 +455,6 @@
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
 
-	atom_storage.allow_quick_gather = TRUE
-	atom_storage.set_holdable(list(/obj/item/reagent_containers/applicator/pill, /obj/item/reagent_containers/applicator/patch))
-
 /obj/item/storage/pill_bottle/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	if(!istype(tool, /obj/item/pen))
 		return ..()
@@ -601,8 +462,9 @@
 		to_chat(user, span_notice("You scribble illegibly on [src]!"))
 		return ITEM_INTERACT_BLOCKING
 	var/new_label = stripped_input(user, "What would you like to label the bottle?", name, null, MAX_NAME_LEN)
-	if(!new_label || user.get_active_held_item() != tool || !user.canUseTopic(src, BE_CLOSE))
+	if(!new_label || user.get_active_held_item() != tool || !user.can_perform_action(src))
 		return ITEM_INTERACT_BLOCKING
+	playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 	name = "[initial(name)] ([new_label])"
 	return ITEM_INTERACT_SUCCESS
 

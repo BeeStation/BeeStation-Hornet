@@ -45,6 +45,8 @@
 		return
 	if(over != user)
 		return
+	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+		return
 
 	// We're dragging a pet, dont open the menu to strip them
 	if(ishuman(user) && isliving(source))

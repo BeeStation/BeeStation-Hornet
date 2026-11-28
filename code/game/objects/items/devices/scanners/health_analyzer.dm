@@ -23,8 +23,12 @@
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
 	custom_price = 100
+	interaction_flags_click = NEED_LITERACY|NEED_LIGHT|ALLOW_RESTING
+	/// Verbose/condensed
 	var/mode = SCANNER_VERBOSE
+	/// HEALTH/WOUND
 	var/scanmode = SCANMODE_HEALTH
+	/// Advanced health analyzer
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
@@ -59,7 +63,7 @@
 
 	user.visible_message(span_notice("[user] analyzes [M]'s vitals."))
 	balloon_alert(user, "analyzing vitals")
-	playsound(user.loc, 'sound/effects/fastbeep.ogg', 10)
+	playsound(user, 'sound/items/healthanalyzer.ogg', 50)
 
 	switch (scanmode)
 		if (SCANMODE_HEALTH)
@@ -609,14 +613,11 @@
 
 	to_chat(user, examine_block(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
-/obj/item/healthanalyzer/AltClick(mob/user)
-	..()
-
-	if(!user.canUseTopic(src, be_close = TRUE) || !user.can_read(src))
-		return
+/obj/item/healthanalyzer/click_alt(mob/user)
 
 	mode = !mode
 	to_chat(user, mode == SCANNER_VERBOSE ? "The scanner now shows specific limb damage." : "The scanner no longer shows limb damage.")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"

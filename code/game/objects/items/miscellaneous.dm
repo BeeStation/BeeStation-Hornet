@@ -30,18 +30,20 @@
 	return list()
 
 /obj/item/choice_beacon/proc/canUseBeacon(mob/living/user)
-	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return TRUE
-	else
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
-		return FALSE
+
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 40, TRUE)
+	return FALSE
 
 /obj/item/choice_beacon/proc/generate_options(mob/living/M)
 	var/list/display_names = generate_display_names()
-	if(!display_names.len)
+	if(!length(display_names))
 		return
-	var/choice = tgui_input_list(M,"Which item would you like to order?","Select an Item", sort_list(display_names))
-	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	var/choice = tgui_input_list(M, "Which item would you like to order?", "Select an Item", display_names)
+	if(isnull(choice) || isnull(display_names[choice]))
+		return
+	if(!canUseBeacon(M))
 		return
 
 	spawn_option(display_names[choice],M)
@@ -473,7 +475,7 @@
 /obj/item/choice_beacon/pet/hamster
 	name = "hamster delivery beacon"
 	default_name = "Doctor"
-	mob_choice = /mob/living/simple_animal/pet/hamster
+	mob_choice = /mob/living/basic/pet/hamster
 
 /obj/item/choice_beacon/pet/pug
 	name = "pug delivery beacon"
@@ -488,7 +490,7 @@
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"
 	default_name = "Pingu"
-	mob_choice = /mob/living/simple_animal/pet/penguin/baby
+	mob_choice = /mob/living/basic/pet/penguin/baby
 
 /obj/item/choice_beacon/pet/clown
 	name = "living lube delivery beacon"
@@ -498,7 +500,7 @@
 /obj/item/choice_beacon/pet/goat
 	name = "goat delivery beacon"
 	default_name = "Billy"
-	mob_choice = /mob/living/simple_animal/hostile/retaliate/goat
+	mob_choice = /mob/living/basic/goat
 
 /obj/item/choice_beacon/janicart
 	name = "janicart delivery beacon"

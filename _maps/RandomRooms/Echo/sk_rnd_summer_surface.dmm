@@ -1899,14 +1899,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
-"FW" = (
-/obj/effect/decal/cleanable/blood/gibs/robot_debris/old{
-	name = "Seamoth fragment";
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/turf/open/floor/plating/beach/water,
-/area/template_noop)
 "Gi" = (
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
@@ -2124,6 +2116,14 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
+"Lg" = (
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/old{
+	name = "Seamoth fragment";
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/turf/open/floor/plating/beach/water,
 /area/template_noop)
 "Ll" = (
 /obj/structure/fence/end{
@@ -2901,6 +2901,11 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"Xr" = (
+/mob/living/basic/turkey/tom,
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
 "Xx" = (
 /obj/structure/table/wood,
 /obj/machinery/door/poddoor/shutters{
@@ -3060,19 +3065,6 @@
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/planetary,
-/area/template_noop)
-"ZK" = (
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/obj/structure/closet/crate/critter,
-/turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -8897,7 +8889,7 @@ LO
 pz
 Zw
 Zw
-ZK
+Xr
 Gi
 MT
 iB
@@ -13895,7 +13887,7 @@ GP
 GP
 GP
 GP
-FW
+Lg
 GP
 GP
 GP

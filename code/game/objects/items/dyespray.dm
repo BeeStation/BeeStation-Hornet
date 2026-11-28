@@ -43,7 +43,7 @@
 			to_chat(user, span_warning("You have nothing to dye."))
 		return
 	var/what_to_dye = tgui_alert(user, "What do you want to dye?", "Character Preference", dyables)
-	if(!what_to_dye || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
+	if(!what_to_dye || !user.can_perform_action(src, NEED_DEXTERITY))
 		return
 
 	if(what_to_dye == "External Body Parts")
@@ -54,12 +54,12 @@
 	var/new_grad_style = tgui_input_list(user, "Choose a color pattern", "Character Preference", choices)
 	if(isnull(new_grad_style))
 		return
-	if(!user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
+	if(!user.can_perform_action(src, NEED_DEXTERITY))
 		return
 
 	var/hair_key = what_to_dye == "Hair" ? GRADIENT_HAIR_KEY : GRADIENT_FACIAL_HAIR_KEY
 	var/new_grad_color = tgui_color_picker(user, "Choose a secondary hair color:", "Character Preference", human_target.gradient_color[hair_key])
-	if(!new_grad_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE) || !target.IsReachableBy(user))
+	if(!new_grad_color || !user.can_perform_action(src, NEED_DEXTERITY) || !target.IsReachableBy(user))
 		return
 
 	to_chat(user, span_notice("You start applying the hair dye..."))
@@ -87,7 +87,7 @@
 	if(!length(choices))
 		return
 	var/what_to_dye = tgui_alert(user, "What do you want to dye?", "Character Preference", choices)
-	if(!what_to_dye || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
+	if(!what_to_dye || !user.can_perform_action(src, NEED_DEXTERITY))
 		return
 
 	var/obj/item/organ/selected = dyables[what_to_dye]
@@ -97,7 +97,7 @@
 	var/datum/bodypart_overlay/mutant/overlay = selected.bodypart_overlay
 	if(overlay.dye_color)
 		var/remove_dye = tgui_alert(user, "Do you want to un-dye [selected]?", "Character Preference", list("Yes", "No"))
-		if(isnull(remove_dye) || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
+		if(isnull(remove_dye) || !user.can_perform_action(src, NEED_DEXTERITY))
 			return
 		if(QDELETED(selected) || !(selected in target.internal_organs))
 			return
@@ -107,7 +107,7 @@
 
 	var/default_color = overlay.dye_color || overlay.draw_color
 	var/new_color = tgui_color_picker(user, "Choose a color for [selected]:", "Character Preference", default_color)
-	if(isnull(new_color) || new_color == default_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE))
+	if(isnull(new_color) || new_color == default_color || !user.can_perform_action(src, NEED_DEXTERITY))
 		return
 	if(QDELETED(selected) || !(selected in target.internal_organs))
 		return

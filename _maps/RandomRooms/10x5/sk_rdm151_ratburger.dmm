@@ -24,16 +24,15 @@
 "i" = (
 /turf/closed/wall,
 /area/template_noop)
-"k" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/template_noop)
 "l" = (
 /obj/machinery/microwave,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table,
 /turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"m" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
 /area/template_noop)
 "n" = (
 /obj/structure/table,
@@ -55,23 +54,30 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall,
 /area/template_noop)
-"q" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/landmark/blobstart,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/template_noop)
 "r" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/east,
 /mob/living/basic/mouse/brown,
 /turf/open/floor/grass,
 /area/template_noop)
-"y" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
+"s" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/landmark/blobstart,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/knife/butcher,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "z" = (
 /mob/living/basic/mouse/brown,
@@ -112,14 +118,6 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
-"E" = (
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "F" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -152,6 +150,10 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"K" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "L" = (
 /obj/machinery/door/window/eastright,
 /mob/living/basic/mouse/gray,
@@ -177,10 +179,6 @@
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
-"T" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/plating,
-/area/template_noop)
 "U" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/rack,
@@ -199,26 +197,23 @@
 /mob/living/basic/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
-"W" = (
-/obj/structure/rack,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/knife/butcher,
-/obj/item/clothing/suit/hooded/wintercoat/security,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/food/bun,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
+"Z" = (
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
 a
-y
+K
 H
 a
 "}
@@ -237,21 +232,21 @@ g
 G
 "}
 (4,1,1) = {"
-y
+K
 V
 z
 g
 a
 "}
 (5,1,1) = {"
-k
+x
 C
 L
 r
-y
+K
 "}
 (6,1,1) = {"
-E
+Z
 d
 X
 l
@@ -273,15 +268,15 @@ G
 "}
 (9,1,1) = {"
 a
-W
+v
 o
-q
+s
 N
 "}
 (10,1,1) = {"
 a
 J
-y
-T
+K
+m
 a
 "}

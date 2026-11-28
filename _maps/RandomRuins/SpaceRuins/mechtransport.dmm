@@ -62,17 +62,17 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
-"o" = (
-/obj/effect/decal/cleanable/blood/gibs/robot_debris,
-/obj/item/stack/tile/iron,
-/turf/open/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/has_grav/powered/mechtransport)
 "p" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Cockpit"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/admin/general,
 /turf/open/floor/mineral/titanium,
+/area/ruin/space/has_grav/powered/mechtransport)
+"q" = (
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
+/obj/item/stack/tile/iron,
+/turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "r" = (
 /obj/effect/decal/cleanable/dirt,
@@ -109,12 +109,8 @@
 /obj/structure/mecha_wreckage/ripley,
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
-"B" = (
+"A" = (
 /obj/effect/decal/cleanable/blood/oil,
-/turf/open/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/has_grav/powered/mechtransport)
-"C" = (
-/obj/effect/decal/cleanable/blood/gibs/robot_debris/up,
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "D" = (
@@ -124,12 +120,12 @@
 	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
-"E" = (
-/obj/effect/decal/cleanable/blood/gibs/robot_debris,
-/turf/open/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/has_grav/powered/mechtransport)
 "F" = (
 /obj/structure/mecha_wreckage/durand,
+/turf/open/floor/mineral/titanium/yellow/airless,
+/area/ruin/space/has_grav/powered/mechtransport)
+"G" = (
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "H" = (
@@ -145,7 +141,11 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
-"K" = (
+"L" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/ruin/space/has_grav/powered/mechtransport)
+"M" = (
 /obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
@@ -165,11 +165,6 @@
 /obj/structure/mecha_wreckage/gygax,
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
-"R" = (
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
-/area/ruin/space/has_grav/powered/mechtransport)
 "S" = (
 /obj/item/stack/rods,
 /turf/open/floor/plating/airless,
@@ -185,6 +180,10 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/template_noop,
 /area/ruin/space/has_grav/powered/mechtransport)
+"Z" = (
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/up,
+/turf/open/floor/mineral/titanium/yellow/airless,
+/area/ruin/space/has_grav/powered/mechtransport)
 
 (1,1,1) = {"
 a
@@ -197,7 +196,7 @@ d
 d
 e
 I
-R
+L
 P
 T
 T
@@ -210,13 +209,13 @@ d
 d
 r
 v
-B
-E
+A
+G
 H
 S
 H
 I
-R
+L
 V
 T
 "}
@@ -231,7 +230,7 @@ w
 F
 w
 H
-R
+L
 I
 I
 T
@@ -244,7 +243,7 @@ l
 d
 t
 w
-C
+Z
 e
 F
 w
@@ -264,7 +263,7 @@ x
 w
 w
 y
-K
+M
 O
 s
 S
@@ -281,7 +280,7 @@ y
 z
 w
 H
-o
+q
 O
 H
 H
@@ -315,7 +314,7 @@ N
 y
 w
 w
-B
+A
 y
 s
 d
