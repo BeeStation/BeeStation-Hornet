@@ -182,29 +182,23 @@
 		meat.AddComponent(/datum/component/infective, grub_diseases)
 	return ..()
 
-/mob/living/simple_animal/hostile/redgrub/attack_slime(mob/living/simple_animal/slime/M)//this is pretty unlikely to happen in game.
-	if(!SSticker.HasRoundStarted()) //since i need to skip simple_animal/attack slime
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(M.buckled)
-		if(M in buckled_mobs)
-			M.Feedstop()
-		return // can't attack while eating!
-
-	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, span_notice("You don't want to hurt anyone!"))
+/mob/living/simple_animal/hostile/redgrub/attack_animal(mob/living/simple_animal/user)
+	if(!isslime(user))
+		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_notice("You don't want to hurt anyone!"))
 		return FALSE
-	var/datum/status_effect/slimegrub/status = M.has_status_effect(/datum/status_effect/slimegrub)
+	var/datum/status_effect/slimegrub/status = user.has_status_effect(/datum/status_effect/slimegrub)
 	if(status)
 		status.diseases += grub_diseases
 		status.deathcounter -= (40 * growthstage)
 		status.spawnbonus += 1
 	else
-		var/datum/status_effect/slimegrub/newstatus = M.apply_status_effect(/datum/status_effect/slimegrub)
-		newstatus.diseases += grub_diseases
-	M.visible_message(span_warning("[M] swallows [src] whole!"), span_userdanger("[src] burrows into your cytoplasm when you bite it!"))
+		var/datum/status_effect/slimegrub/new_status = user.apply_status_effect(/datum/status_effect/slimegrub)
+		new_status.diseases += grub_diseases
+	user.visible_message(span_warning("[user] swallows [src] whole!"), span_userdanger("[src] burrows into your cytoplasm when you bite it!"))
 	qdel(src)
+	return TRUE
 
 /mob/living/simple_animal/hostile/redgrub/environment_temperature_is_safe(datum/gas_mixture/environment)
 	if(isliving(loc))

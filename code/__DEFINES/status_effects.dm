@@ -64,6 +64,7 @@
 #define STASIS_MACHINE_EFFECT "stasis_machine"
 #define STASIS_SHAPECHANGE_EFFECT "stasis_shapechange"
 #define STASIS_ADMIN "stasis_admin"
+#define STASIS_SLIME_BZ "stasis_slime_bz"
 
 /// Causes the mob to become blind via the passed source
 #define become_blind(source) apply_status_effect(/datum/status_effect/grouped/blindness, source)

@@ -4,7 +4,7 @@
 	name = "slime extract"
 	desc = "Goo extracted from a slime. Legends claim these to have \"magical powers\"."
 	icon = 'icons/mob/slimes.dmi'
-	icon_state = "grey slime extract"
+	icon_state = "grey-core"
 	force = 0
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
@@ -13,10 +13,14 @@
 	grind_results = list()
 	custom_price = 25	// These need defines to separate common / rare / epic, but im nota xenobio person so I won't do it
 	max_demand = 100
-	var/extract_uses = 1 // uses before it goes inert
-	var/qdel_timer // deletion timer, for delayed reactions
-	var/effectmod
-	var/list/activate_reagents = list() //Reagents required for activation
+	///uses before it goes inert
+	var/extract_uses = 1
+	///deletion timer, for delayed reactions
+	var/qdel_timer = null
+	///Which type of crossbred
+	var/crossbreed_modification
+	///Reagents required for activation
+	var/list/activate_reagents = list()
 	var/recurring = FALSE
 	var/color_slime	///the color of the extract and the slime it came from
 
@@ -59,35 +63,35 @@
 * By using a valid core on a living adult slime, then feeding it nine more of the same type, you can mutate it into more useful items. Not every slime type has an implemented core cross.
 */
 /obj/item/slime_extract/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	var/mob/living/simple_animal/slime/target_slime = interacting_with
+	var/mob/living/basic/slime/target_slime = interacting_with
 	if(!istype(target_slime))
 		return NONE
 
 	if(target_slime.stat != CONSCIOUS)
 		to_chat(user, span_warning("The slime is dead!"))
 		return ITEM_INTERACT_BLOCKING
-	if(!target_slime.is_adult)
+	if(target_slime.life_stage != SLIME_LIFE_STAGE_ADULT)
 		to_chat(user, span_warning("The slime must be an adult to cross its core!"))
 		return ITEM_INTERACT_BLOCKING
-	if(target_slime.effectmod && target_slime.effectmod != effectmod)
+	if(target_slime.crossbreed_modification && target_slime.crossbreed_modification != crossbreed_modification)
 		to_chat(user, span_warning("The slime is already being crossed with a different extract!"))
 		return ITEM_INTERACT_BLOCKING
 
-	target_slime.effectmod ||= effectmod
-	target_slime.applied++
+	target_slime.crossbreed_modification ||= crossbreed_modification
+	target_slime.applied_crossbreed_amount++
 
 	qdel(src)
-	to_chat(user, span_notice("You feed the slime [src], [target_slime.applied == 1 ? "starting to mutate its core." : "further mutating its core."]"))
+	to_chat(user, span_notice("You feed the slime [src], [target_slime.applied_crossbreed_amount == 1 ? "starting to mutate its core." : "further mutating its core."]"))
 	playsound(target_slime, 'sound/effects/attackblob.ogg', 50, TRUE)
 
-	if(target_slime.applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-		target_slime.spawn_corecross()
+	if(target_slime.applied_crossbreed_amount >= SLIME_EXTRACT_CROSSING_REQUIRED)
+		target_slime.spawn_corecross(user)
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
-	icon_state = "grey slime extract"
-	effectmod = "reproductive"
+	icon_state = "grey-core"
+	crossbreed_modification = "reproductive"
 	color_slime = SLIME_TYPE_GREY
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
@@ -102,7 +106,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, span_notice("Your [name] starts pulsing..."))
 			if(do_after(user, 4 SECONDS, target = user))
-				var/mob/living/simple_animal/slime/S = new(get_turf(user), SLIME_TYPE_GREY)
+				var/mob/living/basic/slime/S = new(get_turf(user), /datum/slime_type/grey)
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				to_chat(user, span_notice("You spit out [S]."))
 				return 35 SECONDS
@@ -111,8 +115,8 @@
 
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
-	icon_state = "gold slime extract"
-	effectmod = "symbiont"
+	icon_state = "gold-core"
+	crossbreed_modification = "symbiont"
 	color_slime = SLIME_TYPE_GOLD
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 220
@@ -143,8 +147,8 @@
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
-	icon_state = "silver slime extract"
-	effectmod = "consuming"
+	icon_state = "silver-core"
+	crossbreed_modification = "consuming"
 	color_slime = SLIME_TYPE_SILVER
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 100	//Price for uncomon
@@ -169,8 +173,8 @@
 
 /obj/item/slime_extract/metal
 	name = "metal slime extract"
-	icon_state = "metal slime extract"
-	effectmod = "industrial"
+	icon_state = "metal-core"
+	crossbreed_modification = "industrial"
 	color_slime = SLIME_TYPE_METAL
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 60 // Price for common slime
@@ -194,8 +198,8 @@
 
 /obj/item/slime_extract/purple
 	name = "purple slime extract"
-	icon_state = "purple slime extract"
-	effectmod = "regenerative"
+	icon_state = "purple-core"
+	crossbreed_modification = "regenerative"
 	color_slime = SLIME_TYPE_PURPLE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 60
@@ -216,8 +220,8 @@
 
 /obj/item/slime_extract/darkpurple
 	name = "dark purple slime extract"
-	icon_state = "dark purple slime extract"
-	effectmod = "self-sustaining"
+	icon_state = "dark-purple-core"
+	crossbreed_modification = "self-sustaining"
 	color_slime = SLIME_TYPE_DARK_PURPLE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 	custom_price = 100
@@ -241,8 +245,8 @@
 
 /obj/item/slime_extract/orange
 	name = "orange slime extract"
-	icon_state = "orange slime extract"
-	effectmod = "burning"
+	icon_state = "orange-core"
+	crossbreed_modification = "burning"
 	color_slime = SLIME_TYPE_ORANGE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 60
@@ -264,8 +268,8 @@
 
 /obj/item/slime_extract/yellow
 	name = "yellow slime extract"
-	icon_state = "yellow slime extract"
-	effectmod = "charged"
+	icon_state = "yellow-core"
+	crossbreed_modification = "charged"
 	color_slime = SLIME_TYPE_YELLOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 100
@@ -298,8 +302,8 @@
 
 /obj/item/slime_extract/red
 	name = "red slime extract"
-	icon_state = "red slime extract"
-	effectmod = "sanguine"
+	icon_state = "red-core"
+	crossbreed_modification = "sanguine"
 	color_slime = SLIME_TYPE_RED
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 220
@@ -314,15 +318,15 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message(span_warning("[user]'s skin flashes red for a moment..."), span_warning("Your skin flashes red as you emit rage-inducing pheromones..."))
-			for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(user)))
-				slime.rabid = TRUE
+			for(var/mob/living/basic/slime/slime in viewers(get_turf(user)))
+				slime.ai_controller?.set_blackboard_key(BB_SLIME_RABID, TRUE)
 				slime.visible_message(span_danger("The [slime] is driven into a frenzy!"))
 			return 60 SECONDS
 
 /obj/item/slime_extract/blue
 	name = "blue slime extract"
-	icon_state = "blue slime extract"
-	effectmod = "stabilized"
+	icon_state = "blue-core"
+	crossbreed_modification = "stabilized"
 	color_slime = SLIME_TYPE_BLUE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 60
@@ -348,8 +352,8 @@
 
 /obj/item/slime_extract/darkblue
 	name = "dark blue slime extract"
-	icon_state = "dark blue slime extract"
-	effectmod = "chilling"
+	icon_state = "dark-blue-core"
+	crossbreed_modification = "chilling"
 	color_slime = SLIME_TYPE_DARK_BLUE
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 100
@@ -374,8 +378,8 @@
 
 /obj/item/slime_extract/pink
 	name = "pink slime extract"
-	icon_state = "pink slime extract"
-	effectmod = "gentle"
+	icon_state = "pink-core"
+	crossbreed_modification = "gentle"
 	color_slime = SLIME_TYPE_PINK
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -404,8 +408,8 @@
 
 /obj/item/slime_extract/green
 	name = "green slime extract"
-	icon_state = "green slime extract"
-	effectmod = "mutative"
+	icon_state = "green-core"
+	crossbreed_modification = "mutative"
 	color_slime = SLIME_TYPE_GREEN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/uranium/radium)
 	custom_price = 220
@@ -431,8 +435,8 @@
 
 /obj/item/slime_extract/lightpink
 	name = "light pink slime extract"
-	icon_state = "light pink slime extract"
-	effectmod = "loyal"
+	icon_state = "light-pink-core"
+	crossbreed_modification = "loyal"
 	color_slime = SLIME_TYPE_LIGHT_PINK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 	custom_price = 220	//price for epic
@@ -456,8 +460,8 @@
 
 /obj/item/slime_extract/black
 	name = "black slime extract"
-	icon_state = "black slime extract"
-	effectmod = "transformative"
+	icon_state = "black-core"
+	crossbreed_modification = "transformative"
 	color_slime = SLIME_TYPE_BLACK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -480,8 +484,8 @@
 
 /obj/item/slime_extract/oil
 	name = "oil slime extract"
-	icon_state = "oil slime extract"
-	effectmod = "detonating"
+	icon_state = "oil-core"
+	crossbreed_modification = "detonating"
 	color_slime = SLIME_TYPE_OIL
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -507,8 +511,8 @@
 
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
-	icon_state = "adamantine slime extract"
-	effectmod = "crystalline"
+	icon_state = "adamantine-core"
+	crossbreed_modification = "crystalline"
 	color_slime = SLIME_TYPE_ADAMANTINE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -540,8 +544,8 @@
 
 /obj/item/slime_extract/bluespace
 	name = "bluespace slime extract"
-	icon_state = "bluespace slime extract"
-	effectmod = "warping"
+	icon_state = "bluespace-core"
+	crossbreed_modification = "warping"
 	color_slime = SLIME_TYPE_BLUESPACE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -591,8 +595,8 @@
 
 /obj/item/slime_extract/pyrite
 	name = "pyrite slime extract"
-	icon_state = "pyrite slime extract"
-	effectmod = "prismatic"
+	icon_state = "pyrite-core"
+	crossbreed_modification = "prismatic"
 	color_slime = SLIME_TYPE_PYRITE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -634,8 +638,8 @@
 
 /obj/item/slime_extract/cerulean
 	name = "cerulean slime extract"
-	icon_state = "cerulean slime extract"
-	effectmod = "recurring"
+	icon_state = "cerulean-core"
+	crossbreed_modification = "recurring"
 	color_slime = SLIME_TYPE_CERULEAN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -657,8 +661,8 @@
 
 /obj/item/slime_extract/sepia
 	name = "sepia slime extract"
-	icon_state = "sepia slime extract"
-	effectmod = "lengthened"
+	icon_state = "sepia-core"
+	crossbreed_modification = "lengthened"
 	color_slime = SLIME_TYPE_SEPIA
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 	custom_price = 220
@@ -680,8 +684,8 @@
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
-	icon_state = "rainbow slime extract"
-	effectmod = "hyperchromatic"
+	icon_state = "rainbow-core"
+	crossbreed_modification = "hyperchromatic"
 	color_slime = SLIME_TYPE_RAINBOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,"lesser plasma",/datum/reagent/toxin/slimejelly,"holy water and uranium") //Curse this snowflake reagent list.
 	custom_price = 500
@@ -732,8 +736,8 @@
 
 /obj/item/slime_extract/darkgreen
 	name = "dark green slime extract"
-	icon_state = "dark green slime extract"
-	effectmod = "verdant"
+	icon_state = "dark-green-core"
+	crossbreed_modification = "verdant"
 	color_slime = SLIME_TYPE_DARK_GREEN
 	activate_reagents = list(/datum/reagent/water,/datum/reagent/medicine/earthsblood)
 	custom_price = 220
@@ -741,8 +745,8 @@
 
 /obj/item/slime_extract/cobalt
 	name = "cobalt slime extract"
-	icon_state = "cobalt slime extract"
-	effectmod = "hypercompressed"
+	icon_state = "cobalt-core"
+	crossbreed_modification = "hypercompressed"
 	color_slime = SLIME_TYPE_COBALT
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -750,8 +754,8 @@
 
 /obj/item/slime_extract/darkgrey
 	name = "dark grey slime extract"
-	icon_state = "dark grey slime extract"
-	effectmod = "multitudinous"
+	icon_state = "dark-grey-core"
+	crossbreed_modification = "multitudinous"
 	color_slime = SLIME_TYPE_DARK_GREY
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 	custom_price = 220
@@ -759,8 +763,8 @@
 
 /obj/item/slime_extract/crimson
 	name = "crimson slime extract"
-	icon_state = "crimson slime extract"
-	effectmod = "furious"
+	icon_state = "crimson-core"
+	crossbreed_modification = "furious"
 	color_slime = SLIME_TYPE_CRIMSON
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/blackpowder)
 	custom_price = 220
@@ -790,7 +794,7 @@
 		to_chat(user, span_warning("It appears [src] must be given directly to a slime to absorb."))
 	return NONE
 
-/obj/item/slimepotion/slime/proc/interact_with_slime(mob/living/simple_animal/slime/interacting_slime, mob/living/user, list/modifiers)
+/obj/item/slimepotion/slime/proc/interact_with_slime(mob/living/basic/slime/interacting_slime, mob/living/user, list/modifiers)
 	return
 
 /obj/item/slimepotion/slime/docility
@@ -799,18 +803,17 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potsilver"
 
-/obj/item/slimepotion/slime/docility/interact_with_slime(mob/living/simple_animal/slime/interacting_slime, mob/living/user, list/modifiers)
+/obj/item/slimepotion/slime/docility/interact_with_slime(mob/living/basic/slime/interacting_slime, mob/living/user, list/modifiers)
 	if(interacting_slime.stat != CONSCIOUS)
 		to_chat(user, span_warning("The slime is dead!"))
 		return ITEM_INTERACT_BLOCKING
-	if(interacting_slime.rabid) //Stops being rabid, but doesn't become truly docile.
+	if(interacting_slime.ai_controller?.blackboard[BB_SLIME_RABID]) //Stops being rabid, but doesn't become truly docile.
 		to_chat(interacting_slime, span_warning("You absorb the potion, and your rabid hunger finally settles to a normal desire to feed."))
 		to_chat(user, span_notice("You feed the slime the potion, calming its rabid rage."))
-		interacting_slime.rabid = FALSE
+		interacting_slime.set_default_behaviour()
 		qdel(src)
 		return ITEM_INTERACT_SUCCESS
-	interacting_slime.docile = TRUE
-	interacting_slime.set_nutrition(700)
+	interacting_slime.set_pacified_behaviour()
 	to_chat(interacting_slime, span_warning("You absorb the potion and feel your intense desire to feed melt away."))
 	to_chat(user, span_notice("You feed the slime the potion, removing its hunger and calming it."))
 	var/newname = sanitize_name(stripped_input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime", MAX_NAME_LEN))
@@ -963,8 +966,8 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potred"
 
-/obj/item/slimepotion/slime/steroid/interact_with_slime(mob/living/simple_animal/slime/interacting_slime, mob/living/user, list/modifiers)
-	if(interacting_slime.is_adult) //Can't steroidify adults
+/obj/item/slimepotion/slime/steroid/interact_with_slime(mob/living/basic/slime/interacting_slime, mob/living/user, list/modifiers)
+	if(interacting_slime.life_stage == SLIME_LIFE_STAGE_ADULT) //Can't steroidify adults
 		to_chat(user, span_warning("Only baby slimes can use the steroid!"))
 		return ITEM_INTERACT_BLOCKING
 	if(interacting_slime.stat != CONSCIOUS)
@@ -991,7 +994,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potcyan"
 
-/obj/item/slimepotion/slime/stabilizer/interact_with_slime(mob/living/simple_animal/slime/interacting_slime, mob/living/user, list/modifiers)
+/obj/item/slimepotion/slime/stabilizer/interact_with_slime(mob/living/basic/slime/interacting_slime, mob/living/user, list/modifiers)
 	if(interacting_slime.stat != CONSCIOUS)
 		to_chat(user, span_warning("The slime is dead!"))
 		return ITEM_INTERACT_BLOCKING
@@ -1010,7 +1013,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potgreen"
 
-/obj/item/slimepotion/slime/mutator/interact_with_slime(mob/living/simple_animal/slime/interacting_slime, mob/living/user, list/modifiers)
+/obj/item/slimepotion/slime/mutator/interact_with_slime(mob/living/basic/slime/interacting_slime, mob/living/user, list/modifiers)
 	if(interacting_slime.stat != CONSCIOUS)
 		to_chat(user, span_warning("The slime is dead!"))
 		return ITEM_INTERACT_BLOCKING

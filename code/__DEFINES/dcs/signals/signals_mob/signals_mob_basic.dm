@@ -9,3 +9,6 @@
 
 ///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
 #define COMSIG_BASICMOB_POST_ATTACK_RANGED "basicmob_post_attack_ranged"
+
+///from /datum/status_effect/slime_leech: (mob/living/basic/slime/draining_slime)
+#define COMSIG_SLIME_DRAINED "slime_drained"

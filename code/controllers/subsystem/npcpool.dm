@@ -36,7 +36,5 @@ SUBSYSTEM_DEF(npcpool)
 				SA.handle_automated_action()
 			if(SA.stat != DEAD)
 				SA.handle_automated_speech()
-		if(SA.special_process)
-			SA.process()
 		if (MC_TICK_CHECK)
 			return

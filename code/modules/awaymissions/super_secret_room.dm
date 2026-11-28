@@ -104,9 +104,6 @@
 /obj/structure/speaking_tile/attack_silicon(mob/user)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_slime(mob/user, list/modifiers)
-	return interact(user)
-
 /obj/structure/speaking_tile/attack_animal(mob/user)
 	return interact(user)
 

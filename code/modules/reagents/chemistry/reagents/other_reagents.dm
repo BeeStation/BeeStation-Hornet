@@ -217,7 +217,7 @@
 	if(reac_volume >= 5)
 		open_turf.MakeSlippery(TURF_WET_WATER, 10 SECONDS, min(reac_volume * 1.5 SECONDS, 60 SECONDS))
 
-	for(var/mob/living/simple_animal/slime/slime in open_turf)
+	for(var/mob/living/basic/slime/slime in open_turf)
 		slime.apply_water()
 
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in open_turf)
@@ -1220,7 +1220,7 @@
 			continue
 		movable_content.wash(clean_types)
 
-	for(var/mob/living/simple_animal/slime/slime in exposed_turf)
+	for(var/mob/living/basic/slime/slime in exposed_turf)
 		if(slime.adjustToxLoss(rand(5,10), updating_health = FALSE, required_biotype = affected_biotype))
 			return UPDATE_MOB_HEALTH
 
