@@ -269,11 +269,11 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = SLIME_TYPE_SILVER
 
 /obj/structure/slime_crystal/silver/process(delta_time)
-	for(var/obj/machinery/hydroponics/hydr in range(5, src))
-		hydr.weedlevel = 0
-		hydr.pestlevel = 0
-		if(DT_PROB(10, delta_time))
-			hydr.age++
+	for(var/obj/tray in range(5, src))
+		var/datum/component/planter/tray_comp = tray.GetComponent(/datum/component/planter)
+		if(!tray_comp)
+			continue
+		tray_comp.weed_level = max(tray_comp.weed_level-1, 0)
 
 /obj/structure/slime_crystal/bluespace
 	colour = SLIME_TYPE_BLUESPACE

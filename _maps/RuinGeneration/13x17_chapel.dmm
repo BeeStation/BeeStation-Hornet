@@ -1,88 +1,50 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ax" = (
-/obj/structure/sign/departments/holy{
-	pixel_y = 32
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"bB" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"cy" = (
-/obj/structure/door_assembly/door_assembly_cult/unruned,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"cU" = (
-/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"fw" = (
-/obj/structure/chair/fancy/bench/pew{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel,
-/area/ruin/powered)
-"fx" = (
-/obj/structure/chair/fancy/bench/pew/left{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 9
-	},
-/area/ruin/powered)
-"gk" = (
-/obj/structure/chair/fancy/bench/pew/left{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 10
-	},
-/area/ruin/powered)
-"gn" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/carpet/royalblack,
-/area/ruin/powered)
-"hf" = (
-/turf/open/floor/iron/chapel{
-	dir = 6
-	},
-/area/ruin/powered)
-"il" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"iE" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"iR" = (
-/obj/structure/window/spawner/directional/east,
-/obj/structure/flora/rock/pile,
-/turf/open/floor/grass/fakebasalt,
-/area/ruin/powered)
-"kh" = (
+"au" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/powered)
-"kY" = (
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/iron/dark,
+"bk" = (
+/turf/open/floor/iron/chapel{
+	dir = 10
+	},
 /area/ruin/powered)
-"lV" = (
+"bP" = (
+/obj/item/bedsheet/cult,
+/obj/structure/bed,
+/turf/open/floor/cult,
+/area/ruin/powered)
+"cM" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"cZ" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp{
-	pixel_y = 10
+/obj/item/flashlight/lantern{
+	pixel_y = 5
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/powered)
-"nn" = (
+"dv" = (
+/obj/structure/flora/rock/pile,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/powered)
+"dV" = (
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"ej" = (
+/obj/structure/window/spawner/directional/east,
+/obj/structure/flora/rock,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/powered)
+"eH" = (
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"eP" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
 	pixel_x = -2;
@@ -91,57 +53,158 @@
 /obj/item/storage/crayons,
 /turf/open/floor/iron/dark,
 /area/ruin/powered)
-"oM" = (
+"eT" = (
+/turf/open/floor/iron/chapel{
+	dir = 8
+	},
+/area/ruin/powered)
+"fL" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"pp" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"qg" = (
-/obj/structure/chair/fancy/bench/pew{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 1
-	},
-/area/ruin/powered)
-"qz" = (
-/turf/open/floor/iron/chapel,
-/area/ruin/powered)
-"qE" = (
-/turf/open/floor/iron,
-/area/ruin/powered)
-"qO" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"qZ" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"rh" = (
-/obj/structure/table/wood,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"rj" = (
-/obj/structure/sacrificealtar,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"rS" = (
+"gp" = (
 /obj/machinery/door/airlock/hatch,
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/iron/dark,
 /area/ruin/powered)
-"rW" = (
+"hg" = (
+/turf/open/floor/iron/chapel{
+	dir = 6
+	},
+/area/ruin/powered)
+"hn" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"hB" = (
+/obj/structure/window/spawner/directional/east,
+/obj/structure/flora/rock/pile,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/powered)
+"hP" = (
+/obj/structure/sign/departments/holy{
+	pixel_y = 32
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"id" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"ij" = (
+/obj/structure/bodycontainer/morgue,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"iq" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"jH" = (
+/turf/open/floor/carpet/royalblack,
+/area/ruin/powered)
+"kr" = (
+/turf/closed/wall,
+/area/ruin/powered)
+"kR" = (
+/obj/structure/flora/rock,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/powered)
+"lv" = (
+/obj/structure/chair/fancy/bench/pew/left{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 4
+	},
+/area/ruin/powered)
+"mj" = (
+/turf/open/floor/iron/chapel{
+	dir = 9
+	},
+/area/ruin/powered)
+"qy" = (
+/obj/structure/dresser,
+/turf/open/floor/cult,
+/area/ruin/powered)
+"rn" = (
+/obj/structure/table/wood,
+/turf/open/floor/cult,
+/area/ruin/powered)
+"sd" = (
+/turf/open/floor/iron/chapel{
+	dir = 5
+	},
+/area/ruin/powered)
+"tf" = (
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 5
+	},
+/area/ruin/powered)
+"uj" = (
+/obj/structure/chair/fancy/bench/pew/left{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel,
+/area/ruin/powered)
+"vV" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"yc" = (
+/turf/open/floor/iron/chapel{
+	dir = 4
+	},
+/area/ruin/powered)
+"yd" = (
+/obj/structure/door_assembly/door_assembly_cult/unruned,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"zz" = (
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 8
+	},
+/area/ruin/powered)
+"AL" = (
+/obj/structure/chair/fancy/bench/pew{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 1
+	},
+/area/ruin/powered)
+"Cv" = (
+/turf/closed/wall/mineral/cult,
+/area/ruin/powered)
+"Cy" = (
+/obj/effect/decal/cleanable/blood/footprints,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 9
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"CG" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"CR" = (
+/obj/structure/window/spawner/directional/west,
+/obj/item/toy/plush/bubbleplush,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/powered)
+"DH" = (
 /obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
@@ -149,29 +212,118 @@
 	dir = 8
 	},
 /area/ruin/powered)
-"sk" = (
-/obj/structure/window/spawner/directional/east,
-/obj/structure/flora/rock,
+"Ed" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"HU" = (
+/obj/structure/chair/fancy/bench/pew/left{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 10
+	},
+/area/ruin/powered)
+"Je" = (
+/obj/structure/window/spawner/directional/west,
+/obj/structure/flora/rock/pile,
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/powered)
-"sI" = (
+"JA" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Chapel"
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Kq" = (
+/turf/open/floor/iron/chapel,
+/area/ruin/powered)
+"Ml" = (
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 1
+	},
+/area/ruin/powered)
+"Mt" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Mv" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_y = 10
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"MB" = (
+/obj/item/toy/figure/miner,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/powered)
+"OX" = (
+/obj/item/cult_shift,
+/turf/open/floor/cult,
+/area/ruin/powered)
+"PZ" = (
+/obj/structure/chair/fancy/bench/pew{
+	dir = 1
+	},
 /turf/open/floor/iron/chapel{
 	dir = 4
 	},
 /area/ruin/powered)
-"tQ" = (
-/turf/open/floor/carpet/royalblack,
+"Rj" = (
+/turf/open/floor/iron,
 /area/ruin/powered)
-"us" = (
-/obj/structure/bodycontainer/morgue,
+"Rr" = (
+/obj/structure/chair/fancy/bench/pew{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel,
+/area/ruin/powered)
+"Ti" = (
+/obj/structure/chair/fancy/bench/pew/left{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 9
+	},
+/area/ruin/powered)
+"Tk" = (
+/turf/open/floor/cult,
+/area/ruin/powered)
+"TG" = (
 /turf/open/floor/iron/dark,
 /area/ruin/powered)
-"vs" = (
-/obj/structure/window/spawner/directional/west,
-/obj/item/toy/plush/bubbleplush,
-/turf/open/floor/grass/fakebasalt,
+"Un" = (
+/obj/structure/table/wood,
+/turf/open/floor/iron/dark,
 /area/ruin/powered)
-"xP" = (
+"UM" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"Wd" = (
+/turf/open/floor/iron/chapel{
+	dir = 1
+	},
+/area/ruin/powered)
+"XD" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/carpet/royalblack,
+/area/ruin/powered)
+"YK" = (
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 1
+	},
+/turf/open/floor/iron/chapel{
+	dir = 6
+	},
+/area/ruin/powered)
+"YM" = (
 /obj/item/stock_parts/cell/potato,
 /obj/item/bot_assembly/secbot,
 /obj/item/melee/baton,
@@ -180,413 +332,261 @@
 	dir = 9
 	},
 /area/ruin/powered)
-"yP" = (
-/obj/item/cult_shift,
-/turf/open/floor/cult,
-/area/ruin/powered)
-"zh" = (
-/turf/closed/wall/mineral/cult,
-/area/ruin/powered)
-"CU" = (
-/obj/structure/window/spawner/directional/west,
-/obj/structure/flora/rock/pile,
-/turf/open/floor/grass/fakebasalt,
-/area/ruin/powered)
-"Dy" = (
-/obj/structure/reagent_dispensers/water_cooler,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"EP" = (
-/obj/effect/abstract/doorway_marker,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"Fb" = (
-/obj/item/toy/figure/miner,
-/turf/open/floor/grass/fakebasalt,
-/area/ruin/powered)
-"Gz" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 5
-	},
-/area/ruin/powered)
-"GC" = (
-/turf/open/floor/iron/chapel{
-	dir = 9
-	},
-/area/ruin/powered)
-"JU" = (
-/obj/structure/table/wood,
-/turf/open/floor/cult,
-/area/ruin/powered)
-"Kd" = (
-/obj/structure/frame/machine,
-/obj/item/stack/cable_coil,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"Lc" = (
-/turf/open/floor/iron/chapel{
-	dir = 1
-	},
-/area/ruin/powered)
-"LT" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Chapel"
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"Ma" = (
-/turf/open/floor/cult,
-/area/ruin/powered)
-"MF" = (
-/turf/open/floor/iron/chapel{
-	dir = 8
-	},
-/area/ruin/powered)
-"Ni" = (
-/obj/structure/chair/fancy/bench/pew/left{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel,
-/area/ruin/powered)
-"Os" = (
-/obj/structure/flora/rock,
-/turf/open/floor/grass/fakebasalt,
-/area/ruin/powered)
-"Ou" = (
-/obj/structure/dresser,
-/turf/open/floor/cult,
-/area/ruin/powered)
-"PI" = (
-/obj/effect/decal/cleanable/blood/footprints,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"Ry" = (
-/obj/structure/chair/fancy/bench/pew{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
+"Zg" = (
+/obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/area/ruin/powered)
-"TA" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 8
-	},
-/area/ruin/powered)
-"TD" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 6
-	},
-/area/ruin/powered)
-"UA" = (
-/obj/structure/chair/fancy/bench/pew/left{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 4
-	},
-/area/ruin/powered)
-"VV" = (
-/turf/closed/wall,
-/area/ruin/powered)
-"Xv" = (
-/obj/structure/flora/rock/pile,
-/turf/open/floor/grass/fakebasalt,
-/area/ruin/powered)
-"Yh" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 1
-	},
-/turf/open/floor/iron/chapel{
-	dir = 1
-	},
-/area/ruin/powered)
-"Yi" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lantern{
-	pixel_y = 5
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"Yv" = (
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"YA" = (
-/obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"YV" = (
-/turf/open/floor/iron/chapel{
-	dir = 10
-	},
-/area/ruin/powered)
-"Zy" = (
-/turf/open/floor/iron/chapel{
-	dir = 5
-	},
-/area/ruin/powered)
-"ZU" = (
-/obj/item/bedsheet/cult,
-/obj/structure/bed,
-/turf/open/floor/cult,
+"Zj" = (
+/obj/structure/sacrificealtar,
+/turf/open/floor/iron/dark,
 /area/ruin/powered)
 
 (1,1,1) = {"
-VV
-zh
-zh
-VV
-VV
-zh
-VV
-zh
-VV
-VV
-iE
-VV
-VV
-qE
-oM
-qE
-VV
+kr
+Cv
+Cv
+kr
+kr
+Cv
+kr
+Cv
+kr
+kr
+iq
+kr
+kr
+Rj
+fL
+Rj
+kr
 "}
 (2,1,1) = {"
-zh
-lV
-rh
-nn
-VV
-Dy
-Lc
-MF
-GC
-YV
-tQ
-gn
-bB
-qE
-qE
-qE
-VV
+Cv
+Mv
+Un
+eP
+kr
+Ed
+Wd
+eT
+mj
+bk
+jH
+XD
+cM
+Rj
+Rj
+Rj
+kr
 "}
 (3,1,1) = {"
-VV
-JU
-il
-Yv
-cy
-Yv
-sI
-qz
-Gz
-TD
-tQ
-tQ
-bB
-qE
-qE
-qE
-EP
+kr
+rn
+CG
+TG
+yd
+TG
+yc
+Kq
+tf
+YK
+jH
+jH
+cM
+Rj
+Rj
+Rj
+vV
 "}
 (4,1,1) = {"
-zh
-Ma
-Ma
-yP
-VV
-Yv
-xP
-YV
-qg
-rW
-tQ
-tQ
-bB
-qE
-qE
-qE
-VV
+Cv
+Tk
+Tk
+OX
+kr
+TG
+YM
+bk
+AL
+DH
+jH
+jH
+cM
+Rj
+Rj
+Rj
+kr
 "}
 (5,1,1) = {"
-VV
-JU
-ZU
-Ou
-zh
-Yv
-Zy
-hf
-UA
-Ni
-tQ
-tQ
-VV
-qE
-qE
-qE
-VV
+kr
+rn
+bP
+qy
+Cv
+TG
+sd
+hg
+lv
+uj
+jH
+jH
+kr
+Rj
+Rj
+Rj
+kr
 "}
 (6,1,1) = {"
-VV
-vs
-CU
-CU
-VV
-Yv
-Yi
-Yv
-Yv
-Yv
-tQ
-tQ
-LT
-qE
-qE
-qE
-qE
+kr
+CR
+Je
+Je
+kr
+TG
+cZ
+TG
+TG
+TG
+jH
+jH
+JA
+Rj
+Rj
+Rj
+Rj
 "}
 (7,1,1) = {"
-VV
-Xv
-Fb
-Os
-VV
-Yv
-rj
-qE
-qE
-Yv
-tQ
-tQ
-bB
-qE
-qE
-qE
-YA
+kr
+dv
+MB
+kR
+kr
+TG
+Zj
+Rj
+Rj
+TG
+jH
+jH
+cM
+Rj
+Rj
+Rj
+Mt
 "}
 (8,1,1) = {"
-VV
-sk
-iR
-iR
-VV
-Yv
-Yi
-Yv
-Yv
-Yv
-tQ
-tQ
-LT
-qE
-qE
-qE
-qE
+kr
+ej
+hB
+hB
+kr
+TG
+cZ
+TG
+TG
+TG
+jH
+jH
+JA
+Rj
+Rj
+Rj
+Rj
 "}
 (9,1,1) = {"
-VV
-us
-us
-us
-VV
-Yv
-GC
-YV
-Yh
-TA
-tQ
-tQ
-VV
-ax
-qE
-qE
-VV
+kr
+ij
+ij
+ij
+kr
+TG
+mj
+bk
+Ml
+zz
+jH
+jH
+kr
+hP
+Rj
+Rj
+kr
 "}
 (10,1,1) = {"
-VV
-Yv
-cU
-Yv
-VV
-Yv
-Zy
-hf
-Ry
-fw
-tQ
-tQ
-bB
-qE
-qE
-qE
-VV
+kr
+TG
+dV
+TG
+kr
+TG
+sd
+hg
+PZ
+Rr
+jH
+jH
+cM
+Rj
+Rj
+Rj
+kr
 "}
 (11,1,1) = {"
-VV
-Yv
-kY
-PI
-rS
-pp
-Lc
-MF
-fx
-gk
-tQ
-tQ
-bB
-qE
-qE
-qE
-EP
+kr
+TG
+hn
+Cy
+gp
+id
+Wd
+eT
+Ti
+HU
+jH
+jH
+cM
+Rj
+Rj
+Rj
+vV
 "}
 (12,1,1) = {"
-VV
-Kd
-pp
-kh
-VV
-Yv
-sI
-qz
-Zy
-hf
-tQ
-gn
-bB
-qE
-qE
-qE
-VV
+kr
+eH
+id
+au
+kr
+TG
+yc
+Kq
+sd
+hg
+jH
+XD
+cM
+Rj
+Rj
+Rj
+kr
 "}
 (13,1,1) = {"
-VV
-VV
-VV
-VV
-VV
-VV
-VV
-VV
-VV
-VV
-qZ
-VV
-VV
-qE
-qO
-qE
-VV
+kr
+kr
+kr
+kr
+kr
+kr
+kr
+kr
+kr
+kr
+UM
+kr
+kr
+Rj
+Zg
+Rj
+kr
 "}

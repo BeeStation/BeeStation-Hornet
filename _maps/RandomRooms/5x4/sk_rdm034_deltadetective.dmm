@@ -1,4 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "b" = (
 /obj/structure/chair/office,
 /turf/open/floor/wood,
@@ -58,10 +62,6 @@
 "m" = (
 /turf/open/floor/iron/dark,
 /area/template_noop)
-"n" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
 "o" = (
 /obj/structure/rack,
 /obj/item/storage/briefcase{
@@ -105,12 +105,12 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"R" = (
+"S" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = 32
 	},
@@ -120,7 +120,7 @@
 
 (1,1,1) = {"
 p
-n
+a
 f
 k
 "}
@@ -139,11 +139,11 @@ r
 (4,1,1) = {"
 d
 i
-n
+a
 s
 "}
 (5,1,1) = {"
-R
+S
 m
 o
 t

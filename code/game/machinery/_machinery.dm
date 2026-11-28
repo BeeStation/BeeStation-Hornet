@@ -414,6 +414,8 @@
  */
 /obj/machinery/proc/dump_inventory_contents(list/subset = null)
 	var/turf/this_turf = get_turf(src)
+	if(!this_turf)
+		return
 	for(var/atom/movable/movable_atom in contents)
 		if(subset && !(movable_atom in subset))
 			continue

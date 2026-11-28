@@ -3,10 +3,8 @@
 /obj/structure/bookcase/random,
 /turf/open/floor/carpet/green,
 /area/template_noop)
-"e" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+"g" = (
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -85,5 +83,5 @@ U
 (3,1,1) = {"
 a
 R
-e
+g
 "}

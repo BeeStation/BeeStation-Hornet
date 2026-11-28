@@ -5,12 +5,6 @@
 "ab" = (
 /turf/closed/indestructible/riveted/uranium,
 /area/shuttle/escape/luxury)
-"ac" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/shuttle/escape/luxury)
 "ad" = (
 /obj/machinery/door/airlock/gold,
 /obj/effect/forcefield/luxury_shuttle{
@@ -36,12 +30,6 @@
 /turf/open/floor/wood,
 /area/shuttle/escape/luxury)
 "aj" = (
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"ak" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "al" = (
@@ -254,39 +242,21 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"bl" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"cu" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/pool{
-	dir = 4
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
 "cx" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/honkdae,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"ex" = (
-/obj/machinery/light/small,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/shuttle/escape/luxury)
 "hA" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"ji" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "js" = (
@@ -303,30 +273,6 @@
 /obj/item/food/bearsteak,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"vB" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/machinery/light,
-/obj/effect/turf_decal/pool{
-	dir = 8
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"wf" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/machinery/light,
-/obj/effect/turf_decal/pool{
-	dir = 4
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
 "zg" = (
 /obj/machinery/vending/wallmed,
 /turf/closed/indestructible/riveted/uranium,
@@ -336,12 +282,19 @@
 /obj/item/food/eggplantparm,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"Cx" = (
+"CU" = (
+/obj/effect/turf_decal/pool/corner,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Dd" = (
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/shuttle/escape/luxury)
-"CU" = (
-/obj/effect/turf_decal/pool/corner,
+"Ee" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/pool{
+	dir = 4
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "Eg" = (
@@ -351,6 +304,14 @@
 /area/shuttle/escape/luxury)
 "Jr" = (
 /obj/effect/turf_decal/pool,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Oj" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light,
+/obj/effect/turf_decal/pool{
+	dir = 4
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "OL" = (
@@ -363,14 +324,37 @@
 /obj/structure/table/wood/fancy,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"Rk" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Sc" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light,
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
 "SN" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/kebab/tofu,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
+"Ue" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/shuttle/escape/luxury)
 "Ui" = (
 /obj/item/pool/rubber_ring,
 /turf/open/indestructible/sound/pool,
+/area/shuttle/escape/luxury)
+"Un" = (
+/obj/machinery/light/small,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/escape/luxury)
 "Vf" = (
 /turf/open/indestructible/sound/pool,
@@ -381,13 +365,9 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"Vq" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/pool{
+"VO" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/mineral/gold,
@@ -412,7 +392,7 @@ aa
 (2,1,1) = {"
 ab
 ab
-Cx
+Dd
 ab
 ab
 as
@@ -427,7 +407,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-Cx
+Dd
 ag
 ab
 ab
@@ -444,9 +424,9 @@ ab
 (4,1,1) = {"
 ab
 ag
-ex
+Un
 ab
-bl
+VO
 aj
 aj
 aj
@@ -485,13 +465,13 @@ Eg
 bd
 aj
 CU
-cu
-wf
+Ee
+Oj
 ab
 "}
 (7,1,1) = {"
 ab
-Cx
+Dd
 ag
 ab
 aj
@@ -539,8 +519,8 @@ ab
 "}
 (10,1,1) = {"
 ab
-Cx
-ex
+Dd
+Un
 ab
 aj
 au
@@ -570,9 +550,9 @@ Vf
 ab
 "}
 (12,1,1) = {"
-ac
+Ue
 ag
-Cx
+Dd
 ab
 aj
 au
@@ -709,8 +689,8 @@ bb
 bd
 aj
 Vm
-Vq
-vB
+ji
+Sc
 ab
 "}
 (21,1,1) = {"
@@ -731,7 +711,7 @@ ab
 "}
 (22,1,1) = {"
 ab
-ak
+Rk
 ap
 ab
 aj
@@ -774,7 +754,7 @@ be
 bk
 aj
 aj
-ak
+Rk
 ab
 "}
 (25,1,1) = {"

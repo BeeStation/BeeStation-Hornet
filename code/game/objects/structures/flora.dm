@@ -362,7 +362,7 @@
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE, force_unwielded = 10, force_wielded = 10)
 
 /datum/storage/kirbyplants
-	max_slots = 1
+	max_slots = 3
 	max_specific_storage = WEIGHT_CLASS_NORMAL
 	animated = FALSE
 

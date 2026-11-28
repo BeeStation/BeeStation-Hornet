@@ -14,9 +14,12 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/template_noop)
-"i" = (
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating,
+"j" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/template_noop)
 "l" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -31,6 +34,10 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"n" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "p" = (
 /turf/closed/wall,
 /area/template_noop)
@@ -38,6 +45,10 @@
 /obj/structure/chair/fancy/comfy{
 	color = "#66b266"
 	},
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
@@ -69,17 +80,6 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"D" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/plating,
-/area/template_noop)
-"E" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/template_noop)
 "F" = (
 /obj/effect/spawner/random/maintenance/three,
 /obj/structure/closet/crate,
@@ -87,10 +87,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/template_noop)
-"G" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
 /area/template_noop)
 "J" = (
 /obj/structure/table,
@@ -167,9 +163,13 @@
 /obj/effect/spawner/random/maintenance/five,
 /turf/open/floor/plating,
 /area/template_noop)
+"Z" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
-E
+j
 y
 S
 J
@@ -178,15 +178,15 @@ a
 (2,1,1) = {"
 T
 S
-G
+r
 c
 F
 "}
 (3,1,1) = {"
 L
-i
+n
 s
-G
+r
 m
 "}
 (4,1,1) = {"
@@ -198,20 +198,20 @@ R
 "}
 (5,1,1) = {"
 q
-i
-G
+n
+r
 c
 R
 "}
 (6,1,1) = {"
-D
+Z
 c
 S
 c
 S
 "}
 (7,1,1) = {"
-i
+n
 c
 S
 c

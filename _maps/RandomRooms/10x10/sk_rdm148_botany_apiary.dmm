@@ -2,9 +2,9 @@
 "a" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/machinery/seed_extractor,
-/turf/open/floor/grass,
+"c" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 "d" = (
 /obj/structure/closet{
@@ -36,29 +36,9 @@
 /obj/machinery/biogenerator,
 /turf/open/floor/grass,
 /area/template_noop)
-"h" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/liberty,
-/turf/open/floor/grass,
-/area/template_noop)
-"j" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/spray/plantbgone{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/plant_analyzer,
-/obj/item/shovel/spade,
-/obj/item/cultivator{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/reagent_containers/cup/bucket,
-/turf/open/floor/grass,
-/area/template_noop)
-"k" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/cannabis,
+"i" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/cabbage,
 /turf/open/floor/grass,
 /area/template_noop)
 "l" = (
@@ -68,15 +48,6 @@
 "m" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/grass,
-/area/template_noop)
-"n" = (
-/obj/effect/spawner/structure/window,
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating,
-/area/template_noop)
-"o" = (
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating,
 /area/template_noop)
 "p" = (
 /obj/structure/closet{
@@ -101,11 +72,6 @@
 /obj/structure/sink/puddle,
 /turf/open/floor/grass,
 /area/template_noop)
-"r" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/cabbage,
-/turf/open/floor/grass,
-/area/template_noop)
 "t" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
@@ -113,17 +79,47 @@
 "u" = (
 /turf/open/floor/monotile/steel,
 /area/template_noop)
-"v" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
+"w" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/diona_pod,
+/turf/open/floor/grass,
 /area/template_noop)
 "x" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/grass,
 /area/template_noop)
-"D" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/bamboo,
+"y" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/liberty,
+/turf/open/floor/grass,
+/area/template_noop)
+"A" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"B" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/plant_scanner,
+/obj/item/shovel/spade,
+/obj/item/cultivator{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/turf/open/floor/grass,
+/area/template_noop)
+"C" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/ambrosia,
+/turf/open/floor/grass,
+/area/template_noop)
+"F" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/glowshroom,
 /turf/open/floor/grass,
 /area/template_noop)
 "G" = (
@@ -132,6 +128,15 @@
 /area/template_noop)
 "H" = (
 /turf/closed/wall,
+/area/template_noop)
+"I" = (
+/obj/effect/spawner/structure/window,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"J" = (
+/obj/machinery/seeder,
+/turf/open/floor/grass,
 /area/template_noop)
 "K" = (
 /obj/item/stack/cable_coil,
@@ -145,18 +150,13 @@
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
-"O" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/dionapod,
-/turf/open/floor/grass,
-/area/template_noop)
 "P" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/grass,
 /area/template_noop)
-"Q" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/ambrosia,
+"R" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/carrot,
 /turf/open/floor/grass,
 /area/template_noop)
 "T" = (
@@ -166,18 +166,18 @@
 "U" = (
 /turf/open/floor/grass,
 /area/template_noop)
+"V" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/cannabis,
+/turf/open/floor/grass,
+/area/template_noop)
+"W" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/bamboo,
+/turf/open/floor/grass,
+/area/template_noop)
 "X" = (
 /obj/effect/landmark/blobstart,
-/turf/open/floor/grass,
-/area/template_noop)
-"Y" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/carrot,
-/turf/open/floor/grass,
-/area/template_noop)
-"Z" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/glowshroom,
 /turf/open/floor/grass,
 /area/template_noop)
 
@@ -189,7 +189,7 @@ a
 a
 a
 a
-o
+c
 a
 a
 "}
@@ -208,30 +208,30 @@ a
 (3,1,1) = {"
 a
 e
-Z
-r
+F
+i
 U
 U
 U
-h
+y
 e
-v
+A
 "}
 (4,1,1) = {"
-o
+c
 e
-Q
+C
 U
 U
 P
 U
-O
+w
 e
 a
 "}
 (5,1,1) = {"
 a
-n
+I
 T
 M
 X
@@ -243,7 +243,7 @@ a
 "}
 (6,1,1) = {"
 t
-n
+I
 T
 U
 x
@@ -256,23 +256,23 @@ a
 (7,1,1) = {"
 a
 e
-D
+W
 G
 U
 U
 m
-b
+J
 e
 a
 "}
 (8,1,1) = {"
-o
+c
 e
-k
-Y
+V
+R
 U
 U
-j
+B
 g
 e
 K
@@ -295,7 +295,7 @@ a
 a
 a
 a
-o
+c
 a
 a
 N

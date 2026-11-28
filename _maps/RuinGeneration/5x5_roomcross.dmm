@@ -1,94 +1,94 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"e" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"o" = (
+"a" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/ruin/powered)
-"t" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"v" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"w" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"y" = (
-/turf/closed/wall,
-/area/ruin/powered)
-"B" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"M" = (
+"d" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"N" = (
-/obj/item/kirbyplants/random,
+"f" = (
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"S" = (
+"i" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"p" = (
+/turf/closed/wall,
+/area/ruin/powered)
+"F" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"J" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"O" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"T" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"X" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
 /area/ruin/powered)
 
 (1,1,1) = {"
-y
-y
-M
-y
-y
+p
+p
+d
+p
+p
 "}
 (2,1,1) = {"
-y
-N
-o
-e
-y
+p
+f
+a
+F
+p
 "}
 (3,1,1) = {"
-v
-o
-o
-o
-S
+O
+a
+a
+a
+X
 "}
 (4,1,1) = {"
-y
-B
-o
-w
-y
+p
+i
+a
+T
+p
 "}
 (5,1,1) = {"
-y
-y
-t
-y
-y
+p
+p
+J
+p
+p
 "}

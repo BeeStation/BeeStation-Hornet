@@ -365,7 +365,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/machinery/biogenerator - 1 time(s).
 
-/obj/machinery/plantgenes - 1 time(s).
+/obj/machinery/plant_machine/plant_analyser - 1 time(s).
 
 /datum/reagents - 1 time(s).
 

@@ -9,12 +9,6 @@
 	},
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
-"ah" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/titanium,
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating,
-/area/awaymission/BMPship/Aft)
 "at" = (
 /obj/structure/table,
 /obj/item/pen/red,
@@ -25,14 +19,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
-"aQ" = (
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "ba" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/head/helmet/space/syndicate/green/dark,
@@ -44,11 +30,6 @@
 	icon_state = "medium"
 	},
 /turf/open/floor/carpet,
-/area/awaymission/BMPship/Fore)
-"bU" = (
-/obj/structure/cable,
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "cF" = (
 /turf/open/floor/iron,
@@ -105,13 +86,11 @@
 /obj/machinery/light/small,
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
-"fa" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
+"eT" = (
+/obj/effect/gibspawner/robot,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/iron/airless,
+/area/awaymission/BMPship/Fore)
 "fb" = (
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -139,6 +118,14 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
+"gi" = (
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Fore)
 "gA" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -204,13 +191,25 @@
 	},
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Fore)
+"ih" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
+"ii" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/awaymission/BMPship/Aft)
 "ik" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/awaymission/BMPship/Midship)
-"it" = (
+"ix" = (
+/obj/item/shard,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Fore)
 "iy" = (
 /obj/item/hand_labeler,
 /turf/open/floor/plating,
@@ -338,6 +337,10 @@
 	},
 /turf/open/floor/carpet,
 /area/awaymission/BMPship/Fore)
+"ly" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Midship)
 "lA" = (
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/BMPship/Aft)
@@ -380,20 +383,17 @@
 "mu" = (
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
-"mB" = (
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "mX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
 /area/awaymission/BMPship/Midship)
+"nc" = (
+/obj/structure/cable,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Fore)
 "nf" = (
 /obj/structure/sink{
 	dir = 2
@@ -449,6 +449,10 @@
 "pb" = (
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
+"pg" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/awaymission/BMPship/Fore)
 "pj" = (
 /obj/machinery/power/shieldwallgen,
 /obj/structure/cable,
@@ -458,6 +462,10 @@
 /obj/item/poster/random_contraband,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
+"px" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "pE" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/iron/white,
@@ -477,11 +485,6 @@
 "pQ" = (
 /obj/item/clothing/suit/caution,
 /turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Midship)
-"qb" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "qc" = (
 /obj/effect/mapping_helpers/airlock/locked,
@@ -543,11 +546,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Fore)
-"rc" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "re" = (
 /obj/machinery/light,
 /turf/open/floor/plating/airless,
@@ -651,6 +649,14 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Aft)
+"ud" = (
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 1
+	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Fore)
 "uf" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
@@ -682,20 +688,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Fore)
-"uG" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Midship)
-"uP" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "uU" = (
 /obj/structure/mop_bucket,
 /turf/open/floor/plating,
@@ -711,6 +703,11 @@
 /obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
+"vH" = (
+/obj/item/multitool,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship)
 "vY" = (
 /obj/machinery/teleport/station,
 /turf/open/floor/plating,
@@ -775,6 +772,13 @@
 /obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/wood,
 /area/awaymission/BMPship/Fore)
+"xY" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "yh" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -785,6 +789,10 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/iron/white,
 /area/awaymission/BMPship/Aft)
+"yn" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Fore)
 "yx" = (
 /obj/structure/table,
 /obj/item/knife/kitchen,
@@ -822,11 +830,6 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/carpet,
-/area/awaymission/BMPship/Fore)
-"zy" = (
-/obj/item/shard,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "zB" = (
 /obj/structure/closet/crate/freezer,
@@ -1371,6 +1374,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/BMPship/Aft)
+"MK" = (
+/obj/structure/chair/stool,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Fore)
 "MX" = (
 /obj/structure/closet/crate,
 /obj/item/stack/spacecash/c1000,
@@ -1380,11 +1388,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
-"Ny" = (
-/obj/structure/chair/stool,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "NX" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/brain,
@@ -1400,10 +1403,6 @@
 /obj/machinery/power/port_gen/pacman/super,
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
-"Od" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/awaymission/BMPship/Fore)
 "Og" = (
 /obj/item/stack/cable_coil{
 	amount = 5
@@ -1433,14 +1432,18 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
+"OW" = (
+/obj/machinery/seeder,
+/obj/item/plant_seeds/preset/walking,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "Pa" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/misc/space/nearstation)
-"Pf" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "Pn" = (
 /obj/item/food/hugemushroomslice,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -1451,10 +1454,6 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
-"Px" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Midship)
 "PZ" = (
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Fore)
@@ -1478,17 +1477,17 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
-"QG" = (
-/obj/effect/gibspawner/robot,
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/iron/airless,
-/area/awaymission/BMPship/Fore)
 "QO" = (
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "meatConvey2"
 	},
 /turf/open/floor/plating,
+/area/awaymission/BMPship/Midship)
+"Ri" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "RN" = (
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -1592,6 +1591,10 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
+"TV" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Midship)
 "TX" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1613,13 +1616,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
-"UL" = (
-/obj/item/multitool,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship)
 "UU" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
+"UX" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "UZ" = (
@@ -1648,10 +1653,6 @@
 	dir = 2
 	},
 /area/awaymission/BMPship/Aft)
-"VF" = (
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Midship)
 "VP" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Midship)
@@ -1680,6 +1681,11 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
+"Wh" = (
+/obj/structure/cable,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Fore)
 "Wp" = (
 /turf/closed/wall/mineral/titanium/interior,
 /area/awaymission/BMPship/Aft)
@@ -1710,6 +1716,11 @@
 	},
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
+"Xz" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "XG" = (
 /obj/structure/table,
 /obj/item/screwdriver,
@@ -1742,11 +1753,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"XS" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "XZ" = (
 /turf/closed/mineral/random,
 /area/awaymission/BMPship/Midship)
@@ -1766,23 +1772,17 @@
 /obj/structure/plasticflaps,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
+"Yv" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating/airless,
+/area/awaymission/BMPship/Midship)
 "Yz" = (
 /obj/item/shard,
 /turf/open/floor/carpet,
 /area/awaymission/BMPship/Fore)
-"YF" = (
-/obj/structure/cable,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
-"YH" = (
-/obj/machinery/seed_extractor,
-/obj/item/seeds/plump/walkingmushroom,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "YI" = (
 /obj/structure/closet,
 /obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
@@ -2191,7 +2191,7 @@ zU
 qO
 aa
 aa
-UL
+vH
 aa
 aa
 aa
@@ -2239,7 +2239,7 @@ SS
 Vu
 Vu
 zU
-Pf
+yn
 Fz
 aa
 Pa
@@ -2291,7 +2291,7 @@ Vu
 Vu
 zU
 Fz
-Pf
+yn
 Fz
 aa
 aa
@@ -2341,8 +2341,8 @@ Vu
 Vu
 Vu
 XL
-Pf
-zy
+yn
+ix
 Zi
 Sx
 XN
@@ -2379,7 +2379,7 @@ aa
 Zi
 xM
 LR
-Od
+pg
 zU
 Vu
 Vu
@@ -2394,7 +2394,7 @@ CJ
 Mv
 md
 Fz
-mB
+ud
 Zi
 id
 PZ
@@ -2444,8 +2444,8 @@ Vu
 Vu
 zU
 ku
-Ny
-aQ
+MK
+gi
 Zi
 SR
 PZ
@@ -2494,9 +2494,9 @@ CJ
 Vu
 WJ
 zU
-bU
+Wh
 GH
-Pf
+yn
 Zi
 Zi
 Je
@@ -2545,13 +2545,13 @@ CJ
 Vu
 zQ
 zU
-YF
+nc
 md
 md
 IU
-YF
+nc
 ZV
-Pf
+yn
 Zi
 qA
 qA
@@ -2601,8 +2601,8 @@ zU
 zU
 zU
 MB
-Pf
-Pf
+yn
+yn
 Zi
 qA
 qA
@@ -2704,7 +2704,7 @@ jW
 VT
 ol
 lg
-Pf
+yn
 lg
 qA
 qA
@@ -2738,10 +2738,10 @@ KI
 sp
 CB
 VT
-fa
-fa
-fa
-uP
+xY
+xY
+xY
+UX
 gA
 wY
 wY
@@ -2753,8 +2753,8 @@ wY
 UU
 UU
 VT
-Pf
-QG
+yn
+eT
 lg
 zU
 qA
@@ -2806,7 +2806,7 @@ UU
 VT
 TX
 ZV
-Pf
+yn
 SY
 qA
 qA
@@ -2855,7 +2855,7 @@ wY
 UU
 UU
 VT
-Pf
+yn
 lg
 lg
 SY
@@ -2894,7 +2894,7 @@ VT
 Eo
 cF
 cF
-YH
+OW
 gA
 wY
 UC
@@ -2952,10 +2952,10 @@ eN
 eN
 lh
 eN
-qb
+ih
 wY
 UU
-it
+px
 VT
 qA
 qA
@@ -2993,10 +2993,10 @@ aa
 aa
 aa
 VT
-XS
-XS
-XS
-rc
+Xz
+Xz
+Xz
+Ri
 gA
 pj
 ww
@@ -3057,7 +3057,7 @@ gA
 gA
 Ii
 ww
-it
+px
 DT
 qA
 qA
@@ -3108,7 +3108,7 @@ UU
 fF
 UU
 UU
-it
+px
 WN
 XZ
 qA
@@ -3195,7 +3195,7 @@ Pa
 aa
 tB
 VT
-Px
+ly
 VT
 hm
 CT
@@ -3244,9 +3244,9 @@ Pa
 aa
 Fc
 tB
-Px
+ly
 mu
-VF
+TV
 VT
 xD
 CT
@@ -3294,9 +3294,9 @@ aa
 aa
 Pa
 tB
-Px
-Px
-VF
+ly
+ly
+TV
 mu
 VT
 eK
@@ -3315,7 +3315,7 @@ gA
 UU
 WN
 mu
-Px
+ly
 VP
 XZ
 XZ
@@ -3345,9 +3345,9 @@ aa
 aa
 ik
 VT
-Px
+ly
 mu
-Px
+ly
 JO
 VT
 Gu
@@ -3365,10 +3365,10 @@ ht
 gA
 UU
 WN
-Px
+ly
 BP
 Fg
-Px
+ly
 VT
 XZ
 qA
@@ -3397,7 +3397,7 @@ aa
 VT
 Co
 mu
-VF
+TV
 mu
 mu
 VT
@@ -3419,7 +3419,7 @@ WN
 HL
 mu
 VP
-Px
+ly
 VP
 WN
 qA
@@ -3449,7 +3449,7 @@ VT
 mu
 mu
 Ig
-VF
+TV
 mu
 me
 UU
@@ -3471,7 +3471,7 @@ mu
 VP
 mu
 mu
-Px
+ly
 WN
 qA
 qA
@@ -3519,7 +3519,7 @@ gA
 UU
 Bu
 mu
-Px
+ly
 mu
 mu
 mu
@@ -3620,11 +3620,11 @@ wY
 gA
 jW
 WN
-uG
+Yv
 mu
 mu
 mu
-Px
+ly
 WN
 Fm
 Fm
@@ -3725,7 +3725,7 @@ WN
 VW
 mu
 mu
-VF
+TV
 pQ
 WN
 aa
@@ -4159,7 +4159,7 @@ MC
 Wp
 iA
 iA
-ah
+ii
 ew
 iA
 iA

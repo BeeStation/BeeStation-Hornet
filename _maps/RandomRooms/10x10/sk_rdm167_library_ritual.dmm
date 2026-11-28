@@ -2,13 +2,18 @@
 "aJ" = (
 /turf/closed/wall/rust,
 /area/template_noop)
-"cb" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
+"ck" = (
+/obj/structure/railing/corner{
+	dir = 4
 	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
+"cF" = (
+/obj/structure/railing/corner,
 /obj/structure/fluff/paper{
-	dir = 4;
-	icon_state = "papercorner"
+	dir = 10;
+	icon_state = "paperstack"
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
@@ -24,6 +29,19 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"dp" = (
+/obj/structure/table/wood,
+/obj/item/plant_tray/pot/random,
+/obj/structure/fluff/paper{
+	dir = 8
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
 "dt" = (
 /obj/item/chair/wood,
 /turf/open/floor/carpet/green,
@@ -35,14 +53,6 @@
 /obj/structure/fluff/paper{
 	icon_state = "paperstack"
 	},
-/turf/open/floor/wood,
-/area/template_noop)
-"fC" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "gy" = (
@@ -88,6 +98,17 @@
 	icon_state = "paperstack"
 	},
 /turf/open/floor/carpet/green,
+/area/template_noop)
+"jF" = (
+/obj/structure/fluff/paper{
+	dir = 6;
+	icon_state = "paperstack"
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "jP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -151,6 +172,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/green,
 /area/template_noop)
+"mT" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "nX" = (
 /obj/structure/fluff/paper{
 	dir = 8;
@@ -162,6 +191,15 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/turf/open/floor/wood,
+/area/template_noop)
+"om" = (
+/obj/item/plant_tray/pot/random,
+/obj/structure/fluff/paper{
+	dir = 4;
+	icon_state = "papercorner"
+	},
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 "oq" = (
@@ -177,26 +215,6 @@
 /turf/open/floor/iron/stairs{
 	dir = 8
 	},
-/area/template_noop)
-"qp" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
-"qv" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 3
-	},
-/obj/structure/fluff/paper{
-	dir = 1;
-	icon_state = "papercorner"
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
 /area/template_noop)
 "qH" = (
 /obj/structure/fluff/paper{
@@ -242,28 +260,9 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"uh" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
 "vA" = (
 /obj/item/stack/sheet/wood,
 /turf/open/floor/carpet/green,
-/area/template_noop)
-"xZ" = (
-/obj/structure/fluff/paper{
-	dir = 6;
-	icon_state = "paperstack"
-	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
 /area/template_noop)
 "yf" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -285,6 +284,15 @@
 	},
 /turf/open/floor/monofloor,
 /area/template_noop)
+"zc" = (
+/obj/structure/table/wood,
+/obj/structure/fluff/paper{
+	icon_state = "papercorner"
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "ze" = (
 /obj/structure/table/wood,
 /obj/item/candle/infinite{
@@ -293,17 +301,6 @@
 	},
 /obj/structure/railing/corner,
 /turf/open/floor/monofloor,
-/area/template_noop)
-"Ay" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-16"
-	},
-/obj/structure/fluff/paper{
-	dir = 1;
-	icon_state = "papercorner"
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
 /area/template_noop)
 "AX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -425,6 +422,20 @@
 	dir = 4
 	},
 /area/template_noop)
+"IS" = (
+/obj/structure/table/wood,
+/obj/structure/fluff/paper{
+	dir = 8;
+	icon_state = "papercorner"
+	},
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "Jr" = (
 /obj/structure/fluff/paper{
 	dir = 4
@@ -434,6 +445,14 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
+/area/template_noop)
+"Ks" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "KF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -456,13 +475,6 @@
 	icon_state = "paperstack"
 	},
 /turf/open/floor/carpet/green,
-/area/template_noop)
-"LX" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
 /area/template_noop)
 "Mo" = (
 /obj/structure/railing{
@@ -528,21 +540,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
-"Ru" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
-/obj/structure/fluff/paper{
-	icon_state = "paperstack"
-	},
-/obj/structure/fluff/paper{
-	dir = 4;
-	icon_state = "papercorner"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
 "RT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/wood/normal{
@@ -574,56 +571,29 @@
 /obj/structure/bookcase/random/nonfiction,
 /turf/open/floor/carpet/green,
 /area/template_noop)
-"UI" = (
-/obj/structure/table/wood,
-/obj/item/kirbyplants{
-	icon_state = "plant-17";
-	pixel_x = 8;
-	pixel_y = 3
-	},
+"Vc" = (
+/obj/item/plant_tray/pot/random,
 /obj/structure/fluff/paper{
-	dir = 8
-	},
-/obj/effect/spawner/random/maintenance,
-/obj/structure/fluff/paper{
-	dir = 1;
 	icon_state = "paperstack"
 	},
-/turf/open/floor/carpet/green,
+/obj/structure/fluff/paper{
+	dir = 4;
+	icon_state = "papercorner"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "VI" = (
 /obj/structure/chair/wood/normal,
 /turf/open/floor/carpet/green,
 /area/template_noop)
-"VO" = (
-/obj/structure/table/wood,
-/obj/structure/fluff/paper{
-	icon_state = "papercorner"
+"Xq" = (
+/obj/structure/railing/corner{
+	dir = 1
 	},
-/obj/effect/spawner/random/maintenance,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
-"WJ" = (
-/obj/structure/table/wood,
-/obj/structure/fluff/paper{
-	dir = 8;
-	icon_state = "papercorner"
-	},
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/effect/spawner/random/maintenance,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
-"Yg" = (
-/obj/structure/railing/corner,
-/obj/structure/fluff/paper{
-	dir = 10;
-	icon_state = "paperstack"
-	},
+/obj/effect/decal/cleanable/blood/old,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
@@ -632,6 +602,15 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
+/area/template_noop)
+"YZ" = (
+/obj/item/plant_tray/pot/random,
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "papercorner"
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "ZR" = (
 /obj/structure/railing{
@@ -645,7 +624,7 @@
 (1,1,1) = {"
 OJ
 Dp
-Ay
+YZ
 lO
 CF
 jP
@@ -668,15 +647,15 @@ Cp
 "}
 (3,1,1) = {"
 yV
-UI
+dp
 sn
 mJ
-qp
+mT
 cL
 BZ
 nX
 Hv
-cb
+om
 "}
 (4,1,1) = {"
 Fb
@@ -686,7 +665,7 @@ OJ
 pW
 oq
 OJ
-LX
+ck
 YS
 KF
 "}
@@ -705,7 +684,7 @@ jx
 (6,1,1) = {"
 LO
 yf
-Yg
+cF
 Dy
 Fv
 ze
@@ -722,21 +701,21 @@ aJ
 Mo
 IC
 OJ
-xZ
+jF
 Ga
 jR
 "}
 (8,1,1) = {"
-VO
+zc
 QC
 HO
 SF
-fC
-uh
+Xq
+Ks
 di
 qH
 Jr
-qv
+YZ
 "}
 (9,1,1) = {"
 Dp
@@ -753,12 +732,12 @@ Cp
 (10,1,1) = {"
 OJ
 Cp
-Ru
+Vc
 Cr
 NA
 qN
 FO
-WJ
+IS
 Dp
 OJ
 "}

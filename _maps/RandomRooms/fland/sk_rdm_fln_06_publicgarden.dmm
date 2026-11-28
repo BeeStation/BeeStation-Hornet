@@ -2,17 +2,21 @@
 "a" = (
 /turf/template_noop/closed,
 /area/template_noop)
+"b" = (
+/obj/structure/sink/directional/east,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron,
+/area/template_noop)
+"c" = (
+/obj/machinery/seeder,
+/turf/open/floor/iron,
+/area/template_noop)
 "d" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron,
-/area/template_noop)
-"g" = (
-/obj/structure/sink/directional/east,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -32,6 +36,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
+"j" = (
+/obj/item/plant_tray/soil,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/grass,
+/area/template_noop)
 "l" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -42,6 +51,21 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"m" = (
+/obj/item/plant_tray/soil,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"o" = (
+/obj/item/plant_tray/soil,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/grass,
+/area/template_noop)
 "p" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/bucket,
@@ -50,25 +74,6 @@
 	},
 /obj/item/hatchet,
 /obj/item/cultivator,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron,
-/area/template_noop)
-"q" = (
-/obj/structure/table,
-/obj/item/plant_analyzer,
-/obj/item/plant_analyzer,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/reagent_containers/cup/bottle/nutrient/rh{
-	pixel_x = 2;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/bottle/nutrient/ez,
-/obj/item/reagent_containers/spray/pestspray{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/spray/plantbgone,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
@@ -94,17 +99,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
-"x" = (
-/obj/machinery/seed_extractor,
-/turf/open/floor/iron,
-/area/template_noop)
-"z" = (
-/obj/machinery/hydroponics/soil,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/grass,
-/area/template_noop)
 "A" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -115,12 +109,34 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"D" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/plant_seeds/preset/tower,
+/obj/item/plant_seeds/preset/watermelon,
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/sugarcane,
+/obj/item/plant_seeds/preset/orange,
+/obj/item/plant_seeds/preset/grape,
+/obj/item/plant_seeds/preset/cocoa,
+/obj/item/plant_seeds/preset/banana,
+/obj/item/plant_seeds/preset/apple,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron,
+/area/template_noop)
 "G" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
+/area/template_noop)
+"H" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/grass,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
@@ -140,35 +156,24 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
-"M" = (
-/obj/machinery/hydroponics/soil,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/grass,
-/area/template_noop)
-"O" = (
-/obj/machinery/light{
-	dir = 8
-	},
+"S" = (
 /obj/structure/table,
-/obj/item/seeds/tower,
-/obj/item/seeds/watermelon,
-/obj/item/seeds/wheat,
-/obj/item/seeds/sugarcane,
-/obj/item/seeds/orange,
-/obj/item/seeds/grape,
-/obj/item/seeds/cocoapod,
-/obj/item/seeds/banana,
-/obj/item/seeds/apple,
+/obj/item/plant_scanner,
+/obj/item/plant_scanner,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bottle/nutrient/rh{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/spray/pestspray{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/spray/plantbgone,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
-/area/template_noop)
-"R" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/grass,
 /area/template_noop)
 "U" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -182,22 +187,17 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/grid/steel,
 /area/template_noop)
-"Y" = (
-/obj/machinery/hydroponics/soil,
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/grass,
-/area/template_noop)
 
 (1,1,1) = {"
 U
-g
-O
+b
+D
 w
-q
+S
 K
 p
-Y
-M
+j
+o
 a
 "}
 (2,1,1) = {"
@@ -226,14 +226,14 @@ a
 "}
 (4,1,1) = {"
 U
-R
-z
-R
-x
+H
+m
+H
+c
 h
 v
-R
-z
+H
+m
 a
 "}
 (5,1,1) = {"

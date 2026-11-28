@@ -1,12 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"bv" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
 "ca" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -57,13 +49,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"fZ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
-/obj/structure/girder,
-/obj/effect/decal/cleanable/greenglow,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
 "gc" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -75,6 +60,13 @@
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
+"gj" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/structure/girder,
+/obj/effect/decal/cleanable/greenglow,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "gY" = (
 /obj/machinery/computer/fugitive_capture_computer{
 	dir = 4
@@ -84,6 +76,17 @@
 	dir = 4
 	},
 /turf/open/floor/iron/tech/grid,
+/area/shuttle/hunter)
+"hi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/weldingtool{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/obj/structure/cable/yellow,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "hn" = (
 /obj/effect/turf_decal/box/corners{
@@ -213,6 +216,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
+"oj" = (
+/obj/item/chair/wood,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/shuttle/hunter)
 "oM" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/blood/old{
@@ -247,19 +256,6 @@
 	id = "russian_bounty_cargo"
 	},
 /turf/open/floor/plating,
-/area/shuttle/hunter)
-"rs" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/item/kirbyplants/dead{
-	desc = "A little bit of nature contained in a pot. It looks dead, and reeks of potato liquor.";
-	name = "potted plant"
-	},
-/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "rC" = (
 /obj/machinery/computer/camera_advanced/bounty_hunter{
@@ -364,6 +360,17 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
+"tV" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/shuttle/hunter)
 "vy" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
@@ -420,15 +427,12 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/hunter)
-"wv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/weldingtool{
-	pixel_x = 7;
-	pixel_y = 11
+"xg" = (
+/obj/structure/chair{
+	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/broken_floor,
-/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "xq" = (
@@ -567,12 +571,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"Cg" = (
-/obj/item/chair/wood,
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/shuttle/hunter)
 "Ck" = (
 /obj/structure/railing{
 	dir = 2
@@ -646,6 +644,18 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
+"Gu" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/east{
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "Hk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -715,15 +725,6 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"KA" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/oil,
-/obj/effect/mapping_helpers/broken_floor,
-/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "KB" = (
@@ -802,18 +803,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"Nx" = (
-/obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/directional/east{
-	cell_type = /obj/item/stock_parts/cell/high/plus;
-	req_access = list(181)
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
 "OG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/loading_area{
@@ -834,6 +823,15 @@
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
+/area/shuttle/hunter)
+"PD" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/oil,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/structure/cable/yellow,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "PE" = (
 /obj/structure/table,
@@ -939,16 +937,15 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/hunter)
-"Sp" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood{
+"Sq" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "SC" = (
 /obj/effect/turf_decal/box/corners{
@@ -1105,8 +1102,8 @@ cM
 cM
 Al
 zA
-KA
-fZ
+PD
+gj
 nu
 MC
 Pz
@@ -1120,7 +1117,7 @@ cM
 Al
 ly
 AX
-wv
+hi
 TM
 Hl
 gc
@@ -1135,7 +1132,7 @@ Al
 ET
 XZ
 zj
-Nx
+Gu
 vK
 Al
 PE
@@ -1219,7 +1216,7 @@ Al
 gY
 Ec
 xP
-rs
+Sq
 Ca
 Al
 sq
@@ -1230,7 +1227,7 @@ cM
 (13,1,1) = {"
 Al
 vH
-Sp
+tV
 OG
 sr
 oM
@@ -1258,7 +1255,7 @@ qp
 (15,1,1) = {"
 Al
 AY
-Cg
+oj
 sh
 AQ
 ca
@@ -1288,7 +1285,7 @@ UO
 Al
 Al
 nF
-bv
+xg
 Qq
 tk
 Al

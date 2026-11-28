@@ -495,6 +495,11 @@
 /obj/structure/fence/cut/large,
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
+"hC" = (
+/mob/living/basic/turkey/tom,
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
 "hD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -540,13 +545,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -683,6 +681,13 @@
 "kR" = (
 /obj/item/trash/semki,
 /turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"kW" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "la" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -945,6 +950,10 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
+"qw" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "qT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/observer_start,
@@ -1132,10 +1141,6 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
 /area/template_noop)
-"tb" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
@@ -1261,22 +1266,6 @@
 "wi" = (
 /obj/structure/railing,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/turf/open/floor/wood,
 /area/template_noop)
 "wl" = (
 /obj/structure/bonfire/prelit,
@@ -2200,6 +2189,10 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"Mm" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "Mt" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
@@ -2300,6 +2293,22 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"Or" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
 /area/template_noop)
 "Oy" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -2521,12 +2530,6 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"RO" = (
-/obj/item/kirbyplants{
-	pixel_x = -7
-	},
-/turf/open/floor/wood,
 /area/template_noop)
 "RZ" = (
 /obj/effect/turf_decal/sand/plating,
@@ -3060,11 +3063,6 @@
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/planetary,
-/area/template_noop)
-"ZK" = (
-/mob/living/basic/turkey/tom,
-/obj/structure/closet/crate/critter,
-/turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -6437,9 +6435,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+kW
+qw
+qw
 yT
 yT
 yT
@@ -6571,9 +6569,9 @@ gf
 bj
 PO
 HX
-iD
+kW
 yW
-tb
+qw
 yT
 yT
 yT
@@ -6705,9 +6703,9 @@ gf
 gf
 gf
 HX
-iD
-tb
-tb
+kW
+qw
+qw
 yT
 yT
 yT
@@ -6836,7 +6834,7 @@ yT
 yT
 gf
 bE
-RO
+Mm
 gf
 HX
 Du
@@ -7106,7 +7104,7 @@ gf
 tf
 sV
 gf
-wk
+Or
 Du
 DS
 yT
@@ -8889,7 +8887,7 @@ LO
 pz
 Zw
 Zw
-ZK
+hC
 Gi
 MT
 iB

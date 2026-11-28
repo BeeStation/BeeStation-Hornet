@@ -24,20 +24,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/template_noop)
-"m" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
-"n" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
 "t" = (
 /obj/machinery/computer/slot_machine,
 /obj/effect/turf_decal/bot_white,
@@ -56,18 +42,6 @@
 "v" = (
 /obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/wood,
-/area/template_noop)
-"w" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/kirbyplants{
-	icon_state = "plant-03"
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/carpet/green,
 /area/template_noop)
 "y" = (
 /obj/machinery/light/small{
@@ -105,6 +79,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/template_noop)
+"E" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "G" = (
 /obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
@@ -117,14 +99,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/template_noop)
-"J" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
 /area/template_noop)
 "K" = (
 /obj/structure/table/wood,
@@ -150,6 +124,22 @@
 	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
+"O" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/plant_tray/pot/random,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Q" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "R" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/bot_white,
@@ -158,6 +148,14 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
+/area/template_noop)
+"X" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -168,9 +166,9 @@
 /area/template_noop)
 
 (1,1,1) = {"
-w
+O
 K
-m
+E
 y
 R
 "}
@@ -179,12 +177,12 @@ Z
 c
 C
 v
-n
+Q
 "}
 (3,1,1) = {"
 k
 G
-J
+X
 t
 z
 "}

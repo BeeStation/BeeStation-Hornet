@@ -61,11 +61,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "aC" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/item/radio/intercom{
 	name = "Station Intercom";
 	pixel_x = 26
@@ -233,11 +229,7 @@
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "aS" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
@@ -468,11 +460,7 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "qB" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)

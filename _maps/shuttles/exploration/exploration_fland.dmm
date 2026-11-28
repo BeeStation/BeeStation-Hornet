@@ -174,13 +174,6 @@
 /obj/machinery/computer/rdconsole/unlocked,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"fW" = (
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 4
-	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/carpet,
-/area/shuttle/exploration)
 "ge" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -188,6 +181,13 @@
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/tech/grid,
+/area/shuttle/exploration)
+"gw" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/carpet,
 /area/shuttle/exploration)
 "gz" = (
 /obj/structure/sign/nanotrasen,
@@ -865,17 +865,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"RB" = (
-/obj/structure/bed/dogbed,
-/obj/effect/decal/cleanable/oil,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/toy/plush/beeplushie,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/shuttle/exploration)
 "Sf" = (
 /obj/effect/turf_decal/box,
 /obj/structure/sign/poster/contraband/random{
@@ -924,6 +913,17 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"TZ" = (
+/obj/structure/bed/dogbed,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/toy/plush/beeplushie,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
 /area/shuttle/exploration)
 "Uh" = (
 /obj/structure/railing/corner{
@@ -1182,7 +1182,7 @@ nG
 eA
 du
 du
-fW
+gw
 nG
 Dj
 Rt
@@ -1272,7 +1272,7 @@ su
 Df
 Df
 nG
-RB
+TZ
 SO
 nG
 aO

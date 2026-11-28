@@ -461,7 +461,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
 	// Add fingerprints first, otherwise created might already be deleted because of stack merging
 	created.add_fingerprint(builder)
-	if(isitem(created))
+	var/obj/item/item_result = created
+	if(isitem(created) && item_result.interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP)
 		builder.put_in_hands(created)
 
 	//BubbleWrap - so newly formed boxes are empty

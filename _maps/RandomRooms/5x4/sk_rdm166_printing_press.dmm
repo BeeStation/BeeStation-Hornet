@@ -1,21 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/random/maintenance,
-/obj/structure/table/wood,
-/obj/effect/turf_decal/bot{
+"l" = (
+/obj/structure/chair/office{
 	dir = 1
 	},
-/obj/structure/fluff/paper/stack{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
-"b" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
@@ -45,27 +34,15 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"p" = (
+"n" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/kirbyplants,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"q" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/fluff/paper/stack{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
-"s" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+"o" = (
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
@@ -94,15 +71,6 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"z" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/wood,
-/area/template_noop)
 "A" = (
 /turf/open/floor/wood,
 /area/template_noop)
@@ -114,22 +82,10 @@
 /obj/structure/fluff/paper/stack,
 /turf/open/floor/wood,
 /area/template_noop)
-"C" = (
-/obj/structure/noticeboard{
-	desc = "A board for pinning important notices upon. Probably helpful for keeping track of requests.";
-	dir = 8;
-	name = "requests board";
-	pixel_x = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+"K" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/fluff/paper/stack{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
@@ -156,6 +112,14 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
 "Q" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/chair/office{
@@ -165,38 +129,71 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/wood,
 /area/template_noop)
-"R" = (
+"T" = (
+/obj/structure/noticeboard{
+	desc = "A board for pinning important notices upon. Probably helpful for keeping track of requests.";
+	dir = 8;
+	name = "requests board";
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/item/plant_tray/pot/random,
+/obj/structure/fluff/paper/stack{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
+"V" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
+/obj/structure/fluff/paper/stack{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/wood,
+/area/template_noop)
+"Z" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-p
+n
 M
 w
-a
+V
 "}
 (2,1,1) = {"
 y
-R
+o
 B
 Q
 "}
 (3,1,1) = {"
-b
+Z
 A
-q
+K
 u
 "}
 (4,1,1) = {"
 t
-z
+l
 A
-C
+T
 "}
 (5,1,1) = {"
 m
-s
+P
 N
 w
 "}

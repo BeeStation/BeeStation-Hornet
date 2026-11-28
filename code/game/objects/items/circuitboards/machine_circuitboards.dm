@@ -1275,17 +1275,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	)
 	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/hydroponics
-	name = "Hydroponics Tray"
-	icon_state = "service"
-	build_path = /obj/machinery/hydroponics/constructable
-	req_components = list(
-		/datum/stock_part/matter_bin = 2,
-		/datum/stock_part/manipulator = 1,
-		/obj/item/stack/sheet/glass = 1,
-	)
-	needs_anchored = FALSE
-
 /obj/item/circuitboard/machine/microwave
 	name = "Microwave"
 	icon_state = "service"
@@ -1304,17 +1293,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	req_components = list(
 		/datum/stock_part/manipulator = 2,
 		/datum/stock_part/capacitor = 1,
-	)
-
-/obj/item/circuitboard/machine/plantgenes
-	name = "Plant DNA Manipulator"
-	icon_state = "service"
-	build_path = /obj/machinery/plantgenes
-	req_components = list(
-		/datum/stock_part/manipulator = 1,
-		/datum/stock_part/micro_laser = 1,
-		/obj/item/stack/sheet/glass = 1,
-		/datum/stock_part/scanning_module = 1,
 	)
 
 /obj/item/circuitboard/machine/processor
@@ -1347,16 +1325,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name = "Recycler"
 	icon_state = "service"
 	build_path = /obj/machinery/recycler
-	req_components = list(
-		/datum/stock_part/matter_bin = 1,
-		/datum/stock_part/manipulator = 1,
-	)
-	needs_anchored = FALSE
-
-/obj/item/circuitboard/machine/seed_extractor
-	name = "Seed Extractor"
-	icon_state = "service"
-	build_path = /obj/machinery/seed_extractor
 	req_components = list(
 		/datum/stock_part/matter_bin = 1,
 		/datum/stock_part/manipulator = 1,
@@ -1491,13 +1459,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		/datum/stock_part/micro_laser = /datum/stock_part/micro_laser/quadultra,
 	)
 
-/obj/item/circuitboard/machine/plantgenes/vault
-	name = "Plant DNA manipulator"
-	name_extension = "(Abductor Machine Board)"
-	icon_state = "abductor_mod"
-	// It wasn't made by actual abductors race, so no abductor tech here.
-	def_components = list(
-		/datum/stock_part/manipulator = /datum/stock_part/manipulator/femto,
-		/datum/stock_part/micro_laser = /datum/stock_part/micro_laser/quadultra,
-		/datum/stock_part/scanning_module = /datum/stock_part/scanning_module/triphasic,
-	)
+/obj/item/circuitboard/machine/clockwork
+	name = "clockwork board (Report This)"
+	icon_state = "clock_mod"
