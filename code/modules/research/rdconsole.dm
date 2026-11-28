@@ -327,9 +327,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 				if(QDELETED(d_disk))
 					say("No design disk inserted!")
 					return TRUE
-				for(var/D in d_disk.blueprints)
-					if(D)
-						stored_research.add_design(D, TRUE)
+				for(var/design_path in d_disk.blueprints)
+					stored_research.add_design(design_path, custom = TRUE)
 				say("Uploading blueprints from disk.")
 				return TRUE
 			if (params["type"] == RND_TECH_DISK)

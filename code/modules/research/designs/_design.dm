@@ -45,7 +45,7 @@ other types of metals and chemistry for reagents).
 	/// Bitflags indicating what departmental lathes should be allowed to process this design.
 	var/departmental_flags = ALL
 	/// What techwebs nodes unlock this design. Constructed by SSresearch
-	var/list/datum/techweb_node/unlocked_by
+	var/list/unlocked_by
 	/// Override for the automatic icon generation used for the research console.
 	var/research_icon
 	/// Override for the automatic icon state generation used for the research console.

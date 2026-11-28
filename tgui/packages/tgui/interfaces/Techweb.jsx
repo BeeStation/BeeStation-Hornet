@@ -639,7 +639,7 @@ const TechNode = (props) => {
     tech_tier,
     point_types_abbreviations = [],
   } = data;
-  const { node, nodetails, nocontrols, destructive } = props;
+  const { node, nodetails, nocontrols } = props;
   const { path, can_unlock, tier, costs } = node;
   const { name, description, unlocked_designs, prerequisite_nodes, node_tier } =
     node_cache[path];
@@ -665,7 +665,6 @@ const TechNode = (props) => {
             </Button>
           )}
           {tier > 0 &&
-            !destructive &&
             (node_tier > tech_tier + 1 ? (
               <Button.Confirm
                 icon="lightbulb"
@@ -698,18 +697,9 @@ const TechNode = (props) => {
               />
             </Tooltip>
           )}
-          {destructive && (
-            <Button
-              icon="trash"
-              color="red"
-              onClick={() => act('destroyfortech', { node_id: path })}
-            >
-              Destroy item for node
-            </Button>
-          )}
         </>
       )}
-      {tier !== 0 && !!compact && !destructive && (
+      {tier !== 0 && !!compact && (
         <Flex className="Techweb__NodeProgress">
           {!!costs &&
             Object.keys(costs).map((key) => {

@@ -40,11 +40,11 @@ export const OreRedemptionMachine = (props) => {
           <Table>
             {materials.map((material) => (
               <MaterialRow
-                key={material.id}
+                key={material.ref}
                 material={material}
                 onRelease={(amount) =>
                   act('Release', {
-                    id: material.id,
+                    ref: material.ref,
                     sheets: amount,
                   })
                 }

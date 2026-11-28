@@ -55,7 +55,7 @@
 		data["item_icon"] = icon2base64(getFlatIcon(image(icon = loaded_item.icon, icon_state = loaded_item.icon_state), no_anim = TRUE))
 		data["indestructible"] = !(loaded_item.resistance_flags & INDESTRUCTIBLE)
 		data["loaded_item"] = loaded_item
-		data["already_deconstructed"] = !!stored_research.deconstructed_items[loaded_item.type]
+		data["already_deconstructed"] = !!stored_research.deconstructed_items?[loaded_item.type]
 		data["recoverable_points"] = techweb_point_display_generic(SSresearch.techweb_point_items[loaded_item.type])
 
 		var/list/boostable_nodes = SSresearch.techweb_unlock_items[loaded_item.type]
@@ -64,22 +64,21 @@
 			data["node_data"] += list(list(
 				"node_name" = unlockable_node.display_name,
 				"node_path" = node_path,
-				"node_hidden" = !!stored_research.hidden_nodes[node_path],
+				"node_hidden" = !!stored_research.hidden_nodes?[node_path],
 			))
 	else
 		data["loaded_item"] = null
 	return data
 
-/obj/machinery/rnd/destructive_analyzer/ui_act(action, params, datum/tgui/ui)
+/obj/machinery/rnd/destructive_analyzer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
 
-	var/mob/user = usr
 	switch(action)
 		if("eject_item")
 			if(busy)
-				balloon_alert(user, "already busy!")
+				balloon_alert(ui.user, "already busy!")
 				return TRUE
 			if(loaded_item)
 				unload_item()
@@ -112,8 +111,9 @@
 
 /**
  * Destroys an item by going through all its contents (including itself) and calling destroy_item_individual
- * Args:
- * gain_research_points - Whether deconstructing each individual item should check for research points to boost.
+ * Arguments:
+ *
+ * * gain_research_points - Whether deconstructing each individual item should check for research points to boost.
  */
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item(gain_research_points = FALSE)
 	if(QDELETED(loaded_item) || QDELETED(src))
@@ -132,9 +132,10 @@
 
 /**
  * Destroys the individual provided item
- * Args:
- * thing - The thing being destroyed. Generally an object, but it can be a mob too, such as intellicards and pAIs.
- * gain_research_points - Whether deconstructing this should give research points to the stored techweb, if applicable.
+ *
+ * Arguments:
+ * * thing - The thing being destroyed. Generally an object, but it can be a mob too, such as intellicards and pAIs.
+ * * gain_research_points - Whether deconstructing this should give research points to the stored techweb, if applicable.
  */
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item_individual(obj/item/thing, gain_research_points = FALSE)
 	if(isliving(thing))
@@ -151,8 +152,9 @@
 /**
  * Attempts to destroy the loaded item using a provided techweb node path.
  * If no node path is provided, we will deconstruct for points instead
- * Args:
- * id - The techweb ID node that we're meant to unlock if applicable.
+ *
+ * Arguments:
+ * * node_path - The techweb node that we're meant to unlock if applicable.
  */
 /obj/machinery/rnd/destructive_analyzer/proc/try_deconstruct_loaded_item(node_path)
 	if(!istype(loaded_item))
@@ -161,14 +163,18 @@
 	if(isnull(node_path))
 		return destroy_item(gain_research_points = TRUE)
 
-	var/datum/techweb_node/node_to_discover = SSresearch.techweb_nodes[node_path]
-	if(!istype(node_to_discover))
+	if(!stored_research.hidden_nodes[node_path])
 		return FALSE
+
 	var/item_type = loaded_item.type
+	// no href exploits for you
+	if(!(node_path in SSresearch.techweb_unlock_items[item_type]))
+		return FALSE
+
 	if(!destroy_item())
 		return FALSE
 	SSblackbox.record_feedback("nested tally", "item_deconstructed", 1, list("[node_path]", "[item_type]"))
-	stored_research.unhide_node(node_to_discover)
+	stored_research.unhide_node(SSresearch.techweb_nodes[node_path])
 	return TRUE
 
 #undef DESTRUCTIVE_ANALYZER_POWER_USAGE

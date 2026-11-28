@@ -14,7 +14,7 @@
 	explanation_text = "Download [target_amount] research node\s."
 
 /datum/objective/download/check_completion()
-	var/datum/techweb/checking = new
+	var/list/stolen_nodes = list()
 	for(var/datum/mind/owner as anything in get_owners())
 		if(!ismob(owner.current))
 			continue
@@ -26,13 +26,12 @@
 			if(human_owner.stat != DEAD && istype(human_owner.back, /obj/item/mod/control/pre_equipped/ninja))
 				var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = human_owner.back
 				if(ninja_suit.internal_techdisk)
-					checking.absorb_techdisk(ninja_suit.internal_techdisk)
+					stolen_nodes |= ninja_suit.internal_techdisk.stored_nodes
 
 		for(var/obj/item/disk/tech_disk/disk_in_us in mob_owner.GetAllContents())
-			checking.absorb_techdisk(disk_in_us)
+			stolen_nodes |= disk_in_us.stored_nodes
 
-	amount = length(checking.researched_nodes)
-	qdel(checking)
+	amount = length(stolen_nodes)
 	return (amount >= target_amount) || ..()
 
 /datum/objective/download/admin_edit(mob/admin)

@@ -21,7 +21,7 @@
 
 /datum/techweb/oldstation/New()
 	. = ..()
-	research_node(/datum/techweb_node/oldstation_surgery, force = TRUE, apply_cost = TRUE)
+	research_node(/datum/techweb_node/oldstation_surgery, force = TRUE, apply_cost = FALSE)
 
 /datum/techweb/golem
 	id = "GOLEM"

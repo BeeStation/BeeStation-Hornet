@@ -147,14 +147,14 @@
 			machine.toggle_on()
 
 		if("Material")
-			var/datum/material/new_material = locate(params["id"])
+			var/datum/material/new_material = locate(params["ref"])
 			if(istype(new_material))
 				machine.selected_material = new_material
 				machine.selected_alloy = null
 
 		if("Alloy")
 			machine.selected_material = null
-			machine.selected_alloy = text2path(params["id"])
+			machine.selected_alloy = text2path(params["path"])
 
 		if("toggle_auto_shutdown")
 			machine.toggle_auto_shutdown()
@@ -325,7 +325,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
 		var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
 		data["materials"] += list(list(
 			"name" = material.name,
-			"id" = REF(material),
+			"ref" = REF(material),
 			"amount" = sheet_amount,
 			"smelting" = (selected_material == material),
 		))

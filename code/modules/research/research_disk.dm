@@ -8,11 +8,18 @@
 
 /obj/item/disk/tech_disk/Initialize(mapload)
 	. = ..()
-	if(!islist(stored_nodes))
-		// gotta make it assoc or else it breaks
-		stored_nodes = make_associative(SSresearch.techweb_nodes_starting)
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
+
+/// Helper proc to get all of the designs which the nodes stored on this disk contain
+/obj/item/disk/tech_disk/proc/get_researched_designs() as /list
+	var/list/researched_designs = list()
+	for(var/node_path in stored_nodes)
+		var/datum/techweb_node/node = SSresearch.techweb_nodes[node_path]
+		if(!istype(node))
+			continue
+		researched_designs |= node.unlocked_designs
+	return researched_designs
 
 /obj/item/disk/tech_disk/debug
 	name = "\improper CentCom technology disk"

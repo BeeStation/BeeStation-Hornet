@@ -11,6 +11,10 @@ SUBSYSTEM_DEF(research)
 	/// An associative list of design typepaths to instances.
 	var/list/techweb_designs = list()
 
+	/// An alist of techweb tiers to the amount of techweb nodes in that tier.
+	/// e.g: [1 --> 21, 2 --> 24, etc.]
+	var/alist/nodes_per_techweb_tier = alist()
+
 	/// A list of all techwebs, generating points or not.
 	/// Autolathes, Mechfabs, and others all have shared techwebs.
 	var/list/datum/techweb/techwebs = list()
@@ -93,6 +97,7 @@ SUBSYSTEM_DEF(research)
 			LAZYADD(techweb_unlock_items[required_item_path], node_path)
 
 		techweb_nodes[node_path] = new_node
+		nodes_per_techweb_tier[new_node.tech_tier]++
 
 	// We have to do this after the above loop to ensure everything has been initialized
 	for(var/node_path, _node in techweb_nodes)

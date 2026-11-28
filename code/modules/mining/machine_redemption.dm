@@ -222,7 +222,7 @@
 			var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
 			data["materials"] += list(list(
 				"name" = material.name,
-				"id" = REF(material),
+				"ref" = REF(material),
 				"amount" = sheet_amount,
 				"value" = ore_values[material.type],
 			))
@@ -280,7 +280,7 @@
 			else if(!allowed(usr)) //Check the ID inside, otherwise check the user
 				to_chat(usr, span_warning("Required access not found."))
 			else
-				var/datum/material/mat = locate(params["id"])
+				var/datum/material/mat = locate(params["ref"])
 
 				var/amount = mat_container.materials[mat]
 				if(!amount)
