@@ -843,7 +843,7 @@
 	vary = TRUE
 
 /datum/emote/living/cat/meow/get_sound(mob/living/user)
-	return get_sfx("meow")
+	return get_sfx("cat_meow")
 
 /datum/emote/living/cat/purr
 	key = "purr"
@@ -853,4 +853,4 @@
 	vary = TRUE
 
 /datum/emote/living/cat/purr/get_sound(mob/living/user)
-	return get_sfx("purr")
+	return get_sfx("cat_purr")
