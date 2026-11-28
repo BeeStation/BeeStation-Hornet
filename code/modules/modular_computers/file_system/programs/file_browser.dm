@@ -46,7 +46,7 @@
 				return
 			var/newname = check_filename(params["new_name"])
 			if(!newname || newname != params["new_name"])
-				playsound(computer, 'sound/machines/terminal_error.ogg', 25, FALSE)
+				playsound(computer, 'sound/machines/terminal/terminal_error.ogg', 25, FALSE)
 				return
 			file.filename = newname
 			return TRUE
@@ -58,7 +58,7 @@
 				return
 			var/newname = check_filename(params["new_name"])
 			if(!newname || newname != params["new_name"])
-				playsound(computer, 'sound/machines/terminal_error.ogg', 25, FALSE)
+				playsound(computer, 'sound/machines/terminal/terminal_error.ogg', 25, FALSE)
 				return
 			file.filename = newname
 			return TRUE

@@ -1117,7 +1117,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(dismember_limb && affecting.dismember(weapon.damtype))
 		weapon.add_mob_blood(human)
-		playsound(get_turf(human), weapon.get_dismember_sound(), 80, 1)
+		playsound(get_turf(human), weapon.get_dismember_sound(), 80, TRUE)
 
 	if(weapon.damtype == BRUTE && (weapon.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
 		if(!weapon.get_sharpness() && human.mind && human.stat <= SOFT_CRIT && human != user && (human.health - (weapon.force * weapon.attack_weight)) <= 0) // rev deconversion through blunt trauma.

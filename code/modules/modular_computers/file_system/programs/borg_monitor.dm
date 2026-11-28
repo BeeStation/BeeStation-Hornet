@@ -65,7 +65,7 @@
 			if(!sender_name)
 				// This can only happen if the action somehow gets called as UI blocks this action with no ID
 				computer.visible_message(span_notice("Insert an ID to send messages."))
-				playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
+				playsound(usr, 'sound/machines/terminal/terminal_error.ogg', 15, TRUE)
 				return TRUE
 			if(robot.stat == DEAD) //Dead borgs will listen to you no longer
 				to_chat(usr, span_warn("Error -- Could not open a connection to unit:[robot]"))

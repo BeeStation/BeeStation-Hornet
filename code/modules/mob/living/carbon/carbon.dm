@@ -102,14 +102,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		var/turf/start = get_turf(src)
 		if(!comp.enabled)
 			new /obj/effect/particle_effect/sparks(start)
-			playsound(start, "sparks", 50, 1)
+			playsound(start, /datum/sound_effect/sparks, 50, TRUE)
 			return
 		if(!target)
 			return
 		// The better the CPU the farther it goes, and the more battery it needs
-		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(start, "sparks", 50, 1)
-		playsound(target, "sparks", 50, 1)
+		playsound(target, 'sound/effects/phasein.ogg', 25, TRUE)
+		playsound(start, /datum/sound_effect/sparks, 50, TRUE)
+		playsound(target, /datum/sound_effect/sparks, 50, TRUE)
 		do_dash(src, start, target, 0, TRUE)
 		comp.use_power((250 * cpu.max_idle_programs))
 	if(iscarbon(hit_atom) && hit_atom != src)
@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				Paralyze(20)
 				visible_message(span_danger("[src] crashes into [victim], knocking them both over!"),\
 					span_userdanger("You violently crash into [victim]!"))
-			playsound(src,'sound/weapons/punch1.ogg',50,1)
+			playsound(src,'sound/weapons/punch/punch1.ogg',50,1)
 
 	. = ..()
 

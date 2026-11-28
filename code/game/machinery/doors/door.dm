@@ -261,7 +261,7 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(glass)
-				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
+				playsound(loc, 'sound/effects/glass/glasshit.ogg', 90, TRUE)
 			else if(damage_amount)
 				playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE)
 			else

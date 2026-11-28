@@ -108,7 +108,7 @@
 
 	damage_until_open -= damage_amount
 	if (damage_until_open <= 0)
-		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, 1)
 		do_sparks(5, TRUE, src)
 		INVOKE_ASYNC(src, PROC_REF(crack_open))
 		damage_until_open = initial(damage_until_open)
@@ -423,7 +423,7 @@
 /obj/machinery/door/firedoor/on_emag(mob/user)
 	..()
 	obj_flags |= EMAGGED
-	playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+	playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, 1)
 	do_sparks(5, TRUE, src)
 	INVOKE_ASYNC(src, PROC_REF(open))
 
@@ -463,7 +463,7 @@
 
 	user.visible_message("[user] bangs on \the [src].",
 						"You bang on \the [src].")
-	playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
+	playsound(loc, 'sound/effects/glass/glassknock.ogg', 10, FALSE, frequency = 32000)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, list/modifiers)
 	add_fingerprint(user)
@@ -515,7 +515,7 @@
 		return
 
 	if (obj_flags & EMAGGED)
-		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, 1)
 		open()
 		return
 
@@ -527,7 +527,7 @@
 			return
 		else
 			to_chat(user, span_danger("Access Denied, User not authorized to override alarms or pressure checks."))
-			playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+			playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, 1)
 			return
 	to_chat(user, span_warning("You try to pull the card reader. Nothing happens."))
 

@@ -402,7 +402,7 @@
 /obj/projectile/beam/beam_rifle
 	name = "particle beam"
 	icon = null
-	hitsound = 'sound/effects/explosion3.ogg'
+	hitsound = 'sound/effects/explosion/explosion3.ogg'
 	damage = 0				//Handled manually.
 	damage_type = BURN
 	armor_flag = ENERGY
@@ -477,7 +477,7 @@
 	set waitfor = FALSE
 	if(nodamage)
 		return FALSE
-	playsound(src, 'sound/effects/explosion3.ogg', 100, TRUE)
+	playsound(src, 'sound/effects/explosion/explosion3.ogg', 100, TRUE)
 	if(!piercing_hit)
 		AOE(get_turf(target) || get_turf(src))
 	if(!QDELETED(target))

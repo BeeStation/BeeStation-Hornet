@@ -14,8 +14,8 @@
 	foodtypes = VEGETABLES
 	eatverbs = list("devour","nibble","gnaw","gobble","chomp") //who the fuck gnaws and devours on a salad
 	crafting_complexity = FOOD_COMPLEXITY_2
-	pickup_sound = "food_plate_pickup"
-	drop_sound = "food_plate_drop"
+	pickup_sound = /datum/sound_effect/food_plate_pickup
+	drop_sound = /datum/sound_effect/food_plate_drop
 
 /obj/item/food/salad/aesirsalad
 	name = "\improper Aesir salad"
@@ -168,8 +168,8 @@
 	custom_materials = list(/datum/material/glass = 500)
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 5 /// Will use this form upon economy rebalance! PAYCHECK_EASY * 0.6
-	pickup_sound = "food_plate_pickup"
-	drop_sound = "food_plate_drop"
+	pickup_sound = /datum/sound_effect/food_plate_pickup
+	drop_sound = /datum/sound_effect/food_plate_drop
 
 /obj/item/reagent_containers/cup/bowl/Initialize(mapload)
 	. = ..()

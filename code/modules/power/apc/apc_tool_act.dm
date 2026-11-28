@@ -221,7 +221,7 @@
 /obj/machinery/power/apc/on_emag(mob/user)
 	..()
 	z_flick("apc-spark", src)
-	playsound(src, "sparks", 75, 1)
+	playsound(src, /datum/sound_effect/sparks, 75, TRUE)
 	locked = FALSE
 	wires.ui_update()
 	to_chat(user, span_notice("You emag the APC interface."))

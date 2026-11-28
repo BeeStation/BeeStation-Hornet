@@ -17,7 +17,7 @@
 /obj/machinery/computer/prisoner/management/ui_interact(mob/user)
 	. = ..()
 	if(isliving(user))
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 	var/dat = ""
 	if(screen == 0)
 		dat += "<HR><A href='byond://?src=[REF(src)];lock=1'>{Log In}</A>"
@@ -117,7 +117,7 @@
 		else if(href_list["lock"])
 			if(allowed(usr))
 				screen = !screen
-				playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_on.ogg', 50, FALSE)
 			else
 				to_chat(usr, span_danger("Unauthorized access."))
 

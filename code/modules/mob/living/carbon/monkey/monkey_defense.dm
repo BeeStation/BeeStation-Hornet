@@ -39,7 +39,7 @@
 		visible_message("<span class='danger'>[M] punches [name]!</span>", \
 				"<span class='userdanger'>[M] punches you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
 		to_chat(M, "<span class='danger'>You punch [name]!</span>")
-		playsound(loc, "punch", 25, 1, -1)
+		playsound(loc, /datum/sound_effect/punch, 25, TRUE, -1)
 		var/obj/item/bodypart/arm/active_arm = M.get_active_hand()
 		var/damage = active_arm.unarmed_damage
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))

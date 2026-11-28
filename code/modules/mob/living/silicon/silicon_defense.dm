@@ -52,7 +52,7 @@
 /mob/living/silicon/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
 	adjustBruteLoss(rand(10, 15))
-	playsound(loc, "punch", 25, 1, -1)
+	playsound(loc, /datum/sound_effect/punch, 25, TRUE, -1)
 	visible_message(
 		span_danger("[user] punches [src]!"),
 		span_userdanger("[user] punches you!"),

@@ -123,7 +123,7 @@
 		balloon_alert(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_magenta'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</span>")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
-		playsound(src, "sparks", 20)
+		playsound(src, /datum/sound_effect/sparks, 20)
 		return TRUE
 	var/min_power =	initial(power_usage) / 2
 	var/max_power =	initial(power_usage) * 5
@@ -134,7 +134,7 @@
 		balloon_alert(user, "Input value too low for current hardware", show_in_chat = FALSE)
 		to_chat(user, "Input value too low for current hardware")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
-		playsound(src, "sparks", 20)
+		playsound(src, /datum/sound_effect/sparks, 20)
 		return TRUE
 	power_usage = input
 	new /obj/effect/particle_effect/sparks(get_turf(src))
@@ -171,14 +171,14 @@
 		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_red'>ERROR:</span> Unauthorized access detected!")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
-		playsound(src, "sparks", 40)
+		playsound(src, /datum/sound_effect/sparks, 40)
 		user.electrocute_act(25, src, 1)
 		return TRUE
 	if(prob(fail_chance))
 		balloon_alert(user, "<font color='#d80000'>Error:</font> Serial Key provided is invalid.", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_red'>Error:</span> Serial Key provided is invalid.")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
-		playsound(src, "sparks", 40)
+		playsound(src, /datum/sound_effect/sparks, 40)
 		user.electrocute_act(25, src, 1)
 	else
 		overclock(user, tool)
@@ -204,7 +204,7 @@
 		balloon_alert(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.", show_in_chat = FALSE)
 		to_chat(user, "<span class='cfc_green'>Access Authorized.</span> System overclocking initiated.")
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
-	playsound(src, "sparks", 50)
+	playsound(src, /datum/sound_effect/sparks, 50)
 	update_appearance()
 	update_overclocking(user, tool)
 

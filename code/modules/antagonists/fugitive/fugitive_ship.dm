@@ -158,7 +158,7 @@
 	if(..())
 		return
 	if(isliving(usr))
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(!allowed(usr))
 		to_chat(usr, span_warning("Access denied."))
 		return
@@ -195,12 +195,12 @@
 	var/mob/living/carbon/human/prisoner = chamber.occupant
 	if(!istype(prisoner))
 		chamber.say("ERROR: Invalid prisoner identification. Data: Unknown occupant.")
-		playsound(src, 'sound/machines/terminal_error.ogg', 15, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 15, TRUE)
 		return
 	var/datum/antagonist/fugitive/antag = prisoner.mind?.has_antag_datum(/datum/antagonist/fugitive)
 	if(!antag)
 		chamber.say("ERROR: Invalid prisoner identification. Data: Not currently a wanted fugitive.")
-		playsound(src, 'sound/machines/terminal_error.ogg', 15, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 15, TRUE)
 		return
 	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
 	log_game("[key_name(user)] permanently captured the fugitive [key_name(prisoner)].")

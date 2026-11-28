@@ -11,9 +11,9 @@
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = 250)
 	gender = PLURAL
-	pickup_sound = "glasses_pickup"
-	drop_sound = "glasses_drop"
-	equip_sound = "glasses_equip"
+	pickup_sound = /datum/sound_effect/glasses_pickup
+	drop_sound = /datum/sound_effect/glasses_drop
+	equip_sound = /datum/sound_effect/glasses_equip
 	var/vision_flags = 0
 	var/darkness_view = 2//Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
@@ -89,9 +89,9 @@
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
-	pickup_sound = "goggles_pickup"
-	drop_sound = "goggles_drop"
-	equip_sound = "goggles_equip"
+	pickup_sound = /datum/sound_effect/goggles_pickup
+	drop_sound = /datum/sound_effect/goggles_drop
+	equip_sound = /datum/sound_effect/goggles_equip
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -141,9 +141,9 @@
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/glasses_science
 	clothing_traits = list(TRAIT_REAGENT_SCANNER)
-	pickup_sound = "goggles_pickup"
-	drop_sound = "goggles_drop"
-	equip_sound = "goggles_equip"
+	pickup_sound = /datum/sound_effect/goggles_pickup
+	drop_sound = /datum/sound_effect/goggles_drop
+	equip_sound = /datum/sound_effect/goggles_equip
 
 /datum/armor/glasses_science
 	fire = 80
@@ -227,9 +227,9 @@
 	inhand_icon_state = "glasses"
 	vision_flags = SEE_OBJS
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
-	pickup_sound = "goggles_pickup"
-	drop_sound = "goggles_drop"
-	equip_sound = "goggles_equip"
+	pickup_sound = /datum/sound_effect/goggles_pickup
+	drop_sound = /datum/sound_effect/goggles_drop
+	equip_sound = /datum/sound_effect/goggles_equip
 
 /obj/item/clothing/glasses/material/mining
 	name = "optical material scanner"
@@ -388,9 +388,9 @@
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_cover = GLASSESCOVERSEYES
 	glass_colour_type = /datum/client_colour/glass_colour/gray
-	pickup_sound = "goggles_pickup"
-	drop_sound = "goggles_drop"
-	equip_sound = "goggles_equip"
+	pickup_sound = /datum/sound_effect/goggles_pickup
+	drop_sound = /datum/sound_effect/goggles_drop
+	equip_sound = /datum/sound_effect/goggles_equip
 
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -472,9 +472,9 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/red
-	pickup_sound = "goggles_pickup"
-	drop_sound = "goggles_drop"
-	equip_sound = "goggles_equip"
+	pickup_sound = /datum/sound_effect/goggles_pickup
+	drop_sound = /datum/sound_effect/goggles_drop
+	equip_sound = /datum/sound_effect/goggles_equip
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
 	. = ..()
@@ -519,18 +519,18 @@
 	desc = "A pair of goggles meant for low temperatures."
 	icon_state = "cold"
 	inhand_icon_state = "cold"
-	pickup_sound = "goggles_pickup"
-	drop_sound = "goggles_drop"
-	equip_sound = "goggles_equip"
+	pickup_sound = /datum/sound_effect/goggles_pickup
+	drop_sound = /datum/sound_effect/goggles_drop
+	equip_sound = /datum/sound_effect/goggles_equip
 
 /obj/item/clothing/glasses/heat
 	name = "heat goggles"
 	desc = "A pair of goggles meant for high temperatures."
 	icon_state = "heat"
 	inhand_icon_state = "heat"
-	pickup_sound = "goggles_pickup"
-	drop_sound = "goggles_drop"
-	equip_sound = "goggles_equip"
+	pickup_sound = /datum/sound_effect/goggles_pickup
+	drop_sound = /datum/sound_effect/goggles_drop
+	equip_sound = /datum/sound_effect/goggles_equip
 
 /obj/item/clothing/glasses/orange
 	name = "orange glasses"

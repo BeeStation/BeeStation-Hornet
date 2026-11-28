@@ -71,7 +71,7 @@
 					"<span class='userdanger'>[A] kicks you in the back, making you stumble and fall!</span>")
 		step_to(D,get_step(D,D.dir),1)
 		D.Paralyze(80)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 50, TRUE, -1)
 		return TRUE
 	return FALSE
 
@@ -85,7 +85,7 @@
 		D.audible_message("<b>[D]</b> gags!")
 		D.losebreath += 3
 		D.Stun(40)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 50, 1, -1)
 		return 1
 	return FALSE
 
@@ -99,7 +99,7 @@
 		to_chat(A, "<span class='danger'>You kick [D] in the jaw!</span>")
 		D.apply_damage(20, A.get_attack_type(), BODY_ZONE_HEAD, blocked = def_check)
 		D.drop_all_held_items()
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 50, 1, -1)
 		D.Stun(80)
 		return 1
 	return FALSE
@@ -115,7 +115,7 @@
 		if(D.stat)
 			D.death() //FINISH HIM!
 		D.apply_damage(50, A.get_attack_type(), BODY_ZONE_CHEST, blocked = def_check)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 75, 1, -1)
 		return 1
 	return FALSE
 
@@ -149,7 +149,7 @@
 					span_userdanger("[A] [atk_verb]s you!"), null, null, A)
 	to_chat(A, span_danger("You [atk_verb] [D]!"))
 	D.apply_damage(15, BRUTE, blocked = def_check)
-	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+	playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 25, TRUE, -1)
 	log_combat(A, D, "[atk_verb] (Sleeping Carp)", name)
 	return TRUE
 

@@ -16,7 +16,7 @@
 	attack_verb_continuous = "rams"
 	attack_verb_simple = "ram"
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	attack_sound = 'sound/weapons/punch2.ogg'
+	attack_sound = 'sound/weapons/punch/punch2.ogg'
 	construct_spells = list(
 		/datum/action/spell/conjure/cult_floor,
 		/datum/action/spell/conjure/cult_wall,

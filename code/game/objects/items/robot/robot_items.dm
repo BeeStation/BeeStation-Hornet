@@ -134,7 +134,7 @@
 						else
 							user.visible_message(span_userdanger("[user] shocks [M]. It does not seem to have an effect"), \
 								span_danger("You shock [M] to no effect."))
-					playsound(loc, 'sound/effects/sparks2.ogg', 50, 1, -1)
+					playsound(loc, 'sound/effects/sparks/sparks2.ogg', 50, 1, -1)
 					user.cell.charge -= 500
 					scooldown = world.time + 20
 		if(3)

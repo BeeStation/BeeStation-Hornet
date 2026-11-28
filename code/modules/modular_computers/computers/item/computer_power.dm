@@ -76,7 +76,7 @@
 		else
 			visible_message(span_danger("[src] explodes!"), span_warning("You hear a loud *pop*!"))
 		new /obj/effect/particle_effect/sparks/red(get_turf(src))
-		playsound(src, "sparks", 50, 1)
+		playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 		if(current_turf)
 			current_turf.hotspot_expose(700, 125)
 		switch(controler.rating)

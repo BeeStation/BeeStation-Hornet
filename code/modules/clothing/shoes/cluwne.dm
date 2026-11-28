@@ -18,7 +18,7 @@
 	SIGNAL_HANDLER
 
 	if(footstep > 1)
-		playsound(src, "clownstep", 50, 1)
+		playsound(src, /datum/sound_effect/clown_step, 50, TRUE)
 		footstep = 0
 	else
 		footstep++

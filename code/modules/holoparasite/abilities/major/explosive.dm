@@ -250,7 +250,7 @@
 	var/turf/target_turf = get_turf(source)
 	explodee.log_message("was caught by a bomb trap ([source.name] | [source.type]) set by [key_name(owner)] at [AREACOORD(target_turf)]", LOG_ATTACK)
 	owner.log_message("caught [key_name(explodee)] with a bomb trap ([source.name] | [source.type]) at [AREACOORD(target_turf)]", LOG_ATTACK, log_globally = FALSE)
-	playsound(target_turf, "explosion", vol = 200, vary = TRUE)
+	playsound(target_turf, /datum/sound_effect/explosion, vol = 200, vary = TRUE)
 	new /obj/effect/temp_visual/explosion(target_turf)
 	EX_ACT(explodee, EXPLODE_HEAVY)
 	disable(source, silent = TRUE, result = "success")

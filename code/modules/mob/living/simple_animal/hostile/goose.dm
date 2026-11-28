@@ -24,7 +24,7 @@
 	melee_damage = 5
 	attack_verb_continuous = "pecks"
 	attack_verb_simple = "peck"
-	attack_sound = "goose"
+	attack_sound = /datum/sound_effect/goose
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	speak_emote = list("honks")
 	faction = list(FACTION_NEUTRAL)

@@ -174,7 +174,7 @@
 			return TRUE
 
 	if(!issilicon(ui.user))
-		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
+		playsound(src, /datum/sound_effect/keyboard_clicks, 10, TRUE, FALSE)
 	if(device_theme == THEME_THINKTRONIC)
 		send_select_sound()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
@@ -249,35 +249,35 @@
 					if(!portable_drive)
 						return
 					if(uninstall_component(portable_drive, usr, TRUE))
-						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+						playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 					return TRUE
 				if("job disk")
 					var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
 					if(!ssd)
 						return
 					if(uninstall_component(ssd, usr, TRUE))
-						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+						playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 					return TRUE
 				if("intelliCard")
 					var/obj/item/computer_hardware/ai_slot/intelliholder = all_components[MC_AI]
 					if(!intelliholder)
 						return
 					if(intelliholder.try_eject(user))
-						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+						playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 					return TRUE
 				if("ID")
 					var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
-						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+						playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 					return TRUE
 				if("secondary RFID card")
 					var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD2]
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
-						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+						playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 					return TRUE
 		if("PC_Imprint_ID")
 			var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
@@ -288,8 +288,8 @@
 
 			update_id_display()
 
-			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+			playsound(src, 'sound/machines/terminal/terminal_processing.ogg', 15, TRUE)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 			return TRUE
 		if("PC_Toggle_Auto_Imprint")
 			saved_auto_imprint = !saved_auto_imprint

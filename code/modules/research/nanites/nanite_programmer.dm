@@ -25,7 +25,7 @@
 		var/obj/item/disk/nanite_program/N = I
 		if(user.transferItemToLoc(N, src))
 			to_chat(user, span_notice("You insert [N] into [src]."))
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 			if(disk)
 				eject(user)
 			disk = N
@@ -97,12 +97,12 @@
 			eject(usr)
 			. = TRUE
 		if("toggle_active")
-			playsound(src, "terminal_type", 25, FALSE)
+			playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 			program.activated = !program.activated //we don't use the activation procs since we aren't in a mob
 			. = TRUE
 		if("set_code")
 			var/new_code = text2num(params["code"])
-			playsound(src, "terminal_type", 25, FALSE)
+			playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 			var/target_code = params["target_code"]
 			switch(target_code)
 				if("activation")
@@ -116,12 +116,12 @@
 			. = TRUE
 		if("set_extra_setting")
 			program.set_extra_setting(params["target_setting"], params["value"])
-			playsound(src, "terminal_type", 25, FALSE)
+			playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 			. = TRUE
 		if("set_restart_timer")
 			var/timer = text2num(params["delay"])
 			if(!isnull(timer))
-				playsound(src, "terminal_type", 25, FALSE)
+				playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)
 				timer *= 10 //convert to deciseconds
 				program.timer_restart = timer
@@ -129,7 +129,7 @@
 		if("set_shutdown_timer")
 			var/timer = text2num(params["delay"])
 			if(!isnull(timer))
-				playsound(src, "terminal_type", 25, FALSE)
+				playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)
 				timer *= 10 //convert to deciseconds
 				program.timer_shutdown = timer
@@ -137,7 +137,7 @@
 		if("set_trigger_timer")
 			var/timer = text2num(params["delay"])
 			if(!isnull(timer))
-				playsound(src, "terminal_type", 25, FALSE)
+				playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)
 				timer *= 10 //convert to deciseconds
 				program.timer_trigger = timer
@@ -145,7 +145,7 @@
 		if("set_timer_trigger_delay")
 			var/timer = text2num(params["delay"])
 			if(!isnull(timer))
-				playsound(src, "terminal_type", 25, FALSE)
+				playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)
 				timer *= 10 //convert to deciseconds
 				program.timer_trigger_delay = timer

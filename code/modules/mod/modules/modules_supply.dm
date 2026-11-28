@@ -201,19 +201,19 @@
 		ore_found = TRUE
 		INVOKE_ASYNC(src, PROC_REF(move_ore), ore)
 	if(ore_found)
-		playsound(mod.wearer, "rustle", 50, TRUE)
+		playsound(mod.wearer, /datum/sound_effect/rustle, 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/on_obj_entered(atom/source, atom/movable/arrived, atom/old_loc)
 	SIGNAL_HANDLER
 	if(istype(arrived, /obj/item/stack/ore) && !dropping_ores && old_loc != mod.wearer)
 		INVOKE_ASYNC(src, PROC_REF(move_ore), arrived)
-		playsound(mod.wearer, "rustle", 50, TRUE)
+		playsound(mod.wearer, /datum/sound_effect/rustle, 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/on_atom_initialized_on(atom/source, atom/new_atom, mapload)
 	SIGNAL_HANDLER
 	if(istype(new_atom, /obj/item/stack/ore) && !dropping_ores)
 		INVOKE_ASYNC(src, PROC_REF(move_ore), new_atom)
-		playsound(mod.wearer, "rustle", 50, TRUE)
+		playsound(mod.wearer, /datum/sound_effect/rustle, 50, TRUE)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
 	if(QDELETED(ore) || ore.loc != get_turf(mod.wearer))
@@ -479,7 +479,7 @@
 			balloon_alert(mod.wearer, "fully ash covered")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
 			animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
-			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
+			playsound(src, 'sound/effects/sparks/sparks1.ogg', 100, TRUE)
 			mod.update_speed()
 	else if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
 		return

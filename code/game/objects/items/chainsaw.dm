@@ -16,7 +16,7 @@
 	throw_speed = 2
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 13000)
-	hitsound = "swing_hit"
+	hitsound = /datum/sound_effect/swing_hit
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	toolspeed = 0.5
 	item_flags = ISWEAPON

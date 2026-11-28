@@ -32,7 +32,7 @@
 			to_chat(target_mob, span_warningbig("[user] is installing [src] into your control port!"))
 		if(!do_after(user, 2 SECONDS, target_mob))
 			return
-		playsound(target_mob, 'sound/machines/terminal_insert_disc.ogg', 50)
+		playsound(target_mob, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 		to_chat(user, span_notice("You insert \the [src] into [target_mob]."))
 		Insert(target_mob)
 		return TRUE

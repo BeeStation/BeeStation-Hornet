@@ -183,7 +183,7 @@
 	armour_penetration = 50
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/weapons/punch/punch1.ogg'
 	speak = list("Give us the nuke disk!","Stop running!","HAH!","Weakling!","I'm gonna beat you into the ground!","You'll never stop us!")
 
 //////////// Security variant - No godmode
@@ -246,5 +246,5 @@
 	armour_penetration = 25
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/weapons/punch/punch1.ogg'
 	speak = list("Stop right there, criminal scum!","Dead or alive you're coming with me.","You have the right to shut the fuck up.","Prepare for justice!","I am, the LAW!")

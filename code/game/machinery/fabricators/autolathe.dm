@@ -97,7 +97,7 @@
 	hacked = TRUE
 	update_static_data_for_all_viewers()
 	wires.ui_update()
-	playsound(src, "sparks", 100, TRUE)
+	playsound(src, /datum/sound_effect/sparks, 100, TRUE)
 
 /obj/machinery/modular_fabricator/autolathe/after_material_insert(item_inserted, id_inserted, amount_inserted)
 	. = ..()

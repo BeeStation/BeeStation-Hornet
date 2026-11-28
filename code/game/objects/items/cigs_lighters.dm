@@ -961,7 +961,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		attack_verb_simple = string_list(list("burn", "singe"))
 		START_PROCESSING(SSobj, src)
 	else
-		hitsound = "swing_hit"
+		hitsound = /datum/sound_effect/swing_hit
 		force = 0
 		attack_verb_continuous = null //human_defense.dm takes care of it
 		attack_verb_simple = null

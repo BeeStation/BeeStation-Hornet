@@ -13,7 +13,7 @@
 	max_integrity =  120
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
-	var/shield_break_sound = 'sound/effects/glassbr3.ogg'
+	var/shield_break_sound = 'sound/effects/glass/glassbr3.ogg'
 	///Energy shields do not get disarmed and instead falter
 	var/is_energy_shield = FALSE
 

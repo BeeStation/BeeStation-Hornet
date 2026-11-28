@@ -740,7 +740,7 @@
 
 /obj/vehicle/sealed/mecha/on_emag(mob/user)
 	..()
-	playsound(src, "sparks", 100, 1)
+	playsound(src, /datum/sound_effect/sparks, 100, TRUE)
 	to_chat(user, span_warning("You short out the mech suit's internal controls."))
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")

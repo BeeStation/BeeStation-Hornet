@@ -69,20 +69,20 @@
 
 			target_record.anonymize_record_info()
 			balloon_alert(user, "record anonymized")
-			playsound(src, 'sound/machines/terminal_eject.ogg', 70, TRUE)
+			playsound(src, 'sound/machines/terminal/terminal_eject.ogg', 70, TRUE)
 
 			return TRUE
 
 		if("logout")
 			balloon_alert(user, "logged out")
-			playsound(src, 'sound/machines/terminal_off.ogg', 70, TRUE)
+			playsound(src, 'sound/machines/terminal/terminal_off.ogg', 70, TRUE)
 			authenticated = FALSE
 
 			return TRUE
 
 		if("purge_records")
 			balloon_alert(user, "purging records")
-			playsound(src, 'sound/machines/terminal_alert.ogg', 70, TRUE)
+			playsound(src, 'sound/machines/terminal/terminal_alert.ogg', 70, TRUE)
 
 			if(do_after(user, 5 SECONDS))
 				for(var/datum/record/crew/entry in GLOB.manifest.general)
@@ -90,7 +90,7 @@
 
 				update_all_security_huds()
 				balloon_alert(user, "records purged")
-				playsound(src, 'sound/machines/terminal_off.ogg', 70, TRUE)
+				playsound(src, 'sound/machines/terminal/terminal_off.ogg', 70, TRUE)
 
 			return TRUE
 
@@ -98,7 +98,7 @@
 			if(!target_record)
 				return FALSE
 
-			playsound(src, "terminal_type", 50, TRUE)
+			playsound(src, /datum/sound_effect/terminal_type, 50, TRUE)
 			update_preview(user, sanitize(params["character_preview_view"]), target_record, ui.window)
 			return TRUE
 
@@ -154,12 +154,12 @@
 
 	if(!authenticated && !has_auth(user))
 		balloon_alert(user, "access denied")
-		playsound(src, 'sound/machines/terminal_error.ogg', 70, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 70, TRUE)
 		return FALSE
 
 	if(mugshot.picture.psize_x > ICON_SIZE_X || mugshot.picture.psize_y > ICON_SIZE_Y)
 		balloon_alert(user, "photo too large!")
-		playsound(src, 'sound/machines/terminal_error.ogg', 70, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 70, TRUE)
 		return FALSE
 
 	var/trimmed = copytext(mugshot.name, 9, MAX_NAME_LEN) // Remove "photo - "
@@ -184,7 +184,7 @@
 		// This ARG macro might look weird, but it is to make things safe.
 
 	balloon_alert(user, "record created")
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 70, TRUE)
+	playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 70, TRUE)
 
 	qdel(mugshot)
 
@@ -197,11 +197,11 @@
 
 	if(!has_auth(user))
 		balloon_alert(user, "access denied")
-		playsound(src, 'sound/machines/terminal_error.ogg', 70, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 70, TRUE)
 		return FALSE
 
 	balloon_alert(user, "logged in")
-	playsound(src, 'sound/machines/terminal_on.ogg', 70, TRUE)
+	playsound(src, 'sound/machines/terminal/terminal_on.ogg', 70, TRUE)
 
 	return TRUE
 

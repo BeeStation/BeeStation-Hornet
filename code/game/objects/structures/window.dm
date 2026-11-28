@@ -26,10 +26,10 @@
 	var/glass_amount = 1
 	var/mutable_appearance/crack_overlay
 	var/real_explosion_block	//ignore this, just use explosion_block
-	var/breaksound = "shatter"
-	var/knocksound = 'sound/effects/glassknock.ogg'
-	var/bashsound = 'sound/effects/glassbash.ogg'
-	var/hitsound = 'sound/effects/glasshit.ogg'
+	var/breaksound = /datum/sound_effect/shatter
+	var/knocksound = 'sound/effects/glass/glassknock.ogg'
+	var/bashsound = 'sound/effects/glass/glassbash.ogg'
+	var/hitsound = 'sound/effects/glass/glasshit.ogg'
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.4
 	/// If we added a leaning component to ourselves
@@ -800,7 +800,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 	can_atmos_pass = ATMOS_PASS_YES
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/none
-	knocksound = "pageturn"
+	knocksound = /datum/sound_effect/page_turn
 	bashsound = 'sound/weapons/slashmiss.ogg'
 	breaksound = 'sound/items/poster_ripped.ogg'
 	hitsound = 'sound/weapons/slashmiss.ogg'

@@ -27,7 +27,7 @@
 	new_disk.icon = initial(icon)
 	new_disk.update_appearance()
 	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
-	playsound(src, "sparks", 50, 1)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	qdel(src)
 	return	//Hack function is done inside on_install
 
@@ -44,7 +44,7 @@
 		balloon_alert(user, "<font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> sucessefuly installed. Your device is now <font color='#00ff2a'>SAFE!</font>", show_in_chat = FALSE)
 		to_chat(user, span_notice("<span class='cfc_cyan'>NTOS Virus Buster Lvl-[drive.virus_defense]</span> sucessefuly installed. Your device is now <span class='cfc_green'>SAFE!</span>"))
 		new /obj/effect/particle_effect/sparks/blue(get_turf(holder))
-		playsound(install_into, "sparks", 50, 1)
+		playsound(install_into, /datum/sound_effect/sparks, 50, TRUE)
 		component_qdel()
 		drive.trojan = FALSE	// Resets trojan victim status
 

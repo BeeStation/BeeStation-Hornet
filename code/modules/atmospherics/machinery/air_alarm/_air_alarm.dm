@@ -14,7 +14,7 @@
 	integrity_failure = 0.33
 	armor_type = /datum/armor/machinery_airalarm
 	resistance_flags = FIRE_PROOF
-	clicksound = 'sound/machines/terminal_select.ogg'
+	clicksound = 'sound/machines/terminal/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 
 	/// Current alert level of our air alarm.

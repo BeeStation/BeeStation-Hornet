@@ -964,7 +964,7 @@
 
 /datum/reagent/consumable/ethanol/b52/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	playsound(affected_mob, 'sound/effects/explosion_distant.ogg', 100, FALSE)
+	playsound(affected_mob, 'sound/effects/explosion/explosion_distant.ogg', 100, FALSE)
 
 /datum/reagent/consumable/ethanol/irishcoffee
 	name = "Irish Coffee"
@@ -1491,7 +1491,7 @@
 /datum/reagent/consumable/ethanol/syndicatebomb/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
-		playsound(affected_mob, 'sound/effects/explosionfar.ogg', 100, 1)
+		playsound(affected_mob, 'sound/effects/explosion/explosionfar.ogg', 100, 1)
 
 /datum/reagent/consumable/ethanol/erikasurprise
 	name = "Erika Surprise"

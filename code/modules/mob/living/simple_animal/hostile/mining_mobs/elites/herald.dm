@@ -196,7 +196,7 @@
 	maxHealth = 30
 	icon_state = "herald_mirror"
 	death_message = "shatters violently!"
-	death_sound = 'sound/effects/glassbr1.ogg'
+	death_sound = 'sound/effects/glass/glassbr1.ogg'
 	no_flying_animation = TRUE
 	del_on_death = TRUE
 	is_mirror = TRUE

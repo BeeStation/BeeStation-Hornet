@@ -113,7 +113,7 @@
 				registered_name = I.registered_name
 				desc = "A locker used to store a prisoner's valuables, that they can collect at a later date.\nCurrently assigned to: [I.registered_name]. Swipe a security officer ID to unassign it."
 				say("Locker sealed. Assignee: [I.registered_name]")
-				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+				playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, 0)
 				locked = TRUE
 				update_icon()
 			else
@@ -135,7 +135,7 @@
 			locked = FALSE
 			update_icon()
 			qdel(I)
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, 0)
 		else
 			say("Access Denied. If you are a released prisoner, please insert your prisoner ID.")
 			return
@@ -604,7 +604,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/600]</p> <h2 id='description'>Description </h2> <p>[desired_details]</p> <p>Nanotrasen Disciplinary council.</p>")
 	paperwork.update_appearance()
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+	playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, 0)
 	next_print = world.time + 5 SECONDS
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PRISONER_REGISTERED, user, desired_name, desired_crime, desired_sentence)
 	desired_name = null
@@ -614,7 +614,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	if(buildstage != 2 & panel_open)
 		return
 	if(isliving(usr))
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(..())
 		return
 	if(!allowed(usr))

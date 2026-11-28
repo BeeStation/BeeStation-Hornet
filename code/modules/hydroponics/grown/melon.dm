@@ -31,11 +31,11 @@
 	foodtypes = FRUIT
 	juice_typepath = /datum/reagent/consumable/watermelonjuice
 	wine_power = 40
-	pickup_sound = "cucumba_pickup"
-	drop_sound = "cucumba_drop"
+	pickup_sound = /datum/sound_effect/cucumba_pickup
+	drop_sound = /datum/sound_effect/cucumba_drop
 
 /obj/item/food/grown/watermelon/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/watermelonslice, 5, 20, screentip_verb = "Slice", sound_to_play = "knife_slice")
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/watermelonslice, 5, 20, screentip_verb = "Slice", sound_to_play = /datum/sound_effect/knife_slice)
 
 /obj/item/food/grown/watermelon/make_dryable()
 	return //No drying

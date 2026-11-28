@@ -46,16 +46,16 @@
 
 /datum/hallucination/fake_sound/normal/console
 	volume = 25
-	sound_type = 'sound/machines/terminal_prompt.ogg'
+	sound_type = 'sound/machines/terminal/terminal_prompt.ogg'
 
 /datum/hallucination/fake_sound/normal/boom
-	sound_type = list('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg')
+	sound_type = list('sound/effects/explosion/explosion1.ogg', 'sound/effects/explosion/explosion2.ogg')
 
 /datum/hallucination/fake_sound/normal/distant_boom
-	sound_type = 'sound/effects/explosionfar.ogg'
+	sound_type = 'sound/effects/explosion/explosionfar.ogg'
 
 /datum/hallucination/fake_sound/normal/glass
-	sound_type = list('sound/effects/glassbr1.ogg', 'sound/effects/glassbr2.ogg', 'sound/effects/glassbr3.ogg')
+	sound_type = list('sound/effects/glass/glassbr1.ogg', 'sound/effects/glass/glassbr2.ogg', 'sound/effects/glass/glassbr3.ogg')
 
 /datum/hallucination/fake_sound/normal/alarm
 	volume = 100
@@ -63,7 +63,7 @@
 
 /datum/hallucination/fake_sound/normal/beepsky
 	volume = 35
-	sound_type = 'sound/voice/beepsky/freeze.ogg'
+	sound_type = 'sound/mobs/non-humanoids/beepsky/freeze.ogg'
 
 /datum/hallucination/fake_sound/normal/mech
 	volume = 40
@@ -265,12 +265,12 @@
 	random_hallucination_weight = 2 // Some of these are ambience sounds too
 	volume = 25
 	sound_type = list(
-		'sound/voice/lowHiss1.ogg',
-		'sound/voice/lowHiss2.ogg',
-		'sound/voice/lowHiss3.ogg',
-		'sound/voice/lowHiss4.ogg',
-		'sound/voice/hiss1.ogg',
-		'sound/voice/hiss2.ogg',
-		'sound/voice/hiss3.ogg',
-		'sound/voice/hiss4.ogg',
+		'sound/mobs/non-humanoids/hiss/lowHiss1.ogg',
+		'sound/mobs/non-humanoids/hiss/lowHiss2.ogg',
+		'sound/mobs/non-humanoids/hiss/lowHiss3.ogg',
+		'sound/mobs/non-humanoids/hiss/lowHiss4.ogg',
+		'sound/mobs/non-humanoids/hiss/hiss1.ogg',
+		'sound/mobs/non-humanoids/hiss/hiss2.ogg',
+		'sound/mobs/non-humanoids/hiss/hiss3.ogg',
+		'sound/mobs/non-humanoids/hiss/hiss4.ogg',
 	)

@@ -11,8 +11,8 @@
 	singular_name = "ore chunk"
 	material_flags = MATERIAL_EFFECTS
 	novariants = TRUE // Ore stacks handle their icon updates themselves to keep the illusion that there's more going
-	drop_sound = "stone_drop"
-	pickup_sound = "stone_pickup"
+	drop_sound = /datum/sound_effect/stone_drop
+	pickup_sound = /datum/sound_effect/stone_pickup
 	/// How many points this ore gets you from the ore redemption machine
 	var/points = 0
 	/// What this ore defaults to being refined into

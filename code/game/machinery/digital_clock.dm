@@ -67,7 +67,7 @@
 /obj/machinery/digital_clock/on_emag(mob/user)
 	..()
 	to_chat(user, span_notice("You short the clock's timer!"))
-	playsound(src, "sparks", 100, vary = TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, /datum/sound_effect/sparks, 100, vary = TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	do_sparks(3, cardinal_only = FALSE, source = src)
 	obj_flags |= EMAGGED
 

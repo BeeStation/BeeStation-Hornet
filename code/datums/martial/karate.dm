@@ -44,7 +44,7 @@
 		log_combat(A, D, "floor stomped (Karate)", name)
 		D.visible_message(span_warning("[A] stomped [D] in the head!"), \
 							span_userdanger("[A] stomped you in the head!"), null, COMBAT_MESSAGE_RANGE)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.apply_damage(20, A.get_attack_type(), BODY_ZONE_HEAD, def_check)
 		D.apply_damage(STAMINA_DAMAGE_UNARMED, STAMINA, BODY_ZONE_HEAD, stamina_def_check)
@@ -60,7 +60,7 @@
 		log_combat(A, D, "calf kicked (Karate)", name)
 		D.visible_message(span_warning("[A] roundhouse kicked [D] in the calf!"), \
 							span_userdanger("[A] roundhouse kicked you in the calf!"), null, COMBAT_MESSAGE_RANGE)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.apply_damage(STAMINA_DAMAGE_UNARMED * 3, STAMINA, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
 		return 1
@@ -75,7 +75,7 @@
 		log_combat(A, D, "jumped kneed (Karate)", name)
 		D.visible_message(span_warning("[A] jumping kneed [D] in the stomach!"), \
 							span_userdanger("[A] jumping kneed you in the stomach!"), null, COMBAT_MESSAGE_RANGE)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/punch/punch1.ogg', 75, 1, -1)
 		D.emote("gasp")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.apply_damage(STAMINA_DAMAGE_UNARMED * 2, STAMINA, BODY_ZONE_CHEST, def_check)

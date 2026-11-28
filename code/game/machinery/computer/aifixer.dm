@@ -65,7 +65,7 @@
 		if("PRG_beginReconstruction")
 			if(occupier?.health < 100)
 				to_chat(usr, span_notice("Reconstruction in progress. This will take several minutes."))
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 25, FALSE)
 				restoring = TRUE
 				occupier.notify_ghost_cloning("Your core files are being restored!", source = src)
 				. = TRUE

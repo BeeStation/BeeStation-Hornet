@@ -178,7 +178,7 @@
 	inhand_icon_state = "e_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	hitsound = "swing_hit"
+	hitsound = /datum/sound_effect/swing_hit
 	force = 3
 	throwforce = 5
 	throw_speed = 3

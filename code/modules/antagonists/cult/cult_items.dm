@@ -488,7 +488,7 @@ Striking a noncultist, however, will tear their flesh."}
 		if(surplus > 0)
 			SSshuttle.block_recall(surplus)
 		to_chat(user, span_danger("You shatter the orb! A dark essence spirals into the air, then disappears."))
-		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, 1)
+		playsound(user.loc, 'sound/effects/glass/glassbr1.ogg', 50, 1)
 		qdel(src)
 		sleep(20)
 		var/static/list/curses
@@ -544,7 +544,7 @@ Striking a noncultist, however, will tear their flesh."}
 		uses--
 		if(uses <= 0)
 			icon_state ="shifter_drained"
-		playsound(mobloc, "sparks", 50, 1)
+		playsound(mobloc, /datum/sound_effect/sparks, 50, TRUE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -673,7 +673,7 @@ Striking a noncultist, however, will tear their flesh."}
 			T.visible_message(span_warning("[src] shatters and melts back into blood!"))
 			new /obj/effect/temp_visual/cult/sparks(T)
 			new /obj/effect/decal/cleanable/blood/splatter(T)
-			playsound(T, 'sound/effects/glassbr3.ogg', 100)
+			playsound(T, 'sound/effects/glass/glassbr3.ogg', 100)
 	qdel(src)
 
 /datum/action/innate/cult/spear

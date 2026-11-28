@@ -384,7 +384,7 @@
 		H.Paralyze(40)
 		H.visible_message(span_danger("[H] crashes into a table, falling over!"),
 			span_userdanger("You violently crash into a table!"))
-		playsound(src,'sound/weapons/punch1.ogg', 50, TRUE)
+		playsound(src,'sound/weapons/punch/punch1.ogg', 50, TRUE)
 
 ///Cybernetic wings that can malfunction from EMP
 /obj/item/organ/wings/cybernetic

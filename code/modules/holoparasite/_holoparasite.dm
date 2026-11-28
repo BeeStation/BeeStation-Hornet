@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	combat_mode = TRUE
 	stop_automated_movement = TRUE
 	no_flying_animation = TRUE
-	attack_sound = "punch"
+	attack_sound = /datum/sound_effect/punch
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY

@@ -613,8 +613,8 @@
 						return
 			if(H.stat == DEAD)
 				H.visible_message(span_warning("[H]'s body convulses a bit."))
-				playsound(src, "bodyfall", 50, 1)
-				playsound(src, 'sound/machines/defib_zap.ogg', 75, 1, -1)
+				playsound(src, /datum/sound_effect/bodyfall, 50, TRUE)
+				playsound(src, 'sound/machines/defib_zap.ogg', 75, TRUE, -1)
 				total_brute	= H.getBruteLoss()
 				total_burn	= H.getFireLoss()
 				shock_pulling(30, H)

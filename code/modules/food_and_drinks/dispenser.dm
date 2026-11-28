@@ -57,7 +57,7 @@
 	if(danger)
 		var/dispense_count = rand(1,5)
 		playsound(src,'sound/machines/locktoggle.ogg',80,TRUE)
-		playsound(src,'sound/effects/glass_step.ogg',80,FALSE)
+		playsound(src,'sound/effects/footstep/glass_step.ogg',80,FALSE)
 		for(var/i in 1 to dispense_count)
 			if(total_candies >= 1)
 				total_candies--

@@ -122,7 +122,7 @@
 /obj/machinery/power/tracker/atom_break(damage_flag)
 	. = ..()
 	if(.)
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		playsound(loc, 'sound/effects/glass/glassbr3.ogg', 100, TRUE)
 		unset_control()
 
 /obj/machinery/power/tracker/on_deconstruction(disassembled)
@@ -139,7 +139,7 @@
 				new material_type.sheet_type(get_turf(src))
 	else
 		//When smashed to bits
-		playsound(src, "shatter", 70, TRUE)
+		playsound(src, /datum/sound_effect/shatter, 70, TRUE)
 
 		new material_type.shard_type(get_turf(src))
 		new material_type.shard_type(get_turf(src))

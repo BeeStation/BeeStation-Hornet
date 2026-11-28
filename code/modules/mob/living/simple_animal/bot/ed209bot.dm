@@ -556,5 +556,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		return
 	if(!C.handcuffed)
 		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
-		playsound(src, "law", 50, 0)
+		playsound(src, /datum/sound_effect/law, 50, FALSE)
 		back_to_idle()

@@ -117,7 +117,7 @@
 	used_tray = oven_tray
 
 	if(!silent)
-		playsound(src, "tray_insert", 50, TRUE)
+		playsound(src, /datum/sound_effect/tray_insert, 50, TRUE)
 
 	if(!open)
 		oven_tray.vis_flags |= VIS_HIDE
@@ -214,8 +214,8 @@
 	desc = "Time to bake cookies!"
 	icon_state = "oven_tray"
 	max_items = 6
-	pickup_sound = "tray_pickup"
-	drop_sound = "tray_drop"
+	pickup_sound = /datum/sound_effect/tray_pickup
+	drop_sound = /datum/sound_effect/tray_drop
 
 /obj/item/plate/oven_tray/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(isnull(tool.atom_storage))

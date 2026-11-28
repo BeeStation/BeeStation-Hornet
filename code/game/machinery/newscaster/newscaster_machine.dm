@@ -579,7 +579,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			if(machine_stat & BROKEN)
 				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, TRUE)
 			else
-				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
+				playsound(loc, 'sound/effects/glass/glasshit.ogg', 90, TRUE)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
@@ -594,7 +594,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 /obj/machinery/newscaster/atom_break(damage_flag)
 	. = ..()
 	if(.)
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		playsound(loc, 'sound/effects/glass/glassbr3.ogg', 100, TRUE)
 
 
 /obj/machinery/newscaster/attack_paw(mob/living/user, list/modifiers)
@@ -850,7 +850,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			wanted_image = !!current_image
 		if(current_image)
 			balloon_alert(usr, "photo selected.")
-			playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
+			playsound(src, 'sound/machines/terminal/terminal_success.ogg', 15, TRUE)
 		else
 			balloon_alert(usr, "no photo identified.")
 

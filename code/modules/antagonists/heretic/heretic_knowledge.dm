@@ -216,7 +216,7 @@
 				var/atom/prospective = ref.resolve()
 				if(get_dist(user, prospective)>furthest_distance)
 					furthest = prospective
-		playsound(furthest, "shatter", 100, TRUE)
+		playsound(furthest, /datum/sound_effect/shatter, 100, TRUE)
 		if(!QDELETED(furthest))
 			qdel(furthest)
 

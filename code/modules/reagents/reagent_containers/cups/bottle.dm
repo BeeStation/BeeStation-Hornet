@@ -29,7 +29,7 @@
 	if(isGlass)
 		var/obj/item/shard/shard = new(loc)
 		hit_atom.Bumped(shard)
-		playsound(loc, "shatter", 100, TRUE)
+		playsound(loc, /datum/sound_effect/shatter, 100, TRUE)
 		qdel(src)
 	else
 		hit_atom.Bumped(src)

@@ -343,7 +343,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 /obj/structure/table/glass/proc/table_shatter(mob/living/victim)
 	visible_message(span_warning("[src] breaks!"),
 		span_danger("You hear breaking glass."))
-	playsound(loc, "shatter", 50, 1)
+	playsound(loc, /datum/sound_effect/shatter, 50, 1)
 	new frame(loc)
 	var/obj/item/shard/shard = new glass_shard_type(loc)
 	shard.throw_impact(victim)
@@ -357,7 +357,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 			return
 		else
 			var/turf/T = get_turf(src)
-			playsound(T, "shatter", 50, 1)
+			playsound(T, /datum/sound_effect/shatter, 50, 1)
 			new frame(loc)
 			new glass_shard_type(loc)
 	qdel(src)

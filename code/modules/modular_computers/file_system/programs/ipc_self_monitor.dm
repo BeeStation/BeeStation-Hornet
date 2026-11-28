@@ -57,5 +57,5 @@
 			if(istype(control))
 				control.Remove(tablet.tablet_owner)
 				control.forceMove(get_turf(tablet.tablet_owner))
-				playsound(tablet.tablet_owner, 'sound/machines/terminal_insert_disc.ogg', 50)
+				playsound(tablet.tablet_owner, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 				return TRUE

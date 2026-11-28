@@ -67,8 +67,8 @@
 	anchored = FALSE
 	resistance_flags = NONE
 	move_resist = MOVE_FORCE_WEAK
-	buckle_sound = "buckle"
-	unbuckle_sound = "unbuckle"
+	buckle_sound = /datum/sound_effect/seatbelt_buckle
+	unbuckle_sound = /datum/sound_effect/seatbelt_unbuckle
 	var/foldabletype = /obj/item/rollerbed
 
 /obj/structure/bed/roller/Initialize(mapload)

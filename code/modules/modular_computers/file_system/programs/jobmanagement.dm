@@ -72,7 +72,7 @@
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_position_delta++
 			opened_positions[edit_job_target]++
-			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_close_job")
 			var/edit_job_target = params["target"]
@@ -84,7 +84,7 @@
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_position_delta--
 			opened_positions[edit_job_target]--
-			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_priority")
 			var/priority_target = params["target"]
@@ -100,7 +100,7 @@
 					SSjob.prioritized_jobs += j
 				else
 					computer.say("Error: CentCom employment protocols restrict prioritising more than 5 jobs.")
-			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 
 

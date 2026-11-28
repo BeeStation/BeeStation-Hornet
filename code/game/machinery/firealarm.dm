@@ -220,7 +220,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	if(user)
 		balloon_alert(user, "speaker disabled")
 		user.log_message("emagged [src].", LOG_ATTACK)
-	playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	set_status()
 	return TRUE
 
@@ -302,7 +302,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		user?.animate_interact(src)
 	else
 		balloon_alert(user, "Access Denied!")
-		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, 1)
 	update_appearance()
 
 /obj/machinery/firealarm/click_alt(mob/user)
@@ -317,13 +317,13 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 	if(buildstage != 2)
 		return ..()
 	add_fingerprint(user)
-	play_click_sound("button")
+	play_click_sound(/datum/sound_effect/button)
 	user.animate_interact(src)
 	var/area/A = get_area(src)
 	if(A.fire)
 		if(locked)
 			balloon_alert(user, "Cover is locked!")
-			playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
+			playsound(loc, 'sound/effects/glass/glassknock.ogg', 10, FALSE, frequency = 32000)
 			return
 		reset(user)
 	else

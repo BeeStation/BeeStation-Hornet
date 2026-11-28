@@ -32,7 +32,7 @@
 
 /obj/vehicle/sealed/mecha/honker/play_stepsound()
 	if(squeak)
-		playsound(src, "clownstep", 70, 1)
+		playsound(src, /datum/sound_effect/clown_step, 70, TRUE)
 	squeak = !squeak
 
 //DARK H.O.N.K.

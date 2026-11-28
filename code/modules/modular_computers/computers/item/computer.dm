@@ -156,8 +156,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	saved_identification = cardholder.current_identification
 	saved_job = cardholder.current_job
 	update_id_display()
-	playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+	playsound(src, 'sound/machines/terminal/terminal_processing.ogg', 15, TRUE)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/modular_computer/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -325,15 +325,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/turf/start = get_turf(thrown)
 	if(!enabled)
 		new /obj/effect/particle_effect/sparks(start)
-		playsound(start, "sparks", 50, 1)
+		playsound(start, /datum/sound_effect/sparks, 50, TRUE)
 		return TRUE
 	var/turf/target = get_blink_destination(start, thrown.dir, (cpu.max_idle_programs * 2))
 	if(!target)
 		return TRUE
 	// The better the CPU the farther it goes, and the more battery it needs
 	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-	playsound(start, "sparks", 50, 1)
-	playsound(target, "sparks", 50, 1)
+	playsound(start, /datum/sound_effect/sparks, 50, TRUE)
+	playsound(target, /datum/sound_effect/sparks, 50, TRUE)
 	do_dash(thrown, start, target, 0, TRUE)
 	use_power((250 * cpu.max_idle_programs))
 	return TRUE
@@ -394,7 +394,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src], but it responds with an error code. It must be damaged."))
 		else
 			to_chat(user, span_warning("You press the power button, but the computer fails to boot up, displaying variety of errors before shutting down again."))
-		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, TRUE)
 		return FALSE
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(looping_sound)
 			soundloop.start()
 		else
-			playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
+			playsound(src, 'sound/machines/terminal/terminal_on.ogg', 50, TRUE)
 		enabled = TRUE
 		update_appearance()
 		if(user)
@@ -422,7 +422,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src] but it does not respond."))
 		else
 			to_chat(user, span_warning("You press the power button but \the [src] does not respond."))
-		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, TRUE)
 	return FALSE
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
@@ -497,10 +497,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	visible_message("*[ringtone]*")
 
 /obj/item/modular_computer/proc/send_sound()
-	playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
+	playsound(src, 'sound/machines/terminal/terminal_success.ogg', 15, TRUE)
 
 /obj/item/modular_computer/proc/send_select_sound()
-	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
+	playsound(src, 'sound/machines/terminal/terminal_select.ogg', 15, TRUE)
 
 // Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
 /obj/item/modular_computer/proc/get_header_data()
@@ -665,7 +665,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(looping_sound)
 		soundloop.stop()
 	else
-		playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/terminal/terminal_off.ogg', 50, TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
 		idle_threads.Remove(P)
@@ -817,7 +817,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
 		RegisterSignal(stored_pai_card, COMSIG_QDELETING, PROC_REF(remove_pai))
 		to_chat(user, span_notice("You slot \the [attacking_item] into [src]."))
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+		playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 		update_appearance()
 
 	// Insert new hardware
@@ -875,7 +875,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	UnregisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(stored_pai_card, COMSIG_QDELETING)
 	stored_pai_card = null
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+	playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50)
 	update_appearance()
 
 // Perform adjacency checks on our physical counterpart, if any.
@@ -904,13 +904,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		will_pass = TRUE
 	balloon_alert_to_viewers("Printing Diagnostics...")
 	new /obj/effect/particle_effect/sparks(get_turf(src))
-	playsound(src, "sparks", 50, 1)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	if(!do_after(user, time_to_diagnose, src))
 		balloon_alert(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
 		to_chat(user, "<span class='cfc_red'>ERROR:</span> Unauthorized access detected!")
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
 		new /obj/effect/particle_effect/sparks(get_turf(src))
-		playsound(src, "sparks", 40)
+		playsound(src, /datum/sound_effect/sparks, 40)
 		user.electrocute_act(25, src, 1)
 		return TRUE
 	if(!will_pass)
@@ -918,7 +918,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, "<span class='cfc_red'>ERROR:</span> Diagonostics Failure // Unauthoried Access Detected. Contact I.T.")
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
 		new /obj/effect/particle_effect/sparks/red(get_turf(src))
-		playsound(src, "sparks", 50, 1)
+		playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 		return TRUE
 	balloon_alert_to_viewers("Diagnostics Retrieved.")
 	var/list/result = diagnostics()
@@ -947,7 +947,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/proc/virus_blocked_info(gift_card = FALSE)	// If we caught a Virus, tell the player
 	var/mob/living/holder = src.loc
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
-	playsound(src, "sparks", 50, 1)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	if(gift_card)
 		new /obj/effect/particle_effect/sparks/red(get_turf(src))
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
@@ -965,7 +965,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	drive.virus_defense = virus_strength
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
-	playsound(src, "sparks", 50, 1)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	balloon_alert(holder, "<font color='#00f7ff'>CONGRATULATIONS!</font> Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>")
 	to_chat(holder, span_notice("<span class='cfc_cyan'>CONGRATULATIONS!</span> Someone has sent you an <span class='cfc_cyan'>NTOS Virus Buster Lvl-[drive.virus_defense]</span> subscription package! Your device is now <span clas='cfc_green'>SAFE!</span>"))
 	ui_update(holder)

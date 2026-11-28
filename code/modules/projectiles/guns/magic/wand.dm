@@ -103,7 +103,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/icy_blast
 	icon_state = "icewand"
 	inhand_icon_state = "icewand"
-	fire_sound = 'sound/effects/glass_step.ogg'
+	fire_sound = 'sound/effects/footstep/glass_step.ogg'
 
 /////////////////////////////////////
 //WAND OF TELEPORTATION

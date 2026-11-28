@@ -67,12 +67,12 @@
 	if(!registered_name)
 		registered_name = I.registered_name
 		desc = "Owned by [registered_name]."
-		playsound(src, 'sound/machines/terminal_success.ogg', 50)
+		playsound(src, 'sound/machines/terminal/terminal_success.ogg', 50)
 		balloon_alert_to_viewers("ID registered! Welcome <font color='#ffea2d'>[registered_name]</font>!")
 		to_chat(user, "Locker registered under the name of <b>[registered_name]</b>.")
 		return
 
-	playsound(src, 'sound/machines/terminal_error.ogg', 50, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, FALSE)
 	balloon_alert_to_viewers("<font color='#ec0707'>Access denied!</font>")
 	to_chat(user, span_warning("Access denied!"))
 
@@ -96,7 +96,7 @@
 		broken_effect(user)
 		return
 	if(!allowed(user))
-		playsound(src, 'sound/machines/terminal_error.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 50, FALSE)
 		balloon_alert_to_viewers("<font color='#ec0707'>Access denied!</font>")
 		to_chat(user, span_warning("Access denied!"))
 		return
@@ -104,11 +104,11 @@
 		add_fingerprint(user)
 	if(locked)
 		balloon_alert_to_viewers("Storage <font color='#70eb0c'>Unlocked!</font>")
-		playsound(src, 'sound/machines/terminal_select.ogg', 25, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_select.ogg', 25, FALSE)
 		locked = FALSE
 	else
 		balloon_alert_to_viewers("Storage <font color='#eb0c0c'>Locked!</font>")
-		playsound(src, 'sound/machines/terminal_select.ogg', 25, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_select.ogg', 25, FALSE)
 		locked = TRUE
 	to_chat(user, "You [locked ? null : "un"]lock [src].")
 	update_appearance()
@@ -116,5 +116,5 @@
 /obj/structure/closet/secure_closet/personal/proc/broken_effect(mob/living/user)
 	balloon_alert_to_viewers("<font color='#ec0707'>ERROR</font> LO/K MAL<font color='#22973c'>%$TI0</font>N!")
 	to_chat(user, span_danger("It appears to be broken."))
-	playsound(src, "sparks", 50, 1)
+	playsound(src, /datum/sound_effect/sparks, 50, TRUE)
 	new /obj/effect/particle_effect/sparks(src)

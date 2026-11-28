@@ -142,7 +142,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 				if(curr_page == 0) //We're at the start, get to the middle
 					screen=1
 			curr_page++
-			playsound(loc, "pageturn", 50, TRUE)
+			playsound(loc, /datum/sound_effect/page_turn, 50, TRUE)
 		else if(href_list["prev_page"])
 			if(curr_page == 0)
 				return
@@ -152,7 +152,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 				if(curr_page == pages+1) //we're at the end, let's go back to the middle.
 					screen = 1
 			curr_page--
-			playsound(loc, "pageturn", 50, TRUE)
+			playsound(loc, /datum/sound_effect/page_turn, 50, TRUE)
 		if(ismob(loc))
 			attack_self(loc)
 
@@ -171,7 +171,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 				return
 			if(!user.can_perform_action(src))
 				return
-			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
+			playsound(src, /datum/sound_effect/writing_pen, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 			scribble_page = curr_page
 			scribble = s
 			attack_self(user)

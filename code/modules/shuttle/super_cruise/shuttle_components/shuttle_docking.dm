@@ -144,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	current_user = null
 	user.unset_machine()
 
-	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_off.ogg', 25, FALSE)
 
 	if(!QDELETED(user) && user.client)
 		var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
@@ -413,7 +413,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 	if(QDELETED(console.shuttleObject))
 		return
 
-	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+	playsound(console, 'sound/machines/terminal/terminal_prompt_deny.ogg', 25, 0)
 
 	var/list/L = list()
 	for(var/V in SSshuttle.stationary_docking_ports)
@@ -424,18 +424,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 		if(console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))
 			L["(L.len)[S.name]"] = S
 
-	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
+	playsound(console, 'sound/machines/terminal/terminal_prompt.ogg', 25, FALSE)
 	var/selected = tgui_input_list(usr, "Choose location to jump to", "Locations", sort_list(L))
 	if(isnull(selected))
-		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
+		playsound(console, 'sound/machines/terminal/terminal_prompt_deny.ogg', 25, FALSE)
 		return
 	if(QDELETED(src) || QDELETED(owner) || !isliving(owner))
 		return
-	playsound(src, "terminal_type", 25, FALSE)
+	playsound(src, /datum/sound_effect/terminal_type, 25, FALSE)
 	var/turf/T = get_turf(L[selected])
 	if(isnull(T))
 		return
-	playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
+	playsound(console, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 25, 0)
 	remote_eye.setLoc(T)
 	to_chat(owner, span_notice("Jumped to [selected]."))
 	C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)

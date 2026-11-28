@@ -4,7 +4,7 @@
 	bleed_force = BLEED_SURFACE
 	var/obj/item/dnainjector/injector
 	damage = 5
-	hitsound_wall = "shatter"
+	hitsound_wall = /datum/sound_effect/shatter
 
 /obj/projectile/bullet/dnainjector/on_hit(atom/target, blocked = FALSE)
 	if(iscarbon(target))

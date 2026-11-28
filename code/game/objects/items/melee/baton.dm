@@ -440,7 +440,7 @@
 	light_color = LIGHT_COLOR_ORANGE
 	light_power = 0.5
 
-	hitsound = "swing_hit"
+	hitsound = /datum/sound_effect/swing_hit
 	drop_sound = 'sound/items/baton/stun_baton_inactive_drop.ogg'
 	pickup_sound = 'sound/items/baton/stun_baton_inactive_pickup.ogg'
 	var/inactive_drop_sound = 'sound/items/baton/stun_baton_inactive_drop.ogg'
@@ -582,7 +582,7 @@
 	if(active)
 		return
 	active = TRUE
-	playsound(src, "sparks", 75, TRUE, -1)
+	playsound(src, /datum/sound_effect/sparks, 75, TRUE, -1)
 	update_appearance(UPDATE_ICON_STATE)
 	toggle_light()
 	do_sparks(1, TRUE, src)
@@ -595,7 +595,7 @@
 	active = FALSE
 	set_light_on(FALSE)
 	update_appearance(UPDATE_ICON_STATE)
-	playsound(src, "sparks", 75, TRUE, -1)
+	playsound(src, /datum/sound_effect/sparks, 75, TRUE, -1)
 	drop_sound = inactive_drop_sound
 	pickup_sound = inactive_pickup_sound
 

@@ -72,7 +72,6 @@
 	interaction_flags_click = ALLOW_SILICON_REACH
 	light_color = LIGHT_COLOR_BLUE
 	req_access = list(ACCESS_GENETICS)
-	clicksound = null
 
 	var/datum/techweb/stored_research
 	var/max_storage = 6

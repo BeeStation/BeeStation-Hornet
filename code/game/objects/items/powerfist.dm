@@ -91,7 +91,7 @@
 		to_chat(user, span_warning("\The [src]'s tank is empty!"))
 		force = (baseforce / 5)
 		attack_weight = 1
-		playsound(loc, 'sound/weapons/punch1.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/punch/punch1.ogg', 50, 1)
 		target.visible_message(span_danger("[user]'s powerfist lets out a dull thunk as [user.p_they()] punch[user.p_es()] [target.name]!"), \
 			span_userdanger("[user]'s punches you!"))
 		if(ishuman(target))
@@ -102,7 +102,7 @@
 	if(!molar_cmp_equals(gasused.total_moles(), gasperfist * fisto_setting))
 		T.assume_air(gasused)
 		to_chat(user, span_warning("\The [src]'s piston-ram lets out a weak hiss, it needs more gas!"))
-		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/punch/punch4.ogg', 50, 1)
 		force = (baseforce / 2)
 		attack_weight = 1
 		target.visible_message(span_danger("[user]'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \

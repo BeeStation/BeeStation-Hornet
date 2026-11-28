@@ -415,7 +415,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 /// Called when a user clicks on this switch with an open hand.
 /obj/machinery/conveyor_switch/interact(mob/user)
 	add_fingerprint(user)
-	play_click_sound("switch")
+	play_click_sound(/datum/sound_effect/lever_switch)
 	update_position()
 	update_icon()
 	update_linked_conveyors()

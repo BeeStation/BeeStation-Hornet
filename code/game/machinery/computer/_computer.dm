@@ -10,7 +10,8 @@
 	max_integrity = 200
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_computer
-	clicksound = "keyboard"
+	clicksound = /datum/sound_effect/keyboard_clicks
+	clickvol = 10
 	light_system = STATIC_LIGHT
 	light_range = 1
 	light_power = 0.5
@@ -114,7 +115,7 @@
 			if(machine_stat & BROKEN)
 				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 			else
-				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
+				playsound(src.loc, 'sound/effects/glass/glasshit.ogg', 75, 1)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
@@ -123,7 +124,7 @@
 		return
 	. = ..()
 	if(.)
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		playsound(loc, 'sound/effects/glass/glassbr3.ogg', 100, TRUE)
 		set_light(0)
 
 /obj/machinery/computer/emp_act(severity)
@@ -175,12 +176,6 @@
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
 	update_use_power(ACTIVE_POWER_USE)
-
-/obj/machinery/computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	SHOULD_CALL_PARENT(TRUE)
-	. = ..()
-	if(!issilicon(ui.user))
-		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
 
 /obj/machinery/computer/ui_close(mob/user)
 	SHOULD_CALL_PARENT(TRUE)

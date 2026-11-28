@@ -204,7 +204,7 @@
 /obj/machinery/shieldgen/on_emag(mob/user)
 	..()
 	locked = FALSE
-	playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, /datum/sound_effect/sparks, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(user, span_warning("You short out the access controller."))
 
 /obj/machinery/shieldgen/update_icon_state()
@@ -456,7 +456,7 @@ WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
 /obj/machinery/power/shieldwallgen/on_emag(mob/user)
 	..()
 	locked = FALSE
-	playsound(src, "sparks", 100, 1)
+	playsound(src, /datum/sound_effect/sparks, 100, TRUE)
 	to_chat(user, span_warning("You short out the access controller."))
 
 /obj/machinery/power/shieldwallgen/proc/shock(mob/user, prb)

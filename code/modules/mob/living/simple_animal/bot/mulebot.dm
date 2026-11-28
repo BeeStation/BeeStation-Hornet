@@ -185,7 +185,7 @@
 		locked = !locked
 		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] [src]'s controls!"))
 	z_flick("[base_icon]-emagged", src)
-	playsound(src, "sparks", 100, FALSE)
+	playsound(src, /datum/sound_effect/sparks, 100, FALSE)
 
 /mob/living/simple_animal/bot/mulebot/update_icon_state() //if you change the icon_state names, please make sure to update /datum/wires/mulebot/on_pulse() as well. <3
 	.=..()

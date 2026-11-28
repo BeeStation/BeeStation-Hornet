@@ -180,7 +180,7 @@
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	isGlass = FALSE
 	custom_price = PAYCHECK_EASY * 0.8
-	reagent_container_liquid_sound = "plastic_liquid_slosh"
+	reagent_container_liquid_sound = /datum/sound_effect/plastic_bottle_liquid_slosh
 	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
 	var/cap_icon = 'icons/obj/drinks/drink_effects.dmi'
 	var/cap_icon_state = "bottle_cap_small"

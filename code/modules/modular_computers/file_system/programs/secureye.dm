@@ -92,7 +92,7 @@
 			else
 				camera_ref = null
 			ui_update()
-			playsound(src, "terminal_type", 5, FALSE)
+			playsound(src, /datum/sound_effect/terminal_type, 5, FALSE)
 
 			if(isnull(camera_ref))
 				return TRUE
@@ -122,7 +122,7 @@
 	// Turn off the console
 	if(length(concurrent_users) == 0 && is_living)
 		camera_ref = null
-		playsound(computer, 'sound/machines/terminal_off.ogg', 25, FALSE)
+		playsound(computer, 'sound/machines/terminal/terminal_off.ogg', 25, FALSE)
 
 /datum/computer_file/program/secureye/proc/update_active_camera_screen()
 	var/obj/machinery/camera/active_camera = camera_ref?.resolve()

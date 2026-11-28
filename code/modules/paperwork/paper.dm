@@ -50,11 +50,6 @@
 	/// Helper cache that contains a list of all icon_states that are currently stamped on the paper.
 	var/list/stamp_cache
 
-	/// Reagent to transfer to the user when they pick the paper up without proper protection.
-	var/contact_poison
-	/// Volume of contact_poison to transfer to the user when they pick the paper up without proper protection.
-	var/contact_poison_volume = 0
-
 	/// Default raw text to fill this paper with on init.
 	var/default_raw_text
 
@@ -284,15 +279,6 @@
 
 	cut_overlays()
 	update_appearance()
-
-/obj/item/paper/pickup(user)
-	if(contact_poison && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/clothing/gloves/G = H.gloves
-		if(!istype(G) || !(G.body_parts_covered & HANDS) || HAS_TRAIT(G, TRAIT_FINGERPRINT_PASSTHROUGH) || HAS_TRAIT(H, TRAIT_FINGERPRINT_PASSTHROUGH))
-			H.reagents.add_reagent(contact_poison,contact_poison_volume)
-			contact_poison = null
-	..()
 
 /obj/item/paper/update_icon_state()
 	if(LAZYLEN(raw_text_inputs) && show_written_words)
@@ -629,7 +615,7 @@
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
 			var/writing_implement_data = holding.get_writing_implement_details()
 
-			playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
+			playsound(src, /datum/sound_effect/writing_pen, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 
 			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_FUN))
 

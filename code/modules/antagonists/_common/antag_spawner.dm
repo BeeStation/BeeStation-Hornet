@@ -309,7 +309,7 @@
 	spawn_antag(candidate.client, get_turf(src), user.mind)
 	to_chat(user, shatter_msg)
 	to_chat(user, veil_msg)
-	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
+	playsound(user.loc, 'sound/effects/glass/glassbr1.ogg', 100, TRUE)
 	qdel(src)
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/chosen_client, turf/forced_turf, datum/mind/user)

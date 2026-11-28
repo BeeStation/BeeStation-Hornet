@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	if(broken)
 		return
 	icon_state = "mirror_broke"
-	playsound(src, "shatter", 70, TRUE)
+	playsound(src, /datum/sound_effect/shatter, 70, TRUE)
 	if(desc == initial(desc))
 		desc = "Oh no, seven years of bad luck!"
 	broken = TRUE

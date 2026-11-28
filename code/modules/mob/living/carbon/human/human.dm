@@ -877,7 +877,7 @@
 					sleep(0.2)
 
 				playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
-				playsound(src, 'sound/weapons/punch2.ogg', 80, 1, -1)
+				playsound(src, 'sound/weapons/punch/punch2.ogg', 80, 1, -1)
 
 				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
 				if(BP)

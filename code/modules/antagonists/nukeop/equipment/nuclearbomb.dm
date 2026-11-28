@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 			return
 		auth = I
 		update_ui_mode()
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 		add_fingerprint(user)
 		ui_update()
 		return
@@ -332,11 +332,11 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 /obj/machinery/nuclearbomb/ui_act(action, params)
 	if(..())
 		return
-	playsound(src, "terminal_type", 20, FALSE)
+	playsound(src, /datum/sound_effect/terminal_type, 20, FALSE)
 	switch(action)
 		if("eject_disk")
 			if(auth && auth.loc == src)
-				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 				playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
 				auth.forceMove(get_turf(src))
 				auth = null
@@ -344,7 +344,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 			else
 				var/obj/item/I = usr.is_holding_item_of_type(/obj/item/disk/nuclear)
 				if(I && disk_check(I) && usr.transferItemToLoc(I, src))
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+					playsound(src, 'sound/machines/terminal/terminal_insert_disc.ogg', 50, FALSE)
 					playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
 					auth = I
 					. = TRUE

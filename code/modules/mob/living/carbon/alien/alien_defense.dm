@@ -74,7 +74,7 @@ In all, this is a lot like the monkey code. /N
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, span_notice("You don't want to hurt [src]!"))
 			return
-		playsound(loc, "punch", 25, 1, -1)
+		playsound(loc, /datum/sound_effect/punch, 25, TRUE, -1)
 		visible_message(span_danger("[user] punches [src]!"), \
 				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))

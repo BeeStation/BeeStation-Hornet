@@ -74,7 +74,7 @@
 	if(..())
 		return
 	if(isliving(usr))
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(!allowed(usr))
 		to_chat(usr, span_warning("Access denied."))
 		return
