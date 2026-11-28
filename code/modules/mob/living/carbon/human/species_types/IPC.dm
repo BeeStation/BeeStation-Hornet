@@ -115,8 +115,7 @@
 /datum/species/ipc/proc/controller_deleted()
 	UnregisterSignal(controller, COMSIG_QDELETING)
 	controller = null
-	controller_action?.Remove(controller_action.owner)
-	controller_action = null
+	QDEL_NULL(controller_action)
 
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
