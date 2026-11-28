@@ -38,7 +38,7 @@
 	},
 /obj/item/stack/sheet/cotton/cloth/five,
 /obj/item/knife/combat/survival,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
@@ -121,7 +121,7 @@
 /area/ruin/powered/golem_ship)
 "au" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/shower/directional/east{
 	pixel_x = -1
 	},
@@ -182,7 +182,7 @@
 /area/ruin/powered/golem_ship)
 "aG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
 "aH" = (
@@ -220,7 +220,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "aP" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "aQ" = (
@@ -365,7 +365,7 @@
 /area/ruin/powered/golem_ship)
 "bi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "bj" = (
@@ -387,7 +387,7 @@
 /area/ruin/powered/golem_ship)
 "bn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /obj/effect/decal/cleanable/ash,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
@@ -696,7 +696,7 @@
 /area/ruin/powered/golem_ship)
 "cl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "cm" = (
@@ -825,7 +825,7 @@
 "cF" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "cG" = (

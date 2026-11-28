@@ -18,7 +18,7 @@
 /turf/open/floor/circuit/red,
 /area/ruin/powered)
 "ef" = (
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/blood/splatter/oil,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
 "er" = (
@@ -75,7 +75,7 @@
 /turf/open/floor/carpet/black,
 /area/ruin/powered)
 "lX" = (
-/obj/effect/decal/cleanable/robot_debris/old,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/old,
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
@@ -92,7 +92,7 @@
 /turf/closed/wall/r_wall,
 /area/ruin/powered)
 "qg" = (
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
@@ -152,7 +152,7 @@
 /turf/open/floor/circuit/red,
 /area/ruin/powered)
 "tV" = (
-/obj/effect/decal/cleanable/robot_debris/limb,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/limb,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
 "uw" = (
@@ -327,14 +327,14 @@
 /turf/open/floor/carpet/black,
 /area/ruin/powered)
 "RT" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
 "TP" = (
-/obj/effect/decal/cleanable/robot_debris/old,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/old,
 /obj/machinery/camera{
 	c_tag = "Telecomms - Server Room - Aft-Port";
 	dir = 6

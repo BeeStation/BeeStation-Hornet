@@ -158,5 +158,5 @@
 	if(!noloot)
 		for(var/IS = 0 to 4)
 			drop_part(baton_type, Tsec)
-	new /obj/effect/decal/cleanable/oil(Tsec)
+	new /obj/effect/decal/cleanable/blood/oil(Tsec)
 	qdel(src)

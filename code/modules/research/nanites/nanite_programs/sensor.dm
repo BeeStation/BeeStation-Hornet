@@ -402,7 +402,7 @@
 			return FALSE
 
 /datum/nanite_program/sensor/blood/check_event()
-	var/blood_percent =  round((host_mob.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+	var/blood_percent =  round((host_mob.get_blood_volume(apply_modifiers = TRUE) / BLOOD_VOLUME_NORMAL) * 100)
 	var/datum/nanite_extra_setting/percent = extra_settings[NES_HEALTH_PERCENT]
 	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
 	var/detected = FALSE

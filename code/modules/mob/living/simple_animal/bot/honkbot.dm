@@ -324,7 +324,7 @@
 	s.set_up(3, 1, src)
 	s.start()
 
-	new /obj/effect/decal/cleanable/oil(loc)
+	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
 /mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user as mob)

@@ -132,7 +132,7 @@
 /turf/open/floor/vault/sandstone,
 /area/heretic_sacrifice/rust)
 "pN" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating/ashplanet/wateryrock{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
 	planetary_atmos = 0;

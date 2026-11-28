@@ -52,7 +52,7 @@ Difficulty: Hard
 	base_pixel_x = -32
 	del_on_death = TRUE
 	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
-	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
+	default_blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
 	var/enrage_time = 70

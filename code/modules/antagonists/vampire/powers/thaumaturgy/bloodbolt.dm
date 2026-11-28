@@ -67,7 +67,7 @@
 	if(isliving(target_atom))
 		var/mob/living/living_target = target_atom
 		living_target.add_splatter_floor(get_turf(living_target))
-		living_target.blood_volume -= 50
+		living_target.adjust_blood_volume(-50)
 		living_target.emote("screams")
 		living_target.set_jitter(6 SECONDS)
 		living_target.Unconscious(3 SECONDS)

@@ -4,19 +4,25 @@
 	duration = 5
 	randomdir = FALSE
 	layer = BELOW_MOB_LAYER
+	icon_state = "splatter1"
+	base_icon_state = "splatter"
 	color = BLOOD_COLOR_RED
-	var/splatter_type = "splatter"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 
-/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir, set_color)
-	if(ISDIAGONALDIR(set_dir))
-		icon_state = "[splatter_type][pick(1, 2, 6)]"
-	else
-		icon_state = "[splatter_type][pick(3, 4, 5)]"
-	. = ..()
+// set_color arg can be either a color string or a singleton /datum/blood_type to pull the color from
+/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir, set_color = BLOOD_COLOR_RED)
 	if(set_color)
-		color = set_color
+		var/datum/blood_type/blood_type = set_color
+		if(istype(blood_type))
+			color = blood_type.get_color()
+		else
+			color = set_color
+	if(ISDIAGONALDIR(set_dir))
+		icon_state = "[base_icon_state][pick(1, 2, 6)]"
+	else
+		icon_state = "[base_icon_state][pick(3, 4, 5)]"
+	. = ..()
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(set_dir)
@@ -43,11 +49,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 			target_pixel_x = -16
 			target_pixel_y = -16
 			layer = ABOVE_MOB_LAYER
-	animate(src, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = duration)
-
-/obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
-	splatter_type = "xsplatter"
-	color = null
+	animate(src, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = duration, easing = CUBIC_EASING | EASE_OUT)
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"

@@ -14,10 +14,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating,
 /area/template_noop)
-"f" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
-/area/template_noop)
 "g" = (
 /turf/closed/wall,
 /area/template_noop)
@@ -74,11 +70,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/template_noop)
-"q" = (
-/obj/effect/spawner/random/trash/grille_or_waste,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
-/area/template_noop)
 "r" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
@@ -92,6 +83,10 @@
 /obj/structure/rack,
 /obj/item/wirerod,
 /turf/open/floor/carpet,
+/area/template_noop)
+"v" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
 /area/template_noop)
 "w" = (
 /obj/structure/table,
@@ -151,6 +146,15 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"K" = (
+/obj/effect/spawner/random/trash/grille_or_waste,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
@@ -213,16 +217,12 @@
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/template_noop)
-"X" = (
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating,
-/area/template_noop)
 
 (1,1,1) = {"
 a
 a
 e
-f
+I
 R
 a
 a
@@ -239,7 +239,7 @@ g
 g
 g
 g
-q
+K
 W
 "}
 (3,1,1) = {"
@@ -259,12 +259,12 @@ a
 g
 i
 A
-X
+v
 x
 p
 g
 j
-q
+K
 "}
 (5,1,1) = {"
 z
@@ -300,7 +300,7 @@ k
 F
 C
 a
-f
+I
 "}
 (8,1,1) = {"
 a

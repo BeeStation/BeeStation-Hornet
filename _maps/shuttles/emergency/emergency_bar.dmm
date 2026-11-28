@@ -198,7 +198,7 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "bp" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)

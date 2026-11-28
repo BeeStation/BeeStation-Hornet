@@ -11,6 +11,8 @@
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_SOFT_CRITICAL_CONDITION), PROC_REF(on_softcrit_loss))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_STAMINA_DRAINS_POWER), SIGNAL_REMOVETRAIT(TRAIT_STAMINA_DRAINS_POWER)), PROC_REF(on_stamina_drains_power_trait_change))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NOSTAMCRIT), SIGNAL_REMOVETRAIT(TRAIT_NOSTAMCRIT)), PROC_REF(on_nostamcrit_trait_change))
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NOBLOOD), PROC_REF(on_noblood_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NOBLOOD), PROC_REF(on_noblood_trait_loss))
 
 	//Traits that register add only
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath_trait_gain))
@@ -117,6 +119,26 @@
 		stamina.add_regen_multiplier("resting", STAMINA_RESTING_REGEN_MULTIPLIER)
 	else
 		stamina.remove_regen_multiplier("resting")
+
+/**
+ * On gain of TRAIT_NOBLOOD
+ *
+ * This will make the mob update its blood state.
+ */
+/mob/living/carbon/proc/on_noblood_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	update_blood_status()
+
+/**
+ * On removal of TRAIT_NOBLOOD
+ *
+ * This will make the mob update its blood state.
+ */
+/mob/living/carbon/proc/on_noblood_trait_loss(datum/source)
+	SIGNAL_HANDLER
+
+	update_blood_status()
 
 /**
  * On gain of TRAIT_NOBREATH

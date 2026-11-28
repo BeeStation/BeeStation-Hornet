@@ -303,7 +303,7 @@
 	return 0
 
 /mob/living/simple_animal/hostile/mimite/death(gibbed)
-	new /obj/effect/decal/cleanable/oil(get_turf(src))
+	new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 	..()
 
 /mob/living/simple_animal/hostile/mimite/Destroy()

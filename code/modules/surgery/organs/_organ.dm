@@ -74,7 +74,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	. = ..()
 	organ_flags |= ORGAN_VIRGIN
 	// not every organ spawns inside a person
-	blood_dna_info = list("Synthetic DNA" = get_blood_type("O+"))
+	blood_dna_info = list("Synthetic DNA" = get_blood_type(BLOOD_TYPE_O_PLUS))
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible, \
 			initial_reagents = food_reagents, \

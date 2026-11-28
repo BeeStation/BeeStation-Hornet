@@ -87,6 +87,7 @@
 	data = counterlist_normalise(supplied_data)
 
 /datum/reagent/consumable/nutriment/on_merge(list/mix_data, new_total)
+	. = ..()
 	if(!islist(data) || !length(mix_data))
 		return
 
@@ -784,7 +785,7 @@
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(isethereal(affected_mob))
-		affected_mob.blood_volume += 1 * delta_time
+		affected_mob.adjust_blood_volume(1 * delta_time)
 	else if(DT_PROB(10, delta_time)) //lmao at the newbs who eat energy bars
 		affected_mob.electrocute_act(rand(5,10), "Liquid Electricity in their body", 1, SHOCK_NOGLOVES) //the shock is coming from inside the house
 		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

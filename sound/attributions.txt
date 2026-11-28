@@ -18,3 +18,5 @@ sound/effects/fire_puff.ogg made from: Bonfire Being Lit by samararaine -- https
 sound/effects/droplet.ogg -- "Drop - Water" By mattfinarelli -- https://freesound.org/people/mattfinarelli/sounds/533146/ -- License: Creative Commons 0
 
 sound/effects/pressure_rumble.ogg from https://pixabay.com/sound-effects/film-special-effects-rumble-6023/
+
+sound/effects/wounds/splatter.ogg adapted from https://freesound.org/people/Rocktopus/sounds/233418/

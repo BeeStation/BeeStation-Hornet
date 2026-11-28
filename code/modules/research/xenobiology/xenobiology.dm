@@ -205,7 +205,7 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.adjust_nutrition(50)
-			user.blood_volume += 50
+			user.adjust_blood_volume(50)
 			to_chat(user, span_notice("You activate [src], and your body is refilled with fresh slime jelly!"))
 			return 15 SECONDS
 
@@ -492,7 +492,7 @@
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, span_warning("You vomit slippery oil."))
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
-			new /obj/effect/decal/cleanable/oil/slippery(get_turf(user))
+			new /obj/effect/decal/cleanable/blood/oil/slippery(get_turf(user))
 			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)

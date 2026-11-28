@@ -6,13 +6,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"c" = (
-/obj/machinery/light/broken{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating,
-/area/template_noop)
 "d" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -30,15 +23,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/template_noop)
-"g" = (
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/iron,
-/area/template_noop)
-"h" = (
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating,
-/area/template_noop)
-"i" = (
+"j" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/mapping_helpers/burnt_floor,
@@ -87,6 +72,10 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"r" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 "s" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -110,11 +99,6 @@
 	},
 /obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/iron,
-/area/template_noop)
-"w" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
 /area/template_noop)
 "x" = (
 /obj/machinery/conveyor{
@@ -149,10 +133,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"C" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
-/area/template_noop)
 "D" = (
 /obj/machinery/light/broken{
 	dir = 8
@@ -162,13 +142,6 @@
 "E" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"F" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/iron,
 /area/template_noop)
 "G" = (
@@ -215,9 +188,9 @@
 /obj/machinery/light/built,
 /turf/open/floor/iron,
 /area/template_noop)
-"Q" = (
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating,
+"R" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/iron,
 /area/template_noop)
 "S" = (
 /obj/structure/closet/crate,
@@ -230,6 +203,33 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
+/area/template_noop)
+"V" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/random/clothing/gloves,
+/turf/open/floor/iron,
+/area/template_noop)
+"Y" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/machinery/light/broken{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -246,10 +246,10 @@ a
 "}
 (2,1,1) = {"
 b
-g
+R
 S
 T
-w
+V
 A
 b
 L
@@ -264,25 +264,25 @@ s
 x
 b
 E
-C
+Y
 G
 b
 "}
 (4,1,1) = {"
-c
-h
+Z
+r
 n
 t
 y
 b
-F
+X
 b
 M
 P
 "}
 (5,1,1) = {"
 a
-i
+j
 n
 t
 y
@@ -326,7 +326,7 @@ a
 I
 f
 N
-Q
+W
 "}
 (9,1,1) = {"
 a
@@ -334,16 +334,16 @@ f
 p
 a
 a
-C
+Y
 J
 f
-C
+Y
 a
 "}
 (10,1,1) = {"
 e
 k
-g
+R
 v
 k
 a

@@ -20,7 +20,7 @@
 	name = "lost cyborg";
 	created_name = "Girder"
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "ap" = (

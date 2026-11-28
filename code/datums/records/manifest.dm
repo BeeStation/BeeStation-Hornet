@@ -109,7 +109,7 @@
 	var/datum/record/locked/lockfile = new(
 		RECORD_GENERAL_STRICT_ARGS(
 			age = person.age,
-			blood_type = record_dna.blood_type,
+			blood_type = record_dna.blood_type?.name,
 			character_appearance = character_appearance,
 			unique_enzymes = record_dna.unique_enzymes,
 			unique_identity = record_dna.unique_identity,
@@ -131,7 +131,7 @@
 	var/datum/record/crew/crew_record = new(
 		RECORD_GENERAL_STRICT_ARGS(
 			age = person.age,
-			blood_type = record_dna.blood_type,
+			blood_type = record_dna.blood_type?.name,
 			character_appearance = character_appearance,
 			unique_enzymes = record_dna.unique_enzymes,
 			unique_identity = record_dna.unique_identity,

@@ -10,6 +10,13 @@
  * update_body_parts() is going to be called ONE time once everything is done.
  */
 #define STOP_OVERLAY_UPDATE_BODY_PARTS (1<<2)
+/// Blood volume has changed since the last [proc/update_blood_effects] call
+#define QUEUE_BLOOD_UPDATE (1<<4)
+/// This mob can have blood, cached value of [proc/can_have_blood]
+#define LIVING_CAN_HAVE_BLOOD (1<<5)
+
+/// Checks if the mob can have blood
+#define CAN_HAVE_BLOOD(mob) (mob.living_flags & LIVING_CAN_HAVE_BLOOD)
 
 // Used in living mob offset list for determining pixel offsets
 #define PIXEL_X_OFFSET "x"

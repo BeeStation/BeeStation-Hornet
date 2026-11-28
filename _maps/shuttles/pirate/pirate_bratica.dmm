@@ -84,7 +84,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -222,7 +222,7 @@
 	pixel_x = -9;
 	pixel_y = 7
 	},
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -382,7 +382,7 @@
 	pixel_y = 2;
 	pixel_x = -5
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/item/trash/candy{
 	pixel_x = 5;
 	pixel_y = -4
@@ -454,7 +454,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -916,7 +916,7 @@
 "zv" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -1124,7 +1124,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/cable/yellow,
 /obj/machinery/light/floor,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -1184,7 +1184,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -1541,7 +1541,7 @@
 /obj/structure/sign/departments/cargo{
 	pixel_y = 32
 	},
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -1574,7 +1574,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -1791,7 +1791,7 @@
 "RS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -1988,7 +1988,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -2000,7 +2000,7 @@
 /obj/machinery/door/poddoor{
 	id = "pirate_cargo_shutters2"
 	},
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -2064,7 +2064,7 @@
 	pixel_x = -16;
 	pixel_y = -11
 	},
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},
@@ -2114,7 +2114,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
-/obj/effect/decal/cleanable/oil{
+/obj/effect/decal/cleanable/blood/oil{
 	pixel_x = 10;
 	pixel_y = 18
 	},

@@ -32,11 +32,11 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/circuit,
 /area/template_noop)
 "k" = (
@@ -80,7 +80,7 @@
 /area/template_noop)
 "r" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "s" = (
@@ -100,7 +100,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (

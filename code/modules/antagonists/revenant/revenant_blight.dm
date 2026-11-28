@@ -16,7 +16,7 @@
 	var/start_sleeping   // tracks continuous sleep for cure
 	var/turf/sleeping_at
 
-/datum/disease/revblight/cure()
+/datum/disease/revblight/cure(add_resistance = FALSE)
 	if(affected_mob)
 		affected_mob.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#1d2953")
 		if(affected_mob.dna && affected_mob.dna.species)

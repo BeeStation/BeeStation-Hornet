@@ -428,7 +428,7 @@
 	name = "tactical swivel chair";
 	dir = 4
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "aW" = (
@@ -579,7 +579,7 @@
 "lt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris,
 /turf/open/floor/iron/dark/textured,
 /area/shuttle/abandoned)
 "me" = (
@@ -719,7 +719,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/robot_debris/down,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/down,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "zU" = (
@@ -792,7 +792,7 @@
 /obj/effect/turf_decal/siding/dark/end{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/robot_debris/up,
+/obj/effect/decal/cleanable/blood/gibs/robot_debris/up,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "QF" = (

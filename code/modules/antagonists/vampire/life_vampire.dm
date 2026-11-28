@@ -61,10 +61,10 @@
 		return
 
 	if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
-		owner.current.blood_volume = BLOOD_VOLUME_NORMAL
+		owner.current.set_blood_volume(BLOOD_VOLUME_NORMAL)
 		return
 
-	owner.current.blood_volume = max(BLOOD_VOLUME_BAD, min(BLOOD_VOLUME_NORMAL, current_vitae))	// we want to get pale but not completely fucked up
+	owner.current.set_blood_volume(clamp(current_vitae, BLOOD_VOLUME_BAD, BLOOD_VOLUME_NORMAL))	// we want to get pale but not completely fucked up
 
 /**
  * Pretty simple, add a value to the vampire's vitae volume

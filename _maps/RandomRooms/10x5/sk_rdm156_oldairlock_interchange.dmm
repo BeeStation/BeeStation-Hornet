@@ -11,8 +11,8 @@
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/template_noop)
-"f" = (
-/obj/effect/mapping_helpers/broken_floor,
+"e" = (
+/obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
@@ -30,10 +30,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
-"w" = (
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating,
-/area/template_noop)
 "A" = (
 /obj/structure/closet/toolcloset,
 /obj/item/storage/belt/bandolier,
@@ -41,8 +37,12 @@
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
-"B" = (
-/obj/effect/mapping_helpers/burnt_floor,
+"E" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
@@ -71,7 +71,7 @@ a
 c
 u
 c
-B
+e
 a
 "}
 (3,1,1) = {"
@@ -84,27 +84,27 @@ i
 (4,1,1) = {"
 a
 a
-B
+e
 c
 A
 "}
 (5,1,1) = {"
 n
 M
-f
-w
+L
+E
 n
 "}
 (6,1,1) = {"
 c
 n
-f
+L
 n
 c
 "}
 (7,1,1) = {"
 c
-B
+e
 c
 a
 a
@@ -119,7 +119,7 @@ i
 (9,1,1) = {"
 a
 c
-f
+L
 u
 c
 "}

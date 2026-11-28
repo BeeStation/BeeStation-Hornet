@@ -118,14 +118,10 @@
 					for(var/datum/reagent/R in A.reagents.reagent_list)
 						reagents[R.name] = R.volume
 
-						// Get blood data from the blood reagent.
-						if(istype(R, /datum/reagent/blood))
-
-							if(R.data["blood_DNA"] && R.data["blood_type"])
-								var/blood_DNA = R.data["blood_DNA"]
-								var/blood_type = R.data["blood_type"]
-								LAZYINITLIST(blood)
-								blood[blood_DNA] = blood_type
+						// Get blood data from any reagent drawn from a mob
+						if(R.data?["blood_DNA"] && R.data["blood_type"])
+							LAZYINITLIST(blood)
+							blood[R.data["blood_DNA"]] = R.data["blood_type"]
 
 		// We gathered everything. Create a fork and slowly display the results to the holder of the scanner.
 
@@ -146,7 +142,8 @@
 			add_log(span_info("<B>Blood:</B>"))
 			found_something = 1
 			for(var/B in blood)
-				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
+				var/datum/blood_type/blood_type = blood[B]
+				add_log("Type: <font color='red'>[istype(blood_type) ? (blood_type.get_type() || blood_type.get_blood_name()) : blood_type]</font> DNA: <font color='red'>[B]</font>")
 
 		//Fibers
 		if(length(fibers))

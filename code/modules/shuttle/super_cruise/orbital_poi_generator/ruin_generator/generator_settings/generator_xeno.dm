@@ -7,8 +7,8 @@
 	. = list(
 		/obj/effect/decal/cleanable/dirt = 9,
 		/obj/effect/decal/cleanable/blood/old = 18,
-		/obj/effect/decal/cleanable/oil = 6,
-		/obj/effect/decal/cleanable/robot_debris/old = 18,
+		/obj/effect/decal/cleanable/blood/oil = 6,
+		/obj/effect/decal/cleanable/blood/gibs/robot_debris/old = 18,
 		/obj/effect/decal/cleanable/vomit/old = 12,
 		/obj/effect/decal/cleanable/blood/gibs/old = 18,
 		/obj/effect/decal/cleanable/greenglow/filled = 18,

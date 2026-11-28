@@ -719,7 +719,7 @@
 							O.dismember()
 							O.drop_organs()
 							qdel(O)
-							new /obj/effect/gibspawner/human/bodypartless(get_turf(C))
+							new /obj/effect/gibspawner/human/bodypartless(get_turf(C), C)
 
 				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
 				C.AddElement(/datum/element/squish, 80 SECONDS)

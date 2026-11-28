@@ -44,6 +44,9 @@
 	if(!ishuman(spawned))
 		return
 	spawned.apply_pref_name(/datum/preference/name/clown, player_client)
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS]) // Clown blood is real
+		var/mob/living/carbon/human/human_clown = spawned
+		human_clown.set_blood_type(get_blood_type(BLOOD_TYPE_CLOWN))
 
 
 /datum/outfit/job/clown

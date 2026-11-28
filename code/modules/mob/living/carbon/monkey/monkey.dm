@@ -71,7 +71,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		SSmobs.cubemonkeys += src
 
 	create_dna()
-	dna.initialize_dna(random_blood_type())
+	dna.initialize_dna(random_human_blood_type())
 	AddComponent(/datum/component/bloodysoles/feet)
 	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)

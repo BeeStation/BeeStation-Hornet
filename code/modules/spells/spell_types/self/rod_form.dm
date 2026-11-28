@@ -89,7 +89,7 @@
 		penetrated.visible_message(
 			("<span class='danger'>[src] hits [penetrated], but it bounces back, then vanishes!</span>"),
 			("<span class='userdanger'>[src] hits you... but it bounces back, then vanishes!</span>"),
-			("<span class='danger'>You hear a weak, sad, CLANG.</span>")
+			("<span class='hear'>You hear a weak, sad, CLANG.</span>")
 			)
 		stop_travel()
 		return

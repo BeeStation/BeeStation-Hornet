@@ -80,7 +80,7 @@
 		investigate_log("has died at [loc_name(src)].<br>\
 			BRUTE: [src.getBruteLoss()] BURN: [src.getFireLoss()] TOX: [src.getToxLoss()] OXY: [src.getOxyLoss()] CLONE: [src.getCloneLoss()] STAM: [src.stamina.loss]<br>\
 			<b>Brain damage</b>: [src.getOrganLoss(ORGAN_SLOT_BRAIN) || "0"]<br>\
-			<b>Blood volume</b>: [src.blood_volume]cl ([round((src.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
+			<b>[get_bloodtype()?.get_blood_name() || "Blood"] volume</b>: [src.get_blood_volume(apply_modifiers = TRUE)]cl ([round((src.get_blood_volume(apply_modifiers = TRUE) / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
 			<b>Reagents</b>:<br>[reagents_readout()]", INVESTIGATE_DEATHS)
 	var/death_message = CONFIG_GET(string/death_message)
 	if (death_message)
@@ -91,16 +91,14 @@
 	return
 
 /mob/living/carbon/human/proc/reagents_readout()
-	var/readout = "Blood:"
+	var/readout = "[get_bloodtype()?.get_blood_name() || "Blood"]stream:"
 	for(var/datum/reagent/reagent in reagents?.reagent_list)
 		readout += "<br>[round(reagent.volume, 0.001)] units of [reagent.name]"
-	/*
 	readout += "<br>Stomach:"
 	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
 	for(var/datum/reagent/bile in belly?.reagents?.reagent_list)
 		if(!belly.food_reagents[bile.type])
 			readout += "<br>[round(bile.volume, 0.001)] units of [bile.name]"
-	*/
 
 	return readout
 
@@ -113,10 +111,10 @@
 /mob/living/carbon/proc/Drain()
 	become_husk(CHANGELING_DRAIN)
 	ADD_TRAIT(src, TRAIT_BADDNA, CHANGELING_DRAIN)
-	blood_volume = 0
+	set_blood_volume(0)
 	return TRUE
 
 /mob/living/carbon/proc/makeUncloneable()
 	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE)
-	blood_volume = 0
+	set_blood_volume(0)
 	return TRUE

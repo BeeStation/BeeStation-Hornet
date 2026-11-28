@@ -15,8 +15,9 @@
 	if(body_parts_covered & HEAD)
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+		var/blood_overlay = get_blood_overlay("maskblood", item_layer)
+		if(blood_overlay)
+			. += blood_overlay
 
 /obj/item/clothing/neck/tie
 	name = "tie"

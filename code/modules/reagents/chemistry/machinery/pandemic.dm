@@ -64,7 +64,7 @@
 /obj/machinery/computer/pandemic/proc/get_by_index(thing, index)
 	if(!beaker?.reagents)
 		return
-	var/datum/reagent/blood/blood = locate() in beaker.reagents.reagent_list
+	var/datum/reagent/blood = get_blood_reagent()
 	if(length(blood?.data) && blood.data[thing])
 		return blood.data[thing][index]
 
@@ -75,9 +75,15 @@
 	var/datum/disease/virus = get_virus_by_index(index)
 	return virus?.GetDiseaseID()
 
-/obj/machinery/computer/pandemic/proc/get_viruses_data(datum/reagent/blood/blood)
+/// Tries to locate a reagent with valid blood_type data
+/obj/machinery/computer/pandemic/proc/get_blood_reagent()
+	for (var/datum/reagent/reagent as anything in beaker?.reagents?.reagent_list)
+		if (reagent.data?["blood_type"])
+			return reagent
+
+/obj/machinery/computer/pandemic/proc/get_viruses_data(datum/reagent/blood)
 	. = list()
-	var/list/virus_list = blood.get_diseases()
+	var/list/virus_list = blood.data?["viruses"]
 	var/index = 1
 	for(var/datum/disease/virus in virus_list)
 		if(CHECK_BITFIELD(virus.visibility_flags, HIDDEN_PANDEMIC))
@@ -124,7 +130,7 @@
 	this["severity"] = symptom.severity
 	. += this
 
-/obj/machinery/computer/pandemic/proc/get_resistance_data(datum/reagent/blood/blood)
+/obj/machinery/computer/pandemic/proc/get_resistance_data(datum/reagent/blood)
 	. = list()
 	var/list/resistances = blood.data["resistances"]
 	if(!islist(resistances))
@@ -181,13 +187,14 @@
 		return
 	.["has_beaker"] = TRUE
 	.["beaker_empty"] = !beaker.reagents.total_volume || !length(beaker.reagents.reagent_list)
-	var/datum/reagent/blood/blood = locate() in beaker.reagents.reagent_list
+	var/datum/reagent/blood = get_blood_reagent()
 	if(!blood)
 		return
 	.["has_blood"] = TRUE
+	var/datum/blood_type/blood_type = blood.data["blood_type"]
 	.["blood"] = list(
 		"dna" = blood.data["blood_DNA"] || "none",
-		"type" = blood.data["blood_type"] || "none"
+		"type" = blood_type?.name || "none"
 	)
 	.["viruses"] = get_viruses_data(blood)
 	.["resistances"] = get_resistance_data(blood)

@@ -93,6 +93,9 @@
 	if(!zone_override)
 		zone_override = shooter.get_combat_bodyzone(target)
 
+	var/original_damage = shell.BB.damage
+	var/original_speed = shell.BB.speed
+
 	for(var/i in 1 to num_pellets)
 		shell.ready_proj(target, user, SUPPRESSED_VERY, zone_override, fired_from)
 		var/bullet_angle = spread
@@ -103,6 +106,8 @@
 
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
 		RegisterSignals(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
+		shell.BB.damage = original_damage
+		shell.BB.speed = original_speed
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(user)
 		if(!istype(targloc) || !istype(current_loc))
@@ -189,13 +194,22 @@
 			break
 
 ///One of our pellets hit something, record what it was and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_hit(obj/projectile/P, atom/movable/firer, atom/target, Angle)
+/datum/component/pellet_cloud/proc/pellet_hit(obj/projectile/P, atom/movable/firer, atom/target, Angle, hit_zone)
 	SIGNAL_HANDLER
 
 	pellets -= P
 	terminated++
 	hits++
 	var/damage = TRUE
+	// sexy pellet cloud
+	if(isliving(target) && P.damage && P.damage_type == BRUTE)
+		var/mob/living/hit_living = target
+		var/obj/item/bodypart/hit_part = hit_living.get_bodypart(hit_zone)
+		if(hit_living.get_blood_volume() && (!hit_part || IS_ORGANIC_LIMB(hit_part)))
+			P.exit_splatter = FALSE
+			var/armor = hit_living.run_armor_check(hit_zone, P.armor_flag, armour_penetration = P.armour_penetration, silent = TRUE)
+			LAZYADDASSOC(targets_hit[target], "splatter_damage", P.damage * max(0, 1 - armor / 100))
+			LAZYSET(targets_hit[target], "splatter_dir", get_dir(P.starting, target))
 	/* WOUNDS
 	if(iscarbon(target) && hit_zone)
 		var/mob/living/carbon/hit_carbon = target
@@ -259,6 +273,8 @@
 	for(var/atom/target in targets_hit)
 		var/num_hits = targets_hit[target]["hits"]
 		var/damage = targets_hit[target]["damage"]
+		var/splatter_damage = targets_hit[target]["splatter_damage"]
+		var/splatter_dir = targets_hit[target]["splatter_dir"]
 		UnregisterSignal(target, COMSIG_QDELETING)
 		var/obj/item/bodypart/hit_part
 		if(isbodypart(target))
@@ -278,6 +294,13 @@
 		else
 			target.visible_message(span_danger("[target] is hit by a [proj_name][limb_hit_text][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE, target)
 			to_chat(target, span_userdanger("You're hit by a [proj_name][limb_hit_text]!"))
+
+		if(splatter_damage)
+			var/mob/living/splattered = target
+			splattered.add_exit_splatter(splatter_dir, splatter_damage)
+			// point blank buckshot gives abouts 2 tiles :>
+			if(splatter_damage >= 40)
+				splattered.spray_blood(splatter_dir, min(round(splatter_damage / 20), 3))
 
 	UnregisterSignal(parent, COMSIG_PREQDELETED)
 	if(queued_delete)

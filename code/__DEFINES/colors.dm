@@ -74,10 +74,14 @@
 #define COLOR_BLUE_GRAY "#75A2BB"
 
 ///Colors for blood greyscale sprites
-#define BLOOD_COLOR_RED "#CC0000"
+#define BLOOD_COLOR_RED "#AA1010"
 #define BLOOD_COLOR_LIZARD "#009696"
 #define BLOOD_COLOR_ETHEREAL "#7fff7f"
 #define BLOOD_COLOR_SYNTHETIC "#dddeff"
+#define BLOOD_COLOR_XENO "#96BB00"
+#define BLOOD_COLOR_OIL "#2C2C2C"
+#define BLOOD_COLOR_BLACK "#1F1A00"
+#define BLOOD_COLOR_DRIED "#370404" // Not to be used normally, only exists for mapper convinience
 
 /// Starlight!
 #define COLOR_STARLIGHT "#8589fa"

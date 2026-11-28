@@ -19,19 +19,6 @@
 "c" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"d" = (
-/obj/structure/table,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 1
-	},
-/obj/item/stock_parts/cell/hyper,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
-/area/template_noop)
 "e" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -42,21 +29,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"g" = (
-/obj/effect/mapping_helpers/burnt_floor,
-/turf/open/floor/plating,
-/area/template_noop)
 "h" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/iron/ten,
 /obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/template_noop)
-"i" = (
-/obj/structure/frame,
-/obj/machinery/light/built,
-/obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -75,6 +52,29 @@
 /obj/item/stock_parts/scanning_module/phasic,
 /turf/open/floor/plating,
 /area/template_noop)
+"B" = (
+/obj/structure/frame,
+/obj/machinery/light/built,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"J" = (
+/obj/structure/table,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 1
+	},
+/obj/item/stock_parts/cell/hyper,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -83,8 +83,8 @@ h
 "}
 (2,1,1) = {"
 b
-g
-i
+V
+B
 "}
 (3,1,1) = {"
 c
@@ -92,7 +92,7 @@ f
 f
 "}
 (4,1,1) = {"
-d
+J
 f
 j
 "}

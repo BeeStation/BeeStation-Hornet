@@ -20,7 +20,7 @@
 						if(do_after(D, 60, 0, target = src))
 							D.visible_message(span_notice("[D] repairs itself using [src]'s remains!"), span_notice("You repair yourself using [src]'s remains."))
 							D.adjustBruteLoss(-src.maxHealth)
-							new /obj/effect/decal/cleanable/oil/streak(get_turf(src))
+							new /obj/effect/decal/cleanable/blood/splatter/oil(get_turf(src))
 							qdel(src)
 						else
 							to_chat(D, span_warning("You need to remain still to cannibalize [src]!"))

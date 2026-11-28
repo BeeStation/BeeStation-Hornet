@@ -18,10 +18,14 @@
 	brother1.set_haircolor("#A55A3B", update = TRUE)
 
 	var/icon/brother1_icon = render_preview_outfit(/datum/outfit/job/quartermaster, brother1)
-	brother1_icon.Blend(icon('icons/effects/blood.dmi', "maskblood"), ICON_OVERLAY)
+	var/icon/brother1_icon_blood = icon('icons/effects/blood.dmi', "maskblood")
+	brother1_icon_blood.Blend(BLOOD_COLOR_RED, ICON_MULTIPLY)
+	brother1_icon.Blend(brother1_icon_blood, ICON_OVERLAY)
 
 	var/icon/brother2_icon = render_preview_outfit(/datum/outfit/job/scientist, brother2)
-	brother2_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+	var/icon/brother2_icon_blood = icon('icons/effects/blood.dmi', "uniformblood")
+	brother2_icon_blood.Blend(BLOOD_COLOR_RED, ICON_MULTIPLY)
+	brother2_icon.Blend(brother2_icon_blood, ICON_OVERLAY)
 	if (prime)
 		brother2_icon.GrayScale()
 		brother2_icon.Scale(26, 26)

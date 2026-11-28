@@ -28,7 +28,7 @@
 	speak_emote = list("states")
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
-	loot = list(/obj/effect/decal/cleanable/robot_debris)
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot_debris)
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 	death_message = "blows apart!"

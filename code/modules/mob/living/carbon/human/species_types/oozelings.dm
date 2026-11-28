@@ -15,7 +15,7 @@
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime
-	exotic_blood = /datum/reagent/toxin/slimejelly
+	exotic_bloodtype = BLOOD_TYPE_TOX
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
@@ -50,24 +50,24 @@
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
 
-	if(!H.blood_volume)
-		H.blood_volume += 2.5 * delta_time
+	if(!H.get_blood_volume())
+		H.adjust_blood_volume(2.5 * delta_time)
 		H.adjustBruteLoss(2.5 * delta_time)
 		to_chat(H, span_danger("You feel empty!"))
-	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
+	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.get_blood_volume() <= 672)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-			H.blood_volume += 5 * delta_time
+			H.adjust_blood_volume(5 * delta_time)
 			H.adjust_nutrition(-2.5 * delta_time)
 		else
-			H.blood_volume += 4 * delta_time
+			H.adjust_blood_volume(4 * delta_time)
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
-			H.blood_volume -= 4 * delta_time
+			H.adjust_blood_volume(-4 * delta_time)
 			if(DT_PROB(2.5, delta_time))
 				to_chat(H, span_info("You're starving! Get some food!"))
 		else
 			if(DT_PROB(17.5, delta_time))
-				H.blood_volume -= 1 * delta_time
+				H.adjust_blood_volume(-1 * delta_time)
 				if(prob(5))
 					to_chat(H, span_danger("You're feeling pretty hungry..."))
 	var/atmos_sealed = FALSE
@@ -85,17 +85,17 @@
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment?.total_moles())
 			if(environment.moles[/datum/gas/water_vapor] >= 1)
-				H.blood_volume -= 15
+				H.adjust_blood_volume(-15)
 				if(prob(50))
 					to_chat(H, span_danger("Your ooze melts away rapidly in the water vapor!"))
-			if(H.blood_volume <= 672 && environment.moles[/datum/gas/plasma] >= 1)
-				H.blood_volume += 15
-	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
+			if(H.get_blood_volume() <= 672 && environment.moles[/datum/gas/plasma] >= 1)
+				H.adjust_blood_volume(15)
+	var/modified_blood_volume = H.get_blood_volume(apply_modifiers = TRUE)
+	if(modified_blood_volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, span_danger("You feel drained!"))
-	if(H.blood_volume < BLOOD_VOLUME_OKAY)
+	if(modified_blood_volume < BLOOD_VOLUME_OKAY)
 		Cannibalize_Body(H)
-	if(regenerate_limbs)
-		regenerate_limbs.update_buttons()
+	regenerate_limbs?.update_buttons()
 
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_OOZELING_NO_CANNIBALIZE))
@@ -114,7 +114,7 @@
 	consumed_limb.drop_limb()
 	to_chat(H, span_userdanger("Your [consumed_limb] is drawn back into your body, unable to maintain its shape!"))
 	qdel(consumed_limb)
-	H.blood_volume += 80
+	H.adjust_blood_volume(80)
 	H.nutrition += 20
 
 /datum/action/innate/regenerate_limbs
@@ -124,13 +124,19 @@
 	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
+	var/blood_per_limb = 80
+
 /datum/action/innate/regenerate_limbs/is_available()
-	if(..())
-		var/mob/living/carbon/human/H = owner
-		var/list/limbs_to_heal = H.get_missing_limbs()
-		if(limbs_to_heal.len && H.blood_volume >= BLOOD_VOLUME_OKAY+80)
-			return TRUE
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/carbon/human/H = owner
+	var/list/limbs_to_heal = H.get_missing_limbs()
+	if(!length(limbs_to_heal))
 		return FALSE
+	if(H.get_blood_volume() >= BLOOD_VOLUME_OKAY + blood_per_limb)
+		return TRUE
+	return FALSE
 
 /datum/action/innate/regenerate_limbs/on_activate()
 	var/mob/living/carbon/human/H = owner
@@ -141,24 +147,24 @@
 		to_chat(H, span_notice("You feel intact enough as it is."))
 		return
 	to_chat(H, span_notice("You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]..."))
-	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
+	if(H.get_blood_volume() >= blood_per_limb * length(limbs_to_heal) + BLOOD_VOLUME_OKAY)
 		if(do_after(H, 6 SECONDS, target = H, interaction_key = DOAFTER_SOURCE_REGEN_LIMBS))
 			H.regenerate_limbs()
-			H.blood_volume -= 80*limbs_to_heal.len
-			H.nutrition -= 20*limbs_to_heal.len
+			H.adjust_blood_volume(-blood_per_limb * length(limbs_to_heal))
+			H.adjust_nutrition(-20 * length(limbs_to_heal))
 			to_chat(H, span_notice("...and after a moment you finish reforming!"))
 		else
 			to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))
 		return
-	if(H.blood_volume >= 80)//We can partially heal some limbs
-		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
+	if(H.get_blood_volume() >= blood_per_limb)//We can partially heal some limbs
+		while(H.get_blood_volume() >= BLOOD_VOLUME_OKAY + blood_per_limb && length(limbs_to_heal))
 			if(!do_after(H, 3 SECONDS, target = H, interaction_key = DOAFTER_SOURCE_REGEN_LIMBS))
 				to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))
 				return
 			var/healed_limb = pick_n_take(limbs_to_heal)
 			H.regenerate_limb(healed_limb)
-			H.blood_volume -= 80
-			H.nutrition -= 20
+			H.adjust_blood_volume(-blood_per_limb)
+			H.adjust_nutrition(-20)
 		return
 	to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more blood volume to heal!"))
 
@@ -170,7 +176,7 @@
 		if(chem.volume > 10)
 			affected.reagents.remove_reagent(chem.type, chem.volume - 5)
 			to_chat(affected, span_warning("The water you consumed is melting away your insides!"))
-		affected.blood_volume -= 25
+		affected.adjust_blood_volume(-25)
 
 /datum/species/oozeling/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
 	// Splat!
@@ -258,7 +264,7 @@
 		SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 		SPECIES_PERK_ICON = "tint",
 		SPECIES_PERK_NAME = "Jelly Blood",
-		SPECIES_PERK_DESC = "[plural_form] don't have blood, but instead have toxic [initial(exotic_blood.name)]! \
+		SPECIES_PERK_DESC = "[plural_form] don't have blood, but instead have toxic [initial(/datum/blood_type/slime::reagent_type.name)]! \
 			Jelly is extremely important, as losing it will cause you to cannibalize your limbs. Having low jelly will make medical treatment very difficult. \
 			Jelly is also extremely sensitive to cold, and you may rapidy solidify. [plural_form] regain jelly passively by eating, but supplemental injections are possible.",
 	))

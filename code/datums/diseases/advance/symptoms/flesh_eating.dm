@@ -77,7 +77,7 @@ Bonus
 			var/geyserdir = pick_n_take(geyserdirs)
 			var/geyserdist = rand(1, max(1,bloodsplatters))
 			bloodsplatters -= geyserdist
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, geyserdir)
+			H.create_splatter(geyserdir)
 			for(var/a in 0 to geyserdist)
 				T = get_step(T, geyserdir)
 				H.add_splatter_floor(T)

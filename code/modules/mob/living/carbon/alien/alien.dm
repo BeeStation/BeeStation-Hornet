@@ -13,7 +13,7 @@
 	bubble_icon = "alien"
 	type_of_meat = /obj/item/food/meat/slab/xeno
 	status_flags = CANUNCONSCIOUS|CANPUSH
-	gib_type = /obj/effect/decal/cleanable/xenoblood/xgibs
+	gib_type = /obj/effect/decal/cleanable/blood/gibs/xeno
 	unique_name = 1
 	mobchatspan = "alienmobsay"
 
@@ -67,11 +67,10 @@
 	else
 		clear_alert("alien_fire")
 
-/mob/living/carbon/alien/getTrail()
-	if(getBruteLoss() < 200)
-		return pick (list("xltrails_1", "xltrails2"))
-	else
-		return pick (list("xttrails_1", "xttrails2"))
+/mob/living/carbon/alien/get_bloodtype()
+	RETURN_TYPE(/datum/blood_type)
+	return get_blood_type(BLOOD_TYPE_XENO)
+
 /*----------------------------------------
 Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
