@@ -60,6 +60,10 @@ SUBSYSTEM_DEF(department)
 	for(var/each_dept in temp)
 		sorted_department_for_access |= department_assoc[each_dept]
 
+	if(SSmapping.map_adjustment)
+		SSmapping.map_adjustment.on_department_init()
+		log_world("Applied '[SSmapping.map_adjustment.map_file_name]' map adjustment: on_department_init()")
+
 	return SS_INIT_SUCCESS
 
 /// WARNING: This always returns as a list.
