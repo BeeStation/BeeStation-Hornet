@@ -54,6 +54,11 @@
 			candidates -= candidate
 			continue
 
+		var/datum/job/named_job = SSjob.get_job_listed_by_name(candidate)
+		if(named_job && (named_job.title in restricted_roles))
+			candidates -= candidate
+			continue
+
 /**
  * Choose candidates, if your ruleset makes them a non-crewmember, set their assigned role here.
  */
@@ -149,11 +154,19 @@
 /datum/dynamic_ruleset/gamemode/malf/trim_candidates()
 	. = ..()
 	var/datum/job/ai/ai_job = SSjob.get_job_type(/datum/job/ai)
+	var/ai_listed_by_name = SSjob.is_job_listed_by_name(ai_job)
 	for(var/mob/candidate in candidates)
 		// Must have enough hours to play AI
 		if(ai_job.required_playtime_remaining(candidate.client))
 			candidates -= candidate
 			continue
+
+		// An AI that job estimation named elsewhere, or that bumped a named AI, is an obvious malf
+		var/datum/job/named_job = SSjob.get_job_listed_by_name(candidate)
+		if(named_job == ai_job)
+			continue
+		if(named_job || ai_listed_by_name)
+			candidates -= candidate
 
 /datum/dynamic_ruleset/gamemode/malf/choose_candidates()
 	. = ..()

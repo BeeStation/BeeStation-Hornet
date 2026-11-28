@@ -39,6 +39,10 @@
 	GLOB.auth_new_player_list -= src
 	return ..()
 
+/mob/dead/new_player/authenticated/become_uncliented()
+	. = ..()
+	SSjob.remove_job_estimation(src)
+
 /mob/dead/new_player/mob_negates_gravity()
 	return TRUE //no need to calculate if they have gravity.
 
@@ -140,11 +144,11 @@
 		//Avoid updating ready if we're after PREGAME (they should use latejoin instead)
 		//This is likely not an actual issue but I don't have time to prove that this
 		//no longer is required
-		if(SSticker.current_state <= GAME_STATE_PREGAME)
+		if(SSticker.current_state <= GAME_STATE_PREGAME || tready == PLAYER_READY_TO_OBSERVE)
 			ready = tready
+		SSjob.update_job_estimation(src)
 		//if it's post initialisation and they're trying to observe we do the needful
-		if(!SSticker.current_state < GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
-			ready = tready
+		if(SSticker.current_state >= GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
 			make_me_an_observer()
 			return
 

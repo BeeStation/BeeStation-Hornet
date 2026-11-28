@@ -197,6 +197,7 @@ export type PreferencesMenuData = {
     }
   >;
   job_preferences: Record<string, JobPriority>;
+  antag_restricted_job?: string;
 
   keybindings: Record<string, string[]>;
   overflow_role: string;

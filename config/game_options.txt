@@ -30,6 +30,10 @@ EMOJIS
 ## Comment this out if you want to disable badges
 BADGES
 
+## JOB ESTIMATION ##
+## Comment this out to hide the list of readied players and their jobs from the lobby status tab
+SHOW_JOB_ESTIMATION
+
 ## MOB MOVEMENT ###
 
 ## We suggest editing these variables ingame to find a good speed for your server.
