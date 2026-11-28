@@ -249,8 +249,11 @@
 			dismantle_wall()
 
 /turf/closed/wall/r_wall/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	if(the_rcd.canRturf)
-		return ..()
+	if(!the_rcd.canRturf)
+		return
+	. = ..()
+	if(.)
+		.["delay"] *= RCD_RWALL_DELAY_MULT
 
 
 /turf/closed/wall/r_wall/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
