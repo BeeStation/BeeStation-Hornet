@@ -49,6 +49,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 		switch(var_name)
 			if(NAMEOF(src, icon))
 				SStitle.icon = icon
+				SStitle.calculate_title_size()
 
 /turf/closed/indestructible/splashscreen/examine(mob/user)
 	desc = pick(strings(SPLASH_DESC_FILE, "splashes"))
