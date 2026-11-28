@@ -45,6 +45,10 @@
 #define MODE_HOLOPARASITE "holoparasite"
 #define MODE_KEY_HOLOPARASITE "p"
 
+#define MODE_CORTICAL_LINK "cortical link"
+#define MODE_KEY_CORTICAL_LINK "w"
+#define MODE_TOKEN_CORTICAL_LINK ":w"
+
 #define MODE_VOCALCORDS "cords"
 #define MODE_KEY_VOCALCORDS "x"
 

@@ -22,6 +22,7 @@
 #include "autowiki.dm"
 #include "blindness.dm"
 #include "bloody_footprints.dm"
+#include "borer.dm"
 #include "breath.dm"
 #include "buckle.dm"
 #include "check_adjustable_clothing.dm"
