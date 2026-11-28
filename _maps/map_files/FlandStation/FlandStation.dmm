@@ -77279,6 +77279,7 @@
 "wVS" = (
 /mob/living/basic/slime/pet{
 	desc = "The rare case of a friendly slime.";
+	emote_see = list("jiggles","bounces in place","wobble around");
 	name = "George"
 	},
 /turf/open/floor/carpet/purple,
