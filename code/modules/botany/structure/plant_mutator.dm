@@ -107,6 +107,7 @@
 	//Return plant to spade, to remove it
 	if(plant && plant_component.async_catch_attackby(C, user))
 		plant = null
+		UnregisterSignal(plant_component, COMSIG_QDELETING)
 		plant_component = null
 		current_feature = null
 		current_feature_ref = null

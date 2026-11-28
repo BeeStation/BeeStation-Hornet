@@ -79,7 +79,7 @@
 		INVOKE_ASYNC(src, PROC_REF(async_plunger_action), attacker, I)
 		return ITEM_INTERACT_SUCCESS
 //Remove substrate
-	if(istype(I, /obj/item/shovel) && !length(plants) && allow_substrate_change)
+	if(istype(I, /obj/item/shovel) && !length(I.contents) && !length(plants) && allow_substrate_change)
 		INVOKE_ASYNC(src, PROC_REF(async_spade_action), attacker)
 		return ITEM_INTERACT_SUCCESS
 	else if(istype(I, /obj/item/shovel) && length(plants))
