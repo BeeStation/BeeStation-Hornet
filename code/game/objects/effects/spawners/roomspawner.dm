@@ -14,7 +14,7 @@
 	. = ..()
 #ifdef UNIT_TESTS
 	// These are far too flakey to be including in the tests
-	var/list/turf/room_turfs = block(
+	var/list/room_turfs = block(
 		x, y, z,
 		x + room_width - 1, y + room_height - 1, z,
 	)
@@ -35,8 +35,7 @@
 		possible_templates[candidate] = candidate.weight
 
 	if(!length(possible_templates))
-		stack_trace("Failed to find a valid random room / Room Info - height: [room_height], width: [room_width], name: [name]")
-		return
+		CRASH("Failed to find a valid random room / Room Info - height: [room_height], width: [room_width], name: [name]")
 
 	var/datum/map_template/random_room/template = pick_weight(possible_templates)
 	template.stock--
@@ -50,17 +49,18 @@
 
 /obj/effect/spawner/room/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	// Scan through the room and remove any wall fixtures that were not placed correctly
-	for (var/x in T.x to T.x + room_width - 1)
-		for (var/y in T.y to T.y + room_height - 1)
-			var/turf/current = locate(x, y, T.z)
-			for (var/obj/placed_object in current)
-				// Temporary hacky check to see if we contain a directional mapping helper
-				// I know its a normal variable, but this is explicitly accessed through reflection
-				if (!initial(placed_object._reflection_is_directional))
-					continue
-				// Check to see if we correctly placed ourselves on a wall
-				if (!isclosedturf(get_step(placed_object, placed_object.dir)))
-					SSatoms.prepare_deletion(placed_object)
+	var/list/room_turfs = block(
+		T.x, T.y, T.z,
+		T.x + room_width - 1, T.y + room_height - 1, T.z,
+	)
+	for (var/turf/room_turf in room_turfs)
+		for (var/obj/placed_object in room_turf)
+			// Temporary hacky check to see if we contain a directional mapping helper <-- 2 year old temporary check btw
+			if (!placed_object._is_directional_mapping_helper || !isProbablyWallMounted(placed_object))
+				continue
+			// Check to see if we correctly placed ourselves on a wall
+			if (!isclosedturf(get_step(placed_object, placed_object.dir)))
+				SSatoms.prepare_deletion(placed_object)
 
 /obj/effect/spawner/room/special/tenxfive_terrestrial
 	name = "10x5 terrestrial room"
