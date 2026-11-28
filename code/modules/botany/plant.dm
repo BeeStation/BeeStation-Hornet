@@ -113,6 +113,8 @@
 
 	if(target == plant_item)
 		return
+	if(istype(target, /obj/machinery/plant_machine))
+		return
 	//Is this even a planter?
 	var/datum/component/planter/tray_component = target.GetComponent(/datum/component/planter)
 	if(!tray_component)
