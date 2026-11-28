@@ -4,12 +4,12 @@
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "vortex_recall"
 
-/datum/action/item_action/vortex_recall/is_available()
-	var/area/current_area = get_area(master)
+/datum/action/item_action/vortex_recall/is_available(feedback = FALSE)
+	var/area/current_area = get_area(target)
 	if(!current_area || current_area.teleport_restriction == TELEPORT_ALLOW_NONE)
 		return FALSE
-	if(istype(master, /obj/item/hierophant_club))
-		var/obj/item/hierophant_club/teleport_stick = master
+	if(istype(target, /obj/item/hierophant_club))
+		var/obj/item/hierophant_club/teleport_stick = target
 		if(teleport_stick.teleporting)
 			return FALSE
 	return ..()
@@ -20,9 +20,9 @@
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "vortex_ff_on"
 
-/datum/action/item_action/toggle_unfriendly_fire/update_button(atom/movable/screen/movable/action_button/button, status_only, force)
-	var/obj/item/hierophant_club/teleport_stick = master
-	if(istype(master, /obj/item/hierophant_club))
+/datum/action/item_action/toggle_unfriendly_fire/build_button_icon(atom/movable/screen/movable/action_button/button, update_flags, force)
+	var/obj/item/hierophant_club/teleport_stick = target
+	if(istype(teleport_stick))
 		if(teleport_stick.friendly_fire_check == FALSE)
 			button_icon_state = "vortex_ff_off"
 			name = "Toggle Friendly Fire \[OFF\]"

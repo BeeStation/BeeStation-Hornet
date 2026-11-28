@@ -25,7 +25,7 @@
 	/// Clock cultists can examine this weapon for a hint on how to use it
 	var/clockwork_hint = ""
 	/// Action to summon the spear
-	var/datum/action/spell/summon_weapon/summon_weapon
+	var/datum/action/cooldown/spell/summon_weapon/summon_weapon
 
 /obj/item/clockwork/weapon/Destroy()
 	summon_weapon?.Remove(summon_weapon.owner)

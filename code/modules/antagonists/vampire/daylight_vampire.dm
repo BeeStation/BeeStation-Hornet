@@ -3,8 +3,8 @@
 **/
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)
 	SIGNAL_HANDLER
-	if(vampire_lair_area && !(locate(/datum/action/vampire/gohome) in powers))
-		grant_power(new /datum/action/vampire/gohome)
+	if(vampire_lair_area && !(locate(/datum/action/cooldown/vampire/gohome) in powers))
+		grant_power(new /datum/action/cooldown/vampire/gohome)
 
 /**
  * Removes the gohome power, called at the end of Sol
@@ -12,7 +12,7 @@
 /datum/antagonist/vampire/proc/on_sol_end(atom/source)
 	SIGNAL_HANDLER
 	check_end_torpor()
-	for(var/datum/action/vampire/gohome/power in powers)
+	for(var/datum/action/cooldown/vampire/gohome/power in powers)
 		remove_power(power)
 
 /**
@@ -228,7 +228,7 @@
 	id = "vampire_sol"
 	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/vampire_sol
-	var/list/datum/action/vampire/burdened_actions
+	var/list/datum/action/cooldown/vampire/burdened_actions
 
 /datum/status_effect/vampire_sol/on_apply()
 	if(!SSsunlight.sunlight_active || istype(owner.loc, /obj/structure/closet/crate/coffin))
@@ -242,7 +242,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology?.damage_resistance -= 50
-	for(var/datum/action/vampire/power in owner.actions)
+	for(var/datum/action/cooldown/vampire/power in owner.actions)
 		if(power.sol_multiplier)
 			power.vitaecost *= power.sol_multiplier
 			power.constant_vitaecost *= power.sol_multiplier
@@ -250,7 +250,7 @@
 				to_chat(owner, span_warning("[power.name] is harder to upkeep during Sol, now requiring [power.constant_vitaecost] blood while the solar flares last!"), type = MESSAGE_TYPE_INFO)
 			LAZYSET(burdened_actions, power, TRUE)
 		power.update_desc()
-		power.update_buttons()
+		power.build_all_button_icons()
 	return TRUE
 
 /datum/status_effect/vampire_sol/on_remove()
@@ -262,12 +262,12 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology?.damage_resistance += 50
-	for(var/datum/action/vampire/power in owner.actions)
+	for(var/datum/action/cooldown/vampire/power in owner.actions)
 		if(LAZYACCESS(burdened_actions, power))
 			power.vitaecost /= power.sol_multiplier
 			power.constant_vitaecost /= power.sol_multiplier
 		power.update_desc()
-		power.update_buttons()
+		power.build_all_button_icons()
 	LAZYNULL(burdened_actions)
 
 /datum/status_effect/vampire_sol/proc/on_sol_end()

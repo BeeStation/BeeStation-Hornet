@@ -102,7 +102,7 @@
 /datum/dynamic_ruleset/proc/success()
 	SHOULD_CALL_PARENT(TRUE)
 	executed_at = world.time - SSticker.round_start_time
-	if (CHECK_BITFIELD(ruleset_flags, SHOULD_PROCESS_RULESET))
+	if (ruleset_flags & SHOULD_PROCESS_RULESET)
 		SSdynamic.rulesets_to_process += src
 
 /**

@@ -159,6 +159,11 @@
 
 	REMOVE_TRAIT(owner.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
+/datum/antagonist/cult/on_mindshield(mob/implanter)
+	if(!silent)
+		to_chat(owner.current, span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
+	return
+
 /datum/antagonist/cult/on_removal()
 	if(!silent)
 		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!")]", null, null, null, owner.current)
@@ -211,13 +216,13 @@
 		throwing = new
 	bloodmark.Grant(current)
 	throwing.Grant(current)
-	current.update_action_buttons_icon()
+	current.update_mob_action_buttons()
 
 /datum/antagonist/cult/proc/remove_leader_abilities(mob/living/current) // Opposite of giving, we take them away
 	reckoning?.Remove(current)
 	bloodmark?.Remove(current)
 	throwing?.Remove(current)
-	current.update_action_buttons_icon()
+	current.update_mob_action_buttons()
 
 /datum/antagonist/cult/proc/make_cult_leader() // Let's make them the leader
 	if(cult_team.cult_leader_datum)

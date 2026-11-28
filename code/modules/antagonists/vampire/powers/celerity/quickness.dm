@@ -1,4 +1,4 @@
-/datum/action/vampire/exactitude
+/datum/action/cooldown/vampire/exactitude
 	name = "Exactitude"
 	desc = "Focus your powers into your hands, enabling you to attack with preternatural precision."
 	button_icon_state = "power_exactitude"
@@ -15,11 +15,11 @@
 	var/datum/weakref/item_ref
 	var/mob/living/carbon/carbon_owner
 
-/datum/action/vampire/exactitude/Grant()
+/datum/action/cooldown/vampire/exactitude/Grant()
 	. = ..()
 	carbon_owner = owner
 
-/datum/action/vampire/exactitude/can_use()
+/datum/action/cooldown/vampire/exactitude/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -31,7 +31,7 @@
 		owner.balloon_alert(owner, "you're wearing gloves!")
 		return FALSE
 
-/datum/action/vampire/exactitude/activate_power()
+/datum/action/cooldown/vampire/exactitude/activate_power()
 	. = ..()
 
 	var/obj/item/clothing/gloves/rapid/vampire/the_gloves = new /obj/item/clothing/gloves/rapid/vampire()
@@ -40,6 +40,6 @@
 
 	carbon_owner.equip_to_slot_or_del(the_gloves, ITEM_SLOT_GLOVES)
 
-/datum/action/vampire/exactitude/deactivate_power()
+/datum/action/cooldown/vampire/exactitude/deactivate_power()
 	. = ..()
 	qdel(item_ref)

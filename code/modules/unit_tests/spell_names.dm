@@ -15,7 +15,7 @@
 
 /datum/unit_test/spell_names/Run()
 	var/list/existing_names = list()
-	for(var/datum/action/spell/spell_type as anything in valid_subtypesof(/datum/action/spell))
+	for(var/datum/action/cooldown/spell/spell_type as anything in valid_subtypesof(/datum/action/cooldown/spell))
 		var/spell_name = initial(spell_type.name)
 
 		if(spell_name in existing_names)

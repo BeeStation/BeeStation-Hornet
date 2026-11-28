@@ -130,7 +130,9 @@
 	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "activate_psychic"
 	transparent_when_unavailable = TRUE
-	cooldown_time = 1 SECONDS
+	/// How long until we can sense again
+	var/sense_cooldown_time = 1 SECONDS
+	COOLDOWN_DECLARE(sense_cooldown)
 
 	/// The distant our psychic sense works
 	var/psychic_scale = 2.28
@@ -191,9 +193,12 @@
 		auto_action = new(src)
 		auto_action.Grant(grant_to)
 
-/datum/action/item_action/organ_action/psychic_highlight/on_activate(mob/user, atom/target)
+/datum/action/item_action/organ_action/psychic_highlight/is_available(feedback = FALSE)
+	return ..() && COOLDOWN_FINISHED(src, sense_cooldown)
+
+/datum/action/item_action/organ_action/psychic_highlight/do_effect(trigger_flags)
 	if(!owner || !check_head())
-		return
+		return FALSE
 
 	// Reveal larger area of sense
 	dim_overlay()
@@ -204,13 +209,16 @@
 		for(var/mob/living/nearby_living in urange(9, owner, TRUE))
 			blind_sense.highlight_object(nearby_living, "mob", nearby_living.dir)
 
-	start_cooldown()
+	COOLDOWN_START(src, sense_cooldown, sense_cooldown_time)
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
+	addtimer(CALLBACK(src, PROC_REF(build_all_button_icons), UPDATE_BUTTON_STATUS), sense_cooldown_time + 1)
+	return TRUE
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense_loop()
 	if(!auto_sense)
 		return
 	trigger()
-	auto_sense_timer = addtimer(CALLBACK(src, PROC_REF(auto_sense_loop)), cooldown_time)
+	auto_sense_timer = addtimer(CALLBACK(src, PROC_REF(auto_sense_loop)), sense_cooldown_time)
 
 //Handle images deleting, stops hardel - also does eyes stuff
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards()
@@ -220,7 +228,7 @@
 		psychic_timer = null
 
 	// Set eyes back to normal
-	var/obj/item/organ/eyes/eyes = master
+	var/obj/item/organ/eyes/eyes = target
 	if(istype(eyes))
 		eyes.sight_flags = sight_flags
 	owner.update_sight()
@@ -373,7 +381,10 @@
 		psychic_overlay = null
 	return ..()
 
-/datum/action/change_psychic_visual/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_visual/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(isnull(psychic_overlay))
 		set_psychic_overlay(owner?.screens["psychic_highlight"])
 	psychic_overlay?.cycle_visuals()
@@ -382,7 +393,7 @@
 	if(!isnull(psychic_overlay))
 		UnregisterSignal(psychic_overlay, COMSIG_QDELETING)
 	if(!isnull(new_overlay))
-		RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(overlay_destroyed))
+		RegisterSignal(new_overlay, COMSIG_QDELETING, PROC_REF(overlay_destroyed))
 	psychic_overlay = new_overlay
 
 /datum/action/change_psychic_visual/proc/overlay_destroyed(datum/source)
@@ -396,8 +407,11 @@
 	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_generic"
 
-/datum/action/change_psychic_auto/on_activate(mob/user, atom/target, trigger_flags)
-	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action = master
+/datum/action/change_psychic_auto/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action = target
 	if(istype(psychic_action))
 		psychic_action.auto_sense = !psychic_action.auto_sense
 		psychic_action.auto_sense_loop()
@@ -421,7 +435,10 @@
 		blind_overlay = null
 	return ..()
 
-/datum/action/change_psychic_texture/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_texture/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(isnull(psychic_overlay))
 		set_psychic_overlay(owner?.screens["psychic_highlight"])
 	if(isnull(blind_overlay)) // The blind overlay given by our eyes
@@ -434,14 +451,14 @@
 	if(!isnull(psychic_overlay))
 		UnregisterSignal(psychic_overlay, COMSIG_QDELETING)
 	if(!isnull(new_overlay))
-		RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(overlay_destroyed))
+		RegisterSignal(new_overlay, COMSIG_QDELETING, PROC_REF(overlay_destroyed))
 	psychic_overlay = new_overlay
 
 /datum/action/change_psychic_texture/proc/set_blind_overlay(atom/movable/screen/fullscreen/blind/psychic_highlight/new_overlay)
 	if(!isnull(blind_overlay))
 		UnregisterSignal(blind_overlay, COMSIG_QDELETING)
 	if(!isnull(new_overlay))
-		RegisterSignal(blind_overlay, COMSIG_QDELETING, PROC_REF(overlay_destroyed))
+		RegisterSignal(new_overlay, COMSIG_QDELETING, PROC_REF(overlay_destroyed))
 	blind_overlay = new_overlay
 
 /datum/action/change_psychic_texture/proc/overlay_destroyed(datum/source)

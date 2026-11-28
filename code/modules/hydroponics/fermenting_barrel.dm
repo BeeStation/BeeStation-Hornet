@@ -56,12 +56,12 @@
 /obj/structure/fermenting_barrel/attack_hand(mob/user, list/modifiers)
 	open = !open
 	if(open)
-		DISABLE_BITFIELD(reagents.flags, DRAINABLE)
-		ENABLE_BITFIELD(reagents.flags, REFILLABLE)
+		reagents.flags &= ~DRAINABLE
+		reagents.flags |= REFILLABLE
 		to_chat(user, span_notice("You open [src], letting you fill it."))
 	else
-		ENABLE_BITFIELD(reagents.flags, DRAINABLE)
-		DISABLE_BITFIELD(reagents.flags, REFILLABLE)
+		reagents.flags |= DRAINABLE
+		reagents.flags &= ~REFILLABLE
 		to_chat(user, span_notice("You close [src], letting you draw from its tap."))
 	update_icon()
 

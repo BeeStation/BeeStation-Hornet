@@ -1,8 +1,8 @@
 /**
  * Helper proc for adding a power
 **/
-/datum/antagonist/vampire/proc/grant_power(datum/action/vampire/power)
-	for(var/datum/action/vampire/current_powers as anything in powers)
+/datum/antagonist/vampire/proc/grant_power(datum/action/cooldown/vampire/power)
+	for(var/datum/action/cooldown/vampire/current_powers as anything in powers)
 		if(current_powers.type == power.type)
 			return FALSE
 	powers += power
@@ -14,7 +14,7 @@
 /**
  * Helper proc for removing a power
 **/
-/datum/antagonist/vampire/proc/remove_power(datum/action/vampire/power)
+/datum/antagonist/vampire/proc/remove_power(datum/action/cooldown/vampire/power)
 	if(power.currently_active)
 		power.deactivate_power()
 	powers -= power
@@ -81,7 +81,7 @@
 	vampire_level_unspent--
 
 /datum/antagonist/vampire/proc/remove_nondefault_powers(return_levels = FALSE)
-	for(var/datum/action/vampire/power as anything in powers)
+	for(var/datum/action/cooldown/vampire/power as anything in powers)
 		if(power.special_flags & VAMPIRE_DEFAULT_POWER)
 			continue
 		remove_power(power)
@@ -92,7 +92,7 @@
  * Disables all Torpor exclusive powers, if forced is TRUE, disable all powers
 **/
 /datum/antagonist/vampire/proc/disable_all_powers(forced = FALSE)
-	for(var/datum/action/vampire/power as anything in powers)
+	for(var/datum/action/cooldown/vampire/power as anything in powers)
 		if(forced || ((power.check_flags & BP_CANT_USE_IN_TORPOR) && is_in_torpor()))
 			if(power.currently_active)
 				power.deactivate_power()
@@ -139,9 +139,9 @@
 	// Are we adding or removing?
 	if(count > 0)
 		// We are adding
-		if(temp_humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER && !is_type_in_list(/datum/action/vampire/masquerade, powers))
+		if(temp_humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER && !is_type_in_list(/datum/action/cooldown/vampire/masquerade, powers))
 			// Grant_power might fail, so we need to check if it actually got granted
-			var/was_granted = grant_power(new /datum/action/vampire/masquerade)
+			var/was_granted = grant_power(new /datum/action/cooldown/vampire/masquerade)
 			if(was_granted)
 				power_given = TRUE
 
@@ -154,7 +154,7 @@
 	else
 		// We are removing
 		if(temp_humanity < VAMPIRE_HUMANITY_MASQUERADE_POWER)
-			for(var/datum/action/vampire/masquerade/power in powers)
+			for(var/datum/action/cooldown/vampire/masquerade/power in powers)
 				remove_power(power)
 				power_removed = TRUE
 

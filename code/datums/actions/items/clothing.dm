@@ -22,28 +22,6 @@
 	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change-code"
 
-/datum/action/item_action/toggle_research_scanner
-	name = "Toggle Research Scanner"
-	button_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "scan_mode"
-	toggleable = TRUE
-
-/datum/action/item_action/toggle_research_scanner/on_activate(mob/user, atom/target)
-	owner.research_scanner++
-	to_chat(owner, "<span class='notice'>[target] research scanner has been activated.</span>")
-	return TRUE
-
-/datum/action/item_action/toggle_research_scanner/on_deactivate(mob/user, atom/target)
-	owner.research_scanner--
-	to_chat(owner, "<span class='notice'>[target] research scanner has been deactivated.</span>")
-	return TRUE
-
-/datum/action/item_action/toggle_research_scanner/Remove(mob/M)
-	if(owner && active)
-		owner.research_scanner--
-		active = FALSE
-	..()
-
 //surf_ss13
 /datum/action/item_action/bhop
 	name = "Activate Jump Boots"
@@ -61,7 +39,8 @@
 	name = "Open Music Menu"
 	desc = "UNTZ UNTZ UNTZ"
 
-/datum/action/item_action/toggle_headphones/on_activate(mob/user, atom/target)
+/datum/action/item_action/toggle_headphones/do_effect(trigger_flags)
+	. = ..()
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
 		H.interact(owner)
@@ -72,19 +51,23 @@
 	desc = "Set up the mood for an interrogation."
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "noir_mode"
-	cooldown_time = 30 SECONDS
+	COOLDOWN_DECLARE(noirmode_cd)
+	var/noirmode_cooldown_time = 30 SECONDS
 
-/datum/action/item_action/noirmode/on_activate(mob/user, atom/target)
-	var/area/A = get_area(user)
-	if(istype(A, /area/station/security/detectives_office) || istype(A, /area/station/security/interrogation))
-		var/list/mobs_to_iterate = mobs_in_area_type(list(A))
-		for(var/mob/living/L as anything in mobs_to_iterate)
-			ADD_TRAIT(L, TRAIT_NOIR, TRAIT_GENERIC)
-			L.add_client_colour(/datum/client_colour/monochrome)
-			if(L == user)
-				to_chat(L, span_notice("The shadows overtake the room. They are in your realm now."))
-			else
-				to_chat(L, span_userdanger("The shadows overtake the room. An ominous feeling falls over you."))
-		start_cooldown()
-	else
-		to_chat(user, "<span class='warning'>You can only use the noir ability in the detective's office or interrogation room.</span>")
+/datum/action/item_action/noirmode/is_available(feedback = FALSE)
+	return ..() && COOLDOWN_FINISHED(src, noirmode_cd)
+
+/datum/action/item_action/noirmode/do_effect(trigger_flags)
+	var/area/A = get_area(owner)
+	if(!istype(A, /area/station/security/detectives_office) && !istype(A, /area/station/security/interrogation))
+		to_chat(owner, "<span class='warning'>You can only use the noir ability in the detective's office or interrogation room.</span>")
+		return
+	var/list/mobs_to_iterate = mobs_in_area_type(list(A))
+	for(var/mob/living/L as anything in mobs_to_iterate)
+		ADD_TRAIT(L, TRAIT_NOIR, TRAIT_GENERIC)
+		L.add_client_colour(/datum/client_colour/monochrome)
+		if(L == owner)
+			to_chat(L, span_notice("The shadows overtake the room. They are in your realm now."))
+		else
+			to_chat(L, span_userdanger("The shadows overtake the room. An ominous feeling falls over you."))
+	COOLDOWN_START(src, noirmode_cd, noirmode_cooldown_time)

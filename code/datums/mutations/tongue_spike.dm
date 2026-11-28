@@ -3,41 +3,40 @@
 	desc = "Allows a creature to voluntary shoot their tongue out as a deadly weapon."
 	quality = POSITIVE
 	instability = 15
-	power_path = /datum/action/spell/tongue_spike
+	power_path = /datum/action/cooldown/spell/tongue_spike
 
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/action/spell/tongue_spike
+/datum/action/cooldown/spell/tongue_spike
 	name = "Launch spike"
 	desc = "Shoot your tongue out in the direction you're facing, embedding it and dealing damage until they remove it."
 	button_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "spike"
-	mindbound = FALSE
 	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 	/// The type-path to what projectile we spawn to throw at someone.
 	var/spike_path = /obj/item/hardened_spike
 
-/datum/action/spell/tongue_spike/is_valid_spell(mob/user, atom/target)
-	return iscarbon(user)
+/datum/action/cooldown/spell/tongue_spike/is_valid_target(atom/cast_on)
+	return iscarbon(cast_on)
 
-/datum/action/spell/tongue_spike/on_cast(mob/living/carbon/user, atom/target)
+/datum/action/cooldown/spell/tongue_spike/cast(mob/living/carbon/cast_on)
 	. = ..()
-	if(HAS_TRAIT(user, TRAIT_NODISMEMBER))
-		to_chat(user, ("<span class='notice'>You concentrate really hard, but nothing happens.</span>"))
+	if(HAS_TRAIT(cast_on, TRAIT_NODISMEMBER))
+		to_chat(cast_on, ("<span class='notice'>You concentrate really hard, but nothing happens.</span>"))
 		return
 
-	var/obj/item/organ/tongue/to_fire = locate() in user.internal_organs
+	var/obj/item/organ/tongue/to_fire = locate() in cast_on.internal_organs
 	if(!to_fire)
-		to_chat(user, ("<span class='notice'>You don't have a tongue to shoot!</span>"))
+		to_chat(cast_on, ("<span class='notice'>You don't have a tongue to shoot!</span>"))
 		return
 
-	to_fire.Remove(user, special = TRUE)
-	var/obj/item/hardened_spike/spike = new spike_path(get_turf(user), user)
+	to_fire.Remove(cast_on, special = TRUE)
+	var/obj/item/hardened_spike/spike = new spike_path(get_turf(cast_on), cast_on)
 	to_fire.forceMove(spike)
-	spike.throw_at(get_edge_target_turf(user, user.dir), 14, 4, user)
+	spike.throw_at(get_edge_target_turf(cast_on, cast_on.dir), 14, 4, cast_on)
 
 /obj/item/hardened_spike
 	name = "biomass spike"
@@ -86,11 +85,11 @@
 	quality = POSITIVE
 	instability = 15
 	locked = TRUE
-	power_path = /datum/action/spell/tongue_spike/chem
+	power_path = /datum/action/cooldown/spell/tongue_spike/chem
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/action/spell/tongue_spike/chem
+/datum/action/cooldown/spell/tongue_spike/chem
 	name = "Launch chem spike"
 	desc = "Shoot your tongue out in the direction you're facing, \
 		embedding it for a very small amount of damage. \
@@ -151,12 +150,15 @@
 	/// Weakref to the mob target that we transfer chemicals to on activation
 	var/datum/weakref/transfered_ref
 
-/datum/action/send_chems/New(master)
+/datum/action/send_chems/New(Target)
 	. = ..()
-	if(!istype(master, /obj/item/hardened_spike/chem))
+	if(!istype(target, /obj/item/hardened_spike/chem))
 		qdel(src)
 
-/datum/action/send_chems/on_activate(mob/user, atom/target)
+/datum/action/send_chems/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!ishuman(owner) || !owner.reagents)
 		return FALSE
 	var/mob/living/carbon/human/transferer = owner

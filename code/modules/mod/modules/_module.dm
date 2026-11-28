@@ -299,7 +299,7 @@
 	return list()
 
 /// Creates a list of configuring options for this module, possible configs include number, bool, color, list, button.
-/obj/item/mod/module/proc/get_configuration()
+/obj/item/mod/module/proc/get_configuration(mob/user)
 	return list()
 
 /// Generates an element of the get_configuration list with a display name, type and value

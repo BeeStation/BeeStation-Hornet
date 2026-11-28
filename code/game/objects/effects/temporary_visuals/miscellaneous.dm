@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 
 /obj/effect/temp_visual/dir_setting/ninja
 	name = "ninja shadow"
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	icon_state = "uncloak"
 	duration = 9
 
@@ -188,7 +188,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/bsa_splash)
 
 /obj/effect/temp_visual/wizard
 	name = "water"
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	icon_state = "reappear"
 	duration = 5
 
@@ -197,7 +197,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/bsa_splash)
 	duration = 12
 
 /obj/effect/temp_visual/monkeyify
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	icon_state = "h2monkey"
 	duration = 22
 
@@ -205,7 +205,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/bsa_splash)
 	icon_state = "monkey2h"
 
 /obj/effect/temp_visual/borgflash
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	icon_state = "blspell"
 	duration = 5
 
@@ -313,7 +313,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/decoy/fading)
 	duration = 300
 
 /obj/effect/temp_visual/gib_animation
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	duration = 15
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/gib_animation)
@@ -326,7 +326,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/gib_animation)
 	icon = 'icons/mob/simple/animal.dmi'
 
 /obj/effect/temp_visual/dust_animation
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	duration = 15
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dust_animation)
@@ -336,7 +336,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dust_animation)
 	. = ..()
 
 /obj/effect/temp_visual/mummy_animation
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	icon_state = "mummy_revive"
 	duration = 20
 
@@ -419,6 +419,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/impact_effect)
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 6
+
+/obj/effect/temp_visual/impact_effect/energy
+	icon_state = "impact_energy"
+	duration = 6
+
+/obj/effect/temp_visual/impact_effect/neurotoxin
+	icon_state = "impact_spit"
+	color = "#5BDD04"
 
 /obj/effect/temp_visual/heart
 	name = "heart"

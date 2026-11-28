@@ -18,7 +18,10 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/emote/next_emote = "inhale"
 
-/datum/action/breathe/on_activate(mob/user, atom/target)
+/datum/action/breathe/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	owner.emote(next_emote)
 
 /datum/action/breathe/proc/update_status(emote)
@@ -29,7 +32,7 @@
 	else
 		name = "Exhale"
 		button_icon_state = "remove"
-	update_buttons()
+	build_all_button_icons()
 
 /datum/component/manual_breathing/Initialize()
 	if(!iscarbon(parent))

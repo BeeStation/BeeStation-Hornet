@@ -1,4 +1,4 @@
-/datum/action/vampire/distress
+/datum/action/cooldown/vampire/distress
 	name = "Distress"
 	desc = "Injure yourself, allowing you to make a desperate call for help to your Master."
 	button_icon_state = "power_distress"
@@ -9,7 +9,7 @@
 	vitaecost = 10
 	cooldown_time = 10 SECONDS
 
-/datum/action/vampire/distress/activate_power()
+/datum/action/cooldown/vampire/distress/activate_power()
 	. = ..()
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(owner)
 

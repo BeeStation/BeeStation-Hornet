@@ -1,7 +1,7 @@
 /**
  * Given to Vampires at the start and taken away as soon as they select a clan.
  */
-/datum/action/vampire/clanselect
+/datum/action/cooldown/vampire/clanselect
 	name = "Select Clan"
 	desc = "Take the first step as a true kindred and remember your true lineage."
 	button_icon_state = "clanselect"
@@ -11,7 +11,7 @@
 	vitaecost = 0
 	cooldown_time = 5 SECONDS
 
-/datum/action/vampire/clanselect/activate_power()
+/datum/action/cooldown/vampire/clanselect/activate_power()
 	. = ..()
 	vampiredatum_power.assign_clan_and_bane()
 	deactivate_power()
@@ -19,7 +19,7 @@
 /**
  * Given to Vampires every levelup. Opens the radial.
  */
-/datum/action/vampire/levelup
+/datum/action/cooldown/vampire/levelup
 	name = "Level Up"
 	desc = "Take another step as a full kindred, and remember your true lineage."
 	button_icon_state = "power_levelup"
@@ -29,7 +29,7 @@
 	vitaecost = 0
 	cooldown_time = 5 SECONDS
 
-/datum/action/vampire/levelup/activate_power()
+/datum/action/cooldown/vampire/levelup/activate_power()
 	. = ..()
 	vampiredatum_power.my_clan.spend_rank()
 	deactivate_power()
@@ -37,7 +37,7 @@
 /**
  * Given to Princes once chosen. Picks a scourge.
  */
-/datum/action/vampire/targeted/scourgify
+/datum/action/cooldown/vampire/targeted/scourgify
 	name = "Select Scourge"
 	desc = "Select another kindred or one of your vassals as your scourge."
 	button_icon_state = "power_scourge"
@@ -56,7 +56,7 @@
 	/// Reference to the target antag datum
 	var/datum/weakref/target_ref
 
-/datum/action/vampire/targeted/scourgify/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/scourgify/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!isliving(target_atom))
 		return FALSE
@@ -97,7 +97,7 @@
 
 	return TRUE
 
-/datum/action/vampire/targeted/scourgify/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/scourgify/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/living_target = target_atom
 
@@ -140,22 +140,22 @@
 	addtimer(CALLBACK(src, PROC_REF(choice_timeout)), cooldown_time)
 	deactivate_power()
 
-/datum/action/vampire/targeted/scourgify/proc/accepted()
+/datum/action/cooldown/vampire/targeted/scourgify/proc/accepted()
 	var/datum/antagonist/vampire/target_datum = target_ref.resolve()
 	target_datum.scourgify()
 	target_ref = null
 	power_activated_sucessfully()
 
-/datum/action/vampire/targeted/scourgify/proc/refused()
+/datum/action/cooldown/vampire/targeted/scourgify/proc/refused()
 	owner.balloon_alert(owner, "offer refused")
 	target_ref = null
 
-/datum/action/vampire/targeted/scourgify/proc/choice_timeout()
+/datum/action/cooldown/vampire/targeted/scourgify/proc/choice_timeout()
 	if(owner && target_ref) // This might happen AFTER we remove the power from our owner.
 		owner.balloon_alert(owner, "offer ignored")
 		target_ref = null
 
-/datum/action/vampire/targeted/scourgify/proc/handle_choice(choice)
+/datum/action/cooldown/vampire/targeted/scourgify/proc/handle_choice(choice)
 	switch(choice)
 		if("Accept")
 			accepted()

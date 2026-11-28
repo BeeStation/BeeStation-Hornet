@@ -21,6 +21,10 @@
 /datum/antagonist/vassal/get_team()
 	return vampire_team
 
+/datum/antagonist/vassal/on_mindshield(mob/implanter, mob/living/mob_override)
+	owner.remove_antag_datum(/datum/antagonist/vassal)
+	return COMPONENT_MINDSHIELD_DECONVERTED
+
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
@@ -72,8 +76,8 @@
 	owner.current.log_message("has been vassalized by [master.owner]!", LOG_ATTACK, color="#960000")
 
 	// Give powers
-	grant_power(new /datum/action/vampire/recuperate)
-	grant_power(new /datum/action/vampire/distress)
+	grant_power(new /datum/action/cooldown/vampire/recuperate)
+	grant_power(new /datum/action/cooldown/vampire/distress)
 
 	// Give objectives
 	forge_objectives()
@@ -88,7 +92,7 @@
 		owner.enslaved_to = null
 
 	// Remove powers
-	for(var/datum/action/vampire/power in powers)
+	for(var/datum/action/cooldown/vampire/power in powers)
 		powers -= power
 		power.Remove(owner.current)
 
@@ -96,7 +100,7 @@
 
 /datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	for(var/datum/action/vampire/power in powers)
+	for(var/datum/action/cooldown/vampire/power in powers)
 		power.Remove(old_body)
 		power.Grant(new_body)
 

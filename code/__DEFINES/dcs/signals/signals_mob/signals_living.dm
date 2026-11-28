@@ -17,12 +17,9 @@
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
 ///from base of mob/living/set_body_position()
 #define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
-#define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"		//! sent from borg recharge stations: (amount, repairs)
 #define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"			///From post-can inject check of syringe after attack (mob/user)
 #define COMSIG_LIVING_START_PULL "living_start_pull"			///called on /living when someone starts pulling (atom/movable/pulled, state, force)
-/// from base of mob/living/Life() (seconds, times_fired)
-#define COMSIG_LIVING_LIFE "living_life"
 
 // adjust_x_loss messages sent from /mob/living/proc/adjust[x]Loss
 /// Returned from all the following messages if you actually aren't going to apply any change
@@ -137,10 +134,9 @@
 #define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
 /// Sent to a mob being withdrawn from with a syringe when the do_after initiates
 #define COMSIG_LIVING_TRY_SYRINGE_WITHDRAW "living_try_syringe_withdraw"
-///from base of mob/living/set_usable_legs()
-#define COMSIG_LIVING_LIMBLESS_SLOWDOWN  "living_limbless_slowdown"
-/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
-#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+#define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
+/// from base of mob/living/Life() (seconds, times_fired)
+#define COMSIG_LIVING_LIFE "living_life"
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
 

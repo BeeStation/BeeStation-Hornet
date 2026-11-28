@@ -152,6 +152,9 @@
 		source.updatehealth()
 	// Reduces duration of stuns/etc
 	source.AdjustAllImmobility(-0.5 SECONDS)
+	// Heals blood loss
+	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
+		source.blood_volume += 2.5 * delta_time
 
 /datum/heretic_knowledge/rust_mark
 	name = "Mark of Rust"
@@ -208,7 +211,7 @@
 		/datum/heretic_knowledge/curse/corrosion,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /datum/action/spell/aoe/rust_conversion
+	spell_to_add = /datum/action/cooldown/spell/aoe/rust_conversion
 	cost = 1
 	route = HERETIC_PATH_RUST
 
@@ -250,7 +253,7 @@
 		/datum/heretic_knowledge/ultimate/rust_final,
 		/datum/heretic_knowledge/summon/rusty,
 	)
-	spell_to_add = /datum/action/spell/cone/staggered/entropic_plume
+	spell_to_add = /datum/action/cooldown/spell/cone/staggered/entropic_plume
 	cost = 1
 	route = HERETIC_PATH_RUST
 

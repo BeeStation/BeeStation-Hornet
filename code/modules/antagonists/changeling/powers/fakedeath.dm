@@ -15,12 +15,9 @@
 	if(revive_ready)
 		INVOKE_ASYNC(src, PROC_REF(revive), user)
 		revive_ready = FALSE
-		name = "Reviving Stasis"
-		desc = "We fall into a stasis, allowing us to regenerate and trick our enemies."
-		button_icon_state = "fake_death"
-		update_buttons()
 		chemical_cost = 15
 		to_chat(user, span_notice("We have revived ourselves."))
+		build_all_button_icons(UPDATE_BUTTON_NAME|UPDATE_BUTTON_ICON)
 	else
 		to_chat(user, span_notice("We begin our stasis, preparing energy to arise once more."))
 		user.fakedeath("changeling") //play dead
@@ -58,10 +55,7 @@
 	if(!ling || !(src in ling.innate_powers))
 		return
 	to_chat(mind.current, span_notice("We are ready to revive."))
-	name = "Revive"
-	desc = "We arise once more."
-	button_icon_state = "revive"
-	update_buttons()
+	build_all_button_icons(UPDATE_BUTTON_NAME|UPDATE_BUTTON_ICON)
 	chemical_cost = 0
 	revive_ready = TRUE
 

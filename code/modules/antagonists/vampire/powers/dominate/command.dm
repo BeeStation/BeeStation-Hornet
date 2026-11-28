@@ -3,7 +3,7 @@
  *	 Gives a one-word brainwash-command to a target for 60 seconds.
  * 	Level 2: Now lasts 180 seconds.
  */
-/datum/action/vampire/targeted/command
+/datum/action/cooldown/vampire/targeted/command
 	name = "Command"
 	desc = "Dominate the mind of a mortal with a simple verbal command."
 	button_icon_state = "power_command"
@@ -26,13 +26,13 @@
 	/// Reference to the target
 	var/datum/weakref/target_ref
 
-/datum/action/vampire/targeted/command/two
+/datum/action/cooldown/vampire/targeted/command/two
 	name = "Command"
 	power_time = 180 SECONDS
 	vitaecost = 240
 	cooldown_time = 200 SECONDS
 
-/datum/action/vampire/targeted/command/can_use()
+/datum/action/cooldown/vampire/targeted/command/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -53,7 +53,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/vampire/targeted/command/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/command/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -93,7 +93,7 @@
 		owner.balloon_alert(owner, "[living_target] is already compelled!")
 		return FALSE
 
-/datum/action/vampire/targeted/command/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/command/FireTargetedPower(atom/target_atom)
 	. = ..()
 
 	var/mob/living/living_target = target_atom
@@ -139,7 +139,7 @@
 
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 
-/datum/action/vampire/targeted/command/proc/get_single_word_command()
+/datum/action/cooldown/vampire/targeted/command/proc/get_single_word_command()
 	. = TRUE
 	var/command = tgui_input_text(owner, "What would you like to command?", "Input a command", "STOP", encode = FALSE, timeout = 2 MINUTES)
 	if(QDELETED(src))
@@ -161,7 +161,7 @@
 
 	return(command)
 
-/datum/action/vampire/targeted/command/continue_active()
+/datum/action/cooldown/vampire/targeted/command/continue_active()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -173,7 +173,7 @@
 	if(!living_target || !check_valid_target(living_target))
 		return FALSE
 
-/datum/action/vampire/targeted/command/deactivate_power()
+/datum/action/cooldown/vampire/targeted/command/deactivate_power()
 	. = ..()
 	target_ref = null
 

@@ -1,4 +1,4 @@
-/datum/action/spell/pointed/projectile/death
+/datum/action/cooldown/spell/pointed/projectile/death
 	name = "Instant Death"
 	desc = "This spell will forcibly separate body and soul"
 	button_icon_state = "death0"
@@ -18,6 +18,6 @@
 	cast_range = 8
 	projectile_type = /obj/projectile/magic/death
 
-/datum/action/spell/pointed/projectile/fireball/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
+/datum/action/cooldown/spell/pointed/projectile/fireball/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()
 	to_fire.range = (6 + 2 * spell_level)

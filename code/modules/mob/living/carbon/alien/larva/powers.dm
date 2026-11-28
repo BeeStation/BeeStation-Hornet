@@ -1,4 +1,4 @@
-/datum/action/alien/hide
+/datum/action/cooldown/alien/hide
 	name = "Hide"
 	desc = "Allows you to hide beneath tables and certain objects."
 	button_icon_state = "alien_hide"
@@ -6,12 +6,12 @@
 	/// The layer we are on while hiding
 	var/hide_layer = ABOVE_NORMAL_TURF_LAYER
 
-/datum/action/alien/hide/on_activate(mob/user, atom/target)
+/datum/action/cooldown/alien/hide/Activate(atom/target)
 	if(owner.layer == hide_layer)
 		owner.layer = initial(owner.layer)
 		owner.visible_message(
-			("<span class='notice'>[owner] slowly peeks up from the ground...</span>"),
-			("<span class='noticealien'>You stop hiding.</span>"),
+			span_notice("[owner] slowly peeks up from the ground..."),
+			span_noticealien("You stop hiding."),
 		)
 
 	else
@@ -23,13 +23,13 @@
 
 	return TRUE
 
-/datum/action/alien/larva_evolve
+/datum/action/cooldown/alien/larva_evolve
 	name = "Evolve"
 	desc = "Evolve into a higher alien caste."
 	button_icon_state = "alien_evolve_larva"
 	plasma_cost = 0
 
-/datum/action/alien/larva_evolve/is_available()
+/datum/action/cooldown/alien/larva_evolve/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -46,7 +46,7 @@
 
 	return TRUE
 
-/datum/action/alien/larva_evolve/on_activate(mob/user, atom/target)
+/datum/action/cooldown/alien/larva_evolve/Activate(atom/target)
 	var/mob/living/carbon/alien/larva/larva = owner
 	var/static/list/caste_options
 	if(!caste_options)
@@ -83,7 +83,7 @@
 		caste_options["Drone"] = drone
 
 	var/alien_caste = show_radial_menu(owner, owner, caste_options, radius = 38, require_near = TRUE, tooltips = TRUE)
-	if(QDELETED(src) || QDELETED(owner) || !is_available() || !alien_caste)
+	if(QDELETED(src) || QDELETED(owner) || !is_available(feedback = TRUE) || !alien_caste)
 		return
 
 	if(alien_caste == null)

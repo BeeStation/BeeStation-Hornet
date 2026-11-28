@@ -4,8 +4,8 @@
 	icon_state = "obfuscate"
 
 	// Lists of abilities granted per level
-	level_1 = list(/datum/action/vampire/cloak)
-	level_2 = list(/datum/action/vampire/cloak, /datum/action/vampire/targeted/trespass)
-	level_3 = list(/datum/action/vampire/cloak, /datum/action/vampire/targeted/trespass/two)
-	level_4 = list(/datum/action/vampire/cloak, /datum/action/vampire/targeted/trespass/three, /datum/action/vampire/veil)
+	level_1 = list(/datum/action/cooldown/vampire/cloak)
+	level_2 = list(/datum/action/cooldown/vampire/cloak, /datum/action/cooldown/vampire/targeted/trespass)
+	level_3 = list(/datum/action/cooldown/vampire/cloak, /datum/action/cooldown/vampire/targeted/trespass/two)
+	level_4 = list(/datum/action/cooldown/vampire/cloak, /datum/action/cooldown/vampire/targeted/trespass/three, /datum/action/cooldown/vampire/veil)
 	level_5 = null

@@ -39,6 +39,7 @@
 	flags_cover = MASKCOVERSEYES
 	visor_flags_inv = HIDEEYES
 	visor_flags_cover = MASKCOVERSEYES
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	resistance_flags = FIRE_PROOF
 
 
@@ -51,9 +52,16 @@
 	bleed = 5
 
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
-	weldingvisortoggle(user)
+	adjust_visor(user)
 
-/obj/item/clothing/mask/gas/welding/up
+/obj/item/clothing/mask/gas/welding/adjust_visor(mob/living/user)
+	. = ..()
+	if(.)
+		playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE)
+
+/obj/item/clothing/mask/gas/welding/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 
 /obj/item/clothing/mask/gas/welding/up/Initialize(mapload)
 	. = ..()
@@ -85,7 +93,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	dog_fashion = /datum/dog_fashion/head/clown
 	var/list/mask_designs = list()
 
@@ -116,11 +124,9 @@
 	if(src && choice && !user.incapacitated && in_range(user,src))
 		icon_state = options[choice]
 		user.update_worn_mask()
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.update_buttons()
+		update_item_action_buttons()
 		to_chat(user, span_notice("Your Clown Mask has now morphed into [choice], all praise the Honkmother!"))
-		return 1
+		return TRUE
 
 /obj/item/clothing/mask/gas/sexyclown
 	name = "sexy-clown wig and mask"
@@ -140,7 +146,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	var/list/mask_designs = list()
 
 /obj/item/clothing/mask/gas/mime/Initialize(mapload)
@@ -167,11 +173,9 @@
 	if(src && choice && !user.incapacitated && in_range(user,src))
 		icon_state = options[choice]
 		user.update_worn_mask()
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.update_buttons()
+		update_item_action_buttons()
 		to_chat(user, span_notice("Your Mime Mask has now morphed into [choice]!"))
-		return 1
+		return TRUE
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -223,7 +227,7 @@
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.25)
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	dog_fashion = null
 	var/list/mask_designs = list()
 
@@ -249,11 +253,9 @@
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
 		user.update_worn_mask()
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.update_buttons()
+		update_item_action_buttons()
 		to_chat(M, "The Tiki Mask has now changed into the [choice] Mask!")
-		return 1
+		return TRUE
 
 /obj/item/clothing/mask/gas/tiki_mask/yalp_elor
 	icon_state = "tiki_yalp"

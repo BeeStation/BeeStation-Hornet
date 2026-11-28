@@ -3,6 +3,7 @@
 	icon_state = "cbbolt"
 	damage = 5
 	bleed_force = BLEED_SCRATCH
+	embedding = null
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 
@@ -40,7 +41,7 @@
 	..(target, blocked)
 	if(syringe)
 		syringe.forceMove(loc) //no noreact explosions bypassing piercing protection
-	DISABLE_BITFIELD(reagents.flags, NO_REACT)
+	reagents.flags &= ~NO_REACT
 	reagents.handle_reactions()
 	return BULLET_ACT_HIT
 

@@ -243,6 +243,22 @@ const ConfigureListEntry = (props) => {
   );
 };
 
+const ConfigurePinEntry = (props) => {
+  const { name, value, module_ref } = props;
+  const { act } = useBackend();
+  return (
+    <Button
+      onClick={() =>
+        act('configure', { key: name, value: !value, ref: module_ref })
+      }
+      icon="thumbtack"
+      selected={value}
+      tooltip="Pin"
+      tooltipPosition="left"
+    />
+  );
+};
+
 const ConfigureButtonEntry = (props) => {
   const { name, value, module_ref } = props;
   const { act } = useBackend();
@@ -262,6 +278,7 @@ const ConfigureDataEntry = (props) => {
     color: <ConfigureColorEntry {...props} />,
     list: <ConfigureListEntry {...props} />,
     button: <ConfigureButtonEntry {...props} />,
+    pin: <ConfigurePinEntry {...props} />,
   };
   return (
     <LabeledList.Item label={display_name}>

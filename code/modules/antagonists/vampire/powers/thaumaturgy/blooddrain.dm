@@ -1,4 +1,4 @@
-/datum/action/vampire/targeted/blooddrain
+/datum/action/cooldown/vampire/targeted/blooddrain
 	name = "Thaumaturgy: Blood Drain"
 	desc = "Cast a beam of draining magic that saps the vitality of your target to steal their blood and heal yourself."
 	button_icon_state = "power_blooddrain"
@@ -15,7 +15,7 @@
 
 	var/datum/status_effect/life_drain/active_effect
 
-/datum/action/vampire/targeted/blooddrain/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/blooddrain/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/living_owner = owner
 	var/mob/living/living_target = target_atom
@@ -34,7 +34,7 @@
 
 	playsound(living_owner, 'sound/magic/wandodeath.ogg', 60, TRUE)
 
-/datum/action/vampire/targeted/blooddrain/deactivate_power()
+/datum/action/cooldown/vampire/targeted/blooddrain/deactivate_power()
 	. = ..()
 	if(!isnull(active_effect))
 		active_effect.end_drain()
@@ -74,7 +74,7 @@
 	duration = 20 SECONDS
 	var/datum/beam/drain_beam
 	var/mob/living/carbon/vampire
-	var/datum/action/vampire/targeted/blooddrain/spell
+	var/datum/action/cooldown/vampire/targeted/blooddrain/spell
 	var/blood_drain = 3	 // Amount of blood drained per tick, at 0.25 this is 12 blood per second
 
 /datum/status_effect/blood_drain/on_creation(mob/living/new_owner, mob/living/firer, fired_from, duration_override)

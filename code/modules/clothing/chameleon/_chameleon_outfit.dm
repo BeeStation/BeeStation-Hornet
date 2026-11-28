@@ -31,7 +31,10 @@
 
 	return standard_outfit_options
 
-/datum/action/chameleon_outfit/on_activate(mob/user, atom/target, trigger_flags)
+/datum/action/chameleon_outfit/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(applying)
 		return
 
@@ -107,9 +110,9 @@
 
 	for(var/datum/action/item_action/chameleon/change/change_action in owner.actions)
 		change_action.apply_outfit(outfit, outfit_types)
-		if(!isitem(change_action.master))
+		if(!isitem(change_action.target))
 			continue
-		var/obj/item/cham_item = change_action.master
+		var/obj/item/cham_item = change_action.target
 		if(!cham_item.slot_flags)
 			continue
 		// Clothing items get a small delay to create a visual effect and also introduce some counterplay and also distinguish from lings

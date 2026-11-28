@@ -51,7 +51,7 @@
 		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
-	..()
+	. = ..()
 	alternate_worn_layer = up ? ABOVE_BODY_FRONT_HEAD_LAYER : null
 	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
 		vision_flags ^= initial(vision_flags)
@@ -60,9 +60,9 @@
 	if(visor_vars_to_toggle & VISOR_INVISVIEW)
 		invis_view ^= initial(invis_view)
 
-/obj/item/clothing/glasses/weldingvisortoggle(mob/user)
+/obj/item/clothing/glasses/adjust_visor(mob/living/user)
 	. = ..()
-	if(. && user)
+	if(. && !user.is_holding(src) && (visor_vars_to_toggle & (VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW)))
 		user.update_sight()
 
 //called when thermal glasses are emped.
@@ -136,11 +136,10 @@
 	icon_state = "purple"
 	inhand_icon_state = "glasses"
 	emissive_state = "meson_emissive"
-	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/glasses_science
-	clothing_traits = list(TRAIT_REAGENT_SCANNER)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_RESEARCH_SCANNER)
 	pickup_sound = "goggles_pickup"
 	drop_sound = "goggles_drop"
 	equip_sound = "goggles_equip"
@@ -148,10 +147,6 @@
 /datum/armor/glasses_science
 	fire = 80
 	acid = 100
-
-/obj/item/clothing/glasses/science/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_EYES)
-		return 1
 
 /obj/item/clothing/glasses/science/prescription
 	name = "prescription science goggles"
@@ -387,13 +382,18 @@
 	tint = 2
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_cover = GLASSESCOVERSEYES
+	visor_flags_cover = GLASSESCOVERSEYES
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	pickup_sound = "goggles_pickup"
 	drop_sound = "goggles_drop"
 	equip_sound = "goggles_equip"
 
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
-	weldingvisortoggle(user)
+	adjust_visor(user)
+
+/obj/item/clothing/glasses/welding/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 
 /obj/item/clothing/glasses/welding/ghostbuster
 	name = "optical ecto-scanner"
@@ -412,10 +412,10 @@
 	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
 	ghost_vision.toggle_hud(TRUE, null)
 
-/obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
+/obj/item/clothing/glasses/welding/ghostbuster/adjust_visor(mob/living/user)
 	if(next_use_time > world.time)
-		return
-	. = ..()
+		return FALSE
+	return ..()
 
 /obj/item/clothing/glasses/welding/ghostbuster/visor_toggling()
 	..()
@@ -493,6 +493,7 @@
 	desc = "A pair of thermal optic goggles with an onboard chameleon generator."
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
+	action_slots = ALL
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "thermoncle"
@@ -612,6 +613,7 @@
 	name = "Scan"
 	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
 	background_icon_state = "bg_clock"
+	overlay_icon_state = "bg_clock_border"
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan"
 
@@ -619,7 +621,7 @@
 	cooldown_time = 45 SECONDS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
 
-/datum/action/scan/is_available()
+/datum/action/scan/is_available(feedback = FALSE)
 	return ..() && isliving(owner)
 
 /datum/action/scan/on_activate(atom/scanned)

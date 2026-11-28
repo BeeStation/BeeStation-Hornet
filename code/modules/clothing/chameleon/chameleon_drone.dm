@@ -3,7 +3,7 @@
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
 
-/datum/action/item_action/chameleon/drone/randomise/on_activate(mob/user, atom/target)
+/datum/action/item_action/chameleon/drone/randomise/do_effect(trigger_flags)
 	for(var/datum/action/item_action/chameleon/change/to_randomize in owner.actions)
 		to_randomize.random_look()
 	return TRUE
@@ -12,18 +12,18 @@
 	name = "Toggle Headgear Mode"
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 
-/datum/action/item_action/chameleon/drone/togglehatmask/New(master)
+/datum/action/item_action/chameleon/drone/togglehatmask/New(Target)
 	. = ..()
-	if (istype(master, /obj/item/clothing/head/chameleon/drone))
+	if (istype(target, /obj/item/clothing/head/chameleon/drone))
 		button_icon_state = "drone_camogear_helm"
-	if (istype(master, /obj/item/clothing/mask/chameleon/drone))
+	if (istype(target, /obj/item/clothing/mask/chameleon/drone))
 		button_icon_state = "drone_camogear_mask"
 
 /datum/action/item_action/chameleon/drone/togglehatmask/is_available(feedback = FALSE)
 	return ..() && isdrone(owner)
 
-/datum/action/item_action/chameleon/drone/togglehatmask/on_activate(mob/user, atom/target)
-	var/mob/living/simple_animal/drone/droney
+/datum/action/item_action/chameleon/drone/togglehatmask/do_effect(trigger_flags)
+	var/mob/living/simple_animal/drone/droney = owner
 
 	// The drone unEquip() proc sets head to null after dropping
 	// an item, so we need to keep a reference to our old headgear

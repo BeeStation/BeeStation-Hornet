@@ -14,7 +14,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/step_trigger/proc/Trigger(atom/movable/A)
+/obj/effect/step_trigger/proc/trigger(atom/movable/A)
 	return 0
 
 /obj/effect/step_trigger/proc/on_entered(datum/source, H as mob|obj)
@@ -26,7 +26,7 @@
 		return
 	if(!ismob(H) && mobs_only)
 		return
-	INVOKE_ASYNC(src, PROC_REF(Trigger), H)
+	INVOKE_ASYNC(src, PROC_REF(trigger), H)
 
 
 /obj/effect/step_trigger/singularity_act()
@@ -42,7 +42,7 @@
 	var/once = 1
 	mobs_only = TRUE
 
-/obj/effect/step_trigger/message/Trigger(mob/M)
+/obj/effect/step_trigger/message/trigger(mob/M)
 	if(M.client)
 		to_chat(M, span_info("[message]"))
 		if(once)
@@ -60,7 +60,7 @@
 	///List of moving atoms mapped to their inital direction
 	var/list/affecting = list()
 
-/obj/effect/step_trigger/thrower/Trigger(atom/A)
+/obj/effect/step_trigger/thrower/trigger(atom/A)
 	if(!A || !ismovable(A))
 		return
 	var/atom/movable/AM = A
@@ -119,7 +119,7 @@
 	var/teleport_y = 0
 	var/teleport_z = 0
 
-/obj/effect/step_trigger/teleporter/Trigger(atom/movable/A)
+/obj/effect/step_trigger/teleporter/trigger(atom/movable/A)
 	if(teleport_x && teleport_y && teleport_z)
 
 		var/turf/T = locate(teleport_x, teleport_y, teleport_z)
@@ -132,7 +132,7 @@
 	var/teleport_y_offset = 0
 	var/teleport_z_offset = 0
 
-/obj/effect/step_trigger/teleporter/random/Trigger(atom/movable/A)
+/obj/effect/step_trigger/teleporter/random/trigger(atom/movable/A)
 	if(teleport_x && teleport_y && teleport_z)
 		if(teleport_x_offset && teleport_y_offset && teleport_z_offset)
 
@@ -151,7 +151,7 @@
 	var/entersmoke = 0
 	var/exitsmoke = 0
 
-/obj/effect/step_trigger/teleport_fancy/Trigger(mob/M)
+/obj/effect/step_trigger/teleport_fancy/trigger(mob/M)
 	var/dest = locate(locationx, locationy, z)
 	M.Move(dest)
 
@@ -188,7 +188,7 @@
 	var/triggerer_only = 0 //Whether the triggerer is the only person who hears this
 
 
-/obj/effect/step_trigger/sound_effect/Trigger(atom/movable/A)
+/obj/effect/step_trigger/sound_effect/trigger(atom/movable/A)
 	var/turf/T = get_turf(A)
 
 	if(!T)

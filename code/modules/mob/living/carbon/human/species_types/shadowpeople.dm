@@ -155,7 +155,7 @@
 	name = "tumorous mass"
 	desc = "A fleshy growth that was dug out of the skull of a Nightmare."
 	icon_state = "brain-x-d"
-	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
+	var/datum/action/cooldown/spell/jaunt/shadow_walk/our_jaunt
 
 /obj/item/organ/brain/nightmare/on_mob_insert(mob/living/carbon/brain_owner)
 	. = ..()
@@ -555,7 +555,7 @@
 	background_icon_state = "bg_default"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 
-/datum/action/innate/shadow_comms/is_available()
+/datum/action/innate/shadow_comms/is_available(feedback = FALSE)
 	if(!isblessedshadow(owner))
 		return FALSE
 	var/mob/living/carbon/human/O = owner
@@ -570,7 +570,7 @@
 	button_icon_state = "commune"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/shadow_comms/comms/on_activate()
+/datum/action/innate/shadow_comms/comms/Activate()
 	var/input = tgui_input_text(usr, "Please choose a message to tell to the shadows.", "Voice of Shadows", "")
 	if(!input || !is_available())
 		return

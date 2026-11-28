@@ -86,13 +86,11 @@
 	. = ..()
 	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_SPACEWALK), INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
-	for(var/spell in construct_spells)
-		var/datum/action/new_spell = new spell(src)
-		new_spell.Grant(src)
+	grant_actions_by_list(construct_spells)
 
 	var/spell_count = 1
-	for(var/datum/action/spell as anything in actions)
-		if(!(type in construct_spells))
+	for(var/datum/action/cooldown/spell as anything in actions)
+		if(!(spell.type in construct_spells))
 			continue
 
 		var/pos = 2 + spell_count * 31
@@ -100,7 +98,6 @@
 			pos -= 31 * (construct_spells.len - 4)
 		spell.default_button_position = "6:[pos],4:-2" // Set the default position to this random position
 		spell_count++
-		update_action_buttons()
 
 	if(icon_state)
 		add_overlay("glow_[icon_state]_[theme]")
@@ -173,6 +170,7 @@
 	name = "Seek your Master"
 	desc = "You and your master share a soul-link that informs you of their location"
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
 	button_icon = 'icons/hud/actions/actions_cult.dmi'
@@ -184,7 +182,7 @@
 	the_construct = C
 	..()
 
-/datum/action/innate/seek_master/on_activate()
+/datum/action/innate/seek_master/Activate()
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult)
 	if(!C)
 		return
@@ -213,10 +211,11 @@
 	desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
 	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
 
-/datum/action/innate/seek_prey/on_activate()
+/datum/action/innate/seek_prey/Activate()
 	if(GLOB.narsie == null)
 		return
 	var/mob/living/simple_animal/hostile/construct/harvester/the_construct = owner

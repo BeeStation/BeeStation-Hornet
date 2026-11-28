@@ -154,7 +154,7 @@
 	/// The shapechange spell that's caused our change
 	var/datum/weakref/source_weakref
 
-/datum/status_effect/shapechange_mob/from_spell/on_creation(mob/living/new_owner, mob/living/caster, datum/action/spell/shapeshift/source_spell)
+/datum/status_effect/shapechange_mob/from_spell/on_creation(mob/living/new_owner, mob/living/caster, datum/action/cooldown/spell/shapeshift/source_spell)
 	if(!istype(source_spell))
 		stack_trace("Mob shapechange \"from spell\" status effect applied without a source spell.")
 		qdel(src)
@@ -164,7 +164,7 @@
 	return ..()
 
 /datum/status_effect/shapechange_mob/from_spell/on_apply()
-	var/datum/action/spell/shapeshift/source_spell = source_weakref.resolve()
+	var/datum/action/cooldown/spell/shapeshift/source_spell = source_weakref.resolve()
 	if(source_spell.owner == caster_mob)
 		// Assuming the spell is owned by the caster, give it over to the shapeshifted mob
 		// so they can actually transform back to their original form
@@ -179,21 +179,27 @@
 				owner.blood_volume = caster_mob.blood_volume
 
 	for(var/datum/action/bodybound_action as anything in caster_mob.actions)
-		if(bodybound_action.get_master() != caster_mob)
+		if(bodybound_action.target != caster_mob)
 			continue
 		bodybound_action.Grant(owner)
 
 	return ..()
 
 /datum/status_effect/shapechange_mob/from_spell/restore_caster(kill_caster_after)
-	var/datum/action/spell/shapeshift/source_spell = source_weakref.resolve()
+	var/datum/action/cooldown/spell/shapeshift/source_spell = source_weakref.resolve()
 	// The owner = owner check here is specifically for edge cases in which the owner of the spell
 	// is no longer in control of the shapeshifted mob, such as mindswapping out of a shapeshift
 	if(!QDELETED(source_spell) && source_spell.owner == owner)
 		source_spell.Grant(caster_mob)
+	if(owner?.contents)
+		// Prevent round removal and consuming stuff when losing shapeshift
+		for(var/atom/movable/thing as anything in owner.contents)
+			if(thing == caster_mob)
+				continue
+			thing.forceMove(get_turf(owner))
 
 	for(var/datum/action/bodybound_action as anything in owner.actions)
-		if(bodybound_action.get_master() != caster_mob)
+		if(bodybound_action.target != caster_mob)
 			continue
 		bodybound_action.Grant(caster_mob)
 
@@ -201,7 +207,7 @@
 
 /datum/status_effect/shapechange_mob/from_spell/after_unchange()
 	. = ..()
-	var/datum/action/spell/shapeshift/source_spell = source_weakref?.resolve()
+	var/datum/action/cooldown/spell/shapeshift/source_spell = source_weakref?.resolve()
 	if(QDELETED(source_spell) || !source_spell.convert_damage)
 		return
 
@@ -213,7 +219,7 @@
 		caster_mob.blood_volume = owner.blood_volume
 
 /datum/status_effect/shapechange_mob/from_spell/on_shape_death(datum/source, gibbed)
-	var/datum/action/spell/shapeshift/source_spell = source_weakref.resolve()
+	var/datum/action/cooldown/spell/shapeshift/source_spell = source_weakref.resolve()
 	// If our spell dictates our wizard dies when our shape dies, we won't restore by default
 	if(!QDELETED(source_spell) && source_spell.die_with_shapeshifted_form)
 		// (But if our spell says we should revert on death anyways, we'll also do that)
@@ -225,7 +231,7 @@
 	return ..() // Restore like normal
 
 /datum/status_effect/shapechange_mob/from_spell/on_caster_death(datum/source)
-	var/datum/action/spell/shapeshift/source_spell = source_weakref.resolve()
+	var/datum/action/cooldown/spell/shapeshift/source_spell = source_weakref.resolve()
 	// If our spell does not have revert_on_death, don't do anything when our caster dies
 	if(!QDELETED(source_spell) && !source_spell.revert_on_death)
 		return
@@ -249,7 +255,7 @@
 		return
 
 	// Clicking the action will try to cast whatever spell shifted us in the first place
-	for(var/datum/action/spell/shapeshift/shift_spell in living_user.actions)
+	for(var/datum/action/cooldown/spell/shapeshift/shift_spell in living_user.actions)
 		if(istype(living_user, shift_spell.shapeshift_type))
 			shift_spell.trigger()
 			return TRUE

@@ -467,11 +467,16 @@ SUBSYSTEM_DEF(vote)
 /datum/action/vote
 	name = "Vote!"
 	button_icon_state = "vote"
+	show_to_observers = FALSE
 
-/datum/action/vote/is_available()
+/datum/action/vote/is_available(feedback = FALSE)
 	return TRUE
 
-/datum/action/vote/on_activate(mob/user, atom/target, trigger_flags)
+/datum/action/vote/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	owner.vote()
 	Remove(owner)
 

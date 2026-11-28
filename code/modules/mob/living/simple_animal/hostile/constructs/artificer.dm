@@ -18,11 +18,11 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_spells = list(
-		/datum/action/spell/conjure/cult_floor,
-		/datum/action/spell/conjure/cult_wall,
-		/datum/action/spell/conjure/soulstone,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/cult_floor,
+		/datum/action/cooldown/spell/conjure/cult_wall,
+		/datum/action/cooldown/spell/conjure/soulstone,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, \
@@ -81,9 +81,9 @@
 	chat_color = "#AED2FF"
 	loot = list(/obj/item/ectoplasm/angelic)
 	construct_spells = list(
-		/datum/action/spell/conjure/soulstone/purified,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/soulstone/purified,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
@@ -91,20 +91,20 @@
 	theme = THEME_WIZARD
 	loot = list(/obj/item/ectoplasm/mystic)
 	construct_spells = list(
-		/datum/action/spell/conjure/cult_floor,
-		/datum/action/spell/conjure/cult_wall,
-		/datum/action/spell/conjure/soulstone/mystic,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/cult_floor,
+		/datum/action/cooldown/spell/conjure/cult_wall,
+		/datum/action/cooldown/spell/conjure/soulstone/mystic,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
 /mob/living/simple_animal/hostile/construct/artificer/noncult
 	construct_spells = list(
-		/datum/action/spell/conjure/cult_floor,
-		/datum/action/spell/conjure/cult_wall,
-		/datum/action/spell/conjure/soulstone/noncult,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/cult_floor,
+		/datum/action/cooldown/spell/conjure/cult_wall,
+		/datum/action/cooldown/spell/conjure/soulstone/noncult,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)

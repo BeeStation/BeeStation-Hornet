@@ -1,4 +1,4 @@
-/datum/action/spell/touch/raise_skeleton
+/datum/action/cooldown/spell/touch/raise_skeleton
 	name = "Raise Lesser Skeleton"
 	desc = "This spell can be used to rip the skeleton out of a corpse and raise it as a loyal minion. Works even without available souls."
 	button_icon_state = "raise_skeleton"
@@ -13,7 +13,7 @@
 
 	hand_path = /obj/item/melee/touch_attack/raise_skeleton
 
-/datum/action/spell/touch/raise_skeleton/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/raise_skeleton/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
 	if(!ishuman(victim))
 		to_chat(caster, (span_warningbold("This spell only works on humanoid targets.")))
 		return FALSE

@@ -771,6 +771,80 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 	SSair.ui_interact(mob)
 
+/client/proc/give_mob_action(mob/ability_recipient in GLOB.mob_list)
+	set category = "Admin.Fun"
+	set name = "Give Mob Action"
+	set desc = "Gives a mob ability to a mob."
+
+	var/static/list/all_mob_actions = sort_list(subtypesof(/datum/action/cooldown/mob_cooldown), GLOBAL_PROC_REF(cmp_typepaths_asc))
+	var/static/list/actions_by_name = list()
+	if (!length(actions_by_name))
+		for (var/datum/action/cooldown/mob_cooldown as anything in all_mob_actions)
+			actions_by_name["[initial(mob_cooldown.name)] ([mob_cooldown])"] = mob_cooldown
+
+	var/ability = tgui_input_list(usr, "Choose an ability", "Ability", actions_by_name)
+	if(isnull(ability))
+		return
+
+	var/ability_type = actions_by_name[ability]
+	var/datum/action/cooldown/mob_cooldown/add_ability
+
+	var/make_sequence = tgui_alert(usr, "Would you like this action to be a sequence of multiple abilities?", "Sequence Ability", list("Yes", "No"))
+	if(make_sequence == "Yes")
+		add_ability = new /datum/action/cooldown/mob_cooldown(ability_recipient)
+		add_ability.sequence_actions = list()
+		while(!isnull(ability_type))
+			var/ability_delay = tgui_input_number(usr, "Enter the delay in seconds before the next ability in the sequence is used", "Ability Delay", 2)
+			if(isnull(ability_delay) || ability_delay < 0)
+				ability_delay = 0
+			add_ability.sequence_actions[ability_type] = ability_delay * 1 SECONDS
+			ability = tgui_input_list(usr, "Choose a new sequence ability", "Sequence Ability", actions_by_name)
+			ability_type = actions_by_name[ability]
+		var/ability_cooldown = tgui_input_number(usr, "Enter the sequence abilities cooldown in seconds", "Ability Cooldown", 2)
+		if(isnull(ability_cooldown) || ability_cooldown < 0)
+			ability_cooldown = 2
+		add_ability.cooldown_time = ability_cooldown * 1 SECONDS
+		var/ability_melee_cooldown = tgui_input_number(usr, "Enter the abilities melee cooldown in seconds", "Melee Cooldown", 2)
+		if(isnull(ability_melee_cooldown) || ability_melee_cooldown < 0)
+			ability_melee_cooldown = 2
+		add_ability.melee_cooldown_time = ability_melee_cooldown * 1 SECONDS
+		add_ability.name = tgui_input_text(usr, "Choose ability name", "Ability name", "Generic Ability")
+		add_ability.create_sequence_actions()
+	else
+		add_ability = new ability_type(ability_recipient)
+
+	if(isnull(ability_recipient))
+		return
+	add_ability.Grant(ability_recipient)
+
+	message_admins("[key_name_admin(usr)] added mob ability [ability_type] to mob [ability_recipient].")
+	log_admin("[key_name(usr)] added mob ability [ability_type] to mob [ability_recipient].")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Mob Ability") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
+/client/proc/remove_mob_action(mob/removal_target in GLOB.mob_list)
+	set category = "Admin.Fun"
+	set name = "Remove Mob Action"
+	set desc = "Remove a special ability from the selected mob."
+
+	var/list/target_abilities = list()
+	for(var/datum/action/cooldown/mob_cooldown/ability in removal_target.actions)
+		target_abilities[ability.name] = ability
+
+	if(!length(target_abilities))
+		return
+
+	var/chosen_ability = tgui_input_list(usr, "Choose the spell to remove from [removal_target]", "Depower", sort_list(target_abilities))
+	if(isnull(chosen_ability))
+		return
+	var/datum/action/cooldown/mob_cooldown/to_remove = target_abilities[chosen_ability]
+	if(!istype(to_remove))
+		return
+
+	qdel(to_remove)
+	log_admin("[key_name(usr)] removed the ability [chosen_ability] from [key_name(removal_target)].")
+	message_admins("[key_name_admin(usr)] removed the ability [chosen_ability] from [key_name_admin(removal_target)].")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Mob Ability") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 /client/proc/give_spell(mob/T in GLOB.mob_list)
 	var/mob/spell_recipient = T
 	set category = "Fun"
@@ -783,7 +857,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		to_chat(usr, ("<span class='warning'>The intended spell recipient no longer exists.</span>"))
 		return
 	var/list/spell_list = list()
-	for(var/datum/action/spell/to_add as anything in valid_subtypesof(/datum/action/spell))
+	for(var/datum/action/cooldown/spell/to_add as anything in valid_subtypesof(/datum/action/cooldown/spell))
 		var/spell_name = initial(to_add.name)
 
 		if(which == "Name")
@@ -794,7 +868,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/chosen_spell = tgui_input_list(usr, "Choose the spell to give to [spell_recipient]", "ABRAKADABRA", sort_list(spell_list))
 	if(isnull(chosen_spell))
 		return
-	var/datum/action/spell/spell_path = which == "Typepath" ? chosen_spell : spell_list[chosen_spell]
+	var/datum/action/cooldown/spell/spell_path = which == "Typepath" ? chosen_spell : spell_list[chosen_spell]
 	if(!ispath(spell_path))
 		return
 
@@ -807,7 +881,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[key_name(usr)] gave [key_name(spell_recipient)] the spell [chosen_spell][robeless ? " (Forced robeless)" : ""].")
 	message_admins("[key_name_admin(usr)] gave [key_name_admin(spell_recipient)] the spell [chosen_spell][robeless ? " (Forced robeless)" : ""].")
 
-	var/datum/action/spell/new_spell = new spell_path(spell_recipient.mind || spell_recipient)
+	var/datum/action/cooldown/spell/new_spell = new spell_path(spell_recipient.mind || spell_recipient)
 
 	if(robeless)
 		new_spell.spell_requirements &= ~SPELL_REQUIRES_WIZARD_GARB
@@ -824,7 +898,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set desc = "Remove a spell from the selected mob."
 	var/mob/removal_target = T
 	var/list/target_spell_list = list()
-	for(var/datum/action/spell/spell in removal_target.actions)
+	for(var/datum/action/cooldown/spell/spell in removal_target.actions)
 		target_spell_list[spell.name] = spell
 
 	if(!length(target_spell_list))
@@ -833,7 +907,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/chosen_spell = tgui_input_list(usr, "Choose the spell to remove from [removal_target]", "ABRAKADABRA", sort_list(target_spell_list))
 	if(isnull(chosen_spell))
 		return
-	var/datum/action/spell/to_remove = target_spell_list[chosen_spell]
+	var/datum/action/cooldown/spell/to_remove = target_spell_list[chosen_spell]
 	if(!istype(to_remove))
 		return
 
@@ -1038,13 +1112,11 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/header = "<tr><th>Name</th> <th>Requirements</th>"
 	var/all_requirements = list()
-	for(var/datum/action/spell/spell as anything in valid_subtypesof(/datum/action/spell))
+	for(var/datum/action/cooldown/spell/spell as anything in valid_subtypesof(/datum/action/cooldown/spell))
 		var/list/real_reqs = list()
 		var/reqs = initial(spell.spell_requirements)
 		if(reqs & SPELL_CASTABLE_AS_BRAIN)
 			real_reqs += "Castable as brain"
-		if(reqs & SPELL_CASTABLE_WHILE_PHASED)
-			real_reqs += "Castable phased"
 		if(reqs & SPELL_REQUIRES_HUMAN)
 			real_reqs += "Must be human"
 		if(reqs & SPELL_REQUIRES_MIME_VOW)
@@ -1053,8 +1125,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			real_reqs += "Must have a mind"
 		if(reqs & SPELL_REQUIRES_NO_ANTIMAGIC)
 			real_reqs += "Must have no antimagic"
-		if(reqs & SPELL_REQUIRES_OFF_CENTCOM)
-			real_reqs += "Must be off central command z-level"
+		if(reqs & SPELL_REQUIRES_STATION)
+			real_reqs += "Must be on the station z-level"
 		if(reqs & SPELL_REQUIRES_WIZARD_GARB)
 			real_reqs += "Must have wizard clothes"
 

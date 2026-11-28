@@ -214,3 +214,6 @@
 #define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
 ///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
 #define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
+
+/// From /obj/item/stack/make_item()
+#define COMSIG_ATOM_CONSTRUCTED "atom_constructed"

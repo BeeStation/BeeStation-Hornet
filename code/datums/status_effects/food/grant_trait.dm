@@ -23,6 +23,8 @@
 /atom/movable/screen/alert/status_effect/food/trait_shockimmune
 	name = "Grounded"
 	desc = "That meal made me feel like a superconductor..."
+	use_user_hud_icon = TRUE
+	overlay_state = "shock_immune"
 
 /datum/status_effect/food/trait/mute
 	alert_type = /atom/movable/screen/alert/status_effect/mute
@@ -31,4 +33,5 @@
 /atom/movable/screen/alert/status_effect/mute
 	name = "..."
 	desc = "..."
-	icon_state = "mute"
+	use_user_hud_icon = TRUE
+	overlay_state = "mute"

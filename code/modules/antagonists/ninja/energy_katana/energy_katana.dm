@@ -132,7 +132,6 @@
 	hit_cooldown = CLICK_CD_MELEE
 	dash_cooldown = 0
 	obj_damage = 350
-	has_button = FALSE
 
 /datum/action/innate/dash/ninja/is_available(feedback = FALSE)
 	if(!..())

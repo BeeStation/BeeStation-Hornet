@@ -6,8 +6,7 @@
 	icon_state = "aliend"
 
 /mob/living/carbon/alien/humanoid/drone/Initialize(mapload)
-	var/datum/action/alien/evolve_to_praetorian/evolution = new(src)
-	evolution.Grant(src)
+	GRANT_ACTION(/datum/action/cooldown/alien/evolve_to_praetorian)
 	return ..()
 
 /mob/living/carbon/alien/humanoid/drone/create_internal_organs()
@@ -16,13 +15,13 @@
 	internal_organs += new /obj/item/organ/alien/acid
 	return ..()
 
-/datum/action/alien/evolve_to_praetorian
+/datum/action/cooldown/alien/evolve_to_praetorian
 	name = "Evolve to Praetorian"
 	desc = "Praetorian"
 	button_icon_state = "alien_evolve_drone"
 	plasma_cost = 500
 
-/datum/action/alien/evolve_to_praetorian/is_available()
+/datum/action/cooldown/alien/evolve_to_praetorian/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -43,7 +42,7 @@
 
 	return TRUE
 
-/datum/action/alien/evolve_to_praetorian/on_activate(mob/user, atom/target)
+/datum/action/cooldown/alien/evolve_to_praetorian/Activate(atom/target)
 	var/mob/living/carbon/alien/humanoid/evolver = owner
 	var/mob/living/carbon/alien/humanoid/royal/praetorian/new_xeno = new(owner.loc)
 	evolver.alien_evolve(new_xeno)

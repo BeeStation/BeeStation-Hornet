@@ -1,4 +1,4 @@
-/datum/action/spell/conjure/bee
+/datum/action/cooldown/spell/conjure/bee
 	name = "Lesser Summon Bees"
 	desc = "This spell magically kicks a transdimensional beehive, \
 		instantly summoning a swarm of bees to your location. \

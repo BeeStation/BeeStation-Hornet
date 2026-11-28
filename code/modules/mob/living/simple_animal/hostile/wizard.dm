@@ -27,9 +27,9 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/wizard,
 				/obj/item/staff)
 
-	var/datum/action/spell/pointed/projectile/fireball/fireball
-	var/datum/action/spell/teleport/radius_turf/blink/blink
-	var/datum/action/spell/aoe/magic_missile/magic_missile
+	var/datum/action/cooldown/spell/pointed/projectile/fireball/fireball
+	var/datum/action/cooldown/spell/teleport/radius_turf/blink/blink
+	var/datum/action/cooldown/spell/aoe/magic_missile/magic_missile
 
 	var/next_cast = 0
 
@@ -52,12 +52,6 @@
 	blink.spell_requirements &= ~(SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_MIND)
 	blink.outer_tele_radius = 3
 	blink.Grant(src)
-
-/mob/living/simple_animal/hostile/wizard/Destroy()
-	QDEL_NULL(fireball)
-	QDEL_NULL(magic_missile)
-	QDEL_NULL(blink)
-	return ..()
 
 /mob/living/simple_animal/hostile/wizard/handle_automated_action()
 	. = ..()

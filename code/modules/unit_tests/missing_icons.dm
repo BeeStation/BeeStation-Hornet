@@ -19,7 +19,7 @@
 /datum/unit_test/missing_icons/Run()
 	generate_possible_icon_states_list()
 	generate_possible_icon_states_list("icons/effects/")
-	generate_possible_icon_states_list("icons/hud/")
+	//generate_possible_icon_states_list("icons/hud/")
 	if(additional_icon_location)
 		generate_possible_icon_states_list(additional_icon_location)
 
@@ -27,6 +27,8 @@
 	//generate_possible_icon_states_list("your/folder/path/")
 	var/list/bad_list = list()
 	for(var/datum/action/action_path as anything in subtypesof(/datum/action))
+		if(initial(action_path.abstract_type) == action_path)
+			continue
 		var/icon = initial(action_path.button_icon)
 		if(isnull(icon))
 			continue

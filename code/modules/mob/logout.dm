@@ -13,9 +13,12 @@
 		qdel(comp)
 
 	// Unset the click abilities when logging out
-	for (var/datum/action/action in actions)
-		if (click_intercept == action)
-			action.unset_click_ability(src)
+	if(istype(click_intercept, /datum/action/cooldown))
+		var/datum/action/cooldown/click_action = click_intercept
+		click_action.unset_click_ability(src, refund_cooldown = TRUE)
+	else if(istype(click_intercept, /datum/action/innate))
+		var/datum/action/innate/click_action = click_intercept
+		click_action.unset_ranged_ability(src)
 
 	become_uncliented()
 

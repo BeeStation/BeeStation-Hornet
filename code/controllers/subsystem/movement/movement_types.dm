@@ -149,6 +149,7 @@
 /datum/move_loop/proc/move()
 	return MOVELOOP_FAILURE
 
+
 ///Pause our loop untill restarted with resume_loop()
 /datum/move_loop/proc/pause_loop()
 	if(!controller || !(status & MOVELOOP_STATUS_RUNNING) || (status & MOVELOOP_STATUS_PAUSED)) //we dead

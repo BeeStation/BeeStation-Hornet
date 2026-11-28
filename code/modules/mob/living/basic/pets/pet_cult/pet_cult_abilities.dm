@@ -1,8 +1,9 @@
-/datum/action/spell/conjure/revive_rune
+/datum/action/cooldown/spell/conjure/revive_rune
 	name = "Create Revival Rune"
 	button_icon = 'icons/obj/rune.dmi'
 	button_icon_state = "1"
 	background_icon_state = "bg_cult"
+	overlay_icon_state = "bg_cult_border"
 	spell_requirements = NONE
 	cooldown_time = 30 SECONDS
 	summon_type = list(

@@ -91,7 +91,7 @@
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(cocoon_action)
-		cocoon_action.update_buttons()
+		cocoon_action.build_all_button_icons()
 
 /datum/action/innate/cocoon
 	name = "Cocoon"
@@ -100,7 +100,7 @@
 	button_icon_state = "wrap_0"
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
 
-/datum/action/innate/cocoon/on_activate()
+/datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/H = owner
 	var/obj/item/organ/wingcheck = H.get_organ_by_type(/obj/item/organ/wings/moth)
 	if(!wingcheck) //This is to stop easy organ farms
@@ -136,7 +136,7 @@
 	else
 		to_chat(H, span_warning("You need to hold still in order to weave a cocoon!"))
 
-/datum/action/innate/cocoon/is_available()
+/datum/action/innate/cocoon/is_available(feedback = FALSE)
 	if(..())
 		return has_burnt_parts(owner)
 	return FALSE

@@ -352,6 +352,6 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 /datum/summon_things_controller/spellbook_entry/proc/grant_entry(mob/to_who)
 	var/gained = used_entry.buy_spell(to_who)
 	// Make spells castable without robes
-	if(istype(gained, /datum/action/spell))
-		var/datum/action/spell/given_out = gained
+	if(istype(gained, /datum/action/cooldown/spell))
+		var/datum/action/cooldown/spell/given_out = gained
 		given_out.spell_requirements &= ~SPELL_REQUIRES_WIZARD_GARB

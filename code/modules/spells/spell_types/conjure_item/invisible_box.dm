@@ -1,7 +1,8 @@
-/datum/action/spell/conjure_item/invisible_box
+/datum/action/cooldown/spell/conjure_item/invisible_box
 	name = "Invisible Box"
 	desc = "The mime's performance transmutates a box into physical reality."
 	background_icon_state = "bg_mime"
+	overlay_icon_state = "bg_mime_border"
 	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "invisible_box"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
@@ -22,18 +23,18 @@
 	/// How long boxes last before going away
 	var/box_lifespan = 50 SECONDS
 
-/datum/action/spell/conjure_item/invisible_box/pre_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/conjure_item/invisible_box/before_cast(atom/cast_on)
 	. = ..()
-	invocation = ("<span class='notice'><b>[user]</b> moves [user.p_their()] hands in the shape of a cube, pressing a box out of the air.</span>")
+	invocation = span_notice("<b>[cast_on]</b> moves [cast_on.p_their()] hands in the shape of a cube, pressing a box out of the air.")
 
-/datum/action/spell/conjure_item/invisible_box/make_item()
+/datum/action/cooldown/spell/conjure_item/invisible_box/make_item(atom/caster)
 	. = ..()
 	var/obj/item/made_box = .
 	made_box.alpha = 255
 	addtimer(CALLBACK(src, PROC_REF(cleanup_box), made_box), box_lifespan)
 
 /// Callback that gets rid out of box and removes the weakref from our list
-/datum/action/spell/conjure_item/invisible_box/proc/cleanup_box(obj/item/storage/box/box)
+/datum/action/cooldown/spell/conjure_item/invisible_box/proc/cleanup_box(obj/item/storage/box/box)
 	if(QDELETED(box) || !istype(box))
 		return
 

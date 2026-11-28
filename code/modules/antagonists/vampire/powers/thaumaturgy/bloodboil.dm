@@ -1,4 +1,4 @@
-/datum/action/vampire/targeted/bloodboil
+/datum/action/cooldown/vampire/targeted/bloodboil
 	name = "Thaumaturgy: Boil Blood"
 	desc = "Boil the target's blood inside their body."
 	button_icon_state = "power_bloodboil"
@@ -16,25 +16,25 @@
 
 	var/powerlevel = 1
 
-/datum/action/vampire/targeted/bloodboil/two
+/datum/action/cooldown/vampire/targeted/bloodboil/two
 	cooldown_time = 30 SECONDS
 	vitaecost = 45
 	target_range = 10
 	powerlevel = 2
 
-/datum/action/vampire/targeted/bloodboil/three
+/datum/action/cooldown/vampire/targeted/bloodboil/three
 	cooldown_time = 25 SECONDS
 	vitaecost = 60
 	target_range = 15
 	powerlevel = 3
 
-/datum/action/vampire/targeted/bloodboil/four
+/datum/action/cooldown/vampire/targeted/bloodboil/four
 	cooldown_time = 20 SECONDS
 	vitaecost = 75
 	target_range = 20
 	powerlevel = 4
 
-/datum/action/vampire/targeted/bloodboil/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/bloodboil/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -54,7 +54,7 @@
 	if(living_target.has_status_effect(/datum/status_effect/bloodboil) || living_target.has_status_effect(/datum/status_effect/bloodboil/strong) || living_target.has_status_effect(/datum/status_effect/bloodboil/stronger) || living_target.has_status_effect(/datum/status_effect/bloodboil/strongest))
 		return FALSE
 
-/datum/action/vampire/targeted/bloodboil/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/bloodboil/FireTargetedPower(atom/target_atom)
 	. = ..()
 	// Just to make absolutely sure
 	if(!iscarbon(target_atom) || issilicon(target_atom))

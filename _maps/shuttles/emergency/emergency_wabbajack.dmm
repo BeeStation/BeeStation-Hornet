@@ -360,7 +360,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "EC" = (
-/obj/structure/destructible/cult/forge{
+/obj/structure/destructible/cult/item_dispenser/forge{
 	desc = "An engine used in powering the shuttle.";
 	name = "magma engine"
 	},
@@ -372,7 +372,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Jj" = (
-/obj/structure/destructible/cult/forge{
+/obj/structure/destructible/cult/item_dispenser/forge{
 	desc = "An engine used in powering the shuttle.";
 	name = "magma engine"
 	},

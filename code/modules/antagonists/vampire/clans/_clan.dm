@@ -68,7 +68,7 @@
 	for(var/datum/discipline/disciple as anything in vampiredatum.owned_disciplines)
 		disciple.apply_discipline_quirks(vampiredatum)
 
-	for(var/datum/action/vampire/clanselect/clanselect in vampiredatum.powers)
+	for(var/datum/action/cooldown/vampire/clanselect/clanselect in vampiredatum.powers)
 		vampiredatum.remove_power(clanselect)
 	return
 
@@ -87,8 +87,8 @@
  * Called during Vampire's life_tick
  */
 /datum/vampire_clan/proc/handle_clan_life()
-	if(!is_type_in_list(/datum/action/vampire/levelup, vampiredatum.powers) && vampiredatum.vampire_level_unspent > 0)
-		vampiredatum.grant_power(new /datum/action/vampire/levelup)
+	if(!is_type_in_list(/datum/action/cooldown/vampire/levelup, vampiredatum.powers) && vampiredatum.vampire_level_unspent > 0)
+		vampiredatum.grant_power(new /datum/action/cooldown/vampire/levelup)
 
 /**
  * Called when a Vampire successfully vassalizes someone via the persuasion rack.
@@ -160,7 +160,7 @@
 			return FALSE
 
 		// Remove all current powers
-		for(var/datum/action/vampire/power_old as anything in vampiredatum.powers)
+		for(var/datum/action/cooldown/vampire/power_old as anything in vampiredatum.powers)
 			if(is_type_in_list(power_old, chosen_discipline.get_abilities_with_level("current")))
 				vampiredatum.remove_power(power_old)
 
@@ -168,7 +168,7 @@
 		chosen_discipline.level_up()
 
 		// add all current powers (of the new level)
-		for(var/datum/action/vampire/power_new as anything in chosen_discipline.get_abilities_with_level("current"))
+		for(var/datum/action/cooldown/vampire/power_new as anything in chosen_discipline.get_abilities_with_level("current"))
 			vampiredatum.grant_power(new power_new)
 
 		living_vampire.balloon_alert(living_vampire, "learned [discipline_response] level [chosen_discipline.level - 1]!")

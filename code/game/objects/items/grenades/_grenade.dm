@@ -24,6 +24,7 @@
 	obj_flags = CONDUCTS_ELECTRICITY
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // We detonate upon being exploded.
 	slot_flags = ITEM_SLOT_BELT
+	action_slots = ALL
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	pickup_sound = 'sound/items/handling/grenade/grenade_pick_up.ogg'

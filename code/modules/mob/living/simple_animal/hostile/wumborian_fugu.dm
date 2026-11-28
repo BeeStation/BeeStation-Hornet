@@ -2,7 +2,7 @@
 /mob/living/simple_animal/hostile/asteroid/fugu
 	name = "wumborian fugu"
 	desc = "The wumborian fugu rapidly increases its body mass in order to ward off its prey. Great care should be taken to avoid it while it's in this state as it is nearly invincible, but it cannot maintain its form forever."
-	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
+	icon = 'icons/mob/simple/lavaland/64x64megafauna.dmi'
 	icon_state = "Fugu0"
 	icon_living = "Fugu0"
 	icon_aggro = "Fugu0"
@@ -64,15 +64,17 @@
 	E.trigger()
 
 /datum/action/innate/fugu
-	button_icon_state = null
+	abstract_type = /datum/action/innate/fugu
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
+	background_icon_state = "bg_fugu"
+	overlay_icon_state = "bg_fugu_border"
 
 /datum/action/innate/fugu/expand
 	name = "Inflate"
 	desc = "Temporarily increases your size, and makes you significantly more dangerous and tough! Do not bully the fugu!"
 	button_icon_state = "expand"
 
-/datum/action/innate/fugu/expand/on_activate()
+/datum/action/innate/fugu/expand/Activate()
 	var/mob/living/simple_animal/hostile/asteroid/fugu/F = owner
 	if(F.wumbo)
 		to_chat(F, span_notice("YOU'RE ALREADY WUMBO!"))

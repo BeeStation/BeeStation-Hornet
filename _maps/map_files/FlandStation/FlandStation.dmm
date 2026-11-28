@@ -4504,16 +4504,6 @@
 /obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
-"bsR" = (
-/mob/living/basic/chicken{
-	name = "Kentucky";
-	real_name = "Kentucky"
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/station/service/bar)
 "bsS" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/effect/turf_decal/siding/wood{
@@ -13451,6 +13441,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/prison)
+"dXJ" = (
+/obj/structure/bed/dogbed/renault,
+/mob/living/basic/pet/fox/renault{
+	desc = "Renault, the Captain's trustworthy fox. Shame it's not Peuegot..."
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/station/command/heads_quarters/captain)
 "dXN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/vacuum,
@@ -16086,19 +16089,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/science/xenobiology)
-"eMT" = (
-/mob/living/basic/sloth/citrus,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/cable/yellow,
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/carpet/orange,
-/area/station/cargo/qm)
 "eNm" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -19705,6 +19695,15 @@
 	dir = 1
 	},
 /area/station/medical/surgery)
+"fRF" = (
+/mob/living/basic/chicken{
+	desc = "The arch-nemesis of Kentucky.";
+	name = "Nugget";
+	real_name = "one name, one plan or..."
+	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/grass,
+/area/station/service/hydroponics)
 "fRJ" = (
 /turf/open/floor/plating,
 /area/station/maintenance/aft)
@@ -22000,6 +21999,15 @@
 	},
 /turf/open/floor/iron/checker,
 /area/station/cargo/storage)
+"gDt" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/tile/green/opposingcorners{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/vector,
+/mob/living/basic/pet/hamster/vector,
+/turf/open/floor/iron/grid,
+/area/station/medical/virology)
 "gDu" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
@@ -22337,14 +22345,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
-"gHJ" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/obj/structure/destructible/cult/tome,
-/obj/item/stack/cable_coil/cut,
-/turf/open/floor/wood,
-/area/station/service/library)
 "gHL" = (
 /obj/machinery/vending/hydroseeds,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -26089,6 +26089,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
+"hMx" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/structure/destructible/cult/item_dispenser/archives,
+/obj/item/stack/cable_coil/cut,
+/turf/open/floor/wood,
+/area/station/service/library)
 "hMy" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -34676,13 +34684,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/station/security/office)
-"khC" = (
-/mob/living/basic/goat/pete,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron/freezer,
-/area/station/service/kitchen/coldroom)
 "khE" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Arrivals Dock"
@@ -36440,15 +36441,6 @@
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/prison,
 /area/station/security/prison)
-"kHr" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/vector,
-/mob/living/basic/pet/hamster/vector,
-/turf/open/floor/iron/grid,
-/area/station/medical/virology)
 "kHs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -37518,11 +37510,6 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/medical/storage)
-"kWc" = (
-/mob/living/basic/chicken,
-/obj/structure/cable/yellow,
-/turf/open/floor/grass,
-/area/station/service/hydroponics/garden)
 "kWi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -43383,6 +43370,13 @@
 	},
 /turf/open/floor/iron,
 /area/station/security/checkpoint/escape)
+"mLi" = (
+/mob/living/basic/goat/pete,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/iron/freezer,
+/area/station/service/kitchen/coldroom)
 "mLm" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
@@ -43687,19 +43681,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/service/chapel)
-"mOx" = (
-/obj/structure/bed/dogbed/renault,
-/mob/living/basic/pet/fox/renault{
-	desc = "Renault, the Captain's trustworthy fox. Shame it's not Peuegot..."
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/station/command/heads_quarters/captain)
 "mOy" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/closeup,
@@ -47392,6 +47373,19 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/maintenance/port)
+"nSz" = (
+/mob/living/basic/sloth/citrus,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow,
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/carpet/orange,
+/area/station/cargo/qm)
 "nSG" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/curtain/bounty,
@@ -50507,15 +50501,6 @@
 "oOP" = (
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/aft)
-"oOY" = (
-/mob/living/basic/chicken{
-	desc = "The arch-nemesis of Kentucky.";
-	name = "Nugget";
-	real_name = "one name, one plan or..."
-	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/grass,
-/area/station/service/hydroponics)
 "oPb" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/structure/cable/yellow,
@@ -60999,6 +60984,16 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
+"sbh" = (
+/mob/living/basic/chicken{
+	name = "Kentucky";
+	real_name = "Kentucky"
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/station/service/bar)
 "sbn" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 5
@@ -65313,6 +65308,11 @@
 	},
 /turf/open/floor/iron,
 /area/station/security/office)
+"tqL" = (
+/mob/living/basic/chicken,
+/obj/structure/cable/yellow,
+/turf/open/floor/grass,
+/area/station/service/hydroponics/garden)
 "tqO" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Head of Security"
@@ -100255,7 +100255,7 @@ mCJ
 vum
 jZl
 kdj
-gHJ
+hMx
 rJJ
 wve
 kdj
@@ -100536,7 +100536,7 @@ wgK
 oPL
 oPL
 oPL
-kWc
+tqL
 oPL
 lPa
 kQA
@@ -102349,7 +102349,7 @@ nuP
 bKb
 whG
 qZd
-bsR
+sbh
 ngD
 aKy
 cTD
@@ -104915,7 +104915,7 @@ uHu
 uJN
 imd
 cFd
-khC
+mLi
 nmq
 qWD
 imd
@@ -105415,7 +105415,7 @@ tru
 hxc
 eKu
 juw
-oOY
+fRF
 mVE
 oNc
 iaD
@@ -106768,7 +106768,7 @@ tQD
 ofd
 sBX
 hun
-eMT
+nSz
 fwA
 ntX
 oHh
@@ -109504,7 +109504,7 @@ dGL
 trY
 qnN
 cQT
-kHr
+gDt
 dJs
 hfJ
 cpY
@@ -127771,7 +127771,7 @@ bMt
 mpv
 nuU
 osH
-mOx
+dXJ
 nOx
 pJg
 vVl

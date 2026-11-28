@@ -105,6 +105,10 @@
 	to_chat(owner, "<big>[span_warning("<b>You feel the weight of the Directives disappear! You no longer have to obey them.</b>")]</big>")
 	owner.announce_objectives()
 
+/datum/antagonist/brainwashed/on_mindshield(mob/implanter)
+	unbrainwash(owner.current)
+	return COMPONENT_MINDSHIELD_DECONVERTED
+
 /datum/antagonist/brainwashed/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/C = new_owner.current
 	if(!istype(C))

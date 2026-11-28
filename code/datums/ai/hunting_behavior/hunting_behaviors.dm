@@ -143,7 +143,7 @@
 	return ..()
 
 /datum/ai_behavior/hunt_target/use_ability_on_target/target_caught(mob/living/hunter, atom/hunted)
-	var/datum/action/ability = hunter.ai_controller.blackboard[ability_key]
+	var/datum/action/cooldown/ability = hunter.ai_controller.blackboard[ability_key]
 	ability.InterceptClickOn(hunter, null, hunted)
 
 /datum/ai_behavior/hunt_target/latch_onto

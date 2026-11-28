@@ -11,8 +11,10 @@
 #define AB_CHECK_INCAPACITATED (1<<4)
 ///Action button checks if user is jaunting
 #define AB_CHECK_PHASED (1<<5)
+///Action button checks if user is not on an open turf
+#define AB_CHECK_OPEN_TURF (1<<6)
 /// Action button works when unconcious, but not when dead
-#define AB_CHECK_DEAD (1<<6)
+#define AB_CHECK_DEAD (1<<7)
 
 //Bitfield is in /_DEFINES/_globablvars/bitfields.dm for reasons
 
@@ -20,10 +22,6 @@
 #define TRIGGER_SECONDARY_ACTION (1<<0)
 ///Action triggered to ignore any availability checks
 #define TRIGGER_FORCE_AVAILABLE (1<<1)
-
-/// The status shown in the stat panel.
-/// Can be stuff like "ready", "on cooldown", "active", "charges", "charge cost", etc.
-#define STAT_STATUS "Status"
 
 #define ACTION_BUTTON_DEFAULT_BACKGROUND "_use_ui_default_background"
 

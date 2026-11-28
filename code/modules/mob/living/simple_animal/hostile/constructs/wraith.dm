@@ -13,7 +13,7 @@
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/shift,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, \
@@ -36,7 +36,7 @@
 	if(!. || !isnum(prev_stat))
 		return
 
-	var/datum/action/spell/jaunt/ethereal_jaunt/shift/jaunt = locate() in actions
+	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/jaunt = locate() in actions
 	if(!jaunt)
 		return
 
@@ -51,8 +51,8 @@
 	if(living_target.stat != DEAD && prev_stat != DEAD)
 		total_refund += attack_refund
 
-	jaunt.reduce_cooldown(total_refund)
-	jaunt.update_buttons()
+	jaunt.next_use_time = max(world.time, jaunt.next_use_time - total_refund)
+	jaunt.build_all_button_icons()
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -61,7 +61,7 @@
 /mob/living/simple_animal/hostile/construct/wraith/angelic
 	theme = THEME_HOLY
 	construct_spells = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/shift/angelic,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/angelic,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	loot = list(/obj/item/ectoplasm/angelic)
@@ -70,7 +70,7 @@
 /mob/living/simple_animal/hostile/construct/wraith/mystic
 	theme = THEME_WIZARD
 	construct_spells = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/shift/mystic,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/mystic,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	loot = list(/obj/item/ectoplasm/mystic)

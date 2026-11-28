@@ -14,8 +14,8 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	attack_vis_effect = ATTACK_EFFECT_SLASH
 	construct_spells = list(
-		/datum/action/spell/aoe/area_conversion,
-		/datum/action/spell/forcewall/cult,
+		/datum/action/cooldown/spell/aoe/area_conversion,
+		/datum/action/cooldown/spell/forcewall/cult,
 	)
 	playstyle_string = "<B>You are a Harvester. You are incapable of directly killing humans, \
 		but your attacks will remove their limbs: Bring those who still cling to this world \

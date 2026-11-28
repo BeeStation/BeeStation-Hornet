@@ -212,7 +212,8 @@
 	name = "Drunk"
 	desc = "All that alcohol you've been drinking is impairing your speech, \
 		motor skills, and mental cognition. Make sure to act like it."
-	icon_state = "drunk"
+	use_user_hud_icon = TRUE
+	overlay_state = "drunk"
 
 #undef BALLMER_PEAK_LOW_END
 #undef BALLMER_PEAK_HIGH_END

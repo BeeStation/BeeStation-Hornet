@@ -1,4 +1,4 @@
-/datum/action/vampire/awe
+/datum/action/cooldown/vampire/awe
 	name = "Awe"
 	desc = "Project an aura of supernatural presence that subtly influences those around you."
 	button_icon_state = "power_awe"
@@ -16,15 +16,15 @@
 	/// The range of the aura in tiles
 	var/aura = 5
 
-/datum/action/vampire/awe/activate_power()
+/datum/action/cooldown/vampire/awe/activate_power()
 	. = ..()
 	to_chat(owner, span_notice("You extend your supernatural presence."), type = MESSAGE_TYPE_INFO)
 
-/datum/action/vampire/awe/deactivate_power()
+/datum/action/cooldown/vampire/awe/deactivate_power()
 	. = ..()
 	to_chat(owner, span_notice("You withdraw your supernatural presence."), type = MESSAGE_TYPE_INFO)
 
-/datum/action/vampire/awe/use_power()
+/datum/action/cooldown/vampire/awe/use_power()
 	. = ..()
 	for(var/mob/living/victim in oviewers(aura, owner))
 		if(!can_affect(victim))
@@ -36,7 +36,7 @@
 			existing.refresh()
 
 /// Checks if this victim can be affected by the awe aura
-/datum/action/vampire/awe/proc/can_affect(mob/living/victim)
+/datum/action/cooldown/vampire/awe/proc/can_affect(mob/living/victim)
 	if(!victim.client)
 		return FALSE
 	if(victim.has_unlimited_silicon_privilege)

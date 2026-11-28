@@ -3,7 +3,7 @@
  *	A stunning spell that slows, mutes, and impairs the target for a short duration.
  *	Like a softer mesmerize - target isn't fully out of commission but is very impaired.
  */
-/datum/action/vampire/targeted/entrance
+/datum/action/cooldown/vampire/targeted/entrance
 	name = "Entrance"
 	desc = "Capture a mortal's attention momentarily, leaving them slowed, muted, and dazed."
 	button_icon_state = "power_entrance"
@@ -17,7 +17,7 @@
 	target_range = 7
 	prefire_message = "Who will you entrance?"
 
-/datum/action/vampire/targeted/entrance/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/entrance/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -44,7 +44,7 @@
 
 	return TRUE
 
-/datum/action/vampire/targeted/entrance/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/entrance/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/carbon/carbon_target = target_atom
 

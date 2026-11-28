@@ -895,6 +895,7 @@
 	hud_state = JOB_HUD_SYNDICATE
 	trade_flags = TRADE_NOT_SELLABLE | TRADE_CONTRABAND
 	actions_types = list(/datum/action/item_action/chameleon/change/id)
+	action_slots = ALL
 
 	/// Can we forge the card right now? Modified by our chameleon action
 	var/forge_disabled = FALSE

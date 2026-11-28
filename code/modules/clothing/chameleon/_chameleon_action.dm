@@ -28,13 +28,13 @@
 
 /datum/action/item_action/chameleon/change/New(datum/M)
 	. = ..()
-	if(!isitem(master))
-		stack_trace("Adding chameleon action to non-item ([master])")
+	if(!isitem(target))
+		stack_trace("Adding chameleon action to non-item ([target])")
 		qdel(src)
 		return
 
 	name = "Change [chameleon_name] Appearance"
-	update_buttons()
+	build_all_button_icons()
 
 	LAZYINITLIST(chameleon_blacklist)
 	LAZYINITLIST(chameleon_typecache)
@@ -43,10 +43,10 @@
 	initialize_blacklist()
 	initialize_disguises()
 
-	active_type = master.type
+	active_type = target.type
 
-	RegisterSignal(master, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
-	RegisterSignal(master, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
+	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
+	RegisterSignal(target, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
 /datum/action/item_action/chameleon/change/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
@@ -95,7 +95,7 @@
 
 /// Basic initialization of the chameleon items we cannot pick from
 /datum/action/item_action/chameleon/change/proc/initialize_blacklist()
-	chameleon_blacklist |= typecacheof(master.type)
+	chameleon_blacklist |= typecacheof(target.type)
 
 /// Basic initialization of the chameleon items we can pick from
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
@@ -140,10 +140,10 @@
 	update_look(chameleon_list[picked_name])
 
 /datum/action/item_action/chameleon/change/proc/update_look(obj/item/picked_item)
-	var/obj/item/chameleon_item = master
+	var/obj/item/chameleon_item = target
 
 	update_item(picked_item)
-	update_buttons()
+	build_all_button_icons()
 	active_type = picked_item
 
 	if(ismob(chameleon_item.loc))
@@ -154,7 +154,7 @@
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
 	PROTECTED_PROC(TRUE) // Call update_look, not this!
 
-	var/atom/atom_target = master
+	var/atom/atom_target = target
 	atom_target.name = picked_item::name
 	atom_target.desc = picked_item::desc
 	atom_target.icon_state = picked_item::icon_state
@@ -205,7 +205,7 @@
 	else
 		atom_target.icon = picked_item::icon
 
-/datum/action/item_action/chameleon/change/on_activate(mob/user, atom/target)
+/datum/action/item_action/chameleon/change/do_effect(trigger_flags)
 	select_look(owner)
 	return TRUE
 

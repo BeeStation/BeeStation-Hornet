@@ -1,6 +1,7 @@
 /datum/action/item_action/portaseeder_dissolve
 	name = "Activate Seed Extractor"
 
-/datum/action/item_action/portaseeder_dissolve/on_activate(mob/user, atom/target)
+/datum/action/item_action/portaseeder_dissolve/do_effect(trigger_flags)
+	. = ..()
 	var/obj/item/storage/bag/plants/portaseeder/H = target
 	H.dissolve_contents()

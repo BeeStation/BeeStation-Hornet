@@ -39,8 +39,8 @@
 	// Clan specific stuff
 	if(my_clan)
 		my_clan.handle_clan_life()
-	else if(!(locate(/datum/action/vampire/clanselect) in powers))
-		grant_power(new /datum/action/vampire/clanselect)
+	else if(!(locate(/datum/action/cooldown/vampire/clanselect) in powers))
+		grant_power(new /datum/action/cooldown/vampire/clanselect)
 
 	// Handle blood
 	handle_blood(delta_time)

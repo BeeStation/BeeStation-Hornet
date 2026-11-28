@@ -4,7 +4,7 @@
 #define FEED_FRENZY_TIME 2 SECONDS
 #define FEED_BLOOD_FROM_MICE 25
 
-/datum/action/vampire/targeted/feed
+/datum/action/cooldown/vampire/targeted/feed
 	name = "Feed"
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
@@ -40,7 +40,7 @@
 	/// Are we at a stage of the process where we can be noticed?
 	var/currently_feeding = FALSE
 
-/datum/action/vampire/targeted/feed/can_use()
+/datum/action/cooldown/vampire/targeted/feed/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -54,7 +54,7 @@
 		owner.balloon_alert(owner, "mouth covered!")
 		return FALSE
 
-/datum/action/vampire/targeted/feed/continue_active()
+/datum/action/cooldown/vampire/targeted/feed/continue_active()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -101,7 +101,7 @@
 
 	return TRUE
 
-/datum/action/vampire/targeted/feed/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/feed/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -160,7 +160,7 @@
 
 	silent_feed = TRUE
 
-/datum/action/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/feed_target = target_atom
 	var/mob/living/living_owner = owner
@@ -326,7 +326,7 @@
 		deactivate_power()
 		return FALSE
 
-/datum/action/vampire/targeted/feed/use_power()
+/datum/action/cooldown/vampire/targeted/feed/use_power()
 	var/mob/living/user = owner
 
 	var/mob/living/feed_target = target_ref?.resolve()
@@ -415,7 +415,7 @@
 	feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 
 /// We assume the target is a vampire.
-/datum/action/vampire/targeted/feed/proc/diablerie(mob/living/poor_sap)
+/datum/action/cooldown/vampire/targeted/feed/proc/diablerie(mob/living/poor_sap)
 	var/datum/antagonist/vampire/victim = IS_VAMPIRE(poor_sap)
 
 	var/levels_absorbed = (victim.vampire_level + victim.vampire_level_unspent) / DIABLERIE_DIVISOR
@@ -426,7 +426,7 @@
 
 	victim.final_death()
 
-/datum/action/vampire/targeted/feed/deactivate_power()
+/datum/action/cooldown/vampire/targeted/feed/deactivate_power()
 	. = ..()
 	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
 
@@ -500,7 +500,7 @@
  * 7. Give the vampire their blood, and if the victim is a vampire, take it from them as well.
  * 8. Done!
 **/
-/datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
+/datum/action/cooldown/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/mob/living/living_owner = owner
 	var/feed_amount = 50
 

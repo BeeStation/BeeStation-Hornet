@@ -4,24 +4,24 @@
 	icon_state = "dominate"
 
 	// Base only has mez, ventrue get command earlier and can upgrade it
-	level_1 = list(/datum/action/vampire/targeted/mesmerize)
-	level_2 = list(/datum/action/vampire/targeted/mesmerize/two)
-	level_3 = list(/datum/action/vampire/targeted/mesmerize/three)
-	level_4 = list(/datum/action/vampire/targeted/mesmerize/four, /datum/action/vampire/targeted/command)
+	level_1 = list(/datum/action/cooldown/vampire/targeted/mesmerize)
+	level_2 = list(/datum/action/cooldown/vampire/targeted/mesmerize/two)
+	level_3 = list(/datum/action/cooldown/vampire/targeted/mesmerize/three)
+	level_4 = list(/datum/action/cooldown/vampire/targeted/mesmerize/four, /datum/action/cooldown/vampire/targeted/command)
 	level_5 = null
 
 /datum/discipline/dominate/ventrue
-	level_3 = list(/datum/action/vampire/targeted/mesmerize/three, /datum/action/vampire/targeted/command)
-	level_4 = list(/datum/action/vampire/targeted/mesmerize/four, /datum/action/vampire/targeted/command/two)
+	level_3 = list(/datum/action/cooldown/vampire/targeted/mesmerize/three, /datum/action/cooldown/vampire/targeted/command)
+	level_4 = list(/datum/action/cooldown/vampire/targeted/mesmerize/four, /datum/action/cooldown/vampire/targeted/command/two)
 
 // Dominate grants a controlled Voice of God ability as a passive discipline quirk,
 // similar to how Potence grants extra punch damage.
 /datum/discipline/dominate/apply_discipline_quirks(datum/antagonist/vampire/clan_owner)
 	. = ..()
-	clan_owner.grant_power(new /datum/action/vampire/voice_of_domination)
+	clan_owner.grant_power(new /datum/action/cooldown/vampire/voice_of_domination)
 
 /// Tiny ability datum just to get vampies a voice of god power
-/datum/action/vampire/voice_of_domination
+/datum/action/cooldown/vampire/voice_of_domination
 	name = "Voice of Domination"
 	desc = "Speak with an overwhelmingly dominant voice, forcing mortals to briefly obey your command."
 	button_icon_state = "power_command"
@@ -33,7 +33,7 @@
 	vitaecost = 75
 	cooldown_time = 60 SECONDS
 
-/datum/action/vampire/voice_of_domination/can_use()
+/datum/action/cooldown/vampire/voice_of_domination/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -49,7 +49,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/vampire/voice_of_domination/activate_power()
+/datum/action/cooldown/vampire/voice_of_domination/activate_power()
 	var/command = tgui_input_text(owner, "Speak with the Voice of Domination", "Command")
 	if(QDELETED(src) || QDELETED(owner) || !command)
 		return

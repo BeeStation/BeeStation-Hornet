@@ -187,7 +187,7 @@
 /datum/status_effect/ipc_upgrade/proc/battery_charged(obj/item/organ/stomach/electrical/adjusted_battery, amount)
 	SIGNAL_HANDLER
 	if(action)
-		action.update_buttons()
+		action.build_all_button_icons(UPDATE_BUTTON_STATUS)
 
 /datum/status_effect/ipc_upgrade/ui_data()
 	var/list/data = list()
@@ -201,23 +201,25 @@
 	name = "Generic Upgrade Action"
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "shoulder_gun_off"
+	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/status_effect/ipc_upgrade/upgrade = null
 	var/has_activate_text = TRUE
 	var/has_deactivate_text = TRUE
-	check_flags = AB_CHECK_CONSCIOUS
+	var/toggleable = FALSE
 
 /datum/action/innate/ipc_upgrade_action/New(datum/status_effect/ipc_upgrade/new_upgrade)
+	. = ..()
 	name = "Activate [new_upgrade.name]"
 	enable_text = has_activate_text ? "Activated [new_upgrade.name]!" : null
 	disable_text = has_deactivate_text ? "Deactivated [new_upgrade.name]!" : null
-	cooldown_time = new_upgrade.cooldown_length
 	upgrade = new_upgrade
 	RegisterSignal(upgrade, COMSIG_UPGRADE_ACTIVATED, PROC_REF(upgrade_activated))
 	RegisterSignal(upgrade, COMSIG_UPGRADE_DEACTIVATED, PROC_REF(upgrade_deactivated))
 
 /datum/action/innate/ipc_upgrade_action/Destroy()
 	UnregisterSignal(upgrade, list(COMSIG_UPGRADE_ACTIVATED, COMSIG_UPGRADE_DEACTIVATED))
-	. = ..()
+	upgrade = null
+	return ..()
 
 /datum/action/innate/ipc_upgrade_action/is_available(feedback = FALSE)
 	if(!..())
@@ -229,31 +231,34 @@
 	return TRUE
 
 /datum/action/innate/ipc_upgrade_action/proc/upgrade_activated()
+	SIGNAL_HANDLER
 	if(toggleable && !active)
 		active = TRUE
-	update_buttons()
-	start_cooldown()
+	refresh_after_use()
 
 /datum/action/innate/ipc_upgrade_action/proc/upgrade_deactivated()
+	SIGNAL_HANDLER
 	if(toggleable && active)
 		active = FALSE
-	update_buttons()
-	start_cooldown()
+	refresh_after_use()
+
+/datum/action/innate/ipc_upgrade_action/proc/refresh_after_use()
+	build_all_button_icons()
+	if(upgrade.cooldown_length)
+		addtimer(CALLBACK(src, PROC_REF(build_all_button_icons), UPDATE_BUTTON_STATUS), upgrade.cooldown_length + 1, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /datum/action/innate/ipc_upgrade_action/toggleable
 	toggleable = TRUE
 
-/datum/action/innate/ipc_upgrade_action/toggleable/on_activate(mob/user, atom/target)
-	..()
-	. = upgrade.activate(target)
-	update_buttons()
+/datum/action/innate/ipc_upgrade_action/toggleable/Activate()
+	upgrade.activate()
+	build_all_button_icons()
 
-/datum/action/innate/ipc_upgrade_action/toggleable/on_deactivate(mob/user, atom/target)
-	..()
-	. = upgrade.deactivate()
-	update_buttons()
+/datum/action/innate/ipc_upgrade_action/toggleable/Deactivate()
+	upgrade.deactivate()
+	build_all_button_icons()
 
-/datum/action/innate/ipc_upgrade_action/toggleable/update_button(atom/movable/screen/movable/action_button/button, status_only, force)
+/datum/action/innate/ipc_upgrade_action/toggleable/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(upgrade.action_icon)
 		button_icon_state = upgrade.active ? "[upgrade.action_icon]_on" : "[upgrade.action_icon]_off"
 	return ..()
@@ -263,20 +268,19 @@
 	has_deactivate_text = FALSE
 
 /datum/action/innate/ipc_upgrade_action/targeted
-	requires_target = TRUE
-	toggleable = FALSE
+	click_action = TRUE
 	has_deactivate_text = FALSE
 
-/datum/action/innate/ipc_upgrade_action/targeted/on_activate(mob/user, atom/target)
-	..()
-	return upgrade.activate(target)
+/datum/action/innate/ipc_upgrade_action/targeted/do_ability(mob/living/clicker, atom/clicked_on)
+	. = upgrade.activate(clicked_on)
+	if(.)
+		unset_ranged_ability(clicker)
+		build_all_button_icons(UPDATE_BUTTON_STATUS)
 
 /datum/action/innate/ipc_upgrade_action/untargeted
-	toggleable = FALSE
 	has_deactivate_text = FALSE
 
-/datum/action/innate/ipc_upgrade_action/untargeted/on_activate(mob/user, atom/target)
-	..()
-	return upgrade.activate()
+/datum/action/innate/ipc_upgrade_action/untargeted/Activate()
+	upgrade.activate()
 
 #undef UPGRADE_LOW_POWER_THRESHOLD

@@ -20,6 +20,7 @@
 	force = 5
 	attack_verb_continuous = list("strikes", "hits", "bashes")
 	attack_verb_simple = list("strike", "hit", "bash")
+	action_slots = ALL
 	max_integrity = 500
 	integrity_failure = 0.2
 
@@ -454,7 +455,7 @@
 	return TRUE
 
 /obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override = "", aimed = FALSE)
-	SHOULD_NOT_OVERRIDE(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 		if(chambered.harmful) // Is the bullet chambered harmful?
 			to_chat(user, span_notice(" [src] is lethally chambered! You don't want to risk harming anyone..."))
@@ -699,10 +700,13 @@
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/on_activate(mob/user, atom/target)
+/datum/action/toggle_scope_zoom/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	gun.zoom(owner, owner.dir)
 
-/datum/action/toggle_scope_zoom/is_available()
+/datum/action/toggle_scope_zoom/is_available(feedback = FALSE)
 	. = ..()
 	if(!. && gun)
 		gun.zoom(owner, owner.dir, FALSE)

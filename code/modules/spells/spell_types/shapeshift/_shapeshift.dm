@@ -6,8 +6,8 @@
  *
  * Allows the caster to transform to and from a different mob type.
  */
-/datum/action/spell/shapeshift
-	abstract_type = /datum/action/spell/shapeshift
+/datum/action/cooldown/spell/shapeshift
+	abstract_type = /datum/action/cooldown/spell/shapeshift
 	name = "Shapeshift Base"
 	button_icon_state = "shapeshift"
 	school = SCHOOL_TRANSMUTATION
@@ -31,14 +31,14 @@
 	/// This should be implemented even if there is only one choice.
 	var/list/atom/possible_shapes
 
-/datum/action/spell/shapeshift/Remove(mob/remove_from)
+/datum/action/cooldown/spell/shapeshift/Remove(mob/remove_from)
 	unshift_owner()
 	return ..()
 
-/datum/action/spell/shapeshift/is_valid_spell(mob/user, atom/target)
-	return isliving(user)
+/datum/action/cooldown/spell/shapeshift/is_valid_target(atom/cast_on)
+	return isliving(cast_on)
 
-/datum/action/spell/shapeshift/pre_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/shapeshift/before_cast(mob/living/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -47,8 +47,8 @@
 		// If another shapeshift spell was casted while we're already shifted, they could technically go to do_unshapeshift().
 		// However, we don't really want people casting shapeshift A to un-shapeshift from shapeshift B,
 		// as it could cause bugs or unintended behavior. So we'll just stop them here.
-		if(is_shifted(user) && !is_type_in_list(user, possible_shapes))
-			to_chat(user, span_warning("This spell won't un-shapeshift you from this form!"))
+		if(is_shifted(cast_on) && !is_type_in_list(cast_on, possible_shapes))
+			to_chat(cast_on, span_warning("This spell won't un-shapeshift you from this form!"))
 			return . | SPELL_CANCEL_CAST
 
 		return
@@ -67,10 +67,10 @@
 			shape_names_to_image[shape_name] = image(icon = initial(path.icon), icon_state = initial(path.icon_state))
 
 	var/picked_type = show_radial_menu(
-		user,
-		user,
+		cast_on,
+		cast_on,
 		shape_names_to_image,
-		custom_check = CALLBACK(src, PROC_REF(check_menu), user),
+		custom_check = CALLBACK(src, PROC_REF(check_menu), cast_on),
 		radius = 38,
 	)
 
@@ -85,18 +85,18 @@
 	if(QDELETED(src) || QDELETED(owner) || !can_cast_spell(feedback = FALSE))
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/spell/shapeshift/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/shapeshift/cast(mob/living/cast_on)
 	. = ..()
-	user.buckled?.unbuckle_mob(user, force = TRUE)
+	cast_on.buckled?.unbuckle_mob(cast_on, force = TRUE)
 
-	var/currently_ventcrawling = (user.movement_type & VENTCRAWLING)
+	var/currently_ventcrawling = (cast_on.movement_type & VENTCRAWLING)
 	var/mob/living/resulting_mob
 
 	// Do the shift back or forth
-	if(is_shifted(user))
-		resulting_mob = do_unshapeshift(user)
+	if(is_shifted(cast_on))
+		resulting_mob = do_unshapeshift(cast_on)
 	else
-		resulting_mob = do_shapeshift(user)
+		resulting_mob = do_shapeshift(cast_on)
 
 	// The shift is done, let's make sure they're in a valid state now
 	// If we're not ventcrawling, we don't need to mind
@@ -104,7 +104,7 @@
 		return
 
 	// We are ventcrawling - can our new form support ventcrawling?
-	if(HAS_TRAIT(user, VENTCRAWLER_ALWAYS) || HAS_TRAIT(user, VENTCRAWLER_NUDE))
+	if(HAS_TRAIT(resulting_mob, VENTCRAWLER_ALWAYS) || HAS_TRAIT(resulting_mob, VENTCRAWLER_NUDE))
 		return
 
 	// Uh oh. You've shapeshifted into something that can't fit into a vent, while ventcrawling.
@@ -113,7 +113,7 @@
 /// Whenever someone shapeshifts within a vent,
 /// and enters a state in which they are no longer a ventcrawler,
 /// they are brutally ejected from the vents. In the form of gibs.
-/datum/action/spell/shapeshift/proc/eject_from_vents(mob/living/cast_on)
+/datum/action/cooldown/spell/shapeshift/proc/eject_from_vents(mob/living/cast_on)
 	var/obj/machinery/atmospherics/pipe_you_die_in = cast_on.loc
 	var/datum/pipenet/our_pipenet
 	var/pipenets = pipe_you_die_in.return_pipenets()
@@ -136,7 +136,7 @@
 	cast_on.gib(TRUE, TRUE, TRUE)
 
 /// Callback for the radial that allows the user to choose their species.
-/datum/action/spell/shapeshift/proc/check_menu(mob/living/caster)
+/datum/action/cooldown/spell/shapeshift/proc/check_menu(mob/living/caster)
 	if(QDELETED(src))
 		return FALSE
 	if(QDELETED(caster))
@@ -145,7 +145,7 @@
 	return !caster.incapacitated
 
 /// Actually does the shapeshift, for the caster.
-/datum/action/spell/shapeshift/proc/do_shapeshift(mob/living/caster)
+/datum/action/cooldown/spell/shapeshift/proc/do_shapeshift(mob/living/caster)
 	var/mob/living/new_shape = create_shapeshift_mob(caster.loc)
 	var/datum/status_effect/shapechange_mob/shapechange = new_shape.apply_status_effect(/datum/status_effect/shapechange_mob/from_spell, caster, src)
 	if(!shapechange)
@@ -163,7 +163,7 @@
 	return new_shape
 
 /// Actually does the un-shapeshift, from the caster. (Caster is a shapeshifted mob.)
-/datum/action/spell/shapeshift/proc/do_unshapeshift(mob/living/caster)
+/datum/action/cooldown/spell/shapeshift/proc/do_unshapeshift(mob/living/caster)
 	var/datum/status_effect/shapechange_mob/shapechange = caster.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)
 	if(!shapechange)
 		// We made it to do_unshapeshift without having a shapeshift status effect, this shouldn't happen.
@@ -181,11 +181,11 @@
 
 /// Helper proc that instantiates the mob we shapeshift into.
 /// Returns an instance of a living mob. Can be overridden.
-/datum/action/spell/shapeshift/proc/create_shapeshift_mob(atom/loc)
+/datum/action/cooldown/spell/shapeshift/proc/create_shapeshift_mob(atom/loc)
 	return new shapeshift_type(loc)
 
 /// Removes an active shapeshift effect from the owner
-/datum/action/spell/shapeshift/proc/unshift_owner()
+/datum/action/cooldown/spell/shapeshift/proc/unshift_owner()
 	if (isnull(owner))
 		return
 	if (is_shifted(owner))

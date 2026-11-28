@@ -27,8 +27,11 @@
 #define CLOTHING_TRAIT "clothing"
 #define MASK_TRAIT "mask" //inherited from the mask
 #define SHOES_TRAIT "shoes" //inherited from your sweet kicks
+/// Trait inherited by implants
+#define IMPLANT_TRAIT "implant"
 #define CLOTHING_FEET_TRAIT "feet"
-#define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
+/// inherited from riding vehicles
+#define VEHICLE_TRAIT "vehicle"
 #define INNATE_TRAIT "innate"
 #define CRIT_HEALTH_TRAIT "crit_health"
 #define OXYLOSS_TRAIT "oxyloss"
@@ -185,6 +188,8 @@
 
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
+/// A trait gained from a mob's swoop action, like the ash drake
+#define SWOOPING_TRAIT "swooping"
 /// From grabbing someone
 #define GRABBING_TRAIT "grabbing"
 /// Sources for TRAIT_IGNORING_GRAVITY

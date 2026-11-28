@@ -95,6 +95,7 @@ require only minor tweaks.
 /// Traits for lavaland
 #define ZTRAITS_LAVALAND list(\
 	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_ASHSTORM = TRUE, \
 	ZTRAIT_LAVA_RUINS = TRUE, \
 	ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
 	ZTRAIT_ASHSTORM = TRUE, \
@@ -173,7 +174,7 @@ require only minor tweaks.
 #define STARLIGHT_MODE_CYCLE "cycle"
 
 //Individual defines
-#define CLUSTER_CHECK_NONE				0  			//No checks are done, cluster as much as possible
+#define CLUSTER_CHECK_NONE 0 //No checks are done, cluster as much as possible
 #define CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
 #define CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
 #define CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
@@ -186,7 +187,7 @@ require only minor tweaks.
 #define CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
 
 //All
-#define CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
+#define CLUSTER_CHECK_ALL 30 //Don't let anything cluster, like, at all
 
 // Ruin generation
 #define OPEN_CONNECTION 1

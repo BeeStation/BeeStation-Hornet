@@ -45,12 +45,12 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 /datum/action/innate/path_debug
 	var/list/image/display_images = list()
 
-/datum/action/innate/path_debug/on_activate()
+/datum/action/innate/path_debug/Activate()
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOB_CLICKON, PROC_REF(clicked_somethin))
 	active = TRUE
 
-/datum/action/innate/path_debug/on_deactivate()
+/datum/action/innate/path_debug/Deactivate()
 	UnregisterSignal(owner, COMSIG_MOB_CLICKON)
 	clear_visuals()
 	active = FALSE
@@ -136,7 +136,7 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 	/// List of turfs we are showing to our owner currently
 	var/list/turf/display_turfs
 
-/datum/action/innate/path_debug/jps/on_activate()
+/datum/action/innate/path_debug/jps/Activate()
 	. = ..()
 	max_distance = tgui_input_number(owner, "How far should we be allowed to try and path", "Max Distance", min_value = 1, default = 30)
 	min_distance = tgui_input_number(owner, "How close should we try and get to the target before stopping", "Min Distance", min_value = 0, default = 0)
@@ -155,7 +155,7 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 		if("Drop Odd Ones")
 			diagonal_handling = DIAGONAL_REMOVE_CLUNKY
 
-/datum/action/innate/path_debug/jps/on_deactivate()
+/datum/action/innate/path_debug/jps/Deactivate()
 	source_turf = null
 	target_turf = null
 	display_turfs = list()
@@ -180,7 +180,7 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 		end.plane = BALLOON_CHAT_PLANE
 		display_images += end
 
-	display_images += render_path(display_turfs)  
+	display_images += render_path(display_turfs)
 
 /datum/action/innate/path_debug/jps/path_ready()
 	return (source_turf && target_turf)
@@ -205,7 +205,7 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 	/// List of turfs we are showing to our owner currently
 	var/datum/path_map/shown_map
 
-/datum/action/innate/path_debug/sssp/on_activate()
+/datum/action/innate/path_debug/sssp/Activate()
 	. = ..()
 	max_distance = tgui_input_number(owner, "How far should we be allowed to try and path", "Max Distance", min_value = 1, default = 30)
 	allowed_on_space = tgui_alert(owner, "Are we allowed to path over space?", "Space Pathing", buttons = list("Yes", "No")) == "Yes"
@@ -215,7 +215,7 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 	else
 		blacklisted_turf = null
 
-/datum/action/innate/path_debug/sssp/on_deactivate()
+/datum/action/innate/path_debug/sssp/Deactivate()
 	source_turf = null
 	target_turf = null
 	shown_map = null

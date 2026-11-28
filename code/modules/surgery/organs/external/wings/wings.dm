@@ -257,7 +257,7 @@
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
-/datum/action/innate/flight/on_activate()
+/datum/action/innate/flight/Activate()
 	var/mob/living/carbon/human/human = owner
 	var/obj/item/organ/wings/wings = human.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(wings?.can_fly())
@@ -335,10 +335,14 @@
 /datum/action/item_action/organ_action/use/bee_dash
 	name = "Bee Dash"
 	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS | AB_CHECK_HANDS_BLOCKED
-	cooldown_time = 10 SECONDS
+	COOLDOWN_DECLARE(bee_dash_cd)
+	var/bee_dash_cooldown_time = 10 SECONDS
 	var/jumpspeed = 1
 
-/datum/action/item_action/organ_action/use/bee_dash/on_activate(mob/user, atom/target)
+/datum/action/item_action/organ_action/use/bee_dash/is_available(feedback = FALSE)
+	return ..() && COOLDOWN_FINISHED(src, bee_dash_cd)
+
+/datum/action/item_action/organ_action/use/bee_dash/do_effect(trigger_flags)
 	var/mob/living/carbon/human/H = owner
 	var/obj/item/organ/wings/bee/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	var/jumpdistance = wings.jumpdist
@@ -373,7 +377,7 @@
 	if(H.throw_at(dash_target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(H, 'sound/creatures/bee.ogg', 50, 1, 1)
 		H.visible_message(span_warning("[H] dashes forward into the air!"))
-		start_cooldown()
+		COOLDOWN_START(src, bee_dash_cd, bee_dash_cooldown_time)
 	else
 		to_chat(H, span_warning("Something prevents you from dashing forward!"))
 

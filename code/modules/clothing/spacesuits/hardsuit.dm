@@ -71,7 +71,7 @@
 
 	set_light_on(on)
 
-	update_action_buttons()
+	update_item_action_buttons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user)
 	..()
@@ -508,7 +508,6 @@
 	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_DIAGNOSTIC_HUD)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
-		/datum/action/item_action/toggle_research_scanner
 	)
 
 	var/obj/machinery/doppler_array/integrated/bomb_radar

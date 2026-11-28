@@ -4,10 +4,10 @@
 	icon_state = "fortitude"
 
 	// Lists of abilities granted per level
-	level_1 = list(/datum/action/vampire/fortitude)
-	level_2 = list(/datum/action/vampire/fortitude/two)
-	level_3 = list(/datum/action/vampire/fortitude/three)
-	level_4 = list(/datum/action/vampire/fortitude/four)
+	level_1 = list(/datum/action/cooldown/vampire/fortitude)
+	level_2 = list(/datum/action/cooldown/vampire/fortitude/two)
+	level_3 = list(/datum/action/cooldown/vampire/fortitude/three)
+	level_4 = list(/datum/action/cooldown/vampire/fortitude/four)
 	level_5 = null
 
 /**
@@ -19,7 +19,7 @@
  * 	Level 4: Complete stun immunity
  */
 
-/datum/action/vampire/fortitude
+/datum/action/cooldown/vampire/fortitude
 	name = "Fortitude"
 	desc = "Withstand egregious physical wounds and walk away from attacks that would stun, pierce, and dismember lesser beings."
 	button_icon_state = "power_fortitude"
@@ -46,14 +46,14 @@
 	/// Stamina damage multiplier we applied, so deactivating undoes exactly that
 	var/calculated_stamina_resist
 
-/datum/action/vampire/fortitude/two
+/datum/action/cooldown/vampire/fortitude/two
 	vitaecost = 20
 	constant_vitaecost = 1
 	resistance = 0.6
 	pierce = TRUE
 	push = TRUE
 
-/datum/action/vampire/fortitude/three
+/datum/action/cooldown/vampire/fortitude/three
 	vitaecost = 20
 	constant_vitaecost = 1.25
 	resistance = 0.4
@@ -61,7 +61,7 @@
 	push = TRUE
 	dismember = TRUE
 
-/datum/action/vampire/fortitude/four
+/datum/action/cooldown/vampire/fortitude/four
 	vitaecost = 20
 	constant_vitaecost = 1.5
 	resistance = 0.3
@@ -70,7 +70,7 @@
 	dismember = TRUE
 	stun = TRUE
 
-/datum/action/vampire/fortitude/activate_power()
+/datum/action/cooldown/vampire/fortitude/activate_power()
 	. = ..()
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, span_notice("Your flesh has become as hard as steel!"))
@@ -93,7 +93,7 @@
 	user.physiology.stamina_mod *= calculated_stamina_resist
 	user.physiology.burn_mod *= calculated_burn_resist // they get burn resistance, but way less
 
-/datum/action/vampire/fortitude/use_power()
+/datum/action/cooldown/vampire/fortitude/use_power()
 	. = ..()
 	if(!.)
 		return
@@ -102,7 +102,7 @@
 	if(user.buckled && istype(user.buckled, /obj/vehicle))
 		user.buckled.unbuckle_mob(src, force = TRUE)
 
-/datum/action/vampire/fortitude/deactivate_power()
+/datum/action/cooldown/vampire/fortitude/deactivate_power()
 	if(!ishuman(owner))
 		return
 

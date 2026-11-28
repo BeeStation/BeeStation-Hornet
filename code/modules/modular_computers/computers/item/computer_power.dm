@@ -64,7 +64,8 @@
 	if (light_on)
 		set_light_on(FALSE)
 		update_appearance()
-		update_action_buttons(force = TRUE)
+		update_item_action_buttons(force = TRUE)
+		return TRUE
 
 /obj/item/modular_computer/proc/battery_explosion()
 	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]

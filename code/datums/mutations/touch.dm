@@ -4,7 +4,7 @@
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	power_path = /datum/action/spell/touch/shock
+	power_path = /datum/action/cooldown/spell/touch/shock
 	instability = 30
 	locked = TRUE
 	energy_coeff = 1
@@ -13,10 +13,11 @@
 /obj/item/melee/touch_attack/shock
 	name = "\improper shock touch"
 	desc = "This is kind of like when you rub your feet on a shag rug so you can zap your friends, only a lot less safe."
+	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "zapper"
 	inhand_icon_state = "zapper"
 
-/datum/action/spell/touch/shock
+/datum/action/cooldown/spell/touch/shock
 	name = "Shock Touch"
 	desc = "Channel electricity to your hand to shock people with."
 	button_icon_state = "zap"
@@ -25,12 +26,11 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 	antimagic_flags = NONE
-	mindbound = FALSE
 	hand_path = /obj/item/melee/touch_attack/shock
 	draw_message = ("<span class='notice'>You channel electricity into your hand.</span>")
 	drop_message = ("<span class='notice'>You let the electricity from your hand dissipate.</span>")
 
-/datum/action/spell/touch/shock/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/shock/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return TRUE
 
 /obj/item/melee/touch_attack/shock/afterattack(atom/target, mob/living/carbon/user, proximity)

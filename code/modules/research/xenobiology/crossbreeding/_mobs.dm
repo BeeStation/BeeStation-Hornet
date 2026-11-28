@@ -5,7 +5,7 @@ Slimecrossing Mobs
 */
 
 /// Slime transformation power - from Burning Black
-/datum/action/spell/shapeshift/slime_form
+/datum/action/cooldown/spell/shapeshift/slime_form
 	name = "Slime Transformation"
 	desc = "Transform from a human to a slime, or back again!"
 	button_icon_state = "transformslime"
@@ -21,7 +21,7 @@ Slimecrossing Mobs
 	/// If TRUE, we self-delete (remove ourselves) the next time we turn back into a human
 	var/remove_on_restore = FALSE
 
-/datum/action/spell/shapeshift/slime_form/do_unshapeshift(mob/living/caster)
+/datum/action/cooldown/spell/shapeshift/slime_form/do_unshapeshift(mob/living/caster)
 	. = ..()
 	if(!.)
 		return
@@ -38,7 +38,7 @@ Slimecrossing Mobs
 	return
 
 /// Slime Transformation Power, but turns you into an oozeling. Gained from Transformative Green
-/datum/action/spell/oozeling_evolve
+/datum/action/cooldown/spell/oozeling_evolve
 	name = "Oozeling Evolution"
 	desc = "Transforms you into an oozeling, from your slime form. A one-way trip."
 	button_icon_state = "transformslime"
@@ -47,9 +47,9 @@ Slimecrossing Mobs
 	spell_requirements = SPELL_REQUIRES_MIND
 
 //i think i hate this proc. abandon all hope ye who refactor here.
-/datum/action/spell/oozeling_evolve/on_cast(mob/living/user)
-	..()
-	var/mob/living/simple_animal/slime/evolver = owner
+/datum/action/cooldown/spell/oozeling_evolve/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/simple_animal/slime/evolver = cast_on
 	var/colour = evolver.colour
 	var/ooze_colour = null
 	switch((colour))

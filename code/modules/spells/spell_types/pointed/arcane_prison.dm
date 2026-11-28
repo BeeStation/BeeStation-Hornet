@@ -1,4 +1,4 @@
-/datum/action/spell/pointed/projectile/arcane_prison
+/datum/action/cooldown/spell/pointed/projectile/arcane_prison
 	name = "Arcane Prison"
 	desc = "Trap your target in a sphere of arcane energy for a short while. They will be unable to move or act while inside, but will also be unharmed."
 	button_icon_state = "prison_orb0"
@@ -18,6 +18,6 @@
 	cast_range = 50
 	projectile_type = /obj/projectile/magic/prison_orb
 
-/datum/action/spell/pointed/projectile/arcane_prison/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
+/datum/action/cooldown/spell/pointed/projectile/arcane_prison/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()
 	to_fire.range = (50)

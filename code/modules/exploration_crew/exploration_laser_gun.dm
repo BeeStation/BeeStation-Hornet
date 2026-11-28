@@ -176,10 +176,13 @@
 	button_icon = 'icons/hud/screen_alert.dmi'
 	button_icon_state = "sentry"
 
-/datum/action/sentry_toggle/on_activate(mob/user, atom/target)
-	if(!iscyborg(user))
-		return
-	var/mob/living/silicon/robot/our_borgie = user
+/datum/action/sentry_toggle/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!iscyborg(owner))
+		return FALSE
+	var/mob/living/silicon/robot/our_borgie = owner
 	var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun = target
 	if(!istype(gun))
 		return

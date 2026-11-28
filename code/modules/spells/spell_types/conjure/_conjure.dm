@@ -1,5 +1,5 @@
-/datum/action/spell/conjure
-	abstract_type = /datum/action/spell/conjure
+/datum/action/cooldown/spell/conjure
+	abstract_type = /datum/action/cooldown/spell/conjure
 	sound = 'sound/items/welder.ogg'
 	school = SCHOOL_CONJURATION
 
@@ -19,13 +19,16 @@
 	/// for how long must we stay still when summoning
 	var/create_summon_timer
 
-/datum/action/spell/conjure/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/conjure/is_valid_target(atom/cast_on)
+	return isturf(cast_on.loc)
+
+/datum/action/cooldown/spell/conjure/cast(atom/cast_on)
 	. = ..()
-	if(create_summon_timer && !do_after(owner, create_summon_timer, target = target.loc))
+	if(create_summon_timer && !do_after(owner, create_summon_timer, target = cast_on.loc))
 		owner?.balloon_alert(owner, "need to stay still!")
 		return
 	var/list/to_summon_in = list()
-	for(var/turf/summon_turf in range(summon_radius, user))
+	for(var/turf/summon_turf in range(summon_radius, cast_on))
 		if(summon_respects_density && summon_turf.density)
 			continue
 		to_summon_in += summon_turf
@@ -40,17 +43,27 @@
 			to_summon_in -= spawn_place
 
 		if(ispath(summoned_object_type, /turf))
-			spawn_place.ChangeTurf(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+			if(isclosedturf(spawn_place))
+				spawn_place.ChangeTurf(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+				return
+			if(ispath(summoned_object_type, /turf/closed))
+				if (spawn_place.overfloor_placed)
+					spawn_place.ChangeTurf(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+				else
+					spawn_place.place_on_top(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+				return
+			//var/turf/open/open_turf = spawn_place
+			//open_turf.replace_floor(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+			return
 
-		else
-			var/atom/summoned_object = new summoned_object_type(spawn_place)
+		var/atom/summoned_object = new summoned_object_type(spawn_place)
 
-			summoned_object.flags_1 |= ADMIN_SPAWNED_1
-			if(summon_lifespan > 0)
-				QDEL_IN(summoned_object, summon_lifespan)
+		summoned_object.flags_1 |= ADMIN_SPAWNED_1
+		if(summon_lifespan > 0)
+			QDEL_IN(summoned_object, summon_lifespan)
 
-			post_summon(summoned_object, user)
+		post_summon(summoned_object, cast_on)
 
 /// Called on atoms summoned after they are created, allows extra variable editing and such of created objects
-/datum/action/spell/conjure/proc/post_summon(atom/summoned_object, atom/cast_on)
+/datum/action/cooldown/spell/conjure/proc/post_summon(atom/summoned_object, atom/cast_on)
 	return

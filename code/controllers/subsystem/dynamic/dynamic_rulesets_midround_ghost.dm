@@ -32,7 +32,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/ghost/select_player()
-	var/mob/candidate = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/candidate = (ruleset_flags & SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= candidate
 
 	if(!isobserver(candidate))
@@ -511,7 +511,9 @@
 	broodmother_body.move_into_vent(pick_n_take(spawn_locations))
 
 	broodmother_body.fed += 3
-	broodmother_body.lay_eggs.update_buttons()
+	broodmother_body.lay_eggs.build_all_button_icons()
+
+	broodmother_body.key = chosen_mob.key
 
 	broodmother_body.key = chosen_mob.key
 

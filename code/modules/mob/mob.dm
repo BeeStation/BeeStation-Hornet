@@ -991,20 +991,7 @@
 	return
 
 /datum/action/proc/get_stat_label()
-	var/label = ""
-	var/time_left = max(next_use_time - world.time, 0)
-	if (cooldown_time)
-		if(istype(src, /datum/action/spell))
-			var/datum/action/spell/spell = src
-			label = "Spell Level: [spell.spell_level]/[spell.spell_max_level], Spell Cooldown: [(spell.cooldown_time/10)] Seconds, Can be cast in [(time_left/10)]"
-		else
-			label = "Action Cooldown: [(cooldown_time/10)] Seconds,  Can be cast in [(time_left/10)]"
-	else
-		label = "Activate"
-	return label
-
-/datum/action/proc/update_stat_status(list/stat)
-	return null
+	return "Activate"
 
 #define MOB_FACE_DIRECTION_DELAY 1
 
@@ -1498,6 +1485,8 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	VV_DROPDOWN_OPTION(VV_HK_GIB, "Gib")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPELL, "Give Spell")
 	VV_DROPDOWN_OPTION(VV_HK_REMOVE_SPELL, "Remove Spell")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_MOB_ACTION, "Give Mob Ability")
+	VV_DROPDOWN_OPTION(VV_HK_REMOVE_MOB_ACTION, "Remove Mob Ability")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DISEASE, "Give Disease")
 	VV_DROPDOWN_OPTION(VV_HK_GODMODE, "Toggle Godmode")
 	VV_DROPDOWN_OPTION(VV_HK_DROP_ALL, "Drop Everything")
@@ -1528,6 +1517,16 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 
 	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
 		usr.client.cmd_admin_godmode(src)
+
+	if(href_list[VV_HK_GIVE_MOB_ACTION])
+		if(!check_rights(NONE))
+			return
+		usr.client.give_mob_action(src)
+
+	if(href_list[VV_HK_REMOVE_MOB_ACTION])
+		if(!check_rights(NONE))
+			return
+		usr.client.remove_mob_action(src)
 
 	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)

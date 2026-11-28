@@ -24,7 +24,10 @@
 	button_icon_state = "see" //Feel free to replace
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/blink/on_activate(mob/user, atom/target)
+/datum/action/blink/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	owner.emote("blink")
 
 /datum/component/manual_blinking/Initialize(damage_rate = 1, warning_delay = 20 SECONDS, grace_period = 6 SECONDS, display_message = TRUE)

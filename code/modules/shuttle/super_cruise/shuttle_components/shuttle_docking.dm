@@ -378,7 +378,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
-/datum/action/innate/shuttledocker_rotate/on_activate()
+/datum/action/innate/shuttledocker_rotate/Activate()
 	if(QDELETED(owner) || !isliving(owner))
 		return
 	var/mob/living/C = owner
@@ -391,7 +391,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
-/datum/action/innate/shuttledocker_place/on_activate()
+/datum/action/innate/shuttledocker_place/Activate()
 	if(QDELETED(owner) || !isliving(owner))
 		return
 	var/mob/living/C = owner
@@ -403,7 +403,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 	name = "Jump to Location"
 	button_icon_state = "camera_jump"
 
-/datum/action/innate/camera_jump/shuttle_docker/on_activate()
+/datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(owner) || !isliving(owner))
 		return
 	var/mob/living/C = owner

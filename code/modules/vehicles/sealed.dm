@@ -164,10 +164,10 @@
 	inserted_key = null
 
 /obj/vehicle/sealed/Destroy()
-	DumpMobs()
+	dump_mobs()
 	return ..()
 
-/obj/vehicle/sealed/proc/DumpMobs(randomstep = TRUE)
+/obj/vehicle/sealed/proc/dump_mobs(randomstep = TRUE)
 	for(var/i in occupants)
 		mob_exit(i, randomstep = randomstep)
 		if(iscarbon(i))
@@ -175,7 +175,7 @@
 			Carbon.Paralyze(40)
 			Carbon.uncuff()
 
-/obj/vehicle/sealed/proc/DumpSpecificMobs(flag, randomstep = TRUE)
+/obj/vehicle/sealed/proc/dump_specific_mobs(flag, randomstep = TRUE)
 	for(var/i in occupants)
 		if(!(occupants[i] & flag))
 			continue

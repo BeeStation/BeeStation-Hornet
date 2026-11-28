@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
 		to_chat(vampire.owner.current, span_narsiesmall("[owner.name] has claimed the role of Prince!"))
 
-	grant_power(new /datum/action/vampire/targeted/scourgify)
+	grant_power(new /datum/action/cooldown/vampire/targeted/scourgify)
 
 	var/datum/objective/vampire/prince/prince_objective = new()
 	objectives += prince_objective

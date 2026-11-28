@@ -59,11 +59,11 @@
 	if(active)
 		var/datum/action/action = locate(/datum/action/vehicle/sealed/mecha/mech_toggle_cabin_seal) in usr.actions
 		action.button_icon_state = "mech_cabin_[chassis.cabin_sealed ? "pressurized" : "open"]"
-		action.update_buttons()
+		action.build_all_button_icons()
 	else
 		var/datum/action/action = locate(/datum/action/vehicle/sealed/mecha/mech_toggle_cabin_seal) in usr.actions
 		action.button_icon_state = "mech_cabin_[chassis.cabin_sealed ? "closed" : "open"]"
-		action.update_buttons()
+		action.build_all_button_icons()
 
 /obj/item/mecha_parts/mecha_equipment/air_tank/process(delta_time)
 	if(!chassis)

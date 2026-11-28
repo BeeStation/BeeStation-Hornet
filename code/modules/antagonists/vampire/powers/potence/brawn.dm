@@ -1,4 +1,4 @@
-/datum/action/vampire/targeted/brawn
+/datum/action/cooldown/vampire/targeted/brawn
 	name = "Brawn"
 	desc = "Snap restraints, break lockers and doors, or deal terrible damage with your bare hands."
 	button_icon_state = "power_strength"
@@ -22,16 +22,16 @@
 	/// bypass typical ability level restrictions. (There is probably a better way to do this.)
 	var/brujah = FALSE
 
-/datum/action/vampire/targeted/brawn/two
+/datum/action/cooldown/vampire/targeted/brawn/two
 	level_current = 2
 
-/datum/action/vampire/targeted/brawn/three
+/datum/action/cooldown/vampire/targeted/brawn/three
 	level_current = 3
 
-/datum/action/vampire/targeted/brawn/four
+/datum/action/cooldown/vampire/targeted/brawn/four
 	level_current = 4
 
-/datum/action/vampire/targeted/brawn/activate_power()
+/datum/action/cooldown/vampire/targeted/brawn/activate_power()
 	// Did we break out of our handcuffs?
 	if(break_restraints())
 		power_activated_sucessfully()
@@ -44,7 +44,7 @@
 	. = ..()
 
 // Look at 'biodegrade.dm' for reference
-/datum/action/vampire/targeted/brawn/proc/break_restraints()
+/datum/action/cooldown/vampire/targeted/brawn/proc/break_restraints()
 	if(!ishuman(owner))
 		return FALSE
 
@@ -90,7 +90,7 @@
 		check_witnesses()
 	return used
 
-/datum/action/vampire/targeted/brawn/proc/escape_puller()
+/datum/action/cooldown/vampire/targeted/brawn/proc/escape_puller()
 	if(!owner.pulledby)
 		return FALSE
 
@@ -119,7 +119,7 @@
 	check_witnesses()
 	return TRUE
 
-/datum/action/vampire/targeted/brawn/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/brawn/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/carbon/carbon_owner = owner
 
@@ -206,7 +206,7 @@
 				target_airlock.unbolt()
 			target_airlock.open(2) // open(2) is like a crowbar or jaws of life.
 
-/datum/action/vampire/targeted/brawn/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/brawn/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE

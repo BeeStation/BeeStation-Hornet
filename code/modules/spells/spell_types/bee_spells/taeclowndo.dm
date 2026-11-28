@@ -1,4 +1,4 @@
-/datum/action/spell/conjure_item/summon_pie
+/datum/action/cooldown/spell/conjure_item/summon_pie
 	name = "Summon Creampie"
 	desc = "A clown's weapon of choice.  Use this to summon a fresh pie, just waiting to acquaintain itself with someone's face."
 	invocation_type = INVOCATION_NONE
@@ -10,7 +10,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/action/spell/pointed/banana_peel
+/datum/action/cooldown/spell/pointed/banana_peel
 	name = "Conjure Banana Peel"
 	desc = "Make a banana peel appear out of thin air right under someone's feet!"
 	cooldown_time = 5 SECONDS
@@ -23,7 +23,7 @@
 	base_icon_state = "banana_peel"
 	button_icon_state = "banana"
 
-/datum/action/spell/pointed/banana_peel/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/banana_peel/cast(atom/cast_on)
 	. = ..()
 	if(get_dist(owner,target)>cast_range)
 		to_chat(owner, "<span class='notice'>\The [target] is too far away!</span>")
@@ -32,7 +32,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/action/spell/touch/megahonk
+/datum/action/cooldown/spell/touch/megahonk
 	name = "Mega HoNk"
 	desc = "This spell channels your inner clown powers, concentrating them into one massive HONK."
 	hand_path = /obj/item/melee/touch_attack/megahonk
@@ -45,7 +45,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/action/spell/touch/bspie
+/datum/action/cooldown/spell/touch/bspie
 	name = "Bluespace Banana Pie"
 	desc = "An entire body would fit in there!"
 	hand_path = /obj/item/melee/touch_attack/bspie
@@ -67,7 +67,7 @@
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_honker"
 
-/datum/action/spell/touch/megahonk/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/megahonk/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return TRUE
 
 /obj/item/melee/touch_attack/megahonk/afterattack(atom/target, mob/living/carbon/user, proximity)
@@ -131,7 +131,7 @@
 
 		M.forceMove(pie)
 
-/datum/action/spell/touch/bspie/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/bspie/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return TRUE
 
 

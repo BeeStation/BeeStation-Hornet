@@ -234,6 +234,9 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// The dimensions of the antagonist preview icon. Will be scaled to this size.
 #define ANTAGONIST_PREVIEW_ICON_SIZE 96
 
+/// Antag's panel action button and the UI therein is viewable by observers
+#define ANTAG_OBSERVER_VISIBLE_PANEL (1 << 2)
+
 // Changelings
 // ------------------------------------
 

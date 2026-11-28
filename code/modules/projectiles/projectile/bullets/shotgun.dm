@@ -52,6 +52,7 @@
 	range = 8
 	icon_state = "spark"
 	color = COLOR_YELLOW
+	embedding = null
 
 /obj/projectile/bullet/pellet
 	var/tile_dropoff = 0.75
@@ -103,6 +104,7 @@
 	disorient_damage = 15
 	disorient_status_length = 4 SECONDS
 	disorient_stack_status = FALSE
+	embedding = null
 
 /obj/projectile/bullet/pellet/Range()
 	..()

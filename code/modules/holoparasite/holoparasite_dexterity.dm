@@ -43,7 +43,7 @@
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity) || !can_use_abilities)
 		return FALSE
-	if(CHECK_BITFIELD(internal_storage_slot_aliases, slot))
+	if(internal_storage_slot_aliases & slot)
 		return item.w_class <= dexterity.max_w_class && QDELETED(dexterity.internal_storage)
 	return ..()
 
@@ -51,7 +51,7 @@
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity) || !is_manifested() || !can_use_abilities)
 		return
-	if(CHECK_BITFIELD(internal_storage_slot_aliases, slot))
+	if(internal_storage_slot_aliases & slot)
 		if(item.w_class > dexterity.max_w_class)
 			to_chat(src, span_danger("[src] is too big to fit in your internal storage!"))
 			return
@@ -69,16 +69,11 @@
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity))
 		return
-	if(CHECK_BITFIELD(internal_storage_slot_aliases, slot_id))
+	if(internal_storage_slot_aliases & slot_id)
 		return dexterity.internal_storage
 	return ..()
 
 /mob/living/simple_animal/hostile/holoparasite/getBackSlot()
-	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
-	if(istype(dexterity))
-		return ITEM_SLOT_DEX_STORAGE
-
-/mob/living/simple_animal/hostile/holoparasite/getBeltSlot()
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(istype(dexterity))
 		return ITEM_SLOT_DEX_STORAGE

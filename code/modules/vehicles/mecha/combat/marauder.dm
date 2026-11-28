@@ -59,8 +59,10 @@
 	name = "Smoke"
 	button_icon_state = "mech_smoke"
 
-/datum/action/vehicle/sealed/mecha/mech_smoke/on_activate(mob/user, atom/target)
-	if(!owner || !chassis || !(owner in chassis.occupants))
+/datum/action/vehicle/sealed/mecha/mech_smoke/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
+	if(!chassis || !(owner in chassis.occupants))
 		return
 	if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_SMOKE) && chassis.smoke_charges>0)
 		chassis.smoke_system.start()
@@ -71,9 +73,10 @@
 	name = "Zoom"
 	button_icon_state = "mech_zoom_off"
 
-/datum/action/vehicle/sealed/mecha/mech_zoom/on_activate(mob/user, atom/target)
-
-	if(!owner?.client || !chassis || !(owner in chassis.occupants))
+/datum/action/vehicle/sealed/mecha/mech_zoom/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
+	if(!owner.client || !chassis || !(owner in chassis.occupants))
 		return
 	chassis.zoom_mode = !chassis.zoom_mode
 	button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
@@ -84,7 +87,7 @@
 		SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))
 	else
 		owner.client.view_size.resetToDefault() //Let's not let this stack shall we?
-	update_buttons()
+	build_all_button_icons()
 
 /obj/vehicle/sealed/mecha/marauder/seraph
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."

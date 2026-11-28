@@ -141,18 +141,19 @@
 	name = "Toggle Safety"
 	background_icon = null
 
-/datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/item_action/artifact_pincher_mode/do_effect(trigger_flags)
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
 		var/datum/component/anti_artifact/A = pinchy.GetComponent(/datum/component/anti_artifact)
 		A?.override = !pinchy.safety
-		update_buttons()
+		build_all_button_icons()
+	return TRUE
 
-/datum/action/item_action/artifact_pincher_mode/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
-	if(..()) //button available
-		var/obj/item/clothing/gloves/artifact_pinchers/pinchy = master
+/datum/action/item_action/artifact_pincher_mode/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	. = ..()
+	if(is_available())
+		var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 		if(istype(pinchy))
 			button.color = (pinchy.safety ? "#0f0" : "#fff")
 
@@ -161,7 +162,7 @@
 	desc = "A ring that allows the wearer to swap places with another person they can see."
 	icon_state = "ring"
 	inhand_icon_state = "ring"
-	actions_types = list(/datum/action/spell/pointed/swap_places)
+	actions_types = list(/datum/action/cooldown/spell/pointed/swap)
 
 /obj/item/clothing/gloves/translocation_ring/item_action_slot_check(slot, mob/user)
 	return slot == ITEM_SLOT_GLOVES

@@ -24,6 +24,7 @@
 /obj/item/pai_card/Initialize(mapload)
 	. = ..()
 	SSpai.pai_card_list += src
+	ADD_TRAIT(src, TRAIT_CASTABLE_LOC, INNATE_TRAIT)
 	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/pai_card/vv_edit_var(vname, vval)

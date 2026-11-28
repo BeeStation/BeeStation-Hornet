@@ -46,8 +46,8 @@
 	button_icon = 'icons/hud/actions/actions_spacesuit.dmi'
 	button_icon_state = "thermal_off"
 
-/datum/action/item_action/toggle_spacesuit/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
-	var/obj/item/clothing/suit/space/suit = master
+/datum/action/item_action/toggle_spacesuit/apply_button_icon(atom/movable/screen/movable/action_button/button, force)
+	var/obj/item/clothing/suit/space/suit = target
 	if(istype(suit))
 		button_icon_state = "thermal_[suit.thermal_on ? "on" : "off"]"
 
@@ -77,19 +77,20 @@
 /datum/action/item_action/jetpack_stabilization
 	name = "Toggle Jetpack Stabilization"
 
-/datum/action/item_action/jetpack_stabilization/is_available()
-	var/obj/item/tank/jetpack/linked_jetpack = master
+/datum/action/item_action/jetpack_stabilization/is_available(feedback = FALSE)
+	var/obj/item/tank/jetpack/linked_jetpack = target
 	if(!istype(linked_jetpack) || !linked_jetpack.on)
 		return FALSE
 	return ..()
 
-/datum/action/item_action/toggle_hud
+/datum/action/item_action/organ_action/toggle_hud
 	name = "Toggle Implant HUD"
 	desc = "Disables your HUD implant's visuals. You can still access examine information."
 
-/datum/action/item_action/toggle_hud/on_activate(mob/user, atom/target, trigger_flags)
-	var/obj/item/organ/cyberimp/eyes/hud/hud_implant = master
+/datum/action/item_action/organ_action/toggle_hud/do_effect(trigger_flags)
+	var/obj/item/organ/cyberimp/eyes/hud/hud_implant = target
 	hud_implant.toggle_hud(owner)
+	return TRUE
 
 /datum/action/item_action/wheelys
 	name = "Toggle Wheels"
@@ -106,24 +107,9 @@
 /datum/action/item_action/storage_gather_mode
 	name = "Switch gathering mode"
 	desc = "Switches the gathering mode of a storage object."
-	button_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "storage_gather_switch"
-
-/datum/action/item_action/storage_gather_mode/apply_icon(atom/movable/screen/movable/action_button/current_button)
-	. = ..()
-	var/obj/item/item_target = master
-	var/old_layer = item_target.layer
-	var/old_plane = item_target.plane
-	item_target.layer = FLOAT_LAYER //AAAH
-	item_target.plane = FLOAT_PLANE //^ what that guy said
-	current_button.cut_overlays()
-	current_button.add_overlay(master)
-	item_target.layer = old_layer
-	item_target.plane = old_plane
-	current_button.appearance_cache = item_target.appearance
-
-/datum/action/item_action/equip_unequip_TED_Gun
-	name = "Activate/Deactivate TED Gun"
+	background_icon = 'icons/hud/actions/actions_items.dmi'
+	background_icon_state = "storage_gather_switch"
+	overlay_icon_state = "bg_tech_border"
 
 /datum/action/item_action/call_link
 	name = "Call MODlink"

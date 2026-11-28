@@ -87,7 +87,7 @@
 	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	visor_flags_inv = HIDEFACIALHAIR
 	visor_flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	armor_type = /datum/armor/gas_explorer
 	resistance_flags = FIRE_PROOF
 
@@ -104,15 +104,22 @@
 	bleed = 10
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
-	adjustmask(user)
+	adjust_visor(user)
 
-/obj/item/clothing/mask/gas/explorer/adjustmask(user)
-	..()
-	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+/obj/item/clothing/mask/gas/explorer/visor_toggling()
+	. = ..()
+	// adjusted = out of the way = smaller = can fit in boxes
+	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/explorer/examine(mob/user)
+	. = ..()
+	if(up || w_class == WEIGHT_CLASS_SMALL)
+		return
+	. += span_notice("You could fit this into a box if you adjusted it.")
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
-	adjustmask()
+	visor_toggling()
 
 /obj/item/clothing/suit/hooded/hostile_environment
 	name = "H.E.C.K. suit"

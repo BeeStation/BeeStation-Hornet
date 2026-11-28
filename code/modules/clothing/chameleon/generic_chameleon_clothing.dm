@@ -22,6 +22,7 @@ do { \
 	can_adjust = FALSE
 	armor_type = /datum/armor/under_chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/jumpsuit)
+	action_slots = ALL
 
 /datum/armor/under_chameleon
 	melee = 10
@@ -80,6 +81,7 @@ do { \
 	resistance_flags = NONE
 	armor_type = /datum/armor/suit_chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/suit)
+	action_slots = ALL
 
 /datum/armor/suit_chameleon
 	melee = 10
@@ -108,6 +110,7 @@ do { \
 	resistance_flags = NONE
 	armor_type = /datum/armor/glasses_chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
+	action_slots = ALL
 
 /datum/armor/glasses_chameleon
 	melee = 10
@@ -131,6 +134,7 @@ do { \
 	inhand_icon_state = "welding-g"
 	flash_protect = 3
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
+	action_slots = ALL
 
 /obj/item/clothing/gloves/chameleon
 	desc = "These gloves provide protection against electric shock."
@@ -141,6 +145,7 @@ do { \
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/gloves)
+	action_slots = ALL
 
 /datum/armor/gloves_chameleon
 	melee = 10
@@ -191,6 +196,7 @@ do { \
 	resistance_flags = NONE
 	armor_type = /datum/armor/head_chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/hat)
+	action_slots = ALL
 
 /datum/armor/head_chameleon
 	melee = 5
@@ -237,6 +243,7 @@ do { \
 		/datum/action/item_action/chameleon/drone/togglehatmask,
 		/datum/action/item_action/chameleon/drone/randomise,
 	)
+	action_slots = ALL
 
 /obj/item/clothing/head/chameleon/drone/Initialize(mapload)
 	. = ..()
@@ -259,6 +266,7 @@ do { \
 		/datum/action/item_action/chameleon/change/mask,
 		/datum/action/item_action/chameleon/tongue_change,
 	)
+	action_slots = ALL
 
 /datum/armor/mask_chameleon
 	melee = 5
@@ -291,6 +299,7 @@ do { \
 		/datum/action/item_action/chameleon/drone/togglehatmask,
 		/datum/action/item_action/chameleon/drone/randomise,
 	)
+	action_slots = ALL
 	item_flags = DROPDEL
 	//Same as the drone chameleon hat, undroppable and no protection
 	armor_type = /datum/armor/none
@@ -315,6 +324,7 @@ do { \
 	resistance_flags = NONE
 	armor_type = /datum/armor/shoes_chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/shoes)
+	action_slots = ALL
 
 /datum/armor/shoes_chameleon
 	melee = 10
@@ -345,6 +355,7 @@ do { \
 /obj/item/storage/backpack/chameleon
 	name = "backpack"
 	actions_types = list(/datum/action/item_action/chameleon/change/backpack)
+	action_slots = ALL
 
 /obj/item/storage/backpack/chameleon/broken/Initialize(mapload)
 	. = ..()
@@ -354,6 +365,7 @@ do { \
 	name = "toolbelt"
 	desc = "Holds tools."
 	actions_types = list(/datum/action/item_action/chameleon/change/belt)
+	action_slots = ALL
 
 /obj/item/storage/belt/chameleon/Initialize(mapload)
 	. = ..()
@@ -368,6 +380,7 @@ do { \
 /obj/item/radio/headset/chameleon
 	name = "radio headset"
 	actions_types = list(/datum/action/item_action/chameleon/change/headset)
+	action_slots = ALL
 
 /obj/item/radio/headset/chameleon/broken
 
@@ -384,6 +397,7 @@ do { \
 /obj/item/modular_computer/tablet/pda/preset/chameleon
 	name = "PDA"
 	actions_types = list(/datum/action/item_action/chameleon/change/pda)
+	action_slots = ALL
 
 /obj/item/modular_computer/tablet/pda/preset/chameleon/broken
 
@@ -394,6 +408,7 @@ do { \
 /obj/item/stamp/chameleon
 	icon_state = "stamp-syndicate"
 	actions_types = list(/datum/action/item_action/chameleon/change/stamp)
+	action_slots = ALL
 
 /obj/item/stamp/chameleon/broken
 
@@ -408,6 +423,7 @@ do { \
 	resistance_flags = NONE
 	armor_type = /datum/armor/neck_chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/neck)
+	action_slots = ALL
 
 /datum/armor/neck_chameleon
 	fire = 50

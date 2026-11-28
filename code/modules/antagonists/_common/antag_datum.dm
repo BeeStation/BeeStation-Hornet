@@ -5,7 +5,7 @@ GLOBAL_LIST(admin_antag_list)
 	abstract_type = /datum/antagonist
 	var/tips
 	/// Public name for this antagonist. Appears for player prompts and round-end reports.
-	var/name = "Antagonist"
+	var/name = "\improper Antagonist"
 	/// Section of roundend report, datums with same category will be displayed together, also default header for the section
 	var/roundend_category = "other antagonists"
 	/// Set to false to hide the antagonists from roundend report
@@ -36,6 +36,8 @@ GLOBAL_LIST(admin_antag_list)
 	/// such as uplinks can detect this datum's objectives for the cases where a syndicate
 	/// gets new objectives due to conversion.
 	var/faction = null
+	/// Flags for antags to turn on or off and check!
+	var/antag_flags = NONE
 
 	/// The antag hud's icon file
 	var/hud_icon = 'icons/mob/huds/antag_hud.dmi'
@@ -149,6 +151,11 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/ui_state(mob/user)
 	return GLOB.always_state
 
+/datum/antagonist/ui_status(mob/user, datum/ui_state/state)
+	. = ..()
+	if(isobserver(user) && antag_flags & ANTAG_OBSERVER_VISIBLE_PANEL)
+		return UI_UPDATE
+
 /datum/antagonist/ui_static_data(mob/user)
 	var/list/data = list()
 	data["antag_name"] = name
@@ -159,22 +166,27 @@ GLOBAL_LIST(admin_antag_list)
 /datum/action/antag_info
 	name = "Open Special Role Information:"
 	button_icon_state = "round_end"
+	show_to_observers = FALSE
 
 /datum/action/antag_info/New(target)
 	. = ..()
 	name = "Open [target] Information:"
 
-/datum/action/antag_info/on_activate(mob/user, atom/target, trigger_flags)
-	target.ui_interact(owner)
+/datum/action/antag_info/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
+	target.ui_interact(clicker || owner)
 
 /datum/action/antag_info/is_available(feedback = FALSE)
-	if(!master)
+	if(!target)
 		stack_trace("[type] was used without a target antag datum!")
 		return FALSE
 	. = ..()
 	if(!.)
 		return
-	if(!owner.mind || !(master in owner.mind.antag_datums))
+	if(!owner.mind || !(target in owner.mind.antag_datums))
 		return FALSE
 	return TRUE
 
@@ -212,6 +224,16 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
 	return
 
+/// This is called when the antagonist is being mindshielded.
+/datum/antagonist/proc/pre_mindshield(mob/implanter, mob/living/mob_override)
+	SIGNAL_HANDLER
+	return COMPONENT_MINDSHIELD_PASSED
+
+/// This is called when the antagonist is successfully mindshielded.
+/datum/antagonist/proc/on_mindshield(mob/implanter, mob/living/mob_override)
+	SIGNAL_HANDLER
+	return
+
 //Assign default team and creates one for one of a kind team antagonists
 /datum/antagonist/proc/create_team(datum/team/team)
 	return
@@ -232,8 +254,11 @@ GLOBAL_LIST(admin_antag_list)
 			to_chat(owner.current, span_boldnotice("For more info, read the panel. \
 				You can always come back to it using the button in the top left."))
 			info_button?.trigger()
+
 	apply_innate_effects()
 	give_antag_moodies()
+	RegisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT, PROC_REF(pre_mindshield))
+	RegisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED, PROC_REF(on_mindshield))
 	if(is_banned(owner.current) && replace_banned)
 		replace_banned_player()
 	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
@@ -255,14 +280,27 @@ GLOBAL_LIST(admin_antag_list)
 	if(!ui_name)
 		return
 	var/datum/action/antag_info/info_button = new(src)
+	if(antag_flags & ANTAG_OBSERVER_VISIBLE_PANEL)
+		info_button.show_to_observers = TRUE
+		info_button.allow_observer_click = TRUE
 	info_button.Grant(owner.current)
 	info_button_ref = WEAKREF(info_button)
 	return info_button
 
+/**
+ * Proc that checks the sent mob against the banlist for this antagonist.
+ * Returns FALSE if no mob is sent, or the mob is not found to be banned.
+ *
+ *  * mob/player: The mob that you are looking for on the banlist.
+ */
 /datum/antagonist/proc/is_banned(mob/player)
 	if(!player)
 		stack_trace("Called is_banned without a mob. This shouldn't happen.")
 		return FALSE
+
+	if(!player.ckey)
+		return FALSE
+
 	. = (is_banned_from(player.ckey, banning_key) || QDELETED(player))
 
 /datum/antagonist/proc/replace_banned_player()
@@ -303,6 +341,8 @@ GLOBAL_LIST(admin_antag_list)
 	if(!silent && owner.current)
 		farewell()
 	owner.current.update_action_buttons()
+	UnregisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT)
+	UnregisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED)
 
 	// clear our icon state from the player panel
 	// if our owner has any antag datums we choose a random one's hud icon state

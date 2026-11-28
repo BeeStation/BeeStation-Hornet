@@ -157,7 +157,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	background_icon_state = "bg_revenant"
 	button_icon_state = "ninja_phase"
 
-/datum/action/innate/mrat_costume/on_activate()
+/datum/action/innate/mrat_costume/Activate()
 	var/mob/camera/imaginary_friend/mrat/I = owner
 	if(!istype(I))
 		qdel(src)
@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	background_icon_state = "bg_revenant"
 	button_icon_state = "beam_up"
 
-/datum/action/innate/mrat_leave/on_activate()
+/datum/action/innate/mrat_leave/Activate()
 	var/mob/camera/imaginary_friend/friend = owner
 	if(!istype(friend))
 		qdel(src)
@@ -192,7 +192,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	. = ..()
 	friend = null
 
-/datum/action/innate/mrat_kick/on_activate()
+/datum/action/innate/mrat_kick/Activate()
 	if(!istype(friend))
 		qdel(src)
 	if(!istype(friend) || tgui_alert(friend.owner, "Are you sure you want to remove your mentor?", "Remove:", list("Yes", "No")) != "Yes")

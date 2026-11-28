@@ -101,9 +101,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/min_cold_protection_temperature
 
 	/// List of /datum/action's that this item has.
-	var/list/actions
+	var/list/datum/action/actions
 	/// List of paths of action datums to give to the item on New().
 	var/list/actions_types
+	///Slot flags in which this item grants actions. If null, defaults to the item's slot flags (so actions are granted when worn)
+	var/action_slots = null
 
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv
@@ -158,7 +160,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
 	/// Used for when things get stuck in you and need to be surgically removed. See [/datum/embedding_behavior]
-	var/list/embedding = NONE
+	var/list/embedding
 
 	/// For flags such as GLASSESCOVERSEYES to show which slots this item can cover. See _DEFINES/inventory.dm
 	var/flags_cover = 0
@@ -483,9 +485,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!(item_flags & NOBLUDGEON) && !(item_flags & ISWEAPON) && force != 0)
 		.["hesitant"] = "You'll have to apply a conscious effort to harm someone with [src]."
 
-	if(!user.research_scanner)
-		return
+/obj/item/examine_descriptor(mob/user)
+	return "item"
 
+/obj/item/examine_more(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_RESEARCH_SCANNER))
+		. += research_scan(user)
+
+/obj/item/proc/research_scan(mob/user)
 	// Research prospects, including boostable nodes and point values.
 	// Deliver to a console to know whether the boosts have already been used.
 	var/list/research_msg = list("<font color='purple'>Research prospects:</font> ")
@@ -518,10 +526,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else
 		research_msg += "None"
 	research_msg += "."
-	. += research_msg.Join()
-
-/obj/item/examine_descriptor(mob/user)
-	return "item"
+	return research_msg.Join()
 
 /obj/item/interact(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
@@ -907,6 +912,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	if(slot & (ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED)) // These aren't true slots, so avoid granting actions there
 		return FALSE
+	if(!isnull(action_slots))
+		return (slot & action_slots)
+	else if (slot_flags)
+		return (slot & slot_flags)
 	return TRUE
 
 /**
@@ -1646,12 +1655,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * Updates all action buttons associated with this item
  *
  * Arguments:
- * * status_only - Update only current availability status of the buttons to show if they are ready or not to use
+ * * update_flags - Which flags of the action should we update
  * * force - Force buttons update even if the given button icon state has not changed
  */
-/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+/obj/item/proc/update_item_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
-		current_action.update_buttons(status_only, force)
+		current_action.build_all_button_icons(update_flags, force)
+
 /**
  * * An interrupt for offering an item to other people, called mainly from [/mob/living/carbon/proc/give], in case you want to run your own offer behavior instead.
  *

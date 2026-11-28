@@ -369,6 +369,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	// identical to the codes from 'observe()', but calling that proc makes a SpacemanDMM warning
 	if(observetarget) // stop observing.
 		to_chat(src, span_notice("You stopped observing [observetarget]"))
+		hide_other_mob_action_buttons(observetarget)
 		LAZYREMOVE(observetarget.observers, src)
 		observetarget = null
 		set_mob_eye_to(MOB_EYE_SELF)
@@ -892,6 +893,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(observetarget) // stop observing
 		to_chat(src, span_notice("You stopped observing [observetarget]"))
+		hide_other_mob_action_buttons(observetarget)
 		LAZYREMOVE(observetarget.observers, src)
 		observetarget = null
 		set_mob_eye_to(MOB_EYE_SELF)
@@ -906,6 +908,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	observetarget = null
 	sight = initial(sight)
 	if(target)
+		hide_other_mob_action_buttons(target)
 		LAZYREMOVE(target.observers, src)
 	set_mob_eye_to(MOB_EYE_SELF)
 

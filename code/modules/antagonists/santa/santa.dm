@@ -28,5 +28,5 @@
 		human_santa.equipOutfit(/datum/outfit/santa)
 		human_santa.dna.update_dna_identity()
 
-	var/datum/action/spell/teleport/area_teleport/wizard/santa/teleport = new(owner)
+	var/datum/action/cooldown/spell/teleport/area_teleport/wizard/santa/teleport = new(owner)
 	teleport.Grant(human_santa)

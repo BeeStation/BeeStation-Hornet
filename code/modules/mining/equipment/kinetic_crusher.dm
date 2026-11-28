@@ -22,6 +22,7 @@
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	actions_types = list(/datum/action/item_action/toggle_light)
+	action_slots = ALL
 	light_system = MOVABLE_LIGHT
 	light_range = 5
 	light_on = FALSE
@@ -442,7 +443,7 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
-	return "mark detonation to create a homing hierophant chaser" //Wall was way too cheesy and allowed miners to be nearly invincible while dumb mob AI just rubbed its face on the wall.
+	return "mark detonation to create a homing hierophant chaser"
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
 	if(isliving(target)) //living

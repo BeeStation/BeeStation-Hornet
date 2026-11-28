@@ -1,5 +1,5 @@
 // We don't use conjure because it has limitations
-/datum/action/spell/summon_weapon
+/datum/action/cooldown/spell/summon_weapon
 	name = "Summon Weapon"
 	desc = "Summons your weapon from across time and space."
 	cooldown_time = 20 SECONDS
@@ -13,14 +13,14 @@
 	/// The item to summon
 	var/datum/weakref/marked_item
 
-/datum/action/spell/summon_weapon/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/summon_weapon/cast(mob/living/cast_on)
 	. = ..()
 	var/obj/item_to_retrieve = marked_item?.resolve()
 
 	if(QDELETED(item_to_retrieve))
 		qdel(src)
 
-	if(!IS_SERVANT_OF_RATVAR(user))
+	if(!IS_SERVANT_OF_RATVAR(cast_on))
 		return
 
 	var/infinite_recursion = 0
@@ -35,9 +35,9 @@
 				var/mob/M = item_to_retrieve.loc
 
 				if(issilicon(M)) //Items in silicons warp the whole silicon
-					M.loc.visible_message(span_warning("[user] suddenly disappears!"))
-					M.forceMove(user.loc)
-					M.loc.visible_message(span_warning("[user] suddenly appears!"))
+					M.loc.visible_message(span_warning("[cast_on] suddenly disappears!"))
+					M.forceMove(cast_on.loc)
+					M.loc.visible_message(span_warning("[cast_on] suddenly appears!"))
 					item_to_retrieve = null
 					break
 				M.dropItemToGround(item_to_retrieve)
@@ -48,7 +48,7 @@
 						var/obj/item/bodypart/part = X
 						if(item_to_retrieve in part.embedded_objects)
 							part.embedded_objects -= item_to_retrieve
-							to_chat(C, span_warning("The [item_to_retrieve] that was embedded in your [user] has mysteriously vanished. How fortunate!"))
+							to_chat(C, span_warning("The [item_to_retrieve] that was embedded in your [owner] has mysteriously vanished. How fortunate!"))
 							if(!C.has_embedded_objects())
 								C.clear_alert("embeddedobject")
 								SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "embedded")
@@ -69,10 +69,10 @@
 
 	if(item_to_retrieve.loc)
 		item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
-	if(!user.put_in_hands(item_to_retrieve))
-		item_to_retrieve.forceMove(user.drop_location())
+	if(!owner.put_in_hands(item_to_retrieve))
+		item_to_retrieve.forceMove(owner.drop_location())
 		item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly appears!"))
-		playsound(get_turf(user), 'sound/magic/summonitems_generic.ogg', 50, 1)
+		playsound(get_turf(owner), 'sound/magic/summonitems_generic.ogg', 50, 1)
 	else
-		item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly appears in [user]'s hand!"))
-		playsound(get_turf(user), 'sound/magic/summonitems_generic.ogg', 50, 1)
+		item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly appears in [owner]'s hand!"))
+		playsound(get_turf(owner), 'sound/magic/summonitems_generic.ogg', 50, 1)

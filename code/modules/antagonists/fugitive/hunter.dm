@@ -70,6 +70,7 @@
 /datum/team/fugitive_hunters/proc/forge_team_objectives()
 	for(var/datum/antagonist/fugitive/A in GLOB.active_antagonists)
 		if(!A.owner)
+			stack_trace("Antagonist datum without owner in GLOB.antagonists: [A]")
 			continue
 		var/datum/objective/capture_fugitive/capture = new()
 		capture.team = src

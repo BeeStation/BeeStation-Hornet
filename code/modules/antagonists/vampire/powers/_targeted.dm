@@ -1,6 +1,6 @@
 // NOTE: All Targeted spells are Toggles! We just don't bother checking here.
-/datum/action/vampire/targeted
-	abstract_type = /datum/action/vampire/targeted
+/datum/action/cooldown/vampire/targeted
+	abstract_type = /datum/action/cooldown/vampire/targeted
 	power_flags = BP_AM_TOGGLE
 
 	///If set, how far the target has to be for the power to work.
@@ -13,11 +13,11 @@
 	var/power_in_use = FALSE
 
 /// Modify description to add notice that this is aimed.
-/datum/action/vampire/targeted/update_desc()
+/datum/action/cooldown/vampire/targeted/update_desc()
 	. = ..()
 	desc += "<br><br><i>Targeted Power</i>"
 
-/datum/action/vampire/targeted/on_activate(mob/user, atom/target)
+/datum/action/cooldown/vampire/targeted/Activate(atom/target)
 	if(currently_active)
 		deactivate_power()
 		return FALSE
@@ -35,13 +35,13 @@
 	if(currently_active)
 		set_click_ability(owner)
 
-/datum/action/vampire/targeted/activate_power()
+/datum/action/cooldown/vampire/targeted/activate_power()
 	currently_active = TRUE
 
 	owner.log_message("used [src][vitaecost != 0 ? " at the cost of [vitaecost]" : ""].", LOG_ATTACK, color="red")
-	update_buttons()
+	build_all_button_icons()
 
-/datum/action/vampire/targeted/deactivate_power(successful = FALSE)
+/datum/action/cooldown/vampire/targeted/deactivate_power(successful = FALSE)
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 
@@ -50,13 +50,13 @@
 		return
 
 	currently_active = FALSE
-	update_buttons()
+	build_all_button_icons()
 	unset_click_ability(owner)
 
 
 
 /// Check if target is VALID (wall, turf, or character?)
-/datum/action/vampire/targeted/proc/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/proc/check_valid_target(atom/target_atom)
 	// No targeting yourself
 	if(target_atom == owner)
 		return FALSE
@@ -68,12 +68,12 @@
 
 	return TRUE
 
-/datum/action/vampire/targeted/InterceptClickOn(mob/living/clicker, params, atom/target)
+/datum/action/cooldown/vampire/targeted/InterceptClickOn(mob/living/clicker, params, atom/target)
 	INVOKE_ASYNC(src, PROC_REF(click_with_power), target)
 	return TRUE
 
 /// Click Target
-/datum/action/vampire/targeted/proc/click_with_power(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/proc/click_with_power(atom/target_atom)
 	// Already using?
 	if(power_in_use)
 		return
@@ -96,12 +96,12 @@
 		power_activated_sucessfully() // Mesmerize pays only after success.
 	power_in_use = FALSE
 
-/datum/action/vampire/targeted/proc/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/proc/FireTargetedPower(atom/target_atom)
 	unset_click_ability(owner)
 	log_combat(owner, target_atom, "used [name] on")
 
 /// The power went off! We now pay the cost of the power.
-/datum/action/vampire/targeted/proc/power_activated_sucessfully()
+/datum/action/cooldown/vampire/targeted/proc/power_activated_sucessfully()
 	pay_cost()
 	start_cooldown()
 	deactivate_power(TRUE)

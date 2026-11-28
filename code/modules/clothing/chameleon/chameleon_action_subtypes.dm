@@ -93,10 +93,10 @@
 
 /datum/action/item_action/chameleon/change/pda/update_item(obj/item/picked_item)
 	. = ..()
-	if(!istype(master, /obj/item/modular_computer))
+	if(!istype(target, /obj/item/modular_computer))
 		return
 
-	var/obj/item/modular_computer/computer_target = master
+	var/obj/item/modular_computer/computer_target = target
 	var/obj/item/card/id/id = computer_target.GetID()
 	if(id)
 		computer_target.saved_identification = id.registered_name
@@ -120,10 +120,10 @@
 
 /datum/action/item_action/chameleon/change/id/update_item(obj/item/picked_item)
 	. = ..()
-	if(!isidcard(master) || !ispath(picked_item, /obj/item/card/id))
+	if(!isidcard(target) || !ispath(picked_item, /obj/item/card/id))
 		return
 
-	var/obj/item/card/id/id_target = master
+	var/obj/item/card/id/id_target = target
 	var/obj/item/card/id/picked_id = picked_item
 
 	id_target.hud_state = picked_id::hud_state
@@ -140,16 +140,16 @@
 
 /datum/action/item_action/chameleon/change/id/random_look()
 	. = ..()
-	if(!istype(master, /obj/item/card/id))
+	if(!istype(target, /obj/item/card/id))
 		return
-	var/obj/item/card/id/id_target = master
+	var/obj/item/card/id/id_target = target
 
 	id_target.assignment = pick(SSjob.name_occupations)
 	id_target.update_label()
 
 /datum/action/item_action/chameleon/change/id/on_multitool_act(obj/item/source, mob/living/user, obj/item/tool, list/processing_recipes)
 	. = ..()
-	astype(master, /obj/item/card/id/syndicate)?.forge_disabled = should_hide
+	astype(target, /obj/item/card/id/syndicate)?.forge_disabled = should_hide
 
 /datum/action/item_action/chameleon/change/stamp
 	chameleon_type = /obj/item/stamp
@@ -161,7 +161,7 @@
 	button_icon_state = "tonguebone"
 	var/static/list/tongue_list
 
-/datum/action/item_action/chameleon/tongue_change/New(master)
+/datum/action/item_action/chameleon/tongue_change/New(Target)
 	. = ..()
 	if(!isnull(tongue_list))
 		return
@@ -174,7 +174,8 @@
 		tongue_list[tongue_name] = potential_tongue
 	tongue_list = sort_list(tongue_list)
 
-/datum/action/item_action/chameleon/tongue_change/on_activate(mob/user, obj/item/clothing/mask/target_mask)
+/datum/action/item_action/chameleon/tongue_change/do_effect(trigger_flags)
+	var/obj/item/clothing/mask/target_mask = target
 	if(!istype(target_mask))
 		return FALSE
 

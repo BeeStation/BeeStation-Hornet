@@ -38,11 +38,11 @@
 		activation_slab.invoking_scripture = null
 	. = ..()
 
-/datum/action/innate/clockcult/quick_bind/is_available()
+/datum/action/innate/clockcult/quick_bind/is_available(feedback = FALSE)
 	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated)
 		return FALSE
 	. = ..()
 
-/datum/action/innate/clockcult/quick_bind/on_activate()
+/datum/action/innate/clockcult/quick_bind/Activate()
 	if(!activation_slab?.invoking_scripture)
 		scripture.try_to_invoke(owner)

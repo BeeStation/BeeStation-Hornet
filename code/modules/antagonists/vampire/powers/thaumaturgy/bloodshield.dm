@@ -1,4 +1,4 @@
-/datum/action/vampire/bloodshield
+/datum/action/cooldown/vampire/bloodshield
 	name = "Thaumaturgy: Blood Shield"
 	desc = "Create a Blood shield to protect yourself from damage."
 	button_icon_state = "power_bloodshield"
@@ -17,7 +17,7 @@
 	/// Blood shield given while this Power is active.
 	var/datum/weakref/blood_shield
 
-/datum/action/vampire/bloodshield/activate_power()
+/datum/action/cooldown/vampire/bloodshield/activate_power()
 	. = ..()
 	var/obj/item/shield/vampire/new_shield = new
 	blood_shield = WEAKREF(new_shield)
@@ -31,7 +31,7 @@
 		span_warning("We activate our Blood shield!"),
 		span_hear("You hear liquids forming together."))
 
-/datum/action/vampire/bloodshield/deactivate_power()
+/datum/action/cooldown/vampire/bloodshield/deactivate_power()
 	. = ..()
 	to_chat(owner, span_notice("Blood shield couldn't be activated as your off hand is full."))
 	QDEL_NULL(blood_shield)

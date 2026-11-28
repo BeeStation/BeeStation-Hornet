@@ -1,11 +1,13 @@
+// Cult pylon. Heals nearby cultists and converts turfs to cult turfs.
 /obj/structure/destructible/cult/pylon
 	name = "pylon"
 	desc = "A floating crystal that slowly heals those faithful to Nar'Sie."
 	icon_state = "pylon"
 	light_range = 1.5
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	break_sound = 'sound/effects/glassbr2.ogg'
 	break_message = span_warning("The blood-red crystal falls to the floor and shatters!")
+	custom_materials = list(/datum/material/runedmetal = 300)
 	/// Length of the cooldown in between tile corruptions. Doubled if no turfs are found.
 	var/corruption_cooldown_duration = 5 SECONDS
 	/// The cooldown for corruptions.

@@ -162,9 +162,6 @@
 	if(attached_atom.loc != user)
 		to_chat(user, span_warning("You attempt to wield [parent] via the power of telekenisis, but it is too much for you to handle..."))
 		return
-	if(ismonkey(user))
-		to_chat(user, span_warning("It's too heavy for you to wield fully."))
-		return
 	if(swap_hands ? user.get_active_held_item() : user.get_inactive_held_item())
 		if(require_twohands)
 			to_chat(user, span_notice("[parent] is too cumbersome to carry in one hand!"))
@@ -386,6 +383,7 @@
  */
 /obj/item/offhand
 	name = "offhand"
+	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON

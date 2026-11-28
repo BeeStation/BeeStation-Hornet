@@ -346,7 +346,7 @@
 		/obj/item/food/baguette/mime = 15,
 		/obj/item/food/cheese/wheel = 10,
 		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 10,
-		/obj/item/book/mimery = 2,
+		/obj/item/book/granter/action/spell/mime/mimery = 2,
 		//when you thought it could get worse...
 		/obj/item/book/granter/action/spell/mime
 	)

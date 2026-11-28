@@ -591,14 +591,6 @@
 	},
 /turf/open/floor/wood,
 /area/station/service/cafeteria)
-"aye" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/mob/living/basic/goat/pete,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron/freezer,
-/area/station/service/kitchen/coldroom)
 "ayM" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -3598,15 +3590,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
-"cxG" = (
-/obj/machinery/firealarm/directional/east,
-/obj/structure/fireplace,
-/obj/structure/bed/dogbed/renault,
-/mob/living/basic/pet/fox/renault{
-	density = 0
-	},
-/turf/open/floor/wood,
-/area/station/command/heads_quarters/captain)
 "cxW" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180;
@@ -4410,6 +4393,15 @@
 /obj/item/toy/figure/hos,
 /turf/open/floor/carpet/red,
 /area/station/command/heads_quarters/hos)
+"cWW" = (
+/obj/machinery/firealarm/directional/east,
+/obj/structure/fireplace,
+/obj/structure/bed/dogbed/renault,
+/mob/living/basic/pet/fox/renault{
+	density = 0
+	},
+/turf/open/floor/wood,
+/area/station/command/heads_quarters/captain)
 "cXa" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -9252,6 +9244,14 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/engineering/atmos)
+"fJw" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/basic/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron,
+/area/station/science/research/abandoned)
 "fJF" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Pure to Mix"
@@ -13592,6 +13592,15 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/station/science/robotics)
+"ism" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/mob/living/basic/sloth/citrus{
+	density = 0
+	},
+/turf/open/floor/iron/sepia,
+/area/station/cargo/storage)
 "isK" = (
 /obj/structure/table,
 /obj/item/storage/backpack{
@@ -26402,6 +26411,14 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
+"pZH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/mob/living/basic/goat/pete,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/iron/freezer,
+/area/station/service/kitchen/coldroom)
 "pZK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -30703,6 +30720,13 @@
 /obj/effect/turf_decal/trimline/yellow,
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/rd)
+"sBZ" = (
+/obj/structure/destructible/cult/item_dispenser/archives,
+/obj/structure/light_construct{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library/abandoned)
 "sCV" = (
 /obj/effect/turf_decal/siding/blue{
 	alpha = 100;
@@ -31799,15 +31823,6 @@
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/station/maintenance/department/medical/morgue)
-"tnH" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/mob/living/basic/sloth/citrus{
-	density = 0
-	},
-/turf/open/floor/iron/sepia,
-/area/station/cargo/storage)
 "tnV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -35101,13 +35116,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/medical/surgery)
-"vrD" = (
-/obj/structure/destructible/cult/tome,
-/obj/structure/light_construct{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblack,
-/area/station/service/library/abandoned)
 "vse" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -35841,14 +35849,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/pickaxe,
 /turf/open/floor/plating/asteroid/basalt/planetary,
-/area/station/science/research/abandoned)
-"vHT" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/mob/living/basic/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/iron,
 /area/station/science/research/abandoned)
 "vIm" = (
 /obj/effect/turf_decal/stripes/line,
@@ -51548,7 +51548,7 @@ evZ
 vmi
 jrW
 tpy
-aye
+pZH
 vOH
 qQO
 deV
@@ -51831,7 +51831,7 @@ xXP
 kCN
 hqA
 ejb
-tnH
+ism
 brM
 xtD
 gGo
@@ -56696,7 +56696,7 @@ asF
 pOl
 fpR
 vRZ
-vrD
+sBZ
 lZR
 eoO
 ggx
@@ -60065,7 +60065,7 @@ wIm
 iyF
 sXx
 iez
-vHT
+fJw
 gsL
 wIm
 fUJ
@@ -122773,7 +122773,7 @@ utq
 cYa
 nzB
 lLh
-cxG
+cWW
 fhZ
 voQ
 uWD

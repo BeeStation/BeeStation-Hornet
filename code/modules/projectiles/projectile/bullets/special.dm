@@ -13,6 +13,7 @@
 	icon_state = "banana"
 	range = 200
 	bleed_force = 0
+	embedding = null
 
 /obj/projectile/bullet/honker/Initialize(mapload)
 	. = ..()

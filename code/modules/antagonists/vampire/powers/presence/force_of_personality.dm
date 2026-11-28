@@ -1,4 +1,4 @@
-/datum/action/vampire/force_of_personality
+/datum/action/cooldown/vampire/force_of_personality
 	name = "Force of Personality"
 	desc = "Project an overwhelming aura of authority that causes those around you to involuntarily step back."
 	button_icon_state = "power_fop"
@@ -13,15 +13,15 @@
 	/// The range of the aura in tiles, this is further than the actual effect just so we can hit them with the status effect before they even get close enough.
 	var/aura_range = 7
 
-/datum/action/vampire/force_of_personality/activate_power()
+/datum/action/cooldown/vampire/force_of_personality/activate_power()
 	. = ..()
 	to_chat(owner, span_notice("You project an overwhelming sense of authority."), type = MESSAGE_TYPE_INFO)
 
-/datum/action/vampire/force_of_personality/deactivate_power()
+/datum/action/cooldown/vampire/force_of_personality/deactivate_power()
 	. = ..()
 	to_chat(owner, span_notice("You withdraw your authoritative presence."), type = MESSAGE_TYPE_INFO)
 
-/datum/action/vampire/force_of_personality/use_power()
+/datum/action/cooldown/vampire/force_of_personality/use_power()
 	. = ..()
 	for(var/mob/living/victim in oviewers(aura_range, owner))
 		if(!can_affect(victim))
@@ -33,7 +33,7 @@
 			existing.refresh()
 
 /// Checks if this victim can be affected by the force of personality aura
-/datum/action/vampire/force_of_personality/proc/can_affect(mob/living/victim)
+/datum/action/cooldown/vampire/force_of_personality/proc/can_affect(mob/living/victim)
 	if(!victim.client)
 		return FALSE
 	if(victim.has_unlimited_silicon_privilege)

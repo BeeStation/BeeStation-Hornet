@@ -242,7 +242,8 @@
 /atom/movable/screen/alert/irradiated
 	name = "Irradiated"
 	desc = "You're irradiated! Seek medicine and stand under a shower to halt the incoming damage."
-	icon_state = ALERT_IRRADIATED
+	use_user_hud_icon = TRUE
+	overlay_state = "irradiated"
 
 #undef RADIATION_TOX_DAMAGE_PER_INTENSITY
 #undef RADIATION_MAX_TOX_DAMAGE

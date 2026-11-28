@@ -1,4 +1,4 @@
-/datum/action/vampire/astral_projection
+/datum/action/cooldown/vampire/astral_projection
 	name = "Astral Projection"
 	desc = "The power of your blood empowers your auspex. Become able to project your consciousness outside your body."
 	power_explanation = "When Activated, you will become a ghost.\n\
@@ -12,7 +12,7 @@
 	vitaecost = 400
 	cooldown_time = 60 SECONDS
 
-/datum/action/vampire/astral_projection/activate_power()
+/datum/action/cooldown/vampire/astral_projection/activate_power()
 	. = ..()
 	var/mob/dead/observer/ghost = owner.ghostize(can_reenter_corpse = TRUE)
 	// cool name + color to make it obvious you're astral projecting

@@ -115,8 +115,7 @@
 /datum/species/ipc/proc/controller_deleted()
 	UnregisterSignal(controller, COMSIG_QDELETING)
 	controller = null
-	controller_action?.Remove(controller_action.owner)
-	controller_action = null
+	QDEL_NULL(controller_action)
 
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
@@ -142,7 +141,7 @@
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "pai"
 
-/datum/action/innate/access_controller/on_activate()
+/datum/action/innate/access_controller/Activate()
 	if(!isipc(owner))
 		CRASH("[owner] somehow tried to activate an IPC modpc controller as a non-IPC!")
 	var/mob/living/carbon/human/human = owner
@@ -157,7 +156,7 @@
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
 
-/datum/action/innate/change_screen/on_activate()
+/datum/action/innate/change_screen/Activate()
 	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", GLOB.ipc_screens_list)
 	var/color_choice = tgui_color_picker(usr, "Which color do you want your screen to be?", "Color Change")
 	if(!screen_choice)

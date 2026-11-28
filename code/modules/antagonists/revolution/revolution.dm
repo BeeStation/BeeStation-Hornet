@@ -28,6 +28,10 @@
 /datum/antagonist/rev/apply_innate_effects(mob/living/mob_override)
 	add_team_hud(mob_override || owner.current)
 
+/datum/antagonist/rev/on_mindshield(mob/implanter)
+	remove_revolutionary(FALSE, implanter)
+	return COMPONENT_MINDSHIELD_DECONVERTED
+
 /datum/antagonist/rev/proc/equip_rev()
 	return
 
@@ -160,6 +164,9 @@
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
+
+/datum/antagonist/rev/head/pre_mindshield(mob/implanter, mob/living/mob_override)
+	return COMPONENT_MINDSHIELD_RESISTED
 
 /datum/antagonist/rev/head/antag_listing_name()
 	return ..() + "(Leader)"

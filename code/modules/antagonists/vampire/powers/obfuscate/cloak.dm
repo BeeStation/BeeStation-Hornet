@@ -1,4 +1,4 @@
-/datum/action/vampire/cloak
+/datum/action/cooldown/vampire/cloak
 	name = "Cloak of Darkness"
 	desc = "Shroud yourself in shadow and become completely invisible. Costs blood to upkeep while in the light, but is free in darkness."
 	button_icon_state = "power_cloak"
@@ -19,14 +19,14 @@
 	var/in_shadow = FALSE
 
 /// Must have nobody around to see the cloak
-/datum/action/vampire/cloak/can_use()
+/datum/action/cooldown/vampire/cloak/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
 
 	return TRUE
 
-/datum/action/vampire/cloak/activate_power()
+/datum/action/cooldown/vampire/cloak/activate_power()
 	. = ..()
 	check_witnesses()
 	var/mob/living/user = owner
@@ -37,7 +37,7 @@
 	// Apply the cloaked status effect (handles self-visibility, bump/attack disruption)
 	user.apply_status_effect(/datum/status_effect/vampire_cloaked)
 
-/datum/action/vampire/cloak/continue_active()
+/datum/action/cooldown/vampire/cloak/continue_active()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -78,7 +78,7 @@
 
 	return TRUE
 
-/datum/action/vampire/cloak/deactivate_power()
+/datum/action/cooldown/vampire/cloak/deactivate_power()
 	var/mob/living/user = owner
 
 	animate(user, alpha = 255, time = 1 SECONDS)
@@ -90,7 +90,7 @@
 	return ..()
 
 // Override use_power to skip the default constant_vitaecost drain (we handle it ourselves in continue_active)
-/datum/action/vampire/cloak/use_power()
+/datum/action/cooldown/vampire/cloak/use_power()
 	if(!continue_active())
 		deactivate_power()
 		return FALSE

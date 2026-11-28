@@ -91,7 +91,7 @@
 	var/datum/reagents/capsaicin_holder = new(10)
 	capsaicin_holder.add_reagent(/datum/reagent/consumable/condensedcapsaicin, 10)
 	var/datum/effect_system/smoke_spread/chem/quick/smoke = new
-	smoke.set_up(capsaicin_holder, radius = 1, loca = get_turf(src))
+	smoke.set_up(capsaicin_holder, number = 1, location = get_turf(src))
 	smoke.start()
 
 /obj/item/mod/module/pepper_shoulders/proc/on_check_shields()

@@ -7,7 +7,7 @@
  * The two spells that sound most problematic with this is mindswap and lichdom,
  * but soul tap requires clothes for mindswap and lichdom takes your soul.
  */
-/datum/action/spell/tap
+/datum/action/cooldown/spell/tap
 	name = "Soul Tap"
 	desc = "Fuel your spells using your own soul!"
 	button_icon_state = "soultap"
@@ -22,42 +22,43 @@
 	/// The amount of health we take on tap
 	var/tap_health_taken = 20
 
-/datum/action/spell/tap/can_cast_spell(feedback = TRUE)
+/datum/action/cooldown/spell/tap/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	// We call this here so we can get feedback if they try to cast it when they shouldn't.
-	if(!is_valid_spell(owner))
+	if(!is_valid_target(owner))
 		if(feedback)
 			to_chat(owner, ("<span class='warning'>You have no soul to tap into!</span>"))
 		return FALSE
 
 	return TRUE
 
-/datum/action/spell/tap/is_valid_spell(mob/user, atom/target)
-	return isliving(user) && !HAS_TRAIT(owner, TRAIT_NO_SOUL)
+/datum/action/cooldown/spell/tap/is_valid_target(atom/cast_on)
+	return isliving(cast_on) && !HAS_TRAIT(cast_on, TRAIT_NO_SOUL)
 
-/datum/action/spell/tap/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/tap/cast(mob/living/cast_on)
 	. = ..()
-	user.maxHealth -= tap_health_taken
-	user.health = min(user.health, user.maxHealth)
+	cast_on.maxHealth -= tap_health_taken
+	cast_on.health = min(cast_on.health, cast_on.maxHealth)
 
-	for(var/datum/action/spell/spell in user.actions)
+	for(var/datum/action/cooldown/spell/spell in cast_on.actions)
 		spell.reset_spell_cooldown()
 
 	// If the tap took all of our life, we die and lose our soul!
-	if(user.maxHealth <= 0)
-		to_chat(user, ("<span class='userdanger'>Your weakened soul is completely consumed by the tap!</span>"))
-		ADD_TRAIT(user, TRAIT_NO_SOUL, MAGIC_TRAIT)
+	if(cast_on.maxHealth <= 0)
+		to_chat(cast_on, span_userdanger("Your weakened soul is completely consumed by the tap!"))
+		ADD_TRAIT(cast_on, TRAIT_NO_SOUL, MAGIC_TRAIT)
 
-		user.visible_message(("<span class='danger'>[user] suddenly dies!</span>"), ignored_mobs = user)
-		user.death()
+		cast_on.visible_message(span_danger("[cast_on] suddenly dies!"), ignored_mobs = cast_on)
+		cast_on.investigate_log("has been killed by soul tap.", INVESTIGATE_DEATHS)
+		cast_on.death()
 
 	// If the next tap will kill us, give us a heads-up
-	else if(user.maxHealth - tap_health_taken <= 0)
-		to_chat(user, ("<span class='bolddanger'>Your body feels incredibly drained, and the burning is hard to ignore!</span>"))
+	else if(cast_on.maxHealth - tap_health_taken <= 0)
+		to_chat(cast_on, span_bolddanger("Your body feels incredibly drained, and the burning is hard to ignore!"))
 
 	// Otherwise just give them some feedback
 	else
-		to_chat(user, ("<span class='danger'>Your body feels drained and there is a burning pain in your chest.</span>"))
+		to_chat(cast_on, span_danger("Your body feels drained and there is a burning pain in your chest."))

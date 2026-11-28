@@ -52,7 +52,8 @@
 /atom/movable/screen/alert/status_effect/in_love
 	name = "In Love"
 	desc = "You feel so wonderfully in love!"
-	icon_state = "in_love"
+	use_user_hud_icon = TRUE
+	overlay_state = "in_love"
 
 /datum/status_effect/in_love
 	id = "in_love"
@@ -114,7 +115,7 @@
 		to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("Bounty claimed.")]")
 		playsound(owner, 'sound/weapons/gun/shotgun/shot.ogg', 75)
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
-		for(var/datum/action/spell/spell in rewarded.actions)
+		for(var/datum/action/cooldown/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()
 
 		var/need_mob_update = FALSE
@@ -336,3 +337,19 @@
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
 	owner.set_armor(/datum/armor/none)
 
+/datum/status_effect/gutted
+	id = "gutted"
+	alert_type = null
+	duration = -1
+	tick_interval = -1
+
+/datum/status_effect/gutted/on_apply()
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(stop_gutting))
+	return TRUE
+
+/datum/status_effect/gutted/on_remove()
+	UnregisterSignal(owner, COMSIG_MOB_STATCHANGE)
+
+/datum/status_effect/gutted/proc/stop_gutting()
+	SIGNAL_HANDLER
+	qdel(src)

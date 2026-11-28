@@ -1,4 +1,4 @@
-/datum/action/vampire/targeted/bloodbolt
+/datum/action/cooldown/vampire/targeted/bloodbolt
 	name = "Thaumaturgy: Blood Bolt"
 	desc = "Fire a blood bolt at your enemy, dealing Burn damage."
 	button_icon_state = "power_bloodbolt"
@@ -13,7 +13,7 @@
 	power_activates_immediately = FALSE
 	prefire_message = "Select your target."
 
-/datum/action/vampire/targeted/bloodbolt/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/bloodbolt/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/living_owner = owner
 	check_witnesses(target_atom)
@@ -43,7 +43,7 @@
 	icon_state = "mini_leaper"
 	damage = 40
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
-	var/datum/action/vampire/targeted/bloodbolt/vampire_power
+	var/datum/action/cooldown/vampire/targeted/bloodbolt/vampire_power
 
 /obj/projectile/magic/arcane_barrage/vampire/Destroy()
 	. = ..()

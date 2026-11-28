@@ -97,7 +97,7 @@
 	evolve_ability.Remove(src)
 	if(is_drone)
 		if(mind)
-			switch_ability.on_activate(src, null) //If we have someone conscious in the drone, throw them out.
+			switch_ability.trigger(src) //If we have someone conscious in the drone, throw them out.
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
@@ -256,21 +256,24 @@
 	button_icon_state = "grow"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
-/datum/action/nymph/evolve/on_activate(mob/user, atom/target)
+/datum/action/nymph/evolve/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
 	if(!isnymph(nymph))
 		return
 	if(nymph.is_drone)
-		to_chat(user, span_danger("You can't grow up as a drone!"))
+		to_chat(owner, span_danger("You can't grow up as a drone!"))
 		return
 	if(nymph.movement_type & VENTCRAWLING)
-		to_chat(user, span_danger("You cannot evolve while in a vent."))
+		to_chat(owner, span_danger("You cannot evolve while in a vent."))
 		return
 	if(nymph.amount_grown >= nymph.max_grown)
 		playsound(nymph, 'sound/creatures/venus_trap_death.ogg', 25, 1)
 		nymph.evolve()
 	else
-		to_chat(user, span_danger("You are not ready to grow up by yourself."))
+		to_chat(owner, span_danger("You are not ready to grow up by yourself."))
 		return FALSE
 
 /datum/action/nymph/SwitchFrom
@@ -280,7 +283,9 @@
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
-/datum/action/nymph/SwitchFrom/pre_activate(mob/user, atom/target)
+/datum/action/nymph/SwitchFrom/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return FALSE
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
 	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
 	if(!isnymph(nymph))
@@ -293,12 +298,8 @@
 		to_chat(nymph, span_danger("You feel like your gestalt is gone! Something must have gone wrong..."))
 		nymph.switch_ability.Remove(nymph)
 		return FALSE
-	. = ..()
-
-/datum/action/nymph/SwitchFrom/on_activate(mob/user, atom/target)
-	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
-	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
 	SwitchFrom(nymph, drone_diona)
+	return TRUE
 
 /datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/hostile/retaliate/nymph/user, mob/living/carbon/M)
 	var/datum/mind/C = user.mind

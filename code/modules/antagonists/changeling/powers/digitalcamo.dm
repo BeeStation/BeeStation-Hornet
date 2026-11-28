@@ -4,6 +4,7 @@
 	helptext = "We cannot be tracked by camera or seen by AI units while using this skill. However, humans looking at us will find us... uncanny."
 	button_icon_state = "digital_camo"
 	dna_cost = 1
+	active = FALSE
 
 //Prevents AIs tracking you but makes you easily detectable to the human-eye.
 /datum/action/changeling/digitalcamo/sting_action(mob/living/user)
