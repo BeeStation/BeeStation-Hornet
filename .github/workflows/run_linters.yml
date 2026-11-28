@@ -97,6 +97,11 @@ jobs:
         background: true
         run: tools/bootstrap/python -m trait_validity.check
 
+      - name: Run Spacelizard
+        if: ${{ !cancelled() }}
+        background: true
+        run: node tools/build/build.js spacelizard --ci
+
       - name: Run DreamChecker
         if: ${{ !cancelled() }}
         background: true

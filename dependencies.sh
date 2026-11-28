@@ -27,3 +27,7 @@ export CUTTER_REPO=spacestation13/hypnagogic
 
 #hypnagogic git tag
 export CUTTER_VERSION=v4.0.0
+
+# SpacelizardDMM release
+export SPACELIZARD_REPO=EvilDragonfiend/SpacelizardDMM
+export SPACELIZARD_VERSION=v0.1.1
