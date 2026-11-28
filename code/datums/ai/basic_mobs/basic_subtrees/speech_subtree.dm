@@ -161,7 +161,6 @@
 	speech_chance = 10
 	sound = list("cat_meow")
 	emote_hear = list("meows.")
-	emote_see = list("meows.")
 
 /datum/ai_planning_subtree/random_speech/hamster
 	speech_chance = 5

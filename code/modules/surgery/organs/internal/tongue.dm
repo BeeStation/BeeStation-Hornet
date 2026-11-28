@@ -422,6 +422,7 @@
 	say_mod = "meows"
 	disliked_foodtypes = GROSS | VEGETABLES | SUGAR | CLOTH
 	liked_foodtypes = DAIRY | MEAT | GORE
+	organ_traits = list(TRAIT_CAT_EMOTES_ALLOWED)
 
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"

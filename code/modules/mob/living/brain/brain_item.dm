@@ -30,6 +30,8 @@
 	/// Stores the original dna data of the mob - This is used at cloning. Set FALSE if a specific brain shouldn't use it
 	var/datum/dna/brain_dna = null // 'null' means it will have a DNA upon Insert() proc because the var is empty(null). If a DNA exists there, it means no slot for them.
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
+	/// Size modifier for the brain sprite.
+	var/brain_size = 1
 	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings
 	var/decoy_override = FALSE
 	/// Two variables necessary for calculating whether we get a brain trauma or not
@@ -58,6 +60,7 @@
 
 /obj/item/organ/brain/Initialize(mapload)
 	. = ..()
+	transform = transform.Scale(brain_size)
 	organ_traits.Remove(variant_traits_removed)
 	if(variant_traits_added)
 		organ_traits |= variant_traits_added
@@ -217,6 +220,10 @@
 
 /obj/item/organ/brain/examine(mob/user)
 	. = ..()
+	if(brain_size < 1)
+		. += span_notice("It is a bit on the smaller side...")
+	if(brain_size > 1)
+		. += span_notice("It is bigger than average...")
 
 	if(suicided)
 		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")

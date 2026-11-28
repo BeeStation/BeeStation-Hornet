@@ -77,6 +77,7 @@
 	AddElement(/datum/element/pet_bonus, "purr")
 	AddElement(/datum/element/footstep, footstep_type = FOOTSTEP_MOB_CLAW)
 	add_verb(/mob/living/proc/toggle_resting)
+	ADD_TRAIT(src, TRAIT_CAT_EMOTES_ALLOWED, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	ai_controller.set_blackboard_key(BB_HUNTABLE_PREY, typecacheof(huntable_items))
 	if(can_breed)

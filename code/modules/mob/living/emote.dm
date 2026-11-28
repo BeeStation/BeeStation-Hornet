@@ -652,6 +652,8 @@
 /datum/emote/living/hiss/get_sound(mob/living/user)
 	if(islizard(user))
 		return pick('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg', 'sound/voice/hiss5.ogg', 'sound/voice/hiss6.ogg')
+	if(HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED))
+		return 'sound/mobs/non-humanoids/cat/cat_hiss.ogg'
 
 /datum/emote/living/thumbs_up
 	key = "thumbsup"
@@ -821,3 +823,30 @@
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_sniff_sound(H)
+
+/// Emotes shared by felinids and real cats
+/datum/emote/living/cat
+	abstract_type = /datum/emote/living/cat
+	cooldown = 3 SECONDS
+
+/datum/emote/living/cat/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE, params)
+	if(!..())
+		return FALSE
+	return HAS_TRAIT(user, TRAIT_CAT_EMOTES_ALLOWED)
+
+/datum/emote/living/cat/meow
+	key = "meow"
+	key_third_person = "meows"
+	message = "meows!"
+	message_mime = "meows silently."
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	sound = "cat_meow"
+	vary = TRUE
+
+/datum/emote/living/cat/purr
+	key = "purr"
+	key_third_person = "purrs"
+	message = "purrs."
+	emote_type = EMOTE_AUDIBLE
+	sound = "cat_purr"
+	vary = TRUE
