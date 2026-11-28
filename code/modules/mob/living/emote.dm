@@ -829,16 +829,6 @@
 	abstract_type = /datum/emote/living/cat
 	cooldown = 3 SECONDS
 
-/proc/pick_cat_meow_sound()
-	var/static/list/meow_sounds = list(
-		'sound/mobs/non-humanoids/cat/cat_meow1.ogg' = 28,
-		'sound/mobs/non-humanoids/cat/cat_meow2.ogg' = 28,
-		'sound/mobs/non-humanoids/cat/cat_meow3.ogg' = 28,
-		'sound/mobs/non-humanoids/cat/mggaow.ogg' = 15,
-		'sound/mobs/non-humanoids/cat/oranges_meow1.ogg' = 1, // Ultra rare meow sound
-	)
-	return pick_weight(meow_sounds)
-
 /datum/emote/living/cat/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE, params)
 	if(!..())
 		return FALSE
@@ -853,7 +843,7 @@
 	vary = TRUE
 
 /datum/emote/living/cat/meow/get_sound(mob/living/user)
-	return pick_cat_meow_sound()
+	return get_sfx("meow")
 
 /datum/emote/living/cat/purr
 	key = "purr"
@@ -863,4 +853,4 @@
 	vary = TRUE
 
 /datum/emote/living/cat/purr/get_sound(mob/living/user)
-	return pick('sound/mobs/non-humanoids/cat/cat_purr1.ogg', 'sound/mobs/non-humanoids/cat/cat_purr2.ogg', 'sound/mobs/non-humanoids/cat/cat_purr3.ogg', 'sound/mobs/non-humanoids/cat/cat_purr4.ogg')
+	return get_sfx("purr")

@@ -167,7 +167,7 @@
 	emote_see = list("meows.")
 
 /datum/ai_planning_subtree/random_speech/cats/select_sound()
-	return pick_cat_meow_sound()
+	return get_sfx("meow")
 
 /datum/ai_planning_subtree/random_speech/hamster
 	speech_chance = 5
