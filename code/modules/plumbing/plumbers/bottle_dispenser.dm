@@ -22,5 +22,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/bottle_dispenser)
 	if (!(container.flags & OPENCONTAINER))
 		user.balloon_alert(user, "[C] is not fillable!")
 		return FALSE
-	reagents.trans_to(container, min(reagents.total_volume, container.maximum_volume - container.total_volume), transfered_by = user)
+	reagents.trans_to(container, min(reagents.total_volume, container.maximum_volume - container.total_volume), transferred_by = user)
 	return FALSE

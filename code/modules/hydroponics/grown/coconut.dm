@@ -43,9 +43,9 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	var/datum/reagents/reagents_template
 	if(original_reagent_holder && original_reagent_holder.total_volume > 0)
 		reagents_template = new /datum/reagents // Reagents for coconut flesh
-		original_reagent_holder.copy_to(reagents_template, original_reagent_holder.total_volume)
+		original_reagent_holder.trans_to(reagents_template, original_reagent_holder.total_volume, copy_only = TRUE)
 		if(original_reagent_holder.has_reagent(/datum/reagent/consumable/coconutmilk)) // Remove coconut milk
-			var/datum/reagent/reg = original_reagent_holder.get_reagent(/datum/reagent/consumable/coconutmilk)
+			var/datum/reagent/reg = original_reagent_holder.has_reagent(/datum/reagent/consumable/coconutmilk)
 			reagents_template.del_reagent(/datum/reagent/consumable/coconutmilk)
 			reagents_template.add_reagent(/datum/reagent/consumable/nutriment/vitamin, reg.volume / 4)
 			reagents_template.add_reagent(/datum/reagent/consumable/nutriment, reg.volume / 2)
@@ -60,7 +60,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	for(var/i = 1 to part_amount)
 		var/obj/item/food/coconutflesh/flesh = new /obj/item/food/coconutflesh/empty(location)
 		if(original_reagent_holder && original_reagent_holder.total_volume > 0)
-			reagents_template.copy_to(flesh.reagents, original_reagent_holder.total_volume / div_mod)
+			reagents_template.trans_to(flesh.reagents, original_reagent_holder.total_volume / div_mod, copy_only = TRUE)
 		flesh.pixel_x = rand(-5, 5) // Randomize the positioning of the flesh
 		flesh.pixel_y = rand(-5, 5)
 

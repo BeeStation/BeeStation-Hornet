@@ -4,7 +4,8 @@
 	reagent_state = GAS
 	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because nitrium are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "#90560B"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	overdose_threshold = 10
 	metabolized_traits = list(TRAIT_NOLIMBDISABLE)
@@ -50,7 +51,8 @@
 	reagent_state = GAS
 	metabolization_rate = REAGENTS_METABOLISM * 0.5
 	color = "#E1A116"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	randomized_spawns = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
 	addiction_types = list(/datum/addiction/stimulants = 50)
 	metabolized_traits = list(TRAIT_STUNIMMUNE, TRAIT_SLEEPIMMUNE)

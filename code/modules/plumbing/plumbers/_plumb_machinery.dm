@@ -31,6 +31,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
 	AddElement(/datum/element/simple_rotation)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
+/obj/machinery/plumbing/create_reagents(max_vol, flags)
+	if(reagents)
+		qdel(reagents)
+	reagents = new /datum/reagents/plumbing(max_vol, flags)
+	reagents.my_atom = src
+
 /obj/machinery/plumbing/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
 		to_chat(user, span_warning("[src] is fastened to the floor!"))

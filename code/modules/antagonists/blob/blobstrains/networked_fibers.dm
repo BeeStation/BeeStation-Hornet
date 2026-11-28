@@ -32,10 +32,11 @@
 	name = "Networked Fibers"
 	taste_description = "efficiency"
 	color = "#CDC0B0"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/networked_fibers/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
-	reac_volume = ..()
+/datum/reagent/blob/networked_fibers/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(M, methods, reac_volume, show_message, touch_protection, O)
 	M.apply_damage(0.6*reac_volume, BRUTE)
 	if(!QDELETED(M))
 		M.apply_damage(0.6*reac_volume, BURN)

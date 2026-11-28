@@ -475,7 +475,7 @@
 	var/obj/item/reagent_containers/cup/glass/bottle/B = locate() in contents
 	if(B)
 		icon_state = B.icon_state
-		B.reagents.copy_to(src, 100)
+		B.reagents.trans_to(src, 100, copy_only = TRUE)
 		if(istype(B, /obj/item/reagent_containers/cup/glass/bottle/juice))
 			desc += " You're not sure if making this out of a carton was the brightest idea."
 			isGlass = FALSE

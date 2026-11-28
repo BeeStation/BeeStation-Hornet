@@ -35,7 +35,7 @@
 			var/atom/processed_food = new recipe.output(drop_location())
 			if(processed_food.reagents && what.reagents)
 				processed_food.reagents.clear_reagents()
-				what.reagents.copy_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier)
+				what.reagents.trans_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier, copy_only = TRUE)
 
 	if (isliving(what))
 		var/mob/living/themob = what

@@ -74,7 +74,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Productivity at <b>[productivity*100]%</b>.<br>Matter consumption reduced by <b>[(efficiency*25)-25]</b>%.<br>Machine can hold up to <b>[max_items]</b> pieces of produce.")
 
-/obj/machinery/biogenerator/on_reagent_change(changetype)			//When the reagents change, change the icon as well.
+/obj/machinery/biogenerator/on_reagent_change()			//When the reagents change, change the icon as well.
 	update_icon()
 
 /obj/machinery/biogenerator/update_icon()

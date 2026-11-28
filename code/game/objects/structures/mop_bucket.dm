@@ -25,7 +25,7 @@
 		balloon_alert(user, "empty!")
 		return ITEM_INTERACT_BLOCKING
 
-	reagents.trans_to(tool, tool.reagents.maximum_volume, transfered_by = user)
+	reagents.trans_to(tool, tool.reagents.maximum_volume, transferred_by = user)
 	balloon_alert(user, "doused mop")
 	playsound(src, 'sound/effects/slosh.ogg', 25, vary = TRUE)
 	update_appearance(UPDATE_OVERLAYS)

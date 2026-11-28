@@ -31,10 +31,11 @@
 	name = "Blazing Oil"
 	taste_description = "burning oil"
 	color = "#B68D00"
-	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	randomized_spawns = CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/blazing_oil/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
-	reac_volume = ..()
+/datum/reagent/blob/blazing_oil/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(M, methods, reac_volume, show_message, touch_protection, O)
 	M.adjust_fire_stacks(round(reac_volume/10))
 	M.ignite_mob()
 	if(M)

@@ -26,9 +26,9 @@
 	UnregisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS)
 
 ///Signal fired when wearer is exposed to reagents
-/obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
+/obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, show_message)
 	SIGNAL_HANDLER
-	if(!(methods in list(VAPOR, PATCH, TOUCH)) || set_off || mod.wearer.stat == DEAD)
+	if(!(methods & (VAPOR|PATCH|TOUCH)) || set_off || mod.wearer.stat == DEAD)
 		return //remove non-touch reagent exposure
 	to_chat(mod.wearer, span_danger("[src] makes an ominous click sound..."))
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
@@ -157,7 +157,7 @@
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 50, TRUE)
 	var/datum/reagents/holder = new()
 	holder.add_reagent(/datum/reagent/spraytan, 10)
-	holder.trans_to(mod.wearer, 10, method = VAPOR)
+	holder.trans_to(mod.wearer, 10, methods = VAPOR)
 	if(prob(5))
 		SSradiation.irradiate(mod.wearer, intensity = 100)
 	drain_power(use_power_cost)

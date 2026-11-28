@@ -195,14 +195,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
 	var/grind_results_num = LAZYLEN(grind_results)
 	if(grind_results_num)
-		var/total_nutriment_amount = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment, include_subtypes = TRUE)
+		var/total_nutriment_amount = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment, type_check = REAGENT_SUB_TYPE)
 		var/single_reagent_amount = grind_results_num > 1 ? round(total_nutriment_amount / grind_results_num, CHEMICAL_QUANTISATION_LEVEL) : total_nutriment_amount
-		reagents.remove_all_type(/datum/reagent/consumable/nutriment, total_nutriment_amount)
+		reagents.remove_reagent(/datum/reagent/consumable/nutriment, total_nutriment_amount, include_subtypes = TRUE)
 		for(var/reagent in grind_results)
 			reagents.add_reagent(reagent, single_reagent_amount)
 
 	if(reagents && target_holder)
-		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+		reagents.trans_to(target_holder, reagents.total_volume, transferred_by = user)
 	return TRUE
 
 /obj/item/food/grown/dropped(mob/user, silent)

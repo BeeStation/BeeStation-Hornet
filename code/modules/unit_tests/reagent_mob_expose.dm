@@ -3,11 +3,11 @@
 /datum/reagent/method_patch_test
 	name = "method patch test"
 
-/datum/reagent/method_patch_test/expose_mob(mob/living/target, method = PATCH, reac_volume, show_message = TRUE)
+/datum/reagent/method_patch_test/expose_mob(mob/living/target, methods = PATCH, reac_volume, show_message = TRUE)
 	. = ..()
-	if(method == PATCH)
+	if(methods & PATCH)
 		target.setBruteLoss(20)
-	if(method == INJECT)
+	if(methods & INJECT)
 		target.setBruteLoss(10)
 
 /datum/unit_test/reagent_mob_expose/Run()
@@ -37,12 +37,12 @@
 	human.fully_heal(ALL)
 	TEST_ASSERT_NULL(human.has_status_effect(/datum/status_effect/drowsiness), "Human is drowsy at the start of testing")
 	drink.reagents.add_reagent(/datum/reagent/nitrous_oxide, 10)
-	drink.reagents.trans_to(human, 10, method = VAPOR)
+	drink.reagents.trans_to(human, 10, methods = VAPOR)
 	TEST_ASSERT_NOTNULL(human.has_status_effect(/datum/status_effect/drowsiness), "Human is not drowsy after exposure to vapors")
 	drink.reagents.clear_reagents()
 	drink.reagents.add_reagent(/datum/reagent/water, 10)
 	var/old_fire_stacks = human.fire_stacks
-	drink.reagents.trans_to(human, 10, method = VAPOR)
+	drink.reagents.trans_to(human, 10, methods = VAPOR)
 	TEST_ASSERT(human.fire_stacks < old_fire_stacks, "Human does not get wetter after being exposed to water by vapors")
 
 	// PATCH

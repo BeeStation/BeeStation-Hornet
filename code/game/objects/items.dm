@@ -1214,7 +1214,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(target_holder)
 		target_holder.add_reagent_list(grind_results)
 		if(reagents)
-			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+			reagents.trans_to(target_holder, reagents.total_volume, transferred_by = user)
 	return TRUE
 
 ///Called BEFORE the object is ground up - use this to change grind results based on conditions. Return "-1" to prevent the grinding from occurring
@@ -1230,7 +1230,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(reagents)
 		reagents.convert_reagent(/datum/reagent/consumable, juice_typepath, include_source_subtypes = TRUE)
 		if(target_holder)
-			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+			reagents.trans_to(target_holder, reagents.total_volume, transferred_by = user)
 	return TRUE
 
 /obj/item/proc/damagetype2text()

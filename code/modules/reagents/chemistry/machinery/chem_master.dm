@@ -413,7 +413,8 @@
 				if (style && style["name"] && !style["generate_name"])
 					name_default = style["name"]
 				else
-					name_default = reagents.get_master_reagent_name()
+					var/datum/reagent/master_reagent = reagents.get_master_reagent()
+					name_default = master_reagent?.name
 				if (name_has_units)
 					name_default += " ([vol_each]u)"
 				name = stripped_input(usr,
@@ -447,7 +448,7 @@
 						if(P.icon_state == "pill_shape_capsule_bloodred")
 							P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 						adjust_item_drop_location(P)
-						reagents.trans_to(P, vol_each, transfered_by = usr)
+						reagents.trans_to(P, vol_each, transferred_by = usr)
 					. = TRUE
 				if("patch")
 					var/obj/item/reagent_containers/applicator/patch/P
@@ -457,7 +458,7 @@
 						P.label_name = trim(name)
 						P.icon_state = chosen_patch_style
 						adjust_item_drop_location(P)
-						reagents.trans_to(P, vol_each, transfered_by = usr)
+						reagents.trans_to(P, vol_each, transferred_by = usr)
 					. = TRUE
 				if("bottle")
 					var/obj/item/reagent_containers/cup/bottle/P
@@ -466,7 +467,7 @@
 						P.name = trim("[name] bottle")
 						P.label_name = trim(name)
 						adjust_item_drop_location(P)
-						reagents.trans_to(P, vol_each, transfered_by = usr)
+						reagents.trans_to(P, vol_each, transferred_by = usr)
 					. = TRUE
 				if("bag")
 					var/obj/item/reagent_containers/chem_bag/P
@@ -475,7 +476,7 @@
 						P.name = trim("[name] chemical bag")
 						P.label_name = trim(name)
 						adjust_item_drop_location(P)
-						reagents.trans_to(P, vol_each, transfered_by = usr)
+						reagents.trans_to(P, vol_each, transferred_by = usr)
 					. = TRUE
 				if("condimentPack")
 					var/obj/item/reagent_containers/condiment/pack/P
@@ -485,7 +486,7 @@
 						P.name = trim("[name] pack")
 						P.label_name = trim(name)
 						P.desc = "A small condiment pack. The label says it contains [name]."
-						reagents.trans_to(P, vol_each, transfered_by = usr)
+						reagents.trans_to(P, vol_each, transferred_by = usr)
 					. = TRUE
 				if("condimentBottle")
 					var/obj/item/reagent_containers/condiment/P
@@ -495,7 +496,7 @@
 							apply_condi_style(P, style)
 						P.renamedByPlayer = TRUE
 						P.name = name
-						reagents.trans_to(P, vol_each, transfered_by = usr)
+						reagents.trans_to(P, vol_each, transferred_by = usr)
 					. = TRUE
 		if("analyze")
 			var/datum/reagent/R = GLOB.name2reagent[params["id"]]
@@ -623,7 +624,7 @@
 /obj/machinery/chem_master/proc/get_condi_styles()
 	var/list/styles = typelist("condi_styles")
 	if (!styles.len)
-		//Possible_states has the reagent type as key and a list of, in order, the icon_state, the name and the desc as values. Was used in the condiment/on_reagent_change(changetype) to change names, descs and sprites.
+		//Possible_states has the reagent type as key and a list of, in order, the icon_state, the name and the desc as values. Was used in the condiment/on_reagent_change() to change names, descs and sprites.
 		styles += list(
 			CONDIMASTER_STYLE_FALLBACK = list("icon_state" = "bottle", "icon_empty" = "", "name" = "bottle", "desc" = "Just your average condiment bottle.", "fill_icon_thresholds" = list(1, 20, 40, 60, 80, 100), "generate_name" = TRUE),
 
@@ -670,7 +671,8 @@
 /obj/machinery/chem_master/proc/guess_condi_style(datum/reagents/reagents)
 	var/list/styles = get_condi_styles()
 	if (reagents.reagent_list.len > 0)
-		var/main_reagent = reagents.get_master_reagent_id()
+		var/datum/reagent/master_reagent = reagents.get_master_reagent()
+		var/main_reagent = master_reagent?.type
 		if (main_reagent)
 			var/list/path = splittext("[main_reagent]", "/")
 			main_reagent = path[path.len]

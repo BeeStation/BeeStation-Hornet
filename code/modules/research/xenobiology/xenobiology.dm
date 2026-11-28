@@ -762,7 +762,7 @@
 	icon_state = "crimson slime extract"
 	effectmod = "furious"
 	color_slime = SLIME_TYPE_CRIMSON
-	activate_reagents = list(/datum/reagent/blood,/datum/reagent/blackpowder)
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/gunpowder)
 	custom_price = 220
 	max_demand = 15
 

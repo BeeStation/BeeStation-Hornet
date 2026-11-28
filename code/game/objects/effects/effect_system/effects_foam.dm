@@ -221,7 +221,7 @@
 			foam_mob(L)
 		var/obj/effect/particle_effect/foam/F = new src.type(spread_turf)
 		F.amount = amount
-		reagents.copy_to(F, (reagents.total_volume))
+		reagents.trans_to(F, (reagents.total_volume), copy_only = TRUE)
 		F.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 		F.metal = metal
 
@@ -275,7 +275,7 @@
 		location = get_turf(loca)
 
 	amount = round(sqrt(amt / 2), 1)
-	carry.copy_to(chemholder, carry.total_volume)
+	carry.trans_to(chemholder, carry.total_volume, copy_only = TRUE)
 
 /datum/effect_system/foam_spread/metal/set_up(amt=5, loca, datum/reagents/carry = null, metaltype)
 	..()
@@ -284,7 +284,7 @@
 /datum/effect_system/foam_spread/start()
 	var/obj/effect/particle_effect/foam/F = new effect_type(location)
 	var/foamcolor = mix_color_from_reagents(chemholder.reagents.reagent_list)
-	chemholder.reagents.copy_to(F, chemholder.reagents.total_volume/amount)
+	chemholder.reagents.trans_to(F, chemholder.reagents.total_volume/amount, copy_only = TRUE)
 	F.add_atom_colour(foamcolor, FIXED_COLOUR_PRIORITY)
 	F.amount = amount
 	F.metal = metal

@@ -337,7 +337,7 @@
 			if(!reagents)
 				reagents = new()
 			reagents.reagent_list.Add(A)
-			reagents.conditional_update()
+			reagents.update_total()
 		else if(ismovable(A))
 			var/atom/movable/M = A
 			if(isliving(M.loc))
@@ -407,17 +407,15 @@
   * Arguments:
   * - [reagents][/list]: The list of reagents the atom is being exposed to.
   * - [source][/datum/reagents]: The reagent holder the reagents are being sourced from.
-  * - method: How the atom is being exposed to the reagents.
-  * - volume_modifier: Volume multiplier.
+  * - methods: How the atom is being exposed to the reagents. Bitflags.
   * - show_message: Whether to display anything to mobs when they are exposed.
   */
-/atom/proc/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
-	if((. = SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, source, method, volume_modifier, show_message)) & COMPONENT_NO_EXPOSE_REAGENTS)
+/atom/proc/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, show_message=TRUE, obj/item/bodypart/affecting)
+	if((. = SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, source, methods, show_message)) & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
-	for(var/reagent in reagents)
-		var/datum/reagent/R = reagent
-		. |= R.expose_atom(src, reagents[R])
+	for(var/datum/reagent/reagent as anything in reagents)
+		. |= reagent.expose_atom(src, reagents[reagent], methods)
 
 /// Is this atom grindable to get reagents
 /atom/proc/is_grindable()

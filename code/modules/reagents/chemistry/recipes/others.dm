@@ -65,7 +65,7 @@
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/plasmasolidification/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/plasmasolidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/mineral/plasma(location)
@@ -76,7 +76,7 @@
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/goldsolidification/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/goldsolidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/mineral/gold(location)
@@ -87,7 +87,7 @@
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/adamantinesolidification/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/adamantinesolidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/mineral/adamantine(location)
@@ -105,7 +105,7 @@
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/soap/homemade(location)
@@ -117,7 +117,7 @@
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/candle(location)
@@ -129,7 +129,7 @@
 	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/food/meat/slab/meatproduct(location)
@@ -163,12 +163,12 @@
 	required_reagents = list(/datum/reagent/medicine/spaceacillin = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
-/datum/chemical_reaction/falter_virus/check_other()
+/datum/chemical_reaction/falter_virus/pre_reaction_other_checks(datum/reagents/holder)
 	if(CONFIG_GET(flag/neuter_allowed))
 		return TRUE
 	return FALSE
 
-/datum/chemical_reaction/falter_virus/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/falter_virus/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/datum/disease/advance/target = find_virus(holder)
 	if(target)
 		target.faltered = TRUE
@@ -213,7 +213,7 @@
 		)
 	)
 
-/datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/M as anything in viewers(5, location))
 		to_chat(M, span_danger("The solution spews out foam!"))
@@ -243,7 +243,7 @@
 		)
 	)
 
-/datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 
 	for(var/mob/M as anything in viewers(5, location))
@@ -273,7 +273,7 @@
 		)
 	)
 
-/datum/chemical_reaction/smart_foam/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/smart_foam/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/turf/location = get_turf(holder.my_atom)
 	location.visible_message(span_danger("The solution spews out metallic foam!"))
 	var/datum/effect_system/foam_spread/metal/smart/s = new()
@@ -300,7 +300,7 @@
 		)
 	)
 
-/datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/M as anything in viewers(5, location))
 		to_chat(M, span_danger("The solution spews out a metallic foam!"))
@@ -469,7 +469,7 @@
 	)
 	reaction_tags = REACTION_TAG_OTHER
 
-/datum/chemical_reaction/life/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/life/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (hostile)") //defaults to HOSTILE_SPAWN
 
 /datum/chemical_reaction/life_friendly
@@ -481,7 +481,7 @@
 	)
 	reaction_tags = REACTION_TAG_OTHER
 
-/datum/chemical_reaction/life_friendly/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/life_friendly/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (friendly)", FRIENDLY_SPAWN)
 
 /datum/chemical_reaction/corgium
@@ -492,7 +492,7 @@
 	)
 	reaction_tags = REACTION_TAG_OTHER
 
-/datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	if(isliving(holder.my_atom) && !iscorgi(holder.my_atom))
 		var/mob/living/L = holder
 		L.reagents.add_reagent(/datum/reagent/corgium, created_volume)
@@ -560,7 +560,7 @@
 	required_temp = 374 //lazily consistent with soap & other crafted objects generically created with heat.
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/plastic(location)
@@ -708,7 +708,7 @@
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a giant ant"
 	)
 
-/datum/chemical_reaction/ant_slurry/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/ant_slurry/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in rand(1, created_volume) to created_volume)
 		new /mob/living/simple_animal/hostile/ant(location)

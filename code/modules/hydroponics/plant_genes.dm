@@ -449,8 +449,8 @@
 	if(prick(G, L))
 		if(L.ckey != G.fingerprintslast)
 			var/turf/T = get_turf(L)
-			L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-			log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].")
+			L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.get_reagent_log_string()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+			log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.get_reagent_log_string()]. Last fingerprint: [G.fingerprintslast].")
 
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/food/grown/G, atom/target, datum/thrownthing/throwingdatum)
 	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)
@@ -459,8 +459,8 @@
 	if(prick(G, L))
 		if(L.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
 			var/turf/T = get_turf(L)
-			log_combat(throwingdatum?.get_thrower(), L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
-			L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+			log_combat(throwingdatum?.get_thrower(), L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.get_reagent_log_string()]")
+			L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.get_reagent_log_string()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/stinging/proc/prick(obj/item/food/grown/G, mob/living/L)
 	if(!L.reagents && !L.can_inject(null, 0))
@@ -484,9 +484,9 @@
 	S.attach(splat_location)
 	S.set_up(G.reagents, smoke_amount, splat_location, 0)
 	S.start()
-	log_admin_private("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.log_list()] at [AREACOORD(T)]")
-	message_admins("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.log_list()] at [ADMIN_VERBOSEJMP(T)]")
-	G.investigate_log(" has created a smoke containing [G.reagents.log_list()] at [AREACOORD(T)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+	log_admin_private("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.get_reagent_log_string()] at [AREACOORD(T)]")
+	message_admins("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.get_reagent_log_string()] at [ADMIN_VERBOSEJMP(T)]")
+	G.investigate_log(" has created a smoke containing [G.reagents.get_reagent_log_string()] at [AREACOORD(T)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 	G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/fire_resistance // Lavaland

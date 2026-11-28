@@ -287,7 +287,7 @@ Behavior that's still missing from this component that original food items had t
 	volume = max(volume, ROUND_UP(original_atom.reagents.maximum_volume / chosen_processing_option[TOOL_PROCESSING_AMOUNT]))
 
 	this_food.create_reagents(volume)
-	original_atom.reagents.copy_to(this_food, original_atom.reagents.total_volume, 1 / chosen_processing_option[TOOL_PROCESSING_AMOUNT])
+	original_atom.reagents.trans_to(this_food, original_atom.reagents.total_volume, 1 / chosen_processing_option[TOOL_PROCESSING_AMOUNT], copy_only = TRUE)
 
 	if(original_atom.name != initial(original_atom.name))
 		this_food.name = "slice of [original_atom.name]"
@@ -417,7 +417,7 @@ Behavior that's still missing from this component that original food items had t
 			return
 		if(IsFoodGone(owner, feeder))
 			return
-		log_combat(feeder, eater, "fed", owner.reagents.log_list(), important = FALSE)
+		log_combat(feeder, eater, "fed", owner.reagents.get_reagent_log_string(), important = FALSE)
 		eater.visible_message(
 			span_danger("[feeder] forces [eater] to eat [parent]!"), \
 			span_userdanger("[feeder] forces you to eat [parent]!")
@@ -445,7 +445,7 @@ Behavior that's still missing from this component that original food items had t
 	if(!owner.reagents.total_volume)
 		return
 	bite_effects(eater, feeder, min(bite_consumption / owner.reagents.total_volume, 1))
-	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
+	owner.reagents.trans_to(eater, bite_consumption, transferred_by = feeder, methods = INGEST)
 	if(!owner.reagents.total_volume)
 		on_consume(eater, feeder)
 

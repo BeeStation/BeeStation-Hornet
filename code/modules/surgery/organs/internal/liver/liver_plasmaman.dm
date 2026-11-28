@@ -14,7 +14,7 @@
 	if((. & COMSIG_MOB_STOP_REAGENT_CHECK) || (organ_flags & ORGAN_FAILING))
 		return
 	// plasmamen get high on gunpowder lol
-	if(istype(chem, /datum/reagent/blackpowder))
+	if(istype(chem, /datum/reagent/gunpowder))
 		organ_owner.set_timed_status_effect(15 SECONDS * seconds_per_tick, /datum/status_effect/drugginess)
 		if(organ_owner.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10 < chem.volume)
 			organ_owner.adjust_hallucinations(2.5 SECONDS * seconds_per_tick)

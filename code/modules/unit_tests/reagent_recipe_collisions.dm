@@ -1,7 +1,7 @@
 /datum/unit_test/reagent_recipe_collisions
 
 /datum/unit_test/reagent_recipe_collisions/Run()
-	build_chemical_reactions_list()
+	build_chemical_reactions_lists()
 
 	var/list/chemical_reactions = GLOB.chemical_reactions_list_reactant_index
 

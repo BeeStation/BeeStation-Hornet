@@ -24,7 +24,7 @@
 	if(!target.is_drainable())
 		to_chat(user, span_warning("[target] is unable to be dunked in!"))
 		return ITEM_INTERACT_BLOCKING
-	if(target.reagents.trans_to(source, dunk_amount, transfered_by = user)) //if reagents were transferred, show the message
+	if(target.reagents.trans_to(source, dunk_amount, transferred_by = user)) //if reagents were transferred, show the message
 		to_chat(user, span_notice("You dunk \the [target] into \the [target]."))
 		return ITEM_INTERACT_SUCCESS
 	if(!target.reagents.total_volume)

@@ -210,7 +210,7 @@
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Injecting [patient] with [to_inject] units of [R.name].")]")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].", LOG_MECHA)
 		log_combat(chassis.occupants, patient, "injected", "[name] ([R] - [to_inject] units)")
-		SG.reagents.trans_id_to(patient,R.type,to_inject)
+		SG.reagents.trans_to(patient, to_inject, target_id = R.type)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist(mob/living/user)
 	go_out()
@@ -433,7 +433,7 @@
 	if(!chassis.Adjacent(S))
 		to_chat(user, "[icon2html(src, user)][span_warning("Unable to load syringe!")]")
 		return FALSE
-	S.reagents.trans_to(src, S.reagents.total_volume, transfered_by = user)
+	S.reagents.trans_to(src, S.reagents.total_volume, transferred_by = user)
 	S.forceMove(src)
 	LAZYADD(syringes,S)
 	to_chat(user, "[icon2html(src, user)][span_notice("Syringe loaded.")]")
@@ -448,7 +448,7 @@
 		return FALSE
 	to_chat(user, "[icon2html(src, user)][span_notice("Analyzing reagents...")]")
 	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if(!(R.chemical_flags & CHEMICAL_NOT_SYNTH) && add_known_reagent(R.type,R.name))
+		if((R.chemical_flags & REAGENT_CAN_BE_SYNTHESIZED) && add_known_reagent(R.type,R.name))
 			to_chat(user, "[icon2html(src, user)][span_notice("Reagent analyzed, identified as [R.name] and added to database.")]")
 			send_byjax(chassis.occupants,"msyringegun.browser","reagents_form",get_reagents_form())
 	to_chat(user, "[icon2html(src, user)][span_notice("Analysis complete.")]")
@@ -461,7 +461,7 @@
 	known_reagents[r_id] = r_name
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/on_reagent_change(changetype)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/on_reagent_change()
 	. = ..()
 	send_byjax(chassis.occupants,"msyringegun.browser","reagents",get_current_reagents())
 	send_byjax(chassis.occupants,"msyringegun.browser","reagents_form",get_reagents_form())

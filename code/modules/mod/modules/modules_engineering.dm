@@ -252,7 +252,7 @@
 		return
 	. += device.examine(user)
 
-/obj/item/mod/module/mister/atmos/on_reagent_change(changetype)
+/obj/item/mod/module/mister/atmos/on_reagent_change()
 	. = ..()
 	if (QDELETED(device))
 		return

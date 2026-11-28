@@ -20,81 +20,68 @@ An objects on_reagent_change will be called every time the objects reagents chan
 # About the Holder:
 The holder (reagents datum) is the datum that holds a list of all reagents currently in the object.It also has all the procs needed to manipulate reagents
 ```
-		remove_any(var/amount)
-			This proc removes reagents from the holder until the passed amount
-			is matched. It'll try to remove some of ALL reagents contained.
+		add_reagent(reagent, amount, data, reagtemp, no_react)
+			Attempts to add X of the matching reagent to the holder.
+			You wont use this much. Mostly in new procs for pre-filled
+			objects. Returns the amount actually added.
 
-		remove_all(var/amount)
-			This proc removes reagents from the holder equally.
+		remove_reagent(reagent, amount, include_subtypes)
+			The exact opposite of the add_reagent proc. Returns the amount removed.
 
-		trans_to(var/obj/target, var/amount)
+		remove_all(amount, relative)
+			This proc removes reagents from the holder proportionally.
+			If relative is TRUE, amount is a fraction between 0 and 1 of every reagent.
+
+		trans_to(target, amount, multiplier, target_id, preserve_data, no_react, transferred_by, remove_blacklisted, methods, show_message, ignore_stomach, copy_only)
 			This proc equally transfers the contents of the holder to another
-			objects holder. You need to pass it the object (not the holder) you want
+			objects holder. You can pass it the object or the holder you want
 			to transfer to and the amount you want to transfer. Its return value is the
-			actual amount transfered (if one of the objects is full/empty)
+			actual amount transfered (if one of the objects is full/empty).
+			Pass target_id to only move one reagent, copy_only to leave this holder untouched,
+			and methods to expose the target to what was moved.
 
-		trans_id_to(var/obj/target, var/reagent, var/amount)
-			Same as above but only for a specific reagent in the reagent list.
-			If the specified amount is greater than what is available, it will use
-			the amount of the reagent that is available. If no reagent exists, returns null.
-
-		metabolize(var/mob/living/carbon/C)
+		metabolize(mob/living/carbon/C, seconds_per_tick)
 			This proc is called by the mobs life proc. It simply calls on_mob_life for
 			all contained reagents. You shouldnt have to use this one directly.
 
 		handle_reactions()
 			This proc check all recipes and, on a match, uses them.
-			It will also call the recipe's on_reaction proc (for explosions or w/e).
-			Currently, this proc is automatically called by trans_to.
+			Instant reactions happen right away, the rest start an equilibrium that
+			SSreagents processes over time (see equilibrium.dm).
+			It is called automatically when reagents are added.
 
-		isolate_reagent(var/reagent)
-			Pass it a reagent id and it will remove all reagents but that one.
-			It's that simple.
-
-		del_reagent(var/reagent)
+		del_reagent(reagent)
 			Completely remove the reagent with the matching id.
 
-		reaction_fire(exposed_temp)
-			Simply calls the reaction_fire procs of all contained reagents.
-
 		update_total()
-			This one simply updates the total volume of the holder.
-			(the volume of all reagents added together)
+			This one simply updates the total volume of the holder
+			(the volume of all reagents added together) and removes empty reagents.
 
 		clear_reagents()
 			This proc removes ALL reagents from the holder.
 
-		reaction(var/atom/A, var/method=TOUCH, var/volume_modifier=0)
-			This proc calls the appropriate reaction procs of the reagents.
+		expose(atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE, r_to_expose, affecting)
+			This proc calls the appropriate expose procs of the reagents.
 			I.e. if A is an object, it will call the reagents expose_obj
-			proc. The method var is used for reaction on mobs. It simply tells
+			proc. The methods var is used for reaction on mobs. It is a bitflag that tells
 			us if the mob TOUCHed the reagent, if it INGESTed the reagent, if the reagent
-			was VAPORIZEd on them, if the reagent was INJECTed,	or transfered via a PATCH to them.
+			was VAPORIZEd on them, if the reagent was INJECTed, or transfered via a PATCH to them.
 			Since the volume can be checked in a reagents proc, you might want to
 			use the volume_modifier var to modifiy the passed value without actually
 			changing the volume of the reagents.
-			If you're not sure if you need to use this the answer is very most likely 'No'.
 			You'll want to use this proc whenever an atom first comes in
 			contact with the reagents of a holder. (in the 'splash' part of a beaker i.e.)
 			More on the reaction in the reagent part of this readme.
 
-		add_reagent(var/reagent, var/amount, var/data)
-			Attempts to add X of the matching reagent to the holder.
-			You wont use this much. Mostly in new procs for pre-filled
-			objects.
-
-		remove_reagent(var/reagent, var/amount)
-			The exact opposite of the add_reagent proc.
-
-		has_reagent(var/reagent, var/amount)
-			Returns 1 if the holder contains this reagent.
-			Or 0 if not.
+		has_reagent(reagent, amount)
+			Returns the reagent if the holder contains it, or FALSE if not.
 			If you pass it an amount it will additionally check
 			if the amount is matched. This is optional.
 
-		get_reagent_amount(var/reagent)
+		get_reagent_amount(reagent, type_check)
 			Returns the amount of the matching reagent inside the
 			holder. Returns 0 if the reagent is missing.
+			type_check can be REAGENT_SUB_TYPE to also count subtypes.
 
 		Important variables:
 
@@ -116,11 +103,11 @@ The holder (reagents datum) is the datum that holds a list of all reagents curre
 # About Reagents:
 Reagents are all the things you can mix and fille in bottles etc. This can be anything from rejuvs over water to ... iron. Each reagent also has a few procs - i'll explain those below.
 ```
-		expose_mob(var/mob/living/L, var/method=TOUCH)
-			This is called by the holder's reation proc.
+		expose_mob(mob/living/L, methods = TOUCH, reac_volume, show_message, touch_protection, affecting)
+			This is called by the holder's expose proc.
 			This version is only called when the reagent
-			reacts with a mob. The method var can be either
-			TOUCH or INGEST. You'll want to put stuff like
+			reacts with a mob. methods is a bitflag, so check it
+			with methods & TOUCH. You'll want to put stuff like
 			acid-facemelting in here.
 
 		expose_obj(var/obj/O)
@@ -135,7 +122,7 @@ Reagents are all the things you can mix and fille in bottles etc. This can be an
 			with a turf. You'll want to put stuff like extra
 			slippery floors for lube or something in here.
 
-		on_mob_life(var/mob/living/L)
+		on_mob_life(mob/living/L, seconds_per_tick, metabolization_ratio)
 			This proc is called everytime the mobs life proc executes.
 			This is the place where you put damage for toxins ,
 			drowsyness for sleep toxins etc etc.
@@ -174,8 +161,9 @@ A good website for color calculations: http://www.psyclops.com/tools/rgb/
 # About Recipes:
 Recipes are simple datums that contain a list of required reagents and a result. They also have a proc that is called when the recipe is matched.
 ```
-		on_reaction(var/datum/reagents/holder, var/created_volume)
+		on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 			This proc is called when the recipe is matched.
+			reaction is null for instant reactions.
 			You'll want to add explosions etc here.
 			To find the location you'll have to do something
 			like get_turf(holder.my_atom)
@@ -203,12 +191,17 @@ Recipes are simple datums that contain a list of required reagents and a result.
 			The container the recipe has to take place in in order to happen. Leave this blank/null
 			if you want the reaction to happen anywhere.
 
-		required_other
-			Basically like a reagent's data variable. You can set extra requirements for a
-			reaction with this.
+		pre_reaction_other_checks(datum/reagents/holder)
+			Return FALSE to stop the reaction for reasons the other vars can't express.
+			Set required_other so the chem dispenser recipe book shows it needs more than the reagents.
 
 		required_temp
 			This is the required temperature.
+
+		reaction_flags
+			REACTION_INSTANT (the default) makes the reaction finish at once.
+			Without it the reaction runs over time using optimal_temp, overheat_temp,
+			temp_exponent_factor, thermic_constant and rate_up_lim.
 ```
 
 # About the Tools:

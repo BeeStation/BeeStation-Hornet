@@ -237,7 +237,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 	reagents.clear_reagents()
 
-/obj/item/reagent_containers/on_reagent_change(changetype)
+/obj/item/reagent_containers/on_reagent_change()
 	update_appearance()
 
 /obj/item/reagent_containers/update_overlays()
@@ -275,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		to_chat(user, span_warning("[target] is full."))
 		return ITEM_INTERACT_BLOCKING
 
-	var/trans = round(reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
+	var/trans = round(reagents.trans_to(target, amount_per_transfer_from_this, transferred_by = user), CHEMICAL_VOLUME_ROUNDING)
 	playsound(target.loc, "liquid_pour", 50, TRUE)
 	if(trans)
 		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
@@ -291,7 +291,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		to_chat(user, span_warning("[src] is full."))
 		return ITEM_INTERACT_BLOCKING
 
-	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
+	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this, transferred_by = user), CHEMICAL_VOLUME_ROUNDING)
 	playsound(target.loc, "liquid_pour", 50, TRUE)
 	to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 	target.update_appearance()

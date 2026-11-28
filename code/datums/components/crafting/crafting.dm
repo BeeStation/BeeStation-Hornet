@@ -329,7 +329,7 @@
 						//SEND_SIGNAL(RC.reagents, COMSIG_REAGENTS_CRAFTING_PING) // - [] TODO: Make this entire thing less spaghetti
 					else
 						surroundings -= RC
-					RC.reagents.conditional_update(RC)
+					RC.reagents.update_total()
 					RC.update_appearance(UPDATE_ICON)
 			else if(ispath(path_key, /obj/item/stack))
 				var/obj/item/stack/S

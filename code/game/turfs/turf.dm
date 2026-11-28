@@ -556,7 +556,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	else
 		vomit.create_reagents(chemicals_lost)
 
-	belly.reagents.trans_to(vomit, chemicals_lost, transfered_by = owner)
+	belly.reagents.trans_to(vomit, chemicals_lost, transferred_by = owner)
 	// Clear the stomach of anything even not food
 	for(var/bile in belly.reagents.reagent_list)
 		var/datum/reagent/reagent = bile

@@ -282,7 +282,7 @@
 				occupant,
 				(CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * seconds_per_tick,
 				efficiency * CRYO_MULTIPLY_FACTOR,
-				method = VAPOR,
+				methods = VAPOR,
 			)
 
 /obj/machinery/cryo_cell/process_atmos()

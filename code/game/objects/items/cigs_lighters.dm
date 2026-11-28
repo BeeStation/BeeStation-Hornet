@@ -348,7 +348,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!istype(glass)) //you can dip cigarettes into beakers
 		return
 
-	if(glass.reagents.trans_to(src, chem_volume, transfered_by = user)) //if reagents were transferred, show the message
+	if(glass.reagents.trans_to(src, chem_volume, transferred_by = user)) //if reagents were transferred, show the message
 		to_chat(user, span_notice("You dip \the [src] into \the [glass]."))
 	//if not, either the beaker was empty, or the cigarette was full
 	else if(!glass.reagents.total_volume)
@@ -494,7 +494,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(lungs && IS_ORGANIC_ORGAN(lungs))
 		var/smoker_resistance = HAS_TRAIT(smoker, TRAIT_SMOKER) ? 0.5 : 1
 		smoker.adjustOrganLoss(ORGAN_SLOT_LUNGS, lung_harm * smoker_resistance)
-	if(!reagents.trans_to(smoker, to_smoke, method = INGEST/*, ignore_stomach = TRUE*/))
+	if(!reagents.trans_to(smoker, to_smoke, methods = INGEST/*, ignore_stomach = TRUE*/))
 		reagents.remove_all(to_smoke)
 
 /obj/item/cigarette/process(delta_time)
@@ -845,7 +845,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 13 MINUTES
 	packeditem = tool.name
 	update_appearance(UPDATE_NAME)
-	tool.reagents?.trans_to(src, tool.reagents.total_volume, transfered_by = user)
+	tool.reagents?.trans_to(src, tool.reagents.total_volume, transferred_by = user)
 	qdel(tool)
 	return ITEM_INTERACT_SUCCESS
 
@@ -1342,7 +1342,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/vape)
 		e.start(src)
 		qdel(src)
 
-	if(!reagents.trans_to(vaper, REAGENTS_METABOLISM, method = INGEST/*, ignore_stomach = TRUE*/))
+	if(!reagents.trans_to(vaper, REAGENTS_METABOLISM, methods = INGEST/*, ignore_stomach = TRUE*/))
 		reagents.remove_all(REAGENTS_METABOLISM)
 
 /obj/item/vape/process(delta_time)

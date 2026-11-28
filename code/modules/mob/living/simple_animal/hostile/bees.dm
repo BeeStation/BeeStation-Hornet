@@ -269,41 +269,52 @@
 	icon = 'icons/mob/simple/bees.dmi'
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
-
-/obj/item/queen_bee/attackby(obj/item/I, mob/user, list/modifiers)
-	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
-		if(S.reagents.has_reagent(/datum/reagent/royal_bee_jelly)) //checked twice, because I really don't want royal bee jelly to be duped
-			if(S.reagents.has_reagent(/datum/reagent/royal_bee_jelly,5))
-				S.reagents.remove_reagent(/datum/reagent/royal_bee_jelly, 5)
-				var/obj/item/queen_bee/qb = new(user.drop_location())
-				qb.queen = new(qb)
-				if(queen && queen.beegent)
-					qb.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
-				user.put_in_active_hand(qb)
-				user.visible_message(span_notice("[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),span_warning("You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"))
-			else
-				to_chat(user, span_warning("You don't have enough royal bee jelly to split a bee in two!"))
-		else
-			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
-			if(R && S.reagents.has_reagent(R.type, 5))
-				S.reagents.remove_reagent(R.type,5)
-				queen.assign_reagent(R)
-				user.visible_message(span_warning("[user] injects [src]'s genome with [R.name], mutating its DNA!"),span_warning("You inject [src]'s genome with [R.name], mutating its DNA!"))
-				name = queen.name
-			else
-				to_chat(user, span_warning("You don't have enough units of that chemical to modify the bee's DNA!"))
-	..()
-
-
-/obj/item/queen_bee/bought/Initialize(mapload)
+/obj/item/queen_bee/Initialize(mapload)
 	. = ..()
-	queen = new(src)
-
+	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(handle_needle))
 
 /obj/item/queen_bee/Destroy()
 	QDEL_NULL(queen)
 	return ..()
+
+/obj/item/queen_bee/proc/handle_needle(obj/item/source, obj/item/syringe, mob/living/user, params)
+	SIGNAL_HANDLER
+
+	if(!istype(syringe, /obj/item/reagent_containers/syringe))
+		return
+	var/obj/item/reagent_containers/syringe/needle = syringe
+	if(needle.reagents.has_reagent(/datum/reagent/royal_bee_jelly, 5)) //checked twice, because I really don't want royal bee jelly to be duped
+		needle.reagents.remove_reagent(/datum/reagent/royal_bee_jelly, 5)
+		var/obj/item/queen_bee/new_bee = new(get_turf(src))
+		new_bee.queen = new(new_bee)
+		if(queen?.beegent)
+			new_bee.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
+		user.put_in_active_hand(new_bee)
+		user.visible_message(span_notice("[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),span_warning("You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"))
+		return
+	var/datum/reagent/chemical = needle.reagents.get_master_reagent()
+	if(isnull(chemical))
+		return
+	if(!(chemical.chemical_flags & REAGENT_CAN_BE_SYNTHESIZED))
+		to_chat(user, span_warning("[chemical.name] cannot be inserted into a bee's genome!"))
+		return
+	if(chemical.type == queen.beegent?.type)
+		to_chat(user, span_warning("[queen] already has this chemical!"))
+		return
+	if(!(needle.reagents.has_reagent(chemical.type, 5)))
+		to_chat(user, span_warning("You don't have enough units of that chemical to modify the bee's DNA!"))
+		return
+	needle.reagents.remove_reagent(chemical.type, 5)
+	var/datum/reagent/bee_chem = GLOB.chemical_reagents_list[chemical.type]
+	queen.assign_reagent(bee_chem)
+	user.visible_message(span_warning("[user] injects [src]'s genome with [chemical.name], mutating its DNA!"),span_warning("You inject [src]'s genome with [chemical.name], mutating its DNA!"))
+	name = queen.name
+
+/obj/item/queen_bee/bought
+
+/obj/item/queen_bee/bought/Initialize(mapload)
+	. = ..()
+	queen = new(src)
 
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
 	if (beehome && loc == beehome) // If bees are chilling in their nest, they're not actively looking for targets

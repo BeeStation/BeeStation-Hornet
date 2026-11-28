@@ -54,7 +54,7 @@
 			to_chat(user, span_warning("[src] is full."))
 			return FALSE
 
-		var/trans = target.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
+		var/trans = target.reagents.trans_to(src, 50, transferred_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
 		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [target]."))
 		return FALSE
 
@@ -147,7 +147,7 @@
 		reagents.expose(usr.loc)
 		src.reagents.clear_reagents()
 
-/obj/item/reagent_containers/spray/on_reagent_change(changetype)
+/obj/item/reagent_containers/spray/on_reagent_change()
 	var/total_reagent_weight
 	var/amount_of_reagents
 	for (var/datum/reagent/R in reagents.reagent_list)
@@ -370,6 +370,7 @@
 	list_reagents = list(/datum/reagent/toxin/plantbgone = 100)
 
 /obj/item/reagent_containers/spray/cyborg
+	abstract_type = /obj/item/reagent_containers/spray/cyborg
 	var/charge_cost = 50
 	var/charge_tick = 0
 	var/recharge_time = 2 //Time it takes for 5u to recharge (in seconds)

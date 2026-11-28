@@ -139,7 +139,7 @@
 				log_game("[key_name(user)] set [key_name(attacked_mob)] on fire with [src] at [AREACOORD(user)]")
 
 	if(!status && attacked_atom.is_refillable())
-		reagents.trans_to(attacked_atom, reagents.total_volume, transfered_by = user)
+		reagents.trans_to(attacked_atom, reagents.total_volume, transferred_by = user)
 		to_chat(user, span_notice("You empty [src]'s fuel tank into [attacked_atom]."))
 		update_appearance()
 
