@@ -22,26 +22,9 @@
 "af" = (
 /turf/open/floor/iron/stairs/right,
 /area/template_noop)
-"ag" = (
-/obj/effect/spawner/random/food_or_drink/three_course_meal,
-/obj/effect/spawner/random/food_or_drink/three_course_meal,
-/obj/structure/closet/crate,
-/obj/item/paper/crumpled/beernuke,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "ah" = (
 /obj/structure/sign/barsign,
 /turf/closed/wall,
-/area/template_noop)
-"ai" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "aj" = (
 /turf/open/floor/wood,
@@ -87,17 +70,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/carpet,
-/area/template_noop)
-"ar" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
-"at" = (
-/obj/item/cigbutt/cigarbutt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/template_noop)
 "au" = (
 /obj/structure/mineral_door/wood,
@@ -162,20 +134,6 @@
 /obj/item/clothing/suit/apron/chef,
 /turf/open/floor/plating,
 /area/template_noop)
-"aE" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
-"aF" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/template_noop)
 "aG" = (
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood,
@@ -217,17 +175,6 @@
 	},
 /obj/item/stack/spacecash/c10,
 /turf/open/floor/iron/dark,
-/area/template_noop)
-"aO" = (
-/obj/structure/closet/firecloset,
-/obj/effect/decal/cleanable/cobweb,
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
-	},
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "aP" = (
 /obj/structure/table,

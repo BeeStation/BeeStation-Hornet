@@ -19,13 +19,6 @@
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
-"af" = (
-/obj/structure/table_frame/wood,
-/obj/item/stack/sheet/wood,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "ag" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
@@ -100,25 +93,9 @@
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/template_noop)
-"aw" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/template_noop)
 "ax" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/template_noop)
-"ay" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "az" = (
 /obj/structure/chair/fancy/sofa/old{
@@ -167,11 +144,6 @@
 "aH" = (
 /obj/machinery/vending/autodrobe,
 /turf/open/floor/wood,
-/area/template_noop)
-"aI" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "aJ" = (
 /obj/structure/table/wood,
@@ -252,12 +224,6 @@
 /area/template_noop)
 "aY" = (
 /turf/open/floor/monotile/steel,
-/area/template_noop)
-"aZ" = (
-/obj/structure/grille/broken,
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/template_noop)
 "pm" = (
 /obj/machinery/light/small{
